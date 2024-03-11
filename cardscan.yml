@@ -258,44 +258,13 @@ paths:
       operationId: directUpload
       requestBody:
         content:
-          multipart/form-data:
+          image/jpeg:
             schema:
-              type: object
-              required:
-                - file
-                - key
-                - x-amz-algorithm
-                - x-amz-credential
-                - x-amz-date
-                - x-amz-security-token
-                - policy
-                - x-amz-signature
-              properties:
-                file:
-                  type: string
+              oneOf:
+                - type: string
+                  format: base64
+                - type: string
                   format: binary
-                key:
-                  type: string
-                  description: The key of the file
-                x-amz-algorithm:
-                  type: string
-                  description: The algorithm used to sign the request
-                x-amz-credential:
-                  type: string
-                  description: The credential used to sign the request
-                x-amz-date:
-                  type: string
-                  description: The date of the request
-                x-amz-security-token:
-                  type: string
-                  description: The security token used to sign the request
-                policy:
-                  type: string
-                  description: The policy used to sign the request
-                x-amz-signature:
-                  type: string
-                  description: The signature used to sign the request
-
       security:
         - bearerAuth: []
       parameters:
