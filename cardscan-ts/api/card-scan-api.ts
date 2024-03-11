@@ -16,6 +16,8 @@ import type { Configuration } from "../configuration";
 import type { AxiosPromise, AxiosInstance, RawAxiosRequestConfig } from "axios";
 import * as WebSocket from "ws";
 import { XMLParser } from "fast-xml-parser";
+import { Stream } from "stream";
+import * as FormData from "form-data";
 import globalAxios from "axios";
 import {
   CardState,
@@ -1661,8 +1663,8 @@ export class CardScanApi extends BaseAPI {
     frontImage,
     backImage,
   }: {
-    frontImage: Buffer;
-    backImage: Buffer;
+    frontImage: File | Blob | Stream;
+    backImage: File | Blob | Stream;
   }) {
     if (!this.configuration?.websocketUrl) {
       throw new Error("This method cannot be called without a websocket URL.");
@@ -1670,9 +1672,8 @@ export class CardScanApi extends BaseAPI {
 
     const card = (
       await this.createCard({
-        backside: {
-          scanning: CreateCardRequestBacksideScanningEnum.Required,
-        },
+        enable_livescan: false,
+        enable_backside_scan: true,
       })
     ).data;
 
@@ -1689,28 +1690,39 @@ export class CardScanApi extends BaseAPI {
           return reject(new Error("WebSocket is not open"));
         }
 
-        try {
-          const responses = await Promise.all(
-            new Array(this.MIN_SCANS)
-              .fill(0)
-              .map(async () =>
-                this.directUpload(
-                  ScanOrientation.Front,
-                  ScanCaptureType.Api,
-                  card.card_id,
-                  frontImage.toString("base64"),
-                ),
-              ),
-          );
+        const frontSideUploadUrlResponse = (
+          await this.generateCardUploadUrl(card.card_id, 3600, {
+            orientation: ScanOrientation.Front,
+          })
+        ).data;
 
-          for (const response of responses) {
-            console.debug("Front side upload response: ", response.data);
-            if (response.status >= 400) {
-              return reject(response);
-            }
-          }
+        const formDataFront = this.cardFormDataFactory(
+          frontImage,
+          frontSideUploadUrlResponse.upload_parameters,
+        );
+
+        try {
+          await this.axios.post(
+            frontSideUploadUrlResponse.upload_url,
+            formDataFront,
+            {
+              headers: {
+                "Content-Type": "multipart/form-data",
+              },
+            },
+          );
         } catch (error) {
-          return reject(error);
+          if (error.response && error.response.data) {
+            const parser = new XMLParser();
+            const errorResponse = parser.parse(error.response.data);
+            const cardError = this.XMLErrorToCardScanError(
+              errorResponse.Error,
+              error.response.status,
+            );
+            return reject(cardError);
+          } else {
+            return reject(error);
+          }
         }
 
         const frontSideTerminalStates: CardState[] = [
@@ -1722,8 +1734,6 @@ export class CardScanApi extends BaseAPI {
         await new Promise((resolve, reject) => {
           websocket.onmessage = (event) => {
             const data: CardWebsocketEvent = JSON.parse(event.data as string);
-
-            console.log(`Front side state: ${data.state}`);
 
             if (frontSideTerminalStates.includes(data.state)) {
               return resolve(JSON.parse(event.data as string));
@@ -1737,21 +1747,39 @@ export class CardScanApi extends BaseAPI {
           };
         });
 
+        const backSideUploadUrlResponse = (
+          await this.generateCardUploadUrl(card.card_id, 3600, {
+            orientation: ScanOrientation.Back,
+          })
+        ).data;
+
+        const formDataBack = this.cardFormDataFactory(
+          backImage,
+          backSideUploadUrlResponse.upload_parameters,
+        );
+
         try {
-          await Promise.allSettled(
-            new Array(this.MIN_SCANS)
-              .fill(0)
-              .map(async () =>
-                this.directUpload(
-                  ScanOrientation.Back,
-                  ScanCaptureType.Api,
-                  card.card_id,
-                  backImage,
-                ),
-              ),
+          await this.axios.post(
+            backSideUploadUrlResponse.upload_url,
+            formDataBack,
+            {
+              headers: {
+                "Content-Type": "multipart/form-data",
+              },
+            },
           );
         } catch (error) {
-          return reject(error);
+          if (error.response && error.response.data) {
+            const parser = new XMLParser();
+            const errorResponse = parser.parse(error.response.data);
+            const cardError = this.XMLErrorToCardScanError(
+              errorResponse.Error,
+              error.response.status,
+            );
+            return reject(cardError);
+          } else {
+            return reject(error);
+          }
         }
 
         const backSideTerminalStates: CardState[] = [
@@ -1781,6 +1809,35 @@ export class CardScanApi extends BaseAPI {
         resolve(event);
       });
     });
+  }
+
+  private cardFormDataFactory(
+    file: File | Blob | Stream,
+    uploadParameters: UploadParameters,
+  ) {
+    const formData = new FormData();
+
+    for (const [key, value] of Object.entries(uploadParameters)) {
+      formData.append(key, value);
+    }
+
+    formData.append("file", file);
+
+    return formData;
+  }
+
+  private XMLErrorToCardScanError(
+    xmlErrorObj: {
+      Message: string;
+      Code: string;
+    },
+    code: number,
+  ): ApiErrorResponse {
+    return {
+      message: xmlErrorObj.Message,
+      type: xmlErrorObj.Code,
+      code,
+    };
   }
 
   public async checkEligibility(cardId: string, eligibility: EligibilityInfo) {
