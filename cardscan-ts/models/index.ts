@@ -26,6 +26,7 @@ export * from './create-eligibility-request';
 export * from './deductible';
 export * from './direct-upload200-response';
 export * from './direct-upload200-response-metadata';
+export * from './direct-upload-request';
 export * from './dtp-date';
 export * from './eligibility-additional-information';
 export * from './eligibility-api-error';
