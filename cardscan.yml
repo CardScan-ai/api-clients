@@ -728,7 +728,7 @@ components:
             Notes: lastName 1-60 alphanumeric characters
         dateOfBirth:
           type: string
-          pattern: '^(19|20)\d{2}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01])$'
+          pattern: '^\d{8}$'
           description: >
             Loop: 2100C and 2100D, Segment: DMG, Element: DMG02,
             Notes: date of birth in YYYYMMDD format
