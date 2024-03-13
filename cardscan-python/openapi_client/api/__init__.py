@@ -1,5 +1,4 @@
 # flake8: noqa
 
 # import apis into api package
-from api.card_scan_api import CardScanApi
-
+from openapi_client.api.card_scan_api import CardScanApi

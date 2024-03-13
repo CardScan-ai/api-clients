@@ -25,11 +25,13 @@ from pydantic import Field, StrictInt, StrictStr, conint
 from typing import Optional
 
 from openapi_client.models.card_api_response import CardApiResponse
+from openapi_client.models.card_websocket_event import CardWebsocketEvent
 from openapi_client.models.create_card_request import CreateCardRequest
 from openapi_client.models.create_eligibility_request import CreateEligibilityRequest
 from openapi_client.models.direct_upload200_response import DirectUpload200Response
 from openapi_client.models.direct_upload_request import DirectUploadRequest
 from openapi_client.models.eligibility_api_response import EligibilityApiResponse
+from openapi_client.models.eligibility_websocket_event import EligibilityWebsocketEvent
 from openapi_client.models.generate_card_upload_url200_response import (
     GenerateCardUploadUrl200Response,
 )
@@ -56,7 +58,7 @@ from openapi_client.api_response import ApiResponse
 from openapi_client.exceptions import ApiTypeError, ApiValueError  # noqa: F401
 
 import asyncio
-from websockets.sync.client import connect
+import websockets
 
 
 class CardScanApi:
@@ -71,28 +73,73 @@ class CardScanApi:
             api_client = ApiClient.get_default()
         self.api_client = api_client
 
+        token = (
+            self.api_client.configuration.access_token
+            or self.api_client.configuration.api_key
+        )
+
+        self.websocket_url = self.api_client.configuration.websocket_url
+
+        if not self.websocket_url:
+            self.websocket_url = (
+                "wss://sandbox-ws.cardscan.ai"
+                if "sandbox" in self.api_client.configuration.host
+                else "wss://ws.cardscan.ai"
+            )
+
+        self.websocket_url = f"{self.websocket_url}?token={token}"
+
+    # async def full_scan(
+    #     self, back_image: bytes, front_image: bytes
+    # ) -> CardWebsocketEvent:
+    #     if not self.websocket_url:
+    #         raise ValueError("This method cannot be called without a websocket URL.")
+    #
+    #     response = self.create_card(
+    #         CreateCardRequest(enable_livescan=False, enable_backside_scan=True)
+    #     )
+    #
+    #     completion_future = asyncio.Future()
+    #
+    #     async with websockets.connect(self.websocket_url) as ws:
+    #         await ws.send(
+    #             json.dumps({"card_id": response.card_id, "action": "register"})
+    #         )
+    #
+    #         front_upload_url_response = self.generate_card_upload_url(
+    #             response.card_id,
+    #             3600,
+    #             GenerateCardUploadUrlRequest(orientation=ScanOrientation.FRONT),
+    #         )
+    #
+    #         self.api_client.call_api(front_upload_url_response.upload_url, 'POST', )
+
     async def check_eligibility(
         self, create_eligibility_request: CreateEligibilityRequest
-    ):
-        if not self.api_client.configuration.get("websocket_url"):
+    ) -> EligibilityWebsocketEvent:
+        if not self.websocket_url:
             raise ValueError("This method cannot be called without a websocket URL.")
 
-        self.create_eligibility(create_eligibility_request)
+        response = self.create_eligibility(create_eligibility_request)
 
         completion_future = asyncio.Future()
 
-        async with connect(self.api_client.configuration.get("websocket_url")) as ws:
+        async with websockets.connect(self.websocket_url) as ws:
+            await ws.send(
+                json.dumps({"card_id": response.card_id, "action": "register"})
+            )
+
             async for message in ws:
                 event = json.loads(message)
 
                 if event["state"] == EligibilityState.COMPLETED:
                     completion_future.set_result(event)
+                    await ws.close()
                 elif event["state"] == EligibilityState.ERROR:
                     completion_future.set_exception(
                         Exception(f"Eligibility check failed: {event['error']}")
                     )
-
-        await completion_future
+                    await ws.close()
 
         return completion_future.result()
 
