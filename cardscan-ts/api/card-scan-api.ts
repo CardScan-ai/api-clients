@@ -1735,9 +1735,8 @@ export class CardScanApi extends BaseAPI {
           }
         }
 
-        const frontSideTerminalStates: CardState[] = [
+        const frontSideRejectionStates: CardState[] = [
           CardState.FrontsideFailed,
-          CardState.BacksideProcessing,
           CardState.Error,
         ];
 
@@ -1745,14 +1744,14 @@ export class CardScanApi extends BaseAPI {
           websocket.onmessage = (event) => {
             const data: CardWebsocketEvent = JSON.parse(event.data as string);
 
-            if (frontSideTerminalStates.includes(data.state)) {
-              return resolve(JSON.parse(event.data as string));
-            }
-
-            if (data.state === CardState.FrontsideFailed) {
+            if (frontSideRejectionStates.includes(data.state)) {
               return reject(
                 new Error(`Frontside failed: ${data.error?.message}`),
               );
+            }
+
+            if (data.state === CardState.BacksideProcessing) {
+              return resolve(data);
             }
           };
         });
@@ -1792,9 +1791,8 @@ export class CardScanApi extends BaseAPI {
           }
         }
 
-        const backSideTerminalStates: CardState[] = [
+        const backSideRejectionStates: CardState[] = [
           CardState.BacksideFailed,
-          CardState.Completed,
           CardState.Error,
         ];
 
@@ -1803,14 +1801,14 @@ export class CardScanApi extends BaseAPI {
             websocket.onmessage = (event) => {
               const data: CardWebsocketEvent = JSON.parse(event.data as string);
 
-              if (backSideTerminalStates.includes(data.state)) {
-                return resolve(JSON.parse(event.data as string));
-              }
-
-              if (data.state === CardState.BacksideFailed) {
+              if (backSideRejectionStates.includes(data.state)) {
                 return reject(
                   new Error(`Backside failed: ${data.error?.message}`),
                 );
+              }
+
+              if (data.state === CardState.Completed) {
+                return resolve(data);
               }
             };
           },
