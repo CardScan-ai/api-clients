@@ -1640,12 +1640,17 @@ export class CardScanApi extends BaseAPI {
   private withWebsocket = (cb: (websocket: WebSocket) => Promise<any>) => {
     const token = this.configuration.accessToken ?? this.configuration.apiKey;
 
-    const websocket = new WebSocket(
-      `${this.configuration.websocketUrl}?token=${token}` ??
-        (this.basePath.includes("sandbox")
-          ? `wss://sandbox-ws.cardscan.ai?token=${token}`
-          : `wss://ws.cardscan.ai?token=${token}`),
-    );
+    let websocketUrl = this.configuration.websocketUrl;
+
+    if (!websocketUrl) {
+      if (this.basePath.includes("sandbox")) {
+        websocketUrl = "wss://sandbox-ws.cardscan.ai";
+      } else {
+        websocketUrl = "wss://ws.cardscan.ai";
+      }
+    }
+
+    const websocket = new WebSocket(`${websocketUrl}?token=${token}`);
 
     websocket.onerror = (event) => {
       console.debug("WebSocket error: ", event);
@@ -1659,6 +1664,11 @@ export class CardScanApi extends BaseAPI {
     };
   };
 
+  /**
+   * @summary Performs a full scan, including both front and back side scans.
+   * @param frontImage The front side image to scan. For client side code this can be a File object, for server side code this can be a Blob or a Stream.
+   * @param backImage The back side image to scan. For client side code this can be a File object, for server side code this can be a Blob or a Stream.
+   * */
   public async fullScan({
     frontImage,
     backImage,
@@ -1840,6 +1850,11 @@ export class CardScanApi extends BaseAPI {
     };
   }
 
+  /**
+   * @summary Performs an eligibility check for a card.
+   * @param cardId The ID of the card
+   * @param eligibility The eligibility information to check
+   * */
   public async checkEligibility(cardId: string, eligibility: EligibilityInfo) {
     if (!this.configuration?.websocketUrl) {
       throw new Error("This method cannot be called without a websocket URL.");
