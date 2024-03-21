@@ -1,45 +1,63 @@
-## cardscan-ai/typescript@1.0.0
+## cardscan-ai/cardscan-client@1.0.0
 
-This generator creates TypeScript/JavaScript client that utilizes [axios](https://github.com/axios/axios). The generated Node module can be used in the following environments:
+Typescript API client for the CardScan API
 
 Environment
-* Node.js
-* Webpack
-* Browserify
 
-Language level
-* ES5 - you must have a Promises/A+ library installed
-* ES6
+- Node.js
+- Webpack
+- Browserify
 
 Module system
-* CommonJS
-* ES6 module system
 
-It can be used in both TypeScript and JavaScript. In TypeScript, the definition should be automatically resolved via `package.json`. ([Reference](http://www.typescriptlang.org/docs/handbook/typings-for-npm-packages.html))
+- CommonJS
+- ES6 module system
 
-### Building
+### Installation
 
-To build and compile the typescript sources to javascript use:
-```
-npm install
-npm run build
+```shell
+npm install @cardscan.ai/cardscan-client
 ```
 
-### Publishing
-
-First build the package then run ```npm publish```
-
-### Consuming
-
-navigate to the folder of your consuming project and run one of the following commands.
-
-_published:_
-
-```
-npm install cardscan-ai/typescript@1.0.0 --save
+```shell
+yarn add @cardscan.ai/cardscan-client
 ```
 
-_unPublished (not recommended):_
+### Usage
 
+```typescript
+import { CardScanApi, Configuration } from "@cardscan.ai/cardscan-client";
+
+const cardScanApi = new CardScanApi(
+  new Configuration({
+    /*
+     * By default the API will the production url if NODE_ENV is "production" and the sandbox url otherwise.
+     * You can also specify a url manually.
+     * */
+    // baseUrl: "https://api.cardscan.ai/v1",
+
+    apiKey: "<your-api-key>",
+  })
+);
+
+const main = async () => {
+  try {
+    const response = await cardScanApi.checkEligibility("<card-id>", {
+      subscriber: {
+        firstName: "John",
+        lastName: "Doe",
+        dateOfBirth: "18020101",
+      },
+      provider: {
+        firstName: "John",
+        lastName: "Doe",
+        npi: "0123456789",
+      },
+    });
+  } catch (e) {
+    console.error(e);
+  }
+};
+
+main();
 ```
-npm install PATH_TO_GENERATED_PACKAGE --save
