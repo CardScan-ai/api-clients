@@ -1,0 +1,7 @@
+{
+  "disallowAdditionalPropertiesIfNotPresent": false,
+  "npmName": "cardscan-ai/typescript",
+  "withSeparateModelsAndApi": true,
+  "modelPackage": "models",
+  "apiPackage": "api"
+}
