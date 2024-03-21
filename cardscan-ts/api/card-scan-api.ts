@@ -1627,8 +1627,6 @@ export const CardScanApiFactory = function (
  * @extends {BaseAPI}
  */
 export class CardScanApi extends BaseAPI {
-  private MIN_SCANS = 2;
-
   constructor(
     configuration?: Configuration,
     protected basePath: string = BASE_PATH,
@@ -1665,7 +1663,7 @@ export class CardScanApi extends BaseAPI {
   };
 
   /**
-   * @summary Performs a full scan, including both front and back side scans.
+   * @summary Performs a full scan, including both front and back side scans. (This method requires a websocket URL to be set in the configuration.)
    * @param frontImage The front side image to scan. For client side code this can be a File object, for server side code this can be a Blob or a Stream.
    * @param backImage The back side image to scan. For client side code this can be a File object, for server side code this can be a Blob or a Stream.
    * */
@@ -1849,7 +1847,7 @@ export class CardScanApi extends BaseAPI {
   }
 
   /**
-   * @summary Performs an eligibility check for a card.
+   * @summary Performs an eligibility check for a card. (This method requires a websocket URL to be set in the configuration.)
    * @param cardId The ID of the card
    * @param eligibility The eligibility information to check
    * */
