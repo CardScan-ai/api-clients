@@ -1,4 +1,4 @@
-## cardscan-ai/cardscan-client@1.0.0
+## cardscan-ai/cardscan-client
 
 Typescript API client for the CardScan API
 
@@ -37,7 +37,7 @@ const cardScanApi = new CardScanApi(
     // baseUrl: "https://api.cardscan.ai/v1",
 
     apiKey: "<your-api-key>",
-  })
+  }),
 );
 
 const main = async () => {
