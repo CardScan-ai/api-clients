@@ -1635,30 +1635,22 @@ export class CardScanApi extends BaseAPI {
     super(configuration, basePath, axios);
   }
 
-  private withWebsocket = (cb: (websocket: WebSocket) => Promise<any>) => {
+  private withWebsocket = (
+    cb: (websocket: WebSocket | null, error: Error | null) => Promise<any>,
+  ) => {
     const token = this.configuration.accessToken ?? this.configuration.apiKey;
 
-    let websocketUrl = this.configuration.websocketUrl;
+    const websocket = new WebSocket(
+      `${this.configuration.websocketUrl}?token=${token}`,
+    );
 
-    if (!websocketUrl) {
-      if (this.basePath.includes("sandbox")) {
-        websocketUrl = "wss://sandbox-ws.cardscan.ai";
-      } else {
-        websocketUrl = "wss://ws.cardscan.ai";
-      }
-    }
-
-    const websocket = new WebSocket(`${websocketUrl}?token=${token}`);
-
-    websocket.onerror = (event) => {
-      console.log("WebSocket error: ", event);
-      websocket.close();
-      return;
-    };
+    websocket.on("error", async (err) => {
+      await cb(null, err);
+    });
 
     websocket.onopen = async () => {
       try {
-        await cb(websocket);
+        await cb(websocket, null);
       } catch (e) {
       } finally {
         websocket.close();
@@ -1690,17 +1682,17 @@ export class CardScanApi extends BaseAPI {
     ).data;
 
     return new Promise((resolve, reject) => {
-      this.withWebsocket(async (websocket) => {
-        if (websocket.readyState === WebSocket.OPEN) {
-          websocket.send(
-            JSON.stringify({
-              action: "register",
-              card_id: card.card_id,
-            }),
-          );
-        } else {
-          return reject(new Error("WebSocket is not open"));
+      this.withWebsocket(async (websocket, err) => {
+        if (err) {
+          return reject(err);
         }
+
+        websocket.send(
+          JSON.stringify({
+            action: "register",
+            card_id: card.card_id,
+          }),
+        );
 
         const frontSideUploadUrlResponse = (
           await this.generateCardUploadUrl(card.card_id, 3600, {
@@ -1861,7 +1853,11 @@ export class CardScanApi extends BaseAPI {
     }
 
     return new Promise((resolve, reject) => {
-      this.withWebsocket(async (websocket) => {
+      this.withWebsocket(async (websocket, err) => {
+        if (err) {
+          return reject(err);
+        }
+
         try {
           (
             await this.createEligibility({
@@ -1873,14 +1869,12 @@ export class CardScanApi extends BaseAPI {
           return reject(e);
         }
 
-        if (websocket.readyState === WebSocket.OPEN) {
-          websocket.send(
-            JSON.stringify({
-              action: "register",
-              card_id: cardId,
-            }),
-          );
-        }
+        websocket.send(
+          JSON.stringify({
+            action: "register",
+            card_id: cardId,
+          }),
+        );
 
         const event: EligibilityWebsocketEvent = await new Promise(
           (resolve, reject) => {

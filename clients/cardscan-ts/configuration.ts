@@ -30,6 +30,7 @@ export interface ConfigurationParameters {
   baseOptions?: any;
   formDataCtor?: new () => any;
   websocketUrl?: string;
+  environment?: "sandbox" | "production";
 }
 
 export class Configuration {
@@ -103,7 +104,9 @@ export class Configuration {
    */
   websocketUrl?: string;
 
-  constructor(param: ConfigurationParameters = {}) {
+  environment?: "sandbox" | "production";
+
+  constructor(param: ConfigurationParameters) {
     this.apiKey = param.apiKey;
     this.username = param.username;
     this.password = param.password;
@@ -112,7 +115,23 @@ export class Configuration {
     this.serverIndex = param.serverIndex;
     this.baseOptions = param.baseOptions;
     this.formDataCtor = param.formDataCtor;
-    this.websocketUrl = param.websocketUrl;
+    this.environment = param.environment;
+
+    if (!this.basePath) {
+      if (this.environment === "sandbox") {
+        this.basePath = "https://sandbox.cardscan.ai";
+      } else {
+        this.basePath = "https://cardscan.ai";
+      }
+    }
+
+    if (param.websocketUrl) {
+      this.websocketUrl = param.websocketUrl;
+    } else if (this.environment === "sandbox")
+      this.websocketUrl = "wss://sandbox-ws.cardscan.ai";
+    else {
+      this.websocketUrl = "wss://ws.cardscan.ai";
+    }
   }
 
   /**
