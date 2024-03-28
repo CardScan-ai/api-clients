@@ -2,3 +2,5 @@
 **/dist
 **/images
 **/test.*
+**/.env
+clients/cardscan-python/main.py
