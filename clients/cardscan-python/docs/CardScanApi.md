@@ -93,7 +93,7 @@ Name | Type | Description  | Notes
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | Successful card response |  -  |
+**201** | Successful card response |  -  |
 **400** | Error response |  -  |
 **401** | Error response |  -  |
 **500** | Internal Error response |  -  |

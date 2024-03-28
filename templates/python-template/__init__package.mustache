@@ -7,7 +7,7 @@
 __version__ = "{{packageVersion}}"
 
 # import apis into sdk package
-{{#apiInfo}}{{#apis}}from {{apiPackage}}.{{classFilename}} import {{classname}}
+{{#apiInfo}}{{#apis}}from {{packageName}}.{{apiPackage}}.{{classFilename}} import {{classname}}
 {{/apis}}{{/apiInfo}}
 # import ApiClient
 from {{packageName}}.api_response import ApiResponse

@@ -21,30 +21,16 @@ import urllib3
 import http.client as httplib
 
 JSON_SCHEMA_VALIDATION_KEYWORDS = {
-    "multipleOf",
-    "maximum",
-    "exclusiveMaximum",
-    "minimum",
-    "exclusiveMinimum",
-    "maxLength",
-    "minLength",
-    "pattern",
-    "maxItems",
-    "minItems",
+    'multipleOf', 'maximum', 'exclusiveMaximum',
+    'minimum', 'exclusiveMinimum', 'maxLength',
+    'minLength', 'pattern', 'maxItems', 'minItems'
 }
-
 
 class Configuration:
     """This class contains various settings of the API client.
 
     :param host: Base url.
-    :param api_key: Dict to store API key(s).
-      Each entry in the dict specifies an API key.
-      The dict key is the name of the security scheme in the OAS specification.
-      The dict value is the API key secret.
-    :param api_key_prefix: Dict to store API prefix (e.g. Bearer).
-      The dict key is the name of the security scheme in the OAS specification.
-      The dict value is an API key prefix when generating the auth data.
+    :param api_key: API key
     :param username: Username for HTTP basic authentication.
     :param password: Password for HTTP basic authentication.
     :param access_token: Access token.
@@ -60,46 +46,48 @@ class Configuration:
       values before.
     :param ssl_ca_cert: str - the path to a file of concatenated CA certificates
       in PEM format.
+    :param websocket_url: str - the url of the websocket, if not specified this will be inferred based on the environment
+    :param environment: str - the api environment to which the requests are going to be made. One of `sandbox` or `production` (default: `sandbox`)
 
     :Example:
     """
 
     _default = None
 
-    def __init__(
-        self,
-        host=None,
-        api_key=None,
-        username=None,
-        password=None,
-        access_token=None,
-        server_index=None,
-        server_variables=None,
-        server_operation_index=None,
-        server_operation_variables=None,
-        ssl_ca_cert=None,
-        websocket_url=None,
-    ) -> None:
-        """Constructor"""
-        self._base_path = "https://sandbox.cardscan.ai/v1" if host is None else host
-        """Default Base url
+    def __init__(self, host=None,
+                 api_key=None,
+                 username=None, password=None,
+                 access_token=None,
+                 server_index=None, server_variables=None,
+                 server_operation_index=None, server_operation_variables=None,
+                 ssl_ca_cert=None,
+                 websocket_url=None,
+                 environment="sandbox",
+                 ) -> None:
+        """Constructor
         """
         self.server_index = 0 if server_index is None and host is None else server_index
         self.server_operation_index = server_operation_index or {}
         """Default server index
         """
-        self.server_variables = server_variables or {}
+        self.server_variables = server_variables or {
+            "prefix": environment,
+            "version": "v1",
+        }
         self.server_operation_variables = server_operation_variables or {}
         """Default server variables
+        """
+
+        self._base_path = host if host is not None else self.get_host_from_settings(0)
+        """Default Base url
         """
         self.temp_folder_path = None
         """Temp file folder for downloading files
         """
         # Authentication Settings
         self.api_key = api_key
-        """Api key
+        """API key
         """
-
         self.refresh_api_key_hook = None
         """function hook to refresh API key if expired
         """
@@ -117,7 +105,7 @@ class Configuration:
         """
         self.logger["package_logger"] = logging.getLogger("openapi_client")
         self.logger["urllib3_logger"] = logging.getLogger("urllib3")
-        self.logger_format = "%(asctime)s %(levelname)s %(message)s"
+        self.logger_format = '%(asctime)s %(levelname)s %(message)s'
         """Log format
         """
         self.logger_stream_handler = None
@@ -169,7 +157,7 @@ class Configuration:
         self.proxy_headers = None
         """Proxy headers
         """
-        self.safe_chars_for_path_param = ""
+        self.safe_chars_for_path_param = ''
         """Safe chars for path_param
         """
         self.retries = None
@@ -190,8 +178,12 @@ class Configuration:
         """date format
         """
 
-        self.websocket_url = websocket_url
+        self.websocket_url = websocket_url or f"wss://{environment}-ws.cardscan.ai"
         """websocket url
+        """
+
+        self.environment = environment
+        """api environment to use
         """
 
     def __deepcopy__(self, memo):
@@ -199,7 +191,7 @@ class Configuration:
         result = cls.__new__(cls)
         memo[id(self)] = result
         for k, v in self.__dict__.items():
-            if k not in ("logger", "logger_file_handler"):
+            if k not in ('logger', 'logger_file_handler'):
                 setattr(result, k, copy.deepcopy(v, memo))
         # shallow copy of loggers
         result.logger = copy.copy(self.logger)
@@ -342,9 +334,9 @@ class Configuration:
         password = ""
         if self.password is not None:
             password = self.password
-        return urllib3.util.make_headers(basic_auth=username + ":" + password).get(
-            "authorization"
-        )
+        return urllib3.util.make_headers(
+            basic_auth=username + ':' + password
+        ).get('authorization')
 
     def auth_settings(self):
         """Gets Auth Settings dict for api client.
@@ -353,11 +345,11 @@ class Configuration:
         """
         auth = {}
         if self.access_token is not None:
-            auth["bearerAuth"] = {
-                "type": "bearer",
-                "in": "header",
-                "key": "Authorization",
-                "value": "Bearer " + self.access_token,
+            auth['bearerAuth'] = {
+                'type': 'bearer',
+                'in': 'header',
+                'key': 'Authorization',
+                'value': 'Bearer ' + self.access_token
             }
         return auth
 
@@ -366,13 +358,12 @@ class Configuration:
 
         :return: The report for debugging.
         """
-        return (
-            "Python SDK Debug Report:\n"
-            "OS: {env}\n"
-            "Python Version: {pyversion}\n"
-            "Version of the API: 1.0.0\n"
-            "SDK Package Version: 1.0.0".format(env=sys.platform, pyversion=sys.version)
-        )
+        return "Python SDK Debug Report:\n"\
+               "OS: {env}\n"\
+               "Python Version: {pyversion}\n"\
+               "Version of the API: 1.0.0\n"\
+               "SDK Package Version: 1.0.0".\
+               format(env=sys.platform, pyversion=sys.version)
 
     def get_host_settings(self):
         """Gets an array of host settings
@@ -381,19 +372,22 @@ class Configuration:
         """
         return [
             {
-                "url": "https://{prefix}.cardscan.ai/{version}",
-                "description": "Production server",
-                "variables": {
-                    "version": {
-                        "description": "The version of the API",
-                        "default_value": "v1",
-                    },
-                    "prefix": {
-                        "description": "The api environment to use as a prefix, e.g. api, sandbox",
-                        "default_value": "sandbox",
-                        "enum_values": ["api", "sandbox"],
-                    },
-                },
+                'url': "https://{prefix}.cardscan.ai/{version}",
+                'description': "API Server",
+                'variables': {
+                    'version': {
+                        'description': "The version of the API",
+                        'default_value': "v1",
+                        },
+                    'prefix': {
+                        'description': "The api environment to use as a prefix, e.g. api, sandbox",
+                        'default_value': "sandbox",
+                        'enum_values': [
+                            "api",
+                            "sandbox"
+                        ]
+                        }
+                    }
             }
         ]
 
@@ -415,22 +409,22 @@ class Configuration:
         except IndexError:
             raise ValueError(
                 "Invalid index {0} when selecting the host settings. "
-                "Must be less than {1}".format(index, len(servers))
-            )
+                "Must be less than {1}".format(index, len(servers)))
 
-        url = server["url"]
+        url = server['url']
 
         # go through variables and replace placeholders
-        for variable_name, variable in server.get("variables", {}).items():
-            used_value = variables.get(variable_name, variable["default_value"])
+        for variable_name, variable in server.get('variables', {}).items():
+            used_value = variables.get(
+                variable_name, variable['default_value'])
 
-            if "enum_values" in variable and used_value not in variable["enum_values"]:
+            if 'enum_values' in variable \
+                    and used_value not in variable['enum_values']:
                 raise ValueError(
                     "The variable `{0}` in the host URL has invalid value "
                     "{1}. Must be {2}.".format(
-                        variable_name, variables[variable_name], variable["enum_values"]
-                    )
-                )
+                        variable_name, variables[variable_name],
+                        variable['enum_values']))
 
             url = url.replace("{" + variable_name + "}", used_value)
 
@@ -439,12 +433,11 @@ class Configuration:
     @property
     def host(self):
         """Return generated host."""
-        return self.get_host_from_settings(
-            self.server_index, variables=self.server_variables
-        )
+        return self.get_host_from_settings(self.server_index, variables=self.server_variables)
 
     @host.setter
     def host(self, value):
         """Fix base path."""
         self._base_path = value
         self.server_index = None
+

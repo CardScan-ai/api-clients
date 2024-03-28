@@ -42,6 +42,8 @@ class Configuration:
       values before.
     :param ssl_ca_cert: str - the path to a file of concatenated CA certificates
       in PEM format.
+    :param websocket_url: str - the url of the websocket, if not specified this will be inferred based on the environment
+    :param environment: str - the api environment to which the requests are going to be made. One of `sandbox` or `production` (default: `sandbox`)
 
 {{#hasAuthMethods}}
     :Example:
@@ -140,19 +142,25 @@ conf = {{{packageName}}}.Configuration(
                  server_index=None, server_variables=None,
                  server_operation_index=None, server_operation_variables=None,
                  ssl_ca_cert=None,
+                 websocket_url=None,
+                 environment="sandbox",
                  ) -> None:
         """Constructor
-        """
-        self._base_path = "{{{basePath}}}" if host is None else host
-        """Default Base url
         """
         self.server_index = 0 if server_index is None and host is None else server_index
         self.server_operation_index = server_operation_index or {}
         """Default server index
         """
-        self.server_variables = server_variables or {}
+        self.server_variables = server_variables or {
+            "prefix": environment,
+            "version": "v1",
+        }
         self.server_operation_variables = server_operation_variables or {}
         """Default server variables
+        """
+
+        self._base_path = host if host is not None else self.get_host_from_settings(0)
+        """Default Base url
         """
         self.temp_folder_path = None
         """Temp file folder for downloading files
@@ -266,8 +274,12 @@ conf = {{{packageName}}}.Configuration(
         """date format
         """
 
-        self.websocket_url = websocket_url
+        self.websocket_url = websocket_url or f"wss://{environment}-ws.cardscan.ai"
         """websocket url
+        """
+
+        self.environment = environment
+        """api environment to use
         """
 
     def __deepcopy__(self, memo):
@@ -587,3 +599,4 @@ conf = {{{packageName}}}.Configuration(
         """Fix base path."""
         self._base_path = value
         self.server_index = None
+

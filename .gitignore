@@ -3,4 +3,5 @@
 **/images
 **/test.*
 **/.env
+**/.vscode
 clients/cardscan-python/main.py

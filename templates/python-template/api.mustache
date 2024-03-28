@@ -11,6 +11,15 @@ from pydantic import validate_arguments, ValidationError
 from typing import overload, Optional, Union, Awaitable
 {{/asyncio}}
 
+import asyncio
+import json
+import websockets
+
+from openapi_client.models.card_websocket_event import CardWebsocketEvent
+from openapi_client.models.eligibility_websocket_event import EligibilityWebsocketEvent
+from openapi_client.models.card_state import CardState
+from openapi_client.models.eligibility_state import EligibilityState
+
 {{#imports}}
 {{import}}
 {{/imports}}
@@ -41,17 +50,122 @@ class {{classname}}:
             or self.api_client.configuration.api_key
         )
 
-        self.websocket_url = self.api_client.configuration.websocket_url
+        self.websocket_url = f"{self.api_client.configuration.websocket_url}?token={token}"
+
+    async def full_scan(
+        self, back_image_path: str, front_image_path: str
+    ) -> CardWebsocketEvent:
+        """
+        Perform a full scan of a card, including both sides of a card.
+        :param back_image_path: The path to the back image of the card.
+        :param front_image_path: The path to the front image of the card.
+        """
 
         if not self.websocket_url:
-            self.websocket_url = (
-                "wss://sandbox-ws.cardscan.ai"
-                if "sandbox" in self.api_client.configuration.host
-                else "wss://ws.cardscan.ai"
+            raise ValueError("This method cannot be called without a websocket URL.")
+
+        response = self.create_card(
+            CreateCardRequest(enable_livescan=False, enable_backside_scan=True)
+        )
+
+        completion_future = asyncio.Future()
+
+        async with websockets.connect(self.websocket_url) as ws:
+            await ws.send(
+                json.dumps({"card_id": response.card_id, "action": "register"})
             )
 
-        self.websocket_url = f"{self.websocket_url}?token={token}"
+            front_upload_url_response = self.generate_card_upload_url(
+                response.card_id,
+                3600,
+                GenerateCardUploadUrlRequest(orientation=ScanOrientation.FRONT),
+            )
 
+            try:
+                upload_params = front_upload_url_response.upload_parameters.to_dict()
+
+                self.api_client.call_api(
+                    "",
+                    "POST",
+                    _host=front_upload_url_response.upload_url,
+                    post_params=list(upload_params.items()),
+                    files={"file": front_image_path},
+                    header_params={"Content-Type": "multipart/form-data"},
+                    _preload_content=False,
+                )
+
+            except Exception as e:
+                completion_future.set_exception(e)
+                await ws.close()
+
+            front_side_rejection_states = [
+                CardState.FRONTSIDE_FAILED,
+                CardState.ERROR,
+            ]
+
+            front_side_future = asyncio.Future()
+
+            async for message in ws:
+                event = json.loads(message)
+
+                if event["state"] in front_side_rejection_states:
+                    front_side_future.set_exception(
+                        Exception(
+                            f"Front side failed: {event.get('error', {}).get('message', 'Unknown error')}"
+                        )
+                    )
+                    break
+
+                if event["state"] == CardState.BACKSIDE_PROCESSING:
+                    front_side_future.set_result(event)
+                    break
+
+            back_upload_url_response = self.generate_card_upload_url(
+                response.card_id,
+                3600,
+                GenerateCardUploadUrlRequest(orientation=ScanOrientation.BACK),
+            )
+
+            try:
+                self.api_client.call_api(
+                    '',
+                    "POST",
+                    _host=back_upload_url_response.upload_url,
+                    post_params=list(back_upload_url_response.upload_parameters.to_dict().items()),
+                    files={
+                        "file": back_image_path,
+                    },
+                    header_params={"Content-Type": "multipart/form-data"},
+                    _preload_content=False,
+                )
+
+            except Exception as e:
+                completion_future.set_exception(e)
+                await ws.close()
+
+            back_side_rejection_states = [
+                CardState.BACKSIDE_FAILED,
+                CardState.ERROR,
+            ]
+
+            async for message in ws:
+                event = json.loads(message)
+
+                if event["state"] in back_side_rejection_states:
+                    completion_future.set_exception(
+                        Exception(
+                            f"Back side failed: {event.get('error', {}).get('message', 'Unknown error')}"
+                        )
+                    )
+                    break
+
+                if event["state"] == CardState.COMPLETED:
+                    completion_future.set_result(event)
+                    break
+
+            await ws.close()
+
+        return completion_future.result()
 
     async def check_eligibility(
         self, create_eligibility_request: CreateEligibilityRequest
