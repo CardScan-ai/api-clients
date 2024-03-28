@@ -21,16 +21,3 @@ jobs:
       - name: Set up environment variables file
         run: echo "${{ secrets.TESTS_ENV_FILE }}" > .env
       - run: npm test
-
-  format:
-    runs-on: ubuntu-latest
-
-    steps:
-      - uses: actions/checkout@v2
-      - name: Setup Node.js
-        uses: actions/setup-node@v2
-        with:
-          node-version: 18.x
-      - run: cd clients/cardscan-ts
-      - run: npm ci
-      - run: npm run format
