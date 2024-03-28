@@ -1651,14 +1651,18 @@ export class CardScanApi extends BaseAPI {
     const websocket = new WebSocket(`${websocketUrl}?token=${token}`);
 
     websocket.onerror = (event) => {
-      console.debug("WebSocket error: ", event);
+      console.log("WebSocket error: ", event);
       websocket.close();
       return;
     };
 
     websocket.onopen = async () => {
-      await cb(websocket);
-      websocket.close();
+      try {
+        await cb(websocket);
+      } catch (e) {
+      } finally {
+        websocket.close();
+      }
     };
   };
 
@@ -1856,14 +1860,18 @@ export class CardScanApi extends BaseAPI {
       throw new Error("This method cannot be called without a websocket URL.");
     }
 
-    return new Promise((resolve) => {
+    return new Promise((resolve, reject) => {
       this.withWebsocket(async (websocket) => {
-        (
-          await this.createEligibility({
-            card_id: cardId,
-            eligibility,
-          })
-        ).data;
+        try {
+          (
+            await this.createEligibility({
+              card_id: cardId,
+              eligibility,
+            })
+          ).data;
+        } catch (e) {
+          return reject(e);
+        }
 
         if (websocket.readyState === WebSocket.OPEN) {
           websocket.send(
