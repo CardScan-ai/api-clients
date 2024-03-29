@@ -38,22 +38,29 @@ from openapi_client.models.create_eligibility_request import CreateEligibilityRe
 from openapi_client.models.direct_upload200_response import DirectUpload200Response
 from openapi_client.models.direct_upload_request import DirectUploadRequest
 from openapi_client.models.eligibility_api_response import EligibilityApiResponse
-from openapi_client.models.generate_card_upload_url200_response import GenerateCardUploadUrl200Response
-from openapi_client.models.generate_card_upload_url_request import GenerateCardUploadUrlRequest
-from openapi_client.models.generate_magic_link200_response import GenerateMagicLink200Response
+from openapi_client.models.generate_card_upload_url200_response import (
+    GenerateCardUploadUrl200Response,
+)
+from openapi_client.models.generate_card_upload_url_request import (
+    GenerateCardUploadUrlRequest,
+)
+from openapi_client.models.generate_magic_link200_response import (
+    GenerateMagicLink200Response,
+)
 from openapi_client.models.get_access_token200_response import GetAccessToken200Response
-from openapi_client.models.list_eligibility200_response import ListEligibility200Response
+from openapi_client.models.list_eligibility200_response import (
+    ListEligibility200Response,
+)
 from openapi_client.models.scan_capture_type import ScanCaptureType
 from openapi_client.models.scan_orientation import ScanOrientation
 from openapi_client.models.search_cards200_response import SearchCards200Response
-from openapi_client.models.validate_magic_link200_response import ValidateMagicLink200Response
+from openapi_client.models.validate_magic_link200_response import (
+    ValidateMagicLink200Response,
+)
 
 from openapi_client.api_client import ApiClient
 from openapi_client.api_response import ApiResponse
-from openapi_client.exceptions import (  # noqa: F401
-    ApiTypeError,
-    ApiValueError
-)
+from openapi_client.exceptions import ApiTypeError, ApiValueError  # noqa: F401
 
 
 class CardScanApi:
@@ -73,7 +80,9 @@ class CardScanApi:
             or self.api_client.configuration.api_key
         )
 
-        self.websocket_url = f"{self.api_client.configuration.websocket_url}?token={token}"
+        self.websocket_url = (
+            f"{self.api_client.configuration.websocket_url}?token={token}"
+        )
 
     async def full_scan(
         self, back_image_path: str, front_image_path: str
@@ -91,7 +100,7 @@ class CardScanApi:
             CreateCardRequest(enable_livescan=False, enable_backside_scan=True)
         )
 
-        completion_future = asyncio.Future()
+        full_scan_future = asyncio.Future()
 
         async with websockets.connect(self.websocket_url) as ws:
             await ws.send(
@@ -118,7 +127,7 @@ class CardScanApi:
                 )
 
             except Exception as e:
-                completion_future.set_exception(e)
+                full_scan_future.set_exception(e)
                 await ws.close()
 
             front_side_rejection_states = [
@@ -139,7 +148,10 @@ class CardScanApi:
                     )
                     break
 
-                if event["state"] == CardState.BACKSIDE_PROCESSING:
+                if (
+                    event["state"] == CardState.BACKSIDE_PROCESSING
+                    and event["type"] == "card"
+                ):
                     front_side_future.set_result(event)
                     break
 
@@ -151,10 +163,12 @@ class CardScanApi:
 
             try:
                 self.api_client.call_api(
-                    '',
+                    "",
                     "POST",
                     _host=back_upload_url_response.upload_url,
-                    post_params=list(back_upload_url_response.upload_parameters.to_dict().items()),
+                    post_params=list(
+                        back_upload_url_response.upload_parameters.to_dict().items()
+                    ),
                     files={
                         "file": back_image_path,
                     },
@@ -163,7 +177,7 @@ class CardScanApi:
                 )
 
             except Exception as e:
-                completion_future.set_exception(e)
+                full_scan_future.set_exception(e)
                 await ws.close()
 
             back_side_rejection_states = [
@@ -175,20 +189,20 @@ class CardScanApi:
                 event = json.loads(message)
 
                 if event["state"] in back_side_rejection_states:
-                    completion_future.set_exception(
+                    full_scan_future.set_exception(
                         Exception(
                             f"Back side failed: {event.get('error', {}).get('message', 'Unknown error')}"
                         )
                     )
                     break
 
-                if event["state"] == CardState.COMPLETED:
-                    completion_future.set_result(event)
+                if event["state"] == CardState.COMPLETED and event["type"] == "card":
+                    full_scan_future.set_result(CardWebsocketEvent.from_dict(event))
                     break
 
             await ws.close()
 
-        return completion_future.result()
+        return full_scan_future.result()
 
     async def check_eligibility(
         self, create_eligibility_request: CreateEligibilityRequest
@@ -209,7 +223,9 @@ class CardScanApi:
                 event = json.loads(message)
 
                 if event["state"] == EligibilityState.COMPLETED:
-                    completion_future.set_result(event)
+                    completion_future.set_result(
+                        EligibilityWebsocketEvent.from_dict(event)
+                    )
                     await ws.close()
                 elif event["state"] == EligibilityState.ERROR:
                     completion_future.set_exception(
@@ -219,9 +235,10 @@ class CardScanApi:
 
         return completion_future.result()
 
-
     @validate_arguments
-    def create_card(self, create_card_request : Optional[CreateCardRequest] = None, **kwargs) -> CardApiResponse:  # noqa: E501
+    def create_card(
+        self, create_card_request: Optional[CreateCardRequest] = None, **kwargs
+    ) -> CardApiResponse:  # noqa: E501
         """Creates a new card  # noqa: E501
 
         This method makes a synchronous HTTP request by default. To make an
@@ -243,14 +260,18 @@ class CardScanApi:
                  returns the request thread.
         :rtype: CardApiResponse
         """
-        kwargs['_return_http_data_only'] = True
-        if '_preload_content' in kwargs:
+        kwargs["_return_http_data_only"] = True
+        if "_preload_content" in kwargs:
             message = "Error! Please call the create_card_with_http_info method with `_preload_content` instead and obtain raw data from ApiResponse.raw_data"  # noqa: E501
             raise ValueError(message)
-        return self.create_card_with_http_info(create_card_request, **kwargs)  # noqa: E501
+        return self.create_card_with_http_info(
+            create_card_request, **kwargs
+        )  # noqa: E501
 
     @validate_arguments
-    def create_card_with_http_info(self, create_card_request : Optional[CreateCardRequest] = None, **kwargs) -> ApiResponse:  # noqa: E501
+    def create_card_with_http_info(
+        self, create_card_request: Optional[CreateCardRequest] = None, **kwargs
+    ) -> ApiResponse:  # noqa: E501
         """Creates a new card  # noqa: E501
 
         This method makes a synchronous HTTP request by default. To make an
@@ -288,30 +309,28 @@ class CardScanApi:
 
         _params = locals()
 
-        _all_params = [
-            'create_card_request'
-        ]
+        _all_params = ["create_card_request"]
         _all_params.extend(
             [
-                'async_req',
-                '_return_http_data_only',
-                '_preload_content',
-                '_request_timeout',
-                '_request_auth',
-                '_content_type',
-                '_headers'
+                "async_req",
+                "_return_http_data_only",
+                "_preload_content",
+                "_request_timeout",
+                "_request_auth",
+                "_content_type",
+                "_headers",
             ]
         )
 
         # validate the arguments
-        for _key, _val in _params['kwargs'].items():
+        for _key, _val in _params["kwargs"].items():
             if _key not in _all_params:
                 raise ApiTypeError(
                     "Got an unexpected keyword argument '%s'"
                     " to method create_card" % _key
                 )
             _params[_key] = _val
-        del _params['kwargs']
+        del _params["kwargs"]
 
         _collection_formats = {}
 
@@ -321,38 +340,41 @@ class CardScanApi:
         # process the query parameters
         _query_params = []
         # process the header parameters
-        _header_params = dict(_params.get('_headers', {}))
+        _header_params = dict(_params.get("_headers", {}))
         # process the form parameters
         _form_params = []
         _files = {}
         # process the body parameter
         _body_params = None
-        if _params['create_card_request'] is not None:
-            _body_params = _params['create_card_request']
+        if _params["create_card_request"] is not None:
+            _body_params = _params["create_card_request"]
 
         # set the HTTP header `Accept`
-        _header_params['Accept'] = self.api_client.select_header_accept(
-            ['application/json'])  # noqa: E501
+        _header_params["Accept"] = self.api_client.select_header_accept(
+            ["application/json"]
+        )  # noqa: E501
 
         # set the HTTP header `Content-Type`
-        _content_types_list = _params.get('_content_type',
-            self.api_client.select_header_content_type(
-                ['application/json']))
+        _content_types_list = _params.get(
+            "_content_type",
+            self.api_client.select_header_content_type(["application/json"]),
+        )
         if _content_types_list:
-                _header_params['Content-Type'] = _content_types_list
+            _header_params["Content-Type"] = _content_types_list
 
         # authentication setting
-        _auth_settings = ['bearerAuth']  # noqa: E501
+        _auth_settings = ["bearerAuth"]  # noqa: E501
 
         _response_types_map = {
-            '201': "CardApiResponse",
-            '400': "ApiErrorResponse",
-            '401': "ApiErrorResponse",
-            '500': "GetAccessToken500Response",
+            "201": "CardApiResponse",
+            "400": "ApiErrorResponse",
+            "401": "ApiErrorResponse",
+            "500": "GetAccessToken500Response",
         }
 
         return self.api_client.call_api(
-            '/cards', 'POST',
+            "/cards",
+            "POST",
             _path_params,
             _query_params,
             _header_params,
@@ -361,15 +383,20 @@ class CardScanApi:
             files=_files,
             response_types_map=_response_types_map,
             auth_settings=_auth_settings,
-            async_req=_params.get('async_req'),
-            _return_http_data_only=_params.get('_return_http_data_only'),  # noqa: E501
-            _preload_content=_params.get('_preload_content', True),
-            _request_timeout=_params.get('_request_timeout'),
+            async_req=_params.get("async_req"),
+            _return_http_data_only=_params.get("_return_http_data_only"),  # noqa: E501
+            _preload_content=_params.get("_preload_content", True),
+            _request_timeout=_params.get("_request_timeout"),
             collection_formats=_collection_formats,
-            _request_auth=_params.get('_request_auth'))
+            _request_auth=_params.get("_request_auth"),
+        )
 
     @validate_arguments
-    def create_eligibility(self, create_eligibility_request : Optional[CreateEligibilityRequest] = None, **kwargs) -> EligibilityApiResponse:  # noqa: E501
+    def create_eligibility(
+        self,
+        create_eligibility_request: Optional[CreateEligibilityRequest] = None,
+        **kwargs,
+    ) -> EligibilityApiResponse:  # noqa: E501
         """Create Eligibility Record  # noqa: E501
 
         This method makes a synchronous HTTP request by default. To make an
@@ -391,14 +418,20 @@ class CardScanApi:
                  returns the request thread.
         :rtype: EligibilityApiResponse
         """
-        kwargs['_return_http_data_only'] = True
-        if '_preload_content' in kwargs:
+        kwargs["_return_http_data_only"] = True
+        if "_preload_content" in kwargs:
             message = "Error! Please call the create_eligibility_with_http_info method with `_preload_content` instead and obtain raw data from ApiResponse.raw_data"  # noqa: E501
             raise ValueError(message)
-        return self.create_eligibility_with_http_info(create_eligibility_request, **kwargs)  # noqa: E501
+        return self.create_eligibility_with_http_info(
+            create_eligibility_request, **kwargs
+        )  # noqa: E501
 
     @validate_arguments
-    def create_eligibility_with_http_info(self, create_eligibility_request : Optional[CreateEligibilityRequest] = None, **kwargs) -> ApiResponse:  # noqa: E501
+    def create_eligibility_with_http_info(
+        self,
+        create_eligibility_request: Optional[CreateEligibilityRequest] = None,
+        **kwargs,
+    ) -> ApiResponse:  # noqa: E501
         """Create Eligibility Record  # noqa: E501
 
         This method makes a synchronous HTTP request by default. To make an
@@ -436,30 +469,28 @@ class CardScanApi:
 
         _params = locals()
 
-        _all_params = [
-            'create_eligibility_request'
-        ]
+        _all_params = ["create_eligibility_request"]
         _all_params.extend(
             [
-                'async_req',
-                '_return_http_data_only',
-                '_preload_content',
-                '_request_timeout',
-                '_request_auth',
-                '_content_type',
-                '_headers'
+                "async_req",
+                "_return_http_data_only",
+                "_preload_content",
+                "_request_timeout",
+                "_request_auth",
+                "_content_type",
+                "_headers",
             ]
         )
 
         # validate the arguments
-        for _key, _val in _params['kwargs'].items():
+        for _key, _val in _params["kwargs"].items():
             if _key not in _all_params:
                 raise ApiTypeError(
                     "Got an unexpected keyword argument '%s'"
                     " to method create_eligibility" % _key
                 )
             _params[_key] = _val
-        del _params['kwargs']
+        del _params["kwargs"]
 
         _collection_formats = {}
 
@@ -469,39 +500,42 @@ class CardScanApi:
         # process the query parameters
         _query_params = []
         # process the header parameters
-        _header_params = dict(_params.get('_headers', {}))
+        _header_params = dict(_params.get("_headers", {}))
         # process the form parameters
         _form_params = []
         _files = {}
         # process the body parameter
         _body_params = None
-        if _params['create_eligibility_request'] is not None:
-            _body_params = _params['create_eligibility_request']
+        if _params["create_eligibility_request"] is not None:
+            _body_params = _params["create_eligibility_request"]
 
         # set the HTTP header `Accept`
-        _header_params['Accept'] = self.api_client.select_header_accept(
-            ['application/json'])  # noqa: E501
+        _header_params["Accept"] = self.api_client.select_header_accept(
+            ["application/json"]
+        )  # noqa: E501
 
         # set the HTTP header `Content-Type`
-        _content_types_list = _params.get('_content_type',
-            self.api_client.select_header_content_type(
-                ['application/json']))
+        _content_types_list = _params.get(
+            "_content_type",
+            self.api_client.select_header_content_type(["application/json"]),
+        )
         if _content_types_list:
-                _header_params['Content-Type'] = _content_types_list
+            _header_params["Content-Type"] = _content_types_list
 
         # authentication setting
-        _auth_settings = ['bearerAuth']  # noqa: E501
+        _auth_settings = ["bearerAuth"]  # noqa: E501
 
         _response_types_map = {
-            '201': "EligibilityApiResponse",
-            '400': "ApiErrorResponse",
-            '401': "ApiErrorResponse",
-            '404': "ApiErrorResponse",
-            '500': "GetAccessToken500Response",
+            "201": "EligibilityApiResponse",
+            "400": "ApiErrorResponse",
+            "401": "ApiErrorResponse",
+            "404": "ApiErrorResponse",
+            "500": "GetAccessToken500Response",
         }
 
         return self.api_client.call_api(
-            '/eligibility', 'POST',
+            "/eligibility",
+            "POST",
             _path_params,
             _query_params,
             _header_params,
@@ -510,15 +544,20 @@ class CardScanApi:
             files=_files,
             response_types_map=_response_types_map,
             auth_settings=_auth_settings,
-            async_req=_params.get('async_req'),
-            _return_http_data_only=_params.get('_return_http_data_only'),  # noqa: E501
-            _preload_content=_params.get('_preload_content', True),
-            _request_timeout=_params.get('_request_timeout'),
+            async_req=_params.get("async_req"),
+            _return_http_data_only=_params.get("_return_http_data_only"),  # noqa: E501
+            _preload_content=_params.get("_preload_content", True),
+            _request_timeout=_params.get("_request_timeout"),
             collection_formats=_collection_formats,
-            _request_auth=_params.get('_request_auth'))
+            _request_auth=_params.get("_request_auth"),
+        )
 
     @validate_arguments
-    def delete_card_by_id(self, card_id : Annotated[StrictStr, Field(..., description="The ID of the card")], **kwargs) -> None:  # noqa: E501
+    def delete_card_by_id(
+        self,
+        card_id: Annotated[StrictStr, Field(..., description="The ID of the card")],
+        **kwargs,
+    ) -> None:  # noqa: E501
         """Delete Card  # noqa: E501
 
         This method makes a synchronous HTTP request by default. To make an
@@ -540,14 +579,18 @@ class CardScanApi:
                  returns the request thread.
         :rtype: None
         """
-        kwargs['_return_http_data_only'] = True
-        if '_preload_content' in kwargs:
+        kwargs["_return_http_data_only"] = True
+        if "_preload_content" in kwargs:
             message = "Error! Please call the delete_card_by_id_with_http_info method with `_preload_content` instead and obtain raw data from ApiResponse.raw_data"  # noqa: E501
             raise ValueError(message)
         return self.delete_card_by_id_with_http_info(card_id, **kwargs)  # noqa: E501
 
     @validate_arguments
-    def delete_card_by_id_with_http_info(self, card_id : Annotated[StrictStr, Field(..., description="The ID of the card")], **kwargs) -> ApiResponse:  # noqa: E501
+    def delete_card_by_id_with_http_info(
+        self,
+        card_id: Annotated[StrictStr, Field(..., description="The ID of the card")],
+        **kwargs,
+    ) -> ApiResponse:  # noqa: E501
         """Delete Card  # noqa: E501
 
         This method makes a synchronous HTTP request by default. To make an
@@ -585,59 +628,58 @@ class CardScanApi:
 
         _params = locals()
 
-        _all_params = [
-            'card_id'
-        ]
+        _all_params = ["card_id"]
         _all_params.extend(
             [
-                'async_req',
-                '_return_http_data_only',
-                '_preload_content',
-                '_request_timeout',
-                '_request_auth',
-                '_content_type',
-                '_headers'
+                "async_req",
+                "_return_http_data_only",
+                "_preload_content",
+                "_request_timeout",
+                "_request_auth",
+                "_content_type",
+                "_headers",
             ]
         )
 
         # validate the arguments
-        for _key, _val in _params['kwargs'].items():
+        for _key, _val in _params["kwargs"].items():
             if _key not in _all_params:
                 raise ApiTypeError(
                     "Got an unexpected keyword argument '%s'"
                     " to method delete_card_by_id" % _key
                 )
             _params[_key] = _val
-        del _params['kwargs']
+        del _params["kwargs"]
 
         _collection_formats = {}
 
         # process the path parameters
         _path_params = {}
-        if _params['card_id'] is not None:
-            _path_params['card_id'] = _params['card_id']
-
+        if _params["card_id"] is not None:
+            _path_params["card_id"] = _params["card_id"]
 
         # process the query parameters
         _query_params = []
         # process the header parameters
-        _header_params = dict(_params.get('_headers', {}))
+        _header_params = dict(_params.get("_headers", {}))
         # process the form parameters
         _form_params = []
         _files = {}
         # process the body parameter
         _body_params = None
         # set the HTTP header `Accept`
-        _header_params['Accept'] = self.api_client.select_header_accept(
-            ['application/json'])  # noqa: E501
+        _header_params["Accept"] = self.api_client.select_header_accept(
+            ["application/json"]
+        )  # noqa: E501
 
         # authentication setting
-        _auth_settings = ['bearerAuth']  # noqa: E501
+        _auth_settings = ["bearerAuth"]  # noqa: E501
 
         _response_types_map = {}
 
         return self.api_client.call_api(
-            '/cards/{card_id}', 'DELETE',
+            "/cards/{card_id}",
+            "DELETE",
             _path_params,
             _query_params,
             _header_params,
@@ -646,15 +688,23 @@ class CardScanApi:
             files=_files,
             response_types_map=_response_types_map,
             auth_settings=_auth_settings,
-            async_req=_params.get('async_req'),
-            _return_http_data_only=_params.get('_return_http_data_only'),  # noqa: E501
-            _preload_content=_params.get('_preload_content', True),
-            _request_timeout=_params.get('_request_timeout'),
+            async_req=_params.get("async_req"),
+            _return_http_data_only=_params.get("_return_http_data_only"),  # noqa: E501
+            _preload_content=_params.get("_preload_content", True),
+            _request_timeout=_params.get("_request_timeout"),
             collection_formats=_collection_formats,
-            _request_auth=_params.get('_request_auth'))
+            _request_auth=_params.get("_request_auth"),
+        )
 
     @validate_arguments
-    def direct_upload(self, orientation : ScanOrientation, capture_type : ScanCaptureType, card_id : StrictStr, direct_upload_request : Optional[DirectUploadRequest] = None, **kwargs) -> DirectUpload200Response:  # noqa: E501
+    def direct_upload(
+        self,
+        orientation: ScanOrientation,
+        capture_type: ScanCaptureType,
+        card_id: StrictStr,
+        direct_upload_request: Optional[DirectUploadRequest] = None,
+        **kwargs,
+    ) -> DirectUpload200Response:  # noqa: E501
         """Direct Upload  # noqa: E501
 
         This method makes a synchronous HTTP request by default. To make an
@@ -682,14 +732,23 @@ class CardScanApi:
                  returns the request thread.
         :rtype: DirectUpload200Response
         """
-        kwargs['_return_http_data_only'] = True
-        if '_preload_content' in kwargs:
+        kwargs["_return_http_data_only"] = True
+        if "_preload_content" in kwargs:
             message = "Error! Please call the direct_upload_with_http_info method with `_preload_content` instead and obtain raw data from ApiResponse.raw_data"  # noqa: E501
             raise ValueError(message)
-        return self.direct_upload_with_http_info(orientation, capture_type, card_id, direct_upload_request, **kwargs)  # noqa: E501
+        return self.direct_upload_with_http_info(
+            orientation, capture_type, card_id, direct_upload_request, **kwargs
+        )  # noqa: E501
 
     @validate_arguments
-    def direct_upload_with_http_info(self, orientation : ScanOrientation, capture_type : ScanCaptureType, card_id : StrictStr, direct_upload_request : Optional[DirectUploadRequest] = None, **kwargs) -> ApiResponse:  # noqa: E501
+    def direct_upload_with_http_info(
+        self,
+        orientation: ScanOrientation,
+        capture_type: ScanCaptureType,
+        card_id: StrictStr,
+        direct_upload_request: Optional[DirectUploadRequest] = None,
+        **kwargs,
+    ) -> ApiResponse:  # noqa: E501
         """Direct Upload  # noqa: E501
 
         This method makes a synchronous HTTP request by default. To make an
@@ -734,84 +793,85 @@ class CardScanApi:
         _params = locals()
 
         _all_params = [
-            'orientation',
-            'capture_type',
-            'card_id',
-            'direct_upload_request'
+            "orientation",
+            "capture_type",
+            "card_id",
+            "direct_upload_request",
         ]
         _all_params.extend(
             [
-                'async_req',
-                '_return_http_data_only',
-                '_preload_content',
-                '_request_timeout',
-                '_request_auth',
-                '_content_type',
-                '_headers'
+                "async_req",
+                "_return_http_data_only",
+                "_preload_content",
+                "_request_timeout",
+                "_request_auth",
+                "_content_type",
+                "_headers",
             ]
         )
 
         # validate the arguments
-        for _key, _val in _params['kwargs'].items():
+        for _key, _val in _params["kwargs"].items():
             if _key not in _all_params:
                 raise ApiTypeError(
                     "Got an unexpected keyword argument '%s'"
                     " to method direct_upload" % _key
                 )
             _params[_key] = _val
-        del _params['kwargs']
+        del _params["kwargs"]
 
         _collection_formats = {}
 
         # process the path parameters
         _path_params = {}
-        if _params['card_id'] is not None:
-            _path_params['card_id'] = _params['card_id']
-
+        if _params["card_id"] is not None:
+            _path_params["card_id"] = _params["card_id"]
 
         # process the query parameters
         _query_params = []
-        if _params.get('orientation') is not None:  # noqa: E501
-            _query_params.append(('orientation', _params['orientation'].value))
+        if _params.get("orientation") is not None:  # noqa: E501
+            _query_params.append(("orientation", _params["orientation"].value))
 
-        if _params.get('capture_type') is not None:  # noqa: E501
-            _query_params.append(('capture_type', _params['capture_type'].value))
+        if _params.get("capture_type") is not None:  # noqa: E501
+            _query_params.append(("capture_type", _params["capture_type"].value))
 
         # process the header parameters
-        _header_params = dict(_params.get('_headers', {}))
+        _header_params = dict(_params.get("_headers", {}))
         # process the form parameters
         _form_params = []
         _files = {}
         # process the body parameter
         _body_params = None
-        if _params['direct_upload_request'] is not None:
-            _body_params = _params['direct_upload_request']
+        if _params["direct_upload_request"] is not None:
+            _body_params = _params["direct_upload_request"]
 
         # set the HTTP header `Accept`
-        _header_params['Accept'] = self.api_client.select_header_accept(
-            ['application/json'])  # noqa: E501
+        _header_params["Accept"] = self.api_client.select_header_accept(
+            ["application/json"]
+        )  # noqa: E501
 
         # set the HTTP header `Content-Type`
-        _content_types_list = _params.get('_content_type',
-            self.api_client.select_header_content_type(
-                ['image/jpeg']))
+        _content_types_list = _params.get(
+            "_content_type", self.api_client.select_header_content_type(["image/jpeg"])
+        )
         if _content_types_list:
-                _header_params['Content-Type'] = _content_types_list
+            _header_params["Content-Type"] = _content_types_list
 
         # authentication setting
-        _auth_settings = ['bearerAuth']  # noqa: E501
+        _auth_settings = ["bearerAuth"]  # noqa: E501
 
         _response_types_map = {
-            '200': "DirectUpload200Response",
-            '400': "ApiErrorResponse",
-            '401': "ApiErrorResponse",
-            '403': "ApiErrorResponse",
-            '404': "ApiErrorResponse",
-            '500': "GetAccessToken500Response",
+            "200": "DirectUpload200Response",
+            "400": "ApiErrorResponse",
+            "401": "ApiErrorResponse",
+            "403": "ApiErrorResponse",
+            "404": "ApiErrorResponse",
+            "500": "GetAccessToken500Response",
         }
 
         return self.api_client.call_api(
-            '/cards/{card_id}/upload', 'POST',
+            "/cards/{card_id}/upload",
+            "POST",
             _path_params,
             _query_params,
             _header_params,
@@ -820,15 +880,22 @@ class CardScanApi:
             files=_files,
             response_types_map=_response_types_map,
             auth_settings=_auth_settings,
-            async_req=_params.get('async_req'),
-            _return_http_data_only=_params.get('_return_http_data_only'),  # noqa: E501
-            _preload_content=_params.get('_preload_content', True),
-            _request_timeout=_params.get('_request_timeout'),
+            async_req=_params.get("async_req"),
+            _return_http_data_only=_params.get("_return_http_data_only"),  # noqa: E501
+            _preload_content=_params.get("_preload_content", True),
+            _request_timeout=_params.get("_request_timeout"),
             collection_formats=_collection_formats,
-            _request_auth=_params.get('_request_auth'))
+            _request_auth=_params.get("_request_auth"),
+        )
 
     @validate_arguments
-    def generate_card_upload_url(self, card_id : StrictStr, expiration : Optional[conint(strict=True, le=3600, ge=100)] = None, generate_card_upload_url_request : Optional[GenerateCardUploadUrlRequest] = None, **kwargs) -> GenerateCardUploadUrl200Response:  # noqa: E501
+    def generate_card_upload_url(
+        self,
+        card_id: StrictStr,
+        expiration: Optional[conint(strict=True, le=3600, ge=100)] = None,
+        generate_card_upload_url_request: Optional[GenerateCardUploadUrlRequest] = None,
+        **kwargs,
+    ) -> GenerateCardUploadUrl200Response:  # noqa: E501
         """Card - Generate Upload URL  # noqa: E501
 
         This method makes a synchronous HTTP request by default. To make an
@@ -854,14 +921,22 @@ class CardScanApi:
                  returns the request thread.
         :rtype: GenerateCardUploadUrl200Response
         """
-        kwargs['_return_http_data_only'] = True
-        if '_preload_content' in kwargs:
+        kwargs["_return_http_data_only"] = True
+        if "_preload_content" in kwargs:
             message = "Error! Please call the generate_card_upload_url_with_http_info method with `_preload_content` instead and obtain raw data from ApiResponse.raw_data"  # noqa: E501
             raise ValueError(message)
-        return self.generate_card_upload_url_with_http_info(card_id, expiration, generate_card_upload_url_request, **kwargs)  # noqa: E501
+        return self.generate_card_upload_url_with_http_info(
+            card_id, expiration, generate_card_upload_url_request, **kwargs
+        )  # noqa: E501
 
     @validate_arguments
-    def generate_card_upload_url_with_http_info(self, card_id : StrictStr, expiration : Optional[conint(strict=True, le=3600, ge=100)] = None, generate_card_upload_url_request : Optional[GenerateCardUploadUrlRequest] = None, **kwargs) -> ApiResponse:  # noqa: E501
+    def generate_card_upload_url_with_http_info(
+        self,
+        card_id: StrictStr,
+        expiration: Optional[conint(strict=True, le=3600, ge=100)] = None,
+        generate_card_upload_url_request: Optional[GenerateCardUploadUrlRequest] = None,
+        **kwargs,
+    ) -> ApiResponse:  # noqa: E501
         """Card - Generate Upload URL  # noqa: E501
 
         This method makes a synchronous HTTP request by default. To make an
@@ -903,81 +978,79 @@ class CardScanApi:
 
         _params = locals()
 
-        _all_params = [
-            'card_id',
-            'expiration',
-            'generate_card_upload_url_request'
-        ]
+        _all_params = ["card_id", "expiration", "generate_card_upload_url_request"]
         _all_params.extend(
             [
-                'async_req',
-                '_return_http_data_only',
-                '_preload_content',
-                '_request_timeout',
-                '_request_auth',
-                '_content_type',
-                '_headers'
+                "async_req",
+                "_return_http_data_only",
+                "_preload_content",
+                "_request_timeout",
+                "_request_auth",
+                "_content_type",
+                "_headers",
             ]
         )
 
         # validate the arguments
-        for _key, _val in _params['kwargs'].items():
+        for _key, _val in _params["kwargs"].items():
             if _key not in _all_params:
                 raise ApiTypeError(
                     "Got an unexpected keyword argument '%s'"
                     " to method generate_card_upload_url" % _key
                 )
             _params[_key] = _val
-        del _params['kwargs']
+        del _params["kwargs"]
 
         _collection_formats = {}
 
         # process the path parameters
         _path_params = {}
-        if _params['card_id'] is not None:
-            _path_params['card_id'] = _params['card_id']
-
+        if _params["card_id"] is not None:
+            _path_params["card_id"] = _params["card_id"]
 
         # process the query parameters
         _query_params = []
-        if _params.get('expiration') is not None:  # noqa: E501
-            _query_params.append(('expiration', _params['expiration']))
+        if _params.get("expiration") is not None:  # noqa: E501
+            _query_params.append(("expiration", _params["expiration"]))
 
         # process the header parameters
-        _header_params = dict(_params.get('_headers', {}))
+        _header_params = dict(_params.get("_headers", {}))
         # process the form parameters
         _form_params = []
         _files = {}
         # process the body parameter
         _body_params = None
-        if _params['generate_card_upload_url_request'] is not None:
-            _body_params = _params['generate_card_upload_url_request']
+        if _params["generate_card_upload_url_request"] is not None:
+            _body_params = _params["generate_card_upload_url_request"]
 
         # set the HTTP header `Accept`
-        _header_params['Accept'] = self.api_client.select_header_accept(
-            ['application/json'])  # noqa: E501
+        _header_params["Accept"] = self.api_client.select_header_accept(
+            ["application/json"]
+        )  # noqa: E501
 
         # set the HTTP header `Content-Type`
-        _content_types_list = _params.get('_content_type',
-            self.api_client.select_header_content_type(
-                ['application/json']))
+        _content_types_list = _params.get(
+            "_content_type",
+            self.api_client.select_header_content_type(["application/json"]),
+        )
         if _content_types_list:
-                _header_params['Content-Type'] = _content_types_list
+            _header_params["Content-Type"] = _content_types_list
 
         # authentication setting
-        _auth_settings = ['bearerAuth']  # noqa: E501
+        _auth_settings = ["bearerAuth"]  # noqa: E501
 
         _response_types_map = {
-            '200': "GenerateCardUploadUrl200Response",
-            '400': "ApiErrorResponse",
-            '401': "ApiErrorResponse",
-            '403': "ApiErrorResponse",
-            '404': "ApiErrorResponse",
-            '500': "GetAccessToken500Response",
+            "200": "GenerateCardUploadUrl200Response",
+            "400": "ApiErrorResponse",
+            "401": "ApiErrorResponse",
+            "403": "ApiErrorResponse",
+            "404": "ApiErrorResponse",
+            "500": "GetAccessToken500Response",
         }
 
         return self.api_client.call_api(
-            '/cards/{card_id}/generate-upload-url', 'POST',
+            "/cards/{card_id}/generate-upload-url",
+            "POST",
             _path_params,
             _query_params,
             _header_params,
@@ -986,15 +1059,18 @@ class CardScanApi:
             files=_files,
             response_types_map=_response_types_map,
             auth_settings=_auth_settings,
-            async_req=_params.get('async_req'),
-            _return_http_data_only=_params.get('_return_http_data_only'),  # noqa: E501
-            _preload_content=_params.get('_preload_content', True),
-            _request_timeout=_params.get('_request_timeout'),
+            async_req=_params.get("async_req"),
+            _return_http_data_only=_params.get("_return_http_data_only"),  # noqa: E501
+            _preload_content=_params.get("_preload_content", True),
+            _request_timeout=_params.get("_request_timeout"),
             collection_formats=_collection_formats,
-            _request_auth=_params.get('_request_auth'))
+            _request_auth=_params.get("_request_auth"),
+        )
 
     @validate_arguments
-    def generate_magic_link(self, **kwargs) -> GenerateMagicLink200Response:  # noqa: E501
+    def generate_magic_link(
+        self, **kwargs
+    ) -> GenerateMagicLink200Response:  # noqa: E501
         """Generate Magic Link  # noqa: E501
 
         This method makes a synchronous HTTP request by default. To make an
@@ -1014,8 +1090,8 @@ class CardScanApi:
                  returns the request thread.
         :rtype: GenerateMagicLink200Response
         """
-        kwargs['_return_http_data_only'] = True
-        if '_preload_content' in kwargs:
+        kwargs["_return_http_data_only"] = True
+        if "_preload_content" in kwargs:
             message = "Error! Please call the generate_magic_link_with_http_info method with `_preload_content` instead and obtain raw data from ApiResponse.raw_data"  # noqa: E501
             raise ValueError(message)
         return self.generate_magic_link_with_http_info(**kwargs)  # noqa: E501
@@ -1057,29 +1133,28 @@ class CardScanApi:
 
         _params = locals()
 
-        _all_params = [
-        ]
+        _all_params = []
         _all_params.extend(
             [
-                'async_req',
-                '_return_http_data_only',
-                '_preload_content',
-                '_request_timeout',
-                '_request_auth',
-                '_content_type',
-                '_headers'
+                "async_req",
+                "_return_http_data_only",
+                "_preload_content",
+                "_request_timeout",
+                "_request_auth",
+                "_content_type",
+                "_headers",
             ]
         )
 
         # validate the arguments
-        for _key, _val in _params['kwargs'].items():
+        for _key, _val in _params["kwargs"].items():
             if _key not in _all_params:
                 raise ApiTypeError(
                     "Got an unexpected keyword argument '%s'"
                     " to method generate_magic_link" % _key
                 )
             _params[_key] = _val
-        del _params['kwargs']
+        del _params["kwargs"]
 
         _collection_formats = {}
 
@@ -1089,27 +1164,29 @@ class CardScanApi:
         # process the query parameters
         _query_params = []
         # process the header parameters
-        _header_params = dict(_params.get('_headers', {}))
+        _header_params = dict(_params.get("_headers", {}))
         # process the form parameters
         _form_params = []
         _files = {}
         # process the body parameter
         _body_params = None
         # set the HTTP header `Accept`
-        _header_params['Accept'] = self.api_client.select_header_accept(
-            ['application/json'])  # noqa: E501
+        _header_params["Accept"] = self.api_client.select_header_accept(
+            ["application/json"]
+        )  # noqa: E501
 
         # authentication setting
-        _auth_settings = ['bearerAuth']  # noqa: E501
+        _auth_settings = ["bearerAuth"]  # noqa: E501
 
         _response_types_map = {
-            '200': "GenerateMagicLink200Response",
-            '401': "ApiErrorResponse",
-            '500': "GetAccessToken500Response",
+            "200": "GenerateMagicLink200Response",
+            "401": "ApiErrorResponse",
+            "500": "GetAccessToken500Response",
         }
 
         return self.api_client.call_api(
-            '/generate-magic-link', 'GET',
+            "/generate-magic-link",
+            "GET",
             _path_params,
             _query_params,
             _header_params,
@@ -1118,15 +1195,18 @@ class CardScanApi:
             files=_files,
             response_types_map=_response_types_map,
             auth_settings=_auth_settings,
-            async_req=_params.get('async_req'),
-            _return_http_data_only=_params.get('_return_http_data_only'),  # noqa: E501
-            _preload_content=_params.get('_preload_content', True),
-            _request_timeout=_params.get('_request_timeout'),
+            async_req=_params.get("async_req"),
+            _return_http_data_only=_params.get("_return_http_data_only"),  # noqa: E501
+            _preload_content=_params.get("_preload_content", True),
+            _request_timeout=_params.get("_request_timeout"),
             collection_formats=_collection_formats,
-            _request_auth=_params.get('_request_auth'))
+            _request_auth=_params.get("_request_auth"),
+        )
 
     @validate_arguments
-    def generate_upload_url(self, expiration : conint(strict=True, le=3600, ge=100), **kwargs) -> GenerateCardUploadUrl200Response:  # noqa: E501
+    def generate_upload_url(
+        self, expiration: conint(strict=True, le=3600, ge=100), **kwargs
+    ) -> GenerateCardUploadUrl200Response:  # noqa: E501
         """Generate an upload URL  # noqa: E501
 
         This method makes a synchronous HTTP request by default. To make an
@@ -1148,14 +1228,18 @@ class CardScanApi:
                  returns the request thread.
         :rtype: GenerateCardUploadUrl200Response
         """
-        kwargs['_return_http_data_only'] = True
-        if '_preload_content' in kwargs:
+        kwargs["_return_http_data_only"] = True
+        if "_preload_content" in kwargs:
             message = "Error! Please call the generate_upload_url_with_http_info method with `_preload_content` instead and obtain raw data from ApiResponse.raw_data"  # noqa: E501
             raise ValueError(message)
-        return self.generate_upload_url_with_http_info(expiration, **kwargs)  # noqa: E501
+        return self.generate_upload_url_with_http_info(
+            expiration, **kwargs
+        )  # noqa: E501
 
     @validate_arguments
-    def generate_upload_url_with_http_info(self, expiration : conint(strict=True, le=3600, ge=100), **kwargs) -> ApiResponse:  # noqa: E501
+    def generate_upload_url_with_http_info(
+        self, expiration: conint(strict=True, le=3600, ge=100), **kwargs
+    ) -> ApiResponse:  # noqa: E501
         """Generate an upload URL  # noqa: E501
 
         This method makes a synchronous HTTP request by default. To make an
@@ -1193,30 +1277,28 @@ class CardScanApi:
 
         _params = locals()
 
-        _all_params = [
-            'expiration'
-        ]
+        _all_params = ["expiration"]
         _all_params.extend(
             [
-                'async_req',
-                '_return_http_data_only',
-                '_preload_content',
-                '_request_timeout',
-                '_request_auth',
-                '_content_type',
-                '_headers'
+                "async_req",
+                "_return_http_data_only",
+                "_preload_content",
+                "_request_timeout",
+                "_request_auth",
+                "_content_type",
+                "_headers",
             ]
         )
 
         # validate the arguments
-        for _key, _val in _params['kwargs'].items():
+        for _key, _val in _params["kwargs"].items():
             if _key not in _all_params:
                 raise ApiTypeError(
                     "Got an unexpected keyword argument '%s'"
                     " to method generate_upload_url" % _key
                 )
             _params[_key] = _val
-        del _params['kwargs']
+        del _params["kwargs"]
 
         _collection_formats = {}
 
@@ -1225,32 +1307,34 @@ class CardScanApi:
 
         # process the query parameters
         _query_params = []
-        if _params.get('expiration') is not None:  # noqa: E501
-            _query_params.append(('expiration', _params['expiration']))
+        if _params.get("expiration") is not None:  # noqa: E501
+            _query_params.append(("expiration", _params["expiration"]))
 
         # process the header parameters
-        _header_params = dict(_params.get('_headers', {}))
+        _header_params = dict(_params.get("_headers", {}))
         # process the form parameters
         _form_params = []
         _files = {}
         # process the body parameter
         _body_params = None
         # set the HTTP header `Accept`
-        _header_params['Accept'] = self.api_client.select_header_accept(
-            ['application/json'])  # noqa: E501
+        _header_params["Accept"] = self.api_client.select_header_accept(
+            ["application/json"]
+        )  # noqa: E501
 
         # authentication setting
-        _auth_settings = ['bearerAuth']  # noqa: E501
+        _auth_settings = ["bearerAuth"]  # noqa: E501
 
         _response_types_map = {
-            '200': "GenerateCardUploadUrl200Response",
-            '400': "ApiErrorResponse",
-            '401': "ApiErrorResponse",
-            '500': "GetAccessToken500Response",
+            "200": "GenerateCardUploadUrl200Response",
+            "400": "ApiErrorResponse",
+            "401": "ApiErrorResponse",
+            "500": "GetAccessToken500Response",
         }
 
         return self.api_client.call_api(
-            '/generate-upload-url', 'GET',
+            "/generate-upload-url",
+            "GET",
             _path_params,
             _query_params,
             _header_params,
@@ -1259,15 +1343,22 @@ class CardScanApi:
             files=_files,
             response_types_map=_response_types_map,
             auth_settings=_auth_settings,
-            async_req=_params.get('async_req'),
-            _return_http_data_only=_params.get('_return_http_data_only'),  # noqa: E501
-            _preload_content=_params.get('_preload_content', True),
-            _request_timeout=_params.get('_request_timeout'),
+            async_req=_params.get("async_req"),
+            _return_http_data_only=_params.get("_return_http_data_only"),  # noqa: E501
+            _preload_content=_params.get("_preload_content", True),
+            _request_timeout=_params.get("_request_timeout"),
             collection_formats=_collection_formats,
-            _request_auth=_params.get('_request_auth'))
+            _request_auth=_params.get("_request_auth"),
+        )
 
     @validate_arguments
-    def get_access_token(self, user_id : Annotated[Optional[StrictStr], Field(description="The ID of the user")] = None, **kwargs) -> GetAccessToken200Response:  # noqa: E501
+    def get_access_token(
+        self,
+        user_id: Annotated[
+            Optional[StrictStr], Field(description="The ID of the user")
+        ] = None,
+        **kwargs,
+    ) -> GetAccessToken200Response:  # noqa: E501
         """Access Token  # noqa: E501
 
         This method makes a synchronous HTTP request by default. To make an
@@ -1289,14 +1380,20 @@ class CardScanApi:
                  returns the request thread.
         :rtype: GetAccessToken200Response
         """
-        kwargs['_return_http_data_only'] = True
-        if '_preload_content' in kwargs:
+        kwargs["_return_http_data_only"] = True
+        if "_preload_content" in kwargs:
             message = "Error! Please call the get_access_token_with_http_info method with `_preload_content` instead and obtain raw data from ApiResponse.raw_data"  # noqa: E501
             raise ValueError(message)
         return self.get_access_token_with_http_info(user_id, **kwargs)  # noqa: E501
 
     @validate_arguments
-    def get_access_token_with_http_info(self, user_id : Annotated[Optional[StrictStr], Field(description="The ID of the user")] = None, **kwargs) -> ApiResponse:  # noqa: E501
+    def get_access_token_with_http_info(
+        self,
+        user_id: Annotated[
+            Optional[StrictStr], Field(description="The ID of the user")
+        ] = None,
+        **kwargs,
+    ) -> ApiResponse:  # noqa: E501
         """Access Token  # noqa: E501
 
         This method makes a synchronous HTTP request by default. To make an
@@ -1334,30 +1431,28 @@ class CardScanApi:
 
         _params = locals()
 
-        _all_params = [
-            'user_id'
-        ]
+        _all_params = ["user_id"]
         _all_params.extend(
             [
-                'async_req',
-                '_return_http_data_only',
-                '_preload_content',
-                '_request_timeout',
-                '_request_auth',
-                '_content_type',
-                '_headers'
+                "async_req",
+                "_return_http_data_only",
+                "_preload_content",
+                "_request_timeout",
+                "_request_auth",
+                "_content_type",
+                "_headers",
             ]
         )
 
         # validate the arguments
-        for _key, _val in _params['kwargs'].items():
+        for _key, _val in _params["kwargs"].items():
             if _key not in _all_params:
                 raise ApiTypeError(
                     "Got an unexpected keyword argument '%s'"
                     " to method get_access_token" % _key
                 )
             _params[_key] = _val
-        del _params['kwargs']
+        del _params["kwargs"]
 
         _collection_formats = {}
 
@@ -1366,31 +1461,33 @@ class CardScanApi:
 
         # process the query parameters
         _query_params = []
-        if _params.get('user_id') is not None:  # noqa: E501
-            _query_params.append(('user_id', _params['user_id']))
+        if _params.get("user_id") is not None:  # noqa: E501
+            _query_params.append(("user_id", _params["user_id"]))
 
         # process the header parameters
-        _header_params = dict(_params.get('_headers', {}))
+        _header_params = dict(_params.get("_headers", {}))
         # process the form parameters
         _form_params = []
         _files = {}
         # process the body parameter
         _body_params = None
         # set the HTTP header `Accept`
-        _header_params['Accept'] = self.api_client.select_header_accept(
-            ['application/json'])  # noqa: E501
+        _header_params["Accept"] = self.api_client.select_header_accept(
+            ["application/json"]
+        )  # noqa: E501
 
         # authentication setting
-        _auth_settings = ['bearerAuth']  # noqa: E501
+        _auth_settings = ["bearerAuth"]  # noqa: E501
 
         _response_types_map = {
-            '200': "GetAccessToken200Response",
-            '401': "ApiErrorResponse",
-            '500': "GetAccessToken500Response",
+            "200": "GetAccessToken200Response",
+            "401": "ApiErrorResponse",
+            "500": "GetAccessToken500Response",
         }
 
         return self.api_client.call_api(
-            '/access-token', 'GET',
+            "/access-token",
+            "GET",
             _path_params,
             _query_params,
             _header_params,
@@ -1399,15 +1496,20 @@ class CardScanApi:
             files=_files,
             response_types_map=_response_types_map,
             auth_settings=_auth_settings,
-            async_req=_params.get('async_req'),
-            _return_http_data_only=_params.get('_return_http_data_only'),  # noqa: E501
-            _preload_content=_params.get('_preload_content', True),
-            _request_timeout=_params.get('_request_timeout'),
+            async_req=_params.get("async_req"),
+            _return_http_data_only=_params.get("_return_http_data_only"),  # noqa: E501
+            _preload_content=_params.get("_preload_content", True),
+            _request_timeout=_params.get("_request_timeout"),
             collection_formats=_collection_formats,
-            _request_auth=_params.get('_request_auth'))
+            _request_auth=_params.get("_request_auth"),
+        )
 
     @validate_arguments
-    def get_card_by_id(self, card_id : Annotated[StrictStr, Field(..., description="The ID of the card")], **kwargs) -> CardApiResponse:  # noqa: E501
+    def get_card_by_id(
+        self,
+        card_id: Annotated[StrictStr, Field(..., description="The ID of the card")],
+        **kwargs,
+    ) -> CardApiResponse:  # noqa: E501
         """Get Card by ID  # noqa: E501
 
         This method makes a synchronous HTTP request by default. To make an
@@ -1429,14 +1531,18 @@ class CardScanApi:
                  returns the request thread.
         :rtype: CardApiResponse
         """
-        kwargs['_return_http_data_only'] = True
-        if '_preload_content' in kwargs:
+        kwargs["_return_http_data_only"] = True
+        if "_preload_content" in kwargs:
             message = "Error! Please call the get_card_by_id_with_http_info method with `_preload_content` instead and obtain raw data from ApiResponse.raw_data"  # noqa: E501
             raise ValueError(message)
         return self.get_card_by_id_with_http_info(card_id, **kwargs)  # noqa: E501
 
     @validate_arguments
-    def get_card_by_id_with_http_info(self, card_id : Annotated[StrictStr, Field(..., description="The ID of the card")], **kwargs) -> ApiResponse:  # noqa: E501
+    def get_card_by_id_with_http_info(
+        self,
+        card_id: Annotated[StrictStr, Field(..., description="The ID of the card")],
+        **kwargs,
+    ) -> ApiResponse:  # noqa: E501
         """Get Card by ID  # noqa: E501
 
         This method makes a synchronous HTTP request by default. To make an
@@ -1474,65 +1580,64 @@ class CardScanApi:
 
         _params = locals()
 
-        _all_params = [
-            'card_id'
-        ]
+        _all_params = ["card_id"]
         _all_params.extend(
             [
-                'async_req',
-                '_return_http_data_only',
-                '_preload_content',
-                '_request_timeout',
-                '_request_auth',
-                '_content_type',
-                '_headers'
+                "async_req",
+                "_return_http_data_only",
+                "_preload_content",
+                "_request_timeout",
+                "_request_auth",
+                "_content_type",
+                "_headers",
             ]
         )
 
         # validate the arguments
-        for _key, _val in _params['kwargs'].items():
+        for _key, _val in _params["kwargs"].items():
             if _key not in _all_params:
                 raise ApiTypeError(
                     "Got an unexpected keyword argument '%s'"
                     " to method get_card_by_id" % _key
                 )
             _params[_key] = _val
-        del _params['kwargs']
+        del _params["kwargs"]
 
         _collection_formats = {}
 
         # process the path parameters
         _path_params = {}
-        if _params['card_id'] is not None:
-            _path_params['card_id'] = _params['card_id']
-
+        if _params["card_id"] is not None:
+            _path_params["card_id"] = _params["card_id"]
 
         # process the query parameters
         _query_params = []
         # process the header parameters
-        _header_params = dict(_params.get('_headers', {}))
+        _header_params = dict(_params.get("_headers", {}))
         # process the form parameters
         _form_params = []
         _files = {}
         # process the body parameter
         _body_params = None
         # set the HTTP header `Accept`
-        _header_params['Accept'] = self.api_client.select_header_accept(
-            ['application/json'])  # noqa: E501
+        _header_params["Accept"] = self.api_client.select_header_accept(
+            ["application/json"]
+        )  # noqa: E501
 
         # authentication setting
-        _auth_settings = ['bearerAuth']  # noqa: E501
+        _auth_settings = ["bearerAuth"]  # noqa: E501
 
         _response_types_map = {
-            '200': "CardApiResponse",
-            '401': "ApiErrorResponse",
-            '403': "ApiErrorResponse",
-            '404': "ApiErrorResponse",
-            '500': "GetAccessToken500Response",
+            "200": "CardApiResponse",
+            "401": "ApiErrorResponse",
+            "403": "ApiErrorResponse",
+            "404": "ApiErrorResponse",
+            "500": "GetAccessToken500Response",
         }
 
         return self.api_client.call_api(
-            '/cards/{card_id}', 'GET',
+            "/cards/{card_id}",
+            "GET",
             _path_params,
             _query_params,
             _header_params,
@@ -1541,15 +1646,18 @@ class CardScanApi:
             files=_files,
             response_types_map=_response_types_map,
             auth_settings=_auth_settings,
-            async_req=_params.get('async_req'),
-            _return_http_data_only=_params.get('_return_http_data_only'),  # noqa: E501
-            _preload_content=_params.get('_preload_content', True),
-            _request_timeout=_params.get('_request_timeout'),
+            async_req=_params.get("async_req"),
+            _return_http_data_only=_params.get("_return_http_data_only"),  # noqa: E501
+            _preload_content=_params.get("_preload_content", True),
+            _request_timeout=_params.get("_request_timeout"),
             collection_formats=_collection_formats,
-            _request_auth=_params.get('_request_auth'))
+            _request_auth=_params.get("_request_auth"),
+        )
 
     @validate_arguments
-    def get_eligibility_by_id(self, eligibility_id : StrictStr, **kwargs) -> EligibilityApiResponse:  # noqa: E501
+    def get_eligibility_by_id(
+        self, eligibility_id: StrictStr, **kwargs
+    ) -> EligibilityApiResponse:  # noqa: E501
         """Get Eligibility  # noqa: E501
 
         This method makes a synchronous HTTP request by default. To make an
@@ -1571,14 +1679,18 @@ class CardScanApi:
                  returns the request thread.
         :rtype: EligibilityApiResponse
         """
-        kwargs['_return_http_data_only'] = True
-        if '_preload_content' in kwargs:
+        kwargs["_return_http_data_only"] = True
+        if "_preload_content" in kwargs:
             message = "Error! Please call the get_eligibility_by_id_with_http_info method with `_preload_content` instead and obtain raw data from ApiResponse.raw_data"  # noqa: E501
             raise ValueError(message)
-        return self.get_eligibility_by_id_with_http_info(eligibility_id, **kwargs)  # noqa: E501
+        return self.get_eligibility_by_id_with_http_info(
+            eligibility_id, **kwargs
+        )  # noqa: E501
 
     @validate_arguments
-    def get_eligibility_by_id_with_http_info(self, eligibility_id : StrictStr, **kwargs) -> ApiResponse:  # noqa: E501
+    def get_eligibility_by_id_with_http_info(
+        self, eligibility_id: StrictStr, **kwargs
+    ) -> ApiResponse:  # noqa: E501
         """Get Eligibility  # noqa: E501
 
         This method makes a synchronous HTTP request by default. To make an
@@ -1616,65 +1728,64 @@ class CardScanApi:
 
         _params = locals()
 
-        _all_params = [
-            'eligibility_id'
-        ]
+        _all_params = ["eligibility_id"]
         _all_params.extend(
             [
-                'async_req',
-                '_return_http_data_only',
-                '_preload_content',
-                '_request_timeout',
-                '_request_auth',
-                '_content_type',
-                '_headers'
+                "async_req",
+                "_return_http_data_only",
+                "_preload_content",
+                "_request_timeout",
+                "_request_auth",
+                "_content_type",
+                "_headers",
             ]
         )
 
         # validate the arguments
-        for _key, _val in _params['kwargs'].items():
+        for _key, _val in _params["kwargs"].items():
             if _key not in _all_params:
                 raise ApiTypeError(
                     "Got an unexpected keyword argument '%s'"
                     " to method get_eligibility_by_id" % _key
                 )
             _params[_key] = _val
-        del _params['kwargs']
+        del _params["kwargs"]
 
         _collection_formats = {}
 
         # process the path parameters
         _path_params = {}
-        if _params['eligibility_id'] is not None:
-            _path_params['eligibility_id'] = _params['eligibility_id']
-
+        if _params["eligibility_id"] is not None:
+            _path_params["eligibility_id"] = _params["eligibility_id"]
 
         # process the query parameters
         _query_params = []
         # process the header parameters
-        _header_params = dict(_params.get('_headers', {}))
+        _header_params = dict(_params.get("_headers", {}))
         # process the form parameters
         _form_params = []
         _files = {}
         # process the body parameter
         _body_params = None
         # set the HTTP header `Accept`
-        _header_params['Accept'] = self.api_client.select_header_accept(
-            ['application/json'])  # noqa: E501
+        _header_params["Accept"] = self.api_client.select_header_accept(
+            ["application/json"]
+        )  # noqa: E501
 
         # authentication setting
-        _auth_settings = ['bearerAuth']  # noqa: E501
+        _auth_settings = ["bearerAuth"]  # noqa: E501
 
         _response_types_map = {
-            '200': "EligibilityApiResponse",
-            '400': "ApiErrorResponse",
-            '401': "ApiErrorResponse",
-            '404': "ApiErrorResponse",
-            '500': "GetAccessToken500Response",
+            "200": "EligibilityApiResponse",
+            "400": "ApiErrorResponse",
+            "401": "ApiErrorResponse",
+            "404": "ApiErrorResponse",
+            "500": "GetAccessToken500Response",
         }
 
         return self.api_client.call_api(
-            '/eligibility/{eligibility_id}', 'GET',
+            "/eligibility/{eligibility_id}",
+            "GET",
             _path_params,
             _query_params,
             _header_params,
@@ -1683,15 +1794,16 @@ class CardScanApi:
             files=_files,
             response_types_map=_response_types_map,
             auth_settings=_auth_settings,
-            async_req=_params.get('async_req'),
-            _return_http_data_only=_params.get('_return_http_data_only'),  # noqa: E501
-            _preload_content=_params.get('_preload_content', True),
-            _request_timeout=_params.get('_request_timeout'),
+            async_req=_params.get("async_req"),
+            _return_http_data_only=_params.get("_return_http_data_only"),  # noqa: E501
+            _preload_content=_params.get("_preload_content", True),
+            _request_timeout=_params.get("_request_timeout"),
             collection_formats=_collection_formats,
-            _request_auth=_params.get('_request_auth'))
+            _request_auth=_params.get("_request_auth"),
+        )
 
     @validate_arguments
-    def get_scan_metadata(self, scan_id : StrictStr, **kwargs) -> None:  # noqa: E501
+    def get_scan_metadata(self, scan_id: StrictStr, **kwargs) -> None:  # noqa: E501
         """Get Scan Metadata  # noqa: E501
 
         This method makes a synchronous HTTP request by default. To make an
@@ -1713,14 +1825,16 @@ class CardScanApi:
                  returns the request thread.
         :rtype: None
         """
-        kwargs['_return_http_data_only'] = True
-        if '_preload_content' in kwargs:
+        kwargs["_return_http_data_only"] = True
+        if "_preload_content" in kwargs:
             message = "Error! Please call the get_scan_metadata_with_http_info method with `_preload_content` instead and obtain raw data from ApiResponse.raw_data"  # noqa: E501
             raise ValueError(message)
         return self.get_scan_metadata_with_http_info(scan_id, **kwargs)  # noqa: E501
 
     @validate_arguments
-    def get_scan_metadata_with_http_info(self, scan_id : StrictStr, **kwargs) -> ApiResponse:  # noqa: E501
+    def get_scan_metadata_with_http_info(
+        self, scan_id: StrictStr, **kwargs
+    ) -> ApiResponse:  # noqa: E501
         """Get Scan Metadata  # noqa: E501
 
         This method makes a synchronous HTTP request by default. To make an
@@ -1758,59 +1872,58 @@ class CardScanApi:
 
         _params = locals()
 
-        _all_params = [
-            'scan_id'
-        ]
+        _all_params = ["scan_id"]
         _all_params.extend(
             [
-                'async_req',
-                '_return_http_data_only',
-                '_preload_content',
-                '_request_timeout',
-                '_request_auth',
-                '_content_type',
-                '_headers'
+                "async_req",
+                "_return_http_data_only",
+                "_preload_content",
+                "_request_timeout",
+                "_request_auth",
+                "_content_type",
+                "_headers",
             ]
         )
 
         # validate the arguments
-        for _key, _val in _params['kwargs'].items():
+        for _key, _val in _params["kwargs"].items():
             if _key not in _all_params:
                 raise ApiTypeError(
                     "Got an unexpected keyword argument '%s'"
                     " to method get_scan_metadata" % _key
                 )
             _params[_key] = _val
-        del _params['kwargs']
+        del _params["kwargs"]
 
         _collection_formats = {}
 
         # process the path parameters
         _path_params = {}
-        if _params['scan_id'] is not None:
-            _path_params['scan_id'] = _params['scan_id']
-
+        if _params["scan_id"] is not None:
+            _path_params["scan_id"] = _params["scan_id"]
 
         # process the query parameters
         _query_params = []
         # process the header parameters
-        _header_params = dict(_params.get('_headers', {}))
+        _header_params = dict(_params.get("_headers", {}))
         # process the form parameters
         _form_params = []
         _files = {}
         # process the body parameter
         _body_params = None
         # set the HTTP header `Accept`
-        _header_params['Accept'] = self.api_client.select_header_accept(
-            ['application/json'])  # noqa: E501
+        _header_params["Accept"] = self.api_client.select_header_accept(
+            ["application/json"]
+        )  # noqa: E501
 
         # authentication setting
-        _auth_settings = ['bearerAuth']  # noqa: E501
+        _auth_settings = ["bearerAuth"]  # noqa: E501
 
         _response_types_map = {}
 
         return self.api_client.call_api(
-            '/scans/{scan_id}/metadata', 'GET',
+            "/scans/{scan_id}/metadata",
+            "GET",
             _path_params,
             _query_params,
             _header_params,
@@ -1819,15 +1932,21 @@ class CardScanApi:
             files=_files,
             response_types_map=_response_types_map,
             auth_settings=_auth_settings,
-            async_req=_params.get('async_req'),
-            _return_http_data_only=_params.get('_return_http_data_only'),  # noqa: E501
-            _preload_content=_params.get('_preload_content', True),
-            _request_timeout=_params.get('_request_timeout'),
+            async_req=_params.get("async_req"),
+            _return_http_data_only=_params.get("_return_http_data_only"),  # noqa: E501
+            _preload_content=_params.get("_preload_content", True),
+            _request_timeout=_params.get("_request_timeout"),
             collection_formats=_collection_formats,
-            _request_auth=_params.get('_request_auth'))
+            _request_auth=_params.get("_request_auth"),
+        )
 
     @validate_arguments
-    def list_cards(self, limit : Optional[StrictInt] = None, cursor : Optional[StrictStr] = None, **kwargs) -> SearchCards200Response:  # noqa: E501
+    def list_cards(
+        self,
+        limit: Optional[StrictInt] = None,
+        cursor: Optional[StrictStr] = None,
+        **kwargs,
+    ) -> SearchCards200Response:  # noqa: E501
         """List Cards  # noqa: E501
 
         This method makes a synchronous HTTP request by default. To make an
@@ -1851,14 +1970,19 @@ class CardScanApi:
                  returns the request thread.
         :rtype: SearchCards200Response
         """
-        kwargs['_return_http_data_only'] = True
-        if '_preload_content' in kwargs:
+        kwargs["_return_http_data_only"] = True
+        if "_preload_content" in kwargs:
             message = "Error! Please call the list_cards_with_http_info method with `_preload_content` instead and obtain raw data from ApiResponse.raw_data"  # noqa: E501
             raise ValueError(message)
         return self.list_cards_with_http_info(limit, cursor, **kwargs)  # noqa: E501
 
     @validate_arguments
-    def list_cards_with_http_info(self, limit : Optional[StrictInt] = None, cursor : Optional[StrictStr] = None, **kwargs) -> ApiResponse:  # noqa: E501
+    def list_cards_with_http_info(
+        self,
+        limit: Optional[StrictInt] = None,
+        cursor: Optional[StrictStr] = None,
+        **kwargs,
+    ) -> ApiResponse:  # noqa: E501
         """List Cards  # noqa: E501
 
         This method makes a synchronous HTTP request by default. To make an
@@ -1898,31 +2022,28 @@ class CardScanApi:
 
         _params = locals()
 
-        _all_params = [
-            'limit',
-            'cursor'
-        ]
+        _all_params = ["limit", "cursor"]
         _all_params.extend(
             [
-                'async_req',
-                '_return_http_data_only',
-                '_preload_content',
-                '_request_timeout',
-                '_request_auth',
-                '_content_type',
-                '_headers'
+                "async_req",
+                "_return_http_data_only",
+                "_preload_content",
+                "_request_timeout",
+                "_request_auth",
+                "_content_type",
+                "_headers",
             ]
         )
 
         # validate the arguments
-        for _key, _val in _params['kwargs'].items():
+        for _key, _val in _params["kwargs"].items():
             if _key not in _all_params:
                 raise ApiTypeError(
                     "Got an unexpected keyword argument '%s'"
                     " to method list_cards" % _key
                 )
             _params[_key] = _val
-        del _params['kwargs']
+        del _params["kwargs"]
 
         _collection_formats = {}
 
@@ -1931,34 +2052,36 @@ class CardScanApi:
 
         # process the query parameters
         _query_params = []
-        if _params.get('limit') is not None:  # noqa: E501
-            _query_params.append(('limit', _params['limit']))
+        if _params.get("limit") is not None:  # noqa: E501
+            _query_params.append(("limit", _params["limit"]))
 
-        if _params.get('cursor') is not None:  # noqa: E501
-            _query_params.append(('cursor', _params['cursor']))
+        if _params.get("cursor") is not None:  # noqa: E501
+            _query_params.append(("cursor", _params["cursor"]))
 
         # process the header parameters
-        _header_params = dict(_params.get('_headers', {}))
+        _header_params = dict(_params.get("_headers", {}))
         # process the form parameters
         _form_params = []
         _files = {}
         # process the body parameter
         _body_params = None
         # set the HTTP header `Accept`
-        _header_params['Accept'] = self.api_client.select_header_accept(
-            ['application/json'])  # noqa: E501
+        _header_params["Accept"] = self.api_client.select_header_accept(
+            ["application/json"]
+        )  # noqa: E501
 
         # authentication setting
-        _auth_settings = ['bearerAuth']  # noqa: E501
+        _auth_settings = ["bearerAuth"]  # noqa: E501
 
         _response_types_map = {
-            '200': "SearchCards200Response",
-            '401': "ApiErrorResponse",
-            '500': "GetAccessToken500Response",
+            "200": "SearchCards200Response",
+            "401": "ApiErrorResponse",
+            "500": "GetAccessToken500Response",
         }
 
         return self.api_client.call_api(
-            '/cards', 'GET',
+            "/cards",
+            "GET",
             _path_params,
             _query_params,
             _header_params,
@@ -1967,12 +2090,13 @@ class CardScanApi:
             files=_files,
             response_types_map=_response_types_map,
             auth_settings=_auth_settings,
-            async_req=_params.get('async_req'),
-            _return_http_data_only=_params.get('_return_http_data_only'),  # noqa: E501
-            _preload_content=_params.get('_preload_content', True),
-            _request_timeout=_params.get('_request_timeout'),
+            async_req=_params.get("async_req"),
+            _return_http_data_only=_params.get("_return_http_data_only"),  # noqa: E501
+            _preload_content=_params.get("_preload_content", True),
+            _request_timeout=_params.get("_request_timeout"),
             collection_formats=_collection_formats,
-            _request_auth=_params.get('_request_auth'))
+            _request_auth=_params.get("_request_auth"),
+        )
 
     @validate_arguments
     def list_eligibility(self, **kwargs) -> ListEligibility200Response:  # noqa: E501
@@ -1995,8 +2119,8 @@ class CardScanApi:
                  returns the request thread.
         :rtype: ListEligibility200Response
         """
-        kwargs['_return_http_data_only'] = True
-        if '_preload_content' in kwargs:
+        kwargs["_return_http_data_only"] = True
+        if "_preload_content" in kwargs:
             message = "Error! Please call the list_eligibility_with_http_info method with `_preload_content` instead and obtain raw data from ApiResponse.raw_data"  # noqa: E501
             raise ValueError(message)
         return self.list_eligibility_with_http_info(**kwargs)  # noqa: E501
@@ -2038,29 +2162,28 @@ class CardScanApi:
 
         _params = locals()
 
-        _all_params = [
-        ]
+        _all_params = []
         _all_params.extend(
             [
-                'async_req',
-                '_return_http_data_only',
-                '_preload_content',
-                '_request_timeout',
-                '_request_auth',
-                '_content_type',
-                '_headers'
+                "async_req",
+                "_return_http_data_only",
+                "_preload_content",
+                "_request_timeout",
+                "_request_auth",
+                "_content_type",
+                "_headers",
             ]
         )
 
         # validate the arguments
-        for _key, _val in _params['kwargs'].items():
+        for _key, _val in _params["kwargs"].items():
             if _key not in _all_params:
                 raise ApiTypeError(
                     "Got an unexpected keyword argument '%s'"
                     " to method list_eligibility" % _key
                 )
             _params[_key] = _val
-        del _params['kwargs']
+        del _params["kwargs"]
 
         _collection_formats = {}
 
@@ -2070,26 +2193,28 @@ class CardScanApi:
         # process the query parameters
         _query_params = []
         # process the header parameters
-        _header_params = dict(_params.get('_headers', {}))
+        _header_params = dict(_params.get("_headers", {}))
         # process the form parameters
         _form_params = []
         _files = {}
         # process the body parameter
         _body_params = None
         # set the HTTP header `Accept`
-        _header_params['Accept'] = self.api_client.select_header_accept(
-            ['application/json'])  # noqa: E501
+        _header_params["Accept"] = self.api_client.select_header_accept(
+            ["application/json"]
+        )  # noqa: E501
 
         # authentication setting
-        _auth_settings = ['bearerAuth']  # noqa: E501
+        _auth_settings = ["bearerAuth"]  # noqa: E501
 
         _response_types_map = {
-            '200': "ListEligibility200Response",
-            '500': "GetAccessToken500Response",
+            "200": "ListEligibility200Response",
+            "500": "GetAccessToken500Response",
         }
 
         return self.api_client.call_api(
-            '/eligibility', 'GET',
+            "/eligibility",
+            "GET",
             _path_params,
             _query_params,
             _header_params,
@@ -2098,15 +2223,22 @@ class CardScanApi:
             files=_files,
             response_types_map=_response_types_map,
             auth_settings=_auth_settings,
-            async_req=_params.get('async_req'),
-            _return_http_data_only=_params.get('_return_http_data_only'),  # noqa: E501
-            _preload_content=_params.get('_preload_content', True),
-            _request_timeout=_params.get('_request_timeout'),
+            async_req=_params.get("async_req"),
+            _return_http_data_only=_params.get("_return_http_data_only"),  # noqa: E501
+            _preload_content=_params.get("_preload_content", True),
+            _request_timeout=_params.get("_request_timeout"),
             collection_formats=_collection_formats,
-            _request_auth=_params.get('_request_auth'))
+            _request_auth=_params.get("_request_auth"),
+        )
 
     @validate_arguments
-    def search_cards(self, query : StrictStr, limit : Optional[StrictInt] = None, cursor : Optional[StrictStr] = None, **kwargs) -> SearchCards200Response:  # noqa: E501
+    def search_cards(
+        self,
+        query: StrictStr,
+        limit: Optional[StrictInt] = None,
+        cursor: Optional[StrictStr] = None,
+        **kwargs,
+    ) -> SearchCards200Response:  # noqa: E501
         """Search Cards (200) OK  # noqa: E501
 
         This method makes a synchronous HTTP request by default. To make an
@@ -2132,14 +2264,22 @@ class CardScanApi:
                  returns the request thread.
         :rtype: SearchCards200Response
         """
-        kwargs['_return_http_data_only'] = True
-        if '_preload_content' in kwargs:
+        kwargs["_return_http_data_only"] = True
+        if "_preload_content" in kwargs:
             message = "Error! Please call the search_cards_with_http_info method with `_preload_content` instead and obtain raw data from ApiResponse.raw_data"  # noqa: E501
             raise ValueError(message)
-        return self.search_cards_with_http_info(query, limit, cursor, **kwargs)  # noqa: E501
+        return self.search_cards_with_http_info(
+            query, limit, cursor, **kwargs
+        )  # noqa: E501
 
     @validate_arguments
-    def search_cards_with_http_info(self, query : StrictStr, limit : Optional[StrictInt] = None, cursor : Optional[StrictStr] = None, **kwargs) -> ApiResponse:  # noqa: E501
+    def search_cards_with_http_info(
+        self,
+        query: StrictStr,
+        limit: Optional[StrictInt] = None,
+        cursor: Optional[StrictStr] = None,
+        **kwargs,
+    ) -> ApiResponse:  # noqa: E501
         """Search Cards (200) OK  # noqa: E501
 
         This method makes a synchronous HTTP request by default. To make an
@@ -2181,32 +2321,28 @@ class CardScanApi:
 
         _params = locals()
 
-        _all_params = [
-            'query',
-            'limit',
-            'cursor'
-        ]
+        _all_params = ["query", "limit", "cursor"]
         _all_params.extend(
             [
-                'async_req',
-                '_return_http_data_only',
-                '_preload_content',
-                '_request_timeout',
-                '_request_auth',
-                '_content_type',
-                '_headers'
+                "async_req",
+                "_return_http_data_only",
+                "_preload_content",
+                "_request_timeout",
+                "_request_auth",
+                "_content_type",
+                "_headers",
             ]
         )
 
         # validate the arguments
-        for _key, _val in _params['kwargs'].items():
+        for _key, _val in _params["kwargs"].items():
             if _key not in _all_params:
                 raise ApiTypeError(
                     "Got an unexpected keyword argument '%s'"
                     " to method search_cards" % _key
                 )
             _params[_key] = _val
-        del _params['kwargs']
+        del _params["kwargs"]
 
         _collection_formats = {}
 
@@ -2215,37 +2351,39 @@ class CardScanApi:
 
         # process the query parameters
         _query_params = []
-        if _params.get('query') is not None:  # noqa: E501
-            _query_params.append(('query', _params['query']))
+        if _params.get("query") is not None:  # noqa: E501
+            _query_params.append(("query", _params["query"]))
 
-        if _params.get('limit') is not None:  # noqa: E501
-            _query_params.append(('limit', _params['limit']))
+        if _params.get("limit") is not None:  # noqa: E501
+            _query_params.append(("limit", _params["limit"]))
 
-        if _params.get('cursor') is not None:  # noqa: E501
-            _query_params.append(('cursor', _params['cursor']))
+        if _params.get("cursor") is not None:  # noqa: E501
+            _query_params.append(("cursor", _params["cursor"]))
 
         # process the header parameters
-        _header_params = dict(_params.get('_headers', {}))
+        _header_params = dict(_params.get("_headers", {}))
         # process the form parameters
         _form_params = []
         _files = {}
         # process the body parameter
         _body_params = None
         # set the HTTP header `Accept`
-        _header_params['Accept'] = self.api_client.select_header_accept(
-            ['application/json'])  # noqa: E501
+        _header_params["Accept"] = self.api_client.select_header_accept(
+            ["application/json"]
+        )  # noqa: E501
 
         # authentication setting
-        _auth_settings = ['bearerAuth']  # noqa: E501
+        _auth_settings = ["bearerAuth"]  # noqa: E501
 
         _response_types_map = {
-            '200': "SearchCards200Response",
-            '401': "ApiErrorResponse",
-            '500': "GetAccessToken500Response",
+            "200": "SearchCards200Response",
+            "401": "ApiErrorResponse",
+            "500": "GetAccessToken500Response",
         }
 
         return self.api_client.call_api(
-            '/cards/search', 'GET',
+            "/cards/search",
+            "GET",
             _path_params,
             _query_params,
             _header_params,
@@ -2254,15 +2392,18 @@ class CardScanApi:
             files=_files,
             response_types_map=_response_types_map,
             auth_settings=_auth_settings,
-            async_req=_params.get('async_req'),
-            _return_http_data_only=_params.get('_return_http_data_only'),  # noqa: E501
-            _preload_content=_params.get('_preload_content', True),
-            _request_timeout=_params.get('_request_timeout'),
+            async_req=_params.get("async_req"),
+            _return_http_data_only=_params.get("_return_http_data_only"),  # noqa: E501
+            _preload_content=_params.get("_preload_content", True),
+            _request_timeout=_params.get("_request_timeout"),
             collection_formats=_collection_formats,
-            _request_auth=_params.get('_request_auth'))
+            _request_auth=_params.get("_request_auth"),
+        )
 
     @validate_arguments
-    def validate_magic_link(self, token : StrictStr, **kwargs) -> ValidateMagicLink200Response:  # noqa: E501
+    def validate_magic_link(
+        self, token: StrictStr, **kwargs
+    ) -> ValidateMagicLink200Response:  # noqa: E501
         """Validate Magic Link  # noqa: E501
 
         This method makes a synchronous HTTP request by default. To make an
@@ -2284,14 +2425,16 @@ class CardScanApi:
                  returns the request thread.
         :rtype: ValidateMagicLink200Response
         """
-        kwargs['_return_http_data_only'] = True
-        if '_preload_content' in kwargs:
+        kwargs["_return_http_data_only"] = True
+        if "_preload_content" in kwargs:
             message = "Error! Please call the validate_magic_link_with_http_info method with `_preload_content` instead and obtain raw data from ApiResponse.raw_data"  # noqa: E501
             raise ValueError(message)
         return self.validate_magic_link_with_http_info(token, **kwargs)  # noqa: E501
 
     @validate_arguments
-    def validate_magic_link_with_http_info(self, token : StrictStr, **kwargs) -> ApiResponse:  # noqa: E501
+    def validate_magic_link_with_http_info(
+        self, token: StrictStr, **kwargs
+    ) -> ApiResponse:  # noqa: E501
         """Validate Magic Link  # noqa: E501
 
         This method makes a synchronous HTTP request by default. To make an
@@ -2329,30 +2472,28 @@ class CardScanApi:
 
         _params = locals()
 
-        _all_params = [
-            'token'
-        ]
+        _all_params = ["token"]
         _all_params.extend(
             [
-                'async_req',
-                '_return_http_data_only',
-                '_preload_content',
-                '_request_timeout',
-                '_request_auth',
-                '_content_type',
-                '_headers'
+                "async_req",
+                "_return_http_data_only",
+                "_preload_content",
+                "_request_timeout",
+                "_request_auth",
+                "_content_type",
+                "_headers",
             ]
         )
 
         # validate the arguments
-        for _key, _val in _params['kwargs'].items():
+        for _key, _val in _params["kwargs"].items():
             if _key not in _all_params:
                 raise ApiTypeError(
                     "Got an unexpected keyword argument '%s'"
                     " to method validate_magic_link" % _key
                 )
             _params[_key] = _val
-        del _params['kwargs']
+        del _params["kwargs"]
 
         _collection_formats = {}
 
@@ -2361,33 +2502,35 @@ class CardScanApi:
 
         # process the query parameters
         _query_params = []
-        if _params.get('token') is not None:  # noqa: E501
-            _query_params.append(('token', _params['token']))
+        if _params.get("token") is not None:  # noqa: E501
+            _query_params.append(("token", _params["token"]))
 
         # process the header parameters
-        _header_params = dict(_params.get('_headers', {}))
+        _header_params = dict(_params.get("_headers", {}))
         # process the form parameters
         _form_params = []
         _files = {}
         # process the body parameter
         _body_params = None
         # set the HTTP header `Accept`
-        _header_params['Accept'] = self.api_client.select_header_accept(
-            ['application/json'])  # noqa: E501
+        _header_params["Accept"] = self.api_client.select_header_accept(
+            ["application/json"]
+        )  # noqa: E501
 
         # authentication setting
         _auth_settings = []  # noqa: E501
 
         _response_types_map = {
-            '200': "ValidateMagicLink200Response",
-            '400': "ApiErrorResponse",
-            '404': "ApiErrorResponse",
-            '410': "ApiErrorResponse",
-            '500': "GetAccessToken500Response",
+            "200": "ValidateMagicLink200Response",
+            "400": "ApiErrorResponse",
+            "404": "ApiErrorResponse",
+            "410": "ApiErrorResponse",
+            "500": "GetAccessToken500Response",
         }
 
         return self.api_client.call_api(
-            '/validate-magic-link', 'GET',
+            "/validate-magic-link",
+            "GET",
             _path_params,
             _query_params,
             _header_params,
@@ -2396,9 +2539,10 @@ class CardScanApi:
             files=_files,
             response_types_map=_response_types_map,
             auth_settings=_auth_settings,
-            async_req=_params.get('async_req'),
-            _return_http_data_only=_params.get('_return_http_data_only'),  # noqa: E501
-            _preload_content=_params.get('_preload_content', True),
-            _request_timeout=_params.get('_request_timeout'),
+            async_req=_params.get("async_req"),
+            _return_http_data_only=_params.get("_return_http_data_only"),  # noqa: E501
+            _preload_content=_params.get("_preload_content", True),
+            _request_timeout=_params.get("_request_timeout"),
             collection_formats=_collection_formats,
-            _request_auth=_params.get('_request_auth'))
+            _request_auth=_params.get("_request_auth"),
+        )

@@ -478,7 +478,7 @@ conf = {{{packageName}}}.Configuration(
                 'format': '{{{.}}}',
                 {{/bearerFormat}}
                 'key': 'Authorization',
-                'value': 'Bearer ' + self.access_token
+                'value': 'Bearer ' + self.access_token or self.api_key
             }
   {{/isBasicBearer}}
   {{#isHttpSignature}}

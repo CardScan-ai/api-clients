@@ -349,7 +349,7 @@ class Configuration:
                 'type': 'bearer',
                 'in': 'header',
                 'key': 'Authorization',
-                'value': 'Bearer ' + self.access_token
+                'value': 'Bearer ' + self.access_token or self.api_key
             }
         return auth
 
