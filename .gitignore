@@ -2,3 +2,7 @@
 **/dist
 **/images
 **/test.*
+**/.env
+**/.vscode
+clients/cardscan-python/main.py
+clients/cardscan-python/images/
