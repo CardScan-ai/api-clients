@@ -1,3 +1,7 @@
+.gitignore
+.npmignore
+.openapi-generator-ignore
+README.md
 api.ts
 api/card-scan-api.ts
 base.ts
@@ -5,6 +9,7 @@ common.ts
 configuration.ts
 git_push.sh
 index.ts
+models/address.ts
 models/api-error-response.ts
 models/card-api-response-details.ts
 models/card-api-response-images-back.ts
@@ -28,6 +33,7 @@ models/eligibility-api-response-error.ts
 models/eligibility-api-response.ts
 models/eligibility-info.ts
 models/eligibility-state.ts
+models/eligibility-summarized-response.ts
 models/eligibility-websocket-event.ts
 models/generate-card-upload-url-request.ts
 models/generate-card-upload-url200-response.ts
@@ -60,3 +66,5 @@ models/subscriber-details.ts
 models/subscriber-dto.ts
 models/upload-parameters.ts
 models/validate-magic-link200-response.ts
+package.json
+tsconfig.json

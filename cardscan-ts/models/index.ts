@@ -1,3 +1,4 @@
+export * from "./address";
 export * from "./api-error-response";
 export * from "./card-api-response";
 export * from "./card-api-response-details";
@@ -21,6 +22,7 @@ export * from "./eligibility-api-response-eligibility-request";
 export * from "./eligibility-api-response-error";
 export * from "./eligibility-info";
 export * from "./eligibility-state";
+export * from "./eligibility-summarized-response";
 export * from "./eligibility-websocket-event";
 export * from "./generate-card-upload-url200-response";
 export * from "./generate-card-upload-url-request";
