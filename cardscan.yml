@@ -5,7 +5,7 @@ info:
   version: 1.0.0
 servers:
   - url: https://{prefix}.cardscan.ai/{version}
-    description: Production server
+    description: API Server
     variables:
       version:
         default: v1
@@ -239,7 +239,7 @@ paths:
                       description: The scanning mode
 
       responses:
-        "200":
+        "201":
           $ref: "#/components/responses/CardResponse"
         "400":
           description: Bad request
