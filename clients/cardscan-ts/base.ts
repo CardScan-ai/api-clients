@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import type { Configuration } from "./configuration";
+import type { Configuration, LogLevels } from "./configuration";
 // Some imports not used depending on template conditions
 // @ts-ignore
 import type { AxiosPromise, AxiosInstance, RawAxiosRequestConfig } from "axios";
@@ -41,12 +41,42 @@ export interface RequestArgs {
   options: RawAxiosRequestConfig;
 }
 
+class Logging {
+  protected configuration?: Configuration;
+
+  constructor(config: Configuration) {
+    this.configuration = config;
+  }
+
+  private log(msg: string, level: LogLevels) {
+    if (this.configuration) {
+      this.configuration.log(msg, level);
+    }
+  }
+
+  public info(msg: string) {
+    this.log(msg, "info");
+  }
+
+  public error(msg: string) {
+    this.log(msg, "error");
+  }
+
+  public debug(msg: string) {
+    this.log(msg, "debug");
+  }
+
+  public warn(msg: string) {
+    this.log(msg, "warn");
+  }
+}
+
 /**
  *
  * @export
  * @class BaseAPI
  */
-export class BaseAPI {
+export class BaseAPI extends Logging {
   protected configuration: Configuration | undefined;
 
   constructor(
@@ -54,6 +84,8 @@ export class BaseAPI {
     protected basePath: string = BASE_PATH,
     protected axios: AxiosInstance = globalAxios,
   ) {
+    super(configuration);
+
     if (configuration) {
       this.configuration = configuration;
       this.basePath = configuration.basePath ?? basePath;

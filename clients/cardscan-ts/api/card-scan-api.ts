@@ -1644,15 +1644,20 @@ export class CardScanApi extends BaseAPI {
       `${this.configuration.websocketUrl}?token=${token}`,
     );
 
+    this.debug("Connecting to websocket...");
+
     websocket.on("error", async (err) => {
+      this.error(`Websocket error: ${err.message}`);
       await cb(null, err);
     });
 
     websocket.onopen = async () => {
       try {
+        this.debug("Websocket connected. Invoking callback...");
         await cb(websocket, null);
       } catch (e) {
       } finally {
+        this.debug("Websocket closing...");
         websocket.close();
       }
     };
@@ -1670,10 +1675,14 @@ export class CardScanApi extends BaseAPI {
     frontImage: File | Blob | Stream;
     backImage: File | Blob | Stream;
   }) {
+    this.info("Starting full scan...");
+
     if (!this.configuration?.websocketUrl) {
+      this.error("Websocket URL not set in configuration.");
       throw new Error("This method cannot be called without a websocket URL.");
     }
 
+    this.debug("Creating card...");
     const card = (
       await this.createCard({
         enable_livescan: false,
@@ -1681,24 +1690,32 @@ export class CardScanApi extends BaseAPI {
       })
     ).data;
 
+    this.debug(`Card created successfully: ${JSON.stringify(card)}`);
+
     return new Promise((resolve, reject) => {
       this.withWebsocket(async (websocket, err) => {
         if (err) {
           return reject(err);
         }
 
+        this.debug("Registering websocket card...");
         websocket.send(
           JSON.stringify({
             action: "register",
             card_id: card.card_id,
           }),
         );
+        this.debug("Websocket card registered");
 
+        this.debug("Generating front side upload URL...");
         const frontSideUploadUrlResponse = (
           await this.generateCardUploadUrl(card.card_id, 3600, {
             orientation: ScanOrientation.Front,
           })
         ).data;
+        this.debug(
+          `Front side upload URL generated successfully, response: ${JSON.stringify(frontSideUploadUrlResponse)}}`,
+        );
 
         const formDataFront = this.cardFormDataFactory(
           frontImage,
@@ -1706,6 +1723,7 @@ export class CardScanApi extends BaseAPI {
         );
 
         try {
+          this.debug("Uploading front side image...");
           await this.axios.post(
             frontSideUploadUrlResponse.upload_url,
             formDataFront,
@@ -1715,13 +1733,22 @@ export class CardScanApi extends BaseAPI {
               },
             },
           );
+          this.debug("Front side image uploaded successfully");
         } catch (error) {
+          this.error(
+            `Error uploading front side image. Error: ${error.message}`,
+          );
+
           if (error.response && error.response.data) {
+            this.debug("Parsing error response...");
             const parser = new XMLParser();
             const errorResponse = parser.parse(error.response.data);
             const cardError = this.XMLErrorToCardScanError(
               errorResponse.Error,
               error.response.status,
+            );
+            this.debug(
+              `Error response parsed successfully. Parsed error: ${error.response.data}`,
             );
             return reject(cardError);
           } else {
@@ -1734,22 +1761,30 @@ export class CardScanApi extends BaseAPI {
           CardState.Error,
         ];
 
+        this.debug("Waiting for front side processing to complete...");
         await new Promise((resolve, reject) => {
           websocket.onmessage = (event) => {
             const data: CardWebsocketEvent = JSON.parse(event.data as string);
+            this.debug(`Received websocket message: ${event.data}`);
 
             if (frontSideRejectionStates.includes(data.state)) {
+              this.debug(
+                `Received reject state while processing frontside: ${data.state}`,
+              );
+
               return reject(
                 new Error(`Frontside failed: ${data.error?.message}`),
               );
             }
 
             if (data.state === CardState.BacksideProcessing) {
+              this.debug("Front side processing completed successfully");
               return resolve(data);
             }
           };
         });
 
+        this.debug("Generating back side upload URL...");
         const backSideUploadUrlResponse = (
           await this.generateCardUploadUrl(card.card_id, 3600, {
             orientation: ScanOrientation.Back,
@@ -1762,6 +1797,7 @@ export class CardScanApi extends BaseAPI {
         );
 
         try {
+          this.debug("Uploading back side image...");
           await this.axios.post(
             backSideUploadUrlResponse.upload_url,
             formDataBack,
@@ -1772,12 +1808,20 @@ export class CardScanApi extends BaseAPI {
             },
           );
         } catch (error) {
+          this.error(
+            `Error uploading back side image. Error: ${error.message}`,
+          );
+
           if (error.response && error.response.data) {
+            this.debug("Parsing error response...");
             const parser = new XMLParser();
             const errorResponse = parser.parse(error.response.data);
             const cardError = this.XMLErrorToCardScanError(
               errorResponse.Error,
               error.response.status,
+            );
+            this.debug(
+              `Error response parsed successfully. Parsed error: ${error.response.data}`,
             );
             return reject(cardError);
           } else {
@@ -1790,24 +1834,32 @@ export class CardScanApi extends BaseAPI {
           CardState.Error,
         ];
 
+        this.debug("Waiting for back side processing to complete...");
+
         const event: CardWebsocketEvent = await new Promise(
           (resolve, reject) => {
             websocket.onmessage = (event) => {
               const data: CardWebsocketEvent = JSON.parse(event.data as string);
+              this.debug(`Received websocket message: ${event.data}`);
 
               if (backSideRejectionStates.includes(data.state)) {
+                this.debug(
+                  `Received reject state while processing backside: ${data.state}`,
+                );
                 return reject(
                   new Error(`Backside failed: ${data.error?.message}`),
                 );
               }
 
               if (data.state === CardState.Completed) {
+                this.debug(`Back side processing completed successfully`);
                 return resolve(data);
               }
             };
           },
         );
 
+        this.info("Full scan completed successfully");
         resolve(event);
       });
     });
@@ -1849,26 +1901,37 @@ export class CardScanApi extends BaseAPI {
    * */
   public async checkEligibility(cardId: string, eligibility: EligibilityInfo) {
     if (!this.configuration?.websocketUrl) {
+      this.error("Websocket URL not set in configuration");
       throw new Error("This method cannot be called without a websocket URL.");
     }
+
+    this.info(`Checking eligibility for card: ${cardId}`);
 
     return new Promise((resolve, reject) => {
       this.withWebsocket(async (websocket, err) => {
         if (err) {
+          this.error(`Error connecting to websocket: ${err.message}`);
           return reject(err);
         }
 
         try {
-          (
+          this.debug(`Creating eligibility for card: ${cardId}`);
+
+          const response = (
             await this.createEligibility({
               card_id: cardId,
               eligibility,
             })
           ).data;
+
+          this.debug(
+            `Eligibility created successfully: ${JSON.stringify(response)}`,
+          );
         } catch (e) {
           return reject(e);
         }
 
+        this.debug("Registering card with websocket...");
         websocket.send(
           JSON.stringify({
             action: "register",
@@ -1876,18 +1939,24 @@ export class CardScanApi extends BaseAPI {
           }),
         );
 
+        this.debug("Card registered with websocket");
+
+        this.debug("Waiting for eligibility check to complete...");
         const event: EligibilityWebsocketEvent = await new Promise(
           (resolve, reject) => {
             websocket.onmessage = (event) => {
               const data: EligibilityWebsocketEvent = JSON.parse(
                 event.data as string,
               );
+              this.debug(`Received websocket message: ${event.data}`);
 
               if (data.state === EligibilityState.Completed) {
+                this.debug("Received completed state");
                 return resolve(data);
               }
 
               if (data.state === EligibilityState.Error) {
+                this.debug("Received error state");
                 return reject(
                   new Error(
                     `Eligibility process failed: ${data.error?.message}`,
@@ -1898,6 +1967,7 @@ export class CardScanApi extends BaseAPI {
           },
         );
 
+        this.info(`Eligibility check completed successfully`);
         resolve(event);
       });
     });

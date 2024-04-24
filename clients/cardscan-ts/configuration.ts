@@ -12,6 +12,10 @@
  * Do not edit the class manually.
  */
 
+import * as winston from "winston";
+
+export type LogLevels = "debug" | "info" | "warn" | "error";
+
 export interface ConfigurationParameters {
   apiKey?:
     | string
@@ -31,6 +35,8 @@ export interface ConfigurationParameters {
   formDataCtor?: new () => any;
   websocketUrl?: string;
   environment?: "sandbox" | "production";
+  debug?: boolean;
+  logging?: LogLevels;
 }
 
 export class Configuration {
@@ -106,6 +112,16 @@ export class Configuration {
 
   environment?: "sandbox" | "production";
 
+  /**
+   * The logging level for the logger, if undefined logging will be disabled
+   * @type {undefined | "debug" | "info" | "warn" | "error"}
+   * @memberof Configuration
+   * @default undefined
+   * */
+  logging?: LogLevels;
+
+  private logger: winston.Logger;
+
   constructor(param: ConfigurationParameters) {
     this.apiKey = param.apiKey;
     this.username = param.username;
@@ -116,6 +132,7 @@ export class Configuration {
     this.baseOptions = param.baseOptions;
     this.formDataCtor = param.formDataCtor;
     this.environment = param.environment;
+    this.logging = param.logging;
 
     if (!this.basePath) {
       if (this.environment === "sandbox") {
@@ -131,6 +148,26 @@ export class Configuration {
       this.websocketUrl = "wss://sandbox-ws.cardscan.ai";
     else {
       this.websocketUrl = "wss://ws.cardscan.ai";
+    }
+
+    const customTransport = new winston.transports.Console({
+      silent: !this.logging,
+      format: winston.format.combine(
+        winston.format.colorize(),
+        winston.format.align(),
+        winston.format.printf((info) => `${info.level}: ${info.message}`),
+      ),
+    });
+
+    this.logger = winston.createLogger({
+      level: param.logging || "error",
+      transports: [customTransport],
+    });
+  }
+
+  public log(msg: string, level: LogLevels) {
+    if (this.logging) {
+      this.logger.log(level, msg);
     }
   }
 
