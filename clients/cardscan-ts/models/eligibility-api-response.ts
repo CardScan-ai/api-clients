@@ -18,12 +18,6 @@ import { EligibilityApiResponseEligibilityRequest } from "./eligibility-api-resp
 // May contain unused imports in some cases
 // @ts-ignore
 import { EligibilityApiResponseError } from "./eligibility-api-response-error";
-// May contain unused imports in some cases
-// @ts-ignore
-import { EligibilitySummarizedResponse } from "./eligibility-summarized-response";
-// May contain unused imports in some cases
-// @ts-ignore
-import { Response } from "./response";
 
 /**
  *
@@ -56,17 +50,17 @@ export interface EligibilityApiResponse {
    */
   eligibility_request?: EligibilityApiResponseEligibilityRequest;
   /**
-   *
-   * @type {Response}
+   * The eligibility raw response.
+   * @type {{ [key: string]: any; }}
    * @memberof EligibilityApiResponse
    */
-  eligibility_response?: Response;
+  eligibility_response?: { [key: string]: any } | null;
   /**
-   *
-   * @type {EligibilitySummarizedResponse}
+   * The eligibility summarized response.
+   * @type {{ [key: string]: any; }}
    * @memberof EligibilityApiResponse
    */
-  eligibility_summarized_response?: EligibilitySummarizedResponse;
+  eligibility_summarized_response?: { [key: string]: any } | null;
   /**
    *
    * @type {EligibilityApiResponseError}
