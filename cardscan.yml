@@ -779,7 +779,20 @@ components:
             provider:
               $ref: "#/components/schemas/ProviderDto"
             subscriber:
-              $ref: "#/components/schemas/SubscriberDto"
+              type: object
+              properties:
+                firstName:
+                  type: string
+                  description: The first name of the subscriber.
+                lastName:
+                  type: string
+                  description: The last name of the subscriber.
+                memberId:
+                  type: string
+                  description: The member ID of the subscriber.
+                dob:
+                  type: string
+                  description: The date of birth of the subscriber.
         eligibility_response:
           type: object
           additionalProperties: true
