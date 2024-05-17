@@ -30,7 +30,7 @@ class EligibilitySummarizedResponse(BaseModel):
     """
     EligibilitySummarizedResponse
     """
-    eligibility_request_id: Optional[StrictStr] = Field(None, description="The ID of the eligibility request.")
+    eligibility_request_id: Optional[StrictStr] = Field(default=None, description="The ID of the eligibility request.")
     subscriber_details: Optional[SubscriberDetails] = None
     payer_details: Optional[PayerDetails] = None
     plan_details: Optional[PlanDetails] = None

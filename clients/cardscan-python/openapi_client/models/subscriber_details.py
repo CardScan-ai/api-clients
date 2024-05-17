@@ -26,13 +26,13 @@ class SubscriberDetails(BaseModel):
     """
     SubscriberDetails
     """
-    member_id: Optional[StrictStr] = Field(None, description="The member ID of the subscriber.")
-    firstname: Optional[StrictStr] = Field(None, description="The first name of the subscriber.")
-    lastname: Optional[StrictStr] = Field(None, description="The last name of the subscriber.")
-    middlename: Optional[StrictStr] = Field(None, description="The middle name of the subscriber.")
-    gender: Optional[StrictStr] = Field(None, description="The gender of the subscriber.")
+    member_id: Optional[StrictStr] = Field(default=None, description="The member ID of the subscriber.")
+    firstname: Optional[StrictStr] = Field(default=None, description="The first name of the subscriber.")
+    lastname: Optional[StrictStr] = Field(default=None, description="The last name of the subscriber.")
+    middlename: Optional[StrictStr] = Field(default=None, description="The middle name of the subscriber.")
+    gender: Optional[StrictStr] = Field(default=None, description="The gender of the subscriber.")
     address: Optional[Address] = None
-    dob: Optional[date] = Field(None, description="The date of birth of the subscriber.")
+    dob: Optional[date] = Field(default=None, description="The date of birth of the subscriber.")
     additional_properties: Dict[str, Any] = {}
     __properties = ["member_id", "firstname", "lastname", "middlename", "gender", "address", "dob"]
 

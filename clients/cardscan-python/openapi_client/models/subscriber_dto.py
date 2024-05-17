@@ -25,9 +25,9 @@ class SubscriberDto(BaseModel):
     """
     SubscriberDto
     """
-    first_name: constr(strict=True, max_length=35, min_length=1) = Field(..., alias="firstName", description="Loop: 2100C and 2100D, Segment: MN1, Element: NM104, Notes: firstName 1-35 alphanumeric characters ")
-    last_name: constr(strict=True, max_length=60, min_length=1) = Field(..., alias="lastName", description="Loop: 2100C and 2100D, Segment: MN1, Element: NM103, Notes: lastName 1-60 alphanumeric characters ")
-    date_of_birth: constr(strict=True) = Field(..., alias="dateOfBirth", description="Loop: 2100C and 2100D, Segment: DMG, Element: DMG02, Notes: date of birth in YYYYMMDD format ")
+    first_name: constr(strict=True, max_length=35, min_length=1) = Field(default=..., alias="firstName", description="Loop: 2100C and 2100D, Segment: MN1, Element: NM104, Notes: firstName 1-35 alphanumeric characters ")
+    last_name: constr(strict=True, max_length=60, min_length=1) = Field(default=..., alias="lastName", description="Loop: 2100C and 2100D, Segment: MN1, Element: NM103, Notes: lastName 1-60 alphanumeric characters ")
+    date_of_birth: constr(strict=True) = Field(default=..., alias="dateOfBirth", description="Loop: 2100C and 2100D, Segment: DMG, Element: DMG02, Notes: date of birth in YYYYMMDD format ")
     additional_properties: Dict[str, Any] = {}
     __properties = ["firstName", "lastName", "dateOfBirth"]
 

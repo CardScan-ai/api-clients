@@ -26,7 +26,7 @@ class PayerDetails(BaseModel):
     """
     PayerDetails
     """
-    payer_name: Optional[StrictStr] = Field(None, description="The name of the payer.")
+    payer_name: Optional[StrictStr] = Field(default=None, description="The name of the payer.")
     address: Optional[Address] = None
     additional_properties: Dict[str, Any] = {}
     __properties = ["payer_name", "address"]

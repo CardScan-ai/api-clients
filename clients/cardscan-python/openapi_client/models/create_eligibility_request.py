@@ -27,7 +27,7 @@ class CreateEligibilityRequest(BaseModel):
     CreateEligibilityRequest
     """
     eligibility: EligibilityInfo = Field(...)
-    card_id: StrictStr = Field(..., description="The ID of the card.")
+    card_id: StrictStr = Field(default=..., description="The ID of the card.")
     additional_properties: Dict[str, Any] = {}
     __properties = ["eligibility", "card_id"]
 

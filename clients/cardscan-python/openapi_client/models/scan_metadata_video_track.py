@@ -25,12 +25,12 @@ class ScanMetadataVideoTrack(BaseModel):
     """
     Video track details  # noqa: E501
     """
-    aspect_ratio: Optional[Union[StrictFloat, StrictInt]] = Field(None, alias="aspectRatio")
-    device_id: Optional[StrictStr] = Field(None, alias="deviceId")
-    frame_rate: Optional[Union[StrictFloat, StrictInt]] = Field(None, alias="frameRate")
-    group_id: Optional[StrictStr] = Field(None, alias="groupId")
+    aspect_ratio: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, alias="aspectRatio")
+    device_id: Optional[StrictStr] = Field(default=None, alias="deviceId")
+    frame_rate: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, alias="frameRate")
+    group_id: Optional[StrictStr] = Field(default=None, alias="groupId")
     height: Optional[StrictInt] = None
-    resize_mode: Optional[StrictStr] = Field(None, alias="resizeMode")
+    resize_mode: Optional[StrictStr] = Field(default=None, alias="resizeMode")
     width: Optional[StrictInt] = None
     additional_properties: Dict[str, Any] = {}
     __properties = ["aspectRatio", "deviceId", "frameRate", "groupId", "height", "resizeMode", "width"]

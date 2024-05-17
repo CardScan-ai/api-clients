@@ -29,7 +29,7 @@ class Service(BaseModel):
     """
     co_insurance_in_network: Optional[CoInsurance] = None
     co_payment_in_network: Optional[CoPayment] = None
-    service_code: Optional[StrictStr] = Field(None, description="The service code.")
+    service_code: Optional[StrictStr] = Field(default=None, description="The service code.")
     additional_properties: Dict[str, Any] = {}
     __properties = ["co_insurance_in_network", "co_payment_in_network", "service_code"]
 

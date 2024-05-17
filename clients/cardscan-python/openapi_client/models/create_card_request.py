@@ -26,8 +26,8 @@ class CreateCardRequest(BaseModel):
     """
     CreateCardRequest
     """
-    enable_backside_scan: Optional[StrictBool] = Field(False, description="Whether to enable backside scanning")
-    enable_livescan: Optional[StrictBool] = Field(False, description="Whether to enable live scanning")
+    enable_backside_scan: Optional[StrictBool] = Field(default=False, description="Whether to enable backside scanning")
+    enable_livescan: Optional[StrictBool] = Field(default=False, description="Whether to enable live scanning")
     backside: Optional[CreateCardRequestBackside] = None
     additional_properties: Dict[str, Any] = {}
     __properties = ["enable_backside_scan", "enable_livescan", "backside"]

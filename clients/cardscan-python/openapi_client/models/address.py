@@ -25,14 +25,14 @@ class Address(BaseModel):
     """
     Address: N3 and N4  # noqa: E501
     """
-    address1: Optional[constr(strict=True, max_length=55, min_length=0)] = Field(None, description="Segment: N3, Element: N301, Notes: Required, Address Information")
-    address2: Optional[constr(strict=True, max_length=55, min_length=0)] = Field(None, description="Segment: N3, Element: N302, Notes: Address Information")
-    city: Optional[constr(strict=True, max_length=30, min_length=0)] = Field(None, description="Segment: N4, Element: N401, Notes: Required, city")
-    state: Optional[constr(strict=True, max_length=2, min_length=0)] = Field(None, description="Segment: N4, Element: N402, Notes: state example: TN, WA")
-    postal_code: Optional[constr(strict=True, max_length=15, min_length=0)] = Field(None, alias="postalCode", description="Segment: N4, Element: N403")
-    country_code: Optional[StrictStr] = Field(None, alias="countryCode", description="Segment: N4, Element: N404")
-    location_identifier: Optional[StrictStr] = Field(None, alias="locationIdentifier", description="Segment: N4, Element: N406")
-    country_sub_division_code: Optional[StrictStr] = Field(None, alias="countrySubDivisionCode", description="Segment: N4, Element: N407, Notes: Country SubDivision Code")
+    address1: Optional[constr(strict=True, max_length=55, min_length=0)] = Field(default=None, description="Segment: N3, Element: N301, Notes: Required, Address Information")
+    address2: Optional[constr(strict=True, max_length=55, min_length=0)] = Field(default=None, description="Segment: N3, Element: N302, Notes: Address Information")
+    city: Optional[constr(strict=True, max_length=30, min_length=0)] = Field(default=None, description="Segment: N4, Element: N401, Notes: Required, city")
+    state: Optional[constr(strict=True, max_length=2, min_length=0)] = Field(default=None, description="Segment: N4, Element: N402, Notes: state example: TN, WA")
+    postal_code: Optional[constr(strict=True, max_length=15, min_length=0)] = Field(default=None, alias="postalCode", description="Segment: N4, Element: N403")
+    country_code: Optional[StrictStr] = Field(default=None, alias="countryCode", description="Segment: N4, Element: N404")
+    location_identifier: Optional[StrictStr] = Field(default=None, alias="locationIdentifier", description="Segment: N4, Element: N406")
+    country_sub_division_code: Optional[StrictStr] = Field(default=None, alias="countrySubDivisionCode", description="Segment: N4, Element: N407, Notes: Country SubDivision Code")
     additional_properties: Dict[str, Any] = {}
     __properties = ["address1", "address2", "city", "state", "postalCode", "countryCode", "locationIdentifier", "countrySubDivisionCode"]
 

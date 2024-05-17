@@ -31,7 +31,7 @@ class CardApiResponse(BaseModel):
     """
     card_id: StrictStr = Field(...)
     state: CardState = Field(...)
-    created_at: datetime = Field(..., description="The timestamp when the eligibility response was created.")
+    created_at: datetime = Field(default=..., description="The timestamp when the eligibility response was created.")
     error: Optional[ApiErrorResponse] = None
     images: Optional[CardApiResponseImages] = None
     deleted: StrictBool = Field(...)

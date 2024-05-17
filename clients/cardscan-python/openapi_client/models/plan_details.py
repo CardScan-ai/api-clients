@@ -25,13 +25,13 @@ class PlanDetails(BaseModel):
     """
     PlanDetails
     """
-    plan_number: Optional[StrictStr] = Field(None, description="The plan number.")
-    group_name: Optional[StrictStr] = Field(None, description="The name of the group associated with the plan.")
-    group_number: Optional[StrictStr] = Field(None, description="The group number.")
-    plan_start_date: Optional[date] = Field(None, description="The start date of the plan.")
-    plan_eligibility_start_date: Optional[date] = Field(None, description="The eligibility start date of the plan.")
-    plan_name: Optional[StrictStr] = Field(None, description="The name of the plan.")
-    plan_active: Optional[StrictBool] = Field(None, description="Indicates whether the plan is active.")
+    plan_number: Optional[StrictStr] = Field(default=None, description="The plan number.")
+    group_name: Optional[StrictStr] = Field(default=None, description="The name of the group associated with the plan.")
+    group_number: Optional[StrictStr] = Field(default=None, description="The group number.")
+    plan_start_date: Optional[date] = Field(default=None, description="The start date of the plan.")
+    plan_eligibility_start_date: Optional[date] = Field(default=None, description="The eligibility start date of the plan.")
+    plan_name: Optional[StrictStr] = Field(default=None, description="The name of the plan.")
+    plan_active: Optional[StrictBool] = Field(default=None, description="Indicates whether the plan is active.")
     additional_properties: Dict[str, Any] = {}
     __properties = ["plan_number", "group_name", "group_number", "plan_start_date", "plan_eligibility_start_date", "plan_name", "plan_active"]
 

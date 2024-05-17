@@ -27,8 +27,8 @@ class EligibilityApiResponseEligibilityRequest(BaseModel):
     """
     The eligibility request.  # noqa: E501
     """
-    control_number: Optional[StrictStr] = Field(None, alias="controlNumber", description="The control number of the claim.")
-    trading_partner_service_id: Optional[StrictStr] = Field(None, alias="tradingPartnerServiceId", description="The ID of the trading partner service.")
+    control_number: Optional[StrictStr] = Field(default=None, alias="controlNumber", description="The control number of the claim.")
+    trading_partner_service_id: Optional[StrictStr] = Field(default=None, alias="tradingPartnerServiceId", description="The ID of the trading partner service.")
     provider: Optional[ProviderDto] = None
     subscriber: Optional[SubscriberDto] = None
     additional_properties: Dict[str, Any] = {}

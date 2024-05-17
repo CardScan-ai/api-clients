@@ -25,9 +25,9 @@ class GenerateMagicLink200Response(BaseModel):
     """
     GenerateMagicLink200Response
     """
-    magic_link: StrictStr = Field(..., description="The URL of the magic link")
-    token: StrictStr = Field(..., description="The token associated with the magic link")
-    expires_at: datetime = Field(..., description="The expiration date and time of the magic link")
+    magic_link: StrictStr = Field(default=..., description="The URL of the magic link")
+    token: StrictStr = Field(default=..., description="The token associated with the magic link")
+    expires_at: datetime = Field(default=..., description="The expiration date and time of the magic link")
     additional_properties: Dict[str, Any] = {}
     __properties = ["magic_link", "token", "expires_at"]
 

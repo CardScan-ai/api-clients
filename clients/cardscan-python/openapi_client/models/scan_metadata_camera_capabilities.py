@@ -26,13 +26,13 @@ class ScanMetadataCameraCapabilities(BaseModel):
     """
     Camera capabilities  # noqa: E501
     """
-    aspect_ratio: Optional[ScanMetadataCameraCapabilitiesAspectRatio] = Field(None, alias="aspectRatio")
-    device_id: Optional[StrictStr] = Field(None, alias="deviceId")
-    facing_mode: Optional[conlist(StrictStr)] = Field(None, alias="facingMode")
-    frame_rate: Optional[ScanMetadataCameraCapabilitiesAspectRatio] = Field(None, alias="frameRate")
-    group_id: Optional[StrictStr] = Field(None, alias="groupId")
+    aspect_ratio: Optional[ScanMetadataCameraCapabilitiesAspectRatio] = Field(default=None, alias="aspectRatio")
+    device_id: Optional[StrictStr] = Field(default=None, alias="deviceId")
+    facing_mode: Optional[conlist(StrictStr)] = Field(default=None, alias="facingMode")
+    frame_rate: Optional[ScanMetadataCameraCapabilitiesAspectRatio] = Field(default=None, alias="frameRate")
+    group_id: Optional[StrictStr] = Field(default=None, alias="groupId")
     height: Optional[ScanMetadataCameraCapabilitiesAspectRatio] = None
-    resize_mode: Optional[conlist(StrictStr)] = Field(None, alias="resizeMode")
+    resize_mode: Optional[conlist(StrictStr)] = Field(default=None, alias="resizeMode")
     width: Optional[ScanMetadataCameraCapabilitiesAspectRatio] = None
     additional_properties: Dict[str, Any] = {}
     __properties = ["aspectRatio", "deviceId", "facingMode", "frameRate", "groupId", "height", "resizeMode", "width"]

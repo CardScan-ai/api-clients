@@ -22,22 +22,20 @@ from typing import Any, Dict, Optional
 from pydantic import BaseModel, Field, StrictStr, validator
 from openapi_client.models.eligibility_api_response_eligibility_request import EligibilityApiResponseEligibilityRequest
 from openapi_client.models.eligibility_api_response_error import EligibilityApiResponseError
-from openapi_client.models.eligibility_summarized_response import EligibilitySummarizedResponse
-from openapi_client.models.response import Response
 
 class EligibilityApiResponse(BaseModel):
     """
     EligibilityApiResponse
     """
-    eligibility_id: StrictStr = Field(..., description="The ID of the eligibility record.")
-    state: StrictStr = Field(..., description="The state of the eligibility record.")
-    card_id: StrictStr = Field(..., description="The ID of the card.")
+    eligibility_id: StrictStr = Field(default=..., description="The ID of the eligibility record.")
+    state: StrictStr = Field(default=..., description="The state of the eligibility record.")
+    card_id: StrictStr = Field(default=..., description="The ID of the card.")
     eligibility_request: Optional[EligibilityApiResponseEligibilityRequest] = None
-    eligibility_response: Optional[Response] = None
-    eligibility_summarized_response: Optional[EligibilitySummarizedResponse] = None
+    eligibility_response: Optional[Dict[str, Any]] = Field(default=None, description="The eligibility raw response.")
+    eligibility_summarized_response: Optional[Dict[str, Any]] = Field(default=None, description="The eligibility summarized response.")
     error: Optional[EligibilityApiResponseError] = None
-    created_at: datetime = Field(..., description="The timestamp when the eligibility record was created.")
-    update_at: datetime = Field(..., description="The timestamp when the eligibility record was last updated.")
+    created_at: datetime = Field(default=..., description="The timestamp when the eligibility record was created.")
+    update_at: datetime = Field(default=..., description="The timestamp when the eligibility record was last updated.")
     additional_properties: Dict[str, Any] = {}
     __properties = ["eligibility_id", "state", "card_id", "eligibility_request", "eligibility_response", "eligibility_summarized_response", "error", "created_at", "update_at"]
 
@@ -76,12 +74,6 @@ class EligibilityApiResponse(BaseModel):
         # override the default output from pydantic by calling `to_dict()` of eligibility_request
         if self.eligibility_request:
             _dict['eligibility_request'] = self.eligibility_request.to_dict()
-        # override the default output from pydantic by calling `to_dict()` of eligibility_response
-        if self.eligibility_response:
-            _dict['eligibility_response'] = self.eligibility_response.to_dict()
-        # override the default output from pydantic by calling `to_dict()` of eligibility_summarized_response
-        if self.eligibility_summarized_response:
-            _dict['eligibility_summarized_response'] = self.eligibility_summarized_response.to_dict()
         # override the default output from pydantic by calling `to_dict()` of error
         if self.error:
             _dict['error'] = self.error.to_dict()
@@ -89,6 +81,16 @@ class EligibilityApiResponse(BaseModel):
         if self.additional_properties is not None:
             for _key, _value in self.additional_properties.items():
                 _dict[_key] = _value
+
+        # set to None if eligibility_response (nullable) is None
+        # and __fields_set__ contains the field
+        if self.eligibility_response is None and "eligibility_response" in self.__fields_set__:
+            _dict['eligibility_response'] = None
+
+        # set to None if eligibility_summarized_response (nullable) is None
+        # and __fields_set__ contains the field
+        if self.eligibility_summarized_response is None and "eligibility_summarized_response" in self.__fields_set__:
+            _dict['eligibility_summarized_response'] = None
 
         # set to None if error (nullable) is None
         # and __fields_set__ contains the field
@@ -111,8 +113,8 @@ class EligibilityApiResponse(BaseModel):
             "state": obj.get("state"),
             "card_id": obj.get("card_id"),
             "eligibility_request": EligibilityApiResponseEligibilityRequest.from_dict(obj.get("eligibility_request")) if obj.get("eligibility_request") is not None else None,
-            "eligibility_response": Response.from_dict(obj.get("eligibility_response")) if obj.get("eligibility_response") is not None else None,
-            "eligibility_summarized_response": EligibilitySummarizedResponse.from_dict(obj.get("eligibility_summarized_response")) if obj.get("eligibility_summarized_response") is not None else None,
+            "eligibility_response": obj.get("eligibility_response"),
+            "eligibility_summarized_response": obj.get("eligibility_summarized_response"),
             "error": EligibilityApiResponseError.from_dict(obj.get("error")) if obj.get("error") is not None else None,
             "created_at": obj.get("created_at"),
             "update_at": obj.get("update_at")

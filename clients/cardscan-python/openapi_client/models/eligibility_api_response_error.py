@@ -25,9 +25,9 @@ class EligibilityApiResponseError(BaseModel):
     """
     Details about any error that occurred during the request. (Only first error)  # noqa: E501
     """
-    type: Optional[StrictStr] = Field(None, description="The type of error.")
-    code: Optional[StrictStr] = Field(None, description="The error code.")
-    message: Optional[StrictStr] = Field(None, description="A message describing the error.")
+    type: Optional[StrictStr] = Field(default=None, description="The type of error.")
+    code: Optional[StrictStr] = Field(default=None, description="The error code.")
+    message: Optional[StrictStr] = Field(default=None, description="A message describing the error.")
     additional_properties: Dict[str, Any] = {}
     __properties = ["type", "code", "message"]
 

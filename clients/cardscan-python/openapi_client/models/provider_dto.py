@@ -25,9 +25,9 @@ class ProviderDto(BaseModel):
     """
     ProviderDto
     """
-    first_name: constr(strict=True, max_length=35, min_length=1) = Field(..., alias="firstName", description="Loop: 2100B Segment: MN1, Element: NM104, Notes: NM101=PR when providerType='payer' && payerId is present otherwise 1P for Provider, NM102=1 Person, firstName 1-35 alphanumeric characters ")
-    last_name: constr(strict=True, max_length=60, min_length=1) = Field(..., alias="lastName", description="Loop: 2100B Segment: MN1, Element: NM103, Notes: NM101=PR when providerType='payer' && payerId is present otherwise 1P for Provider, NM102=1 Person, lastName 1-60 alphanumeric characters ")
-    npi: constr(strict=True, max_length=80, min_length=1) = Field(..., description="Loop: 2100B Segment: MN1, Element: NM109, Notes: NM108=XX Centers for Medicare and Medicaid Services National Provider Identifier 2-80 alphanumeric characters ")
+    first_name: constr(strict=True, max_length=35, min_length=1) = Field(default=..., alias="firstName", description="Loop: 2100B Segment: MN1, Element: NM104, Notes: NM101=PR when providerType='payer' && payerId is present otherwise 1P for Provider, NM102=1 Person, firstName 1-35 alphanumeric characters ")
+    last_name: constr(strict=True, max_length=60, min_length=1) = Field(default=..., alias="lastName", description="Loop: 2100B Segment: MN1, Element: NM103, Notes: NM101=PR when providerType='payer' && payerId is present otherwise 1P for Provider, NM102=1 Person, lastName 1-60 alphanumeric characters ")
+    npi: constr(strict=True, max_length=80, min_length=1) = Field(default=..., description="Loop: 2100B Segment: MN1, Element: NM109, Notes: NM108=XX Centers for Medicare and Medicaid Services National Provider Identifier 2-80 alphanumeric characters ")
     additional_properties: Dict[str, Any] = {}
     __properties = ["firstName", "lastName", "npi"]
 

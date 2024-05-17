@@ -25,13 +25,13 @@ class UploadParameters(BaseModel):
     """
     UploadParameters
     """
-    key: StrictStr = Field(..., description="The key of the file")
-    x_amz_algorithm: StrictStr = Field(..., alias="x-amz-algorithm", description="The algorithm used to sign the request")
-    x_amz_credential: StrictStr = Field(..., alias="x-amz-credential", description="The credential used to sign the request")
-    x_amz_date: StrictStr = Field(..., alias="x-amz-date", description="The date of the request")
-    x_amz_security_token: StrictStr = Field(..., alias="x-amz-security-token", description="The security token used to sign the request")
-    policy: StrictStr = Field(..., description="The policy used to sign the request")
-    x_amz_signature: StrictStr = Field(..., alias="x-amz-signature", description="The signature used to sign the request")
+    key: StrictStr = Field(default=..., description="The key of the file")
+    x_amz_algorithm: StrictStr = Field(default=..., alias="x-amz-algorithm", description="The algorithm used to sign the request")
+    x_amz_credential: StrictStr = Field(default=..., alias="x-amz-credential", description="The credential used to sign the request")
+    x_amz_date: StrictStr = Field(default=..., alias="x-amz-date", description="The date of the request")
+    x_amz_security_token: StrictStr = Field(default=..., alias="x-amz-security-token", description="The security token used to sign the request")
+    policy: StrictStr = Field(default=..., description="The policy used to sign the request")
+    x_amz_signature: StrictStr = Field(default=..., alias="x-amz-signature", description="The signature used to sign the request")
     additional_properties: Dict[str, Any] = {}
     __properties = ["key", "x-amz-algorithm", "x-amz-credential", "x-amz-date", "x-amz-security-token", "policy", "x-amz-signature"]
 

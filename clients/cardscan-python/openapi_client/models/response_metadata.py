@@ -25,9 +25,9 @@ class ResponseMetadata(BaseModel):
     """
     ResponseMetadata
     """
-    cursor: Optional[StrictStr] = Field(None, description="The cursor for the next page of results.")
-    limit: Optional[StrictInt] = Field(None, description="The maximum number of items to return.")
-    total: Optional[StrictInt] = Field(None, description="The total number of items available.")
+    cursor: Optional[StrictStr] = Field(default=None, description="The cursor for the next page of results.")
+    limit: Optional[StrictInt] = Field(default=None, description="The maximum number of items to return.")
+    total: Optional[StrictInt] = Field(default=None, description="The total number of items available.")
     additional_properties: Dict[str, Any] = {}
     __properties = ["cursor", "limit", "total"]
 

@@ -25,7 +25,7 @@ class CardApiResponseImagesFront(BaseModel):
     """
     CardApiResponseImagesFront
     """
-    url: Optional[StrictStr] = Field(None, description="The URL to the front image of the card.")
+    url: Optional[StrictStr] = Field(default=None, description="The URL to the front image of the card.")
     additional_properties: Dict[str, Any] = {}
     __properties = ["url"]
 

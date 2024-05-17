@@ -25,7 +25,7 @@ class CoInsurance(BaseModel):
     """
     CoInsurance
     """
-    amount: Optional[StrictStr] = Field(None, description="The co-insurance amount.")
+    amount: Optional[StrictStr] = Field(default=None, description="The co-insurance amount.")
     additional_properties: Dict[str, Any] = {}
     __properties = ["amount"]
 

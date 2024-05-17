@@ -25,7 +25,7 @@ class CoPayment(BaseModel):
     """
     CoPayment
     """
-    amount: Optional[StrictStr] = Field(None, description="The co-payment amount.")
+    amount: Optional[StrictStr] = Field(default=None, description="The co-payment amount.")
     additional_properties: Dict[str, Any] = {}
     __properties = ["amount"]
 

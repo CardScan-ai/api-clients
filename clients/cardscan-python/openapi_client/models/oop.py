@@ -25,8 +25,8 @@ class OOP(BaseModel):
     """
     OOP
     """
-    total_amount: Optional[StrictStr] = Field(None, description="The total out-of-pocket amount.")
-    remaining_amount: Optional[StrictStr] = Field(None, description="The remaining out-of-pocket amount.")
+    total_amount: Optional[StrictStr] = Field(default=None, description="The total out-of-pocket amount.")
+    remaining_amount: Optional[StrictStr] = Field(default=None, description="The remaining out-of-pocket amount.")
     additional_properties: Dict[str, Any] = {}
     __properties = ["total_amount", "remaining_amount"]
 

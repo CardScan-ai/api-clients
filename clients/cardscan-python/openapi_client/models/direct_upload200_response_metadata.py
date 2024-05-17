@@ -25,7 +25,7 @@ class DirectUpload200ResponseMetadata(BaseModel):
     """
     DirectUpload200ResponseMetadata
     """
-    ocr_latency: Optional[StrictStr] = Field(None, description="OCR latency in milliseconds")
+    ocr_latency: Optional[StrictStr] = Field(default=None, description="OCR latency in milliseconds")
     additional_properties: Dict[str, Any] = {}
     __properties = ["ocr_latency"]
 

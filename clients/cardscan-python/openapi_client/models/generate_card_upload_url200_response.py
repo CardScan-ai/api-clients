@@ -28,7 +28,7 @@ class GenerateCardUploadUrl200Response(BaseModel):
     """
     card_id: StrictStr = Field(...)
     scan_id: StrictStr = Field(...)
-    upload_url: StrictStr = Field(..., description="The URL to upload the card image.")
+    upload_url: StrictStr = Field(default=..., description="The URL to upload the card image.")
     upload_parameters: UploadParameters = Field(...)
     additional_properties: Dict[str, Any] = {}
     __properties = ["card_id", "scan_id", "upload_url", "upload_parameters"]

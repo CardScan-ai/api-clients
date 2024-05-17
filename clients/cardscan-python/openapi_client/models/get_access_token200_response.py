@@ -25,9 +25,9 @@ class GetAccessToken200Response(BaseModel):
     """
     GetAccessToken200Response
     """
-    token: StrictStr = Field(..., alias="Token", description="The access token.")
-    identity_id: StrictStr = Field(..., alias="IdentityId", description="The identity ID.")
-    session_id: Optional[StrictStr] = Field(None, description="The session ID.")
+    token: StrictStr = Field(default=..., alias="Token", description="The access token.")
+    identity_id: StrictStr = Field(default=..., alias="IdentityId", description="The identity ID.")
+    session_id: Optional[StrictStr] = Field(default=None, description="The session ID.")
     additional_properties: Dict[str, Any] = {}
     __properties = ["Token", "IdentityId", "session_id"]
 

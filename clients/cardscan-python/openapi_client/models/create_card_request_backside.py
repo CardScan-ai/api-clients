@@ -25,7 +25,7 @@ class CreateCardRequestBackside(BaseModel):
     """
     CreateCardRequestBackside
     """
-    scanning: Optional[StrictStr] = Field('disabled', description="The scanning mode")
+    scanning: Optional[StrictStr] = Field(default='disabled', description="The scanning mode")
     additional_properties: Dict[str, Any] = {}
     __properties = ["scanning"]
 

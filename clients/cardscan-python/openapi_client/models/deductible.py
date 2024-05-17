@@ -25,8 +25,8 @@ class Deductible(BaseModel):
     """
     Deductible
     """
-    total_amount: Optional[StrictStr] = Field(None, description="The total deductible amount.")
-    remaining_amount: Optional[StrictStr] = Field(None, description="The remaining deductible amount.")
+    total_amount: Optional[StrictStr] = Field(default=None, description="The total deductible amount.")
+    remaining_amount: Optional[StrictStr] = Field(default=None, description="The remaining deductible amount.")
     additional_properties: Dict[str, Any] = {}
     __properties = ["total_amount", "remaining_amount"]
 

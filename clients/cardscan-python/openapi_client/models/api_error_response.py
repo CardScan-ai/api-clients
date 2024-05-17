@@ -25,9 +25,9 @@ class ApiErrorResponse(BaseModel):
     """
     ApiErrorResponse
     """
-    message: Optional[StrictStr] = Field(None, description="A message describing the error.")
-    type: Optional[StrictStr] = Field(None, description="The type of error.")
-    code: Optional[Union[StrictFloat, StrictInt]] = Field(None, description="The error code.")
+    message: Optional[StrictStr] = Field(default=None, description="A message describing the error.")
+    type: Optional[StrictStr] = Field(default=None, description="The type of error.")
+    code: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="The error code.")
     additional_properties: Dict[str, Any] = {}
     __properties = ["message", "type", "code"]
 

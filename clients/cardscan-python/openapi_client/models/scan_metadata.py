@@ -32,17 +32,17 @@ class ScanMetadata(BaseModel):
     """
     ScanMetadata
     """
-    capture_type: Optional[StrictStr] = Field(None, alias="captureType", description="The type of capture (automatic or manual)")
+    capture_type: Optional[StrictStr] = Field(default=None, alias="captureType", description="The type of capture (automatic or manual)")
     guides: Optional[ScanMetadataGuides] = None
-    capture_canvas: Optional[ScanMetadataCaptureCanvas] = Field(None, alias="captureCanvas")
-    video_background: Optional[ScanMetadataVideoBackground] = Field(None, alias="videoBackground")
-    window_inner: Optional[ScanMetadataWindowInner] = Field(None, alias="windowInner")
-    ml_threshold: Optional[Union[StrictFloat, StrictInt]] = Field(None, alias="mlThreshold", description="Threshold for machine learning")
-    laplacian_threshold: Optional[Union[StrictFloat, StrictInt]] = Field(None, alias="laplacianThreshold", description="Threshold for Laplacian edge detection")
-    package_name: Optional[StrictStr] = Field(None, description="Name of the package")
-    package_version: Optional[StrictStr] = Field(None, description="Version of the package")
-    video_track: Optional[ScanMetadataVideoTrack] = Field(None, alias="videoTrack")
-    camera_capabilities: Optional[ScanMetadataCameraCapabilities] = Field(None, alias="cameraCapabilities")
+    capture_canvas: Optional[ScanMetadataCaptureCanvas] = Field(default=None, alias="captureCanvas")
+    video_background: Optional[ScanMetadataVideoBackground] = Field(default=None, alias="videoBackground")
+    window_inner: Optional[ScanMetadataWindowInner] = Field(default=None, alias="windowInner")
+    ml_threshold: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, alias="mlThreshold", description="Threshold for machine learning")
+    laplacian_threshold: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, alias="laplacianThreshold", description="Threshold for Laplacian edge detection")
+    package_name: Optional[StrictStr] = Field(default=None, description="Name of the package")
+    package_version: Optional[StrictStr] = Field(default=None, description="Version of the package")
+    video_track: Optional[ScanMetadataVideoTrack] = Field(default=None, alias="videoTrack")
+    camera_capabilities: Optional[ScanMetadataCameraCapabilities] = Field(default=None, alias="cameraCapabilities")
     capture_score: Optional[ScanMetadataCaptureScore] = None
     additional_properties: Dict[str, Any] = {}
     __properties = ["captureType", "guides", "captureCanvas", "videoBackground", "windowInner", "mlThreshold", "laplacianThreshold", "package_name", "package_version", "videoTrack", "cameraCapabilities", "capture_score"]

@@ -25,7 +25,7 @@ class MatchScore(BaseModel):
     """
     MatchScore
     """
-    value: Optional[Union[StrictFloat, StrictInt]] = Field(None, description="The matching score value of the card.")
+    value: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="The matching score value of the card.")
     scores: Optional[conlist(StrictStr)] = None
     additional_properties: Dict[str, Any] = {}
     __properties = ["value", "scores"]

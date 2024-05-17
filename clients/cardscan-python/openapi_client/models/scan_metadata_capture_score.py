@@ -26,8 +26,8 @@ class ScanMetadataCaptureScore(BaseModel):
     """
     ScanMetadataCaptureScore
     """
-    scores: Optional[conlist(ScanMetadataCaptureScoreScoresInner)] = Field(None, description="List of capture scores")
-    max_lap_score: Optional[Union[StrictFloat, StrictInt]] = Field(None, alias="max_lapScore", description="Maximum Laplacian score")
+    scores: Optional[conlist(ScanMetadataCaptureScoreScoresInner)] = Field(default=None, description="List of capture scores")
+    max_lap_score: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, alias="max_lapScore", description="Maximum Laplacian score")
     additional_properties: Dict[str, Any] = {}
     __properties = ["scores", "max_lapScore"]
 

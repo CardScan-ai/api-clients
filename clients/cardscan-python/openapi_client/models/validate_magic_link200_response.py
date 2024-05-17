@@ -25,8 +25,8 @@ class ValidateMagicLink200Response(BaseModel):
     """
     ValidateMagicLink200Response
     """
-    token: StrictStr = Field(..., alias="Token", description="The token associated with the magic link")
-    identity_id: StrictStr = Field(..., alias="IdentityId", description="The identity ID.")
+    token: StrictStr = Field(default=..., alias="Token", description="The token associated with the magic link")
+    identity_id: StrictStr = Field(default=..., alias="IdentityId", description="The identity ID.")
     additional_properties: Dict[str, Any] = {}
     __properties = ["Token", "IdentityId"]
 
