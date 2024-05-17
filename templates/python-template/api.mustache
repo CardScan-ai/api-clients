@@ -203,38 +203,6 @@ class {{classname}}:
 
         return completion_future.result()
 
-
-    async def check_eligibility(
-        self, create_eligibility_request: CreateEligibilityRequest
-    ) -> EligibilityWebsocketEvent:
-        if not self.websocket_url:
-            raise ValueError("This method cannot be called without a websocket URL.")
-
-        response = self.create_eligibility(create_eligibility_request)
-
-        completion_future = asyncio.Future()
-
-        async with websockets.connect(self.websocket_url) as ws:
-            await ws.send(
-                json.dumps({"card_id": response.card_id, "action": "register"})
-            )
-
-            async for message in ws:
-                event = json.loads(message)
-
-                if event["state"] == EligibilityState.COMPLETED:
-                    completion_future.set_result(
-                        EligibilityWebsocketEvent.from_dict(event)
-                    )
-                    await ws.close()
-                elif event["state"] == EligibilityState.ERROR:
-                    completion_future.set_exception(
-                        Exception(f"Eligibility check failed: {event['error']}")
-                    )
-                    await ws.close()
-
-        return completion_future.result()
-
 {{#operation}}
 
     @validate_arguments
