@@ -23,7 +23,7 @@ export interface MatchScore {
    * @type {number}
    * @memberof MatchScore
    */
-  value?: number;
+  value?: string;
   /**
    *
    * @type {Array<string>}

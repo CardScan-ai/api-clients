@@ -1042,10 +1042,12 @@ components:
       type: string
       enum:
         - pending
+        - processing
         - frontside_processing
         - frontside_failed
         - backside_processing
         - backside_failed
+        - post_processing
         - completed
         - error
         - unknown
@@ -1061,7 +1063,7 @@ components:
       type: object
       properties:
         value:
-          type: number
+          type: string
           description: The matching score value of the card.
         scores:
           type: array

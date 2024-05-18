@@ -30,10 +30,12 @@ class CardState(str, Enum):
     allowed enum values
     """
     PENDING = 'pending'
+    PROCESSING = 'processing'
     FRONTSIDE_PROCESSING = 'frontside_processing'
     FRONTSIDE_FAILED = 'frontside_failed'
     BACKSIDE_PROCESSING = 'backside_processing'
     BACKSIDE_FAILED = 'backside_failed'
+    POST_PROCESSING = 'post_processing'
     COMPLETED = 'completed'
     ERROR = 'error'
     UNKNOWN = 'unknown'

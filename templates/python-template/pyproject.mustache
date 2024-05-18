@@ -1,13 +1,12 @@
 [tool.poetry]
-name = "{{{packageName}}}"
-version = "{{{packageVersion}}}"
-description = "{{{appName}}}"
-authors = ["{{infoName}}{{^infoName}}OpenAPI Generator Community{{/infoName}} <{{infoEmail}}{{^infoEmail}}team@openapitools.org{{/infoEmail}}>"]
-license = "{{{licenseInfo}}}{{^licenseInfo}}NoLicense{{/licenseInfo}}"
+name = "cardscan-client"
+version = "0.0.1"
+description = "Python CardScan API client",
+authors = ["Team CardScan <dev@cardscan.ai>"]
+license = "SEE LICENSE IN LICENSE.md"
 readme = "README.md"
-repository = "https://github.com/{{{gitUserId}}}/{{{gitRepoId}}}"
-keywords = ["OpenAPI", "OpenAPI-Generator", "{{{appName}}}"]
-include = ["{{packageName}}/py.typed"]
+repository = "https://github.com/CardScan-ai/api-clients.git"
+keywords = ["CardScan", "CardScan client", "CardScan API client"],
 
 [tool.poetry.dependencies]
 python = "^3.7"
