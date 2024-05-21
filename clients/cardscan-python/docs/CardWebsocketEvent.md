@@ -15,7 +15,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```python
-from openapi_client.models.card_websocket_event import CardWebsocketEvent
+from cardscan_client.models.card_websocket_event import CardWebsocketEvent
 
 # TODO update the JSON string below
 json = "{}"

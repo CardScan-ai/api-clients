@@ -15,10 +15,10 @@ import asyncio
 import json
 import websockets
 
-from openapi_client.models.card_websocket_event import CardWebsocketEvent
-from openapi_client.models.eligibility_websocket_event import EligibilityWebsocketEvent
-from openapi_client.models.card_state import CardState
-from openapi_client.models.eligibility_state import EligibilityState
+from {{packageName}}.models.card_websocket_event import CardWebsocketEvent
+from {{packageName}}.models.eligibility_websocket_event import EligibilityWebsocketEvent
+from {{packageName}}.models.card_state import CardState
+from {{packageName}}.models.eligibility_state import EligibilityState
 
 {{#imports}}
 {{import}}
@@ -64,84 +64,69 @@ class {{classname}}:
         if not self.websocket_url:
             raise ValueError("This method cannot be called without a websocket URL.")
 
-        response = self.create_card(
+        response = await self.create_card(
             CreateCardRequest(enable_livescan=False, enable_backside_scan=True)
         )
 
-        completion_future = asyncio.Future()
+        result = None
 
         async with websockets.connect(self.websocket_url) as ws:
             await ws.send(
                 json.dumps({"card_id": response.card_id, "action": "register"})
             )
 
-            front_upload_url_response = self.generate_card_upload_url(
+            front_upload_url_response = await self.generate_card_upload_url(
                 response.card_id,
                 3600,
                 GenerateCardUploadUrlRequest(orientation=ScanOrientation.FRONT),
             )
 
-            try:
-                upload_params = front_upload_url_response.upload_parameters.to_dict()
+            upload_params = front_upload_url_response.upload_parameters.to_dict()
 
-                self.api_client.call_api(
-                    "",
-                    "POST",
-                    _host=front_upload_url_response.upload_url,
-                    post_params=list(upload_params.items()),
-                    files={"file": front_image_path},
-                    header_params={"Content-Type": "multipart/form-data"},
-                    _preload_content=False,
-                )
+            await self.api_client.call_api(
+                "",
+                "POST",
+                _host=front_upload_url_response.upload_url,
+                post_params=list(upload_params.items()),
+                files={"file": front_image_path},
+                header_params={"Content-Type": "multipart/form-data"},
+                response_types_map={}
+            )
 
-            except Exception as e:
-                completion_future.set_exception(e)
-                await ws.close()
 
             front_side_rejection_states = [
                 CardState.FRONTSIDE_FAILED,
                 CardState.ERROR,
             ]
 
-            front_side_future = asyncio.Future()
-
             async for message in ws:
                 event = json.loads(message)
 
                 if event["state"] in front_side_rejection_states:
-                    front_side_future.set_exception(
-                        Exception(
+                    raise Exception(
                             f"Front side failed: {event.get('error', {}).get('message', 'Unknown error')}"
                         )
-                    )
-                    break
 
                 if event["state"] == CardState.BACKSIDE_PROCESSING and event["type"] == "card":
-                    completion_future.set_result(CardWebsocketEvent.from_dict(event))
                     break
 
-            back_upload_url_response = self.generate_card_upload_url(
+            back_upload_url_response = await self.generate_card_upload_url(
                 response.card_id,
                 3600,
                 GenerateCardUploadUrlRequest(orientation=ScanOrientation.BACK),
             )
 
-            try:
-                self.api_client.call_api(
-                    '',
-                    "POST",
-                    _host=back_upload_url_response.upload_url,
-                    post_params=list(back_upload_url_response.upload_parameters.to_dict().items()),
-                    files={
-                        "file": back_image_path,
-                    },
-                    header_params={"Content-Type": "multipart/form-data"},
-                    _preload_content=False,
-                )
-
-            except Exception as e:
-                completion_future.set_exception(e)
-                await ws.close()
+            await self.api_client.call_api(
+                '',
+                "POST",
+                _host=back_upload_url_response.upload_url,
+                post_params=list(back_upload_url_response.upload_parameters.to_dict().items()),
+                files={
+                    "file": back_image_path,
+                },
+                header_params={"Content-Type": "multipart/form-data"},
+                response_types_map={}
+            )
 
             back_side_rejection_states = [
                 CardState.BACKSIDE_FAILED,
@@ -152,20 +137,17 @@ class {{classname}}:
                 event = json.loads(message)
 
                 if event["state"] in back_side_rejection_states:
-                    completion_future.set_exception(
-                        Exception(
+                    raise Exception(
                             f"Back side failed: {event.get('error', {}).get('message', 'Unknown error')}"
-                        )
                     )
-                    break
 
                 if event["state"] == CardState.COMPLETED and event["type"] == "card":
-                    completion_future.set_result(CardWebsocketEvent.from_dict(event))
+                    result = CardWebsocketEvent.from_dict(event)
                     break
 
             await ws.close()
 
-        return completion_future.result()
+        return result
 
     async def check_eligibility(
         self, create_eligibility_request: CreateEligibilityRequest
@@ -173,9 +155,9 @@ class {{classname}}:
         if not self.websocket_url:
             raise ValueError("This method cannot be called without a websocket URL.")
 
-        response = self.create_eligibility(create_eligibility_request)
+        response = await self.create_eligibility(create_eligibility_request)
 
-        completion_future = asyncio.Future()
+        result = None
 
         async with websockets.connect(self.websocket_url) as ws:
             await ws.send(
@@ -186,15 +168,12 @@ class {{classname}}:
                 event = json.loads(message)
 
                 if event["state"] == EligibilityState.COMPLETED:
-                    completion_future.set_result(EligibilityWebsocketEvent.from_dict(event))
-                    await ws.close()
+                    result = EligibilityWebsocketEvent.from_dict(event)
+                    break
                 elif event["state"] == EligibilityState.ERROR:
-                    completion_future.set_exception(
-                        Exception(f"Eligibility check failed: {event['error']}")
-                    )
-                    await ws.close()
+                    raise Exception(f"Eligibility check failed: {event['error']}")
 
-        return completion_future.result()
+        return result
 
 {{#operation}}
 

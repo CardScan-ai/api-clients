@@ -15,7 +15,7 @@
 import unittest
 import datetime
 
-from openapi_client.models.create_card_request_backside import CreateCardRequestBackside  # noqa: E501
+from cardscan_client.models.create_card_request_backside import CreateCardRequestBackside  # noqa: E501
 
 class TestCreateCardRequestBackside(unittest.TestCase):
     """CreateCardRequestBackside unit test stubs"""

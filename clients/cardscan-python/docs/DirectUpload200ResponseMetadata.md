@@ -9,7 +9,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```python
-from openapi_client.models.direct_upload200_response_metadata import DirectUpload200ResponseMetadata
+from cardscan_client.models.direct_upload200_response_metadata import DirectUpload200ResponseMetadata
 
 # TODO update the JSON string below
 json = "{}"

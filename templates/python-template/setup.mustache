@@ -1,7 +1,5 @@
 # coding: utf-8
 
-{{>partial_header}}
-
 from setuptools import setup, find_packages  # noqa: H301
 
 # To install the library, run the following
@@ -13,9 +11,6 @@ from setuptools import setup, find_packages  # noqa: H301
 NAME = "cardscan-client"
 VERSION = "0.0.1"
 PYTHON_REQUIRES = ">=3.7"
-{{#apiInfo}}
-{{#apis}}
-{{#-last}}
 REQUIRES = [
     "urllib3 >= 1.25.3, < 2.1.0",
     "python-dateutil",
@@ -30,7 +25,8 @@ REQUIRES = [
     "pycryptodome>=3.9.0",
 {{/hasHttpSignatureMethods}}
     "pydantic >= 1.10.5, < 2",
-    "aenum"
+    "aenum",
+    "websockets"
 ]
 
 setup(

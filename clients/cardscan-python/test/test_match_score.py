@@ -15,7 +15,7 @@
 import unittest
 import datetime
 
-from openapi_client.models.match_score import MatchScore  # noqa: E501
+from cardscan_client.models.match_score import MatchScore  # noqa: E501
 
 class TestMatchScore(unittest.TestCase):
     """MatchScore unit test stubs"""
@@ -36,7 +36,7 @@ class TestMatchScore(unittest.TestCase):
         model = MatchScore()  # noqa: E501
         if include_optional:
             return MatchScore(
-                value = 1.337,
+                value = '',
                 scores = [
                     ''
                     ]

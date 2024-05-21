@@ -15,7 +15,7 @@
 import unittest
 import datetime
 
-from openapi_client.models.address import Address  # noqa: E501
+from cardscan_client.models.address import Address  # noqa: E501
 
 class TestAddress(unittest.TestCase):
     """Address unit test stubs"""

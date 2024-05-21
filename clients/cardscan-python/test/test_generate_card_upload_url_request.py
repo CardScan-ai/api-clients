@@ -15,7 +15,7 @@
 import unittest
 import datetime
 
-from openapi_client.models.generate_card_upload_url_request import GenerateCardUploadUrlRequest  # noqa: E501
+from cardscan_client.models.generate_card_upload_url_request import GenerateCardUploadUrlRequest  # noqa: E501
 
 class TestGenerateCardUploadUrlRequest(unittest.TestCase):
     """GenerateCardUploadUrlRequest unit test stubs"""
@@ -38,27 +38,27 @@ class TestGenerateCardUploadUrlRequest(unittest.TestCase):
             return GenerateCardUploadUrlRequest(
                 orientation = 'front',
                 capture_type = 'manual',
-                metadata = openapi_client.models.scan_metadata.ScanMetadata(
+                metadata = cardscan_client.models.scan_metadata.ScanMetadata(
                     capture_type = 'automatic', 
-                    guides = openapi_client.models.scan_metadata_guides.ScanMetadata_guides(
+                    guides = cardscan_client.models.scan_metadata_guides.ScanMetadata_guides(
                         x = 56, 
                         y = 56, 
                         width = 56, 
                         height = 56, ), 
-                    capture_canvas = openapi_client.models.scan_metadata_capture_canvas.ScanMetadata_captureCanvas(
+                    capture_canvas = cardscan_client.models.scan_metadata_capture_canvas.ScanMetadata_captureCanvas(
                         width = 56, 
                         height = 56, ), 
-                    video_background = openapi_client.models.scan_metadata_video_background.ScanMetadata_videoBackground(
+                    video_background = cardscan_client.models.scan_metadata_video_background.ScanMetadata_videoBackground(
                         width = 56, 
                         height = 56, ), 
-                    window_inner = openapi_client.models.scan_metadata_window_inner.ScanMetadata_windowInner(
+                    window_inner = cardscan_client.models.scan_metadata_window_inner.ScanMetadata_windowInner(
                         width = 56, 
                         height = 56, ), 
                     ml_threshold = 1.337, 
                     laplacian_threshold = 1.337, 
                     package_name = '', 
                     package_version = '', 
-                    video_track = openapi_client.models.scan_metadata_video_track.ScanMetadata_videoTrack(
+                    video_track = cardscan_client.models.scan_metadata_video_track.ScanMetadata_videoTrack(
                         aspect_ratio = 1.337, 
                         device_id = '', 
                         frame_rate = 1.337, 
@@ -66,15 +66,15 @@ class TestGenerateCardUploadUrlRequest(unittest.TestCase):
                         height = 56, 
                         resize_mode = '', 
                         width = 56, ), 
-                    camera_capabilities = openapi_client.models.scan_metadata_camera_capabilities.ScanMetadata_cameraCapabilities(
-                        aspect_ratio = openapi_client.models.scan_metadata_camera_capabilities_aspect_ratio.ScanMetadata_cameraCapabilities_aspectRatio(
+                    camera_capabilities = cardscan_client.models.scan_metadata_camera_capabilities.ScanMetadata_cameraCapabilities(
+                        aspect_ratio = cardscan_client.models.scan_metadata_camera_capabilities_aspect_ratio.ScanMetadata_cameraCapabilities_aspectRatio(
                             max = 1.337, 
                             min = 1.337, ), 
                         device_id = '', 
                         facing_mode = [
                             ''
                             ], 
-                        frame_rate = openapi_client.models.scan_metadata_camera_capabilities_aspect_ratio.ScanMetadata_cameraCapabilities_aspectRatio(
+                        frame_rate = cardscan_client.models.scan_metadata_camera_capabilities_aspect_ratio.ScanMetadata_cameraCapabilities_aspectRatio(
                             max = 1.337, 
                             min = 1.337, ), 
                         group_id = '', 
@@ -83,9 +83,9 @@ class TestGenerateCardUploadUrlRequest(unittest.TestCase):
                             ''
                             ], 
                         width = , ), 
-                    capture_score = openapi_client.models.scan_metadata_capture_score.ScanMetadata_capture_score(
+                    capture_score = cardscan_client.models.scan_metadata_capture_score.ScanMetadata_capture_score(
                         scores = [
-                            openapi_client.models.scan_metadata_capture_score_scores_inner.ScanMetadata_capture_score_scores_inner(
+                            cardscan_client.models.scan_metadata_capture_score_scores_inner.ScanMetadata_capture_score_scores_inner(
                                 score = 1.337, 
                                 laplacian = 1.337, )
                             ], 

@@ -15,7 +15,7 @@
 import unittest
 import datetime
 
-from openapi_client.models.scan_metadata_video_background import ScanMetadataVideoBackground  # noqa: E501
+from cardscan_client.models.scan_metadata_video_background import ScanMetadataVideoBackground  # noqa: E501
 
 class TestScanMetadataVideoBackground(unittest.TestCase):
     """ScanMetadataVideoBackground unit test stubs"""

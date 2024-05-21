@@ -15,7 +15,7 @@
 import unittest
 import datetime
 
-from openapi_client.models.co_insurance import CoInsurance  # noqa: E501
+from cardscan_client.models.co_insurance import CoInsurance  # noqa: E501
 
 class TestCoInsurance(unittest.TestCase):
     """CoInsurance unit test stubs"""

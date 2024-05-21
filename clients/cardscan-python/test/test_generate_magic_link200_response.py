@@ -15,7 +15,7 @@
 import unittest
 import datetime
 
-from openapi_client.models.generate_magic_link200_response import GenerateMagicLink200Response  # noqa: E501
+from cardscan_client.models.generate_magic_link200_response import GenerateMagicLink200Response  # noqa: E501
 
 class TestGenerateMagicLink200Response(unittest.TestCase):
     """GenerateMagicLink200Response unit test stubs"""

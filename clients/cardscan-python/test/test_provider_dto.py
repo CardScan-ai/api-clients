@@ -15,7 +15,7 @@
 import unittest
 import datetime
 
-from openapi_client.models.provider_dto import ProviderDto  # noqa: E501
+from cardscan_client.models.provider_dto import ProviderDto  # noqa: E501
 
 class TestProviderDto(unittest.TestCase):
     """ProviderDto unit test stubs"""

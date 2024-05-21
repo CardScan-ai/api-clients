@@ -1222,6 +1222,11 @@ components:
     UploadParameters:
       type: object
       required:
+        - Content-Type
+        - Content-Disposition
+        - x-amz-meta-cardscan-account-id
+        - x-amz-meta-cardscan-card-id
+        - x-amz-meta-cardscan-scan-id
         - key
         - x-amz-algorithm
         - x-amz-credential
@@ -1230,6 +1235,27 @@ components:
         - policy
         - x-amz-signature
       properties:
+        Content-Type:
+          type: string
+          description: The content type of the file
+        Content-Disposition:
+          type: string
+          description: The content disposition of the file
+        x-amz-meta-cardscan-account-id:
+          type: string
+          description: The account ID
+        x-amz-meta-cardscan-card-id:
+          type: string
+          description: The card ID
+        x-amz-meta-cardscan-scan-id:
+          type: string
+          description: The scan ID
+        x-amz-meta-cardscan-user-id:
+          type: string
+          description: The user ID
+        x-amz-meta-cardscan-developer-user-id:
+          type: string
+          description: The developer user ID
         key:
           type: string
           description: The key of the file

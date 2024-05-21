@@ -15,7 +15,7 @@
 import unittest
 import datetime
 
-from openapi_client.models.scan_orientation import ScanOrientation  # noqa: E501
+from cardscan_client.models.scan_orientation import ScanOrientation  # noqa: E501
 
 class TestScanOrientation(unittest.TestCase):
     """ScanOrientation unit test stubs"""

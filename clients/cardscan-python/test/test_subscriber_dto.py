@@ -15,7 +15,7 @@
 import unittest
 import datetime
 
-from openapi_client.models.subscriber_dto import SubscriberDto  # noqa: E501
+from cardscan_client.models.subscriber_dto import SubscriberDto  # noqa: E501
 
 class TestSubscriberDto(unittest.TestCase):
     """SubscriberDto unit test stubs"""
@@ -38,13 +38,13 @@ class TestSubscriberDto(unittest.TestCase):
             return SubscriberDto(
                 first_name = '0',
                 last_name = '0',
-                date_of_birth = '2048-09-18'
+                date_of_birth = '04807288'
             )
         else:
             return SubscriberDto(
                 first_name = '0',
                 last_name = '0',
-                date_of_birth = '2048-09-18',
+                date_of_birth = '04807288',
         )
         """
 

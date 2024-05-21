@@ -15,7 +15,7 @@
 import unittest
 import datetime
 
-from openapi_client.models.direct_upload200_response_metadata import DirectUpload200ResponseMetadata  # noqa: E501
+from cardscan_client.models.direct_upload200_response_metadata import DirectUpload200ResponseMetadata  # noqa: E501
 
 class TestDirectUpload200ResponseMetadata(unittest.TestCase):
     """DirectUpload200ResponseMetadata unit test stubs"""

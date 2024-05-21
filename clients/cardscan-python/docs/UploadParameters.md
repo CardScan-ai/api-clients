@@ -4,6 +4,13 @@
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
+**content_type** | **str** | The content type of the file | 
+**content_disposition** | **str** | The content disposition of the file | 
+**x_amz_meta_cardscan_account_id** | **str** | The account ID | 
+**x_amz_meta_cardscan_card_id** | **str** | The card ID | 
+**x_amz_meta_cardscan_scan_id** | **str** | The scan ID | 
+**x_amz_meta_cardscan_user_id** | **str** | The user ID | [optional] 
+**x_amz_meta_cardscan_developer_user_id** | **str** | The developer user ID | [optional] 
 **key** | **str** | The key of the file | 
 **x_amz_algorithm** | **str** | The algorithm used to sign the request | 
 **x_amz_credential** | **str** | The credential used to sign the request | 
@@ -15,7 +22,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```python
-from openapi_client.models.upload_parameters import UploadParameters
+from cardscan_client.models.upload_parameters import UploadParameters
 
 # TODO update the JSON string below
 json = "{}"

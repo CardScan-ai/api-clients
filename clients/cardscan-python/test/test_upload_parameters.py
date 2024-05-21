@@ -15,7 +15,7 @@
 import unittest
 import datetime
 
-from openapi_client.models.upload_parameters import UploadParameters  # noqa: E501
+from cardscan_client.models.upload_parameters import UploadParameters  # noqa: E501
 
 class TestUploadParameters(unittest.TestCase):
     """UploadParameters unit test stubs"""

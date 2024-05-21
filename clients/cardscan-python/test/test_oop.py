@@ -15,7 +15,7 @@
 import unittest
 import datetime
 
-from openapi_client.models.oop import OOP  # noqa: E501
+from cardscan_client.models.oop import OOP  # noqa: E501
 
 class TestOOP(unittest.TestCase):
     """OOP unit test stubs"""

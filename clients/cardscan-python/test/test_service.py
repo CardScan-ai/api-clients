@@ -15,7 +15,7 @@
 import unittest
 import datetime
 
-from openapi_client.models.service import Service  # noqa: E501
+from cardscan_client.models.service import Service  # noqa: E501
 
 class TestService(unittest.TestCase):
     """Service unit test stubs"""
@@ -36,9 +36,9 @@ class TestService(unittest.TestCase):
         model = Service()  # noqa: E501
         if include_optional:
             return Service(
-                co_insurance_in_network = openapi_client.models.co_insurance.CoInsurance(
+                co_insurance_in_network = cardscan_client.models.co_insurance.CoInsurance(
                     amount = '', ),
-                co_payment_in_network = openapi_client.models.co_payment.CoPayment(
+                co_payment_in_network = cardscan_client.models.co_payment.CoPayment(
                     amount = '', ),
                 service_code = ''
             )

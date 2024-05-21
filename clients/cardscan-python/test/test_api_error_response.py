@@ -15,7 +15,7 @@
 import unittest
 import datetime
 
-from openapi_client.models.api_error_response import ApiErrorResponse  # noqa: E501
+from cardscan_client.models.api_error_response import ApiErrorResponse  # noqa: E501
 
 class TestApiErrorResponse(unittest.TestCase):
     """ApiErrorResponse unit test stubs"""

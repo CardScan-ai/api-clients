@@ -15,7 +15,7 @@
 import unittest
 import datetime
 
-from openapi_client.models.card_api_response_details import CardApiResponseDetails  # noqa: E501
+from cardscan_client.models.card_api_response_details import CardApiResponseDetails  # noqa: E501
 
 class TestCardApiResponseDetails(unittest.TestCase):
     """CardApiResponseDetails unit test stubs"""
@@ -36,55 +36,55 @@ class TestCardApiResponseDetails(unittest.TestCase):
         model = CardApiResponseDetails()  # noqa: E501
         if include_optional:
             return CardApiResponseDetails(
-                group_number = openapi_client.models.match_score.MatchScore(
-                    value = 1.337, 
+                group_number = cardscan_client.models.match_score.MatchScore(
+                    value = '', 
                     scores = [
                         ''
                         ], ),
-                member_number = openapi_client.models.match_score.MatchScore(
-                    value = 1.337, 
+                member_number = cardscan_client.models.match_score.MatchScore(
+                    value = '', 
                     scores = [
                         ''
                         ], ),
-                payer_name = openapi_client.models.match_score.MatchScore(
-                    value = 1.337, 
+                payer_name = cardscan_client.models.match_score.MatchScore(
+                    value = '', 
                     scores = [
                         ''
                         ], ),
-                rx_bin = openapi_client.models.match_score.MatchScore(
-                    value = 1.337, 
+                rx_bin = cardscan_client.models.match_score.MatchScore(
+                    value = '', 
                     scores = [
                         ''
                         ], ),
-                rx_pcn = openapi_client.models.match_score.MatchScore(
-                    value = 1.337, 
+                rx_pcn = cardscan_client.models.match_score.MatchScore(
+                    value = '', 
                     scores = [
                         ''
                         ], ),
-                member_name = openapi_client.models.match_score.MatchScore(
-                    value = 1.337, 
+                member_name = cardscan_client.models.match_score.MatchScore(
+                    value = '', 
                     scores = [
                         ''
                         ], ),
                 dependent_names = [
-                    openapi_client.models.match_score.MatchScore(
-                        value = 1.337, 
+                    cardscan_client.models.match_score.MatchScore(
+                        value = '', 
                         scores = [
                             ''
                             ], )
                     ],
-                plan_name = openapi_client.models.match_score.MatchScore(
-                    value = 1.337, 
+                plan_name = cardscan_client.models.match_score.MatchScore(
+                    value = '', 
                     scores = [
                         ''
                         ], ),
-                plan_id = openapi_client.models.match_score.MatchScore(
-                    value = 1.337, 
+                plan_id = cardscan_client.models.match_score.MatchScore(
+                    value = '', 
                     scores = [
                         ''
                         ], ),
-                card_specific_id = openapi_client.models.match_score.MatchScore(
-                    value = 1.337, 
+                card_specific_id = cardscan_client.models.match_score.MatchScore(
+                    value = '', 
                     scores = [
                         ''
                         ], )

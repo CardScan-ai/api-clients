@@ -11,7 +11,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```python
-from openapi_client.models.subscriber_dto import SubscriberDto
+from cardscan_client.models.subscriber_dto import SubscriberDto
 
 # TODO update the JSON string below
 json = "{}"

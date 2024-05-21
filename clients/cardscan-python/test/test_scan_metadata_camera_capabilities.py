@@ -15,7 +15,7 @@
 import unittest
 import datetime
 
-from openapi_client.models.scan_metadata_camera_capabilities import ScanMetadataCameraCapabilities  # noqa: E501
+from cardscan_client.models.scan_metadata_camera_capabilities import ScanMetadataCameraCapabilities  # noqa: E501
 
 class TestScanMetadataCameraCapabilities(unittest.TestCase):
     """ScanMetadataCameraCapabilities unit test stubs"""
@@ -36,24 +36,24 @@ class TestScanMetadataCameraCapabilities(unittest.TestCase):
         model = ScanMetadataCameraCapabilities()  # noqa: E501
         if include_optional:
             return ScanMetadataCameraCapabilities(
-                aspect_ratio = openapi_client.models.scan_metadata_camera_capabilities_aspect_ratio.ScanMetadata_cameraCapabilities_aspectRatio(
+                aspect_ratio = cardscan_client.models.scan_metadata_camera_capabilities_aspect_ratio.ScanMetadata_cameraCapabilities_aspectRatio(
                     max = 1.337, 
                     min = 1.337, ),
                 device_id = '',
                 facing_mode = [
                     ''
                     ],
-                frame_rate = openapi_client.models.scan_metadata_camera_capabilities_aspect_ratio.ScanMetadata_cameraCapabilities_aspectRatio(
+                frame_rate = cardscan_client.models.scan_metadata_camera_capabilities_aspect_ratio.ScanMetadata_cameraCapabilities_aspectRatio(
                     max = 1.337, 
                     min = 1.337, ),
                 group_id = '',
-                height = openapi_client.models.scan_metadata_camera_capabilities_aspect_ratio.ScanMetadata_cameraCapabilities_aspectRatio(
+                height = cardscan_client.models.scan_metadata_camera_capabilities_aspect_ratio.ScanMetadata_cameraCapabilities_aspectRatio(
                     max = 1.337, 
                     min = 1.337, ),
                 resize_mode = [
                     ''
                     ],
-                width = openapi_client.models.scan_metadata_camera_capabilities_aspect_ratio.ScanMetadata_cameraCapabilities_aspectRatio(
+                width = cardscan_client.models.scan_metadata_camera_capabilities_aspect_ratio.ScanMetadata_cameraCapabilities_aspectRatio(
                     max = 1.337, 
                     min = 1.337, )
             )

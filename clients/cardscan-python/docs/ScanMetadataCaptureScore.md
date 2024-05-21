@@ -10,7 +10,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```python
-from openapi_client.models.scan_metadata_capture_score import ScanMetadataCaptureScore
+from cardscan_client.models.scan_metadata_capture_score import ScanMetadataCaptureScore
 
 # TODO update the JSON string below
 json = "{}"

@@ -14,7 +14,7 @@
 
 import unittest
 
-from api.card_scan_api import CardScanApi  # noqa: E501
+from cardscan_client.api.card_scan_api import CardScanApi  # noqa: E501
 
 
 class TestCardScanApi(unittest.TestCase):
