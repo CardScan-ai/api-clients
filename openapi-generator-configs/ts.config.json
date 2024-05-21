@@ -3,5 +3,6 @@
   "npmName": "cardscan-ai/typescript",
   "withSeparateModelsAndApi": true,
   "modelPackage": "models",
-  "apiPackage": "api"
+  "apiPackage": "api",
+  "supportsES6": true
 }
