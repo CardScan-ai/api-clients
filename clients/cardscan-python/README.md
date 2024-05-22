@@ -16,7 +16,7 @@ pip install cardscan-client
 
 Please follow the [installation procedure](#installation--usage) and then run the following:
 
-````python
+```python
 from cardscan_client.api_client import ApiClient
 from cardscan_client.api.card_scan_api import CardScanApi
 from cardscan_client.configuration import Configuration
@@ -59,46 +59,7 @@ if __name__ == "__main__":
     import asyncio
 
     asyncio.run(main())
-
-```python
-
-import time
-import cardscan_client
-from cardscan_client.rest import ApiException
-from pprint import pprint
-
-# Defining the host is optional and defaults to https://sandbox.cardscan.ai/v1
-# See configuration.py for a list of all supported configuration parameters.
-configuration = cardscan_client.Configuration(
-    host = "https://sandbox.cardscan.ai/v1"
-)
-
-# The client must configure the authentication and authorization parameters
-# in accordance with the API server security policy.
-# Examples for each auth method are provided below, use the example that
-# satisfies your auth use case.
-
-# Configure Bearer authorization: bearerAuth
-configuration = cardscan_client.Configuration(
-    access_token = os.environ["BEARER_TOKEN"]
-)
-
-
-# Enter a context with an instance of the API client
-async with cardscan_client.ApiClient(configuration) as api_client:
-    # Create an instance of the API class
-    api_instance = cardscan_client.CardScanApi(api_client)
-    create_card_request = cardscan_client.CreateCardRequest() # CreateCardRequest |  (optional)
-
-    try:
-        # Creates a new card
-        api_response = await api_instance.create_card(create_card_request=create_card_request)
-        print("The response of CardScanApi->create_card:\n")
-        pprint(api_response)
-    except ApiException as e:
-        print("Exception when calling CardScanApi->create_card: %s\n" % e)
-
-````
+```
 
 ## Documentation for API Endpoints
 
