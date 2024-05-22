@@ -15,7 +15,7 @@
 import unittest
 import datetime
 
-from openapi_client.models.get_access_token500_response import GetAccessToken500Response  # noqa: E501
+from cardscan_client.models.get_access_token500_response import GetAccessToken500Response  # noqa: E501
 
 class TestGetAccessToken500Response(unittest.TestCase):
     """GetAccessToken500Response unit test stubs"""

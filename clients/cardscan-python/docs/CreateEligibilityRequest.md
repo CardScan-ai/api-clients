@@ -10,7 +10,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```python
-from openapi_client.models.create_eligibility_request import CreateEligibilityRequest
+from cardscan_client.models.create_eligibility_request import CreateEligibilityRequest
 
 # TODO update the JSON string below
 json = "{}"

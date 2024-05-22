@@ -15,7 +15,7 @@
 import unittest
 import datetime
 
-from openapi_client.models.scan_metadata_camera_capabilities_aspect_ratio import ScanMetadataCameraCapabilitiesAspectRatio  # noqa: E501
+from cardscan_client.models.scan_metadata_camera_capabilities_aspect_ratio import ScanMetadataCameraCapabilitiesAspectRatio  # noqa: E501
 
 class TestScanMetadataCameraCapabilitiesAspectRatio(unittest.TestCase):
     """ScanMetadataCameraCapabilitiesAspectRatio unit test stubs"""

@@ -11,7 +11,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```python
-from openapi_client.models.direct_upload200_response import DirectUpload200Response
+from cardscan_client.models.direct_upload200_response import DirectUpload200Response
 
 # TODO update the JSON string below
 json = "{}"

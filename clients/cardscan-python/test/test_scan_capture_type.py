@@ -15,7 +15,7 @@
 import unittest
 import datetime
 
-from openapi_client.models.scan_capture_type import ScanCaptureType  # noqa: E501
+from cardscan_client.models.scan_capture_type import ScanCaptureType  # noqa: E501
 
 class TestScanCaptureType(unittest.TestCase):
     """ScanCaptureType unit test stubs"""

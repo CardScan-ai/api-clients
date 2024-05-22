@@ -1,7 +1,5 @@
 .gitignore
 .npmignore
-.openapi-generator-ignore
-README.md
 api.ts
 api/card-scan-api.ts
 base.ts
@@ -66,5 +64,5 @@ models/subscriber-details.ts
 models/subscriber-dto.ts
 models/upload-parameters.ts
 models/validate-magic-link200-response.ts
-package.json
+tsconfig.esm.json
 tsconfig.json

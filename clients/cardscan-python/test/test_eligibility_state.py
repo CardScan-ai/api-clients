@@ -15,7 +15,7 @@
 import unittest
 import datetime
 
-from openapi_client.models.eligibility_state import EligibilityState  # noqa: E501
+from cardscan_client.models.eligibility_state import EligibilityState  # noqa: E501
 
 class TestEligibilityState(unittest.TestCase):
     """EligibilityState unit test stubs"""

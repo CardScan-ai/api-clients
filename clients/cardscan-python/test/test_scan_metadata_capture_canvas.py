@@ -15,7 +15,7 @@
 import unittest
 import datetime
 
-from openapi_client.models.scan_metadata_capture_canvas import ScanMetadataCaptureCanvas  # noqa: E501
+from cardscan_client.models.scan_metadata_capture_canvas import ScanMetadataCaptureCanvas  # noqa: E501
 
 class TestScanMetadataCaptureCanvas(unittest.TestCase):
     """ScanMetadataCaptureCanvas unit test stubs"""

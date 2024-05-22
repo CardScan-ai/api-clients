@@ -15,7 +15,7 @@
 import unittest
 import datetime
 
-from openapi_client.models.coverage_summary import CoverageSummary  # noqa: E501
+from cardscan_client.models.coverage_summary import CoverageSummary  # noqa: E501
 
 class TestCoverageSummary(unittest.TestCase):
     """CoverageSummary unit test stubs"""
@@ -36,16 +36,16 @@ class TestCoverageSummary(unittest.TestCase):
         model = CoverageSummary()  # noqa: E501
         if include_optional:
             return CoverageSummary(
-                individual_deductible_in_network = openapi_client.models.deductible.Deductible(
+                individual_deductible_in_network = cardscan_client.models.deductible.Deductible(
                     total_amount = '', 
                     remaining_amount = '', ),
-                individual_oop_in_network = openapi_client.models.oop.OOP(
+                individual_oop_in_network = cardscan_client.models.oop.OOP(
                     total_amount = '', 
                     remaining_amount = '', ),
-                family_deductible_in_network = openapi_client.models.deductible.Deductible(
+                family_deductible_in_network = cardscan_client.models.deductible.Deductible(
                     total_amount = '', 
                     remaining_amount = '', ),
-                family_oop_in_network = openapi_client.models.oop.OOP(
+                family_oop_in_network = cardscan_client.models.oop.OOP(
                     total_amount = '', 
                     remaining_amount = '', )
             )

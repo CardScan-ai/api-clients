@@ -11,7 +11,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```python
-from openapi_client.models.scan_metadata_capture_canvas import ScanMetadataCaptureCanvas
+from cardscan_client.models.scan_metadata_capture_canvas import ScanMetadataCaptureCanvas
 
 # TODO update the JSON string below
 json = "{}"

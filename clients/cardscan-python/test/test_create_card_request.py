@@ -15,7 +15,7 @@
 import unittest
 import datetime
 
-from openapi_client.models.create_card_request import CreateCardRequest  # noqa: E501
+from cardscan_client.models.create_card_request import CreateCardRequest  # noqa: E501
 
 class TestCreateCardRequest(unittest.TestCase):
     """CreateCardRequest unit test stubs"""
@@ -38,7 +38,7 @@ class TestCreateCardRequest(unittest.TestCase):
             return CreateCardRequest(
                 enable_backside_scan = True,
                 enable_livescan = True,
-                backside = openapi_client.models.create_card_request_backside.createCard_request_backside(
+                backside = cardscan_client.models.create_card_request_backside.createCard_request_backside(
                     scanning = 'disabled', )
             )
         else:

@@ -15,7 +15,7 @@
 import unittest
 import datetime
 
-from openapi_client.models.plan_details import PlanDetails  # noqa: E501
+from cardscan_client.models.plan_details import PlanDetails  # noqa: E501
 
 class TestPlanDetails(unittest.TestCase):
     """PlanDetails unit test stubs"""

@@ -15,7 +15,7 @@
 import unittest
 import datetime
 
-from openapi_client.models.scan_metadata_capture_score import ScanMetadataCaptureScore  # noqa: E501
+from cardscan_client.models.scan_metadata_capture_score import ScanMetadataCaptureScore  # noqa: E501
 
 class TestScanMetadataCaptureScore(unittest.TestCase):
     """ScanMetadataCaptureScore unit test stubs"""
@@ -37,7 +37,7 @@ class TestScanMetadataCaptureScore(unittest.TestCase):
         if include_optional:
             return ScanMetadataCaptureScore(
                 scores = [
-                    openapi_client.models.scan_metadata_capture_score_scores_inner.ScanMetadata_capture_score_scores_inner(
+                    cardscan_client.models.scan_metadata_capture_score_scores_inner.ScanMetadata_capture_score_scores_inner(
                         score = 1.337, 
                         laplacian = 1.337, )
                     ],

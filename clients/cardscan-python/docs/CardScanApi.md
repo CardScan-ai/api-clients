@@ -1,4 +1,4 @@
-# openapi_client.CardScanApi
+# cardscan_client.CardScanApi
 
 All URIs are relative to *https://sandbox.cardscan.ai/v1*
 
@@ -32,15 +32,15 @@ Creates a new card
 ```python
 import time
 import os
-import openapi_client
-from openapi_client.models.card_api_response import CardApiResponse
-from openapi_client.models.create_card_request import CreateCardRequest
-from openapi_client.rest import ApiException
+import cardscan_client
+from cardscan_client.models.card_api_response import CardApiResponse
+from cardscan_client.models.create_card_request import CreateCardRequest
+from cardscan_client.rest import ApiException
 from pprint import pprint
 
 # Defining the host is optional and defaults to https://sandbox.cardscan.ai/v1
 # See configuration.py for a list of all supported configuration parameters.
-configuration = openapi_client.Configuration(
+configuration = cardscan_client.Configuration(
     host = "https://sandbox.cardscan.ai/v1"
 )
 
@@ -50,19 +50,19 @@ configuration = openapi_client.Configuration(
 # satisfies your auth use case.
 
 # Configure Bearer authorization: bearerAuth
-configuration = openapi_client.Configuration(
+configuration = cardscan_client.Configuration(
     access_token = os.environ["BEARER_TOKEN"]
 )
 
 # Enter a context with an instance of the API client
-with openapi_client.ApiClient(configuration) as api_client:
+async with cardscan_client.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = openapi_client.CardScanApi(api_client)
-    create_card_request = openapi_client.CreateCardRequest() # CreateCardRequest |  (optional)
+    api_instance = cardscan_client.CardScanApi(api_client)
+    create_card_request = cardscan_client.CreateCardRequest() # CreateCardRequest |  (optional)
 
     try:
         # Creates a new card
-        api_response = api_instance.create_card(create_card_request=create_card_request)
+        api_response = await api_instance.create_card(create_card_request=create_card_request)
         print("The response of CardScanApi->create_card:\n")
         pprint(api_response)
     except Exception as e:
@@ -111,15 +111,15 @@ Create Eligibility Record
 ```python
 import time
 import os
-import openapi_client
-from openapi_client.models.create_eligibility_request import CreateEligibilityRequest
-from openapi_client.models.eligibility_api_response import EligibilityApiResponse
-from openapi_client.rest import ApiException
+import cardscan_client
+from cardscan_client.models.create_eligibility_request import CreateEligibilityRequest
+from cardscan_client.models.eligibility_api_response import EligibilityApiResponse
+from cardscan_client.rest import ApiException
 from pprint import pprint
 
 # Defining the host is optional and defaults to https://sandbox.cardscan.ai/v1
 # See configuration.py for a list of all supported configuration parameters.
-configuration = openapi_client.Configuration(
+configuration = cardscan_client.Configuration(
     host = "https://sandbox.cardscan.ai/v1"
 )
 
@@ -129,19 +129,19 @@ configuration = openapi_client.Configuration(
 # satisfies your auth use case.
 
 # Configure Bearer authorization: bearerAuth
-configuration = openapi_client.Configuration(
+configuration = cardscan_client.Configuration(
     access_token = os.environ["BEARER_TOKEN"]
 )
 
 # Enter a context with an instance of the API client
-with openapi_client.ApiClient(configuration) as api_client:
+async with cardscan_client.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = openapi_client.CardScanApi(api_client)
-    create_eligibility_request = openapi_client.CreateEligibilityRequest() # CreateEligibilityRequest |  (optional)
+    api_instance = cardscan_client.CardScanApi(api_client)
+    create_eligibility_request = cardscan_client.CreateEligibilityRequest() # CreateEligibilityRequest |  (optional)
 
     try:
         # Create Eligibility Record
-        api_response = api_instance.create_eligibility(create_eligibility_request=create_eligibility_request)
+        api_response = await api_instance.create_eligibility(create_eligibility_request=create_eligibility_request)
         print("The response of CardScanApi->create_eligibility:\n")
         pprint(api_response)
     except Exception as e:
@@ -191,13 +191,13 @@ Delete Card
 ```python
 import time
 import os
-import openapi_client
-from openapi_client.rest import ApiException
+import cardscan_client
+from cardscan_client.rest import ApiException
 from pprint import pprint
 
 # Defining the host is optional and defaults to https://sandbox.cardscan.ai/v1
 # See configuration.py for a list of all supported configuration parameters.
-configuration = openapi_client.Configuration(
+configuration = cardscan_client.Configuration(
     host = "https://sandbox.cardscan.ai/v1"
 )
 
@@ -207,19 +207,19 @@ configuration = openapi_client.Configuration(
 # satisfies your auth use case.
 
 # Configure Bearer authorization: bearerAuth
-configuration = openapi_client.Configuration(
+configuration = cardscan_client.Configuration(
     access_token = os.environ["BEARER_TOKEN"]
 )
 
 # Enter a context with an instance of the API client
-with openapi_client.ApiClient(configuration) as api_client:
+async with cardscan_client.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = openapi_client.CardScanApi(api_client)
+    api_instance = cardscan_client.CardScanApi(api_client)
     card_id = 'card_id_example' # str | The ID of the card
 
     try:
         # Delete Card
-        api_instance.delete_card_by_id(card_id)
+        await api_instance.delete_card_by_id(card_id)
     except Exception as e:
         print("Exception when calling CardScanApi->delete_card_by_id: %s\n" % e)
 ```
@@ -267,17 +267,17 @@ Direct Upload
 ```python
 import time
 import os
-import openapi_client
-from openapi_client.models.direct_upload200_response import DirectUpload200Response
-from openapi_client.models.direct_upload_request import DirectUploadRequest
-from openapi_client.models.scan_capture_type import ScanCaptureType
-from openapi_client.models.scan_orientation import ScanOrientation
-from openapi_client.rest import ApiException
+import cardscan_client
+from cardscan_client.models.direct_upload200_response import DirectUpload200Response
+from cardscan_client.models.direct_upload_request import DirectUploadRequest
+from cardscan_client.models.scan_capture_type import ScanCaptureType
+from cardscan_client.models.scan_orientation import ScanOrientation
+from cardscan_client.rest import ApiException
 from pprint import pprint
 
 # Defining the host is optional and defaults to https://sandbox.cardscan.ai/v1
 # See configuration.py for a list of all supported configuration parameters.
-configuration = openapi_client.Configuration(
+configuration = cardscan_client.Configuration(
     host = "https://sandbox.cardscan.ai/v1"
 )
 
@@ -287,22 +287,22 @@ configuration = openapi_client.Configuration(
 # satisfies your auth use case.
 
 # Configure Bearer authorization: bearerAuth
-configuration = openapi_client.Configuration(
+configuration = cardscan_client.Configuration(
     access_token = os.environ["BEARER_TOKEN"]
 )
 
 # Enter a context with an instance of the API client
-with openapi_client.ApiClient(configuration) as api_client:
+async with cardscan_client.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = openapi_client.CardScanApi(api_client)
-    orientation = openapi_client.ScanOrientation() # ScanOrientation | 
-    capture_type = openapi_client.ScanCaptureType() # ScanCaptureType | 
+    api_instance = cardscan_client.CardScanApi(api_client)
+    orientation = cardscan_client.ScanOrientation() # ScanOrientation | 
+    capture_type = cardscan_client.ScanCaptureType() # ScanCaptureType | 
     card_id = 'card_id_example' # str | 
-    direct_upload_request = openapi_client.DirectUploadRequest() # DirectUploadRequest |  (optional)
+    direct_upload_request = cardscan_client.DirectUploadRequest() # DirectUploadRequest |  (optional)
 
     try:
         # Direct Upload
-        api_response = api_instance.direct_upload(orientation, capture_type, card_id, direct_upload_request=direct_upload_request)
+        api_response = await api_instance.direct_upload(orientation, capture_type, card_id, direct_upload_request=direct_upload_request)
         print("The response of CardScanApi->direct_upload:\n")
         pprint(api_response)
     except Exception as e:
@@ -356,15 +356,15 @@ Card - Generate Upload URL
 ```python
 import time
 import os
-import openapi_client
-from openapi_client.models.generate_card_upload_url200_response import GenerateCardUploadUrl200Response
-from openapi_client.models.generate_card_upload_url_request import GenerateCardUploadUrlRequest
-from openapi_client.rest import ApiException
+import cardscan_client
+from cardscan_client.models.generate_card_upload_url200_response import GenerateCardUploadUrl200Response
+from cardscan_client.models.generate_card_upload_url_request import GenerateCardUploadUrlRequest
+from cardscan_client.rest import ApiException
 from pprint import pprint
 
 # Defining the host is optional and defaults to https://sandbox.cardscan.ai/v1
 # See configuration.py for a list of all supported configuration parameters.
-configuration = openapi_client.Configuration(
+configuration = cardscan_client.Configuration(
     host = "https://sandbox.cardscan.ai/v1"
 )
 
@@ -374,21 +374,21 @@ configuration = openapi_client.Configuration(
 # satisfies your auth use case.
 
 # Configure Bearer authorization: bearerAuth
-configuration = openapi_client.Configuration(
+configuration = cardscan_client.Configuration(
     access_token = os.environ["BEARER_TOKEN"]
 )
 
 # Enter a context with an instance of the API client
-with openapi_client.ApiClient(configuration) as api_client:
+async with cardscan_client.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = openapi_client.CardScanApi(api_client)
+    api_instance = cardscan_client.CardScanApi(api_client)
     card_id = 'card_id_example' # str | 
     expiration = 3600 # int |  (optional) (default to 3600)
-    generate_card_upload_url_request = openapi_client.GenerateCardUploadUrlRequest() # GenerateCardUploadUrlRequest |  (optional)
+    generate_card_upload_url_request = cardscan_client.GenerateCardUploadUrlRequest() # GenerateCardUploadUrlRequest |  (optional)
 
     try:
         # Card - Generate Upload URL
-        api_response = api_instance.generate_card_upload_url(card_id, expiration=expiration, generate_card_upload_url_request=generate_card_upload_url_request)
+        api_response = await api_instance.generate_card_upload_url(card_id, expiration=expiration, generate_card_upload_url_request=generate_card_upload_url_request)
         print("The response of CardScanApi->generate_card_upload_url:\n")
         pprint(api_response)
     except Exception as e:
@@ -441,14 +441,14 @@ Generate Magic Link
 ```python
 import time
 import os
-import openapi_client
-from openapi_client.models.generate_magic_link200_response import GenerateMagicLink200Response
-from openapi_client.rest import ApiException
+import cardscan_client
+from cardscan_client.models.generate_magic_link200_response import GenerateMagicLink200Response
+from cardscan_client.rest import ApiException
 from pprint import pprint
 
 # Defining the host is optional and defaults to https://sandbox.cardscan.ai/v1
 # See configuration.py for a list of all supported configuration parameters.
-configuration = openapi_client.Configuration(
+configuration = cardscan_client.Configuration(
     host = "https://sandbox.cardscan.ai/v1"
 )
 
@@ -458,18 +458,18 @@ configuration = openapi_client.Configuration(
 # satisfies your auth use case.
 
 # Configure Bearer authorization: bearerAuth
-configuration = openapi_client.Configuration(
+configuration = cardscan_client.Configuration(
     access_token = os.environ["BEARER_TOKEN"]
 )
 
 # Enter a context with an instance of the API client
-with openapi_client.ApiClient(configuration) as api_client:
+async with cardscan_client.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = openapi_client.CardScanApi(api_client)
+    api_instance = cardscan_client.CardScanApi(api_client)
 
     try:
         # Generate Magic Link
-        api_response = api_instance.generate_magic_link()
+        api_response = await api_instance.generate_magic_link()
         print("The response of CardScanApi->generate_magic_link:\n")
         pprint(api_response)
     except Exception as e:
@@ -514,14 +514,14 @@ Generate an upload URL
 ```python
 import time
 import os
-import openapi_client
-from openapi_client.models.generate_card_upload_url200_response import GenerateCardUploadUrl200Response
-from openapi_client.rest import ApiException
+import cardscan_client
+from cardscan_client.models.generate_card_upload_url200_response import GenerateCardUploadUrl200Response
+from cardscan_client.rest import ApiException
 from pprint import pprint
 
 # Defining the host is optional and defaults to https://sandbox.cardscan.ai/v1
 # See configuration.py for a list of all supported configuration parameters.
-configuration = openapi_client.Configuration(
+configuration = cardscan_client.Configuration(
     host = "https://sandbox.cardscan.ai/v1"
 )
 
@@ -531,19 +531,19 @@ configuration = openapi_client.Configuration(
 # satisfies your auth use case.
 
 # Configure Bearer authorization: bearerAuth
-configuration = openapi_client.Configuration(
+configuration = cardscan_client.Configuration(
     access_token = os.environ["BEARER_TOKEN"]
 )
 
 # Enter a context with an instance of the API client
-with openapi_client.ApiClient(configuration) as api_client:
+async with cardscan_client.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = openapi_client.CardScanApi(api_client)
+    api_instance = cardscan_client.CardScanApi(api_client)
     expiration = 56 # int | 
 
     try:
         # Generate an upload URL
-        api_response = api_instance.generate_upload_url(expiration)
+        api_response = await api_instance.generate_upload_url(expiration)
         print("The response of CardScanApi->generate_upload_url:\n")
         pprint(api_response)
     except Exception as e:
@@ -592,14 +592,14 @@ Access Token
 ```python
 import time
 import os
-import openapi_client
-from openapi_client.models.get_access_token200_response import GetAccessToken200Response
-from openapi_client.rest import ApiException
+import cardscan_client
+from cardscan_client.models.get_access_token200_response import GetAccessToken200Response
+from cardscan_client.rest import ApiException
 from pprint import pprint
 
 # Defining the host is optional and defaults to https://sandbox.cardscan.ai/v1
 # See configuration.py for a list of all supported configuration parameters.
-configuration = openapi_client.Configuration(
+configuration = cardscan_client.Configuration(
     host = "https://sandbox.cardscan.ai/v1"
 )
 
@@ -609,19 +609,19 @@ configuration = openapi_client.Configuration(
 # satisfies your auth use case.
 
 # Configure Bearer authorization: bearerAuth
-configuration = openapi_client.Configuration(
+configuration = cardscan_client.Configuration(
     access_token = os.environ["BEARER_TOKEN"]
 )
 
 # Enter a context with an instance of the API client
-with openapi_client.ApiClient(configuration) as api_client:
+async with cardscan_client.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = openapi_client.CardScanApi(api_client)
+    api_instance = cardscan_client.CardScanApi(api_client)
     user_id = 'user_id_example' # str | The ID of the user (optional)
 
     try:
         # Access Token
-        api_response = api_instance.get_access_token(user_id=user_id)
+        api_response = await api_instance.get_access_token(user_id=user_id)
         print("The response of CardScanApi->get_access_token:\n")
         pprint(api_response)
     except Exception as e:
@@ -669,14 +669,14 @@ Get Card by ID
 ```python
 import time
 import os
-import openapi_client
-from openapi_client.models.card_api_response import CardApiResponse
-from openapi_client.rest import ApiException
+import cardscan_client
+from cardscan_client.models.card_api_response import CardApiResponse
+from cardscan_client.rest import ApiException
 from pprint import pprint
 
 # Defining the host is optional and defaults to https://sandbox.cardscan.ai/v1
 # See configuration.py for a list of all supported configuration parameters.
-configuration = openapi_client.Configuration(
+configuration = cardscan_client.Configuration(
     host = "https://sandbox.cardscan.ai/v1"
 )
 
@@ -686,19 +686,19 @@ configuration = openapi_client.Configuration(
 # satisfies your auth use case.
 
 # Configure Bearer authorization: bearerAuth
-configuration = openapi_client.Configuration(
+configuration = cardscan_client.Configuration(
     access_token = os.environ["BEARER_TOKEN"]
 )
 
 # Enter a context with an instance of the API client
-with openapi_client.ApiClient(configuration) as api_client:
+async with cardscan_client.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = openapi_client.CardScanApi(api_client)
+    api_instance = cardscan_client.CardScanApi(api_client)
     card_id = 'card_id_example' # str | The ID of the card
 
     try:
         # Get Card by ID
-        api_response = api_instance.get_card_by_id(card_id)
+        api_response = await api_instance.get_card_by_id(card_id)
         print("The response of CardScanApi->get_card_by_id:\n")
         pprint(api_response)
     except Exception as e:
@@ -748,14 +748,14 @@ Get Eligibility
 ```python
 import time
 import os
-import openapi_client
-from openapi_client.models.eligibility_api_response import EligibilityApiResponse
-from openapi_client.rest import ApiException
+import cardscan_client
+from cardscan_client.models.eligibility_api_response import EligibilityApiResponse
+from cardscan_client.rest import ApiException
 from pprint import pprint
 
 # Defining the host is optional and defaults to https://sandbox.cardscan.ai/v1
 # See configuration.py for a list of all supported configuration parameters.
-configuration = openapi_client.Configuration(
+configuration = cardscan_client.Configuration(
     host = "https://sandbox.cardscan.ai/v1"
 )
 
@@ -765,19 +765,19 @@ configuration = openapi_client.Configuration(
 # satisfies your auth use case.
 
 # Configure Bearer authorization: bearerAuth
-configuration = openapi_client.Configuration(
+configuration = cardscan_client.Configuration(
     access_token = os.environ["BEARER_TOKEN"]
 )
 
 # Enter a context with an instance of the API client
-with openapi_client.ApiClient(configuration) as api_client:
+async with cardscan_client.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = openapi_client.CardScanApi(api_client)
+    api_instance = cardscan_client.CardScanApi(api_client)
     eligibility_id = 'eligibility_id_example' # str | 
 
     try:
         # Get Eligibility
-        api_response = api_instance.get_eligibility_by_id(eligibility_id)
+        api_response = await api_instance.get_eligibility_by_id(eligibility_id)
         print("The response of CardScanApi->get_eligibility_by_id:\n")
         pprint(api_response)
     except Exception as e:
@@ -827,13 +827,13 @@ Get Scan Metadata
 ```python
 import time
 import os
-import openapi_client
-from openapi_client.rest import ApiException
+import cardscan_client
+from cardscan_client.rest import ApiException
 from pprint import pprint
 
 # Defining the host is optional and defaults to https://sandbox.cardscan.ai/v1
 # See configuration.py for a list of all supported configuration parameters.
-configuration = openapi_client.Configuration(
+configuration = cardscan_client.Configuration(
     host = "https://sandbox.cardscan.ai/v1"
 )
 
@@ -843,19 +843,19 @@ configuration = openapi_client.Configuration(
 # satisfies your auth use case.
 
 # Configure Bearer authorization: bearerAuth
-configuration = openapi_client.Configuration(
+configuration = cardscan_client.Configuration(
     access_token = os.environ["BEARER_TOKEN"]
 )
 
 # Enter a context with an instance of the API client
-with openapi_client.ApiClient(configuration) as api_client:
+async with cardscan_client.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = openapi_client.CardScanApi(api_client)
+    api_instance = cardscan_client.CardScanApi(api_client)
     scan_id = 'scan_id_example' # str | 
 
     try:
         # Get Scan Metadata
-        api_instance.get_scan_metadata(scan_id)
+        await api_instance.get_scan_metadata(scan_id)
     except Exception as e:
         print("Exception when calling CardScanApi->get_scan_metadata: %s\n" % e)
 ```
@@ -904,14 +904,14 @@ List Cards
 ```python
 import time
 import os
-import openapi_client
-from openapi_client.models.search_cards200_response import SearchCards200Response
-from openapi_client.rest import ApiException
+import cardscan_client
+from cardscan_client.models.search_cards200_response import SearchCards200Response
+from cardscan_client.rest import ApiException
 from pprint import pprint
 
 # Defining the host is optional and defaults to https://sandbox.cardscan.ai/v1
 # See configuration.py for a list of all supported configuration parameters.
-configuration = openapi_client.Configuration(
+configuration = cardscan_client.Configuration(
     host = "https://sandbox.cardscan.ai/v1"
 )
 
@@ -921,20 +921,20 @@ configuration = openapi_client.Configuration(
 # satisfies your auth use case.
 
 # Configure Bearer authorization: bearerAuth
-configuration = openapi_client.Configuration(
+configuration = cardscan_client.Configuration(
     access_token = os.environ["BEARER_TOKEN"]
 )
 
 # Enter a context with an instance of the API client
-with openapi_client.ApiClient(configuration) as api_client:
+async with cardscan_client.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = openapi_client.CardScanApi(api_client)
+    api_instance = cardscan_client.CardScanApi(api_client)
     limit = 56 # int |  (optional)
     cursor = 'cursor_example' # str |  (optional)
 
     try:
         # List Cards
-        api_response = api_instance.list_cards(limit=limit, cursor=cursor)
+        api_response = await api_instance.list_cards(limit=limit, cursor=cursor)
         print("The response of CardScanApi->list_cards:\n")
         pprint(api_response)
     except Exception as e:
@@ -983,14 +983,14 @@ List Eligibility
 ```python
 import time
 import os
-import openapi_client
-from openapi_client.models.list_eligibility200_response import ListEligibility200Response
-from openapi_client.rest import ApiException
+import cardscan_client
+from cardscan_client.models.list_eligibility200_response import ListEligibility200Response
+from cardscan_client.rest import ApiException
 from pprint import pprint
 
 # Defining the host is optional and defaults to https://sandbox.cardscan.ai/v1
 # See configuration.py for a list of all supported configuration parameters.
-configuration = openapi_client.Configuration(
+configuration = cardscan_client.Configuration(
     host = "https://sandbox.cardscan.ai/v1"
 )
 
@@ -1000,18 +1000,18 @@ configuration = openapi_client.Configuration(
 # satisfies your auth use case.
 
 # Configure Bearer authorization: bearerAuth
-configuration = openapi_client.Configuration(
+configuration = cardscan_client.Configuration(
     access_token = os.environ["BEARER_TOKEN"]
 )
 
 # Enter a context with an instance of the API client
-with openapi_client.ApiClient(configuration) as api_client:
+async with cardscan_client.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = openapi_client.CardScanApi(api_client)
+    api_instance = cardscan_client.CardScanApi(api_client)
 
     try:
         # List Eligibility
-        api_response = api_instance.list_eligibility()
+        api_response = await api_instance.list_eligibility()
         print("The response of CardScanApi->list_eligibility:\n")
         pprint(api_response)
     except Exception as e:
@@ -1055,14 +1055,14 @@ Search Cards (200) OK
 ```python
 import time
 import os
-import openapi_client
-from openapi_client.models.search_cards200_response import SearchCards200Response
-from openapi_client.rest import ApiException
+import cardscan_client
+from cardscan_client.models.search_cards200_response import SearchCards200Response
+from cardscan_client.rest import ApiException
 from pprint import pprint
 
 # Defining the host is optional and defaults to https://sandbox.cardscan.ai/v1
 # See configuration.py for a list of all supported configuration parameters.
-configuration = openapi_client.Configuration(
+configuration = cardscan_client.Configuration(
     host = "https://sandbox.cardscan.ai/v1"
 )
 
@@ -1072,21 +1072,21 @@ configuration = openapi_client.Configuration(
 # satisfies your auth use case.
 
 # Configure Bearer authorization: bearerAuth
-configuration = openapi_client.Configuration(
+configuration = cardscan_client.Configuration(
     access_token = os.environ["BEARER_TOKEN"]
 )
 
 # Enter a context with an instance of the API client
-with openapi_client.ApiClient(configuration) as api_client:
+async with cardscan_client.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = openapi_client.CardScanApi(api_client)
+    api_instance = cardscan_client.CardScanApi(api_client)
     query = 'query_example' # str | 
     limit = 56 # int |  (optional)
     cursor = 'cursor_example' # str |  (optional)
 
     try:
         # Search Cards (200) OK
-        api_response = api_instance.search_cards(query, limit=limit, cursor=cursor)
+        api_response = await api_instance.search_cards(query, limit=limit, cursor=cursor)
         print("The response of CardScanApi->search_cards:\n")
         pprint(api_response)
     except Exception as e:
@@ -1135,27 +1135,27 @@ Validate Magic Link
 ```python
 import time
 import os
-import openapi_client
-from openapi_client.models.validate_magic_link200_response import ValidateMagicLink200Response
-from openapi_client.rest import ApiException
+import cardscan_client
+from cardscan_client.models.validate_magic_link200_response import ValidateMagicLink200Response
+from cardscan_client.rest import ApiException
 from pprint import pprint
 
 # Defining the host is optional and defaults to https://sandbox.cardscan.ai/v1
 # See configuration.py for a list of all supported configuration parameters.
-configuration = openapi_client.Configuration(
+configuration = cardscan_client.Configuration(
     host = "https://sandbox.cardscan.ai/v1"
 )
 
 
 # Enter a context with an instance of the API client
-with openapi_client.ApiClient(configuration) as api_client:
+async with cardscan_client.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = openapi_client.CardScanApi(api_client)
+    api_instance = cardscan_client.CardScanApi(api_client)
     token = 'token_example' # str | 
 
     try:
         # Validate Magic Link
-        api_response = api_instance.validate_magic_link(token)
+        api_response = await api_instance.validate_magic_link(token)
         print("The response of CardScanApi->validate_magic_link:\n")
         pprint(api_response)
     except Exception as e:

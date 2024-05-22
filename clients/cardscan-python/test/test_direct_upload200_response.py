@@ -15,7 +15,7 @@
 import unittest
 import datetime
 
-from openapi_client.models.direct_upload200_response import DirectUpload200Response  # noqa: E501
+from cardscan_client.models.direct_upload200_response import DirectUpload200Response  # noqa: E501
 
 class TestDirectUpload200Response(unittest.TestCase):
     """DirectUpload200Response unit test stubs"""
@@ -38,14 +38,14 @@ class TestDirectUpload200Response(unittest.TestCase):
             return DirectUpload200Response(
                 card_id = '',
                 scan_id = '',
-                metadata = openapi_client.models.direct_upload_200_response_metadata.directUpload_200_response_metadata(
+                metadata = cardscan_client.models.direct_upload_200_response_metadata.directUpload_200_response_metadata(
                     ocr_latency = '', )
             )
         else:
             return DirectUpload200Response(
                 card_id = '',
                 scan_id = '',
-                metadata = openapi_client.models.direct_upload_200_response_metadata.directUpload_200_response_metadata(
+                metadata = cardscan_client.models.direct_upload_200_response_metadata.directUpload_200_response_metadata(
                     ocr_latency = '', ),
         )
         """

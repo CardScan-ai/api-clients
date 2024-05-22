@@ -15,7 +15,7 @@
 import unittest
 import datetime
 
-from openapi_client.models.scan_metadata_window_inner import ScanMetadataWindowInner  # noqa: E501
+from cardscan_client.models.scan_metadata_window_inner import ScanMetadataWindowInner  # noqa: E501
 
 class TestScanMetadataWindowInner(unittest.TestCase):
     """ScanMetadataWindowInner unit test stubs"""

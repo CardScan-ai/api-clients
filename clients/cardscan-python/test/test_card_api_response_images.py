@@ -15,7 +15,7 @@
 import unittest
 import datetime
 
-from openapi_client.models.card_api_response_images import CardApiResponseImages  # noqa: E501
+from cardscan_client.models.card_api_response_images import CardApiResponseImages  # noqa: E501
 
 class TestCardApiResponseImages(unittest.TestCase):
     """CardApiResponseImages unit test stubs"""
@@ -36,9 +36,9 @@ class TestCardApiResponseImages(unittest.TestCase):
         model = CardApiResponseImages()  # noqa: E501
         if include_optional:
             return CardApiResponseImages(
-                front = openapi_client.models.card_api_response_images_front.CardApiResponse_images_front(
+                front = cardscan_client.models.card_api_response_images_front.CardApiResponse_images_front(
                     url = '', ),
-                back = openapi_client.models.card_api_response_images_back.CardApiResponse_images_back(
+                back = cardscan_client.models.card_api_response_images_back.CardApiResponse_images_back(
                     url = '', )
             )
         else:

@@ -15,7 +15,7 @@
 import unittest
 import datetime
 
-from openapi_client.models.eligibility_api_response_eligibility_request import EligibilityApiResponseEligibilityRequest  # noqa: E501
+from cardscan_client.models.eligibility_api_response_eligibility_request import EligibilityApiResponseEligibilityRequest  # noqa: E501
 
 class TestEligibilityApiResponseEligibilityRequest(unittest.TestCase):
     """EligibilityApiResponseEligibilityRequest unit test stubs"""
@@ -38,14 +38,14 @@ class TestEligibilityApiResponseEligibilityRequest(unittest.TestCase):
             return EligibilityApiResponseEligibilityRequest(
                 control_number = '',
                 trading_partner_service_id = '',
-                provider = openapi_client.models.provider_dto.ProviderDto(
+                provider = cardscan_client.models.provider_dto.ProviderDto(
                     first_name = '0', 
                     last_name = '0', 
                     npi = '0', ),
-                subscriber = openapi_client.models.subscriber_dto.SubscriberDto(
+                subscriber = cardscan_client.models.subscriber_dto.SubscriberDto(
                     first_name = '0', 
                     last_name = '0', 
-                    date_of_birth = '2048-09-18', )
+                    date_of_birth = '04807288', )
             )
         else:
             return EligibilityApiResponseEligibilityRequest(

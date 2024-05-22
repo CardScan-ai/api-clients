@@ -15,7 +15,7 @@
 import unittest
 import datetime
 
-from openapi_client.models.deductible import Deductible  # noqa: E501
+from cardscan_client.models.deductible import Deductible  # noqa: E501
 
 class TestDeductible(unittest.TestCase):
     """Deductible unit test stubs"""
