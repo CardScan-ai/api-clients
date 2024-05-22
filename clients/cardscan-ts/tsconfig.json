@@ -6,10 +6,7 @@
     "noImplicitAny": true,
     "outDir": "dist",
     "rootDir": ".",
-    "lib": [
-      "es6",
-      "dom"
-    ],
+    "moduleResolution": "node",
     "typeRoots": [
       "node_modules/@types"
     ]

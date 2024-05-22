@@ -20,10 +20,10 @@
 export interface MatchScore {
   /**
    * The matching score value of the card.
-   * @type {number}
+   * @type {string}
    * @memberof MatchScore
    */
-  value?: number;
+  value?: string;
   /**
    *
    * @type {Array<string>}

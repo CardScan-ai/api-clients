@@ -9,7 +9,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```python
-from openapi_client.models.create_card_request_backside import CreateCardRequestBackside
+from cardscan_client.models.create_card_request_backside import CreateCardRequestBackside
 
 # TODO update the JSON string below
 json = "{}"

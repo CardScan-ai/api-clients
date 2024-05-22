@@ -11,7 +11,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```python
-from openapi_client.models.scan_metadata_video_background import ScanMetadataVideoBackground
+from cardscan_client.models.scan_metadata_video_background import ScanMetadataVideoBackground
 
 # TODO update the JSON string below
 json = "{}"

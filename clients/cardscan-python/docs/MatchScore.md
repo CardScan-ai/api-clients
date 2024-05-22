@@ -4,13 +4,13 @@
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**value** | **float** | The matching score value of the card. | [optional] 
+**value** | **str** | The matching score value of the card. | [optional] 
 **scores** | **List[str]** |  | [optional] 
 
 ## Example
 
 ```python
-from openapi_client.models.match_score import MatchScore
+from cardscan_client.models.match_score import MatchScore
 
 # TODO update the JSON string below
 json = "{}"

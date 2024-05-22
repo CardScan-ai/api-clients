@@ -11,7 +11,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```python
-from openapi_client.models.generate_magic_link200_response import GenerateMagicLink200Response
+from cardscan_client.models.generate_magic_link200_response import GenerateMagicLink200Response
 
 # TODO update the JSON string below
 json = "{}"

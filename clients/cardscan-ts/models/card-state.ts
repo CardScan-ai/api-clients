@@ -20,10 +20,12 @@
 
 export const CardState = {
   Pending: "pending",
+  Processing: "processing",
   FrontsideProcessing: "frontside_processing",
   FrontsideFailed: "frontside_failed",
   BacksideProcessing: "backside_processing",
   BacksideFailed: "backside_failed",
+  PostProcessing: "post_processing",
   Completed: "completed",
   Error: "error",
   Unknown: "unknown",
