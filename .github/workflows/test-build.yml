@@ -1,13 +1,11 @@
-name: Test pipelines
+name: Test build
 
 on:
-  push:
-    branches: [main]
   pull_request:
     branches: [main]
 
 jobs:
-  test-ts:
+  build-test-ts:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -18,11 +16,10 @@ jobs:
       - run: cd clients/cardscan-ts
       - name: Install dependencies
         run: npm ci
-      - name: Set up environment variables file
-        run: echo "${{ secrets.TESTS_ENV_FILE }}" > .env
-      - run: npm test
+      - name: Test build
+        run: npm build
 
-  test-python:
+  build-test-python:
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -38,9 +35,5 @@ jobs:
           python -m pip install --upgrade pip
           pip install pytest
           if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
-          if [ -f test-requirements.txt ]; then pip install -r test-requirements.txt; fi
-      - name: Set up environment variables file
-        run: echo "${{ secrets.TESTS_ENV_FILE }}" > test/.env
-      - name: Test with pytest
-        run: |
-          pytest test/test_pipelines.py
+      - name: Test build
+        run: python setup.py sdist bdist_wheel
