@@ -15,7 +15,7 @@
 import unittest
 import datetime
 
-from openapi_client.models.generate_card_upload_url200_response import GenerateCardUploadUrl200Response  # noqa: E501
+from cardscan_client.models.generate_card_upload_url200_response import GenerateCardUploadUrl200Response  # noqa: E501
 
 class TestGenerateCardUploadUrl200Response(unittest.TestCase):
     """GenerateCardUploadUrl200Response unit test stubs"""
@@ -39,7 +39,7 @@ class TestGenerateCardUploadUrl200Response(unittest.TestCase):
                 card_id = '',
                 scan_id = '',
                 upload_url = '',
-                upload_parameters = openapi_client.models.upload_parameters.UploadParameters(
+                upload_parameters = cardscan_client.models.upload_parameters.UploadParameters(
                     key = '', 
                     x_amz_algorithm = '', 
                     x_amz_credential = '', 
@@ -53,7 +53,7 @@ class TestGenerateCardUploadUrl200Response(unittest.TestCase):
                 card_id = '',
                 scan_id = '',
                 upload_url = '',
-                upload_parameters = openapi_client.models.upload_parameters.UploadParameters(
+                upload_parameters = cardscan_client.models.upload_parameters.UploadParameters(
                     key = '', 
                     x_amz_algorithm = '', 
                     x_amz_credential = '', 

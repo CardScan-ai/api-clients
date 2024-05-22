@@ -11,7 +11,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```python
-from openapi_client.models.generate_card_upload_url_request import GenerateCardUploadUrlRequest
+from cardscan_client.models.generate_card_upload_url_request import GenerateCardUploadUrlRequest
 
 # TODO update the JSON string below
 json = "{}"

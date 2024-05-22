@@ -10,7 +10,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```python
-from openapi_client.models.validate_magic_link200_response import ValidateMagicLink200Response
+from cardscan_client.models.validate_magic_link200_response import ValidateMagicLink200Response
 
 # TODO update the JSON string below
 json = "{}"

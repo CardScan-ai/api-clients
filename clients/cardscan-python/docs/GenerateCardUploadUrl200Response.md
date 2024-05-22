@@ -12,7 +12,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```python
-from openapi_client.models.generate_card_upload_url200_response import GenerateCardUploadUrl200Response
+from cardscan_client.models.generate_card_upload_url200_response import GenerateCardUploadUrl200Response
 
 # TODO update the JSON string below
 json = "{}"

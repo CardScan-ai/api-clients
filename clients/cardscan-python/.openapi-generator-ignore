@@ -20,6 +20,7 @@
 # For example, you can ignore all files in a docs folder with the file extension .md:
 #docs/*.md
 # Then explicitly reverse the ignore rule for a single file:
-#!docs/README.md
-requirements.txt
-test/
+
+README.md
+test/test_pipelines.py
+test/cards/

@@ -15,7 +15,7 @@
 import unittest
 import datetime
 
-from openapi_client.models.create_eligibility_request import CreateEligibilityRequest  # noqa: E501
+from cardscan_client.models.create_eligibility_request import CreateEligibilityRequest  # noqa: E501
 
 class TestCreateEligibilityRequest(unittest.TestCase):
     """CreateEligibilityRequest unit test stubs"""
@@ -36,28 +36,28 @@ class TestCreateEligibilityRequest(unittest.TestCase):
         model = CreateEligibilityRequest()  # noqa: E501
         if include_optional:
             return CreateEligibilityRequest(
-                eligibility = openapi_client.models.eligibility_info.EligibilityInfo(
-                    provider = openapi_client.models.provider_dto.ProviderDto(
+                eligibility = cardscan_client.models.eligibility_info.EligibilityInfo(
+                    provider = cardscan_client.models.provider_dto.ProviderDto(
                         first_name = '0', 
                         last_name = '0', 
                         npi = '0', ), 
-                    subscriber = openapi_client.models.subscriber_dto.SubscriberDto(
+                    subscriber = cardscan_client.models.subscriber_dto.SubscriberDto(
                         first_name = '0', 
                         last_name = '0', 
-                        date_of_birth = '2048-09-18', ), ),
+                        date_of_birth = '04807288', ), ),
                 card_id = ''
             )
         else:
             return CreateEligibilityRequest(
-                eligibility = openapi_client.models.eligibility_info.EligibilityInfo(
-                    provider = openapi_client.models.provider_dto.ProviderDto(
+                eligibility = cardscan_client.models.eligibility_info.EligibilityInfo(
+                    provider = cardscan_client.models.provider_dto.ProviderDto(
                         first_name = '0', 
                         last_name = '0', 
                         npi = '0', ), 
-                    subscriber = openapi_client.models.subscriber_dto.SubscriberDto(
+                    subscriber = cardscan_client.models.subscriber_dto.SubscriberDto(
                         first_name = '0', 
                         last_name = '0', 
-                        date_of_birth = '2048-09-18', ), ),
+                        date_of_birth = '04807288', ), ),
                 card_id = '',
         )
         """

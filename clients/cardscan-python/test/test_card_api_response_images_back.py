@@ -15,7 +15,7 @@
 import unittest
 import datetime
 
-from openapi_client.models.card_api_response_images_back import CardApiResponseImagesBack  # noqa: E501
+from cardscan_client.models.card_api_response_images_back import CardApiResponseImagesBack  # noqa: E501
 
 class TestCardApiResponseImagesBack(unittest.TestCase):
     """CardApiResponseImagesBack unit test stubs"""

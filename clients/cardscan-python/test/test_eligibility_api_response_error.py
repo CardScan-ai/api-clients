@@ -15,7 +15,7 @@
 import unittest
 import datetime
 
-from openapi_client.models.eligibility_api_response_error import EligibilityApiResponseError  # noqa: E501
+from cardscan_client.models.eligibility_api_response_error import EligibilityApiResponseError  # noqa: E501
 
 class TestEligibilityApiResponseError(unittest.TestCase):
     """EligibilityApiResponseError unit test stubs"""

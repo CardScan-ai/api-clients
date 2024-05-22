@@ -11,7 +11,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```python
-from openapi_client.models.response_metadata import ResponseMetadata
+from cardscan_client.models.response_metadata import ResponseMetadata
 
 # TODO update the JSON string below
 json = "{}"

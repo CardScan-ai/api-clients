@@ -15,7 +15,7 @@
 import unittest
 import datetime
 
-from openapi_client.models.direct_upload_request import DirectUploadRequest  # noqa: E501
+from cardscan_client.models.direct_upload_request import DirectUploadRequest  # noqa: E501
 
 class TestDirectUploadRequest(unittest.TestCase):
     """DirectUploadRequest unit test stubs"""

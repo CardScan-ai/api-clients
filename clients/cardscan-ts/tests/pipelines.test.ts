@@ -1,5 +1,8 @@
 import { createReadStream } from "node:fs";
 import { CardScanApi, CardState, Configuration, EligibilityState } from "../";
+import { config } from "dotenv";
+
+config();
 
 const cardscan = new CardScanApi(
   new Configuration({

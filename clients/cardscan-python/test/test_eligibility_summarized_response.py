@@ -15,7 +15,7 @@
 import unittest
 import datetime
 
-from openapi_client.models.eligibility_summarized_response import EligibilitySummarizedResponse  # noqa: E501
+from cardscan_client.models.eligibility_summarized_response import EligibilitySummarizedResponse  # noqa: E501
 
 class TestEligibilitySummarizedResponse(unittest.TestCase):
     """EligibilitySummarizedResponse unit test stubs"""
@@ -37,13 +37,13 @@ class TestEligibilitySummarizedResponse(unittest.TestCase):
         if include_optional:
             return EligibilitySummarizedResponse(
                 eligibility_request_id = '',
-                subscriber_details = openapi_client.models.subscriber_details.SubscriberDetails(
+                subscriber_details = cardscan_client.models.subscriber_details.SubscriberDetails(
                     member_id = '', 
                     firstname = '', 
                     lastname = '', 
                     middlename = '', 
                     gender = '', 
-                    address = openapi_client.models.address.Address(
+                    address = cardscan_client.models.address.Address(
                         address1 = '123 address1', 
                         address2 = '', 
                         city = 'city1', 
@@ -53,9 +53,9 @@ class TestEligibilitySummarizedResponse(unittest.TestCase):
                         location_identifier = '', 
                         country_sub_division_code = '', ), 
                     dob = datetime.datetime.strptime('1975-12-30', '%Y-%m-%d').date(), ),
-                payer_details = openapi_client.models.payer_details.PayerDetails(
+                payer_details = cardscan_client.models.payer_details.PayerDetails(
                     payer_name = '', 
-                    address = openapi_client.models.address.Address(
+                    address = cardscan_client.models.address.Address(
                         address1 = '123 address1', 
                         address2 = '', 
                         city = 'city1', 
@@ -64,7 +64,7 @@ class TestEligibilitySummarizedResponse(unittest.TestCase):
                         country_code = '', 
                         location_identifier = '', 
                         country_sub_division_code = '', ), ),
-                plan_details = openapi_client.models.plan_details.PlanDetails(
+                plan_details = cardscan_client.models.plan_details.PlanDetails(
                     plan_number = '', 
                     group_name = '', 
                     group_number = '', 
@@ -72,47 +72,47 @@ class TestEligibilitySummarizedResponse(unittest.TestCase):
                     plan_eligibility_start_date = datetime.datetime.strptime('1975-12-30', '%Y-%m-%d').date(), 
                     plan_name = '', 
                     plan_active = True, ),
-                coverage_summary = openapi_client.models.coverage_summary.CoverageSummary(
-                    individual_deductible_in_network = openapi_client.models.deductible.Deductible(
+                coverage_summary = cardscan_client.models.coverage_summary.CoverageSummary(
+                    individual_deductible_in_network = cardscan_client.models.deductible.Deductible(
                         total_amount = '', 
                         remaining_amount = '', ), 
-                    individual_oop_in_network = openapi_client.models.oop.OOP(
+                    individual_oop_in_network = cardscan_client.models.oop.OOP(
                         total_amount = '', 
                         remaining_amount = '', ), 
-                    family_deductible_in_network = openapi_client.models.deductible.Deductible(
+                    family_deductible_in_network = cardscan_client.models.deductible.Deductible(
                         total_amount = '', 
                         remaining_amount = '', ), 
-                    family_oop_in_network = openapi_client.models.oop.OOP(
+                    family_oop_in_network = cardscan_client.models.oop.OOP(
                         total_amount = '', 
                         remaining_amount = '', ), ),
-                chiropractic = openapi_client.models.service.Service(
-                    co_insurance_in_network = openapi_client.models.co_insurance.CoInsurance(
+                chiropractic = cardscan_client.models.service.Service(
+                    co_insurance_in_network = cardscan_client.models.co_insurance.CoInsurance(
                         amount = '', ), 
-                    co_payment_in_network = openapi_client.models.co_payment.CoPayment(
-                        amount = '', ), 
-                    service_code = '', ),
-                emergency_room = openapi_client.models.service.Service(
-                    co_insurance_in_network = openapi_client.models.co_insurance.CoInsurance(
-                        amount = '', ), 
-                    co_payment_in_network = openapi_client.models.co_payment.CoPayment(
+                    co_payment_in_network = cardscan_client.models.co_payment.CoPayment(
                         amount = '', ), 
                     service_code = '', ),
-                office_visit = openapi_client.models.service.Service(
-                    co_insurance_in_network = openapi_client.models.co_insurance.CoInsurance(
+                emergency_room = cardscan_client.models.service.Service(
+                    co_insurance_in_network = cardscan_client.models.co_insurance.CoInsurance(
                         amount = '', ), 
-                    co_payment_in_network = openapi_client.models.co_payment.CoPayment(
-                        amount = '', ), 
-                    service_code = '', ),
-                urgent_care = openapi_client.models.service.Service(
-                    co_insurance_in_network = openapi_client.models.co_insurance.CoInsurance(
-                        amount = '', ), 
-                    co_payment_in_network = openapi_client.models.co_payment.CoPayment(
+                    co_payment_in_network = cardscan_client.models.co_payment.CoPayment(
                         amount = '', ), 
                     service_code = '', ),
-                hospital_outpatient = openapi_client.models.service.Service(
-                    co_insurance_in_network = openapi_client.models.co_insurance.CoInsurance(
+                office_visit = cardscan_client.models.service.Service(
+                    co_insurance_in_network = cardscan_client.models.co_insurance.CoInsurance(
                         amount = '', ), 
-                    co_payment_in_network = openapi_client.models.co_payment.CoPayment(
+                    co_payment_in_network = cardscan_client.models.co_payment.CoPayment(
+                        amount = '', ), 
+                    service_code = '', ),
+                urgent_care = cardscan_client.models.service.Service(
+                    co_insurance_in_network = cardscan_client.models.co_insurance.CoInsurance(
+                        amount = '', ), 
+                    co_payment_in_network = cardscan_client.models.co_payment.CoPayment(
+                        amount = '', ), 
+                    service_code = '', ),
+                hospital_outpatient = cardscan_client.models.service.Service(
+                    co_insurance_in_network = cardscan_client.models.co_insurance.CoInsurance(
+                        amount = '', ), 
+                    co_payment_in_network = cardscan_client.models.co_payment.CoPayment(
                         amount = '', ), 
                     service_code = '', )
             )

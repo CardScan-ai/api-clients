@@ -13,7 +13,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```python
-from openapi_client.models.scan_metadata_guides import ScanMetadataGuides
+from cardscan_client.models.scan_metadata_guides import ScanMetadataGuides
 
 # TODO update the JSON string below
 json = "{}"

@@ -15,7 +15,7 @@
 import unittest
 import datetime
 
-from openapi_client.models.search_cards200_response import SearchCards200Response  # noqa: E501
+from cardscan_client.models.search_cards200_response import SearchCards200Response  # noqa: E501
 
 class TestSearchCards200Response(unittest.TestCase):
     """SearchCards200Response unit test stubs"""
@@ -37,28 +37,28 @@ class TestSearchCards200Response(unittest.TestCase):
         if include_optional:
             return SearchCards200Response(
                 cards = [
-                    openapi_client.models.card_api_response.CardApiResponse(
+                    cardscan_client.models.card_api_response.CardApiResponse(
                         card_id = '', 
                         state = 'pending', 
                         created_at = datetime.datetime.strptime('2013-10-20 19:20:30.00', '%Y-%m-%d %H:%M:%S.%f'), 
-                        error = openapi_client.models.api_error_response.ApiErrorResponse(
+                        error = cardscan_client.models.api_error_response.ApiErrorResponse(
                             message = '', 
                             type = '', 
                             code = 1.337, ), 
-                        images = openapi_client.models.card_api_response_images.CardApiResponse_images(
-                            front = openapi_client.models.card_api_response_images_front.CardApiResponse_images_front(
+                        images = cardscan_client.models.card_api_response_images.CardApiResponse_images(
+                            front = cardscan_client.models.card_api_response_images_front.CardApiResponse_images_front(
                                 url = '', ), 
-                            back = openapi_client.models.card_api_response_images_back.CardApiResponse_images_back(
+                            back = cardscan_client.models.card_api_response_images_back.CardApiResponse_images_back(
                                 url = '', ), ), 
                         deleted = True, 
-                        details = openapi_client.models.card_api_response_details.CardApiResponse_details(
-                            group_number = openapi_client.models.match_score.MatchScore(
-                                value = 1.337, 
+                        details = cardscan_client.models.card_api_response_details.CardApiResponse_details(
+                            group_number = cardscan_client.models.match_score.MatchScore(
+                                value = '', 
                                 scores = [
                                     ''
                                     ], ), 
-                            member_number = openapi_client.models.match_score.MatchScore(
-                                value = 1.337, ), 
+                            member_number = cardscan_client.models.match_score.MatchScore(
+                                value = '', ), 
                             payer_name = , 
                             rx_bin = , 
                             rx_pcn = , 
@@ -70,7 +70,7 @@ class TestSearchCards200Response(unittest.TestCase):
                             plan_id = , 
                             card_specific_id = , ), )
                     ],
-                response_metadata = openapi_client.models.response_metadata.ResponseMetadata(
+                response_metadata = cardscan_client.models.response_metadata.ResponseMetadata(
                     cursor = '', 
                     limit = 56, 
                     total = 56, )
@@ -78,28 +78,28 @@ class TestSearchCards200Response(unittest.TestCase):
         else:
             return SearchCards200Response(
                 cards = [
-                    openapi_client.models.card_api_response.CardApiResponse(
+                    cardscan_client.models.card_api_response.CardApiResponse(
                         card_id = '', 
                         state = 'pending', 
                         created_at = datetime.datetime.strptime('2013-10-20 19:20:30.00', '%Y-%m-%d %H:%M:%S.%f'), 
-                        error = openapi_client.models.api_error_response.ApiErrorResponse(
+                        error = cardscan_client.models.api_error_response.ApiErrorResponse(
                             message = '', 
                             type = '', 
                             code = 1.337, ), 
-                        images = openapi_client.models.card_api_response_images.CardApiResponse_images(
-                            front = openapi_client.models.card_api_response_images_front.CardApiResponse_images_front(
+                        images = cardscan_client.models.card_api_response_images.CardApiResponse_images(
+                            front = cardscan_client.models.card_api_response_images_front.CardApiResponse_images_front(
                                 url = '', ), 
-                            back = openapi_client.models.card_api_response_images_back.CardApiResponse_images_back(
+                            back = cardscan_client.models.card_api_response_images_back.CardApiResponse_images_back(
                                 url = '', ), ), 
                         deleted = True, 
-                        details = openapi_client.models.card_api_response_details.CardApiResponse_details(
-                            group_number = openapi_client.models.match_score.MatchScore(
-                                value = 1.337, 
+                        details = cardscan_client.models.card_api_response_details.CardApiResponse_details(
+                            group_number = cardscan_client.models.match_score.MatchScore(
+                                value = '', 
                                 scores = [
                                     ''
                                     ], ), 
-                            member_number = openapi_client.models.match_score.MatchScore(
-                                value = 1.337, ), 
+                            member_number = cardscan_client.models.match_score.MatchScore(
+                                value = '', ), 
                             payer_name = , 
                             rx_bin = , 
                             rx_pcn = , 
@@ -111,7 +111,7 @@ class TestSearchCards200Response(unittest.TestCase):
                             plan_id = , 
                             card_specific_id = , ), )
                     ],
-                response_metadata = openapi_client.models.response_metadata.ResponseMetadata(
+                response_metadata = cardscan_client.models.response_metadata.ResponseMetadata(
                     cursor = '', 
                     limit = 56, 
                     total = 56, ),

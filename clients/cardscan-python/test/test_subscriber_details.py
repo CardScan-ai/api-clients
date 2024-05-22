@@ -15,7 +15,7 @@
 import unittest
 import datetime
 
-from openapi_client.models.subscriber_details import SubscriberDetails  # noqa: E501
+from cardscan_client.models.subscriber_details import SubscriberDetails  # noqa: E501
 
 class TestSubscriberDetails(unittest.TestCase):
     """SubscriberDetails unit test stubs"""
@@ -41,7 +41,7 @@ class TestSubscriberDetails(unittest.TestCase):
                 lastname = '',
                 middlename = '',
                 gender = '',
-                address = openapi_client.models.address.Address(
+                address = cardscan_client.models.address.Address(
                     address1 = '123 address1', 
                     address2 = '', 
                     city = 'city1', 

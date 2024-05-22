@@ -15,7 +15,7 @@
 import unittest
 import datetime
 
-from openapi_client.models.eligibility_websocket_event import EligibilityWebsocketEvent  # noqa: E501
+from cardscan_client.models.eligibility_websocket_event import EligibilityWebsocketEvent  # noqa: E501
 
 class TestEligibilityWebsocketEvent(unittest.TestCase):
     """EligibilityWebsocketEvent unit test stubs"""
@@ -42,7 +42,7 @@ class TestEligibilityWebsocketEvent(unittest.TestCase):
                 state = 'pending',
                 created_at = datetime.datetime.strptime('2013-10-20 19:20:30.00', '%Y-%m-%d %H:%M:%S.%f'),
                 session_id = '',
-                error = openapi_client.models.api_error_response.ApiErrorResponse(
+                error = cardscan_client.models.api_error_response.ApiErrorResponse(
                     message = '', 
                     type = '', 
                     code = 1.337, ),

@@ -15,7 +15,7 @@
 import unittest
 import datetime
 
-from openapi_client.models.co_payment import CoPayment  # noqa: E501
+from cardscan_client.models.co_payment import CoPayment  # noqa: E501
 
 class TestCoPayment(unittest.TestCase):
     """CoPayment unit test stubs"""

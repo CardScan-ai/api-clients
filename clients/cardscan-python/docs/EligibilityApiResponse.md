@@ -8,8 +8,8 @@ Name | Type | Description | Notes
 **state** | **str** | The state of the eligibility record. | 
 **card_id** | **str** | The ID of the card. | 
 **eligibility_request** | [**EligibilityApiResponseEligibilityRequest**](EligibilityApiResponseEligibilityRequest.md) |  | [optional] 
-**eligibility_response** | [**Response**](Response.md) |  | [optional] 
-**eligibility_summarized_response** | [**EligibilitySummarizedResponse**](EligibilitySummarizedResponse.md) |  | [optional] 
+**eligibility_response** | **Dict[str, object]** | The eligibility raw response. | [optional] 
+**eligibility_summarized_response** | **Dict[str, object]** | The eligibility summarized response. | [optional] 
 **error** | [**EligibilityApiResponseError**](EligibilityApiResponseError.md) |  | [optional] 
 **created_at** | **datetime** | The timestamp when the eligibility record was created. | 
 **update_at** | **datetime** | The timestamp when the eligibility record was last updated. | 
@@ -17,7 +17,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```python
-from openapi_client.models.eligibility_api_response import EligibilityApiResponse
+from cardscan_client.models.eligibility_api_response import EligibilityApiResponse
 
 # TODO update the JSON string below
 json = "{}"

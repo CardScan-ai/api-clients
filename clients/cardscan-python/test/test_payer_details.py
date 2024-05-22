@@ -15,7 +15,7 @@
 import unittest
 import datetime
 
-from openapi_client.models.payer_details import PayerDetails  # noqa: E501
+from cardscan_client.models.payer_details import PayerDetails  # noqa: E501
 
 class TestPayerDetails(unittest.TestCase):
     """PayerDetails unit test stubs"""
@@ -37,7 +37,7 @@ class TestPayerDetails(unittest.TestCase):
         if include_optional:
             return PayerDetails(
                 payer_name = '',
-                address = openapi_client.models.address.Address(
+                address = cardscan_client.models.address.Address(
                     address1 = '123 address1', 
                     address2 = '', 
                     city = 'city1', 

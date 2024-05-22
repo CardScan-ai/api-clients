@@ -19,6 +19,48 @@
  */
 export interface UploadParameters {
   /**
+   * The content type of the file
+   * @type {string}
+   * @memberof UploadParameters
+   */
+  "Content-Type": string;
+  /**
+   * The content disposition of the file
+   * @type {string}
+   * @memberof UploadParameters
+   */
+  "Content-Disposition": string;
+  /**
+   * The account ID
+   * @type {string}
+   * @memberof UploadParameters
+   */
+  "x-amz-meta-cardscan-account-id": string;
+  /**
+   * The card ID
+   * @type {string}
+   * @memberof UploadParameters
+   */
+  "x-amz-meta-cardscan-card-id": string;
+  /**
+   * The scan ID
+   * @type {string}
+   * @memberof UploadParameters
+   */
+  "x-amz-meta-cardscan-scan-id": string;
+  /**
+   * The user ID
+   * @type {string}
+   * @memberof UploadParameters
+   */
+  "x-amz-meta-cardscan-user-id"?: string;
+  /**
+   * The developer user ID
+   * @type {string}
+   * @memberof UploadParameters
+   */
+  "x-amz-meta-cardscan-developer-user-id"?: string;
+  /**
    * The key of the file
    * @type {string}
    * @memberof UploadParameters
