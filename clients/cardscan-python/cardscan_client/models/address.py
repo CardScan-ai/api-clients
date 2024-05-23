@@ -33,10 +33,6 @@ class Address(BaseModel):
     country_code: Optional[StrictStr] = Field(default=None, alias="countryCode", description="Segment: N4, Element: N404")
     location_identifier: Optional[StrictStr] = Field(default=None, alias="locationIdentifier", description="Segment: N4, Element: N406")
     country_sub_division_code: Optional[StrictStr] = Field(default=None, alias="countrySubDivisionCode", description="Segment: N4, Element: N407, Notes: Country SubDivision Code")
-<<<<<<< HEAD:clients/cardscan-python/openapi_client/models/address.py
-    additional_properties: Dict[str, Any] = {}
-=======
->>>>>>> main:clients/cardscan-python/cardscan_client/models/address.py
     __properties = ["address1", "address2", "city", "state", "postalCode", "countryCode", "locationIdentifier", "countrySubDivisionCode"]
 
     class Config:
