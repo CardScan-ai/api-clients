@@ -20,7 +20,7 @@ import json
 
 from typing import Any, Dict, List, Optional, Union
 from pydantic import BaseModel, Field, StrictFloat, StrictInt, conlist
-from openapi_client.models.scan_metadata_capture_score_scores_inner import ScanMetadataCaptureScoreScoresInner
+from cardscan_client.models.scan_metadata_capture_score_scores_inner import ScanMetadataCaptureScoreScoresInner
 
 class ScanMetadataCaptureScore(BaseModel):
     """

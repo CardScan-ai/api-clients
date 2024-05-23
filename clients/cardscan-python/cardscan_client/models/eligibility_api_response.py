@@ -20,8 +20,8 @@ import json
 from datetime import datetime
 from typing import Any, Dict, Optional
 from pydantic import BaseModel, Field, StrictStr, validator
-from openapi_client.models.eligibility_api_response_eligibility_request import EligibilityApiResponseEligibilityRequest
-from openapi_client.models.eligibility_api_response_error import EligibilityApiResponseError
+from cardscan_client.models.eligibility_api_response_eligibility_request import EligibilityApiResponseEligibilityRequest
+from cardscan_client.models.eligibility_api_response_error import EligibilityApiResponseError
 
 class EligibilityApiResponse(BaseModel):
     """

@@ -1,7 +1,7 @@
 import os
 import pytest
 from dotenv import load_dotenv
-from openapi_client import (
+from cardscan_client import (
     CardScanApi,
     Configuration,
     ApiClient,

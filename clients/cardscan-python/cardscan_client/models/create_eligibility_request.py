@@ -20,7 +20,7 @@ import json
 
 from typing import Any, Dict
 from pydantic import BaseModel, Field, StrictStr
-from openapi_client.models.eligibility_info import EligibilityInfo
+from cardscan_client.models.eligibility_info import EligibilityInfo
 
 class CreateEligibilityRequest(BaseModel):
     """

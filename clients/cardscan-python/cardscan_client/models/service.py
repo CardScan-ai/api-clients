@@ -20,8 +20,8 @@ import json
 
 from typing import Any, Dict, Optional
 from pydantic import BaseModel, Field, StrictStr
-from openapi_client.models.co_insurance import CoInsurance
-from openapi_client.models.co_payment import CoPayment
+from cardscan_client.models.co_insurance import CoInsurance
+from cardscan_client.models.co_payment import CoPayment
 
 class Service(BaseModel):
     """

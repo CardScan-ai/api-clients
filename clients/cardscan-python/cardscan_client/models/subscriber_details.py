@@ -20,7 +20,7 @@ import json
 from datetime import date
 from typing import Any, Dict, Optional
 from pydantic import BaseModel, Field, StrictStr
-from openapi_client.models.address import Address
+from cardscan_client.models.address import Address
 
 class SubscriberDetails(BaseModel):
     """
