@@ -1,0 +1,10 @@
+# DirectUpload200ResponseMetadata
+
+## Properties
+Name | Type | Description | Notes
+------------ | ------------- | ------------- | -------------
+**ocrLatency** | **String** | OCR latency in milliseconds | [optional] 
+
+[[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
+
+
