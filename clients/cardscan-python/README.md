@@ -25,7 +25,6 @@ from pprint import pprint
 
 # Defining the host is optional and defaults to https://sandbox.cardscan.ai/v1
 # See configuration.py for a list of all supported configuration parameters.
-# configuration = Configuration(host="https://sandbox.cardscan.ai/v1")
 
 # The client must configure the authentication and authorization parameters
 # in accordance with the API server security policy.
@@ -34,31 +33,25 @@ from pprint import pprint
 
 # Configure Bearer authorization: bearerAuth
 configuration = Configuration(
-    host=os.environ["HOST"],
-    api_key=os.environ["API_KEY"],
+    api_key=os.environ['API_KEY'],
+    environment='sandbox'
 )
 
 
-async def main():
-    # Enter a context with an instance of the API client
-    async with ApiClient(configuration) as api_client:
-        # Create an instance of the API class
-        api_instance = CardScanApi(api_client)
+def main():
+    client = CardScanApi(api_client=ApiClient(configuration=configuration))
 
-        try:
-            # Creates a new card
-            api_response = await api_instance.get_access_token()
+    try:
+        api_response = client.full_scan(front_image_path="test/cards/front.jpg")
 
-            print("The response of GetAccessToken->get_access_token:\n")
-            pprint(api_response)
-        except ApiException as e:
-            print("Exception when calling GetAccessToken->get_access_token: %s\n" % e)
+        pprint(api_response)
+    except ApiException as e:
+        print("Exception when calling FullScan->full_scan: %s\n" % e)
 
 
 if __name__ == "__main__":
-    import asyncio
+    main()
 
-    asyncio.run(main())
 ```
 
 ## Documentation for API Endpoints
@@ -106,6 +99,7 @@ All URIs are relative to *https://sandbox.cardscan.ai/v1*
 - [DirectUploadRequest](docs/DirectUploadRequest.md)
 - [EligibilityApiResponse](docs/EligibilityApiResponse.md)
 - [EligibilityApiResponseEligibilityRequest](docs/EligibilityApiResponseEligibilityRequest.md)
+- [EligibilityApiResponseEligibilityRequestSubscriber](docs/EligibilityApiResponseEligibilityRequestSubscriber.md)
 - [EligibilityApiResponseError](docs/EligibilityApiResponseError.md)
 - [EligibilityInfo](docs/EligibilityInfo.md)
 - [EligibilityState](docs/EligibilityState.md)
@@ -142,12 +136,12 @@ All URIs are relative to *https://sandbox.cardscan.ai/v1*
 - [UploadParameters](docs/UploadParameters.md)
 - [ValidateMagicLink200Response](docs/ValidateMagicLink200Response.md)
 
-`<a id="documentation-for-authorization"></a>`
+<a id="documentation-for-authorization"></a>
 
 ## Documentation For Authorization
 
 Authentication schemes defined for the API:
-`<a id="bearerAuth"></a>`
+<a id="bearerAuth"></a>
 
 ### bearerAuth
 

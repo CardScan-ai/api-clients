@@ -20,8 +20,8 @@ import json
 
 from typing import Optional
 from pydantic import BaseModel, Field, StrictStr
+from cardscan_client.models.eligibility_api_response_eligibility_request_subscriber import EligibilityApiResponseEligibilityRequestSubscriber
 from cardscan_client.models.provider_dto import ProviderDto
-from cardscan_client.models.subscriber_dto import SubscriberDto
 
 class EligibilityApiResponseEligibilityRequest(BaseModel):
     """
@@ -30,7 +30,7 @@ class EligibilityApiResponseEligibilityRequest(BaseModel):
     control_number: Optional[StrictStr] = Field(default=None, alias="controlNumber", description="The control number of the claim.")
     trading_partner_service_id: Optional[StrictStr] = Field(default=None, alias="tradingPartnerServiceId", description="The ID of the trading partner service.")
     provider: Optional[ProviderDto] = None
-    subscriber: Optional[SubscriberDto] = None
+    subscriber: Optional[EligibilityApiResponseEligibilityRequestSubscriber] = None
     __properties = ["controlNumber", "tradingPartnerServiceId", "provider", "subscriber"]
 
     class Config:
@@ -78,7 +78,7 @@ class EligibilityApiResponseEligibilityRequest(BaseModel):
             "control_number": obj.get("controlNumber"),
             "trading_partner_service_id": obj.get("tradingPartnerServiceId"),
             "provider": ProviderDto.from_dict(obj.get("provider")) if obj.get("provider") is not None else None,
-            "subscriber": SubscriberDto.from_dict(obj.get("subscriber")) if obj.get("subscriber") is not None else None
+            "subscriber": EligibilityApiResponseEligibilityRequestSubscriber.from_dict(obj.get("subscriber")) if obj.get("subscriber") is not None else None
         })
         return _obj
 

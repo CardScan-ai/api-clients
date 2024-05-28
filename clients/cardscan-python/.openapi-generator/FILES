@@ -2,7 +2,6 @@
 .gitignore
 .gitlab-ci.yml
 .travis.yml
-README.md
 cardscan_client/__init__.py
 cardscan_client/api/__init__.py
 cardscan_client/api/card_scan_api.py
@@ -32,6 +31,7 @@ cardscan_client/models/direct_upload200_response_metadata.py
 cardscan_client/models/direct_upload_request.py
 cardscan_client/models/eligibility_api_response.py
 cardscan_client/models/eligibility_api_response_eligibility_request.py
+cardscan_client/models/eligibility_api_response_eligibility_request_subscriber.py
 cardscan_client/models/eligibility_api_response_error.py
 cardscan_client/models/eligibility_info.py
 cardscan_client/models/eligibility_state.py
@@ -91,6 +91,7 @@ docs/DirectUpload200ResponseMetadata.md
 docs/DirectUploadRequest.md
 docs/EligibilityApiResponse.md
 docs/EligibilityApiResponseEligibilityRequest.md
+docs/EligibilityApiResponseEligibilityRequestSubscriber.md
 docs/EligibilityApiResponseError.md
 docs/EligibilityInfo.md
 docs/EligibilityState.md
