@@ -8,7 +8,7 @@ import 'package:openapi/api.dart';
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**scores** | [**List<ScanMetadataCaptureScoreScoresInner>**](ScanMetadataCaptureScoreScoresInner.md) | List of capture scores | [optional] [default to const []]
+**scores** | [**BuiltList&lt;ScanMetadataCaptureScoreScoresInner&gt;**](ScanMetadataCaptureScoreScoresInner.md) | List of capture scores | [optional] 
 **maxLapScore** | **num** | Maximum Laplacian score | [optional] 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

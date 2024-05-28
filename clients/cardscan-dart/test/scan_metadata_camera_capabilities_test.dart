@@ -1,21 +1,12 @@
-//
-// AUTO-GENERATED FILE, DO NOT MODIFY!
-//
-// @dart=2.18
-
-// ignore_for_file: unused_element, unused_import
-// ignore_for_file: always_put_required_named_parameters_first
-// ignore_for_file: constant_identifier_names
-// ignore_for_file: lines_longer_than_80_chars
-
-import 'package:openapi/api.dart';
 import 'package:test/test.dart';
+import 'package:openapi/openapi.dart';
 
 // tests for ScanMetadataCameraCapabilities
 void main() {
-  // final instance = ScanMetadataCameraCapabilities();
+  final instance = ScanMetadataCameraCapabilitiesBuilder();
+  // TODO add properties to the builder and call build()
 
-  group('test ScanMetadataCameraCapabilities', () {
+  group(ScanMetadataCameraCapabilities, () {
     // ScanMetadataCameraCapabilitiesAspectRatio aspectRatio
     test('to test the property `aspectRatio`', () async {
       // TODO
@@ -26,7 +17,7 @@ void main() {
       // TODO
     });
 
-    // List<String> facingMode (default value: const [])
+    // BuiltList<String> facingMode
     test('to test the property `facingMode`', () async {
       // TODO
     });
@@ -46,7 +37,7 @@ void main() {
       // TODO
     });
 
-    // List<String> resizeMode (default value: const [])
+    // BuiltList<String> resizeMode
     test('to test the property `resizeMode`', () async {
       // TODO
     });
@@ -56,7 +47,5 @@ void main() {
       // TODO
     });
 
-
   });
-
 }

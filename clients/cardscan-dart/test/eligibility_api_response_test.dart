@@ -1,21 +1,12 @@
-//
-// AUTO-GENERATED FILE, DO NOT MODIFY!
-//
-// @dart=2.18
-
-// ignore_for_file: unused_element, unused_import
-// ignore_for_file: always_put_required_named_parameters_first
-// ignore_for_file: constant_identifier_names
-// ignore_for_file: lines_longer_than_80_chars
-
-import 'package:openapi/api.dart';
 import 'package:test/test.dart';
+import 'package:openapi/openapi.dart';
 
 // tests for EligibilityApiResponse
 void main() {
-  // final instance = EligibilityApiResponse();
+  final instance = EligibilityApiResponseBuilder();
+  // TODO add properties to the builder and call build()
 
-  group('test EligibilityApiResponse', () {
+  group(EligibilityApiResponse, () {
     // The ID of the eligibility record.
     // String eligibilityId
     test('to test the property `eligibilityId`', () async {
@@ -40,13 +31,13 @@ void main() {
     });
 
     // The eligibility raw response.
-    // Map<String, Object> eligibilityResponse (default value: const {})
+    // BuiltMap<String, JsonObject> eligibilityResponse
     test('to test the property `eligibilityResponse`', () async {
       // TODO
     });
 
     // The eligibility summarized response.
-    // Map<String, Object> eligibilitySummarizedResponse (default value: const {})
+    // BuiltMap<String, JsonObject> eligibilitySummarizedResponse
     test('to test the property `eligibilitySummarizedResponse`', () async {
       // TODO
     });
@@ -68,7 +59,5 @@ void main() {
       // TODO
     });
 
-
   });
-
 }

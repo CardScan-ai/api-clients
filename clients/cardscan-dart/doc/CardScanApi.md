@@ -34,20 +34,14 @@ Creates a new card
 ### Example
 ```dart
 import 'package:openapi/api.dart';
-// TODO Configure HTTP Bearer authorization: bearerAuth
-// Case 1. Use String Token
-//defaultApiClient.getAuthentication<HttpBearerAuth>('bearerAuth').setAccessToken('YOUR_ACCESS_TOKEN');
-// Case 2. Use Function which generate token.
-// String yourTokenGeneratorFunction() { ... }
-//defaultApiClient.getAuthentication<HttpBearerAuth>('bearerAuth').setAccessToken(yourTokenGeneratorFunction);
 
-final api_instance = CardScanApi();
-final createCardRequest = CreateCardRequest(); // CreateCardRequest | 
+final api = Openapi().getCardScanApi();
+final CreateCardRequest createCardRequest = ; // CreateCardRequest | 
 
 try {
-    final result = api_instance.createCard(createCardRequest);
-    print(result);
-} catch (e) {
+    final response = api.createCard(createCardRequest);
+    print(response);
+} catch on DioException (e) {
     print('Exception when calling CardScanApi->createCard: $e\n');
 }
 ```
@@ -81,20 +75,14 @@ Create Eligibility Record
 ### Example
 ```dart
 import 'package:openapi/api.dart';
-// TODO Configure HTTP Bearer authorization: bearerAuth
-// Case 1. Use String Token
-//defaultApiClient.getAuthentication<HttpBearerAuth>('bearerAuth').setAccessToken('YOUR_ACCESS_TOKEN');
-// Case 2. Use Function which generate token.
-// String yourTokenGeneratorFunction() { ... }
-//defaultApiClient.getAuthentication<HttpBearerAuth>('bearerAuth').setAccessToken(yourTokenGeneratorFunction);
 
-final api_instance = CardScanApi();
-final createEligibilityRequest = CreateEligibilityRequest(); // CreateEligibilityRequest | 
+final api = Openapi().getCardScanApi();
+final CreateEligibilityRequest createEligibilityRequest = ; // CreateEligibilityRequest | 
 
 try {
-    final result = api_instance.createEligibility(createEligibilityRequest);
-    print(result);
-} catch (e) {
+    final response = api.createEligibility(createEligibilityRequest);
+    print(response);
+} catch on DioException (e) {
     print('Exception when calling CardScanApi->createEligibility: $e\n');
 }
 ```
@@ -128,19 +116,13 @@ Delete Card
 ### Example
 ```dart
 import 'package:openapi/api.dart';
-// TODO Configure HTTP Bearer authorization: bearerAuth
-// Case 1. Use String Token
-//defaultApiClient.getAuthentication<HttpBearerAuth>('bearerAuth').setAccessToken('YOUR_ACCESS_TOKEN');
-// Case 2. Use Function which generate token.
-// String yourTokenGeneratorFunction() { ... }
-//defaultApiClient.getAuthentication<HttpBearerAuth>('bearerAuth').setAccessToken(yourTokenGeneratorFunction);
 
-final api_instance = CardScanApi();
-final cardId = 38400000-8cf0-11bd-b23e-10b96e4ef00d; // String | The ID of the card
+final api = Openapi().getCardScanApi();
+final String cardId = 38400000-8cf0-11bd-b23e-10b96e4ef00d; // String | The ID of the card
 
 try {
-    api_instance.deleteCardById(cardId);
-} catch (e) {
+    api.deleteCardById(cardId);
+} catch on DioException (e) {
     print('Exception when calling CardScanApi->deleteCardById: $e\n');
 }
 ```
@@ -174,23 +156,17 @@ Direct Upload
 ### Example
 ```dart
 import 'package:openapi/api.dart';
-// TODO Configure HTTP Bearer authorization: bearerAuth
-// Case 1. Use String Token
-//defaultApiClient.getAuthentication<HttpBearerAuth>('bearerAuth').setAccessToken('YOUR_ACCESS_TOKEN');
-// Case 2. Use Function which generate token.
-// String yourTokenGeneratorFunction() { ... }
-//defaultApiClient.getAuthentication<HttpBearerAuth>('bearerAuth').setAccessToken(yourTokenGeneratorFunction);
 
-final api_instance = CardScanApi();
-final orientation = ; // ScanOrientation | 
-final captureType = ; // ScanCaptureType | 
-final cardId = 38400000-8cf0-11bd-b23e-10b96e4ef00d; // String | 
-final directUploadRequest = DirectUploadRequest(); // DirectUploadRequest | 
+final api = Openapi().getCardScanApi();
+final ScanOrientation orientation = ; // ScanOrientation | 
+final ScanCaptureType captureType = ; // ScanCaptureType | 
+final String cardId = 38400000-8cf0-11bd-b23e-10b96e4ef00d; // String | 
+final DirectUploadRequest directUploadRequest = ; // DirectUploadRequest | 
 
 try {
-    final result = api_instance.directUpload(orientation, captureType, cardId, directUploadRequest);
-    print(result);
-} catch (e) {
+    final response = api.directUpload(orientation, captureType, cardId, directUploadRequest);
+    print(response);
+} catch on DioException (e) {
     print('Exception when calling CardScanApi->directUpload: $e\n');
 }
 ```
@@ -227,22 +203,16 @@ Card - Generate Upload URL
 ### Example
 ```dart
 import 'package:openapi/api.dart';
-// TODO Configure HTTP Bearer authorization: bearerAuth
-// Case 1. Use String Token
-//defaultApiClient.getAuthentication<HttpBearerAuth>('bearerAuth').setAccessToken('YOUR_ACCESS_TOKEN');
-// Case 2. Use Function which generate token.
-// String yourTokenGeneratorFunction() { ... }
-//defaultApiClient.getAuthentication<HttpBearerAuth>('bearerAuth').setAccessToken(yourTokenGeneratorFunction);
 
-final api_instance = CardScanApi();
-final cardId = 38400000-8cf0-11bd-b23e-10b96e4ef00d; // String | 
-final expiration = 56; // int | 
-final generateCardUploadUrlRequest = GenerateCardUploadUrlRequest(); // GenerateCardUploadUrlRequest | 
+final api = Openapi().getCardScanApi();
+final String cardId = 38400000-8cf0-11bd-b23e-10b96e4ef00d; // String | 
+final int expiration = 56; // int | 
+final GenerateCardUploadUrlRequest generateCardUploadUrlRequest = ; // GenerateCardUploadUrlRequest | 
 
 try {
-    final result = api_instance.generateCardUploadUrl(cardId, expiration, generateCardUploadUrlRequest);
-    print(result);
-} catch (e) {
+    final response = api.generateCardUploadUrl(cardId, expiration, generateCardUploadUrlRequest);
+    print(response);
+} catch on DioException (e) {
     print('Exception when calling CardScanApi->generateCardUploadUrl: $e\n');
 }
 ```
@@ -278,19 +248,13 @@ Generate Magic Link
 ### Example
 ```dart
 import 'package:openapi/api.dart';
-// TODO Configure HTTP Bearer authorization: bearerAuth
-// Case 1. Use String Token
-//defaultApiClient.getAuthentication<HttpBearerAuth>('bearerAuth').setAccessToken('YOUR_ACCESS_TOKEN');
-// Case 2. Use Function which generate token.
-// String yourTokenGeneratorFunction() { ... }
-//defaultApiClient.getAuthentication<HttpBearerAuth>('bearerAuth').setAccessToken(yourTokenGeneratorFunction);
 
-final api_instance = CardScanApi();
+final api = Openapi().getCardScanApi();
 
 try {
-    final result = api_instance.generateMagicLink();
-    print(result);
-} catch (e) {
+    final response = api.generateMagicLink();
+    print(response);
+} catch on DioException (e) {
     print('Exception when calling CardScanApi->generateMagicLink: $e\n');
 }
 ```
@@ -321,20 +285,14 @@ Generate an upload URL
 ### Example
 ```dart
 import 'package:openapi/api.dart';
-// TODO Configure HTTP Bearer authorization: bearerAuth
-// Case 1. Use String Token
-//defaultApiClient.getAuthentication<HttpBearerAuth>('bearerAuth').setAccessToken('YOUR_ACCESS_TOKEN');
-// Case 2. Use Function which generate token.
-// String yourTokenGeneratorFunction() { ... }
-//defaultApiClient.getAuthentication<HttpBearerAuth>('bearerAuth').setAccessToken(yourTokenGeneratorFunction);
 
-final api_instance = CardScanApi();
-final expiration = 56; // int | 
+final api = Openapi().getCardScanApi();
+final int expiration = 56; // int | 
 
 try {
-    final result = api_instance.generateUploadUrl(expiration);
-    print(result);
-} catch (e) {
+    final response = api.generateUploadUrl(expiration);
+    print(response);
+} catch on DioException (e) {
     print('Exception when calling CardScanApi->generateUploadUrl: $e\n');
 }
 ```
@@ -368,20 +326,14 @@ Access Token
 ### Example
 ```dart
 import 'package:openapi/api.dart';
-// TODO Configure HTTP Bearer authorization: bearerAuth
-// Case 1. Use String Token
-//defaultApiClient.getAuthentication<HttpBearerAuth>('bearerAuth').setAccessToken('YOUR_ACCESS_TOKEN');
-// Case 2. Use Function which generate token.
-// String yourTokenGeneratorFunction() { ... }
-//defaultApiClient.getAuthentication<HttpBearerAuth>('bearerAuth').setAccessToken(yourTokenGeneratorFunction);
 
-final api_instance = CardScanApi();
-final userId = userId_example; // String | The ID of the user
+final api = Openapi().getCardScanApi();
+final String userId = userId_example; // String | The ID of the user
 
 try {
-    final result = api_instance.getAccessToken(userId);
-    print(result);
-} catch (e) {
+    final response = api.getAccessToken(userId);
+    print(response);
+} catch on DioException (e) {
     print('Exception when calling CardScanApi->getAccessToken: $e\n');
 }
 ```
@@ -415,20 +367,14 @@ Get Card by ID
 ### Example
 ```dart
 import 'package:openapi/api.dart';
-// TODO Configure HTTP Bearer authorization: bearerAuth
-// Case 1. Use String Token
-//defaultApiClient.getAuthentication<HttpBearerAuth>('bearerAuth').setAccessToken('YOUR_ACCESS_TOKEN');
-// Case 2. Use Function which generate token.
-// String yourTokenGeneratorFunction() { ... }
-//defaultApiClient.getAuthentication<HttpBearerAuth>('bearerAuth').setAccessToken(yourTokenGeneratorFunction);
 
-final api_instance = CardScanApi();
-final cardId = 38400000-8cf0-11bd-b23e-10b96e4ef00d; // String | The ID of the card
+final api = Openapi().getCardScanApi();
+final String cardId = 38400000-8cf0-11bd-b23e-10b96e4ef00d; // String | The ID of the card
 
 try {
-    final result = api_instance.getCardById(cardId);
-    print(result);
-} catch (e) {
+    final response = api.getCardById(cardId);
+    print(response);
+} catch on DioException (e) {
     print('Exception when calling CardScanApi->getCardById: $e\n');
 }
 ```
@@ -462,20 +408,14 @@ Get Eligibility
 ### Example
 ```dart
 import 'package:openapi/api.dart';
-// TODO Configure HTTP Bearer authorization: bearerAuth
-// Case 1. Use String Token
-//defaultApiClient.getAuthentication<HttpBearerAuth>('bearerAuth').setAccessToken('YOUR_ACCESS_TOKEN');
-// Case 2. Use Function which generate token.
-// String yourTokenGeneratorFunction() { ... }
-//defaultApiClient.getAuthentication<HttpBearerAuth>('bearerAuth').setAccessToken(yourTokenGeneratorFunction);
 
-final api_instance = CardScanApi();
-final eligibilityId = eligibilityId_example; // String | 
+final api = Openapi().getCardScanApi();
+final String eligibilityId = eligibilityId_example; // String | 
 
 try {
-    final result = api_instance.getEligibilityById(eligibilityId);
-    print(result);
-} catch (e) {
+    final response = api.getEligibilityById(eligibilityId);
+    print(response);
+} catch on DioException (e) {
     print('Exception when calling CardScanApi->getEligibilityById: $e\n');
 }
 ```
@@ -509,19 +449,13 @@ Get Scan Metadata
 ### Example
 ```dart
 import 'package:openapi/api.dart';
-// TODO Configure HTTP Bearer authorization: bearerAuth
-// Case 1. Use String Token
-//defaultApiClient.getAuthentication<HttpBearerAuth>('bearerAuth').setAccessToken('YOUR_ACCESS_TOKEN');
-// Case 2. Use Function which generate token.
-// String yourTokenGeneratorFunction() { ... }
-//defaultApiClient.getAuthentication<HttpBearerAuth>('bearerAuth').setAccessToken(yourTokenGeneratorFunction);
 
-final api_instance = CardScanApi();
-final scanId = 38400000-8cf0-11bd-b23e-10b96e4ef00d; // String | 
+final api = Openapi().getCardScanApi();
+final String scanId = 38400000-8cf0-11bd-b23e-10b96e4ef00d; // String | 
 
 try {
-    api_instance.getScanMetadata(scanId);
-} catch (e) {
+    api.getScanMetadata(scanId);
+} catch on DioException (e) {
     print('Exception when calling CardScanApi->getScanMetadata: $e\n');
 }
 ```
@@ -555,21 +489,15 @@ List Cards
 ### Example
 ```dart
 import 'package:openapi/api.dart';
-// TODO Configure HTTP Bearer authorization: bearerAuth
-// Case 1. Use String Token
-//defaultApiClient.getAuthentication<HttpBearerAuth>('bearerAuth').setAccessToken('YOUR_ACCESS_TOKEN');
-// Case 2. Use Function which generate token.
-// String yourTokenGeneratorFunction() { ... }
-//defaultApiClient.getAuthentication<HttpBearerAuth>('bearerAuth').setAccessToken(yourTokenGeneratorFunction);
 
-final api_instance = CardScanApi();
-final limit = 56; // int | 
-final cursor = cursor_example; // String | 
+final api = Openapi().getCardScanApi();
+final int limit = 56; // int | 
+final String cursor = cursor_example; // String | 
 
 try {
-    final result = api_instance.listCards(limit, cursor);
-    print(result);
-} catch (e) {
+    final response = api.listCards(limit, cursor);
+    print(response);
+} catch on DioException (e) {
     print('Exception when calling CardScanApi->listCards: $e\n');
 }
 ```
@@ -604,19 +532,13 @@ List Eligibility
 ### Example
 ```dart
 import 'package:openapi/api.dart';
-// TODO Configure HTTP Bearer authorization: bearerAuth
-// Case 1. Use String Token
-//defaultApiClient.getAuthentication<HttpBearerAuth>('bearerAuth').setAccessToken('YOUR_ACCESS_TOKEN');
-// Case 2. Use Function which generate token.
-// String yourTokenGeneratorFunction() { ... }
-//defaultApiClient.getAuthentication<HttpBearerAuth>('bearerAuth').setAccessToken(yourTokenGeneratorFunction);
 
-final api_instance = CardScanApi();
+final api = Openapi().getCardScanApi();
 
 try {
-    final result = api_instance.listEligibility();
-    print(result);
-} catch (e) {
+    final response = api.listEligibility();
+    print(response);
+} catch on DioException (e) {
     print('Exception when calling CardScanApi->listEligibility: $e\n');
 }
 ```
@@ -647,22 +569,16 @@ Search Cards (200) OK
 ### Example
 ```dart
 import 'package:openapi/api.dart';
-// TODO Configure HTTP Bearer authorization: bearerAuth
-// Case 1. Use String Token
-//defaultApiClient.getAuthentication<HttpBearerAuth>('bearerAuth').setAccessToken('YOUR_ACCESS_TOKEN');
-// Case 2. Use Function which generate token.
-// String yourTokenGeneratorFunction() { ... }
-//defaultApiClient.getAuthentication<HttpBearerAuth>('bearerAuth').setAccessToken(yourTokenGeneratorFunction);
 
-final api_instance = CardScanApi();
-final query = query_example; // String | 
-final limit = 56; // int | 
-final cursor = cursor_example; // String | 
+final api = Openapi().getCardScanApi();
+final String query = query_example; // String | 
+final int limit = 56; // int | 
+final String cursor = cursor_example; // String | 
 
 try {
-    final result = api_instance.searchCards(query, limit, cursor);
-    print(result);
-} catch (e) {
+    final response = api.searchCards(query, limit, cursor);
+    print(response);
+} catch on DioException (e) {
     print('Exception when calling CardScanApi->searchCards: $e\n');
 }
 ```
@@ -699,13 +615,13 @@ Validate Magic Link
 ```dart
 import 'package:openapi/api.dart';
 
-final api_instance = CardScanApi();
-final token = token_example; // String | 
+final api = Openapi().getCardScanApi();
+final String token = token_example; // String | 
 
 try {
-    final result = api_instance.validateMagicLink(token);
-    print(result);
-} catch (e) {
+    final response = api.validateMagicLink(token);
+    print(response);
+} catch on DioException (e) {
     print('Exception when calling CardScanApi->validateMagicLink: $e\n');
 }
 ```

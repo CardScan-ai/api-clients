@@ -1,22 +1,13 @@
-//
-// AUTO-GENERATED FILE, DO NOT MODIFY!
-//
-// @dart=2.18
-
-// ignore_for_file: unused_element, unused_import
-// ignore_for_file: always_put_required_named_parameters_first
-// ignore_for_file: constant_identifier_names
-// ignore_for_file: lines_longer_than_80_chars
-
-import 'package:openapi/api.dart';
 import 'package:test/test.dart';
+import 'package:openapi/openapi.dart';
 
 // tests for SearchCards200Response
 void main() {
-  // final instance = SearchCards200Response();
+  final instance = SearchCards200ResponseBuilder();
+  // TODO add properties to the builder and call build()
 
-  group('test SearchCards200Response', () {
-    // List<CardApiResponse> cards (default value: const [])
+  group(SearchCards200Response, () {
+    // BuiltList<CardApiResponse> cards
     test('to test the property `cards`', () async {
       // TODO
     });
@@ -26,7 +17,5 @@ void main() {
       // TODO
     });
 
-
   });
-
 }

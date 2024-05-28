@@ -14,7 +14,7 @@ Name | Type | Description | Notes
 **middlename** | **String** | The middle name of the subscriber. | [optional] 
 **gender** | **String** | The gender of the subscriber. | [optional] 
 **address** | [**Address**](Address.md) |  | [optional] 
-**dob** | [**DateTime**](DateTime.md) | The date of birth of the subscriber. | [optional] 
+**dob** | [**Date**](Date.md) | The date of birth of the subscriber. | [optional] 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

@@ -14,7 +14,7 @@ Name | Type | Description | Notes
 **rxBin** | [**MatchScore**](MatchScore.md) |  | [optional] 
 **rxPcn** | [**MatchScore**](MatchScore.md) |  | [optional] 
 **memberName** | [**MatchScore**](MatchScore.md) |  | [optional] 
-**dependentNames** | [**List<MatchScore>**](MatchScore.md) |  | [optional] [default to const []]
+**dependentNames** | [**BuiltList&lt;MatchScore&gt;**](MatchScore.md) |  | [optional] 
 **planName** | [**MatchScore**](MatchScore.md) |  | [optional] 
 **planId** | [**MatchScore**](MatchScore.md) |  | [optional] 
 **cardSpecificId** | [**MatchScore**](MatchScore.md) |  | [optional] 
