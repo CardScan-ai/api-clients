@@ -74,7 +74,16 @@ describe("Cardscan Pipelines", () => {
 
       expect(typeof response).toBe("object");
       expect(response).toHaveProperty("state", CardState.Completed);
-    });
+    }, 30000);
+
+    it("runs the card scanning pipeline successfully (front side only)", async () => {
+      const response = await cardscan.fullScan({
+        frontImage: createReadStream("tests/cards/front.jpg"),
+      });
+
+      expect(typeof response).toBe("object");
+      expect(response).toHaveProperty("state", CardState.Completed);
+    }, 30000);
 
     it("returns an unauthorized error when the API key is invalid", async () => {
       const invalidCardscan = new CardScanApi(
