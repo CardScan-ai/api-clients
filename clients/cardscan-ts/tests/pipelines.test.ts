@@ -74,7 +74,7 @@ describe("Cardscan Pipelines", () => {
 
       expect(typeof response).toBe("object");
       expect(response).toHaveProperty("state", CardState.Completed);
-    }, 30000);
+    }, 60000);
 
     it("runs the card scanning pipeline successfully (front side only)", async () => {
       const response = await cardscan.fullScan({
