@@ -7,8 +7,25 @@ on:
     branches: [main]
 
 jobs:
+  check_changes:
+    runs-on: ubuntu-latest
+    outputs:
+      ts_changed: ${{ steps.filter.outputs.ts }}
+      py_changed: ${{ steps.filter.outputs.py }}
+    steps:
+      - uses: actions/checkout@v2
+      - uses: dorny/paths-filter@v2
+        id: filter
+        with:
+          filters: |
+            ts:
+              - 'clients/cardscan-ts/**/*.ts'
+            py:
+              - 'clients/cardscan-python/**/*.py'
   test-ts:
     runs-on: ubuntu-latest
+    needs: check_changes
+    if: ${{ needs.check_changes.outputs.ts_changed == 'true' }}
     steps:
       - uses: actions/checkout@v2
       - name: Setup Node.js
@@ -26,6 +43,8 @@ jobs:
 
   test-python:
     runs-on: ubuntu-latest
+    needs: check_changes
+    if: ${{ needs.check_changes.outputs.py_changed == 'true' }}
     strategy:
       matrix:
         python-version: ["3.8", "3.12"]
