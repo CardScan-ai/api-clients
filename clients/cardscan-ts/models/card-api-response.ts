@@ -14,9 +14,6 @@
 
 // May contain unused imports in some cases
 // @ts-ignore
-import { ApiErrorResponse } from "./api-error-response";
-// May contain unused imports in some cases
-// @ts-ignore
 import { CardApiResponseDetails } from "./card-api-response-details";
 // May contain unused imports in some cases
 // @ts-ignore
@@ -24,6 +21,9 @@ import { CardApiResponseImages } from "./card-api-response-images";
 // May contain unused imports in some cases
 // @ts-ignore
 import { CardState } from "./card-state";
+// May contain unused imports in some cases
+// @ts-ignore
+import { ModelError } from "./model-error";
 
 /**
  *
@@ -51,10 +51,10 @@ export interface CardApiResponse {
   created_at: string;
   /**
    *
-   * @type {ApiErrorResponse}
+   * @type {ModelError}
    * @memberof CardApiResponse
    */
-  error?: ApiErrorResponse;
+  error?: ModelError;
   /**
    *
    * @type {CardApiResponseImages}

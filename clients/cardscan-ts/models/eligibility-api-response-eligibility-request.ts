@@ -14,10 +14,10 @@
 
 // May contain unused imports in some cases
 // @ts-ignore
-import { ProviderDto } from "./provider-dto";
+import { EligibilityApiResponseEligibilityRequestSubscriber } from "./eligibility-api-response-eligibility-request-subscriber";
 // May contain unused imports in some cases
 // @ts-ignore
-import { SubscriberDto } from "./subscriber-dto";
+import { ProviderDto } from "./provider-dto";
 
 /**
  * The eligibility request.
@@ -45,8 +45,8 @@ export interface EligibilityApiResponseEligibilityRequest {
   provider?: ProviderDto;
   /**
    *
-   * @type {SubscriberDto}
+   * @type {EligibilityApiResponseEligibilityRequestSubscriber}
    * @memberof EligibilityApiResponseEligibilityRequest
    */
-  subscriber?: SubscriberDto;
+  subscriber?: EligibilityApiResponseEligibilityRequestSubscriber;
 }

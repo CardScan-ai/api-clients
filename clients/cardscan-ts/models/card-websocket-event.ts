@@ -14,10 +14,10 @@
 
 // May contain unused imports in some cases
 // @ts-ignore
-import { ApiErrorResponse } from "./api-error-response";
+import { CardState } from "./card-state";
 // May contain unused imports in some cases
 // @ts-ignore
-import { CardState } from "./card-state";
+import { WebsocketError } from "./websocket-error";
 
 /**
  *
@@ -63,10 +63,10 @@ export interface CardWebsocketEvent {
   session_id?: string;
   /**
    *
-   * @type {ApiErrorResponse}
+   * @type {WebsocketError}
    * @memberof CardWebsocketEvent
    */
-  error?: ApiErrorResponse;
+  error?: WebsocketError;
 }
 
 export const CardWebsocketEventTypeEnum = {
