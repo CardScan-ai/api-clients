@@ -21,7 +21,7 @@ from datetime import datetime
 from typing import Any, Dict, Optional
 from pydantic import BaseModel, Field, StrictStr, validator
 from cardscan_client.models.eligibility_api_response_eligibility_request import EligibilityApiResponseEligibilityRequest
-from cardscan_client.models.eligibility_api_response_error import EligibilityApiResponseError
+from cardscan_client.models.model_error import ModelError
 
 class EligibilityApiResponse(BaseModel):
     """
@@ -33,7 +33,7 @@ class EligibilityApiResponse(BaseModel):
     eligibility_request: Optional[EligibilityApiResponseEligibilityRequest] = None
     eligibility_response: Optional[Dict[str, Any]] = Field(default=None, description="The eligibility raw response.")
     eligibility_summarized_response: Optional[Dict[str, Any]] = Field(default=None, description="The eligibility summarized response.")
-    error: Optional[EligibilityApiResponseError] = None
+    error: Optional[ModelError] = None
     created_at: datetime = Field(default=..., description="The timestamp when the eligibility record was created.")
     update_at: datetime = Field(default=..., description="The timestamp when the eligibility record was last updated.")
     __properties = ["eligibility_id", "state", "card_id", "eligibility_request", "eligibility_response", "eligibility_summarized_response", "error", "created_at", "update_at"]
@@ -85,11 +85,6 @@ class EligibilityApiResponse(BaseModel):
         if self.eligibility_summarized_response is None and "eligibility_summarized_response" in self.__fields_set__:
             _dict['eligibility_summarized_response'] = None
 
-        # set to None if error (nullable) is None
-        # and __fields_set__ contains the field
-        if self.error is None and "error" in self.__fields_set__:
-            _dict['error'] = None
-
         return _dict
 
     @classmethod
@@ -108,7 +103,7 @@ class EligibilityApiResponse(BaseModel):
             "eligibility_request": EligibilityApiResponseEligibilityRequest.from_dict(obj.get("eligibility_request")) if obj.get("eligibility_request") is not None else None,
             "eligibility_response": obj.get("eligibility_response"),
             "eligibility_summarized_response": obj.get("eligibility_summarized_response"),
-            "error": EligibilityApiResponseError.from_dict(obj.get("error")) if obj.get("error") is not None else None,
+            "error": ModelError.from_dict(obj.get("error")) if obj.get("error") is not None else None,
             "created_at": obj.get("created_at"),
             "update_at": obj.get("update_at")
         })

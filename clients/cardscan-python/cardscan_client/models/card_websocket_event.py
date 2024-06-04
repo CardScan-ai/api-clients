@@ -20,8 +20,8 @@ import json
 from datetime import datetime
 from typing import Optional
 from pydantic import BaseModel, Field, StrictStr, validator
-from cardscan_client.models.api_error_response import ApiErrorResponse
 from cardscan_client.models.card_state import CardState
+from cardscan_client.models.websocket_error import WebsocketError
 
 class CardWebsocketEvent(BaseModel):
     """
@@ -33,7 +33,7 @@ class CardWebsocketEvent(BaseModel):
     state: CardState = Field(...)
     created_at: datetime = Field(...)
     session_id: Optional[StrictStr] = None
-    error: Optional[ApiErrorResponse] = None
+    error: Optional[WebsocketError] = None
     __properties = ["event_id", "type", "card_id", "state", "created_at", "session_id", "error"]
 
     @validator('type')
@@ -88,7 +88,7 @@ class CardWebsocketEvent(BaseModel):
             "state": obj.get("state"),
             "created_at": obj.get("created_at"),
             "session_id": obj.get("session_id"),
-            "error": ApiErrorResponse.from_dict(obj.get("error")) if obj.get("error") is not None else None
+            "error": WebsocketError.from_dict(obj.get("error")) if obj.get("error") is not None else None
         })
         return _obj
 
