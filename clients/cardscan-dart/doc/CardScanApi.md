@@ -1,8 +1,8 @@
-# openapi.api.CardScanApi
+# cardscan-client.api.CardScanApi
 
 ## Load the API package
 ```dart
-import 'package:openapi/api.dart';
+import 'package:cardscan-client/api.dart';
 ```
 
 All URIs are relative to *https://sandbox.cardscan.ai/v1*
@@ -33,9 +33,9 @@ Creates a new card
 
 ### Example
 ```dart
-import 'package:openapi/api.dart';
+import 'package:cardscan-client/api.dart';
 
-final api = Openapi().getCardScanApi();
+final api = CardscanClient().getCardScanApi();
 final CreateCardRequest createCardRequest = ; // CreateCardRequest | 
 
 try {
@@ -74,9 +74,9 @@ Create Eligibility Record
 
 ### Example
 ```dart
-import 'package:openapi/api.dart';
+import 'package:cardscan-client/api.dart';
 
-final api = Openapi().getCardScanApi();
+final api = CardscanClient().getCardScanApi();
 final CreateEligibilityRequest createEligibilityRequest = ; // CreateEligibilityRequest | 
 
 try {
@@ -115,9 +115,9 @@ Delete Card
 
 ### Example
 ```dart
-import 'package:openapi/api.dart';
+import 'package:cardscan-client/api.dart';
 
-final api = Openapi().getCardScanApi();
+final api = CardscanClient().getCardScanApi();
 final String cardId = 38400000-8cf0-11bd-b23e-10b96e4ef00d; // String | The ID of the card
 
 try {
@@ -155,9 +155,9 @@ Direct Upload
 
 ### Example
 ```dart
-import 'package:openapi/api.dart';
+import 'package:cardscan-client/api.dart';
 
-final api = Openapi().getCardScanApi();
+final api = CardscanClient().getCardScanApi();
 final ScanOrientation orientation = ; // ScanOrientation | 
 final ScanCaptureType captureType = ; // ScanCaptureType | 
 final String cardId = 38400000-8cf0-11bd-b23e-10b96e4ef00d; // String | 
@@ -202,9 +202,9 @@ Card - Generate Upload URL
 
 ### Example
 ```dart
-import 'package:openapi/api.dart';
+import 'package:cardscan-client/api.dart';
 
-final api = Openapi().getCardScanApi();
+final api = CardscanClient().getCardScanApi();
 final String cardId = 38400000-8cf0-11bd-b23e-10b96e4ef00d; // String | 
 final int expiration = 56; // int | 
 final GenerateCardUploadUrlRequest generateCardUploadUrlRequest = ; // GenerateCardUploadUrlRequest | 
@@ -247,9 +247,9 @@ Generate Magic Link
 
 ### Example
 ```dart
-import 'package:openapi/api.dart';
+import 'package:cardscan-client/api.dart';
 
-final api = Openapi().getCardScanApi();
+final api = CardscanClient().getCardScanApi();
 
 try {
     final response = api.generateMagicLink();
@@ -284,9 +284,9 @@ Generate an upload URL
 
 ### Example
 ```dart
-import 'package:openapi/api.dart';
+import 'package:cardscan-client/api.dart';
 
-final api = Openapi().getCardScanApi();
+final api = CardscanClient().getCardScanApi();
 final int expiration = 56; // int | 
 
 try {
@@ -325,9 +325,9 @@ Access Token
 
 ### Example
 ```dart
-import 'package:openapi/api.dart';
+import 'package:cardscan-client/api.dart';
 
-final api = Openapi().getCardScanApi();
+final api = CardscanClient().getCardScanApi();
 final String userId = userId_example; // String | The ID of the user
 
 try {
@@ -366,9 +366,9 @@ Get Card by ID
 
 ### Example
 ```dart
-import 'package:openapi/api.dart';
+import 'package:cardscan-client/api.dart';
 
-final api = Openapi().getCardScanApi();
+final api = CardscanClient().getCardScanApi();
 final String cardId = 38400000-8cf0-11bd-b23e-10b96e4ef00d; // String | The ID of the card
 
 try {
@@ -407,9 +407,9 @@ Get Eligibility
 
 ### Example
 ```dart
-import 'package:openapi/api.dart';
+import 'package:cardscan-client/api.dart';
 
-final api = Openapi().getCardScanApi();
+final api = CardscanClient().getCardScanApi();
 final String eligibilityId = eligibilityId_example; // String | 
 
 try {
@@ -448,9 +448,9 @@ Get Scan Metadata
 
 ### Example
 ```dart
-import 'package:openapi/api.dart';
+import 'package:cardscan-client/api.dart';
 
-final api = Openapi().getCardScanApi();
+final api = CardscanClient().getCardScanApi();
 final String scanId = 38400000-8cf0-11bd-b23e-10b96e4ef00d; // String | 
 
 try {
@@ -488,9 +488,9 @@ List Cards
 
 ### Example
 ```dart
-import 'package:openapi/api.dart';
+import 'package:cardscan-client/api.dart';
 
-final api = Openapi().getCardScanApi();
+final api = CardscanClient().getCardScanApi();
 final int limit = 56; // int | 
 final String cursor = cursor_example; // String | 
 
@@ -531,9 +531,9 @@ List Eligibility
 
 ### Example
 ```dart
-import 'package:openapi/api.dart';
+import 'package:cardscan-client/api.dart';
 
-final api = Openapi().getCardScanApi();
+final api = CardscanClient().getCardScanApi();
 
 try {
     final response = api.listEligibility();
@@ -568,9 +568,9 @@ Search Cards (200) OK
 
 ### Example
 ```dart
-import 'package:openapi/api.dart';
+import 'package:cardscan-client/api.dart';
 
-final api = Openapi().getCardScanApi();
+final api = CardscanClient().getCardScanApi();
 final String query = query_example; // String | 
 final int limit = 56; // int | 
 final String cursor = cursor_example; // String | 
@@ -613,9 +613,9 @@ Validate Magic Link
 
 ### Example
 ```dart
-import 'package:openapi/api.dart';
+import 'package:cardscan-client/api.dart';
 
-final api = Openapi().getCardScanApi();
+final api = CardscanClient().getCardScanApi();
 final String token = token_example; // String | 
 
 try {

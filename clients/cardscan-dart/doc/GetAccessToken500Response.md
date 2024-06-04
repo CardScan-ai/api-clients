@@ -1,8 +1,8 @@
-# openapi.model.GetAccessToken500Response
+# cardscan-client.model.GetAccessToken500Response
 
 ## Load the model package
 ```dart
-import 'package:openapi/api.dart';
+import 'package:cardscan-client/api.dart';
 ```
 
 ## Properties

@@ -1,8 +1,8 @@
-# openapi.model.ResponseMetadata
+# cardscan-client.model.ResponseMetadata
 
 ## Load the model package
 ```dart
-import 'package:openapi/api.dart';
+import 'package:cardscan-client/api.dart';
 ```
 
 ## Properties

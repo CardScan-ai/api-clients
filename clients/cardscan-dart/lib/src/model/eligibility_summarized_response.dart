@@ -3,11 +3,11 @@
 //
 
 // ignore_for_file: unused_element
-import 'package:openapi/src/model/payer_details.dart';
-import 'package:openapi/src/model/plan_details.dart';
-import 'package:openapi/src/model/service.dart';
-import 'package:openapi/src/model/subscriber_details.dart';
-import 'package:openapi/src/model/coverage_summary.dart';
+import 'package:cardscan-client/src/model/coverage_summary.dart';
+import 'package:cardscan-client/src/model/service.dart';
+import 'package:cardscan-client/src/model/plan_details.dart';
+import 'package:cardscan-client/src/model/subscriber_details.dart';
+import 'package:cardscan-client/src/model/payer_details.dart';
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 

@@ -1,8 +1,8 @@
-# openapi.model.EligibilityState
+# cardscan-client.model.EligibilityState
 
 ## Load the model package
 ```dart
-import 'package:openapi/api.dart';
+import 'package:cardscan-client/api.dart';
 ```
 
 ## Properties

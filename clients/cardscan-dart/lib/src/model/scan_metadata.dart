@@ -3,14 +3,14 @@
 //
 
 // ignore_for_file: unused_element
-import 'package:openapi/src/model/scan_metadata_video_track.dart';
+import 'package:cardscan-client/src/model/scan_metadata_window_inner.dart';
 import 'package:built_collection/built_collection.dart';
-import 'package:openapi/src/model/scan_metadata_guides.dart';
-import 'package:openapi/src/model/scan_metadata_camera_capabilities.dart';
-import 'package:openapi/src/model/scan_metadata_capture_score.dart';
-import 'package:openapi/src/model/scan_metadata_capture_canvas.dart';
-import 'package:openapi/src/model/scan_metadata_video_background.dart';
-import 'package:openapi/src/model/scan_metadata_window_inner.dart';
+import 'package:cardscan-client/src/model/scan_metadata_capture_score.dart';
+import 'package:cardscan-client/src/model/scan_metadata_camera_capabilities.dart';
+import 'package:cardscan-client/src/model/scan_metadata_video_track.dart';
+import 'package:cardscan-client/src/model/scan_metadata_video_background.dart';
+import 'package:cardscan-client/src/model/scan_metadata_capture_canvas.dart';
+import 'package:cardscan-client/src/model/scan_metadata_guides.dart';
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 

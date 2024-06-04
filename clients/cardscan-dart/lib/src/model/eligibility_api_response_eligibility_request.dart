@@ -3,8 +3,8 @@
 //
 
 // ignore_for_file: unused_element
-import 'package:openapi/src/model/eligibility_api_response_eligibility_request_subscriber.dart';
-import 'package:openapi/src/model/provider_dto.dart';
+import 'package:cardscan-client/src/model/eligibility_api_response_eligibility_request_subscriber.dart';
+import 'package:cardscan-client/src/model/provider_dto.dart';
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 

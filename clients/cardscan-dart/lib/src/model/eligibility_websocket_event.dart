@@ -3,9 +3,9 @@
 //
 
 // ignore_for_file: unused_element
-import 'package:openapi/src/model/api_error_response.dart';
+import 'package:cardscan-client/src/model/card_state.dart';
 import 'package:built_collection/built_collection.dart';
-import 'package:openapi/src/model/card_state.dart';
+import 'package:cardscan-client/src/model/api_error_response.dart';
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 

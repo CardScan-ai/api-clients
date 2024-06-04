@@ -1,8 +1,8 @@
-# openapi.model.ScanMetadataCaptureCanvas
+# cardscan-client.model.ScanMetadataCaptureCanvas
 
 ## Load the model package
 ```dart
-import 'package:openapi/api.dart';
+import 'package:cardscan-client/api.dart';
 ```
 
 ## Properties

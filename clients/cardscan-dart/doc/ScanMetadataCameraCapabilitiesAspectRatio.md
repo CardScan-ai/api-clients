@@ -1,8 +1,8 @@
-# openapi.model.ScanMetadataCameraCapabilitiesAspectRatio
+# cardscan-client.model.ScanMetadataCameraCapabilitiesAspectRatio
 
 ## Load the model package
 ```dart
-import 'package:openapi/api.dart';
+import 'package:cardscan-client/api.dart';
 ```
 
 ## Properties

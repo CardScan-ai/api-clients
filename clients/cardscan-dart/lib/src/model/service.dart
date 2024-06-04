@@ -3,8 +3,8 @@
 //
 
 // ignore_for_file: unused_element
-import 'package:openapi/src/model/co_insurance.dart';
-import 'package:openapi/src/model/co_payment.dart';
+import 'package:cardscan-client/src/model/co_insurance.dart';
+import 'package:cardscan-client/src/model/co_payment.dart';
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 

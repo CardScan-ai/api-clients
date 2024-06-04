@@ -4,20 +4,20 @@
 
 import 'package:dio/dio.dart';
 import 'package:built_value/serializer.dart';
-import 'package:openapi/src/serializers.dart';
-import 'package:openapi/src/auth/api_key_auth.dart';
-import 'package:openapi/src/auth/basic_auth.dart';
-import 'package:openapi/src/auth/bearer_auth.dart';
-import 'package:openapi/src/auth/oauth.dart';
-import 'package:openapi/src/api/card_scan_api.dart';
+import 'package:cardscan-client/src/serializers.dart';
+import 'package:cardscan-client/src/auth/api_key_auth.dart';
+import 'package:cardscan-client/src/auth/basic_auth.dart';
+import 'package:cardscan-client/src/auth/bearer_auth.dart';
+import 'package:cardscan-client/src/auth/oauth.dart';
+import 'package:cardscan-client/src/api/card_scan_api.dart';
 
-class Openapi {
+class CardscanClient {
   static const String basePath = r'https://sandbox.cardscan.ai/v1';
 
   final Dio dio;
   final Serializers serializers;
 
-  Openapi({
+  CardscanClient({
     Dio? dio,
     Serializers? serializers,
     String? basePathOverride,

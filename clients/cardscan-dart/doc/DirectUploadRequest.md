@@ -1,8 +1,8 @@
-# openapi.model.DirectUploadRequest
+# cardscan-client.model.DirectUploadRequest
 
 ## Load the model package
 ```dart
-import 'package:openapi/api.dart';
+import 'package:cardscan-client/api.dart';
 ```
 
 ## Properties

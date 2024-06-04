@@ -3,8 +3,8 @@
 //
 
 // ignore_for_file: unused_element
-import 'package:openapi/src/model/address.dart';
-import 'package:openapi/src/model/date.dart';
+import 'package:cardscan-client/src/model/date.dart';
+import 'package:cardscan-client/src/model/address.dart';
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 

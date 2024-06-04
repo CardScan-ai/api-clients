@@ -3,7 +3,7 @@
 //
 
 // ignore_for_file: unused_element
-import 'package:openapi/src/model/upload_parameters.dart';
+import 'package:cardscan-client/src/model/upload_parameters.dart';
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 
