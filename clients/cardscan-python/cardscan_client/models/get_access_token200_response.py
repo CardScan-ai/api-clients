@@ -18,7 +18,7 @@ import re  # noqa: F401
 import json
 
 
-from typing import Optional
+from typing import Any, Dict, Optional
 from pydantic import BaseModel, Field, StrictStr
 
 class GetAccessToken200Response(BaseModel):
@@ -28,6 +28,7 @@ class GetAccessToken200Response(BaseModel):
     token: StrictStr = Field(default=..., alias="Token", description="The access token.")
     identity_id: StrictStr = Field(default=..., alias="IdentityId", description="The identity ID.")
     session_id: Optional[StrictStr] = Field(default=None, description="The session ID.")
+    additional_properties: Dict[str, Any] = {}
     __properties = ["Token", "IdentityId", "session_id"]
 
     class Config:
@@ -52,8 +53,14 @@ class GetAccessToken200Response(BaseModel):
         """Returns the dictionary representation of the model using alias"""
         _dict = self.dict(by_alias=True,
                           exclude={
+                            "additional_properties"
                           },
                           exclude_none=True)
+        # puts key-value pairs in additional_properties in the top level
+        if self.additional_properties is not None:
+            for _key, _value in self.additional_properties.items():
+                _dict[_key] = _value
+
         return _dict
 
     @classmethod
@@ -70,6 +77,11 @@ class GetAccessToken200Response(BaseModel):
             "identity_id": obj.get("IdentityId"),
             "session_id": obj.get("session_id")
         })
+        # store additional fields in additional_properties
+        for _key in obj.keys():
+            if _key not in cls.__properties:
+                _obj.additional_properties[_key] = obj.get(_key)
+
         return _obj
 
 
