@@ -64,6 +64,7 @@ def test_invalid_api_key():
 
     with pytest.raises(Exception) as context:
         invalid_cardscan.check_eligibility(
+
             CreateEligibilityRequest(
                 card_id=os.environ.get("TEST_CARD_ID"),
                 eligibility=EligibilityInfo(
@@ -83,13 +84,11 @@ def test_invalid_api_key():
 
     assert "401" in str(context.value)
 
-
 def test_card_scanning(cardscan):
     response = cardscan.full_scan("test/cards/back.jpg", "test/cards/front.jpg")
 
     assert response is not None
     assert response.state == CardState.COMPLETED
-
 
 def test_card_scanning_only_front(cardscan):
     response = cardscan.full_scan(front_image_path="test/cards/front.jpg")
