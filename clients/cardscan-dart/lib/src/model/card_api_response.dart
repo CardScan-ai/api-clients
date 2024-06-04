@@ -3,10 +3,10 @@
 //
 
 // ignore_for_file: unused_element
-import 'package:cardscan-client/src/model/card_state.dart';
-import 'package:cardscan-client/src/model/card_api_response_details.dart';
-import 'package:cardscan-client/src/model/api_error_response.dart';
-import 'package:cardscan-client/src/model/card_api_response_images.dart';
+import 'package:cardscan_client/src/model/card_state.dart';
+import 'package:cardscan_client/src/model/card_api_response_details.dart';
+import 'package:cardscan_client/src/model/api_error_response.dart';
+import 'package:cardscan_client/src/model/card_api_response_images.dart';
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 

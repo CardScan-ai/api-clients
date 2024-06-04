@@ -4,7 +4,7 @@
 
 import 'package:built_collection/built_collection.dart';
 import 'package:built_value/serializer.dart';
-import 'package:cardscan-client/src/model/date.dart';
+import 'package:cardscan_client/src/model/date.dart';
 
 class DateSerializer implements PrimitiveSerializer<Date> {
 

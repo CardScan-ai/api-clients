@@ -1,8 +1,8 @@
-# cardscan-client.model.GenerateCardUploadUrl200Response
+# cardscan_client.model.GenerateCardUploadUrl200Response
 
 ## Load the model package
 ```dart
-import 'package:cardscan-client/api.dart';
+import 'package:cardscan_client/api.dart';
 ```
 
 ## Properties

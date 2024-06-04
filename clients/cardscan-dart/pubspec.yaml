@@ -1,4 +1,4 @@
-name: cardscan-client
+name: cardscan_client
 version: 1.0.0
 description: Official CardScan API client
 homepage: https://cardscan.ai

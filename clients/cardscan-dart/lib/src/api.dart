@@ -4,12 +4,12 @@
 
 import 'package:dio/dio.dart';
 import 'package:built_value/serializer.dart';
-import 'package:cardscan-client/src/serializers.dart';
-import 'package:cardscan-client/src/auth/api_key_auth.dart';
-import 'package:cardscan-client/src/auth/basic_auth.dart';
-import 'package:cardscan-client/src/auth/bearer_auth.dart';
-import 'package:cardscan-client/src/auth/oauth.dart';
-import 'package:cardscan-client/src/api/card_scan_api.dart';
+import 'package:cardscan_client/src/serializers.dart';
+import 'package:cardscan_client/src/auth/api_key_auth.dart';
+import 'package:cardscan_client/src/auth/basic_auth.dart';
+import 'package:cardscan_client/src/auth/bearer_auth.dart';
+import 'package:cardscan_client/src/auth/oauth.dart';
+import 'package:cardscan_client/src/api/card_scan_api.dart';
 
 class CardscanClient {
   static const String basePath = r'https://sandbox.cardscan.ai/v1';

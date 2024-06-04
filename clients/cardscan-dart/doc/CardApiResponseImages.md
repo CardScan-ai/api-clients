@@ -1,8 +1,8 @@
-# cardscan-client.model.CardApiResponseImages
+# cardscan_client.model.CardApiResponseImages
 
 ## Load the model package
 ```dart
-import 'package:cardscan-client/api.dart';
+import 'package:cardscan_client/api.dart';
 ```
 
 ## Properties

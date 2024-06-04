@@ -7,24 +7,24 @@ import 'dart:async';
 import 'package:built_value/serializer.dart';
 import 'package:dio/dio.dart';
 
-import 'package:cardscan-client/src/api_util.dart';
-import 'package:cardscan-client/src/model/api_error_response.dart';
-import 'package:cardscan-client/src/model/card_api_response.dart';
-import 'package:cardscan-client/src/model/create_card_request.dart';
-import 'package:cardscan-client/src/model/create_eligibility_request.dart';
-import 'package:cardscan-client/src/model/direct_upload200_response.dart';
-import 'package:cardscan-client/src/model/direct_upload_request.dart';
-import 'package:cardscan-client/src/model/eligibility_api_response.dart';
-import 'package:cardscan-client/src/model/generate_card_upload_url200_response.dart';
-import 'package:cardscan-client/src/model/generate_card_upload_url_request.dart';
-import 'package:cardscan-client/src/model/generate_magic_link200_response.dart';
-import 'package:cardscan-client/src/model/get_access_token200_response.dart';
-import 'package:cardscan-client/src/model/get_access_token500_response.dart';
-import 'package:cardscan-client/src/model/list_eligibility200_response.dart';
-import 'package:cardscan-client/src/model/scan_capture_type.dart';
-import 'package:cardscan-client/src/model/scan_orientation.dart';
-import 'package:cardscan-client/src/model/search_cards200_response.dart';
-import 'package:cardscan-client/src/model/validate_magic_link200_response.dart';
+import 'package:cardscan_client/src/api_util.dart';
+import 'package:cardscan_client/src/model/api_error_response.dart';
+import 'package:cardscan_client/src/model/card_api_response.dart';
+import 'package:cardscan_client/src/model/create_card_request.dart';
+import 'package:cardscan_client/src/model/create_eligibility_request.dart';
+import 'package:cardscan_client/src/model/direct_upload200_response.dart';
+import 'package:cardscan_client/src/model/direct_upload_request.dart';
+import 'package:cardscan_client/src/model/eligibility_api_response.dart';
+import 'package:cardscan_client/src/model/generate_card_upload_url200_response.dart';
+import 'package:cardscan_client/src/model/generate_card_upload_url_request.dart';
+import 'package:cardscan_client/src/model/generate_magic_link200_response.dart';
+import 'package:cardscan_client/src/model/get_access_token200_response.dart';
+import 'package:cardscan_client/src/model/get_access_token500_response.dart';
+import 'package:cardscan_client/src/model/list_eligibility200_response.dart';
+import 'package:cardscan_client/src/model/scan_capture_type.dart';
+import 'package:cardscan_client/src/model/scan_orientation.dart';
+import 'package:cardscan_client/src/model/search_cards200_response.dart';
+import 'package:cardscan_client/src/model/validate_magic_link200_response.dart';
 
 class CardScanApi {
 

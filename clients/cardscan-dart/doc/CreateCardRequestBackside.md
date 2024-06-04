@@ -1,8 +1,8 @@
-# cardscan-client.model.CreateCardRequestBackside
+# cardscan_client.model.CreateCardRequestBackside
 
 ## Load the model package
 ```dart
-import 'package:cardscan-client/api.dart';
+import 'package:cardscan_client/api.dart';
 ```
 
 ## Properties

@@ -3,9 +3,9 @@
 //
 
 // ignore_for_file: unused_element
-import 'package:cardscan-client/src/model/scan_orientation.dart';
-import 'package:cardscan-client/src/model/scan_capture_type.dart';
-import 'package:cardscan-client/src/model/scan_metadata.dart';
+import 'package:cardscan_client/src/model/scan_metadata.dart';
+import 'package:cardscan_client/src/model/scan_orientation.dart';
+import 'package:cardscan_client/src/model/scan_capture_type.dart';
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 

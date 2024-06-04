@@ -2,6 +2,6 @@
   "pubAuthor": "Team CardScan",
   "pubAuthorEmail": "dev@cardscan.ai",
   "pubDescription": "Official CardScan API client",
-  "pubName": "cardscan-client",
+  "pubName": "cardscan_client",
   "pubHomepage": "https://cardscan.ai"
 }

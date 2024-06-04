@@ -3,7 +3,7 @@
 //
 
 import 'package:dio/dio.dart';
-import 'package:cardscan-client/src/auth/auth.dart';
+import 'package:cardscan_client/src/auth/auth.dart';
 
 class BearerAuthInterceptor extends AuthInterceptor {
   final Map<String, String> tokens = {};

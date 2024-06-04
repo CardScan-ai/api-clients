@@ -1,8 +1,8 @@
-# cardscan-client.model.UploadParameters
+# cardscan_client.model.UploadParameters
 
 ## Load the model package
 ```dart
-import 'package:cardscan-client/api.dart';
+import 'package:cardscan_client/api.dart';
 ```
 
 ## Properties

@@ -1,10 +1,10 @@
 import 'package:test/test.dart';
-import 'package:openapi/openapi.dart';
+import 'package:cardscan_client/cardscan_client.dart';
 
 
 /// tests for CardScanApi
 void main() {
-  final instance = Openapi().getCardScanApi();
+  final instance = CardscanClient().getCardScanApi();
 
   group(CardScanApi, () {
     // Creates a new card

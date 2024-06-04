@@ -1,8 +1,8 @@
-# cardscan-client.model.OOP
+# cardscan_client.model.OOP
 
 ## Load the model package
 ```dart
-import 'package:cardscan-client/api.dart';
+import 'package:cardscan_client/api.dart';
 ```
 
 ## Properties

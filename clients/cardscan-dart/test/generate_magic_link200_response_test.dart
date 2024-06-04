@@ -1,5 +1,5 @@
 import 'package:test/test.dart';
-import 'package:openapi/openapi.dart';
+import 'package:cardscan_client/cardscan_client.dart';
 
 // tests for GenerateMagicLink200Response
 void main() {

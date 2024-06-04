@@ -3,8 +3,8 @@
 //
 
 // ignore_for_file: unused_element
-import 'package:cardscan-client/src/model/oop.dart';
-import 'package:cardscan-client/src/model/deductible.dart';
+import 'package:cardscan_client/src/model/oop.dart';
+import 'package:cardscan_client/src/model/deductible.dart';
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 

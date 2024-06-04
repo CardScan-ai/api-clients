@@ -1,8 +1,8 @@
-# cardscan-client.model.SubscriberDto
+# cardscan_client.model.SubscriberDto
 
 ## Load the model package
 ```dart
-import 'package:cardscan-client/api.dart';
+import 'package:cardscan_client/api.dart';
 ```
 
 ## Properties
