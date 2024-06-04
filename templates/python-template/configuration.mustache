@@ -151,8 +151,10 @@ conf = {{{packageName}}}.Configuration(
         self.server_operation_index = server_operation_index or {}
         """Default server index
         """
+        prefix = 'api' if environment.startswith('prod') else 'sandbox'
+
         self.server_variables = server_variables or {
-            "prefix": environment,
+            "prefix": prefix,
             "version": "v1",
         }
         self.server_operation_variables = server_operation_variables or {}
@@ -274,7 +276,7 @@ conf = {{{packageName}}}.Configuration(
         """date format
         """
 
-        self.websocket_url = websocket_url or f"wss://{environment}-ws.cardscan.ai"
+        self.websocket_url = websocket_url or f"wss://{prefix}-ws.cardscan.ai"
         """websocket url
         """
 

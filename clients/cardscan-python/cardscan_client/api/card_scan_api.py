@@ -17,7 +17,6 @@ import io
 import warnings
 
 from pydantic import validate_arguments, ValidationError
-from typing import overload, Optional, Union, Awaitable
 
 import asyncio
 import json
@@ -76,8 +75,8 @@ class CardScanApi:
 
         self.websocket_url = f"{self.api_client.configuration.websocket_url}?token={token}"
 
-    async def full_scan(
-        self, back_image_path: str, front_image_path: str
+    def full_scan(
+        self, front_image_path: str, back_image_path: Optional[str] = None
     ) -> CardWebsocketEvent:
         """
         Perform a full scan of a card, including both sides of a card.
@@ -85,11 +84,22 @@ class CardScanApi:
         :param front_image_path: The path to the front image of the card.
         """
 
+        return asyncio.run(self._full_scan(front_image_path, back_image_path=back_image_path))
+
+    async def _full_scan(
+        self, front_image_path: str, back_image_path: Optional[str] = None
+    ) -> CardWebsocketEvent:
+        """
+        Perform a full scan of a card, including both sides of a card.
+        :param back_image_path: The path to the back image of the card. (optional)
+        :param front_image_path: The path to the front image of the card.
+        """
+
         if not self.websocket_url:
             raise ValueError("This method cannot be called without a websocket URL.")
 
-        response = await self.create_card(
-            CreateCardRequest(enable_livescan=False, enable_backside_scan=True)
+        response = self.create_card(
+            CreateCardRequest(enable_livescan=False, enable_backside_scan=(back_image_path is not None))
         )
 
         result = None
@@ -99,7 +109,7 @@ class CardScanApi:
                 json.dumps({"card_id": response.card_id, "action": "register"})
             )
 
-            front_upload_url_response = await self.generate_card_upload_url(
+            front_upload_url_response = self.generate_card_upload_url(
                 response.card_id,
                 3600,
                 GenerateCardUploadUrlRequest(orientation=ScanOrientation.FRONT),
@@ -107,8 +117,8 @@ class CardScanApi:
 
             upload_params = front_upload_url_response.upload_parameters.to_dict()
 
-            await self.api_client.call_api(
-                "",
+            self.api_client.call_api(
+                '',
                 "POST",
                 _host=front_upload_url_response.upload_url,
                 post_params=list(upload_params.items()),
@@ -116,7 +126,6 @@ class CardScanApi:
                 header_params={"Content-Type": "multipart/form-data"},
                 response_types_map={}
             )
-
 
             front_side_rejection_states = [
                 CardState.FRONTSIDE_FAILED,
@@ -131,16 +140,23 @@ class CardScanApi:
                             f"Front side failed: {event.get('error', {}).get('message', 'Unknown error')}"
                         )
 
+                if event['state'] == CardState.COMPLETED and event['type'] == 'card':
+                    result = CardWebsocketEvent.from_dict(event)
+                    break
+
                 if event["state"] == CardState.BACKSIDE_PROCESSING and event["type"] == "card":
                     break
 
-            back_upload_url_response = await self.generate_card_upload_url(
+            if back_image_path is None:
+                return result
+
+            back_upload_url_response = self.generate_card_upload_url(
                 response.card_id,
                 3600,
                 GenerateCardUploadUrlRequest(orientation=ScanOrientation.BACK),
             )
 
-            await self.api_client.call_api(
+            self.api_client.call_api(
                 '',
                 "POST",
                 _host=back_upload_url_response.upload_url,
@@ -173,13 +189,21 @@ class CardScanApi:
 
         return result
 
-    async def check_eligibility(
+    def check_eligibility(self, create_eligibility_request: CreateEligibilityRequest) -> EligibilityWebsocketEvent:
+        """
+        Check the eligibility of a card.
+        :param create_eligibility_request: The request object.
+        """
+
+        return asyncio.run(self._check_eligibility(create_eligibility_request))
+
+    async def _check_eligibility(
         self, create_eligibility_request: CreateEligibilityRequest
     ) -> EligibilityWebsocketEvent:
         if not self.websocket_url:
             raise ValueError("This method cannot be called without a websocket URL.")
 
-        response = await self.create_eligibility(create_eligibility_request)
+        response = self.create_eligibility(create_eligibility_request)
 
         result = None
 
@@ -201,12 +225,19 @@ class CardScanApi:
 
 
     @validate_arguments
-    async def create_card(self, create_card_request : Optional[CreateCardRequest] = None, **kwargs) -> CardApiResponse:  # noqa: E501
+    def create_card(self, create_card_request : Optional[CreateCardRequest] = None, **kwargs) -> CardApiResponse:  # noqa: E501
         """Creates a new card  # noqa: E501
 
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please pass async_req=True
+
+        >>> thread = api.create_card(create_card_request, async_req=True)
+        >>> result = thread.get()
 
         :param create_card_request:
         :type create_card_request: CreateCardRequest
+        :param async_req: Whether to execute the request asynchronously.
+        :type async_req: bool, optional
         :param _request_timeout: timeout setting for this request.
                If one number provided, it will be total request
                timeout. It can also be a pair (tuple) of
@@ -220,15 +251,22 @@ class CardScanApi:
         if '_preload_content' in kwargs:
             message = "Error! Please call the create_card_with_http_info method with `_preload_content` instead and obtain raw data from ApiResponse.raw_data"  # noqa: E501
             raise ValueError(message)
-        return await self.create_card_with_http_info(create_card_request, **kwargs)  # noqa: E501
+        return self.create_card_with_http_info(create_card_request, **kwargs)  # noqa: E501
 
     @validate_arguments
-    async def create_card_with_http_info(self, create_card_request : Optional[CreateCardRequest] = None, **kwargs) -> ApiResponse:  # noqa: E501
+    def create_card_with_http_info(self, create_card_request : Optional[CreateCardRequest] = None, **kwargs) -> ApiResponse:  # noqa: E501
         """Creates a new card  # noqa: E501
 
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please pass async_req=True
+
+        >>> thread = api.create_card_with_http_info(create_card_request, async_req=True)
+        >>> result = thread.get()
 
         :param create_card_request:
         :type create_card_request: CreateCardRequest
+        :param async_req: Whether to execute the request asynchronously.
+        :type async_req: bool, optional
         :param _preload_content: if False, the ApiResponse.data will
                                  be set to none and raw_data will store the
                                  HTTP response body without reading/decoding.
@@ -259,6 +297,7 @@ class CardScanApi:
         ]
         _all_params.extend(
             [
+                'async_req',
                 '_return_http_data_only',
                 '_preload_content',
                 '_request_timeout',
@@ -316,7 +355,7 @@ class CardScanApi:
             '500': "GetAccessToken500Response",
         }
 
-        return await self.api_client.call_api(
+        return self.api_client.call_api(
             '/cards', 'POST',
             _path_params,
             _query_params,
@@ -326,6 +365,7 @@ class CardScanApi:
             files=_files,
             response_types_map=_response_types_map,
             auth_settings=_auth_settings,
+            async_req=_params.get('async_req'),
             _return_http_data_only=_params.get('_return_http_data_only'),  # noqa: E501
             _preload_content=_params.get('_preload_content', True),
             _request_timeout=_params.get('_request_timeout'),
@@ -333,12 +373,19 @@ class CardScanApi:
             _request_auth=_params.get('_request_auth'))
 
     @validate_arguments
-    async def create_eligibility(self, create_eligibility_request : Optional[CreateEligibilityRequest] = None, **kwargs) -> EligibilityApiResponse:  # noqa: E501
+    def create_eligibility(self, create_eligibility_request : Optional[CreateEligibilityRequest] = None, **kwargs) -> EligibilityApiResponse:  # noqa: E501
         """Create Eligibility Record  # noqa: E501
 
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please pass async_req=True
+
+        >>> thread = api.create_eligibility(create_eligibility_request, async_req=True)
+        >>> result = thread.get()
 
         :param create_eligibility_request:
         :type create_eligibility_request: CreateEligibilityRequest
+        :param async_req: Whether to execute the request asynchronously.
+        :type async_req: bool, optional
         :param _request_timeout: timeout setting for this request.
                If one number provided, it will be total request
                timeout. It can also be a pair (tuple) of
@@ -352,15 +399,22 @@ class CardScanApi:
         if '_preload_content' in kwargs:
             message = "Error! Please call the create_eligibility_with_http_info method with `_preload_content` instead and obtain raw data from ApiResponse.raw_data"  # noqa: E501
             raise ValueError(message)
-        return await self.create_eligibility_with_http_info(create_eligibility_request, **kwargs)  # noqa: E501
+        return self.create_eligibility_with_http_info(create_eligibility_request, **kwargs)  # noqa: E501
 
     @validate_arguments
-    async def create_eligibility_with_http_info(self, create_eligibility_request : Optional[CreateEligibilityRequest] = None, **kwargs) -> ApiResponse:  # noqa: E501
+    def create_eligibility_with_http_info(self, create_eligibility_request : Optional[CreateEligibilityRequest] = None, **kwargs) -> ApiResponse:  # noqa: E501
         """Create Eligibility Record  # noqa: E501
 
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please pass async_req=True
+
+        >>> thread = api.create_eligibility_with_http_info(create_eligibility_request, async_req=True)
+        >>> result = thread.get()
 
         :param create_eligibility_request:
         :type create_eligibility_request: CreateEligibilityRequest
+        :param async_req: Whether to execute the request asynchronously.
+        :type async_req: bool, optional
         :param _preload_content: if False, the ApiResponse.data will
                                  be set to none and raw_data will store the
                                  HTTP response body without reading/decoding.
@@ -391,6 +445,7 @@ class CardScanApi:
         ]
         _all_params.extend(
             [
+                'async_req',
                 '_return_http_data_only',
                 '_preload_content',
                 '_request_timeout',
@@ -449,7 +504,7 @@ class CardScanApi:
             '500': "GetAccessToken500Response",
         }
 
-        return await self.api_client.call_api(
+        return self.api_client.call_api(
             '/eligibility', 'POST',
             _path_params,
             _query_params,
@@ -459,6 +514,7 @@ class CardScanApi:
             files=_files,
             response_types_map=_response_types_map,
             auth_settings=_auth_settings,
+            async_req=_params.get('async_req'),
             _return_http_data_only=_params.get('_return_http_data_only'),  # noqa: E501
             _preload_content=_params.get('_preload_content', True),
             _request_timeout=_params.get('_request_timeout'),
@@ -466,12 +522,19 @@ class CardScanApi:
             _request_auth=_params.get('_request_auth'))
 
     @validate_arguments
-    async def delete_card_by_id(self, card_id : Annotated[StrictStr, Field(..., description="The ID of the card")], **kwargs) -> None:  # noqa: E501
+    def delete_card_by_id(self, card_id : Annotated[StrictStr, Field(..., description="The ID of the card")], **kwargs) -> None:  # noqa: E501
         """Delete Card  # noqa: E501
 
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please pass async_req=True
+
+        >>> thread = api.delete_card_by_id(card_id, async_req=True)
+        >>> result = thread.get()
 
         :param card_id: The ID of the card (required)
         :type card_id: str
+        :param async_req: Whether to execute the request asynchronously.
+        :type async_req: bool, optional
         :param _request_timeout: timeout setting for this request.
                If one number provided, it will be total request
                timeout. It can also be a pair (tuple) of
@@ -485,15 +548,22 @@ class CardScanApi:
         if '_preload_content' in kwargs:
             message = "Error! Please call the delete_card_by_id_with_http_info method with `_preload_content` instead and obtain raw data from ApiResponse.raw_data"  # noqa: E501
             raise ValueError(message)
-        return await self.delete_card_by_id_with_http_info(card_id, **kwargs)  # noqa: E501
+        return self.delete_card_by_id_with_http_info(card_id, **kwargs)  # noqa: E501
 
     @validate_arguments
-    async def delete_card_by_id_with_http_info(self, card_id : Annotated[StrictStr, Field(..., description="The ID of the card")], **kwargs) -> ApiResponse:  # noqa: E501
+    def delete_card_by_id_with_http_info(self, card_id : Annotated[StrictStr, Field(..., description="The ID of the card")], **kwargs) -> ApiResponse:  # noqa: E501
         """Delete Card  # noqa: E501
 
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please pass async_req=True
+
+        >>> thread = api.delete_card_by_id_with_http_info(card_id, async_req=True)
+        >>> result = thread.get()
 
         :param card_id: The ID of the card (required)
         :type card_id: str
+        :param async_req: Whether to execute the request asynchronously.
+        :type async_req: bool, optional
         :param _preload_content: if False, the ApiResponse.data will
                                  be set to none and raw_data will store the
                                  HTTP response body without reading/decoding.
@@ -524,6 +594,7 @@ class CardScanApi:
         ]
         _all_params.extend(
             [
+                'async_req',
                 '_return_http_data_only',
                 '_preload_content',
                 '_request_timeout',
@@ -569,7 +640,7 @@ class CardScanApi:
 
         _response_types_map = {}
 
-        return await self.api_client.call_api(
+        return self.api_client.call_api(
             '/cards/{card_id}', 'DELETE',
             _path_params,
             _query_params,
@@ -579,6 +650,7 @@ class CardScanApi:
             files=_files,
             response_types_map=_response_types_map,
             auth_settings=_auth_settings,
+            async_req=_params.get('async_req'),
             _return_http_data_only=_params.get('_return_http_data_only'),  # noqa: E501
             _preload_content=_params.get('_preload_content', True),
             _request_timeout=_params.get('_request_timeout'),
@@ -586,9 +658,14 @@ class CardScanApi:
             _request_auth=_params.get('_request_auth'))
 
     @validate_arguments
-    async def direct_upload(self, orientation : ScanOrientation, capture_type : ScanCaptureType, card_id : StrictStr, direct_upload_request : Optional[DirectUploadRequest] = None, **kwargs) -> DirectUpload200Response:  # noqa: E501
+    def direct_upload(self, orientation : ScanOrientation, capture_type : ScanCaptureType, card_id : StrictStr, direct_upload_request : Optional[DirectUploadRequest] = None, **kwargs) -> DirectUpload200Response:  # noqa: E501
         """Direct Upload  # noqa: E501
 
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please pass async_req=True
+
+        >>> thread = api.direct_upload(orientation, capture_type, card_id, direct_upload_request, async_req=True)
+        >>> result = thread.get()
 
         :param orientation: (required)
         :type orientation: ScanOrientation
@@ -598,6 +675,8 @@ class CardScanApi:
         :type card_id: str
         :param direct_upload_request:
         :type direct_upload_request: DirectUploadRequest
+        :param async_req: Whether to execute the request asynchronously.
+        :type async_req: bool, optional
         :param _request_timeout: timeout setting for this request.
                If one number provided, it will be total request
                timeout. It can also be a pair (tuple) of
@@ -611,12 +690,17 @@ class CardScanApi:
         if '_preload_content' in kwargs:
             message = "Error! Please call the direct_upload_with_http_info method with `_preload_content` instead and obtain raw data from ApiResponse.raw_data"  # noqa: E501
             raise ValueError(message)
-        return await self.direct_upload_with_http_info(orientation, capture_type, card_id, direct_upload_request, **kwargs)  # noqa: E501
+        return self.direct_upload_with_http_info(orientation, capture_type, card_id, direct_upload_request, **kwargs)  # noqa: E501
 
     @validate_arguments
-    async def direct_upload_with_http_info(self, orientation : ScanOrientation, capture_type : ScanCaptureType, card_id : StrictStr, direct_upload_request : Optional[DirectUploadRequest] = None, **kwargs) -> ApiResponse:  # noqa: E501
+    def direct_upload_with_http_info(self, orientation : ScanOrientation, capture_type : ScanCaptureType, card_id : StrictStr, direct_upload_request : Optional[DirectUploadRequest] = None, **kwargs) -> ApiResponse:  # noqa: E501
         """Direct Upload  # noqa: E501
 
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please pass async_req=True
+
+        >>> thread = api.direct_upload_with_http_info(orientation, capture_type, card_id, direct_upload_request, async_req=True)
+        >>> result = thread.get()
 
         :param orientation: (required)
         :type orientation: ScanOrientation
@@ -626,6 +710,8 @@ class CardScanApi:
         :type card_id: str
         :param direct_upload_request:
         :type direct_upload_request: DirectUploadRequest
+        :param async_req: Whether to execute the request asynchronously.
+        :type async_req: bool, optional
         :param _preload_content: if False, the ApiResponse.data will
                                  be set to none and raw_data will store the
                                  HTTP response body without reading/decoding.
@@ -659,6 +745,7 @@ class CardScanApi:
         ]
         _all_params.extend(
             [
+                'async_req',
                 '_return_http_data_only',
                 '_preload_content',
                 '_request_timeout',
@@ -727,7 +814,7 @@ class CardScanApi:
             '500': "GetAccessToken500Response",
         }
 
-        return await self.api_client.call_api(
+        return self.api_client.call_api(
             '/cards/{card_id}/upload', 'POST',
             _path_params,
             _query_params,
@@ -737,6 +824,7 @@ class CardScanApi:
             files=_files,
             response_types_map=_response_types_map,
             auth_settings=_auth_settings,
+            async_req=_params.get('async_req'),
             _return_http_data_only=_params.get('_return_http_data_only'),  # noqa: E501
             _preload_content=_params.get('_preload_content', True),
             _request_timeout=_params.get('_request_timeout'),
@@ -744,9 +832,14 @@ class CardScanApi:
             _request_auth=_params.get('_request_auth'))
 
     @validate_arguments
-    async def generate_card_upload_url(self, card_id : StrictStr, expiration : Optional[conint(strict=True, le=3600, ge=100)] = None, generate_card_upload_url_request : Optional[GenerateCardUploadUrlRequest] = None, **kwargs) -> GenerateCardUploadUrl200Response:  # noqa: E501
+    def generate_card_upload_url(self, card_id : StrictStr, expiration : Optional[conint(strict=True, le=3600, ge=100)] = None, generate_card_upload_url_request : Optional[GenerateCardUploadUrlRequest] = None, **kwargs) -> GenerateCardUploadUrl200Response:  # noqa: E501
         """Card - Generate Upload URL  # noqa: E501
 
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please pass async_req=True
+
+        >>> thread = api.generate_card_upload_url(card_id, expiration, generate_card_upload_url_request, async_req=True)
+        >>> result = thread.get()
 
         :param card_id: (required)
         :type card_id: str
@@ -754,6 +847,8 @@ class CardScanApi:
         :type expiration: int
         :param generate_card_upload_url_request:
         :type generate_card_upload_url_request: GenerateCardUploadUrlRequest
+        :param async_req: Whether to execute the request asynchronously.
+        :type async_req: bool, optional
         :param _request_timeout: timeout setting for this request.
                If one number provided, it will be total request
                timeout. It can also be a pair (tuple) of
@@ -767,12 +862,17 @@ class CardScanApi:
         if '_preload_content' in kwargs:
             message = "Error! Please call the generate_card_upload_url_with_http_info method with `_preload_content` instead and obtain raw data from ApiResponse.raw_data"  # noqa: E501
             raise ValueError(message)
-        return await self.generate_card_upload_url_with_http_info(card_id, expiration, generate_card_upload_url_request, **kwargs)  # noqa: E501
+        return self.generate_card_upload_url_with_http_info(card_id, expiration, generate_card_upload_url_request, **kwargs)  # noqa: E501
 
     @validate_arguments
-    async def generate_card_upload_url_with_http_info(self, card_id : StrictStr, expiration : Optional[conint(strict=True, le=3600, ge=100)] = None, generate_card_upload_url_request : Optional[GenerateCardUploadUrlRequest] = None, **kwargs) -> ApiResponse:  # noqa: E501
+    def generate_card_upload_url_with_http_info(self, card_id : StrictStr, expiration : Optional[conint(strict=True, le=3600, ge=100)] = None, generate_card_upload_url_request : Optional[GenerateCardUploadUrlRequest] = None, **kwargs) -> ApiResponse:  # noqa: E501
         """Card - Generate Upload URL  # noqa: E501
 
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please pass async_req=True
+
+        >>> thread = api.generate_card_upload_url_with_http_info(card_id, expiration, generate_card_upload_url_request, async_req=True)
+        >>> result = thread.get()
 
         :param card_id: (required)
         :type card_id: str
@@ -780,6 +880,8 @@ class CardScanApi:
         :type expiration: int
         :param generate_card_upload_url_request:
         :type generate_card_upload_url_request: GenerateCardUploadUrlRequest
+        :param async_req: Whether to execute the request asynchronously.
+        :type async_req: bool, optional
         :param _preload_content: if False, the ApiResponse.data will
                                  be set to none and raw_data will store the
                                  HTTP response body without reading/decoding.
@@ -812,6 +914,7 @@ class CardScanApi:
         ]
         _all_params.extend(
             [
+                'async_req',
                 '_return_http_data_only',
                 '_preload_content',
                 '_request_timeout',
@@ -877,7 +980,7 @@ class CardScanApi:
             '500': "GetAccessToken500Response",
         }
 
-        return await self.api_client.call_api(
+        return self.api_client.call_api(
             '/cards/{card_id}/generate-upload-url', 'POST',
             _path_params,
             _query_params,
@@ -887,6 +990,7 @@ class CardScanApi:
             files=_files,
             response_types_map=_response_types_map,
             auth_settings=_auth_settings,
+            async_req=_params.get('async_req'),
             _return_http_data_only=_params.get('_return_http_data_only'),  # noqa: E501
             _preload_content=_params.get('_preload_content', True),
             _request_timeout=_params.get('_request_timeout'),
@@ -894,10 +998,17 @@ class CardScanApi:
             _request_auth=_params.get('_request_auth'))
 
     @validate_arguments
-    async def generate_magic_link(self, **kwargs) -> GenerateMagicLink200Response:  # noqa: E501
+    def generate_magic_link(self, **kwargs) -> GenerateMagicLink200Response:  # noqa: E501
         """Generate Magic Link  # noqa: E501
 
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please pass async_req=True
 
+        >>> thread = api.generate_magic_link(async_req=True)
+        >>> result = thread.get()
+
+        :param async_req: Whether to execute the request asynchronously.
+        :type async_req: bool, optional
         :param _request_timeout: timeout setting for this request.
                If one number provided, it will be total request
                timeout. It can also be a pair (tuple) of
@@ -911,13 +1022,20 @@ class CardScanApi:
         if '_preload_content' in kwargs:
             message = "Error! Please call the generate_magic_link_with_http_info method with `_preload_content` instead and obtain raw data from ApiResponse.raw_data"  # noqa: E501
             raise ValueError(message)
-        return await self.generate_magic_link_with_http_info(**kwargs)  # noqa: E501
+        return self.generate_magic_link_with_http_info(**kwargs)  # noqa: E501
 
     @validate_arguments
-    async def generate_magic_link_with_http_info(self, **kwargs) -> ApiResponse:  # noqa: E501
+    def generate_magic_link_with_http_info(self, **kwargs) -> ApiResponse:  # noqa: E501
         """Generate Magic Link  # noqa: E501
 
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please pass async_req=True
 
+        >>> thread = api.generate_magic_link_with_http_info(async_req=True)
+        >>> result = thread.get()
+
+        :param async_req: Whether to execute the request asynchronously.
+        :type async_req: bool, optional
         :param _preload_content: if False, the ApiResponse.data will
                                  be set to none and raw_data will store the
                                  HTTP response body without reading/decoding.
@@ -947,6 +1065,7 @@ class CardScanApi:
         ]
         _all_params.extend(
             [
+                'async_req',
                 '_return_http_data_only',
                 '_preload_content',
                 '_request_timeout',
@@ -993,7 +1112,7 @@ class CardScanApi:
             '500': "GetAccessToken500Response",
         }
 
-        return await self.api_client.call_api(
+        return self.api_client.call_api(
             '/generate-magic-link', 'GET',
             _path_params,
             _query_params,
@@ -1003,6 +1122,7 @@ class CardScanApi:
             files=_files,
             response_types_map=_response_types_map,
             auth_settings=_auth_settings,
+            async_req=_params.get('async_req'),
             _return_http_data_only=_params.get('_return_http_data_only'),  # noqa: E501
             _preload_content=_params.get('_preload_content', True),
             _request_timeout=_params.get('_request_timeout'),
@@ -1010,12 +1130,19 @@ class CardScanApi:
             _request_auth=_params.get('_request_auth'))
 
     @validate_arguments
-    async def generate_upload_url(self, expiration : conint(strict=True, le=3600, ge=100), **kwargs) -> GenerateCardUploadUrl200Response:  # noqa: E501
+    def generate_upload_url(self, expiration : conint(strict=True, le=3600, ge=100), **kwargs) -> GenerateCardUploadUrl200Response:  # noqa: E501
         """Generate an upload URL  # noqa: E501
 
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please pass async_req=True
+
+        >>> thread = api.generate_upload_url(expiration, async_req=True)
+        >>> result = thread.get()
 
         :param expiration: (required)
         :type expiration: int
+        :param async_req: Whether to execute the request asynchronously.
+        :type async_req: bool, optional
         :param _request_timeout: timeout setting for this request.
                If one number provided, it will be total request
                timeout. It can also be a pair (tuple) of
@@ -1029,15 +1156,22 @@ class CardScanApi:
         if '_preload_content' in kwargs:
             message = "Error! Please call the generate_upload_url_with_http_info method with `_preload_content` instead and obtain raw data from ApiResponse.raw_data"  # noqa: E501
             raise ValueError(message)
-        return await self.generate_upload_url_with_http_info(expiration, **kwargs)  # noqa: E501
+        return self.generate_upload_url_with_http_info(expiration, **kwargs)  # noqa: E501
 
     @validate_arguments
-    async def generate_upload_url_with_http_info(self, expiration : conint(strict=True, le=3600, ge=100), **kwargs) -> ApiResponse:  # noqa: E501
+    def generate_upload_url_with_http_info(self, expiration : conint(strict=True, le=3600, ge=100), **kwargs) -> ApiResponse:  # noqa: E501
         """Generate an upload URL  # noqa: E501
 
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please pass async_req=True
+
+        >>> thread = api.generate_upload_url_with_http_info(expiration, async_req=True)
+        >>> result = thread.get()
 
         :param expiration: (required)
         :type expiration: int
+        :param async_req: Whether to execute the request asynchronously.
+        :type async_req: bool, optional
         :param _preload_content: if False, the ApiResponse.data will
                                  be set to none and raw_data will store the
                                  HTTP response body without reading/decoding.
@@ -1068,6 +1202,7 @@ class CardScanApi:
         ]
         _all_params.extend(
             [
+                'async_req',
                 '_return_http_data_only',
                 '_preload_content',
                 '_request_timeout',
@@ -1118,7 +1253,7 @@ class CardScanApi:
             '500': "GetAccessToken500Response",
         }
 
-        return await self.api_client.call_api(
+        return self.api_client.call_api(
             '/generate-upload-url', 'GET',
             _path_params,
             _query_params,
@@ -1128,6 +1263,7 @@ class CardScanApi:
             files=_files,
             response_types_map=_response_types_map,
             auth_settings=_auth_settings,
+            async_req=_params.get('async_req'),
             _return_http_data_only=_params.get('_return_http_data_only'),  # noqa: E501
             _preload_content=_params.get('_preload_content', True),
             _request_timeout=_params.get('_request_timeout'),
@@ -1135,12 +1271,19 @@ class CardScanApi:
             _request_auth=_params.get('_request_auth'))
 
     @validate_arguments
-    async def get_access_token(self, user_id : Annotated[Optional[StrictStr], Field(description="The ID of the user")] = None, **kwargs) -> GetAccessToken200Response:  # noqa: E501
+    def get_access_token(self, user_id : Annotated[Optional[StrictStr], Field(description="The ID of the user")] = None, **kwargs) -> GetAccessToken200Response:  # noqa: E501
         """Access Token  # noqa: E501
 
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please pass async_req=True
+
+        >>> thread = api.get_access_token(user_id, async_req=True)
+        >>> result = thread.get()
 
         :param user_id: The ID of the user
         :type user_id: str
+        :param async_req: Whether to execute the request asynchronously.
+        :type async_req: bool, optional
         :param _request_timeout: timeout setting for this request.
                If one number provided, it will be total request
                timeout. It can also be a pair (tuple) of
@@ -1154,15 +1297,22 @@ class CardScanApi:
         if '_preload_content' in kwargs:
             message = "Error! Please call the get_access_token_with_http_info method with `_preload_content` instead and obtain raw data from ApiResponse.raw_data"  # noqa: E501
             raise ValueError(message)
-        return await self.get_access_token_with_http_info(user_id, **kwargs)  # noqa: E501
+        return self.get_access_token_with_http_info(user_id, **kwargs)  # noqa: E501
 
     @validate_arguments
-    async def get_access_token_with_http_info(self, user_id : Annotated[Optional[StrictStr], Field(description="The ID of the user")] = None, **kwargs) -> ApiResponse:  # noqa: E501
+    def get_access_token_with_http_info(self, user_id : Annotated[Optional[StrictStr], Field(description="The ID of the user")] = None, **kwargs) -> ApiResponse:  # noqa: E501
         """Access Token  # noqa: E501
 
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please pass async_req=True
+
+        >>> thread = api.get_access_token_with_http_info(user_id, async_req=True)
+        >>> result = thread.get()
 
         :param user_id: The ID of the user
         :type user_id: str
+        :param async_req: Whether to execute the request asynchronously.
+        :type async_req: bool, optional
         :param _preload_content: if False, the ApiResponse.data will
                                  be set to none and raw_data will store the
                                  HTTP response body without reading/decoding.
@@ -1193,6 +1343,7 @@ class CardScanApi:
         ]
         _all_params.extend(
             [
+                'async_req',
                 '_return_http_data_only',
                 '_preload_content',
                 '_request_timeout',
@@ -1242,7 +1393,7 @@ class CardScanApi:
             '500': "GetAccessToken500Response",
         }
 
-        return await self.api_client.call_api(
+        return self.api_client.call_api(
             '/access-token', 'GET',
             _path_params,
             _query_params,
@@ -1252,6 +1403,7 @@ class CardScanApi:
             files=_files,
             response_types_map=_response_types_map,
             auth_settings=_auth_settings,
+            async_req=_params.get('async_req'),
             _return_http_data_only=_params.get('_return_http_data_only'),  # noqa: E501
             _preload_content=_params.get('_preload_content', True),
             _request_timeout=_params.get('_request_timeout'),
@@ -1259,12 +1411,19 @@ class CardScanApi:
             _request_auth=_params.get('_request_auth'))
 
     @validate_arguments
-    async def get_card_by_id(self, card_id : Annotated[StrictStr, Field(..., description="The ID of the card")], **kwargs) -> CardApiResponse:  # noqa: E501
+    def get_card_by_id(self, card_id : Annotated[StrictStr, Field(..., description="The ID of the card")], **kwargs) -> CardApiResponse:  # noqa: E501
         """Get Card by ID  # noqa: E501
 
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please pass async_req=True
+
+        >>> thread = api.get_card_by_id(card_id, async_req=True)
+        >>> result = thread.get()
 
         :param card_id: The ID of the card (required)
         :type card_id: str
+        :param async_req: Whether to execute the request asynchronously.
+        :type async_req: bool, optional
         :param _request_timeout: timeout setting for this request.
                If one number provided, it will be total request
                timeout. It can also be a pair (tuple) of
@@ -1278,15 +1437,22 @@ class CardScanApi:
         if '_preload_content' in kwargs:
             message = "Error! Please call the get_card_by_id_with_http_info method with `_preload_content` instead and obtain raw data from ApiResponse.raw_data"  # noqa: E501
             raise ValueError(message)
-        return await self.get_card_by_id_with_http_info(card_id, **kwargs)  # noqa: E501
+        return self.get_card_by_id_with_http_info(card_id, **kwargs)  # noqa: E501
 
     @validate_arguments
-    async def get_card_by_id_with_http_info(self, card_id : Annotated[StrictStr, Field(..., description="The ID of the card")], **kwargs) -> ApiResponse:  # noqa: E501
+    def get_card_by_id_with_http_info(self, card_id : Annotated[StrictStr, Field(..., description="The ID of the card")], **kwargs) -> ApiResponse:  # noqa: E501
         """Get Card by ID  # noqa: E501
 
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please pass async_req=True
+
+        >>> thread = api.get_card_by_id_with_http_info(card_id, async_req=True)
+        >>> result = thread.get()
 
         :param card_id: The ID of the card (required)
         :type card_id: str
+        :param async_req: Whether to execute the request asynchronously.
+        :type async_req: bool, optional
         :param _preload_content: if False, the ApiResponse.data will
                                  be set to none and raw_data will store the
                                  HTTP response body without reading/decoding.
@@ -1317,6 +1483,7 @@ class CardScanApi:
         ]
         _all_params.extend(
             [
+                'async_req',
                 '_return_http_data_only',
                 '_preload_content',
                 '_request_timeout',
@@ -1368,7 +1535,7 @@ class CardScanApi:
             '500': "GetAccessToken500Response",
         }
 
-        return await self.api_client.call_api(
+        return self.api_client.call_api(
             '/cards/{card_id}', 'GET',
             _path_params,
             _query_params,
@@ -1378,6 +1545,7 @@ class CardScanApi:
             files=_files,
             response_types_map=_response_types_map,
             auth_settings=_auth_settings,
+            async_req=_params.get('async_req'),
             _return_http_data_only=_params.get('_return_http_data_only'),  # noqa: E501
             _preload_content=_params.get('_preload_content', True),
             _request_timeout=_params.get('_request_timeout'),
@@ -1385,12 +1553,19 @@ class CardScanApi:
             _request_auth=_params.get('_request_auth'))
 
     @validate_arguments
-    async def get_eligibility_by_id(self, eligibility_id : StrictStr, **kwargs) -> EligibilityApiResponse:  # noqa: E501
+    def get_eligibility_by_id(self, eligibility_id : StrictStr, **kwargs) -> EligibilityApiResponse:  # noqa: E501
         """Get Eligibility  # noqa: E501
 
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please pass async_req=True
+
+        >>> thread = api.get_eligibility_by_id(eligibility_id, async_req=True)
+        >>> result = thread.get()
 
         :param eligibility_id: (required)
         :type eligibility_id: str
+        :param async_req: Whether to execute the request asynchronously.
+        :type async_req: bool, optional
         :param _request_timeout: timeout setting for this request.
                If one number provided, it will be total request
                timeout. It can also be a pair (tuple) of
@@ -1404,15 +1579,22 @@ class CardScanApi:
         if '_preload_content' in kwargs:
             message = "Error! Please call the get_eligibility_by_id_with_http_info method with `_preload_content` instead and obtain raw data from ApiResponse.raw_data"  # noqa: E501
             raise ValueError(message)
-        return await self.get_eligibility_by_id_with_http_info(eligibility_id, **kwargs)  # noqa: E501
+        return self.get_eligibility_by_id_with_http_info(eligibility_id, **kwargs)  # noqa: E501
 
     @validate_arguments
-    async def get_eligibility_by_id_with_http_info(self, eligibility_id : StrictStr, **kwargs) -> ApiResponse:  # noqa: E501
+    def get_eligibility_by_id_with_http_info(self, eligibility_id : StrictStr, **kwargs) -> ApiResponse:  # noqa: E501
         """Get Eligibility  # noqa: E501
 
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please pass async_req=True
+
+        >>> thread = api.get_eligibility_by_id_with_http_info(eligibility_id, async_req=True)
+        >>> result = thread.get()
 
         :param eligibility_id: (required)
         :type eligibility_id: str
+        :param async_req: Whether to execute the request asynchronously.
+        :type async_req: bool, optional
         :param _preload_content: if False, the ApiResponse.data will
                                  be set to none and raw_data will store the
                                  HTTP response body without reading/decoding.
@@ -1443,6 +1625,7 @@ class CardScanApi:
         ]
         _all_params.extend(
             [
+                'async_req',
                 '_return_http_data_only',
                 '_preload_content',
                 '_request_timeout',
@@ -1494,7 +1677,7 @@ class CardScanApi:
             '500': "GetAccessToken500Response",
         }
 
-        return await self.api_client.call_api(
+        return self.api_client.call_api(
             '/eligibility/{eligibility_id}', 'GET',
             _path_params,
             _query_params,
@@ -1504,6 +1687,7 @@ class CardScanApi:
             files=_files,
             response_types_map=_response_types_map,
             auth_settings=_auth_settings,
+            async_req=_params.get('async_req'),
             _return_http_data_only=_params.get('_return_http_data_only'),  # noqa: E501
             _preload_content=_params.get('_preload_content', True),
             _request_timeout=_params.get('_request_timeout'),
@@ -1511,12 +1695,19 @@ class CardScanApi:
             _request_auth=_params.get('_request_auth'))
 
     @validate_arguments
-    async def get_scan_metadata(self, scan_id : StrictStr, **kwargs) -> None:  # noqa: E501
+    def get_scan_metadata(self, scan_id : StrictStr, **kwargs) -> None:  # noqa: E501
         """Get Scan Metadata  # noqa: E501
 
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please pass async_req=True
+
+        >>> thread = api.get_scan_metadata(scan_id, async_req=True)
+        >>> result = thread.get()
 
         :param scan_id: (required)
         :type scan_id: str
+        :param async_req: Whether to execute the request asynchronously.
+        :type async_req: bool, optional
         :param _request_timeout: timeout setting for this request.
                If one number provided, it will be total request
                timeout. It can also be a pair (tuple) of
@@ -1530,15 +1721,22 @@ class CardScanApi:
         if '_preload_content' in kwargs:
             message = "Error! Please call the get_scan_metadata_with_http_info method with `_preload_content` instead and obtain raw data from ApiResponse.raw_data"  # noqa: E501
             raise ValueError(message)
-        return await self.get_scan_metadata_with_http_info(scan_id, **kwargs)  # noqa: E501
+        return self.get_scan_metadata_with_http_info(scan_id, **kwargs)  # noqa: E501
 
     @validate_arguments
-    async def get_scan_metadata_with_http_info(self, scan_id : StrictStr, **kwargs) -> ApiResponse:  # noqa: E501
+    def get_scan_metadata_with_http_info(self, scan_id : StrictStr, **kwargs) -> ApiResponse:  # noqa: E501
         """Get Scan Metadata  # noqa: E501
 
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please pass async_req=True
+
+        >>> thread = api.get_scan_metadata_with_http_info(scan_id, async_req=True)
+        >>> result = thread.get()
 
         :param scan_id: (required)
         :type scan_id: str
+        :param async_req: Whether to execute the request asynchronously.
+        :type async_req: bool, optional
         :param _preload_content: if False, the ApiResponse.data will
                                  be set to none and raw_data will store the
                                  HTTP response body without reading/decoding.
@@ -1569,6 +1767,7 @@ class CardScanApi:
         ]
         _all_params.extend(
             [
+                'async_req',
                 '_return_http_data_only',
                 '_preload_content',
                 '_request_timeout',
@@ -1614,7 +1813,7 @@ class CardScanApi:
 
         _response_types_map = {}
 
-        return await self.api_client.call_api(
+        return self.api_client.call_api(
             '/scans/{scan_id}/metadata', 'GET',
             _path_params,
             _query_params,
@@ -1624,6 +1823,7 @@ class CardScanApi:
             files=_files,
             response_types_map=_response_types_map,
             auth_settings=_auth_settings,
+            async_req=_params.get('async_req'),
             _return_http_data_only=_params.get('_return_http_data_only'),  # noqa: E501
             _preload_content=_params.get('_preload_content', True),
             _request_timeout=_params.get('_request_timeout'),
@@ -1631,14 +1831,21 @@ class CardScanApi:
             _request_auth=_params.get('_request_auth'))
 
     @validate_arguments
-    async def list_cards(self, limit : Optional[StrictInt] = None, cursor : Optional[StrictStr] = None, **kwargs) -> SearchCards200Response:  # noqa: E501
+    def list_cards(self, limit : Optional[StrictInt] = None, cursor : Optional[StrictStr] = None, **kwargs) -> SearchCards200Response:  # noqa: E501
         """List Cards  # noqa: E501
 
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please pass async_req=True
+
+        >>> thread = api.list_cards(limit, cursor, async_req=True)
+        >>> result = thread.get()
 
         :param limit:
         :type limit: int
         :param cursor:
         :type cursor: str
+        :param async_req: Whether to execute the request asynchronously.
+        :type async_req: bool, optional
         :param _request_timeout: timeout setting for this request.
                If one number provided, it will be total request
                timeout. It can also be a pair (tuple) of
@@ -1652,17 +1859,24 @@ class CardScanApi:
         if '_preload_content' in kwargs:
             message = "Error! Please call the list_cards_with_http_info method with `_preload_content` instead and obtain raw data from ApiResponse.raw_data"  # noqa: E501
             raise ValueError(message)
-        return await self.list_cards_with_http_info(limit, cursor, **kwargs)  # noqa: E501
+        return self.list_cards_with_http_info(limit, cursor, **kwargs)  # noqa: E501
 
     @validate_arguments
-    async def list_cards_with_http_info(self, limit : Optional[StrictInt] = None, cursor : Optional[StrictStr] = None, **kwargs) -> ApiResponse:  # noqa: E501
+    def list_cards_with_http_info(self, limit : Optional[StrictInt] = None, cursor : Optional[StrictStr] = None, **kwargs) -> ApiResponse:  # noqa: E501
         """List Cards  # noqa: E501
 
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please pass async_req=True
+
+        >>> thread = api.list_cards_with_http_info(limit, cursor, async_req=True)
+        >>> result = thread.get()
 
         :param limit:
         :type limit: int
         :param cursor:
         :type cursor: str
+        :param async_req: Whether to execute the request asynchronously.
+        :type async_req: bool, optional
         :param _preload_content: if False, the ApiResponse.data will
                                  be set to none and raw_data will store the
                                  HTTP response body without reading/decoding.
@@ -1694,6 +1908,7 @@ class CardScanApi:
         ]
         _all_params.extend(
             [
+                'async_req',
                 '_return_http_data_only',
                 '_preload_content',
                 '_request_timeout',
@@ -1746,7 +1961,7 @@ class CardScanApi:
             '500': "GetAccessToken500Response",
         }
 
-        return await self.api_client.call_api(
+        return self.api_client.call_api(
             '/cards', 'GET',
             _path_params,
             _query_params,
@@ -1756,6 +1971,7 @@ class CardScanApi:
             files=_files,
             response_types_map=_response_types_map,
             auth_settings=_auth_settings,
+            async_req=_params.get('async_req'),
             _return_http_data_only=_params.get('_return_http_data_only'),  # noqa: E501
             _preload_content=_params.get('_preload_content', True),
             _request_timeout=_params.get('_request_timeout'),
@@ -1763,10 +1979,17 @@ class CardScanApi:
             _request_auth=_params.get('_request_auth'))
 
     @validate_arguments
-    async def list_eligibility(self, **kwargs) -> ListEligibility200Response:  # noqa: E501
+    def list_eligibility(self, **kwargs) -> ListEligibility200Response:  # noqa: E501
         """List Eligibility  # noqa: E501
 
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please pass async_req=True
 
+        >>> thread = api.list_eligibility(async_req=True)
+        >>> result = thread.get()
+
+        :param async_req: Whether to execute the request asynchronously.
+        :type async_req: bool, optional
         :param _request_timeout: timeout setting for this request.
                If one number provided, it will be total request
                timeout. It can also be a pair (tuple) of
@@ -1780,13 +2003,20 @@ class CardScanApi:
         if '_preload_content' in kwargs:
             message = "Error! Please call the list_eligibility_with_http_info method with `_preload_content` instead and obtain raw data from ApiResponse.raw_data"  # noqa: E501
             raise ValueError(message)
-        return await self.list_eligibility_with_http_info(**kwargs)  # noqa: E501
+        return self.list_eligibility_with_http_info(**kwargs)  # noqa: E501
 
     @validate_arguments
-    async def list_eligibility_with_http_info(self, **kwargs) -> ApiResponse:  # noqa: E501
+    def list_eligibility_with_http_info(self, **kwargs) -> ApiResponse:  # noqa: E501
         """List Eligibility  # noqa: E501
 
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please pass async_req=True
 
+        >>> thread = api.list_eligibility_with_http_info(async_req=True)
+        >>> result = thread.get()
+
+        :param async_req: Whether to execute the request asynchronously.
+        :type async_req: bool, optional
         :param _preload_content: if False, the ApiResponse.data will
                                  be set to none and raw_data will store the
                                  HTTP response body without reading/decoding.
@@ -1816,6 +2046,7 @@ class CardScanApi:
         ]
         _all_params.extend(
             [
+                'async_req',
                 '_return_http_data_only',
                 '_preload_content',
                 '_request_timeout',
@@ -1861,7 +2092,7 @@ class CardScanApi:
             '500': "GetAccessToken500Response",
         }
 
-        return await self.api_client.call_api(
+        return self.api_client.call_api(
             '/eligibility', 'GET',
             _path_params,
             _query_params,
@@ -1871,6 +2102,7 @@ class CardScanApi:
             files=_files,
             response_types_map=_response_types_map,
             auth_settings=_auth_settings,
+            async_req=_params.get('async_req'),
             _return_http_data_only=_params.get('_return_http_data_only'),  # noqa: E501
             _preload_content=_params.get('_preload_content', True),
             _request_timeout=_params.get('_request_timeout'),
@@ -1878,9 +2110,14 @@ class CardScanApi:
             _request_auth=_params.get('_request_auth'))
 
     @validate_arguments
-    async def search_cards(self, query : StrictStr, limit : Optional[StrictInt] = None, cursor : Optional[StrictStr] = None, **kwargs) -> SearchCards200Response:  # noqa: E501
+    def search_cards(self, query : StrictStr, limit : Optional[StrictInt] = None, cursor : Optional[StrictStr] = None, **kwargs) -> SearchCards200Response:  # noqa: E501
         """Search Cards (200) OK  # noqa: E501
 
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please pass async_req=True
+
+        >>> thread = api.search_cards(query, limit, cursor, async_req=True)
+        >>> result = thread.get()
 
         :param query: (required)
         :type query: str
@@ -1888,6 +2125,8 @@ class CardScanApi:
         :type limit: int
         :param cursor:
         :type cursor: str
+        :param async_req: Whether to execute the request asynchronously.
+        :type async_req: bool, optional
         :param _request_timeout: timeout setting for this request.
                If one number provided, it will be total request
                timeout. It can also be a pair (tuple) of
@@ -1901,12 +2140,17 @@ class CardScanApi:
         if '_preload_content' in kwargs:
             message = "Error! Please call the search_cards_with_http_info method with `_preload_content` instead and obtain raw data from ApiResponse.raw_data"  # noqa: E501
             raise ValueError(message)
-        return await self.search_cards_with_http_info(query, limit, cursor, **kwargs)  # noqa: E501
+        return self.search_cards_with_http_info(query, limit, cursor, **kwargs)  # noqa: E501
 
     @validate_arguments
-    async def search_cards_with_http_info(self, query : StrictStr, limit : Optional[StrictInt] = None, cursor : Optional[StrictStr] = None, **kwargs) -> ApiResponse:  # noqa: E501
+    def search_cards_with_http_info(self, query : StrictStr, limit : Optional[StrictInt] = None, cursor : Optional[StrictStr] = None, **kwargs) -> ApiResponse:  # noqa: E501
         """Search Cards (200) OK  # noqa: E501
 
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please pass async_req=True
+
+        >>> thread = api.search_cards_with_http_info(query, limit, cursor, async_req=True)
+        >>> result = thread.get()
 
         :param query: (required)
         :type query: str
@@ -1914,6 +2158,8 @@ class CardScanApi:
         :type limit: int
         :param cursor:
         :type cursor: str
+        :param async_req: Whether to execute the request asynchronously.
+        :type async_req: bool, optional
         :param _preload_content: if False, the ApiResponse.data will
                                  be set to none and raw_data will store the
                                  HTTP response body without reading/decoding.
@@ -1946,6 +2192,7 @@ class CardScanApi:
         ]
         _all_params.extend(
             [
+                'async_req',
                 '_return_http_data_only',
                 '_preload_content',
                 '_request_timeout',
@@ -2001,7 +2248,7 @@ class CardScanApi:
             '500': "GetAccessToken500Response",
         }
 
-        return await self.api_client.call_api(
+        return self.api_client.call_api(
             '/cards/search', 'GET',
             _path_params,
             _query_params,
@@ -2011,6 +2258,7 @@ class CardScanApi:
             files=_files,
             response_types_map=_response_types_map,
             auth_settings=_auth_settings,
+            async_req=_params.get('async_req'),
             _return_http_data_only=_params.get('_return_http_data_only'),  # noqa: E501
             _preload_content=_params.get('_preload_content', True),
             _request_timeout=_params.get('_request_timeout'),
@@ -2018,12 +2266,19 @@ class CardScanApi:
             _request_auth=_params.get('_request_auth'))
 
     @validate_arguments
-    async def validate_magic_link(self, token : StrictStr, **kwargs) -> ValidateMagicLink200Response:  # noqa: E501
+    def validate_magic_link(self, token : StrictStr, **kwargs) -> ValidateMagicLink200Response:  # noqa: E501
         """Validate Magic Link  # noqa: E501
 
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please pass async_req=True
+
+        >>> thread = api.validate_magic_link(token, async_req=True)
+        >>> result = thread.get()
 
         :param token: (required)
         :type token: str
+        :param async_req: Whether to execute the request asynchronously.
+        :type async_req: bool, optional
         :param _request_timeout: timeout setting for this request.
                If one number provided, it will be total request
                timeout. It can also be a pair (tuple) of
@@ -2037,15 +2292,22 @@ class CardScanApi:
         if '_preload_content' in kwargs:
             message = "Error! Please call the validate_magic_link_with_http_info method with `_preload_content` instead and obtain raw data from ApiResponse.raw_data"  # noqa: E501
             raise ValueError(message)
-        return await self.validate_magic_link_with_http_info(token, **kwargs)  # noqa: E501
+        return self.validate_magic_link_with_http_info(token, **kwargs)  # noqa: E501
 
     @validate_arguments
-    async def validate_magic_link_with_http_info(self, token : StrictStr, **kwargs) -> ApiResponse:  # noqa: E501
+    def validate_magic_link_with_http_info(self, token : StrictStr, **kwargs) -> ApiResponse:  # noqa: E501
         """Validate Magic Link  # noqa: E501
 
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please pass async_req=True
+
+        >>> thread = api.validate_magic_link_with_http_info(token, async_req=True)
+        >>> result = thread.get()
 
         :param token: (required)
         :type token: str
+        :param async_req: Whether to execute the request asynchronously.
+        :type async_req: bool, optional
         :param _preload_content: if False, the ApiResponse.data will
                                  be set to none and raw_data will store the
                                  HTTP response body without reading/decoding.
@@ -2076,6 +2338,7 @@ class CardScanApi:
         ]
         _all_params.extend(
             [
+                'async_req',
                 '_return_http_data_only',
                 '_preload_content',
                 '_request_timeout',
@@ -2127,7 +2390,7 @@ class CardScanApi:
             '500': "GetAccessToken500Response",
         }
 
-        return await self.api_client.call_api(
+        return self.api_client.call_api(
             '/validate-magic-link', 'GET',
             _path_params,
             _query_params,
@@ -2137,6 +2400,7 @@ class CardScanApi:
             files=_files,
             response_types_map=_response_types_map,
             auth_settings=_auth_settings,
+            async_req=_params.get('async_req'),
             _return_http_data_only=_params.get('_return_http_data_only'),  # noqa: E501
             _preload_content=_params.get('_preload_content', True),
             _request_timeout=_params.get('_request_timeout'),

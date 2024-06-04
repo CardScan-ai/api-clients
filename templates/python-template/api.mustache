@@ -52,8 +52,8 @@ class {{classname}}:
 
         self.websocket_url = f"{self.api_client.configuration.websocket_url}?token={token}"
 
-    async def full_scan(
-        self, back_image_path: str, front_image_path: str
+    def full_scan(
+        self, front_image_path: str, back_image_path: Optional[str] = None
     ) -> CardWebsocketEvent:
         """
         Perform a full scan of a card, including both sides of a card.
@@ -61,11 +61,22 @@ class {{classname}}:
         :param front_image_path: The path to the front image of the card.
         """
 
+        return asyncio.run(self._full_scan(front_image_path, back_image_path=back_image_path))
+
+    async def _full_scan(
+        self, front_image_path: str, back_image_path: Optional[str] = None
+    ) -> CardWebsocketEvent:
+        """
+        Perform a full scan of a card, including both sides of a card.
+        :param back_image_path: The path to the back image of the card. (optional)
+        :param front_image_path: The path to the front image of the card.
+        """
+
         if not self.websocket_url:
             raise ValueError("This method cannot be called without a websocket URL.")
 
-        response = await self.create_card(
-            CreateCardRequest(enable_livescan=False, enable_backside_scan=True)
+        response = self.create_card(
+            CreateCardRequest(enable_livescan=False, enable_backside_scan=(back_image_path is not None))
         )
 
         result = None
@@ -75,7 +86,7 @@ class {{classname}}:
                 json.dumps({"card_id": response.card_id, "action": "register"})
             )
 
-            front_upload_url_response = await self.generate_card_upload_url(
+            front_upload_url_response = self.generate_card_upload_url(
                 response.card_id,
                 3600,
                 GenerateCardUploadUrlRequest(orientation=ScanOrientation.FRONT),
@@ -83,8 +94,8 @@ class {{classname}}:
 
             upload_params = front_upload_url_response.upload_parameters.to_dict()
 
-            await self.api_client.call_api(
-                "",
+            self.api_client.call_api(
+                '',
                 "POST",
                 _host=front_upload_url_response.upload_url,
                 post_params=list(upload_params.items()),
@@ -92,7 +103,6 @@ class {{classname}}:
                 header_params={"Content-Type": "multipart/form-data"},
                 response_types_map={}
             )
-
 
             front_side_rejection_states = [
                 CardState.FRONTSIDE_FAILED,
@@ -107,16 +117,23 @@ class {{classname}}:
                             f"Front side failed: {event.get('error', {}).get('message', 'Unknown error')}"
                         )
 
+                if event['state'] == CardState.COMPLETED and event['type'] == 'card':
+                    result = CardWebsocketEvent.from_dict(event)
+                    break
+
                 if event["state"] == CardState.BACKSIDE_PROCESSING and event["type"] == "card":
                     break
 
-            back_upload_url_response = await self.generate_card_upload_url(
+            if back_image_path is None:
+                return result
+
+            back_upload_url_response = self.generate_card_upload_url(
                 response.card_id,
                 3600,
                 GenerateCardUploadUrlRequest(orientation=ScanOrientation.BACK),
             )
 
-            await self.api_client.call_api(
+            self.api_client.call_api(
                 '',
                 "POST",
                 _host=back_upload_url_response.upload_url,
@@ -149,13 +166,21 @@ class {{classname}}:
 
         return result
 
-    async def check_eligibility(
+    def check_eligibility(self, create_eligibility_request: CreateEligibilityRequest) -> EligibilityWebsocketEvent:
+        """
+        Check the eligibility of a card.
+        :param create_eligibility_request: The request object.
+        """
+
+        return asyncio.run(self._check_eligibility(create_eligibility_request))
+
+    async def _check_eligibility(
         self, create_eligibility_request: CreateEligibilityRequest
     ) -> EligibilityWebsocketEvent:
         if not self.websocket_url:
             raise ValueError("This method cannot be called without a websocket URL.")
 
-        response = await self.create_eligibility(create_eligibility_request)
+        response = self.create_eligibility(create_eligibility_request)
 
         result = None
 

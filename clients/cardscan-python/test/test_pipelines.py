@@ -29,9 +29,8 @@ def cardscan():
     )
 
 
-@pytest.mark.asyncio
-async def test_eligibility(cardscan):
-    response = await cardscan.check_eligibility(
+def test_eligibility(cardscan):
+    response = cardscan.check_eligibility(
         CreateEligibilityRequest(
             card_id=os.environ.get("TEST_CARD_ID"),
             eligibility=EligibilityInfo(
@@ -52,8 +51,7 @@ async def test_eligibility(cardscan):
     assert response.state == EligibilityState.COMPLETED
 
 
-@pytest.mark.asyncio
-async def test_invalid_api_key():
+def test_invalid_api_key():
     invalid_cardscan = CardScanApi(
         api_client=ApiClient(
             configuration=Configuration(
@@ -65,7 +63,8 @@ async def test_invalid_api_key():
     )
 
     with pytest.raises(Exception) as context:
-        await invalid_cardscan.check_eligibility(
+        invalid_cardscan.check_eligibility(
+
             CreateEligibilityRequest(
                 card_id=os.environ.get("TEST_CARD_ID"),
                 eligibility=EligibilityInfo(
@@ -85,16 +84,20 @@ async def test_invalid_api_key():
 
     assert "401" in str(context.value)
 
+def test_card_scanning(cardscan):
+    response = cardscan.full_scan("test/cards/back.jpg", "test/cards/front.jpg")
 
-@pytest.mark.asyncio
-async def test_card_scanning(cardscan):
-    response = await cardscan.full_scan("test/cards/back.jpg", "test/cards/front.jpg")
+    assert response is not None
+    assert response.state == CardState.COMPLETED
 
+def test_card_scanning_only_front(cardscan):
+    response = cardscan.full_scan(front_image_path="test/cards/front.jpg")
+
+    assert response is not None
     assert response.state == CardState.COMPLETED
 
 
-@pytest.mark.asyncio
-async def test_invalid_api_key_card_scanning():
+def test_invalid_api_key_card_scanning():
     invalid_cardscan = CardScanApi(
         api_client=ApiClient(
             configuration=Configuration(
@@ -106,6 +109,6 @@ async def test_invalid_api_key_card_scanning():
     )
 
     with pytest.raises(Exception) as context:
-        await invalid_cardscan.full_scan("cards/back.jpg", "cards/front.jpg")
+        invalid_cardscan.full_scan("cards/back.jpg", "cards/front.jpg")
 
     assert "401" in str(context.value)
