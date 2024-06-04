@@ -36,6 +36,7 @@ class EligibilityApiResponse(BaseModel):
     error: Optional[ModelError] = None
     created_at: datetime = Field(default=..., description="The timestamp when the eligibility record was created.")
     update_at: datetime = Field(default=..., description="The timestamp when the eligibility record was last updated.")
+    additional_properties: Dict[str, Any] = {}
     __properties = ["eligibility_id", "state", "card_id", "eligibility_request", "eligibility_response", "eligibility_summarized_response", "error", "created_at", "update_at"]
 
     @validator('state')
@@ -67,6 +68,7 @@ class EligibilityApiResponse(BaseModel):
         """Returns the dictionary representation of the model using alias"""
         _dict = self.dict(by_alias=True,
                           exclude={
+                            "additional_properties"
                           },
                           exclude_none=True)
         # override the default output from pydantic by calling `to_dict()` of eligibility_request
@@ -75,6 +77,11 @@ class EligibilityApiResponse(BaseModel):
         # override the default output from pydantic by calling `to_dict()` of error
         if self.error:
             _dict['error'] = self.error.to_dict()
+        # puts key-value pairs in additional_properties in the top level
+        if self.additional_properties is not None:
+            for _key, _value in self.additional_properties.items():
+                _dict[_key] = _value
+
         # set to None if eligibility_response (nullable) is None
         # and __fields_set__ contains the field
         if self.eligibility_response is None and "eligibility_response" in self.__fields_set__:
@@ -107,6 +114,11 @@ class EligibilityApiResponse(BaseModel):
             "created_at": obj.get("created_at"),
             "update_at": obj.get("update_at")
         })
+        # store additional fields in additional_properties
+        for _key in obj.keys():
+            if _key not in cls.__properties:
+                _obj.additional_properties[_key] = obj.get(_key)
+
         return _obj
 
 

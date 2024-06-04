@@ -14,6 +14,7 @@
 
 import copy
 import logging
+import multiprocessing
 import sys
 import urllib3
 
@@ -69,8 +70,10 @@ class Configuration:
         self.server_operation_index = server_operation_index or {}
         """Default server index
         """
+        prefix = 'api' if environment.startswith('prod') else 'sandbox'
+
         self.server_variables = server_variables or {
-            "prefix": environment,
+            "prefix": prefix,
             "version": "v1",
         }
         self.server_operation_variables = server_operation_variables or {}
@@ -142,9 +145,12 @@ class Configuration:
            Set this to the SNI value expected by the server.
         """
 
-        self.connection_pool_maxsize = 100
-        """This value is passed to the aiohttp to limit simultaneous connections.
-           Default values is 100, None means no-limit.
+        self.connection_pool_maxsize = multiprocessing.cpu_count() * 5
+        """urllib3 connection pool's maximum number of connections saved
+           per pool. urllib3 uses 1 connection as default value, but this is
+           not the best value when you are making a lot of possibly parallel
+           requests to the same host, which is often the case here.
+           cpu_count * 5 is used as default value to increase performance.
         """
 
         self.proxy = None
@@ -174,7 +180,7 @@ class Configuration:
         """date format
         """
 
-        self.websocket_url = websocket_url or f"wss://{environment}-ws.cardscan.ai"
+        self.websocket_url = websocket_url or f"wss://{prefix}-ws.cardscan.ai"
         """websocket url
         """
 

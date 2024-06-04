@@ -55,14 +55,14 @@ configuration = cardscan_client.Configuration(
 )
 
 # Enter a context with an instance of the API client
-async with cardscan_client.ApiClient(configuration) as api_client:
+with cardscan_client.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = cardscan_client.CardScanApi(api_client)
     create_card_request = cardscan_client.CreateCardRequest() # CreateCardRequest |  (optional)
 
     try:
         # Creates a new card
-        api_response = await api_instance.create_card(create_card_request=create_card_request)
+        api_response = api_instance.create_card(create_card_request=create_card_request)
         print("The response of CardScanApi->create_card:\n")
         pprint(api_response)
     except Exception as e:
@@ -134,14 +134,14 @@ configuration = cardscan_client.Configuration(
 )
 
 # Enter a context with an instance of the API client
-async with cardscan_client.ApiClient(configuration) as api_client:
+with cardscan_client.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = cardscan_client.CardScanApi(api_client)
     create_eligibility_request = cardscan_client.CreateEligibilityRequest() # CreateEligibilityRequest |  (optional)
 
     try:
         # Create Eligibility Record
-        api_response = await api_instance.create_eligibility(create_eligibility_request=create_eligibility_request)
+        api_response = api_instance.create_eligibility(create_eligibility_request=create_eligibility_request)
         print("The response of CardScanApi->create_eligibility:\n")
         pprint(api_response)
     except Exception as e:
@@ -212,14 +212,14 @@ configuration = cardscan_client.Configuration(
 )
 
 # Enter a context with an instance of the API client
-async with cardscan_client.ApiClient(configuration) as api_client:
+with cardscan_client.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = cardscan_client.CardScanApi(api_client)
     card_id = 'card_id_example' # str | The ID of the card
 
     try:
         # Delete Card
-        await api_instance.delete_card_by_id(card_id)
+        api_instance.delete_card_by_id(card_id)
     except Exception as e:
         print("Exception when calling CardScanApi->delete_card_by_id: %s\n" % e)
 ```
@@ -292,7 +292,7 @@ configuration = cardscan_client.Configuration(
 )
 
 # Enter a context with an instance of the API client
-async with cardscan_client.ApiClient(configuration) as api_client:
+with cardscan_client.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = cardscan_client.CardScanApi(api_client)
     orientation = cardscan_client.ScanOrientation() # ScanOrientation | 
@@ -302,7 +302,7 @@ async with cardscan_client.ApiClient(configuration) as api_client:
 
     try:
         # Direct Upload
-        api_response = await api_instance.direct_upload(orientation, capture_type, card_id, direct_upload_request=direct_upload_request)
+        api_response = api_instance.direct_upload(orientation, capture_type, card_id, direct_upload_request=direct_upload_request)
         print("The response of CardScanApi->direct_upload:\n")
         pprint(api_response)
     except Exception as e:
@@ -379,7 +379,7 @@ configuration = cardscan_client.Configuration(
 )
 
 # Enter a context with an instance of the API client
-async with cardscan_client.ApiClient(configuration) as api_client:
+with cardscan_client.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = cardscan_client.CardScanApi(api_client)
     card_id = 'card_id_example' # str | 
@@ -388,7 +388,7 @@ async with cardscan_client.ApiClient(configuration) as api_client:
 
     try:
         # Card - Generate Upload URL
-        api_response = await api_instance.generate_card_upload_url(card_id, expiration=expiration, generate_card_upload_url_request=generate_card_upload_url_request)
+        api_response = api_instance.generate_card_upload_url(card_id, expiration=expiration, generate_card_upload_url_request=generate_card_upload_url_request)
         print("The response of CardScanApi->generate_card_upload_url:\n")
         pprint(api_response)
     except Exception as e:
@@ -463,13 +463,13 @@ configuration = cardscan_client.Configuration(
 )
 
 # Enter a context with an instance of the API client
-async with cardscan_client.ApiClient(configuration) as api_client:
+with cardscan_client.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = cardscan_client.CardScanApi(api_client)
 
     try:
         # Generate Magic Link
-        api_response = await api_instance.generate_magic_link()
+        api_response = api_instance.generate_magic_link()
         print("The response of CardScanApi->generate_magic_link:\n")
         pprint(api_response)
     except Exception as e:
@@ -536,14 +536,14 @@ configuration = cardscan_client.Configuration(
 )
 
 # Enter a context with an instance of the API client
-async with cardscan_client.ApiClient(configuration) as api_client:
+with cardscan_client.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = cardscan_client.CardScanApi(api_client)
     expiration = 56 # int | 
 
     try:
         # Generate an upload URL
-        api_response = await api_instance.generate_upload_url(expiration)
+        api_response = api_instance.generate_upload_url(expiration)
         print("The response of CardScanApi->generate_upload_url:\n")
         pprint(api_response)
     except Exception as e:
@@ -614,14 +614,14 @@ configuration = cardscan_client.Configuration(
 )
 
 # Enter a context with an instance of the API client
-async with cardscan_client.ApiClient(configuration) as api_client:
+with cardscan_client.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = cardscan_client.CardScanApi(api_client)
     user_id = 'user_id_example' # str | The ID of the user (optional)
 
     try:
         # Access Token
-        api_response = await api_instance.get_access_token(user_id=user_id)
+        api_response = api_instance.get_access_token(user_id=user_id)
         print("The response of CardScanApi->get_access_token:\n")
         pprint(api_response)
     except Exception as e:
@@ -691,14 +691,14 @@ configuration = cardscan_client.Configuration(
 )
 
 # Enter a context with an instance of the API client
-async with cardscan_client.ApiClient(configuration) as api_client:
+with cardscan_client.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = cardscan_client.CardScanApi(api_client)
     card_id = 'card_id_example' # str | The ID of the card
 
     try:
         # Get Card by ID
-        api_response = await api_instance.get_card_by_id(card_id)
+        api_response = api_instance.get_card_by_id(card_id)
         print("The response of CardScanApi->get_card_by_id:\n")
         pprint(api_response)
     except Exception as e:
@@ -770,14 +770,14 @@ configuration = cardscan_client.Configuration(
 )
 
 # Enter a context with an instance of the API client
-async with cardscan_client.ApiClient(configuration) as api_client:
+with cardscan_client.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = cardscan_client.CardScanApi(api_client)
     eligibility_id = 'eligibility_id_example' # str | 
 
     try:
         # Get Eligibility
-        api_response = await api_instance.get_eligibility_by_id(eligibility_id)
+        api_response = api_instance.get_eligibility_by_id(eligibility_id)
         print("The response of CardScanApi->get_eligibility_by_id:\n")
         pprint(api_response)
     except Exception as e:
@@ -848,14 +848,14 @@ configuration = cardscan_client.Configuration(
 )
 
 # Enter a context with an instance of the API client
-async with cardscan_client.ApiClient(configuration) as api_client:
+with cardscan_client.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = cardscan_client.CardScanApi(api_client)
     scan_id = 'scan_id_example' # str | 
 
     try:
         # Get Scan Metadata
-        await api_instance.get_scan_metadata(scan_id)
+        api_instance.get_scan_metadata(scan_id)
     except Exception as e:
         print("Exception when calling CardScanApi->get_scan_metadata: %s\n" % e)
 ```
@@ -926,7 +926,7 @@ configuration = cardscan_client.Configuration(
 )
 
 # Enter a context with an instance of the API client
-async with cardscan_client.ApiClient(configuration) as api_client:
+with cardscan_client.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = cardscan_client.CardScanApi(api_client)
     limit = 56 # int |  (optional)
@@ -934,7 +934,7 @@ async with cardscan_client.ApiClient(configuration) as api_client:
 
     try:
         # List Cards
-        api_response = await api_instance.list_cards(limit=limit, cursor=cursor)
+        api_response = api_instance.list_cards(limit=limit, cursor=cursor)
         print("The response of CardScanApi->list_cards:\n")
         pprint(api_response)
     except Exception as e:
@@ -1005,13 +1005,13 @@ configuration = cardscan_client.Configuration(
 )
 
 # Enter a context with an instance of the API client
-async with cardscan_client.ApiClient(configuration) as api_client:
+with cardscan_client.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = cardscan_client.CardScanApi(api_client)
 
     try:
         # List Eligibility
-        api_response = await api_instance.list_eligibility()
+        api_response = api_instance.list_eligibility()
         print("The response of CardScanApi->list_eligibility:\n")
         pprint(api_response)
     except Exception as e:
@@ -1077,7 +1077,7 @@ configuration = cardscan_client.Configuration(
 )
 
 # Enter a context with an instance of the API client
-async with cardscan_client.ApiClient(configuration) as api_client:
+with cardscan_client.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = cardscan_client.CardScanApi(api_client)
     query = 'query_example' # str | 
@@ -1086,7 +1086,7 @@ async with cardscan_client.ApiClient(configuration) as api_client:
 
     try:
         # Search Cards (200) OK
-        api_response = await api_instance.search_cards(query, limit=limit, cursor=cursor)
+        api_response = api_instance.search_cards(query, limit=limit, cursor=cursor)
         print("The response of CardScanApi->search_cards:\n")
         pprint(api_response)
     except Exception as e:
@@ -1148,14 +1148,14 @@ configuration = cardscan_client.Configuration(
 
 
 # Enter a context with an instance of the API client
-async with cardscan_client.ApiClient(configuration) as api_client:
+with cardscan_client.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = cardscan_client.CardScanApi(api_client)
     token = 'token_example' # str | 
 
     try:
         # Validate Magic Link
-        api_response = await api_instance.validate_magic_link(token)
+        api_response = api_instance.validate_magic_link(token)
         print("The response of CardScanApi->validate_magic_link:\n")
         pprint(api_response)
     except Exception as e:

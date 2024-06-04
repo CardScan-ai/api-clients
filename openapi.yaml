@@ -4,45 +4,45 @@ info:
   description: The official documentation for the CardScan API.
   version: 1.0.0
 servers:
-  - url: https://{prefix}.cardscan.ai/{version}
-    description: API Server
-    variables:
-      version:
-        default: v1
-        description: The version of the API
-      prefix:
-        description: The api environment to use as a prefix, e.g. api, sandbox
-        default: sandbox
-        enum:
-          - api
-          - sandbox
+- url: https://{prefix}.cardscan.ai/{version}
+  description: API Server
+  variables:
+    version:
+      default: v1
+      description: The version of the API
+    prefix:
+      description: The api environment to use as a prefix, e.g. api, sandbox
+      default: sandbox
+      enum:
+      - api
+      - sandbox
 tags:
-  - name: CardScan
+- name: CardScan
 paths:
   /access-token:
     get:
       tags:
-        - CardScan
+      - CardScan
       summary: Access Token
       operationId: getAccessToken
       security:
-        - bearerAuth: []
+      - bearerAuth: []
       parameters:
-        - name: user_id
-          description: The ID of the user
-          in: query
-          schema:
-            type: string
+      - name: user_id
+        description: The ID of the user
+        in: query
+        schema:
+          type: string
       responses:
-        "200":
+        '200':
           description: Successful response
           content:
             application/json:
               schema:
                 type: object
                 required:
-                  - Token
-                  - IdentityId
+                - Token
+                - IdentityId
                 properties:
                   Token:
                     type: string
@@ -53,165 +53,160 @@ paths:
                   session_id:
                     type: string
                     description: The session ID.
-        "401":
+        '401':
           description: Unauthorized
-          $ref: "#/components/responses/ApiErrorResponse"
-        "500":
-          $ref: "#/components/responses/ApiInternalErrorResponse"
-
+          $ref: '#/components/responses/ApiErrorResponse'
+        '500':
+          $ref: '#/components/responses/ApiInternalErrorResponse'
   /cards/{card_id}:
     delete:
       tags:
-        - CardScan
+      - CardScan
       summary: Delete Card
       operationId: deleteCardById
       security:
-        - bearerAuth: []
+      - bearerAuth: []
       parameters:
-        - name: card_id
-          description: The ID of the card
-          in: path
-          schema:
-            type: string
-            format: uuid
-          required: true
+      - name: card_id
+        description: The ID of the card
+        in: path
+        schema:
+          type: string
+          format: uuid
+        required: true
       responses:
-        "204":
+        '204':
           description: Card was successfully deleted
-        "401":
+        '401':
           description: Unauthorized
-          $ref: "#/components/responses/ApiErrorResponse"
-        "403":
+          $ref: '#/components/responses/ApiErrorResponse'
+        '403':
           description: Forbidden
-          $ref: "#/components/responses/ApiErrorResponse"
-        "404":
+          $ref: '#/components/responses/ApiErrorResponse'
+        '404':
           description: Card not found
-          $ref: "#/components/responses/ApiErrorResponse"
-        "500":
-          $ref: "#/components/responses/ApiInternalErrorResponse"
-
+          $ref: '#/components/responses/ApiErrorResponse'
+        '500':
+          $ref: '#/components/responses/ApiInternalErrorResponse'
     get:
       tags:
-        - CardScan
+      - CardScan
       summary: Get Card by ID
       operationId: getCardById
       security:
-        - bearerAuth: []
+      - bearerAuth: []
       parameters:
-        - name: card_id
-          description: The ID of the card
-          in: path
-          schema:
-            type: string
-            format: uuid
-          required: true
+      - name: card_id
+        description: The ID of the card
+        in: path
+        schema:
+          type: string
+          format: uuid
+        required: true
       responses:
-        "200":
-          $ref: "#/components/responses/CardResponse"
-        "401":
+        '200':
+          $ref: '#/components/responses/CardResponse'
+        '401':
           description: Unauthorized
-          $ref: "#/components/responses/ApiErrorResponse"
-        "403":
+          $ref: '#/components/responses/ApiErrorResponse'
+        '403':
           description: Forbidden
-          $ref: "#/components/responses/ApiErrorResponse"
-        "404":
+          $ref: '#/components/responses/ApiErrorResponse'
+        '404':
           description: Card not found
-          $ref: "#/components/responses/ApiErrorResponse"
-        "500":
-          $ref: "#/components/responses/ApiInternalErrorResponse"
-
+          $ref: '#/components/responses/ApiErrorResponse'
+        '500':
+          $ref: '#/components/responses/ApiInternalErrorResponse'
   /cards/search:
     get:
       tags:
-        - CardScan
+      - CardScan
       summary: Search Cards (200) OK
       operationId: searchCards
       security:
-        - bearerAuth: []
+      - bearerAuth: []
       parameters:
-        - name: query
-          in: query
-          required: true
-          schema:
-            type: string
-        - name: limit
-          in: query
-          schema:
-            type: integer
-        - name: cursor
-          in: query
-          schema:
-            type: string
+      - name: query
+        in: query
+        required: true
+        schema:
+          type: string
+      - name: limit
+        in: query
+        schema:
+          type: integer
+      - name: cursor
+        in: query
+        schema:
+          type: string
       responses:
-        "200":
+        '200':
           description: Successful response
           content:
             application/json:
               schema:
                 type: object
                 required:
-                  - cards
-                  - response_metadata
+                - cards
+                - response_metadata
                 properties:
                   cards:
                     type: array
                     items:
-                      $ref: "#/components/schemas/CardApiResponse"
+                      $ref: '#/components/schemas/CardApiResponse'
                   response_metadata:
-                    $ref: "#/components/schemas/ResponseMetadata"
-        "401":
+                    $ref: '#/components/schemas/ResponseMetadata'
+        '401':
           description: Unauthorized
-          $ref: "#/components/responses/ApiErrorResponse"
-        "500":
-          $ref: "#/components/responses/ApiInternalErrorResponse"
-
+          $ref: '#/components/responses/ApiErrorResponse'
+        '500':
+          $ref: '#/components/responses/ApiInternalErrorResponse'
   /cards:
     get:
       tags:
-        - CardScan
+      - CardScan
       summary: List Cards
       operationId: listCards
       security:
-        - bearerAuth: []
+      - bearerAuth: []
       parameters:
-        - name: limit
-          in: query
-          schema:
-            type: integer
-        - name: cursor
-          in: query
-          schema:
-            type: string
+      - name: limit
+        in: query
+        schema:
+          type: integer
+      - name: cursor
+        in: query
+        schema:
+          type: string
       responses:
-        "200":
+        '200':
           description: Successful response
           content:
             application/json:
               schema:
                 type: object
                 required:
-                  - cards
-                  - response_metadata
+                - cards
+                - response_metadata
                 properties:
                   cards:
                     type: array
                     items:
-                      $ref: "#/components/schemas/CardApiResponse"
+                      $ref: '#/components/schemas/CardApiResponse'
                   response_metadata:
-                    $ref: "#/components/schemas/ResponseMetadata"
-        "401":
+                    $ref: '#/components/schemas/ResponseMetadata'
+        '401':
           description: Unauthorized
-          $ref: "#/components/responses/ApiErrorResponse"
-        "500":
-          $ref: "#/components/responses/ApiInternalErrorResponse"
-
+          $ref: '#/components/responses/ApiErrorResponse'
+        '500':
+          $ref: '#/components/responses/ApiInternalErrorResponse'
     post:
       tags:
-        - CardScan
+      - CardScan
       summary: Creates a new card
       operationId: createCard
       security:
-        - bearerAuth: []
+      - bearerAuth: []
       requestBody:
         content:
           application/json:
@@ -233,27 +228,25 @@ paths:
                       type: string
                       default: disabled
                       enum:
-                        - required
-                        - optional
-                        - disabled
+                      - required
+                      - optional
+                      - disabled
                       description: The scanning mode
-
       responses:
-        "201":
-          $ref: "#/components/responses/CardResponse"
-        "400":
+        '201':
+          $ref: '#/components/responses/CardResponse'
+        '400':
           description: Bad request
-          $ref: "#/components/responses/ApiErrorResponse"
-        "401":
+          $ref: '#/components/responses/ApiErrorResponse'
+        '401':
           description: Unauthorized
-          $ref: "#/components/responses/ApiErrorResponse"
-        "500":
-          $ref: "#/components/responses/ApiInternalErrorResponse"
-
+          $ref: '#/components/responses/ApiErrorResponse'
+        '500':
+          $ref: '#/components/responses/ApiInternalErrorResponse'
   /cards/{card_id}/upload:
     post:
       tags:
-        - CardScan
+      - CardScan
       summary: Direct Upload
       operationId: directUpload
       requestBody:
@@ -261,40 +254,40 @@ paths:
           image/jpeg:
             schema:
               oneOf:
-                - type: string
-                  format: base64
-                - type: string
-                  format: binary
+              - type: string
+                format: base64
+              - type: string
+                format: binary
       security:
-        - bearerAuth: []
+      - bearerAuth: []
       parameters:
-        - name: orientation
-          in: query
-          required: true
-          schema:
-            $ref: "#/components/schemas/ScanOrientation"
-        - name: capture_type
-          in: query
-          required: true
-          schema:
-            $ref: "#/components/schemas/ScanCaptureType"
-        - name: card_id
-          in: path
-          required: true
-          schema:
-            type: string
-            format: uuid
+      - name: orientation
+        in: query
+        required: true
+        schema:
+          $ref: '#/components/schemas/ScanOrientation'
+      - name: capture_type
+        in: query
+        required: true
+        schema:
+          $ref: '#/components/schemas/ScanCaptureType'
+      - name: card_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
       responses:
-        "200":
+        '200':
           description: Successful response
           content:
             application/json:
               schema:
                 type: object
                 required:
-                  - card_id
-                  - scan_id
-                  - metadata
+                - card_id
+                - scan_id
+                - metadata
                 properties:
                   card_id:
                     type: string
@@ -308,25 +301,24 @@ paths:
                       ocr_latency:
                         type: string
                         description: OCR latency in milliseconds
-        "400":
+        '400':
           description: Bad request
-          $ref: "#/components/responses/ApiErrorResponse"
-        "401":
+          $ref: '#/components/responses/ApiErrorResponse'
+        '401':
           description: Unauthorized
-          $ref: "#/components/responses/ApiErrorResponse"
-        "403":
+          $ref: '#/components/responses/ApiErrorResponse'
+        '403':
           description: Forbidden
-          $ref: "#/components/responses/ApiErrorResponse"
-        "404":
+          $ref: '#/components/responses/ApiErrorResponse'
+        '404':
           description: Card not found
-          $ref: "#/components/responses/ApiErrorResponse"
-        "500":
-          $ref: "#/components/responses/ApiInternalErrorResponse"
-
+          $ref: '#/components/responses/ApiErrorResponse'
+        '500':
+          $ref: '#/components/responses/ApiInternalErrorResponse'
   /cards/{card_id}/generate-upload-url:
     post:
       tags:
-        - CardScan
+      - CardScan
       summary: Card - Generate Upload URL
       operationId: generateCardUploadUrl
       requestBody:
@@ -335,171 +327,166 @@ paths:
             schema:
               type: object
               required:
-                - orientation
+              - orientation
               properties:
                 orientation:
-                  $ref: "#/components/schemas/ScanOrientation"
+                  $ref: '#/components/schemas/ScanOrientation'
                 capture_type:
-                  $ref: "#/components/schemas/ScanCaptureType"
+                  $ref: '#/components/schemas/ScanCaptureType'
                 metadata:
-                  $ref: "#/components/schemas/ScanMetadata"
+                  $ref: '#/components/schemas/ScanMetadata'
       security:
-        - bearerAuth: []
+      - bearerAuth: []
       parameters:
-        - name: card_id
-          in: path
-          schema:
-            type: string
-            format: uuid
-          required: true
-        - name: expiration
-          in: query
-          schema:
-            type: integer
-            minimum: 100
-            maximum: 3600
-            default: 3600
-          required: false
+      - name: card_id
+        in: path
+        schema:
+          type: string
+          format: uuid
+        required: true
+      - name: expiration
+        in: query
+        schema:
+          type: integer
+          minimum: 100
+          maximum: 3600
+          default: 3600
+        required: false
       responses:
-        "200":
-          $ref: "#/components/responses/UploadUrlResponse"
-        "400":
+        '200':
+          $ref: '#/components/responses/UploadUrlResponse'
+        '400':
           description: Bad request
-          $ref: "#/components/responses/ApiErrorResponse"
-        "401":
+          $ref: '#/components/responses/ApiErrorResponse'
+        '401':
           description: Unauthorized
-          $ref: "#/components/responses/ApiErrorResponse"
-        "403":
+          $ref: '#/components/responses/ApiErrorResponse'
+        '403':
           description: Forbidden
-          $ref: "#/components/responses/ApiErrorResponse"
-        "404":
+          $ref: '#/components/responses/ApiErrorResponse'
+        '404':
           description: Card not found
-          $ref: "#/components/responses/ApiErrorResponse"
-        "500":
-          $ref: "#/components/responses/ApiInternalErrorResponse"
-
+          $ref: '#/components/responses/ApiErrorResponse'
+        '500':
+          $ref: '#/components/responses/ApiInternalErrorResponse'
   /scans/{scan_id}/metadata:
     get:
       tags:
-        - CardScan
+      - CardScan
       summary: Get Scan Metadata
       operationId: getScanMetadata
       security:
-        - bearerAuth: []
+      - bearerAuth: []
       parameters:
-        - name: scan_id
-          in: path
-          schema:
-            type: string
-            format: uuid
-          required: true
+      - name: scan_id
+        in: path
+        schema:
+          type: string
+          format: uuid
+        required: true
       responses:
-        "200":
+        '200':
           description: Successful response
-        "400":
+        '400':
           description: Bad request
-          $ref: "#/components/responses/ApiErrorResponse"
-        "401":
+          $ref: '#/components/responses/ApiErrorResponse'
+        '401':
           description: Unauthorized
-          $ref: "#/components/responses/ApiErrorResponse"
-        "403":
+          $ref: '#/components/responses/ApiErrorResponse'
+        '403':
           description: Forbidden
-          $ref: "#/components/responses/ApiErrorResponse"
-        "404":
+          $ref: '#/components/responses/ApiErrorResponse'
+        '404':
           description: Scan not found
-          $ref: "#/components/responses/ApiErrorResponse"
-        "500":
-          $ref: "#/components/responses/ApiInternalErrorResponse"
-
+          $ref: '#/components/responses/ApiErrorResponse'
+        '500':
+          $ref: '#/components/responses/ApiInternalErrorResponse'
   /generate-upload-url:
     get:
       tags:
-        - CardScan
+      - CardScan
       summary: Generate an upload URL
       operationId: generateUploadUrl
       security:
-        - bearerAuth: []
+      - bearerAuth: []
       parameters:
-        - name: expiration
-          in: query
-          schema:
-            type: integer
-            minimum: 100
-            maximum: 3600
-          required: true
+      - name: expiration
+        in: query
+        schema:
+          type: integer
+          minimum: 100
+          maximum: 3600
+        required: true
       responses:
-        "200":
-          $ref: "#/components/responses/UploadUrlResponse"
-        "400":
+        '200':
+          $ref: '#/components/responses/UploadUrlResponse'
+        '400':
           description: Bad request
-          $ref: "#/components/responses/ApiErrorResponse"
-        "401":
+          $ref: '#/components/responses/ApiErrorResponse'
+        '401':
           description: Unauthorized
-          $ref: "#/components/responses/ApiErrorResponse"
-        "500":
-          $ref: "#/components/responses/ApiInternalErrorResponse"
-
+          $ref: '#/components/responses/ApiErrorResponse'
+        '500':
+          $ref: '#/components/responses/ApiInternalErrorResponse'
   /eligibility/{eligibility_id}:
     get:
       tags:
-        - CardScan
+      - CardScan
       summary: Get Eligibility
       operationId: getEligibilityById
       security:
-        - bearerAuth: []
+      - bearerAuth: []
       parameters:
-        - name: eligibility_id
-          in: path
-          schema:
-            type: string
-          required: true
+      - name: eligibility_id
+        in: path
+        schema:
+          type: string
+        required: true
       responses:
-        "200":
+        '200':
           description: A single eligibility record
-          $ref: "#/components/responses/EligibilityResponse"
-        "400":
+          $ref: '#/components/responses/EligibilityResponse'
+        '400':
           description: Bad request
-          $ref: "#/components/responses/ApiErrorResponse"
-        "401":
+          $ref: '#/components/responses/ApiErrorResponse'
+        '401':
           description: Unauthorized
-          $ref: "#/components/responses/ApiErrorResponse"
-        "404":
+          $ref: '#/components/responses/ApiErrorResponse'
+        '404':
           description: Eligibility record not found
-          $ref: "#/components/responses/ApiErrorResponse"
-        "500":
-          $ref: "#/components/responses/ApiInternalErrorResponse"
-
+          $ref: '#/components/responses/ApiErrorResponse'
+        '500':
+          $ref: '#/components/responses/ApiInternalErrorResponse'
   /eligibility:
     get:
       tags:
-        - CardScan
+      - CardScan
       summary: List Eligibility
       operationId: listEligibility
       security:
-        - bearerAuth: []
+      - bearerAuth: []
       responses:
-        "200":
+        '200':
           description: Successful response
           content:
             application/json:
               schema:
                 type: object
                 required:
-                  - eligibility_requests
-                  - response_metadata
+                - eligibility_requests
+                - response_metadata
                 properties:
                   eligibility_requests:
                     type: array
                     items:
-                      $ref: "#/components/schemas/EligibilityApiResponse"
+                      $ref: '#/components/schemas/EligibilityApiResponse'
                   response_metadata:
-                    $ref: "#/components/schemas/ResponseMetadata"
-        "500":
-          $ref: "#/components/responses/ApiInternalErrorResponse"
-
+                    $ref: '#/components/schemas/ResponseMetadata'
+        '500':
+          $ref: '#/components/responses/ApiInternalErrorResponse'
     post:
       tags:
-        - CardScan
+      - CardScan
       summary: Create Eligibility Record
       operationId: createEligibility
       requestBody:
@@ -508,52 +495,51 @@ paths:
             schema:
               type: object
               required:
-                - eligibility
-                - card_id
+              - eligibility
+              - card_id
               properties:
                 eligibility:
-                  $ref: "#/components/schemas/EligibilityInfo"
+                  $ref: '#/components/schemas/EligibilityInfo'
                 card_id:
                   type: string
                   format: uuid
                   description: The ID of the card.
       security:
-        - bearerAuth: []
+      - bearerAuth: []
       responses:
-        "201":
+        '201':
           description: Eligibility record created
-          $ref: "#/components/responses/EligibilityResponse"
-        "400":
+          $ref: '#/components/responses/EligibilityResponse'
+        '400':
           description: Missing properties in the request body
-          $ref: "#/components/responses/ApiErrorResponse"
-        "401":
+          $ref: '#/components/responses/ApiErrorResponse'
+        '401':
           description: Unauthorized
-          $ref: "#/components/responses/ApiErrorResponse"
-        "404":
-          $ref: "#/components/responses/ApiErrorResponse"
+          $ref: '#/components/responses/ApiErrorResponse'
+        '404':
+          $ref: '#/components/responses/ApiErrorResponse'
           description: Card not found
-        "500":
-          $ref: "#/components/responses/ApiInternalErrorResponse"
-
+        '500':
+          $ref: '#/components/responses/ApiInternalErrorResponse'
   /generate-magic-link:
     get:
       tags:
-        - CardScan
+      - CardScan
       operationId: generateMagicLink
       summary: Generate Magic Link
       security:
-        - bearerAuth: []
+      - bearerAuth: []
       responses:
-        "200":
+        '200':
           description: Generates a magic link
           content:
             application/json:
               schema:
                 type: object
                 required:
-                  - magic_link
-                  - token
-                  - expires_at
+                - magic_link
+                - token
+                - expires_at
                 properties:
                   magic_link:
                     type: string
@@ -566,34 +552,33 @@ paths:
                     type: string
                     format: date-time
                     description: The expiration date and time of the magic link
-        "401":
+        '401':
           description: Unauthorized
-          $ref: "#/components/responses/ApiErrorResponse"
-        "500":
-          $ref: "#/components/responses/ApiInternalErrorResponse"
-
+          $ref: '#/components/responses/ApiErrorResponse'
+        '500':
+          $ref: '#/components/responses/ApiInternalErrorResponse'
   /validate-magic-link:
     get:
       tags:
-        - CardScan
+      - CardScan
       summary: Validate Magic Link
       operationId: validateMagicLink
       parameters:
-        - name: token
-          in: query
-          required: true
-          schema:
-            type: string
+      - name: token
+        in: query
+        required: true
+        schema:
+          type: string
       responses:
-        "200":
+        '200':
           description: Successful response
           content:
             application/json:
               schema:
                 type: object
                 required:
-                  - Token
-                  - IdentityId
+                - Token
+                - IdentityId
                 properties:
                   Token:
                     type: string
@@ -601,18 +586,17 @@ paths:
                   IdentityId:
                     type: string
                     description: The identity ID.
-        "400":
+        '400':
           description: Bad request
-          $ref: "#/components/responses/ApiErrorResponse"
-        "404":
+          $ref: '#/components/responses/ApiErrorResponse'
+        '404':
           description: Magic link not found
-          $ref: "#/components/responses/ApiErrorResponse"
-        "410":
+          $ref: '#/components/responses/ApiErrorResponse'
+        '410':
           description: Magic link expired
-          $ref: "#/components/responses/ApiErrorResponse"
-        "500":
-          $ref: "#/components/responses/ApiInternalErrorResponse"
-
+          $ref: '#/components/responses/ApiErrorResponse'
+        '500':
+          $ref: '#/components/responses/ApiInternalErrorResponse'
 components:
   securitySchemes:
     bearerAuth:
@@ -624,7 +608,7 @@ components:
       content:
         application/json:
           schema:
-            $ref: "#/components/schemas/ApiErrorResponse"
+            $ref: '#/components/schemas/ApiErrorResponse'
     ApiInternalErrorResponse:
       description: Internal Error response
       content:
@@ -640,13 +624,13 @@ components:
       content:
         application/json:
           schema:
-            $ref: "#/components/schemas/EligibilityApiResponse"
+            $ref: '#/components/schemas/EligibilityApiResponse'
     CardResponse:
       description: Successful card response
       content:
         application/json:
           schema:
-            $ref: "#/components/schemas/CardApiResponse"
+            $ref: '#/components/schemas/CardApiResponse'
     UploadUrlResponse:
       description: Successful upload URL response
       content:
@@ -654,10 +638,10 @@ components:
           schema:
             type: object
             required:
-              - upload_url
-              - upload_parameters
-              - card_id
-              - scan_id
+            - upload_url
+            - upload_parameters
+            - card_id
+            - scan_id
             properties:
               card_id:
                 type: string
@@ -670,86 +654,82 @@ components:
                 format: uri
                 description: The URL to upload the card image.
               upload_parameters:
-                $ref: "#/components/schemas/UploadParameters"
-
+                $ref: '#/components/schemas/UploadParameters'
   schemas:
     # ----------------- Cardscan eligibility API Components -----------------
     ProviderDto:
       type: object
       required:
-        - firstName
-        - lastName
-        - npi
+      - firstName
+      - lastName
+      - npi
       properties:
         firstName:
           type: string
           maxLength: 35
           minLength: 1
           description: >
-            Loop: 2100B Segment: MN1, Element: NM104,
-            Notes: NM101=PR when providerType='payer' && payerId is present otherwise 1P for Provider,
-            NM102=1 Person, firstName 1-35 alphanumeric characters
+            Loop: 2100B Segment: MN1, Element: NM104, Notes: NM101=PR when providerType='payer' && payerId is present otherwise 1P for Provider, NM102=1 Person, firstName 1-35 alphanumeric characters
+
         lastName:
           type: string
           maxLength: 60
           minLength: 1
           description: >
-            Loop: 2100B Segment: MN1, Element: NM103,
-            Notes: NM101=PR when providerType='payer' && payerId is present otherwise 1P for Provider,
-            NM102=1 Person, lastName 1-60 alphanumeric characters
+            Loop: 2100B Segment: MN1, Element: NM103, Notes: NM101=PR when providerType='payer' && payerId is present otherwise 1P for Provider, NM102=1 Person, lastName 1-60 alphanumeric characters
+
         npi:
           type: string
           maxLength: 80
           minLength: 1
           description: >
-            Loop: 2100B Segment: MN1, Element: NM109,
-            Notes: NM108=XX Centers for Medicare and Medicaid Services National Provider Identifier
-            2-80 alphanumeric characters
+            Loop: 2100B Segment: MN1, Element: NM109, Notes: NM108=XX Centers for Medicare and Medicaid Services National Provider Identifier 2-80 alphanumeric characters
+
     SubscriberDto:
       type: object
       required:
-        - firstName
-        - lastName
-        - dateOfBirth
+      - firstName
+      - lastName
+      - dateOfBirth
       properties:
         firstName:
           type: string
           maxLength: 35
           minLength: 1
           description: >
-            Loop: 2100C and 2100D, Segment: MN1, Element: NM104,
-            Notes: firstName 1-35 alphanumeric characters
+            Loop: 2100C and 2100D, Segment: MN1, Element: NM104, Notes: firstName 1-35 alphanumeric characters
+
         lastName:
           type: string
           maxLength: 60
           minLength: 1
           description: >
-            Loop: 2100C and 2100D, Segment: MN1, Element: NM103,
-            Notes: lastName 1-60 alphanumeric characters
+            Loop: 2100C and 2100D, Segment: MN1, Element: NM103, Notes: lastName 1-60 alphanumeric characters
+
         dateOfBirth:
           type: string
-          pattern: '^\d{8}$'
+          pattern: ^\d{8}$
           description: >
-            Loop: 2100C and 2100D, Segment: DMG, Element: DMG02,
-            Notes: date of birth in YYYYMMDD format
+            Loop: 2100C and 2100D, Segment: DMG, Element: DMG02, Notes: date of birth in YYYYMMDD format
+
     EligibilityInfo:
       type: object
       required:
-        - provider
-        - subscriber
+      - provider
+      - subscriber
       properties:
         provider:
-          $ref: "#/components/schemas/ProviderDto"
+          $ref: '#/components/schemas/ProviderDto'
         subscriber:
-          $ref: "#/components/schemas/SubscriberDto"
+          $ref: '#/components/schemas/SubscriberDto'
     EligibilityApiResponse:
       type: object
       required:
-        - eligibility_id
-        - state
-        - card_id
-        - created_at
-        - update_at
+      - eligibility_id
+      - state
+      - card_id
+      - created_at
+      - update_at
       properties:
         eligibility_id:
           type: string
@@ -757,9 +737,9 @@ components:
         state:
           type: string
           enum:
-            - completed
-            - processing
-            - error
+          - completed
+          - processing
+          - error
           description: The state of the eligibility record.
         card_id:
           type: string
@@ -777,7 +757,7 @@ components:
               description: The ID of the trading partner service.
               nullable: false
             provider:
-              $ref: "#/components/schemas/ProviderDto"
+              $ref: '#/components/schemas/ProviderDto'
             subscriber:
               type: object
               properties:
@@ -799,11 +779,10 @@ components:
           nullable: true
           description: The eligibility raw response.
         eligibility_summarized_response:
-          additionalProperties: true
-          description: The eligibility summarized response.
+          $ref: '#/components/schemas/EligibilitySummarizedResponse'
           nullable: true
         error:
-          $ref: "#/components/schemas/ModelError"
+          $ref: '#/components/schemas/ModelError'
         created_at:
           type: string
           format: date-time
@@ -812,33 +791,27 @@ components:
           type: string
           format: date-time
           description: The timestamp when the eligibility record was last updated.
-
     EligibilitySummarizedResponse:
       type: object
       properties:
-        eligibility_request_id:
-          type: string
-          format: uuid
-          description: The ID of the eligibility request.
         subscriber_details:
-          $ref: "#/components/schemas/SubscriberDetails"
+          $ref: '#/components/schemas/SubscriberDetails'
         payer_details:
-          $ref: "#/components/schemas/PayerDetails"
+          $ref: '#/components/schemas/PayerDetails'
         plan_details:
-          $ref: "#/components/schemas/PlanDetails"
+          $ref: '#/components/schemas/PlanDetails'
         coverage_summary:
-          $ref: "#/components/schemas/CoverageSummary"
+          $ref: '#/components/schemas/CoverageSummary'
         chiropractic:
-          $ref: "#/components/schemas/Service"
+          $ref: '#/components/schemas/Service'
         emergency_room:
-          $ref: "#/components/schemas/Service"
+          $ref: '#/components/schemas/Service'
         office_visit:
-          $ref: "#/components/schemas/Service"
+          $ref: '#/components/schemas/Service'
         urgent_care:
-          $ref: "#/components/schemas/Service"
+          $ref: '#/components/schemas/Service'
         hospital_outpatient:
-          $ref: "#/components/schemas/Service"
-
+          $ref: '#/components/schemas/Service'
     SubscriberDetails:
       type: object
       properties:
@@ -858,12 +831,11 @@ components:
           type: string
           description: The gender of the subscriber.
         address:
-          $ref: "#/components/schemas/Address"
+          $ref: '#/components/schemas/Address'
         dob:
           type: string
           format: date
           description: The date of birth of the subscriber.
-
     PayerDetails:
       type: object
       properties:
@@ -871,8 +843,9 @@ components:
           type: string
           description: The name of the payer.
         address:
-          $ref: "#/components/schemas/Address"
-
+          $ref: '#/components/schemas/Address'
+        url:
+          type: string
     PlanDetails:
       type: object
       properties:
@@ -889,29 +862,35 @@ components:
           type: string
           format: date
           description: The start date of the plan.
+        plan_end_date:
+          type: string
+          format: date
+          description: The end date of the plan.
         plan_eligibility_start_date:
           type: string
           format: date
           description: The eligibility start date of the plan.
+        plan_eligibility_end_date:
+          type: string
+          format: date
+          description: The eligibility end date of the plan.
         plan_name:
           type: string
           description: The name of the plan.
         plan_active:
           type: boolean
           description: Indicates whether the plan is active.
-
     CoverageSummary:
       type: object
       properties:
         individual_deductible_in_network:
-          $ref: "#/components/schemas/Deductible"
+          $ref: '#/components/schemas/Deductible'
         individual_oop_in_network:
-          $ref: "#/components/schemas/OOP"
+          $ref: '#/components/schemas/OOP'
         family_deductible_in_network:
-          $ref: "#/components/schemas/Deductible"
+          $ref: '#/components/schemas/Deductible'
         family_oop_in_network:
-          $ref: "#/components/schemas/OOP"
-
+          $ref: '#/components/schemas/OOP'
     Deductible:
       type: object
       properties:
@@ -921,7 +900,6 @@ components:
         remaining_amount:
           type: string
           description: The remaining deductible amount.
-
     OOP:
       type: object
       properties:
@@ -931,32 +909,28 @@ components:
         remaining_amount:
           type: string
           description: The remaining out-of-pocket amount.
-
     Service:
       type: object
       properties:
         co_insurance_in_network:
-          $ref: "#/components/schemas/CoInsurance"
+          $ref: '#/components/schemas/CoInsurance'
         co_payment_in_network:
-          $ref: "#/components/schemas/CoPayment"
+          $ref: '#/components/schemas/CoPayment'
         service_code:
           type: string
           description: The service code.
-
     CoInsurance:
       type: object
       properties:
         amount:
           type: string
           description: The co-insurance amount.
-
     CoPayment:
       type: object
       properties:
         amount:
           type: string
           description: The co-payment amount.
-
     ResponseMetadata:
       type: object
       properties:
@@ -969,28 +943,26 @@ components:
         total:
           type: integer
           description: The total number of items available.
-
-    # ----------------- Card Components -----------------
-
+          # ----------------- Card Components -----------------
     CardApiResponse:
       type: object
       required:
-        - card_id
-        - state
-        - created_at
-        - deleted
+      - card_id
+      - state
+      - created_at
+      - deleted
       properties:
         card_id:
           type: string
           format: uuid
         state:
-          $ref: "#/components/schemas/CardState"
+          $ref: '#/components/schemas/CardState'
         created_at:
           type: string
           format: date-time
           description: The timestamp when the eligibility response was created.
         error:
-          $ref: "#/components/schemas/ModelError"
+          $ref: '#/components/schemas/ModelError'
         images:
           type: object
           nullable: true
@@ -1011,55 +983,51 @@ components:
                   description: The URL to the back image of the card.
         deleted:
           type: boolean
-
         details:
           type: object
           nullable: true
           properties:
             group_number:
-              $ref: "#/components/schemas/MatchScore"
+              $ref: '#/components/schemas/MatchScore'
             member_number:
-              $ref: "#/components/schemas/MatchScore"
+              $ref: '#/components/schemas/MatchScore'
             payer_name:
-              $ref: "#/components/schemas/MatchScore"
+              $ref: '#/components/schemas/MatchScore'
             rx_bin:
-              $ref: "#/components/schemas/MatchScore"
+              $ref: '#/components/schemas/MatchScore'
             rx_pcn:
-              $ref: "#/components/schemas/MatchScore"
+              $ref: '#/components/schemas/MatchScore'
             member_name:
-              $ref: "#/components/schemas/MatchScore"
+              $ref: '#/components/schemas/MatchScore'
             dependent_names:
               type: array
               items:
-                $ref: "#/components/schemas/MatchScore"
+                $ref: '#/components/schemas/MatchScore'
             plan_name:
-              $ref: "#/components/schemas/MatchScore"
+              $ref: '#/components/schemas/MatchScore'
             plan_id:
-              $ref: "#/components/schemas/MatchScore"
+              $ref: '#/components/schemas/MatchScore'
             card_specific_id:
-              $ref: "#/components/schemas/MatchScore"
-
+              $ref: '#/components/schemas/MatchScore'
     CardState:
       type: string
       enum:
-        - pending
-        - processing
-        - frontside_processing
-        - frontside_failed
-        - backside_processing
-        - backside_failed
-        - post_processing
-        - completed
-        - error
-        - unknown
-
+      - pending
+      - processing
+      - frontside_processing
+      - frontside_failed
+      - backside_processing
+      - backside_failed
+      - post_processing
+      - completed
+      - error
+      - unknown
     EligibilityState:
       type: string
       enum:
-        - processing
-        - completed
-        - error
-
+      - processing
+      - completed
+      - error
     MatchScore:
       type: object
       properties:
@@ -1070,22 +1038,19 @@ components:
           type: array
           items:
             type: string
-
     ScanCaptureType:
       type: string
       enum:
-        - manual
-        - automatic
-        - selectedFile
-        - api
-
-    # ----------------- Scan Components -----------------
+      - manual
+      - automatic
+      - selectedFile
+      - api
+          # ----------------- Scan Components -----------------
     ScanOrientation:
       type: string
       enum:
-        - front
-        - back
-
+      - front
+      - back
     ScanMetadata:
       type: object
       properties:
@@ -1219,22 +1184,21 @@ components:
             max_lapScore:
               type: number
               description: Maximum Laplacian score
-
     UploadParameters:
       type: object
       required:
-        - Content-Type
-        - Content-Disposition
-        - x-amz-meta-cardscan-account-id
-        - x-amz-meta-cardscan-card-id
-        - x-amz-meta-cardscan-scan-id
-        - key
-        - x-amz-algorithm
-        - x-amz-credential
-        - x-amz-date
-        - x-amz-security-token
-        - policy
-        - x-amz-signature
+      - Content-Type
+      - Content-Disposition
+      - x-amz-meta-cardscan-account-id
+      - x-amz-meta-cardscan-card-id
+      - x-amz-meta-cardscan-scan-id
+      - key
+      - x-amz-algorithm
+      - x-amz-credential
+      - x-amz-date
+      - x-amz-security-token
+      - policy
+      - x-amz-signature
       properties:
         Content-Type:
           type: string
@@ -1278,63 +1242,61 @@ components:
         x-amz-signature:
           type: string
           description: The signature used to sign the request
-
     CardWebsocketEvent:
       type: object
       required:
-        - event_id
-        - type
-        - card_id
-        - state
-        - created_at
+      - event_id
+      - type
+      - card_id
+      - state
+      - created_at
       properties:
         event_id:
           type: string
         type:
           type: string
           enum:
-            - card
+          - card
         card_id:
           type: string
         state:
-          $ref: "#/components/schemas/CardState"
+          $ref: '#/components/schemas/CardState'
         created_at:
           type: string
           format: date-time
         session_id:
           type: string
         error:
-          $ref: "#/components/schemas/WebsocketError"
+          $ref: '#/components/schemas/WebsocketError'
 
     EligibilityWebsocketEvent:
       type: object
       required:
-        - event_id
-        - type
-        - eligibility_id
-        - state
-        - created_at
+      - event_id
+      - type
+      - eligibility_id
+      - state
+      - created_at
       properties:
         event_id:
           type: string
         type:
           type: string
           enum:
-            - eligibility
+          - eligibility
         eligibility_id:
           type: string
         state:
-          $ref: "#/components/schemas/CardState"
+          $ref: '#/components/schemas/CardState'
         created_at:
           type: string
           format: date-time
         session_id:
           type: string
         error:
-          $ref: "#/components/schemas/WebsocketError"
+          $ref: '#/components/schemas/WebsocketError'
         card_id:
           type: string
-
     ApiErrorResponse:
       type: object
       properties:
@@ -1351,9 +1313,9 @@ components:
     ModelError:
       type: object
       required:
-        - message
-        - type
-        - code
+      - message
+      - type
+      - code
       properties:
         message:
           type: string
@@ -1372,9 +1334,9 @@ components:
     WebsocketError:
       type: object
       required:
-        - message
-        - type
-        - code
+      - message
+      - type
+      - code
       properties:
         message:
           type: string
@@ -1400,38 +1362,23 @@ components:
           maxLength: 55
           minLength: 0
           type: string
-          description: "Segment: N3, Element: N301, Notes: Required, Address Information"
           example: 123 address1
         address2:
           maxLength: 55
           minLength: 0
           type: string
-          description: "Segment: N3, Element: N302, Notes: Address Information"
         city:
           maxLength: 30
           minLength: 0
           type: string
-          description: "Segment: N4, Element: N401, Notes: Required, city"
           example: city1
         state:
           maxLength: 2
           minLength: 0
           type: string
-          description: "Segment: N4, Element: N402, Notes: state example: TN, WA"
           example: wa
         postalCode:
           maxLength: 15
           minLength: 0
           type: string
-          description: "Segment: N4, Element: N403"
-          example: "981010000"
-        countryCode:
-          type: string
-          description: "Segment: N4, Element: N404"
-        locationIdentifier:
-          type: string
-          description: "Segment: N4, Element: N406"
-        countrySubDivisionCode:
-          type: string
-          description: "Segment: N4, Element: N407, Notes: Country SubDivision Code"
-      description: "Address: N3 and N4"
+          example: '981010000'

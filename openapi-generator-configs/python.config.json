@@ -1,5 +1,4 @@
 {
   "packageName": "cardscan_client",
-  "projectName": "cardscan-client",
-  "library": "asyncio"
+  "projectName": "cardscan-client"
 }

@@ -18,7 +18,7 @@ import re  # noqa: F401
 import json
 
 
-from typing import Optional
+from typing import Any, Dict, Optional
 from pydantic import BaseModel, Field, StrictStr, validator
 
 class CreateCardRequestBackside(BaseModel):
@@ -26,6 +26,7 @@ class CreateCardRequestBackside(BaseModel):
     CreateCardRequestBackside
     """
     scanning: Optional[StrictStr] = Field(default='disabled', description="The scanning mode")
+    additional_properties: Dict[str, Any] = {}
     __properties = ["scanning"]
 
     @validator('scanning')
@@ -60,8 +61,14 @@ class CreateCardRequestBackside(BaseModel):
         """Returns the dictionary representation of the model using alias"""
         _dict = self.dict(by_alias=True,
                           exclude={
+                            "additional_properties"
                           },
                           exclude_none=True)
+        # puts key-value pairs in additional_properties in the top level
+        if self.additional_properties is not None:
+            for _key, _value in self.additional_properties.items():
+                _dict[_key] = _value
+
         return _dict
 
     @classmethod
@@ -76,6 +83,11 @@ class CreateCardRequestBackside(BaseModel):
         _obj = CreateCardRequestBackside.parse_obj({
             "scanning": obj.get("scanning") if obj.get("scanning") is not None else 'disabled'
         })
+        # store additional fields in additional_properties
+        for _key in obj.keys():
+            if _key not in cls.__properties:
+                _obj.additional_properties[_key] = obj.get(_key)
+
         return _obj
 
 
