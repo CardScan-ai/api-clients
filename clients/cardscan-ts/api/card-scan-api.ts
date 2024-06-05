@@ -1686,7 +1686,7 @@ export class CardScanApi extends BaseAPI {
     const card = (
       await this.createCard({
         enable_livescan: false,
-        enable_backside_scan: true,
+        enable_backside_scan: Boolean(backImage),
       })
     ).data;
 
