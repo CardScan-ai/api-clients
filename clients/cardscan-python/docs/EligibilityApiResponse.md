@@ -10,7 +10,7 @@ Name | Type | Description | Notes
 **eligibility_request** | [**EligibilityApiResponseEligibilityRequest**](EligibilityApiResponseEligibilityRequest.md) |  | [optional] 
 **eligibility_response** | **Dict[str, object]** | The eligibility raw response. | [optional] 
 **eligibility_summarized_response** | **Dict[str, object]** | The eligibility summarized response. | [optional] 
-**error** | [**EligibilityApiResponseError**](EligibilityApiResponseError.md) |  | [optional] 
+**error** | [**ModelError**](ModelError.md) |  | [optional] 
 **created_at** | **datetime** | The timestamp when the eligibility record was created. | 
 **update_at** | **datetime** | The timestamp when the eligibility record was last updated. | 
 

@@ -17,7 +17,7 @@
 import { EligibilityApiResponseEligibilityRequest } from "./eligibility-api-response-eligibility-request";
 // May contain unused imports in some cases
 // @ts-ignore
-import { EligibilityApiResponseError } from "./eligibility-api-response-error";
+import { ModelError } from "./model-error";
 
 /**
  *
@@ -63,10 +63,10 @@ export interface EligibilityApiResponse {
   eligibility_summarized_response?: { [key: string]: any } | null;
   /**
    *
-   * @type {EligibilityApiResponseError}
+   * @type {ModelError}
    * @memberof EligibilityApiResponse
    */
-  error?: EligibilityApiResponseError | null;
+  error?: ModelError;
   /**
    * The timestamp when the eligibility record was created.
    * @type {string}

@@ -32,7 +32,6 @@ cardscan_client/models/direct_upload_request.py
 cardscan_client/models/eligibility_api_response.py
 cardscan_client/models/eligibility_api_response_eligibility_request.py
 cardscan_client/models/eligibility_api_response_eligibility_request_subscriber.py
-cardscan_client/models/eligibility_api_response_error.py
 cardscan_client/models/eligibility_info.py
 cardscan_client/models/eligibility_state.py
 cardscan_client/models/eligibility_summarized_response.py
@@ -44,6 +43,7 @@ cardscan_client/models/get_access_token200_response.py
 cardscan_client/models/get_access_token500_response.py
 cardscan_client/models/list_eligibility200_response.py
 cardscan_client/models/match_score.py
+cardscan_client/models/model_error.py
 cardscan_client/models/oop.py
 cardscan_client/models/payer_details.py
 cardscan_client/models/plan_details.py
@@ -67,6 +67,7 @@ cardscan_client/models/subscriber_details.py
 cardscan_client/models/subscriber_dto.py
 cardscan_client/models/upload_parameters.py
 cardscan_client/models/validate_magic_link200_response.py
+cardscan_client/models/websocket_error.py
 cardscan_client/py.typed
 cardscan_client/rest.py
 docs/Address.md
@@ -92,7 +93,6 @@ docs/DirectUploadRequest.md
 docs/EligibilityApiResponse.md
 docs/EligibilityApiResponseEligibilityRequest.md
 docs/EligibilityApiResponseEligibilityRequestSubscriber.md
-docs/EligibilityApiResponseError.md
 docs/EligibilityInfo.md
 docs/EligibilityState.md
 docs/EligibilitySummarizedResponse.md
@@ -104,6 +104,7 @@ docs/GetAccessToken200Response.md
 docs/GetAccessToken500Response.md
 docs/ListEligibility200Response.md
 docs/MatchScore.md
+docs/ModelError.md
 docs/OOP.md
 docs/PayerDetails.md
 docs/PlanDetails.md
@@ -127,6 +128,7 @@ docs/SubscriberDetails.md
 docs/SubscriberDto.md
 docs/UploadParameters.md
 docs/ValidateMagicLink200Response.md
+docs/WebsocketError.md
 git_push.sh
 pyproject.toml
 requirements.txt

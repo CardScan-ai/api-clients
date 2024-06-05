@@ -782,19 +782,7 @@ components:
           $ref: '#/components/schemas/EligibilitySummarizedResponse'
           nullable: true
         error:
-          type: object
-          description: Details about any error that occurred during the request. (Only first error)
-          nullable: true
-          properties:
-            type:
-              type: string
-              description: The type of error.
-            code:
-              type: string
-              description: The error code.
-            message:
-              type: string
-              description: A message describing the error.
+          $ref: '#/components/schemas/ModelError'
         created_at:
           type: string
           format: date-time
@@ -974,7 +962,7 @@ components:
           format: date-time
           description: The timestamp when the eligibility response was created.
         error:
-          $ref: '#/components/schemas/ApiErrorResponse'
+          $ref: '#/components/schemas/ModelError'
         images:
           type: object
           nullable: true
@@ -1057,7 +1045,7 @@ components:
       - automatic
       - selectedFile
       - api
-        # ----------------- Scan Components -----------------
+          # ----------------- Scan Components -----------------
     ScanOrientation:
       type: string
       enum:
@@ -1279,7 +1267,8 @@ components:
         session_id:
           type: string
         error:
-          $ref: '#/components/schemas/ApiErrorResponse'
+          $ref: '#/components/schemas/WebsocketError'
+
     EligibilityWebsocketEvent:
       type: object
       required:
@@ -1305,7 +1294,7 @@ components:
         session_id:
           type: string
         error:
-          $ref: '#/components/schemas/ApiErrorResponse'
+          $ref: '#/components/schemas/WebsocketError'
         card_id:
           type: string
     ApiErrorResponse:
@@ -1320,6 +1309,52 @@ components:
         code:
           type: number
           description: The error code.
+
+    ModelError:
+      type: object
+      required:
+      - message
+      - type
+      - code
+      properties:
+        message:
+          type: string
+          description: A message describing the error.
+        type:
+          type: string
+          description: The type of error.
+        code:
+          type: string
+          description: The error code.
+        error:
+          type: string
+          deprecated: true
+          description: The type of the error (deprecated)
+
+    WebsocketError:
+      type: object
+      required:
+      - message
+      - type
+      - code
+      properties:
+        message:
+          type: string
+          description: A message describing the error.
+        type:
+          type: string
+          description: The type of error.
+        code:
+          type: string
+          description: The error code.
+        internal_error:
+          type: string
+          description: The internal error message.
+        error:
+          type: string
+          deprecated: true
+          description: The type of the error (deprecated)
+
     Address:
       type: object
       properties:

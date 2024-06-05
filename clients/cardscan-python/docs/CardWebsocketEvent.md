@@ -10,7 +10,7 @@ Name | Type | Description | Notes
 **state** | [**CardState**](CardState.md) |  | 
 **created_at** | **datetime** |  | 
 **session_id** | **str** |  | [optional] 
-**error** | [**ApiErrorResponse**](ApiErrorResponse.md) |  | [optional] 
+**error** | [**WebsocketError**](WebsocketError.md) |  | [optional] 
 
 ## Example
 

@@ -26,8 +26,8 @@ models/deductible.ts
 models/direct-upload-request.ts
 models/direct-upload200-response-metadata.ts
 models/direct-upload200-response.ts
+models/eligibility-api-response-eligibility-request-subscriber.ts
 models/eligibility-api-response-eligibility-request.ts
-models/eligibility-api-response-error.ts
 models/eligibility-api-response.ts
 models/eligibility-info.ts
 models/eligibility-state.ts
@@ -41,6 +41,7 @@ models/get-access-token500-response.ts
 models/index.ts
 models/list-eligibility200-response.ts
 models/match-score.ts
+models/model-error.ts
 models/oop.ts
 models/payer-details.ts
 models/plan-details.ts
@@ -64,5 +65,6 @@ models/subscriber-details.ts
 models/subscriber-dto.ts
 models/upload-parameters.ts
 models/validate-magic-link200-response.ts
+models/websocket-error.ts
 tsconfig.esm.json
 tsconfig.json

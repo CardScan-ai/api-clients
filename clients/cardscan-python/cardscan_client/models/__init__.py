@@ -36,7 +36,6 @@ from cardscan_client.models.direct_upload_request import DirectUploadRequest
 from cardscan_client.models.eligibility_api_response import EligibilityApiResponse
 from cardscan_client.models.eligibility_api_response_eligibility_request import EligibilityApiResponseEligibilityRequest
 from cardscan_client.models.eligibility_api_response_eligibility_request_subscriber import EligibilityApiResponseEligibilityRequestSubscriber
-from cardscan_client.models.eligibility_api_response_error import EligibilityApiResponseError
 from cardscan_client.models.eligibility_info import EligibilityInfo
 from cardscan_client.models.eligibility_state import EligibilityState
 from cardscan_client.models.eligibility_summarized_response import EligibilitySummarizedResponse
@@ -48,6 +47,7 @@ from cardscan_client.models.get_access_token200_response import GetAccessToken20
 from cardscan_client.models.get_access_token500_response import GetAccessToken500Response
 from cardscan_client.models.list_eligibility200_response import ListEligibility200Response
 from cardscan_client.models.match_score import MatchScore
+from cardscan_client.models.model_error import ModelError
 from cardscan_client.models.oop import OOP
 from cardscan_client.models.payer_details import PayerDetails
 from cardscan_client.models.plan_details import PlanDetails
@@ -71,3 +71,4 @@ from cardscan_client.models.subscriber_details import SubscriberDetails
 from cardscan_client.models.subscriber_dto import SubscriberDto
 from cardscan_client.models.upload_parameters import UploadParameters
 from cardscan_client.models.validate_magic_link200_response import ValidateMagicLink200Response
+from cardscan_client.models.websocket_error import WebsocketError

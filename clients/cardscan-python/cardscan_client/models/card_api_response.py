@@ -20,10 +20,10 @@ import json
 from datetime import datetime
 from typing import Optional
 from pydantic import BaseModel, Field, StrictBool, StrictStr
-from cardscan_client.models.api_error_response import ApiErrorResponse
 from cardscan_client.models.card_api_response_details import CardApiResponseDetails
 from cardscan_client.models.card_api_response_images import CardApiResponseImages
 from cardscan_client.models.card_state import CardState
+from cardscan_client.models.model_error import ModelError
 
 class CardApiResponse(BaseModel):
     """
@@ -32,7 +32,7 @@ class CardApiResponse(BaseModel):
     card_id: StrictStr = Field(...)
     state: CardState = Field(...)
     created_at: datetime = Field(default=..., description="The timestamp when the eligibility response was created.")
-    error: Optional[ApiErrorResponse] = None
+    error: Optional[ModelError] = None
     images: Optional[CardApiResponseImages] = None
     deleted: StrictBool = Field(...)
     details: Optional[CardApiResponseDetails] = None
@@ -96,7 +96,7 @@ class CardApiResponse(BaseModel):
             "card_id": obj.get("card_id"),
             "state": obj.get("state"),
             "created_at": obj.get("created_at"),
-            "error": ApiErrorResponse.from_dict(obj.get("error")) if obj.get("error") is not None else None,
+            "error": ModelError.from_dict(obj.get("error")) if obj.get("error") is not None else None,
             "images": CardApiResponseImages.from_dict(obj.get("images")) if obj.get("images") is not None else None,
             "deleted": obj.get("deleted"),
             "details": CardApiResponseDetails.from_dict(obj.get("details")) if obj.get("details") is not None else None
