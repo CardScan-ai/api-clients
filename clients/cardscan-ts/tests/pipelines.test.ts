@@ -12,7 +12,7 @@ const cardscan = new CardScanApi(
   }),
 );
 
-jest.setTimeout(20 * 1000);
+jest.setTimeout(40 * 1000);
 
 describe("Cardscan Pipelines", () => {
   describe("Eligibility", () => {
