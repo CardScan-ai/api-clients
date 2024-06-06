@@ -1673,7 +1673,7 @@ export class CardScanApi extends BaseAPI {
     backImage,
   }: {
     frontImage: File | Blob | Stream;
-    backImage: File | Blob | Stream;
+    backImage?: File | Blob | Stream;
   }) {
     this.info("Starting full scan...");
 
@@ -1686,7 +1686,7 @@ export class CardScanApi extends BaseAPI {
     const card = (
       await this.createCard({
         enable_livescan: false,
-        enable_backside_scan: true,
+        enable_backside_scan: Boolean(backImage),
       })
     ).data;
 
@@ -1762,27 +1762,37 @@ export class CardScanApi extends BaseAPI {
         ];
 
         this.debug("Waiting for front side processing to complete...");
-        await new Promise((resolve, reject) => {
-          websocket.onmessage = (event) => {
-            const data: CardWebsocketEvent = JSON.parse(event.data as string);
-            this.debug(`Received websocket message: ${event.data}`);
+        const frontSideEvent: CardWebsocketEvent = await new Promise(
+          (resolve, reject) => {
+            websocket.onmessage = (event) => {
+              const data: CardWebsocketEvent = JSON.parse(event.data as string);
+              this.debug(`Received websocket message: ${event.data}`);
 
-            if (frontSideRejectionStates.includes(data.state)) {
-              this.debug(
-                `Received reject state while processing frontside: ${data.state}`,
-              );
+              if (frontSideRejectionStates.includes(data.state)) {
+                this.debug(
+                  `Received reject state while processing frontside: ${data.state}`,
+                );
 
-              return reject(
-                new Error(`Frontside failed: ${data.error?.message}`),
-              );
-            }
+                return reject(
+                  new Error(`Frontside failed: ${data.error?.message}`),
+                );
+              }
 
-            if (data.state === CardState.BacksideProcessing) {
-              this.debug("Front side processing completed successfully");
-              return resolve(data);
-            }
-          };
-        });
+              if (
+                data.state === CardState.BacksideProcessing ||
+                data.state === CardState.Completed
+              ) {
+                this.debug("Front side processing completed successfully");
+                return resolve(data);
+              }
+            };
+          },
+        );
+
+        if (!backImage) {
+          this.info("Full scan completed successfully");
+          return resolve(frontSideEvent);
+        }
 
         this.debug("Generating back side upload URL...");
         const backSideUploadUrlResponse = (
