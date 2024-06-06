@@ -31,7 +31,7 @@ Creates a new card
 ### Example
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
-import OpenAPIClient
+import CardScanClient
 
 let createCardRequest = createCard_request(enableBacksideScan: false, enableLivescan: false, backside: createCard_request_backside(scanning: "scanning_example")) // CreateCardRequest |  (optional)
 
@@ -79,7 +79,7 @@ Create Eligibility Record
 ### Example
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
-import OpenAPIClient
+import CardScanClient
 
 let createEligibilityRequest = createEligibility_request(eligibility: EligibilityInfo(provider: ProviderDto(firstName: "firstName_example", lastName: "lastName_example", npi: "npi_example"), subscriber: SubscriberDto(firstName: "firstName_example", lastName: "lastName_example", dateOfBirth: "dateOfBirth_example")), cardId: 123) // CreateEligibilityRequest |  (optional)
 
@@ -127,7 +127,7 @@ Delete Card
 ### Example
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
-import OpenAPIClient
+import CardScanClient
 
 let cardId = 987 // UUID | The ID of the card
 
@@ -175,7 +175,7 @@ Direct Upload
 ### Example
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
-import OpenAPIClient
+import CardScanClient
 
 let orientation = ScanOrientation() // ScanOrientation | 
 let captureType = ScanCaptureType() // ScanCaptureType | 
@@ -229,7 +229,7 @@ Card - Generate Upload URL
 ### Example
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
-import OpenAPIClient
+import CardScanClient
 
 let cardId = 987 // UUID | 
 let expiration = 987 // Int |  (optional) (default to 3600)
@@ -281,7 +281,7 @@ Generate Magic Link
 ### Example
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
-import OpenAPIClient
+import CardScanClient
 
 
 // Generate Magic Link
@@ -325,7 +325,7 @@ Generate an upload URL
 ### Example
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
-import OpenAPIClient
+import CardScanClient
 
 let expiration = 987 // Int | 
 
@@ -373,7 +373,7 @@ Access Token
 ### Example
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
-import OpenAPIClient
+import CardScanClient
 
 let userId = "userId_example" // String | The ID of the user (optional)
 
@@ -421,7 +421,7 @@ Get Card by ID
 ### Example
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
-import OpenAPIClient
+import CardScanClient
 
 let cardId = 987 // UUID | The ID of the card
 
@@ -469,7 +469,7 @@ Get Eligibility
 ### Example
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
-import OpenAPIClient
+import CardScanClient
 
 let eligibilityId = "eligibilityId_example" // String | 
 
@@ -517,7 +517,7 @@ Get Scan Metadata
 ### Example
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
-import OpenAPIClient
+import CardScanClient
 
 let scanId = 987 // UUID | 
 
@@ -565,7 +565,7 @@ List Cards
 ### Example
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
-import OpenAPIClient
+import CardScanClient
 
 let limit = 987 // Int |  (optional)
 let cursor = "cursor_example" // String |  (optional)
@@ -615,7 +615,7 @@ List Eligibility
 ### Example
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
-import OpenAPIClient
+import CardScanClient
 
 
 // List Eligibility
@@ -659,7 +659,7 @@ Search Cards (200) OK
 ### Example
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
-import OpenAPIClient
+import CardScanClient
 
 let query = "query_example" // String | 
 let limit = 987 // Int |  (optional)
@@ -711,7 +711,7 @@ Validate Magic Link
 ### Example
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
-import OpenAPIClient
+import CardScanClient
 
 let token = "token_example" // String | 
 

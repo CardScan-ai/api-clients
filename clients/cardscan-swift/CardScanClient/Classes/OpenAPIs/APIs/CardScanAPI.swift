@@ -20,7 +20,7 @@ open class CardScanAPI {
      - parameter completion: completion handler to receive the data and the error objects
      */
     @discardableResult
-    open class func createCard(createCardRequest: CreateCardRequest? = nil, apiResponseQueue: DispatchQueue = OpenAPIClientAPI.apiResponseQueue, completion: @escaping ((_ data: CardApiResponse?, _ error: Error?) -> Void)) -> RequestTask {
+    open class func createCard(createCardRequest: CreateCardRequest? = nil, apiResponseQueue: DispatchQueue = CardScanClientAPI.apiResponseQueue, completion: @escaping ((_ data: CardApiResponse?, _ error: Error?) -> Void)) -> RequestTask {
         return createCardWithRequestBuilder(createCardRequest: createCardRequest).execute(apiResponseQueue) { result in
             switch result {
             case let .success(response):
@@ -42,7 +42,7 @@ open class CardScanAPI {
      */
     open class func createCardWithRequestBuilder(createCardRequest: CreateCardRequest? = nil) -> RequestBuilder<CardApiResponse> {
         let localVariablePath = "/cards"
-        let localVariableURLString = OpenAPIClientAPI.basePath + localVariablePath
+        let localVariableURLString = CardScanClientAPI.basePath + localVariablePath
         let localVariableParameters = JSONEncodingHelper.encodingParameters(forEncodableObject: createCardRequest)
 
         let localVariableUrlComponents = URLComponents(string: localVariableURLString)
@@ -53,7 +53,7 @@ open class CardScanAPI {
 
         let localVariableHeaderParameters = APIHelper.rejectNilHeaders(localVariableNillableHeaders)
 
-        let localVariableRequestBuilder: RequestBuilder<CardApiResponse>.Type = OpenAPIClientAPI.requestBuilderFactory.getBuilder()
+        let localVariableRequestBuilder: RequestBuilder<CardApiResponse>.Type = CardScanClientAPI.requestBuilderFactory.getBuilder()
 
         return localVariableRequestBuilder.init(method: "POST", URLString: (localVariableUrlComponents?.string ?? localVariableURLString), parameters: localVariableParameters, headers: localVariableHeaderParameters, requiresAuthentication: true)
     }
@@ -66,7 +66,7 @@ open class CardScanAPI {
      - parameter completion: completion handler to receive the data and the error objects
      */
     @discardableResult
-    open class func createEligibility(createEligibilityRequest: CreateEligibilityRequest? = nil, apiResponseQueue: DispatchQueue = OpenAPIClientAPI.apiResponseQueue, completion: @escaping ((_ data: EligibilityApiResponse?, _ error: Error?) -> Void)) -> RequestTask {
+    open class func createEligibility(createEligibilityRequest: CreateEligibilityRequest? = nil, apiResponseQueue: DispatchQueue = CardScanClientAPI.apiResponseQueue, completion: @escaping ((_ data: EligibilityApiResponse?, _ error: Error?) -> Void)) -> RequestTask {
         return createEligibilityWithRequestBuilder(createEligibilityRequest: createEligibilityRequest).execute(apiResponseQueue) { result in
             switch result {
             case let .success(response):
@@ -88,7 +88,7 @@ open class CardScanAPI {
      */
     open class func createEligibilityWithRequestBuilder(createEligibilityRequest: CreateEligibilityRequest? = nil) -> RequestBuilder<EligibilityApiResponse> {
         let localVariablePath = "/eligibility"
-        let localVariableURLString = OpenAPIClientAPI.basePath + localVariablePath
+        let localVariableURLString = CardScanClientAPI.basePath + localVariablePath
         let localVariableParameters = JSONEncodingHelper.encodingParameters(forEncodableObject: createEligibilityRequest)
 
         let localVariableUrlComponents = URLComponents(string: localVariableURLString)
@@ -99,7 +99,7 @@ open class CardScanAPI {
 
         let localVariableHeaderParameters = APIHelper.rejectNilHeaders(localVariableNillableHeaders)
 
-        let localVariableRequestBuilder: RequestBuilder<EligibilityApiResponse>.Type = OpenAPIClientAPI.requestBuilderFactory.getBuilder()
+        let localVariableRequestBuilder: RequestBuilder<EligibilityApiResponse>.Type = CardScanClientAPI.requestBuilderFactory.getBuilder()
 
         return localVariableRequestBuilder.init(method: "POST", URLString: (localVariableUrlComponents?.string ?? localVariableURLString), parameters: localVariableParameters, headers: localVariableHeaderParameters, requiresAuthentication: true)
     }
@@ -112,7 +112,7 @@ open class CardScanAPI {
      - parameter completion: completion handler to receive the data and the error objects
      */
     @discardableResult
-    open class func deleteCardById(cardId: UUID, apiResponseQueue: DispatchQueue = OpenAPIClientAPI.apiResponseQueue, completion: @escaping ((_ data: Void?, _ error: Error?) -> Void)) -> RequestTask {
+    open class func deleteCardById(cardId: UUID, apiResponseQueue: DispatchQueue = CardScanClientAPI.apiResponseQueue, completion: @escaping ((_ data: Void?, _ error: Error?) -> Void)) -> RequestTask {
         return deleteCardByIdWithRequestBuilder(cardId: cardId).execute(apiResponseQueue) { result in
             switch result {
             case .success:
@@ -137,7 +137,7 @@ open class CardScanAPI {
         let cardIdPreEscape = "\(APIHelper.mapValueToPathItem(cardId))"
         let cardIdPostEscape = cardIdPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
         localVariablePath = localVariablePath.replacingOccurrences(of: "{card_id}", with: cardIdPostEscape, options: .literal, range: nil)
-        let localVariableURLString = OpenAPIClientAPI.basePath + localVariablePath
+        let localVariableURLString = CardScanClientAPI.basePath + localVariablePath
         let localVariableParameters: [String: Any]? = nil
 
         let localVariableUrlComponents = URLComponents(string: localVariableURLString)
@@ -148,7 +148,7 @@ open class CardScanAPI {
 
         let localVariableHeaderParameters = APIHelper.rejectNilHeaders(localVariableNillableHeaders)
 
-        let localVariableRequestBuilder: RequestBuilder<Void>.Type = OpenAPIClientAPI.requestBuilderFactory.getNonDecodableBuilder()
+        let localVariableRequestBuilder: RequestBuilder<Void>.Type = CardScanClientAPI.requestBuilderFactory.getNonDecodableBuilder()
 
         return localVariableRequestBuilder.init(method: "DELETE", URLString: (localVariableUrlComponents?.string ?? localVariableURLString), parameters: localVariableParameters, headers: localVariableHeaderParameters, requiresAuthentication: true)
     }
@@ -164,7 +164,7 @@ open class CardScanAPI {
      - parameter completion: completion handler to receive the data and the error objects
      */
     @discardableResult
-    open class func directUpload(orientation: ScanOrientation, captureType: ScanCaptureType, cardId: UUID, directUploadRequest: DirectUploadRequest? = nil, apiResponseQueue: DispatchQueue = OpenAPIClientAPI.apiResponseQueue, completion: @escaping ((_ data: DirectUpload200Response?, _ error: Error?) -> Void)) -> RequestTask {
+    open class func directUpload(orientation: ScanOrientation, captureType: ScanCaptureType, cardId: UUID, directUploadRequest: DirectUploadRequest? = nil, apiResponseQueue: DispatchQueue = CardScanClientAPI.apiResponseQueue, completion: @escaping ((_ data: DirectUpload200Response?, _ error: Error?) -> Void)) -> RequestTask {
         return directUploadWithRequestBuilder(orientation: orientation, captureType: captureType, cardId: cardId, directUploadRequest: directUploadRequest).execute(apiResponseQueue) { result in
             switch result {
             case let .success(response):
@@ -192,7 +192,7 @@ open class CardScanAPI {
         let cardIdPreEscape = "\(APIHelper.mapValueToPathItem(cardId))"
         let cardIdPostEscape = cardIdPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
         localVariablePath = localVariablePath.replacingOccurrences(of: "{card_id}", with: cardIdPostEscape, options: .literal, range: nil)
-        let localVariableURLString = OpenAPIClientAPI.basePath + localVariablePath
+        let localVariableURLString = CardScanClientAPI.basePath + localVariablePath
         let localVariableParameters = JSONEncodingHelper.encodingParameters(forEncodableObject: directUploadRequest)
 
         var localVariableUrlComponents = URLComponents(string: localVariableURLString)
@@ -207,7 +207,7 @@ open class CardScanAPI {
 
         let localVariableHeaderParameters = APIHelper.rejectNilHeaders(localVariableNillableHeaders)
 
-        let localVariableRequestBuilder: RequestBuilder<DirectUpload200Response>.Type = OpenAPIClientAPI.requestBuilderFactory.getBuilder()
+        let localVariableRequestBuilder: RequestBuilder<DirectUpload200Response>.Type = CardScanClientAPI.requestBuilderFactory.getBuilder()
 
         return localVariableRequestBuilder.init(method: "POST", URLString: (localVariableUrlComponents?.string ?? localVariableURLString), parameters: localVariableParameters, headers: localVariableHeaderParameters, requiresAuthentication: true)
     }
@@ -222,7 +222,7 @@ open class CardScanAPI {
      - parameter completion: completion handler to receive the data and the error objects
      */
     @discardableResult
-    open class func generateCardUploadUrl(cardId: UUID, expiration: Int? = nil, generateCardUploadUrlRequest: GenerateCardUploadUrlRequest? = nil, apiResponseQueue: DispatchQueue = OpenAPIClientAPI.apiResponseQueue, completion: @escaping ((_ data: GenerateCardUploadUrl200Response?, _ error: Error?) -> Void)) -> RequestTask {
+    open class func generateCardUploadUrl(cardId: UUID, expiration: Int? = nil, generateCardUploadUrlRequest: GenerateCardUploadUrlRequest? = nil, apiResponseQueue: DispatchQueue = CardScanClientAPI.apiResponseQueue, completion: @escaping ((_ data: GenerateCardUploadUrl200Response?, _ error: Error?) -> Void)) -> RequestTask {
         return generateCardUploadUrlWithRequestBuilder(cardId: cardId, expiration: expiration, generateCardUploadUrlRequest: generateCardUploadUrlRequest).execute(apiResponseQueue) { result in
             switch result {
             case let .success(response):
@@ -249,7 +249,7 @@ open class CardScanAPI {
         let cardIdPreEscape = "\(APIHelper.mapValueToPathItem(cardId))"
         let cardIdPostEscape = cardIdPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
         localVariablePath = localVariablePath.replacingOccurrences(of: "{card_id}", with: cardIdPostEscape, options: .literal, range: nil)
-        let localVariableURLString = OpenAPIClientAPI.basePath + localVariablePath
+        let localVariableURLString = CardScanClientAPI.basePath + localVariablePath
         let localVariableParameters = JSONEncodingHelper.encodingParameters(forEncodableObject: generateCardUploadUrlRequest)
 
         var localVariableUrlComponents = URLComponents(string: localVariableURLString)
@@ -263,7 +263,7 @@ open class CardScanAPI {
 
         let localVariableHeaderParameters = APIHelper.rejectNilHeaders(localVariableNillableHeaders)
 
-        let localVariableRequestBuilder: RequestBuilder<GenerateCardUploadUrl200Response>.Type = OpenAPIClientAPI.requestBuilderFactory.getBuilder()
+        let localVariableRequestBuilder: RequestBuilder<GenerateCardUploadUrl200Response>.Type = CardScanClientAPI.requestBuilderFactory.getBuilder()
 
         return localVariableRequestBuilder.init(method: "POST", URLString: (localVariableUrlComponents?.string ?? localVariableURLString), parameters: localVariableParameters, headers: localVariableHeaderParameters, requiresAuthentication: true)
     }
@@ -275,7 +275,7 @@ open class CardScanAPI {
      - parameter completion: completion handler to receive the data and the error objects
      */
     @discardableResult
-    open class func generateMagicLink(apiResponseQueue: DispatchQueue = OpenAPIClientAPI.apiResponseQueue, completion: @escaping ((_ data: GenerateMagicLink200Response?, _ error: Error?) -> Void)) -> RequestTask {
+    open class func generateMagicLink(apiResponseQueue: DispatchQueue = CardScanClientAPI.apiResponseQueue, completion: @escaping ((_ data: GenerateMagicLink200Response?, _ error: Error?) -> Void)) -> RequestTask {
         return generateMagicLinkWithRequestBuilder().execute(apiResponseQueue) { result in
             switch result {
             case let .success(response):
@@ -296,7 +296,7 @@ open class CardScanAPI {
      */
     open class func generateMagicLinkWithRequestBuilder() -> RequestBuilder<GenerateMagicLink200Response> {
         let localVariablePath = "/generate-magic-link"
-        let localVariableURLString = OpenAPIClientAPI.basePath + localVariablePath
+        let localVariableURLString = CardScanClientAPI.basePath + localVariablePath
         let localVariableParameters: [String: Any]? = nil
 
         let localVariableUrlComponents = URLComponents(string: localVariableURLString)
@@ -307,7 +307,7 @@ open class CardScanAPI {
 
         let localVariableHeaderParameters = APIHelper.rejectNilHeaders(localVariableNillableHeaders)
 
-        let localVariableRequestBuilder: RequestBuilder<GenerateMagicLink200Response>.Type = OpenAPIClientAPI.requestBuilderFactory.getBuilder()
+        let localVariableRequestBuilder: RequestBuilder<GenerateMagicLink200Response>.Type = CardScanClientAPI.requestBuilderFactory.getBuilder()
 
         return localVariableRequestBuilder.init(method: "GET", URLString: (localVariableUrlComponents?.string ?? localVariableURLString), parameters: localVariableParameters, headers: localVariableHeaderParameters, requiresAuthentication: true)
     }
@@ -320,7 +320,7 @@ open class CardScanAPI {
      - parameter completion: completion handler to receive the data and the error objects
      */
     @discardableResult
-    open class func generateUploadUrl(expiration: Int, apiResponseQueue: DispatchQueue = OpenAPIClientAPI.apiResponseQueue, completion: @escaping ((_ data: GenerateCardUploadUrl200Response?, _ error: Error?) -> Void)) -> RequestTask {
+    open class func generateUploadUrl(expiration: Int, apiResponseQueue: DispatchQueue = CardScanClientAPI.apiResponseQueue, completion: @escaping ((_ data: GenerateCardUploadUrl200Response?, _ error: Error?) -> Void)) -> RequestTask {
         return generateUploadUrlWithRequestBuilder(expiration: expiration).execute(apiResponseQueue) { result in
             switch result {
             case let .success(response):
@@ -342,7 +342,7 @@ open class CardScanAPI {
      */
     open class func generateUploadUrlWithRequestBuilder(expiration: Int) -> RequestBuilder<GenerateCardUploadUrl200Response> {
         let localVariablePath = "/generate-upload-url"
-        let localVariableURLString = OpenAPIClientAPI.basePath + localVariablePath
+        let localVariableURLString = CardScanClientAPI.basePath + localVariablePath
         let localVariableParameters: [String: Any]? = nil
 
         var localVariableUrlComponents = URLComponents(string: localVariableURLString)
@@ -356,7 +356,7 @@ open class CardScanAPI {
 
         let localVariableHeaderParameters = APIHelper.rejectNilHeaders(localVariableNillableHeaders)
 
-        let localVariableRequestBuilder: RequestBuilder<GenerateCardUploadUrl200Response>.Type = OpenAPIClientAPI.requestBuilderFactory.getBuilder()
+        let localVariableRequestBuilder: RequestBuilder<GenerateCardUploadUrl200Response>.Type = CardScanClientAPI.requestBuilderFactory.getBuilder()
 
         return localVariableRequestBuilder.init(method: "GET", URLString: (localVariableUrlComponents?.string ?? localVariableURLString), parameters: localVariableParameters, headers: localVariableHeaderParameters, requiresAuthentication: true)
     }
@@ -369,7 +369,7 @@ open class CardScanAPI {
      - parameter completion: completion handler to receive the data and the error objects
      */
     @discardableResult
-    open class func getAccessToken(userId: String? = nil, apiResponseQueue: DispatchQueue = OpenAPIClientAPI.apiResponseQueue, completion: @escaping ((_ data: GetAccessToken200Response?, _ error: Error?) -> Void)) -> RequestTask {
+    open class func getAccessToken(userId: String? = nil, apiResponseQueue: DispatchQueue = CardScanClientAPI.apiResponseQueue, completion: @escaping ((_ data: GetAccessToken200Response?, _ error: Error?) -> Void)) -> RequestTask {
         return getAccessTokenWithRequestBuilder(userId: userId).execute(apiResponseQueue) { result in
             switch result {
             case let .success(response):
@@ -391,7 +391,7 @@ open class CardScanAPI {
      */
     open class func getAccessTokenWithRequestBuilder(userId: String? = nil) -> RequestBuilder<GetAccessToken200Response> {
         let localVariablePath = "/access-token"
-        let localVariableURLString = OpenAPIClientAPI.basePath + localVariablePath
+        let localVariableURLString = CardScanClientAPI.basePath + localVariablePath
         let localVariableParameters: [String: Any]? = nil
 
         var localVariableUrlComponents = URLComponents(string: localVariableURLString)
@@ -405,7 +405,7 @@ open class CardScanAPI {
 
         let localVariableHeaderParameters = APIHelper.rejectNilHeaders(localVariableNillableHeaders)
 
-        let localVariableRequestBuilder: RequestBuilder<GetAccessToken200Response>.Type = OpenAPIClientAPI.requestBuilderFactory.getBuilder()
+        let localVariableRequestBuilder: RequestBuilder<GetAccessToken200Response>.Type = CardScanClientAPI.requestBuilderFactory.getBuilder()
 
         return localVariableRequestBuilder.init(method: "GET", URLString: (localVariableUrlComponents?.string ?? localVariableURLString), parameters: localVariableParameters, headers: localVariableHeaderParameters, requiresAuthentication: true)
     }
@@ -418,7 +418,7 @@ open class CardScanAPI {
      - parameter completion: completion handler to receive the data and the error objects
      */
     @discardableResult
-    open class func getCardById(cardId: UUID, apiResponseQueue: DispatchQueue = OpenAPIClientAPI.apiResponseQueue, completion: @escaping ((_ data: CardApiResponse?, _ error: Error?) -> Void)) -> RequestTask {
+    open class func getCardById(cardId: UUID, apiResponseQueue: DispatchQueue = CardScanClientAPI.apiResponseQueue, completion: @escaping ((_ data: CardApiResponse?, _ error: Error?) -> Void)) -> RequestTask {
         return getCardByIdWithRequestBuilder(cardId: cardId).execute(apiResponseQueue) { result in
             switch result {
             case let .success(response):
@@ -443,7 +443,7 @@ open class CardScanAPI {
         let cardIdPreEscape = "\(APIHelper.mapValueToPathItem(cardId))"
         let cardIdPostEscape = cardIdPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
         localVariablePath = localVariablePath.replacingOccurrences(of: "{card_id}", with: cardIdPostEscape, options: .literal, range: nil)
-        let localVariableURLString = OpenAPIClientAPI.basePath + localVariablePath
+        let localVariableURLString = CardScanClientAPI.basePath + localVariablePath
         let localVariableParameters: [String: Any]? = nil
 
         let localVariableUrlComponents = URLComponents(string: localVariableURLString)
@@ -454,7 +454,7 @@ open class CardScanAPI {
 
         let localVariableHeaderParameters = APIHelper.rejectNilHeaders(localVariableNillableHeaders)
 
-        let localVariableRequestBuilder: RequestBuilder<CardApiResponse>.Type = OpenAPIClientAPI.requestBuilderFactory.getBuilder()
+        let localVariableRequestBuilder: RequestBuilder<CardApiResponse>.Type = CardScanClientAPI.requestBuilderFactory.getBuilder()
 
         return localVariableRequestBuilder.init(method: "GET", URLString: (localVariableUrlComponents?.string ?? localVariableURLString), parameters: localVariableParameters, headers: localVariableHeaderParameters, requiresAuthentication: true)
     }
@@ -467,7 +467,7 @@ open class CardScanAPI {
      - parameter completion: completion handler to receive the data and the error objects
      */
     @discardableResult
-    open class func getEligibilityById(eligibilityId: String, apiResponseQueue: DispatchQueue = OpenAPIClientAPI.apiResponseQueue, completion: @escaping ((_ data: EligibilityApiResponse?, _ error: Error?) -> Void)) -> RequestTask {
+    open class func getEligibilityById(eligibilityId: String, apiResponseQueue: DispatchQueue = CardScanClientAPI.apiResponseQueue, completion: @escaping ((_ data: EligibilityApiResponse?, _ error: Error?) -> Void)) -> RequestTask {
         return getEligibilityByIdWithRequestBuilder(eligibilityId: eligibilityId).execute(apiResponseQueue) { result in
             switch result {
             case let .success(response):
@@ -492,7 +492,7 @@ open class CardScanAPI {
         let eligibilityIdPreEscape = "\(APIHelper.mapValueToPathItem(eligibilityId))"
         let eligibilityIdPostEscape = eligibilityIdPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
         localVariablePath = localVariablePath.replacingOccurrences(of: "{eligibility_id}", with: eligibilityIdPostEscape, options: .literal, range: nil)
-        let localVariableURLString = OpenAPIClientAPI.basePath + localVariablePath
+        let localVariableURLString = CardScanClientAPI.basePath + localVariablePath
         let localVariableParameters: [String: Any]? = nil
 
         let localVariableUrlComponents = URLComponents(string: localVariableURLString)
@@ -503,7 +503,7 @@ open class CardScanAPI {
 
         let localVariableHeaderParameters = APIHelper.rejectNilHeaders(localVariableNillableHeaders)
 
-        let localVariableRequestBuilder: RequestBuilder<EligibilityApiResponse>.Type = OpenAPIClientAPI.requestBuilderFactory.getBuilder()
+        let localVariableRequestBuilder: RequestBuilder<EligibilityApiResponse>.Type = CardScanClientAPI.requestBuilderFactory.getBuilder()
 
         return localVariableRequestBuilder.init(method: "GET", URLString: (localVariableUrlComponents?.string ?? localVariableURLString), parameters: localVariableParameters, headers: localVariableHeaderParameters, requiresAuthentication: true)
     }
@@ -516,7 +516,7 @@ open class CardScanAPI {
      - parameter completion: completion handler to receive the data and the error objects
      */
     @discardableResult
-    open class func getScanMetadata(scanId: UUID, apiResponseQueue: DispatchQueue = OpenAPIClientAPI.apiResponseQueue, completion: @escaping ((_ data: Void?, _ error: Error?) -> Void)) -> RequestTask {
+    open class func getScanMetadata(scanId: UUID, apiResponseQueue: DispatchQueue = CardScanClientAPI.apiResponseQueue, completion: @escaping ((_ data: Void?, _ error: Error?) -> Void)) -> RequestTask {
         return getScanMetadataWithRequestBuilder(scanId: scanId).execute(apiResponseQueue) { result in
             switch result {
             case .success:
@@ -541,7 +541,7 @@ open class CardScanAPI {
         let scanIdPreEscape = "\(APIHelper.mapValueToPathItem(scanId))"
         let scanIdPostEscape = scanIdPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
         localVariablePath = localVariablePath.replacingOccurrences(of: "{scan_id}", with: scanIdPostEscape, options: .literal, range: nil)
-        let localVariableURLString = OpenAPIClientAPI.basePath + localVariablePath
+        let localVariableURLString = CardScanClientAPI.basePath + localVariablePath
         let localVariableParameters: [String: Any]? = nil
 
         let localVariableUrlComponents = URLComponents(string: localVariableURLString)
@@ -552,7 +552,7 @@ open class CardScanAPI {
 
         let localVariableHeaderParameters = APIHelper.rejectNilHeaders(localVariableNillableHeaders)
 
-        let localVariableRequestBuilder: RequestBuilder<Void>.Type = OpenAPIClientAPI.requestBuilderFactory.getNonDecodableBuilder()
+        let localVariableRequestBuilder: RequestBuilder<Void>.Type = CardScanClientAPI.requestBuilderFactory.getNonDecodableBuilder()
 
         return localVariableRequestBuilder.init(method: "GET", URLString: (localVariableUrlComponents?.string ?? localVariableURLString), parameters: localVariableParameters, headers: localVariableHeaderParameters, requiresAuthentication: true)
     }
@@ -566,7 +566,7 @@ open class CardScanAPI {
      - parameter completion: completion handler to receive the data and the error objects
      */
     @discardableResult
-    open class func listCards(limit: Int? = nil, cursor: String? = nil, apiResponseQueue: DispatchQueue = OpenAPIClientAPI.apiResponseQueue, completion: @escaping ((_ data: SearchCards200Response?, _ error: Error?) -> Void)) -> RequestTask {
+    open class func listCards(limit: Int? = nil, cursor: String? = nil, apiResponseQueue: DispatchQueue = CardScanClientAPI.apiResponseQueue, completion: @escaping ((_ data: SearchCards200Response?, _ error: Error?) -> Void)) -> RequestTask {
         return listCardsWithRequestBuilder(limit: limit, cursor: cursor).execute(apiResponseQueue) { result in
             switch result {
             case let .success(response):
@@ -589,7 +589,7 @@ open class CardScanAPI {
      */
     open class func listCardsWithRequestBuilder(limit: Int? = nil, cursor: String? = nil) -> RequestBuilder<SearchCards200Response> {
         let localVariablePath = "/cards"
-        let localVariableURLString = OpenAPIClientAPI.basePath + localVariablePath
+        let localVariableURLString = CardScanClientAPI.basePath + localVariablePath
         let localVariableParameters: [String: Any]? = nil
 
         var localVariableUrlComponents = URLComponents(string: localVariableURLString)
@@ -604,7 +604,7 @@ open class CardScanAPI {
 
         let localVariableHeaderParameters = APIHelper.rejectNilHeaders(localVariableNillableHeaders)
 
-        let localVariableRequestBuilder: RequestBuilder<SearchCards200Response>.Type = OpenAPIClientAPI.requestBuilderFactory.getBuilder()
+        let localVariableRequestBuilder: RequestBuilder<SearchCards200Response>.Type = CardScanClientAPI.requestBuilderFactory.getBuilder()
 
         return localVariableRequestBuilder.init(method: "GET", URLString: (localVariableUrlComponents?.string ?? localVariableURLString), parameters: localVariableParameters, headers: localVariableHeaderParameters, requiresAuthentication: true)
     }
@@ -616,7 +616,7 @@ open class CardScanAPI {
      - parameter completion: completion handler to receive the data and the error objects
      */
     @discardableResult
-    open class func listEligibility(apiResponseQueue: DispatchQueue = OpenAPIClientAPI.apiResponseQueue, completion: @escaping ((_ data: ListEligibility200Response?, _ error: Error?) -> Void)) -> RequestTask {
+    open class func listEligibility(apiResponseQueue: DispatchQueue = CardScanClientAPI.apiResponseQueue, completion: @escaping ((_ data: ListEligibility200Response?, _ error: Error?) -> Void)) -> RequestTask {
         return listEligibilityWithRequestBuilder().execute(apiResponseQueue) { result in
             switch result {
             case let .success(response):
@@ -637,7 +637,7 @@ open class CardScanAPI {
      */
     open class func listEligibilityWithRequestBuilder() -> RequestBuilder<ListEligibility200Response> {
         let localVariablePath = "/eligibility"
-        let localVariableURLString = OpenAPIClientAPI.basePath + localVariablePath
+        let localVariableURLString = CardScanClientAPI.basePath + localVariablePath
         let localVariableParameters: [String: Any]? = nil
 
         let localVariableUrlComponents = URLComponents(string: localVariableURLString)
@@ -648,7 +648,7 @@ open class CardScanAPI {
 
         let localVariableHeaderParameters = APIHelper.rejectNilHeaders(localVariableNillableHeaders)
 
-        let localVariableRequestBuilder: RequestBuilder<ListEligibility200Response>.Type = OpenAPIClientAPI.requestBuilderFactory.getBuilder()
+        let localVariableRequestBuilder: RequestBuilder<ListEligibility200Response>.Type = CardScanClientAPI.requestBuilderFactory.getBuilder()
 
         return localVariableRequestBuilder.init(method: "GET", URLString: (localVariableUrlComponents?.string ?? localVariableURLString), parameters: localVariableParameters, headers: localVariableHeaderParameters, requiresAuthentication: true)
     }
@@ -663,7 +663,7 @@ open class CardScanAPI {
      - parameter completion: completion handler to receive the data and the error objects
      */
     @discardableResult
-    open class func searchCards(query: String, limit: Int? = nil, cursor: String? = nil, apiResponseQueue: DispatchQueue = OpenAPIClientAPI.apiResponseQueue, completion: @escaping ((_ data: SearchCards200Response?, _ error: Error?) -> Void)) -> RequestTask {
+    open class func searchCards(query: String, limit: Int? = nil, cursor: String? = nil, apiResponseQueue: DispatchQueue = CardScanClientAPI.apiResponseQueue, completion: @escaping ((_ data: SearchCards200Response?, _ error: Error?) -> Void)) -> RequestTask {
         return searchCardsWithRequestBuilder(query: query, limit: limit, cursor: cursor).execute(apiResponseQueue) { result in
             switch result {
             case let .success(response):
@@ -687,7 +687,7 @@ open class CardScanAPI {
      */
     open class func searchCardsWithRequestBuilder(query: String, limit: Int? = nil, cursor: String? = nil) -> RequestBuilder<SearchCards200Response> {
         let localVariablePath = "/cards/search"
-        let localVariableURLString = OpenAPIClientAPI.basePath + localVariablePath
+        let localVariableURLString = CardScanClientAPI.basePath + localVariablePath
         let localVariableParameters: [String: Any]? = nil
 
         var localVariableUrlComponents = URLComponents(string: localVariableURLString)
@@ -703,7 +703,7 @@ open class CardScanAPI {
 
         let localVariableHeaderParameters = APIHelper.rejectNilHeaders(localVariableNillableHeaders)
 
-        let localVariableRequestBuilder: RequestBuilder<SearchCards200Response>.Type = OpenAPIClientAPI.requestBuilderFactory.getBuilder()
+        let localVariableRequestBuilder: RequestBuilder<SearchCards200Response>.Type = CardScanClientAPI.requestBuilderFactory.getBuilder()
 
         return localVariableRequestBuilder.init(method: "GET", URLString: (localVariableUrlComponents?.string ?? localVariableURLString), parameters: localVariableParameters, headers: localVariableHeaderParameters, requiresAuthentication: true)
     }
@@ -716,7 +716,7 @@ open class CardScanAPI {
      - parameter completion: completion handler to receive the data and the error objects
      */
     @discardableResult
-    open class func validateMagicLink(token: String, apiResponseQueue: DispatchQueue = OpenAPIClientAPI.apiResponseQueue, completion: @escaping ((_ data: ValidateMagicLink200Response?, _ error: Error?) -> Void)) -> RequestTask {
+    open class func validateMagicLink(token: String, apiResponseQueue: DispatchQueue = CardScanClientAPI.apiResponseQueue, completion: @escaping ((_ data: ValidateMagicLink200Response?, _ error: Error?) -> Void)) -> RequestTask {
         return validateMagicLinkWithRequestBuilder(token: token).execute(apiResponseQueue) { result in
             switch result {
             case let .success(response):
@@ -735,7 +735,7 @@ open class CardScanAPI {
      */
     open class func validateMagicLinkWithRequestBuilder(token: String) -> RequestBuilder<ValidateMagicLink200Response> {
         let localVariablePath = "/validate-magic-link"
-        let localVariableURLString = OpenAPIClientAPI.basePath + localVariablePath
+        let localVariableURLString = CardScanClientAPI.basePath + localVariablePath
         let localVariableParameters: [String: Any]? = nil
 
         var localVariableUrlComponents = URLComponents(string: localVariableURLString)
@@ -749,7 +749,7 @@ open class CardScanAPI {
 
         let localVariableHeaderParameters = APIHelper.rejectNilHeaders(localVariableNillableHeaders)
 
-        let localVariableRequestBuilder: RequestBuilder<ValidateMagicLink200Response>.Type = OpenAPIClientAPI.requestBuilderFactory.getBuilder()
+        let localVariableRequestBuilder: RequestBuilder<ValidateMagicLink200Response>.Type = CardScanClientAPI.requestBuilderFactory.getBuilder()
 
         return localVariableRequestBuilder.init(method: "GET", URLString: (localVariableUrlComponents?.string ?? localVariableURLString), parameters: localVariableParameters, headers: localVariableHeaderParameters, requiresAuthentication: false)
     }

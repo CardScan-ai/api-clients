@@ -8,12 +8,37 @@ import Foundation
 #if !os(macOS)
 import MobileCoreServices
 #endif
+#if canImport(UniformTypeIdentifiers)
+import UniformTypeIdentifiers
+#endif
 
-public protocol URLSessionProtocol {
-    func dataTask(with request: URLRequest, completionHandler: @escaping @Sendable (Data?, URLResponse?, Error?) -> Void) -> URLSessionDataTask
+// Protocol defined for a session data task. This allows mocking out the URLSessionProtocol below since
+// you may not want to create or return a real URLSessionDataTask.
+public protocol URLSessionDataTaskProtocol {
+    func resume()
+
+    var taskIdentifier: Int { get }
+
+    var progress: Progress { get }
+
+    func cancel()
 }
 
-extension URLSession: URLSessionProtocol {}
+// Protocol allowing implementations to alter what is returned or to test their implementations.
+public protocol URLSessionProtocol {
+    // Task which performs the network fetch. Expected to be from URLSession.dataTask(with:completionHandler:) such that a network request
+    // is sent off when `.resume()` is called.
+    func dataTaskFromProtocol(with request: URLRequest, completionHandler: @escaping @Sendable (Data?, URLResponse?, Error?) -> Void) -> URLSessionDataTaskProtocol
+}
+
+extension URLSession: URLSessionProtocol {
+  // Passthrough to URLSession.dataTask(with:completionHandler) since URLSessionDataTask conforms to URLSessionDataTaskProtocol and fetches the network data.
+  public func dataTaskFromProtocol(with request: URLRequest, completionHandler: @escaping @Sendable (Data?, URLResponse?, (any Error)?) -> Void) -> any URLSessionDataTaskProtocol {
+    return dataTask(with: request, completionHandler: completionHandler)
+  }
+}
+
+extension URLSessionDataTask: URLSessionDataTaskProtocol {}
 
 class URLSessionRequestBuilderFactory: RequestBuilderFactory {
     func getNonDecodableBuilder<T>() -> RequestBuilder<T>.Type {
@@ -25,7 +50,7 @@ class URLSessionRequestBuilderFactory: RequestBuilderFactory {
     }
 }
 
-public typealias OpenAPIClientAPIChallengeHandler = ((URLSession, URLSessionTask, URLAuthenticationChallenge) -> (URLSession.AuthChallengeDisposition, URLCredential?))
+public typealias CardScanClientAPIChallengeHandler = ((URLSession, URLSessionTask, URLAuthenticationChallenge) -> (URLSession.AuthChallengeDisposition, URLCredential?))
 
 // Store the URLSession's delegate to retain its reference
 private let sessionDelegate = SessionDelegate()
@@ -34,7 +59,7 @@ private let sessionDelegate = SessionDelegate()
 private let defaultURLSession = URLSession(configuration: .default, delegate: sessionDelegate, delegateQueue: nil)
 
 // Store current taskDidReceiveChallenge for every URLSessionTask
-private var challengeHandlerStore = SynchronizedDictionary<Int, OpenAPIClientAPIChallengeHandler>()
+private var challengeHandlerStore = SynchronizedDictionary<Int, CardScanClientAPIChallengeHandler>()
 
 // Store current URLCredential for every URLSessionTask
 private var credentialStore = SynchronizedDictionary<Int, URLCredential>()
@@ -44,7 +69,7 @@ open class URLSessionRequestBuilder<T>: RequestBuilder<T> {
     /**
      May be assigned if you want to control the authentication challenges.
      */
-    public var taskDidReceiveChallenge: OpenAPIClientAPIChallengeHandler?
+    public var taskDidReceiveChallenge: CardScanClientAPIChallengeHandler?
 
     required public init(method: String, URLString: String, parameters: [String: Any]?, headers: [String: String] = [:], requiresAuthentication: Bool) {
         super.init(method: method, URLString: URLString, parameters: parameters, headers: headers, requiresAuthentication: requiresAuthentication)
@@ -93,7 +118,7 @@ open class URLSessionRequestBuilder<T>: RequestBuilder<T> {
     }
 
     @discardableResult
-    override open func execute(_ apiResponseQueue: DispatchQueue = OpenAPIClientAPI.apiResponseQueue, _ completion: @escaping (_ result: Swift.Result<Response<T>, ErrorResponse>) -> Void) -> RequestTask {
+    override open func execute(_ apiResponseQueue: DispatchQueue = CardScanClientAPI.apiResponseQueue, _ completion: @escaping (_ result: Swift.Result<Response<T>, ErrorResponse>) -> Void) -> RequestTask {
         let urlSession = createURLSession()
 
         guard let xMethod = HTTPMethod(rawValue: method) else {
@@ -109,7 +134,7 @@ open class URLSessionRequestBuilder<T>: RequestBuilder<T> {
         case .options, .post, .put, .patch, .delete, .trace, .connect:
             let contentType = headers["Content-Type"] ?? "application/json"
 
-            if contentType.hasPrefix("application/json") {
+            if contentType.hasPrefix("application/") && contentType.contains("json") {
                 encoding = JSONDataEncoding()
             } else if contentType.hasPrefix("multipart/form-data") {
                 encoding = FormDataEncoding(contentTypeForFormPart: contentTypeForFormPart(fileURL:))
@@ -133,7 +158,7 @@ open class URLSessionRequestBuilder<T>: RequestBuilder<T> {
                  }
              }
 
-            let dataTask = urlSession.dataTask(with: request) { data, response, error in
+            let dataTask = urlSession.dataTaskFromProtocol(with: request) { data, response, error in
                 apiResponseQueue.async {
                     self.processRequestResponse(urlRequest: request, data: data, response: response, error: error, completion: completion)
                     cleanupRequest()
@@ -188,7 +213,7 @@ open class URLSessionRequestBuilder<T>: RequestBuilder<T> {
 
     open func buildHeaders() -> [String: String] {
         var httpHeaders: [String: String] = [:]
-        for (key, value) in OpenAPIClientAPI.customHeaders {
+        for (key, value) in CardScanClientAPI.customHeaders {
             httpHeaders[key] = value
         }
         for (key, value) in headers {
@@ -295,7 +320,7 @@ open class URLSessionDecodableRequestBuilder<T: Decodable>: URLSessionRequestBui
                 if let headerFileName = getFileName(fromContentDisposition: httpResponse.allHeaderFields["Content-Disposition"] as? String) {
                     requestPath = requestPath.appending("/\(headerFileName)")
                 } else {
-                    requestPath = requestPath.appending("/tmp.OpenAPIClient.\(UUID().uuidString)")
+                    requestPath = requestPath.appending("/tmp.CardScanClient.\(UUID().uuidString)")
                 }
 
                 let filePath = cachesDirectory.appendingPathComponent(requestPath)
@@ -560,9 +585,20 @@ private class FormDataEncoding: ParameterEncoding {
     func mimeType(for url: URL) -> String {
         let pathExtension = url.pathExtension
 
-        if let uti = UTTypeCreatePreferredIdentifierForTag(kUTTagClassFilenameExtension, pathExtension as NSString, nil)?.takeRetainedValue(),
-                let mimetype = UTTypeCopyPreferredTagWithClass(uti, kUTTagClassMIMEType)?.takeRetainedValue() {
-            return mimetype as String
+        if #available(iOS 15, macOS 11, *) {
+            #if canImport(UniformTypeIdentifiers)
+            if let utType = UTType(filenameExtension: pathExtension) {
+                return utType.preferredMIMEType ?? "application/octet-stream"
+            }
+            #else
+            return "application/octet-stream" 
+            #endif
+        } else {
+            if let uti = UTTypeCreatePreferredIdentifierForTag(kUTTagClassFilenameExtension, pathExtension as NSString, nil)?.takeRetainedValue(),
+                    let mimetype = UTTypeCopyPreferredTagWithClass(uti, kUTTagClassMIMEType)?.takeRetainedValue() {
+                return mimetype as String
+            }
+            return "application/octet-stream"
         }
         return "application/octet-stream"
     }
