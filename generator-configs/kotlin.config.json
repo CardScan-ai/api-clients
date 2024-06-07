@@ -1,0 +1,8 @@
+{
+  "packageName": "ai.cardscan.client",
+  "groupId": "ai.cardscan",
+  "artifactId": "cardscan-client",
+  "dateLibrary": "kotlinx-datetime",
+  "parcelizeModels": true,
+  "serializationLibrary": "kotlinx_serialization"
+}
