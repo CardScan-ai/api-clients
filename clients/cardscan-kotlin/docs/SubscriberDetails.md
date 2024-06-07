@@ -10,7 +10,7 @@ Name | Type | Description | Notes
 **middlename** | **kotlin.String** | The middle name of the subscriber. |  [optional]
 **gender** | **kotlin.String** | The gender of the subscriber. |  [optional]
 **address** | [**Address**](Address.md) |  |  [optional]
-**dob** | [**java.time.LocalDate**](java.time.LocalDate.md) | The date of birth of the subscriber. |  [optional]
+**dob** | [**kotlinx.datetime.LocalDate**](kotlinx.datetime.LocalDate.md) | The date of birth of the subscriber. |  [optional]
 
 
 

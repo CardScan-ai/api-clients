@@ -4,7 +4,6 @@
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**eligibilityRequestId** | [**java.util.UUID**](java.util.UUID.md) | The ID of the eligibility request. |  [optional]
 **subscriberDetails** | [**SubscriberDetails**](SubscriberDetails.md) |  |  [optional]
 **payerDetails** | [**PayerDetails**](PayerDetails.md) |  |  [optional]
 **planDetails** | [**PlanDetails**](PlanDetails.md) |  |  [optional]

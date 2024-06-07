@@ -8,7 +8,7 @@ Name | Type | Description | Notes
 **type** | [**inline**](#Type) |  | 
 **cardId** | **kotlin.String** |  | 
 **state** | [**CardState**](CardState.md) |  | 
-**createdAt** | [**java.time.OffsetDateTime**](java.time.OffsetDateTime.md) |  | 
+**createdAt** | [**kotlinx.datetime.Instant**](kotlinx.datetime.Instant.md) |  | 
 **sessionId** | **kotlin.String** |  |  [optional]
 **error** | [**ApiErrorResponse**](ApiErrorResponse.md) |  |  [optional]
 
