@@ -18,7 +18,7 @@ import re  # noqa: F401
 import json
 
 
-from typing import Any, Dict, Optional
+from typing import Optional
 from pydantic import BaseModel, Field, StrictStr
 
 class CardApiResponseImagesBack(BaseModel):
@@ -26,7 +26,6 @@ class CardApiResponseImagesBack(BaseModel):
     CardApiResponseImagesBack
     """
     url: Optional[StrictStr] = Field(default=None, description="The URL to the back image of the card.")
-    additional_properties: Dict[str, Any] = {}
     __properties = ["url"]
 
     class Config:
@@ -51,14 +50,8 @@ class CardApiResponseImagesBack(BaseModel):
         """Returns the dictionary representation of the model using alias"""
         _dict = self.dict(by_alias=True,
                           exclude={
-                            "additional_properties"
                           },
                           exclude_none=True)
-        # puts key-value pairs in additional_properties in the top level
-        if self.additional_properties is not None:
-            for _key, _value in self.additional_properties.items():
-                _dict[_key] = _value
-
         return _dict
 
     @classmethod
@@ -73,11 +66,6 @@ class CardApiResponseImagesBack(BaseModel):
         _obj = CardApiResponseImagesBack.parse_obj({
             "url": obj.get("url")
         })
-        # store additional fields in additional_properties
-        for _key in obj.keys():
-            if _key not in cls.__properties:
-                _obj.additional_properties[_key] = obj.get(_key)
-
         return _obj
 
 

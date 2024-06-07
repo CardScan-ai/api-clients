@@ -18,7 +18,7 @@ import re  # noqa: F401
 import json
 
 
-from typing import Any, Dict, List, Optional, Union
+from typing import List, Optional, Union
 from pydantic import BaseModel, Field, StrictFloat, StrictInt, conlist
 from cardscan_client.models.scan_metadata_capture_score_scores_inner import ScanMetadataCaptureScoreScoresInner
 
@@ -28,7 +28,6 @@ class ScanMetadataCaptureScore(BaseModel):
     """
     scores: Optional[conlist(ScanMetadataCaptureScoreScoresInner)] = Field(default=None, description="List of capture scores")
     max_lap_score: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, alias="max_lapScore", description="Maximum Laplacian score")
-    additional_properties: Dict[str, Any] = {}
     __properties = ["scores", "max_lapScore"]
 
     class Config:
@@ -53,7 +52,6 @@ class ScanMetadataCaptureScore(BaseModel):
         """Returns the dictionary representation of the model using alias"""
         _dict = self.dict(by_alias=True,
                           exclude={
-                            "additional_properties"
                           },
                           exclude_none=True)
         # override the default output from pydantic by calling `to_dict()` of each item in scores (list)
@@ -63,11 +61,6 @@ class ScanMetadataCaptureScore(BaseModel):
                 if _item:
                     _items.append(_item.to_dict())
             _dict['scores'] = _items
-        # puts key-value pairs in additional_properties in the top level
-        if self.additional_properties is not None:
-            for _key, _value in self.additional_properties.items():
-                _dict[_key] = _value
-
         return _dict
 
     @classmethod
@@ -83,11 +76,6 @@ class ScanMetadataCaptureScore(BaseModel):
             "scores": [ScanMetadataCaptureScoreScoresInner.from_dict(_item) for _item in obj.get("scores")] if obj.get("scores") is not None else None,
             "max_lap_score": obj.get("max_lapScore")
         })
-        # store additional fields in additional_properties
-        for _key in obj.keys():
-            if _key not in cls.__properties:
-                _obj.additional_properties[_key] = obj.get(_key)
-
         return _obj
 
 
