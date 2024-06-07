@@ -43,11 +43,23 @@ export interface PlanDetails {
    */
   plan_start_date?: string;
   /**
+   * The end date of the plan.
+   * @type {string}
+   * @memberof PlanDetails
+   */
+  plan_end_date?: string;
+  /**
    * The eligibility start date of the plan.
    * @type {string}
    * @memberof PlanDetails
    */
   plan_eligibility_start_date?: string;
+  /**
+   * The eligibility end date of the plan.
+   * @type {string}
+   * @memberof PlanDetails
+   */
+  plan_eligibility_end_date?: string;
   /**
    * The name of the plan.
    * @type {string}

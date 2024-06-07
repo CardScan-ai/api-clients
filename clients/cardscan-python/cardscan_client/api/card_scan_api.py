@@ -137,16 +137,19 @@ class CardScanApi:
             async for message in ws:
                 event = json.loads(message)
 
+                if event['type'] != 'card':
+                    continue
+
                 if event["state"] in front_side_rejection_states:
                     raise Exception(
                             f"Front side failed: {event.get('error', {}).get('message', 'Unknown error')}"
                         )
 
-                if event['state'] == CardState.COMPLETED and event['type'] == 'card':
+                if event['state'] == CardState.COMPLETED:
                     result = CardWebsocketEvent.from_dict(event)
                     break
 
-                if event["state"] == CardState.BACKSIDE_PROCESSING and event["type"] == "card":
+                if event["state"] == CardState.BACKSIDE_PROCESSING:
                     break
 
             if back_image_path is None:
@@ -182,6 +185,9 @@ class CardScanApi:
 
             async for message in ws:
                 event = json.loads(message)
+
+                if event['type'] != 'card':
+                    continue
 
                 if event["state"] in back_side_rejection_states:
                     raise Exception(
@@ -224,6 +230,9 @@ class CardScanApi:
 
             async for message in ws:
                 event = json.loads(message)
+
+                if event['type'] != 'eligibility':
+                    continue
 
                 if event["state"] == EligibilityState.COMPLETED:
                     result = EligibilityWebsocketEvent.from_dict(event)
