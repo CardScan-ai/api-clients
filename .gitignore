@@ -6,3 +6,7 @@
 **/.vscode
 clients/cardscan-python/main.py
 clients/cardscan-python/images/
+
+
+**/main.*
+**/Main.*
