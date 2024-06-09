@@ -180,7 +180,9 @@ class Configuration:
         """date format
         """
 
-        self.websocket_url = websocket_url or f"wss://{prefix}-ws.cardscan.ai"
+        websocket_prefixes = 'sandbox-ws' if environment == 'sandbox' else 'ws'
+
+        self.websocket_url = websocket_url or f"wss://{prefix}.cardscan.ai"
         """websocket url
         """
 
