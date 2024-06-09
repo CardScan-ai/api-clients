@@ -130,10 +130,7 @@ docs/UploadParameters.md
 docs/ValidateMagicLink200Response.md
 docs/WebsocketError.md
 git_push.sh
-pyproject.toml
 requirements.txt
 setup.cfg
-setup.py
 test-requirements.txt
-test/__init__.py
 tox.ini

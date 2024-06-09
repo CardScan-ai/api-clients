@@ -19,21 +19,18 @@ import json
 
 
 from typing import Optional
-from pydantic import BaseModel, Field, StrictStr, constr
+from pydantic import BaseModel, Field, constr
 
 class Address(BaseModel):
     """
-    Address: N3 and N4  # noqa: E501
+    Address
     """
-    address1: Optional[constr(strict=True, max_length=55, min_length=0)] = Field(default=None, description="Segment: N3, Element: N301, Notes: Required, Address Information")
-    address2: Optional[constr(strict=True, max_length=55, min_length=0)] = Field(default=None, description="Segment: N3, Element: N302, Notes: Address Information")
-    city: Optional[constr(strict=True, max_length=30, min_length=0)] = Field(default=None, description="Segment: N4, Element: N401, Notes: Required, city")
-    state: Optional[constr(strict=True, max_length=2, min_length=0)] = Field(default=None, description="Segment: N4, Element: N402, Notes: state example: TN, WA")
-    postal_code: Optional[constr(strict=True, max_length=15, min_length=0)] = Field(default=None, alias="postalCode", description="Segment: N4, Element: N403")
-    country_code: Optional[StrictStr] = Field(default=None, alias="countryCode", description="Segment: N4, Element: N404")
-    location_identifier: Optional[StrictStr] = Field(default=None, alias="locationIdentifier", description="Segment: N4, Element: N406")
-    country_sub_division_code: Optional[StrictStr] = Field(default=None, alias="countrySubDivisionCode", description="Segment: N4, Element: N407, Notes: Country SubDivision Code")
-    __properties = ["address1", "address2", "city", "state", "postalCode", "countryCode", "locationIdentifier", "countrySubDivisionCode"]
+    address1: Optional[constr(strict=True, max_length=55, min_length=0)] = None
+    address2: Optional[constr(strict=True, max_length=55, min_length=0)] = None
+    city: Optional[constr(strict=True, max_length=30, min_length=0)] = None
+    state: Optional[constr(strict=True, max_length=2, min_length=0)] = None
+    postal_code: Optional[constr(strict=True, max_length=15, min_length=0)] = Field(default=None, alias="postalCode")
+    __properties = ["address1", "address2", "city", "state", "postalCode"]
 
     class Config:
         """Pydantic configuration"""
@@ -75,10 +72,7 @@ class Address(BaseModel):
             "address2": obj.get("address2"),
             "city": obj.get("city"),
             "state": obj.get("state"),
-            "postal_code": obj.get("postalCode"),
-            "country_code": obj.get("countryCode"),
-            "location_identifier": obj.get("locationIdentifier"),
-            "country_sub_division_code": obj.get("countrySubDivisionCode")
+            "postal_code": obj.get("postalCode")
         })
         return _obj
 

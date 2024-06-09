@@ -18,7 +18,7 @@ import re  # noqa: F401
 import json
 
 
-from typing import Any, Dict
+
 from pydantic import BaseModel, Field, constr
 
 class ProviderDto(BaseModel):
@@ -28,7 +28,6 @@ class ProviderDto(BaseModel):
     first_name: constr(strict=True, max_length=35, min_length=1) = Field(default=..., alias="firstName", description="Loop: 2100B Segment: MN1, Element: NM104, Notes: NM101=PR when providerType='payer' && payerId is present otherwise 1P for Provider, NM102=1 Person, firstName 1-35 alphanumeric characters ")
     last_name: constr(strict=True, max_length=60, min_length=1) = Field(default=..., alias="lastName", description="Loop: 2100B Segment: MN1, Element: NM103, Notes: NM101=PR when providerType='payer' && payerId is present otherwise 1P for Provider, NM102=1 Person, lastName 1-60 alphanumeric characters ")
     npi: constr(strict=True, max_length=80, min_length=1) = Field(default=..., description="Loop: 2100B Segment: MN1, Element: NM109, Notes: NM108=XX Centers for Medicare and Medicaid Services National Provider Identifier 2-80 alphanumeric characters ")
-    additional_properties: Dict[str, Any] = {}
     __properties = ["firstName", "lastName", "npi"]
 
     class Config:
@@ -53,14 +52,8 @@ class ProviderDto(BaseModel):
         """Returns the dictionary representation of the model using alias"""
         _dict = self.dict(by_alias=True,
                           exclude={
-                            "additional_properties"
                           },
                           exclude_none=True)
-        # puts key-value pairs in additional_properties in the top level
-        if self.additional_properties is not None:
-            for _key, _value in self.additional_properties.items():
-                _dict[_key] = _value
-
         return _dict
 
     @classmethod
@@ -77,11 +70,6 @@ class ProviderDto(BaseModel):
             "last_name": obj.get("lastName"),
             "npi": obj.get("npi")
         })
-        # store additional fields in additional_properties
-        for _key in obj.keys():
-            if _key not in cls.__properties:
-                _obj.additional_properties[_key] = obj.get(_key)
-
         return _obj
 
 

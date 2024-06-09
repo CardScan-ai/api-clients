@@ -18,7 +18,7 @@ import re  # noqa: F401
 import json
 
 
-from typing import Any, Dict, Optional
+from typing import Optional
 from pydantic import BaseModel, Field, StrictStr
 
 class CoPayment(BaseModel):
@@ -26,7 +26,6 @@ class CoPayment(BaseModel):
     CoPayment
     """
     amount: Optional[StrictStr] = Field(default=None, description="The co-payment amount.")
-    additional_properties: Dict[str, Any] = {}
     __properties = ["amount"]
 
     class Config:
@@ -51,14 +50,8 @@ class CoPayment(BaseModel):
         """Returns the dictionary representation of the model using alias"""
         _dict = self.dict(by_alias=True,
                           exclude={
-                            "additional_properties"
                           },
                           exclude_none=True)
-        # puts key-value pairs in additional_properties in the top level
-        if self.additional_properties is not None:
-            for _key, _value in self.additional_properties.items():
-                _dict[_key] = _value
-
         return _dict
 
     @classmethod
@@ -73,11 +66,6 @@ class CoPayment(BaseModel):
         _obj = CoPayment.parse_obj({
             "amount": obj.get("amount")
         })
-        # store additional fields in additional_properties
-        for _key in obj.keys():
-            if _key not in cls.__properties:
-                _obj.additional_properties[_key] = obj.get(_key)
-
         return _obj
 
 

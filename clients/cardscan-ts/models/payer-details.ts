@@ -34,4 +34,10 @@ export interface PayerDetails {
    * @memberof PayerDetails
    */
   address?: Address;
+  /**
+   *
+   * @type {string}
+   * @memberof PayerDetails
+   */
+  url?: string;
 }

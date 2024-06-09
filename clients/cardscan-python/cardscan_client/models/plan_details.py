@@ -18,7 +18,7 @@ import re  # noqa: F401
 import json
 
 from datetime import date
-from typing import Any, Dict, Optional
+from typing import Optional
 from pydantic import BaseModel, Field, StrictBool, StrictStr
 
 class PlanDetails(BaseModel):
@@ -29,11 +29,12 @@ class PlanDetails(BaseModel):
     group_name: Optional[StrictStr] = Field(default=None, description="The name of the group associated with the plan.")
     group_number: Optional[StrictStr] = Field(default=None, description="The group number.")
     plan_start_date: Optional[date] = Field(default=None, description="The start date of the plan.")
+    plan_end_date: Optional[date] = Field(default=None, description="The end date of the plan.")
     plan_eligibility_start_date: Optional[date] = Field(default=None, description="The eligibility start date of the plan.")
+    plan_eligibility_end_date: Optional[date] = Field(default=None, description="The eligibility end date of the plan.")
     plan_name: Optional[StrictStr] = Field(default=None, description="The name of the plan.")
     plan_active: Optional[StrictBool] = Field(default=None, description="Indicates whether the plan is active.")
-    additional_properties: Dict[str, Any] = {}
-    __properties = ["plan_number", "group_name", "group_number", "plan_start_date", "plan_eligibility_start_date", "plan_name", "plan_active"]
+    __properties = ["plan_number", "group_name", "group_number", "plan_start_date", "plan_end_date", "plan_eligibility_start_date", "plan_eligibility_end_date", "plan_name", "plan_active"]
 
     class Config:
         """Pydantic configuration"""
@@ -57,14 +58,8 @@ class PlanDetails(BaseModel):
         """Returns the dictionary representation of the model using alias"""
         _dict = self.dict(by_alias=True,
                           exclude={
-                            "additional_properties"
                           },
                           exclude_none=True)
-        # puts key-value pairs in additional_properties in the top level
-        if self.additional_properties is not None:
-            for _key, _value in self.additional_properties.items():
-                _dict[_key] = _value
-
         return _dict
 
     @classmethod
@@ -81,15 +76,12 @@ class PlanDetails(BaseModel):
             "group_name": obj.get("group_name"),
             "group_number": obj.get("group_number"),
             "plan_start_date": obj.get("plan_start_date"),
+            "plan_end_date": obj.get("plan_end_date"),
             "plan_eligibility_start_date": obj.get("plan_eligibility_start_date"),
+            "plan_eligibility_end_date": obj.get("plan_eligibility_end_date"),
             "plan_name": obj.get("plan_name"),
             "plan_active": obj.get("plan_active")
         })
-        # store additional fields in additional_properties
-        for _key in obj.keys():
-            if _key not in cls.__properties:
-                _obj.additional_properties[_key] = obj.get(_key)
-
         return _obj
 
 

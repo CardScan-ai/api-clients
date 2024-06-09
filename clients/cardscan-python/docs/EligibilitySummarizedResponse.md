@@ -4,7 +4,6 @@
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**eligibility_request_id** | **str** | The ID of the eligibility request. | [optional] 
 **subscriber_details** | [**SubscriberDetails**](SubscriberDetails.md) |  | [optional] 
 **payer_details** | [**PayerDetails**](PayerDetails.md) |  | [optional] 
 **plan_details** | [**PlanDetails**](PlanDetails.md) |  | [optional] 

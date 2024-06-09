@@ -24,5 +24,8 @@
 README.md
 test/test_pipelines.py
 test/cards/
+test/*
 pyproject.toml
 setup.py
+test-requirements.txt
+requirements.txt

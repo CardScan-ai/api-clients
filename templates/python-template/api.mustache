@@ -31,6 +31,8 @@ from {{packageName}}.exceptions import (  # noqa: F401
     ApiValueError
 )
 
+from typing import Optional, Union
+
 
 {{#operations}}
 class {{classname}}:
@@ -54,7 +56,7 @@ class {{classname}}:
 
     def full_scan(
         self, front_image_path: str, back_image_path: Optional[str] = None
-    ) -> CardWebsocketEvent:
+    ) -> Union[CardApiResponse, None]:
         """
         Perform a full scan of a card, including both sides of a card.
         :param back_image_path: The path to the back image of the card.
@@ -65,7 +67,7 @@ class {{classname}}:
 
     async def _full_scan(
         self, front_image_path: str, back_image_path: Optional[str] = None
-    ) -> CardWebsocketEvent:
+    ) -> Union[CardApiResponse, None]:
         """
         Perform a full scan of a card, including both sides of a card.
         :param back_image_path: The path to the back image of the card. (optional)
@@ -112,19 +114,27 @@ class {{classname}}:
             async for message in ws:
                 event = json.loads(message)
 
+                if event['type'] != 'card':
+                    continue
+
                 if event["state"] in front_side_rejection_states:
                     raise Exception(
                             f"Front side failed: {event.get('error', {}).get('message', 'Unknown error')}"
                         )
 
-                if event['state'] == CardState.COMPLETED and event['type'] == 'card':
+                if event['state'] == CardState.COMPLETED:
                     result = CardWebsocketEvent.from_dict(event)
                     break
 
-                if event["state"] == CardState.BACKSIDE_PROCESSING and event["type"] == "card":
+                if event["state"] == CardState.BACKSIDE_PROCESSING:
                     break
 
             if back_image_path is None:
+                if result:
+                    card = self.get_card_by_id(result.card_id)
+
+                    return card
+
                 return result
 
             back_upload_url_response = self.generate_card_upload_url(
@@ -153,6 +163,9 @@ class {{classname}}:
             async for message in ws:
                 event = json.loads(message)
 
+                if event['type'] != 'card':
+                    continue
+
                 if event["state"] in back_side_rejection_states:
                     raise Exception(
                             f"Back side failed: {event.get('error', {}).get('message', 'Unknown error')}"
@@ -164,9 +177,12 @@ class {{classname}}:
 
             await ws.close()
 
-        return result
+        if result:
+            card = self.get_card_by_id(result.card_id)
 
-    def check_eligibility(self, create_eligibility_request: CreateEligibilityRequest) -> EligibilityWebsocketEvent:
+            return card
+
+    def check_eligibility(self, create_eligibility_request: CreateEligibilityRequest) -> Union[EligibilityApiResponse, None]:
         """
         Check the eligibility of a card.
         :param create_eligibility_request: The request object.
@@ -176,7 +192,7 @@ class {{classname}}:
 
     async def _check_eligibility(
         self, create_eligibility_request: CreateEligibilityRequest
-    ) -> EligibilityWebsocketEvent:
+    ) -> Union[EligibilityApiResponse, None]:
         if not self.websocket_url:
             raise ValueError("This method cannot be called without a websocket URL.")
 
@@ -192,13 +208,19 @@ class {{classname}}:
             async for message in ws:
                 event = json.loads(message)
 
+                if event['type'] != 'eligibility':
+                    continue
+
                 if event["state"] == EligibilityState.COMPLETED:
                     result = EligibilityWebsocketEvent.from_dict(event)
                     break
                 elif event["state"] == EligibilityState.ERROR:
                     raise Exception(f"Eligibility check failed: {event['error']}")
 
-        return result
+        if result:
+            eligibility = self.get_eligibility_by_id(result.eligibility_id)
+
+            return eligibility
 
 {{#operation}}
 

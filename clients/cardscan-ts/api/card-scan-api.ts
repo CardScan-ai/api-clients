@@ -27,6 +27,7 @@ import {
   EligibilityWebsocketEvent,
   EligibilityState,
   UploadParameters,
+  CardWebsocketEventTypeEnum,
 } from "../models";
 // Some imports not used depending on template conditions
 // @ts-ignore
@@ -1768,6 +1769,8 @@ export class CardScanApi extends BaseAPI {
               const data: CardWebsocketEvent = JSON.parse(event.data as string);
               this.debug(`Received websocket message: ${event.data}`);
 
+              if (data.type !== CardWebsocketEventTypeEnum.Card) return;
+
               if (frontSideRejectionStates.includes(data.state)) {
                 this.debug(
                   `Received reject state while processing frontside: ${data.state}`,
@@ -1791,7 +1794,12 @@ export class CardScanApi extends BaseAPI {
 
         if (!backImage) {
           this.info("Full scan completed successfully");
-          return resolve(frontSideEvent);
+
+          this.debug("Fetching card details...");
+          const cardDetails = (await this.getCardById(frontSideEvent.card_id))
+            .data;
+
+          return resolve(cardDetails);
         }
 
         this.debug("Generating back side upload URL...");
@@ -1852,6 +1860,8 @@ export class CardScanApi extends BaseAPI {
               const data: CardWebsocketEvent = JSON.parse(event.data as string);
               this.debug(`Received websocket message: ${event.data}`);
 
+              if (data.type !== CardWebsocketEventTypeEnum.Card) return;
+
               if (backSideRejectionStates.includes(data.state)) {
                 this.debug(
                   `Received reject state while processing backside: ${data.state}`,
@@ -1870,7 +1880,10 @@ export class CardScanApi extends BaseAPI {
         );
 
         this.info("Full scan completed successfully");
-        resolve(event);
+        this.debug("Fetching card details...");
+
+        const cardDetails = (await this.getCardById(event.card_id)).data;
+        resolve(cardDetails);
       });
     });
   }
