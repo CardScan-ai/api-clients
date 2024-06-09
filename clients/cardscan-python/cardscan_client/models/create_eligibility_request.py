@@ -18,7 +18,7 @@ import re  # noqa: F401
 import json
 
 
-from typing import Any, Dict
+
 from pydantic import BaseModel, Field, StrictStr
 from cardscan_client.models.eligibility_info import EligibilityInfo
 
@@ -28,7 +28,6 @@ class CreateEligibilityRequest(BaseModel):
     """
     eligibility: EligibilityInfo = Field(...)
     card_id: StrictStr = Field(default=..., description="The ID of the card.")
-    additional_properties: Dict[str, Any] = {}
     __properties = ["eligibility", "card_id"]
 
     class Config:
@@ -53,17 +52,11 @@ class CreateEligibilityRequest(BaseModel):
         """Returns the dictionary representation of the model using alias"""
         _dict = self.dict(by_alias=True,
                           exclude={
-                            "additional_properties"
                           },
                           exclude_none=True)
         # override the default output from pydantic by calling `to_dict()` of eligibility
         if self.eligibility:
             _dict['eligibility'] = self.eligibility.to_dict()
-        # puts key-value pairs in additional_properties in the top level
-        if self.additional_properties is not None:
-            for _key, _value in self.additional_properties.items():
-                _dict[_key] = _value
-
         return _dict
 
     @classmethod
@@ -79,11 +72,6 @@ class CreateEligibilityRequest(BaseModel):
             "eligibility": EligibilityInfo.from_dict(obj.get("eligibility")) if obj.get("eligibility") is not None else None,
             "card_id": obj.get("card_id")
         })
-        # store additional fields in additional_properties
-        for _key in obj.keys():
-            if _key not in cls.__properties:
-                _obj.additional_properties[_key] = obj.get(_key)
-
         return _obj
 
 

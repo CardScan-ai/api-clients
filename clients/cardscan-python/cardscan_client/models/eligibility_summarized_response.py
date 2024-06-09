@@ -19,7 +19,7 @@ import json
 
 
 from typing import Optional
-from pydantic import BaseModel, Field, StrictStr
+from pydantic import BaseModel
 from cardscan_client.models.coverage_summary import CoverageSummary
 from cardscan_client.models.payer_details import PayerDetails
 from cardscan_client.models.plan_details import PlanDetails
@@ -30,7 +30,6 @@ class EligibilitySummarizedResponse(BaseModel):
     """
     EligibilitySummarizedResponse
     """
-    eligibility_request_id: Optional[StrictStr] = Field(default=None, description="The ID of the eligibility request.")
     subscriber_details: Optional[SubscriberDetails] = None
     payer_details: Optional[PayerDetails] = None
     plan_details: Optional[PlanDetails] = None
@@ -40,7 +39,7 @@ class EligibilitySummarizedResponse(BaseModel):
     office_visit: Optional[Service] = None
     urgent_care: Optional[Service] = None
     hospital_outpatient: Optional[Service] = None
-    __properties = ["eligibility_request_id", "subscriber_details", "payer_details", "plan_details", "coverage_summary", "chiropractic", "emergency_room", "office_visit", "urgent_care", "hospital_outpatient"]
+    __properties = ["subscriber_details", "payer_details", "plan_details", "coverage_summary", "chiropractic", "emergency_room", "office_visit", "urgent_care", "hospital_outpatient"]
 
     class Config:
         """Pydantic configuration"""
@@ -105,7 +104,6 @@ class EligibilitySummarizedResponse(BaseModel):
             return EligibilitySummarizedResponse.parse_obj(obj)
 
         _obj = EligibilitySummarizedResponse.parse_obj({
-            "eligibility_request_id": obj.get("eligibility_request_id"),
             "subscriber_details": SubscriberDetails.from_dict(obj.get("subscriber_details")) if obj.get("subscriber_details") is not None else None,
             "payer_details": PayerDetails.from_dict(obj.get("payer_details")) if obj.get("payer_details") is not None else None,
             "plan_details": PlanDetails.from_dict(obj.get("plan_details")) if obj.get("plan_details") is not None else None,

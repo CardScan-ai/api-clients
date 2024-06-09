@@ -8,7 +8,9 @@ Name | Type | Description | Notes
 **group_name** | **str** | The name of the group associated with the plan. | [optional] 
 **group_number** | **str** | The group number. | [optional] 
 **plan_start_date** | **date** | The start date of the plan. | [optional] 
+**plan_end_date** | **date** | The end date of the plan. | [optional] 
 **plan_eligibility_start_date** | **date** | The eligibility start date of the plan. | [optional] 
+**plan_eligibility_end_date** | **date** | The eligibility end date of the plan. | [optional] 
 **plan_name** | **str** | The name of the plan. | [optional] 
 **plan_active** | **bool** | Indicates whether the plan is active. | [optional] 
 

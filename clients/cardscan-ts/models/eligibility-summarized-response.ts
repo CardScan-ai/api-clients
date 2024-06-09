@@ -35,12 +35,6 @@ import { SubscriberDetails } from "./subscriber-details";
  */
 export interface EligibilitySummarizedResponse {
   /**
-   * The ID of the eligibility request.
-   * @type {string}
-   * @memberof EligibilitySummarizedResponse
-   */
-  eligibility_request_id?: string;
-  /**
    *
    * @type {SubscriberDetails}
    * @memberof EligibilitySummarizedResponse
