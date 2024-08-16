@@ -130,7 +130,5 @@ docs/UploadParameters.md
 docs/ValidateMagicLink200Response.md
 docs/WebsocketError.md
 git_push.sh
-requirements.txt
 setup.cfg
-test-requirements.txt
 tox.ini
