@@ -34,6 +34,7 @@ jobs:
       uses: openapi-generators/openapitools-generator-action@v1
       with:
         generator: typescript-axios
+        openapi-file: openapi.yaml
         config-file: openapi-generator-configs/ts.config.json
         template-dir: templates/typescript-template
 
@@ -48,5 +49,6 @@ jobs:
       uses: openapi-generators/openapitools-generator-action@v1
       with:
         generator: python-pydantic-v1
+        openapi-file: openapi.yaml
         config-file: openapi-generator-configs/python.config.json
         template-dir: templates/python-template
