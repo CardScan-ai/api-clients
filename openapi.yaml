@@ -802,16 +802,381 @@ components:
           $ref: '#/components/schemas/PlanDetails'
         coverage_summary:
           $ref: '#/components/schemas/CoverageSummary'
+        abortion:
+          $ref: '#/components/schemas/Service'
+        acupuncture:
+          $ref: '#/components/schemas/Service'
+        adjunctive_dental_services:
+          $ref: '#/components/schemas/Service'
+        aids:
+          $ref: '#/components/schemas/Service'
+        air_transportation:
+          $ref: '#/components/schemas/Service'
+        alcoholism:
+          $ref: '#/components/schemas/Service'
+        allergy:
+          $ref: '#/components/schemas/Service'
+        allergy_testing:
+          $ref: '#/components/schemas/Service'
+        alternate_method_dialysis:
+          $ref: '#/components/schemas/Service'
+        ambulatory_service_center_facility:
+          $ref: '#/components/schemas/Service'
+        anesthesia:
+          $ref: '#/components/schemas/Service'
+        anesthesiologist:
+          $ref: '#/components/schemas/Service'
+        audiology_exam:
+          $ref: '#/components/schemas/Service'
+        blood_charges:
+          $ref: '#/components/schemas/Service'
+        brand_name_prescription_drug:
+          $ref: '#/components/schemas/Service'
+        brand_name_prescription_drug_formulary:
+          $ref: '#/components/schemas/Service'
+        brand_name_prescription_drug_non_formulary:
+          $ref: '#/components/schemas/Service'
+        burn_care:
+          $ref: '#/components/schemas/Service'
+        cabulance:
+          $ref: '#/components/schemas/Service'
+        cancer:
+          $ref: '#/components/schemas/Service'
+        cardiac:
+          $ref: '#/components/schemas/Service'
+        cardiac_rehabilitation:
+          $ref: '#/components/schemas/Service'
+        case_management:
+          $ref: '#/components/schemas/Service'
+        chemotherapy:
+          $ref: '#/components/schemas/Service'
         chiropractic:
+          $ref: '#/components/schemas/Service'
+        chiropractic_office_visits:
+          $ref: '#/components/schemas/Service'
+        chronic_renal_disease_crd_equipment:
+          $ref: '#/components/schemas/Service'
+        cognitive_therapy:
+          $ref: '#/components/schemas/Service'
+        consultation:
+          $ref: '#/components/schemas/Service'
+        coronary_care:
+          $ref: '#/components/schemas/Service'
+        day_care_psychiatric:
+          $ref: '#/components/schemas/Service'
+        dental_accident:
+          $ref: '#/components/schemas/Service'
+        dental_care:
+          $ref: '#/components/schemas/Service'
+        dental_crowns:
+          $ref: '#/components/schemas/Service'
+        dermatology:
+          $ref: '#/components/schemas/Service'
+        diabetic_supplies:
+          $ref: '#/components/schemas/Service'
+        diagnostic_dental:
+          $ref: '#/components/schemas/Service'
+        diagnostic_lab:
+          $ref: '#/components/schemas/Service'
+        diagnostic_medical:
+          $ref: '#/components/schemas/Service'
+        diagnostic_x_ray:
+          $ref: '#/components/schemas/Service'
+        dialysis:
+          $ref: '#/components/schemas/Service'
+        donor_procedures:
+          $ref: '#/components/schemas/Service'
+        drug_addiction:
+          $ref: '#/components/schemas/Service'
+        durable_medical_equipment:
+          $ref: '#/components/schemas/Service'
+        durable_medical_equipment_purchase:
+          $ref: '#/components/schemas/Service'
+        durable_medical_equipment_rental:
           $ref: '#/components/schemas/Service'
         emergency_room:
           $ref: '#/components/schemas/Service'
-        office_visit:
+        endocrine:
           $ref: '#/components/schemas/Service'
-        urgent_care:
+        endodontics:
+          $ref: '#/components/schemas/Service'
+        experimental_drug_therapy:
+          $ref: '#/components/schemas/Service'
+        eye:
+          $ref: '#/components/schemas/Service'
+        eyewear_and_eyewear_accessories:
+          $ref: '#/components/schemas/Service'
+        family_planning:
+          $ref: '#/components/schemas/Service'
+        flu_vaccination:
+          $ref: '#/components/schemas/Service'
+        frames:
+          $ref: '#/components/schemas/Service'
+        free_standing_prescription_drug:
+          $ref: '#/components/schemas/Service'
+        gastrointestinal:
+          $ref: '#/components/schemas/Service'
+        general_benefits:
+          $ref: '#/components/schemas/Service'
+        generic_prescription_drug:
+          $ref: '#/components/schemas/Service'
+        generic_prescription_drug_formulary:
+          $ref: '#/components/schemas/Service'
+        generic_prescription_drug_non_formulary:
+          $ref: '#/components/schemas/Service'
+        gynecological:
+          $ref: '#/components/schemas/Service'
+        home_health_care:
+          $ref: '#/components/schemas/Service'
+        home_health_prescriptions:
+          $ref: '#/components/schemas/Service'
+        home_health_visits:
+          $ref: '#/components/schemas/Service'
+        hospice:
+          $ref: '#/components/schemas/Service'
+        hospital_inpatient:
+          $ref: '#/components/schemas/Service'
+        hospital_ambulatory_surgical:
+          $ref: '#/components/schemas/Service'
+        hospital_emergency_accident:
+          $ref: '#/components/schemas/Service'
+        hospital_emergency_medical:
           $ref: '#/components/schemas/Service'
         hospital_outpatient:
           $ref: '#/components/schemas/Service'
+        hospital_room_and_board:
+          $ref: '#/components/schemas/Service'
+        immunizations:
+          $ref: '#/components/schemas/Service'
+        in_vitro_fertilization:
+          $ref: '#/components/schemas/Service'
+        independent_medical_evaluation:
+          $ref: '#/components/schemas/Service'
+        infertility:
+          $ref: '#/components/schemas/Service'
+        inhalation_therapy:
+          $ref: '#/components/schemas/Service'
+        intensive_care:
+          $ref: '#/components/schemas/Service'
+        invasive_procedures:
+          $ref: '#/components/schemas/Service'
+        lenses:
+          $ref: '#/components/schemas/Service'
+        licensed_ambulance:
+          $ref: '#/components/schemas/Service'
+        long_term_care:
+          $ref: '#/components/schemas/Service'
+        lymphatic:
+          $ref: '#/components/schemas/Service'
+        mail_order_prescription_drug:
+          $ref: '#/components/schemas/Service'
+        mail_order_prescription_drug_brand_name:
+          $ref: '#/components/schemas/Service'
+        mail_order_prescription_drug_generic:
+          $ref: '#/components/schemas/Service'
+        major_medical:
+          $ref: '#/components/schemas/Service'
+        mammogram_high_risk_patient:
+          $ref: '#/components/schemas/Service'
+        mammogram_low_risk_patient:
+          $ref: '#/components/schemas/Service'
+        massage_therapy:
+          $ref: '#/components/schemas/Service'
+        maternity:
+          $ref: '#/components/schemas/Service'
+        maxillofacial_prosthetics:
+          $ref: '#/components/schemas/Service'
+        medical_care:
+          $ref: '#/components/schemas/Service'
+        medically_related_transportation:
+          $ref: '#/components/schemas/Service'
+        mental_health:
+          $ref: '#/components/schemas/Service'
+        mental_health_facility_inpatient:
+          $ref: '#/components/schemas/Service'
+        mental_health_facility_outpatient:
+          $ref: '#/components/schemas/Service'
+        mental_health_provider_inpatient:
+          $ref: '#/components/schemas/Service'
+        mental_health_provider_outpatient:
+          $ref: '#/components/schemas/Service'
+        mri_cat_scan:
+          $ref: '#/components/schemas/Service'
+        neonatal_intensive_care:
+          $ref: '#/components/schemas/Service'
+        neurology:
+          $ref: '#/components/schemas/Service'
+        newborn_care:
+          $ref: '#/components/schemas/Service'
+        nonmedically_necessary_physical:
+          $ref: '#/components/schemas/Service'
+        nursery:
+          $ref: '#/components/schemas/Service'
+        obstetrical:
+          $ref: '#/components/schemas/Service'
+        obstetrical_gynecological:
+          $ref: '#/components/schemas/Service'
+        occupational_therapy:
+          $ref: '#/components/schemas/Service'
+        oncology:
+          $ref: '#/components/schemas/Service'
+        oral_surgery:
+          $ref: '#/components/schemas/Service'
+        orthodontics:
+          $ref: '#/components/schemas/Service'
+        orthopedic:
+          $ref: '#/components/schemas/Service'
+        other_medical:
+          $ref: '#/components/schemas/Service'
+        otological_exam:
+          $ref: '#/components/schemas/Service'
+        partial_hospitalization_psychiatric:
+          $ref: '#/components/schemas/Service'
+        pathology:
+          $ref: '#/components/schemas/Service'
+        pediatric:
+          $ref: '#/components/schemas/Service'
+        periodontics:
+          $ref: '#/components/schemas/Service'
+        pharmacy:
+          $ref: '#/components/schemas/Service'
+        physical_medicine:
+          $ref: '#/components/schemas/Service'
+        physical_therapy:
+          $ref: '#/components/schemas/Service'
+        physician_visit_office_sick:
+          $ref: '#/components/schemas/Service'
+        physician_visit_office_well:
+          $ref: '#/components/schemas/Service'
+        plan_waiting_period:
+          $ref: '#/components/schemas/Service'
+        pneumonia_vaccine:
+          $ref: '#/components/schemas/Service'
+        podiatry:
+          $ref: '#/components/schemas/Service'
+        podiatry_nursing_home_visits:
+          $ref: '#/components/schemas/Service'
+        podiatry_office_visits:
+          $ref: '#/components/schemas/Service'
+        pre_admission_testing:
+          $ref: '#/components/schemas/Service'
+        private_duty_nursing:
+          $ref: '#/components/schemas/Service'
+        private_duty_nursing_home:
+          $ref: '#/components/schemas/Service'
+        private_duty_nursing_inpatient:
+          $ref: '#/components/schemas/Service'
+        professional_physician:
+          $ref: '#/components/schemas/Service'
+        professional_physician_visit_home:
+          $ref: '#/components/schemas/Service'
+        professional_physician_visit_inpatient:
+          $ref: '#/components/schemas/Service'
+        professional_physician_visit_nursing_home:
+          $ref: '#/components/schemas/Service'
+        office_visit:
+          $ref: '#/components/schemas/Service'
+        professional_physician_visit_outpatient:
+          $ref: '#/components/schemas/Service'
+        professional_physician_visit_skilled_nursing:
+          $ref: '#/components/schemas/Service'
+        prosthetic_device:
+          $ref: '#/components/schemas/Service'
+        prosthodontics:
+          $ref: '#/components/schemas/Service'
+        psychiatric:
+          $ref: '#/components/schemas/Service'
+        psychiatric_inpatient:
+          $ref: '#/components/schemas/Service'
+        psychiatric_outpatient:
+          $ref: '#/components/schemas/Service'
+        psychiatric_room_and_board:
+          $ref: '#/components/schemas/Service'
+        psychotherapy:
+          $ref: '#/components/schemas/Service'
+        pulmonary:
+          $ref: '#/components/schemas/Service'
+        pulmonary_rehabilitation:
+          $ref: '#/components/schemas/Service'
+        radiation_therapy:
+          $ref: '#/components/schemas/Service'
+        rehabilitation:
+          $ref: '#/components/schemas/Service'
+        rehabilitation_inpatient:
+          $ref: '#/components/schemas/Service'
+        rehabilitation_outpatient:
+          $ref: '#/components/schemas/Service'
+        rehabilitation_room_and_board:
+          $ref: '#/components/schemas/Service'
+        renal:
+          $ref: '#/components/schemas/Service'
+        renal_supplies_in_the_home:
+          $ref: '#/components/schemas/Service'
+        residential_psychiatric_treatment:
+          $ref: '#/components/schemas/Service'
+        respite_care:
+          $ref: '#/components/schemas/Service'
+        restorative:
+          $ref: '#/components/schemas/Service'
+        routine_preventive_dental:
+          $ref: '#/components/schemas/Service'
+        routine_exam_use_for_routine_vision_exam_only:
+          $ref: '#/components/schemas/Service'
+        routine_physical:
+          $ref: '#/components/schemas/Service'
+        screening_laboratory:
+          $ref: '#/components/schemas/Service'
+        screening_x_ray:
+          $ref: '#/components/schemas/Service'
+        second_surgical_opinion:
+          $ref: '#/components/schemas/Service'
+        skilled_nursing_care:
+          $ref: '#/components/schemas/Service'
+        skilled_nursing_care_room_and_board:
+          $ref: '#/components/schemas/Service'
+        skin:
+          $ref: '#/components/schemas/Service'
+        smoking_cessation:
+          $ref: '#/components/schemas/Service'
+        social_work:
+          $ref: '#/components/schemas/Service'
+        speech_therapy:
+          $ref: '#/components/schemas/Service'
+        substance_abuse:
+          $ref: '#/components/schemas/Service'
+        substance_abuse_facility_inpatient:
+          $ref: '#/components/schemas/Service'
+        substance_abuse_facility_outpatient:
+          $ref: '#/components/schemas/Service'
+        substance_abuse_provider_inpatient:
+          $ref: '#/components/schemas/Service'
+        substance_abuse_provider_outpatient:
+          $ref: '#/components/schemas/Service'
+        surgical:
+          $ref: '#/components/schemas/Service'
+        surgical_assistance:
+          $ref: '#/components/schemas/Service'
+        surgical_benefits_facility:
+          $ref: '#/components/schemas/Service'
+        surgical_benefits_professional_physician:
+          $ref: '#/components/schemas/Service'
+        third_surgical_opinion:
+          $ref: '#/components/schemas/Service'
+        transitional_care:
+          $ref: '#/components/schemas/Service'
+        transitional_nursery_care:
+          $ref: '#/components/schemas/Service'
+        transplants:
+          $ref: '#/components/schemas/Service'
+        urgent_care:
+          $ref: '#/components/schemas/Service'
+        used_durable_medical_equipment:
+          $ref: '#/components/schemas/Service'
+        vision:
+          $ref: '#/components/schemas/Service'
+        well_baby_care:
+          $ref: '#/components/schemas/Service'
+
     SubscriberDetails:
       type: object
       properties:
