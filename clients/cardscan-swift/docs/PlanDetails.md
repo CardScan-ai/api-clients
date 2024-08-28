@@ -7,7 +7,9 @@ Name | Type | Description | Notes
 **groupName** | **String** | The name of the group associated with the plan. | [optional] 
 **groupNumber** | **String** | The group number. | [optional] 
 **planStartDate** | **Date** | The start date of the plan. | [optional] 
+**planEndDate** | **Date** | The end date of the plan. | [optional] 
 **planEligibilityStartDate** | **Date** | The eligibility start date of the plan. | [optional] 
+**planEligibilityEndDate** | **Date** | The eligibility end date of the plan. | [optional] 
 **planName** | **String** | The name of the plan. | [optional] 
 **planActive** | **Bool** | Indicates whether the plan is active. | [optional] 
 

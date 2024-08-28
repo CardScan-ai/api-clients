@@ -20,19 +20,25 @@ public struct PlanDetails: Codable, JSONEncodable, Hashable {
     public var groupNumber: String?
     /** The start date of the plan. */
     public var planStartDate: Date?
+    /** The end date of the plan. */
+    public var planEndDate: Date?
     /** The eligibility start date of the plan. */
     public var planEligibilityStartDate: Date?
+    /** The eligibility end date of the plan. */
+    public var planEligibilityEndDate: Date?
     /** The name of the plan. */
     public var planName: String?
     /** Indicates whether the plan is active. */
     public var planActive: Bool?
 
-    public init(planNumber: String? = nil, groupName: String? = nil, groupNumber: String? = nil, planStartDate: Date? = nil, planEligibilityStartDate: Date? = nil, planName: String? = nil, planActive: Bool? = nil) {
+    public init(planNumber: String? = nil, groupName: String? = nil, groupNumber: String? = nil, planStartDate: Date? = nil, planEndDate: Date? = nil, planEligibilityStartDate: Date? = nil, planEligibilityEndDate: Date? = nil, planName: String? = nil, planActive: Bool? = nil) {
         self.planNumber = planNumber
         self.groupName = groupName
         self.groupNumber = groupNumber
         self.planStartDate = planStartDate
+        self.planEndDate = planEndDate
         self.planEligibilityStartDate = planEligibilityStartDate
+        self.planEligibilityEndDate = planEligibilityEndDate
         self.planName = planName
         self.planActive = planActive
     }
@@ -42,7 +48,9 @@ public struct PlanDetails: Codable, JSONEncodable, Hashable {
         case groupName = "group_name"
         case groupNumber = "group_number"
         case planStartDate = "plan_start_date"
+        case planEndDate = "plan_end_date"
         case planEligibilityStartDate = "plan_eligibility_start_date"
+        case planEligibilityEndDate = "plan_eligibility_end_date"
         case planName = "plan_name"
         case planActive = "plan_active"
     }
@@ -55,7 +63,9 @@ public struct PlanDetails: Codable, JSONEncodable, Hashable {
         try container.encodeIfPresent(groupName, forKey: .groupName)
         try container.encodeIfPresent(groupNumber, forKey: .groupNumber)
         try container.encodeIfPresent(planStartDate, forKey: .planStartDate)
+        try container.encodeIfPresent(planEndDate, forKey: .planEndDate)
         try container.encodeIfPresent(planEligibilityStartDate, forKey: .planEligibilityStartDate)
+        try container.encodeIfPresent(planEligibilityEndDate, forKey: .planEligibilityEndDate)
         try container.encodeIfPresent(planName, forKey: .planName)
         try container.encodeIfPresent(planActive, forKey: .planActive)
     }

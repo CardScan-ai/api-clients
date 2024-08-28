@@ -1,5 +1,4 @@
 .gitignore
-.openapi-generator-ignore
 .swiftformat
 CardScanClient.podspec
 CardScanClient/Classes/OpenAPIs/APIHelper.swift
@@ -33,7 +32,6 @@ CardScanClient/Classes/OpenAPIs/Models/DirectUploadRequest.swift
 CardScanClient/Classes/OpenAPIs/Models/EligibilityApiResponse.swift
 CardScanClient/Classes/OpenAPIs/Models/EligibilityApiResponseEligibilityRequest.swift
 CardScanClient/Classes/OpenAPIs/Models/EligibilityApiResponseEligibilityRequestSubscriber.swift
-CardScanClient/Classes/OpenAPIs/Models/EligibilityApiResponseError.swift
 CardScanClient/Classes/OpenAPIs/Models/EligibilityInfo.swift
 CardScanClient/Classes/OpenAPIs/Models/EligibilityState.swift
 CardScanClient/Classes/OpenAPIs/Models/EligibilitySummarizedResponse.swift
@@ -45,6 +43,7 @@ CardScanClient/Classes/OpenAPIs/Models/GetAccessToken200Response.swift
 CardScanClient/Classes/OpenAPIs/Models/GetAccessToken500Response.swift
 CardScanClient/Classes/OpenAPIs/Models/ListEligibility200Response.swift
 CardScanClient/Classes/OpenAPIs/Models/MatchScore.swift
+CardScanClient/Classes/OpenAPIs/Models/ModelError.swift
 CardScanClient/Classes/OpenAPIs/Models/OOP.swift
 CardScanClient/Classes/OpenAPIs/Models/PayerDetails.swift
 CardScanClient/Classes/OpenAPIs/Models/PlanDetails.swift
@@ -68,6 +67,7 @@ CardScanClient/Classes/OpenAPIs/Models/SubscriberDetails.swift
 CardScanClient/Classes/OpenAPIs/Models/SubscriberDto.swift
 CardScanClient/Classes/OpenAPIs/Models/UploadParameters.swift
 CardScanClient/Classes/OpenAPIs/Models/ValidateMagicLink200Response.swift
+CardScanClient/Classes/OpenAPIs/Models/WebsocketError.swift
 CardScanClient/Classes/OpenAPIs/OpenISO8601DateFormatter.swift
 CardScanClient/Classes/OpenAPIs/SynchronizedDictionary.swift
 CardScanClient/Classes/OpenAPIs/URLSessionImplementations.swift
@@ -98,7 +98,6 @@ docs/DirectUploadRequest.md
 docs/EligibilityApiResponse.md
 docs/EligibilityApiResponseEligibilityRequest.md
 docs/EligibilityApiResponseEligibilityRequestSubscriber.md
-docs/EligibilityApiResponseError.md
 docs/EligibilityInfo.md
 docs/EligibilityState.md
 docs/EligibilitySummarizedResponse.md
@@ -110,6 +109,7 @@ docs/GetAccessToken200Response.md
 docs/GetAccessToken500Response.md
 docs/ListEligibility200Response.md
 docs/MatchScore.md
+docs/ModelError.md
 docs/OOP.md
 docs/PayerDetails.md
 docs/PlanDetails.md
@@ -133,5 +133,6 @@ docs/SubscriberDetails.md
 docs/SubscriberDto.md
 docs/UploadParameters.md
 docs/ValidateMagicLink200Response.md
+docs/WebsocketError.md
 git_push.sh
 project.yml

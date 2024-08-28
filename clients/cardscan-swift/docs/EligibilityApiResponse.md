@@ -8,8 +8,8 @@ Name | Type | Description | Notes
 **cardId** | **String** | The ID of the card. | 
 **eligibilityRequest** | [**EligibilityApiResponseEligibilityRequest**](EligibilityApiResponseEligibilityRequest.md) |  | [optional] 
 **eligibilityResponse** | **[String: AnyCodable]** | The eligibility raw response. | [optional] 
-**eligibilitySummarizedResponse** | **[String: AnyCodable]** | The eligibility summarized response. | [optional] 
-**error** | [**EligibilityApiResponseError**](EligibilityApiResponseError.md) |  | [optional] 
+**eligibilitySummarizedResponse** | [**EligibilitySummarizedResponse**](EligibilitySummarizedResponse.md) |  | [optional] 
+**error** | [**ModelError**](ModelError.md) |  | [optional] 
 **createdAt** | **Date** | The timestamp when the eligibility record was created. | 
 **updateAt** | **Date** | The timestamp when the eligibility record was last updated. | 
 

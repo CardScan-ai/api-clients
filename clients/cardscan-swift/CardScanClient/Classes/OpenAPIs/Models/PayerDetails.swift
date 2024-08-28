@@ -15,15 +15,18 @@ public struct PayerDetails: Codable, JSONEncodable, Hashable {
     /** The name of the payer. */
     public var payerName: String?
     public var address: Address?
+    public var url: String?
 
-    public init(payerName: String? = nil, address: Address? = nil) {
+    public init(payerName: String? = nil, address: Address? = nil, url: String? = nil) {
         self.payerName = payerName
         self.address = address
+        self.url = url
     }
 
     public enum CodingKeys: String, CodingKey, CaseIterable {
         case payerName = "payer_name"
         case address
+        case url
     }
 
     // Encodable protocol methods
@@ -32,6 +35,7 @@ public struct PayerDetails: Codable, JSONEncodable, Hashable {
         var container = encoder.container(keyedBy: CodingKeys.self)
         try container.encodeIfPresent(payerName, forKey: .payerName)
         try container.encodeIfPresent(address, forKey: .address)
+        try container.encodeIfPresent(url, forKey: .url)
     }
 }
 

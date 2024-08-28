@@ -12,58 +12,781 @@ import AnyCodable
 
 public struct EligibilitySummarizedResponse: Codable, JSONEncodable, Hashable {
 
-    /** The ID of the eligibility request. */
-    public var eligibilityRequestId: UUID?
     public var subscriberDetails: SubscriberDetails?
     public var payerDetails: PayerDetails?
     public var planDetails: PlanDetails?
     public var coverageSummary: CoverageSummary?
+    public var abortion: Service?
+    public var acupuncture: Service?
+    public var adjunctiveDentalServices: Service?
+    public var aids: Service?
+    public var airTransportation: Service?
+    public var alcoholism: Service?
+    public var allergy: Service?
+    public var allergyTesting: Service?
+    public var alternateMethodDialysis: Service?
+    public var ambulatoryServiceCenterFacility: Service?
+    public var anesthesia: Service?
+    public var anesthesiologist: Service?
+    public var audiologyExam: Service?
+    public var bloodCharges: Service?
+    public var brandNamePrescriptionDrug: Service?
+    public var brandNamePrescriptionDrugFormulary: Service?
+    public var brandNamePrescriptionDrugNonFormulary: Service?
+    public var burnCare: Service?
+    public var cabulance: Service?
+    public var cancer: Service?
+    public var cardiac: Service?
+    public var cardiacRehabilitation: Service?
+    public var caseManagement: Service?
+    public var chemotherapy: Service?
     public var chiropractic: Service?
+    public var chiropracticOfficeVisits: Service?
+    public var chronicRenalDiseaseCrdEquipment: Service?
+    public var cognitiveTherapy: Service?
+    public var consultation: Service?
+    public var coronaryCare: Service?
+    public var dayCarePsychiatric: Service?
+    public var dentalAccident: Service?
+    public var dentalCare: Service?
+    public var dentalCrowns: Service?
+    public var dermatology: Service?
+    public var diabeticSupplies: Service?
+    public var diagnosticDental: Service?
+    public var diagnosticLab: Service?
+    public var diagnosticMedical: Service?
+    public var diagnosticXRay: Service?
+    public var dialysis: Service?
+    public var donorProcedures: Service?
+    public var drugAddiction: Service?
+    public var durableMedicalEquipment: Service?
+    public var durableMedicalEquipmentPurchase: Service?
+    public var durableMedicalEquipmentRental: Service?
     public var emergencyRoom: Service?
-    public var officeVisit: Service?
-    public var urgentCare: Service?
+    public var endocrine: Service?
+    public var endodontics: Service?
+    public var experimentalDrugTherapy: Service?
+    public var eye: Service?
+    public var eyewearAndEyewearAccessories: Service?
+    public var familyPlanning: Service?
+    public var fluVaccination: Service?
+    public var frames: Service?
+    public var freeStandingPrescriptionDrug: Service?
+    public var gastrointestinal: Service?
+    public var generalBenefits: Service?
+    public var genericPrescriptionDrug: Service?
+    public var genericPrescriptionDrugFormulary: Service?
+    public var genericPrescriptionDrugNonFormulary: Service?
+    public var gynecological: Service?
+    public var homeHealthCare: Service?
+    public var homeHealthPrescriptions: Service?
+    public var homeHealthVisits: Service?
+    public var hospice: Service?
+    public var hospitalInpatient: Service?
+    public var hospitalAmbulatorySurgical: Service?
+    public var hospitalEmergencyAccident: Service?
+    public var hospitalEmergencyMedical: Service?
     public var hospitalOutpatient: Service?
+    public var hospitalRoomAndBoard: Service?
+    public var immunizations: Service?
+    public var inVitroFertilization: Service?
+    public var independentMedicalEvaluation: Service?
+    public var infertility: Service?
+    public var inhalationTherapy: Service?
+    public var intensiveCare: Service?
+    public var invasiveProcedures: Service?
+    public var lenses: Service?
+    public var licensedAmbulance: Service?
+    public var longTermCare: Service?
+    public var lymphatic: Service?
+    public var mailOrderPrescriptionDrug: Service?
+    public var mailOrderPrescriptionDrugBrandName: Service?
+    public var mailOrderPrescriptionDrugGeneric: Service?
+    public var majorMedical: Service?
+    public var mammogramHighRiskPatient: Service?
+    public var mammogramLowRiskPatient: Service?
+    public var massageTherapy: Service?
+    public var maternity: Service?
+    public var maxillofacialProsthetics: Service?
+    public var medicalCare: Service?
+    public var medicallyRelatedTransportation: Service?
+    public var mentalHealth: Service?
+    public var mentalHealthFacilityInpatient: Service?
+    public var mentalHealthFacilityOutpatient: Service?
+    public var mentalHealthProviderInpatient: Service?
+    public var mentalHealthProviderOutpatient: Service?
+    public var mriCatScan: Service?
+    public var neonatalIntensiveCare: Service?
+    public var neurology: Service?
+    public var newbornCare: Service?
+    public var nonmedicallyNecessaryPhysical: Service?
+    public var nursery: Service?
+    public var obstetrical: Service?
+    public var obstetricalGynecological: Service?
+    public var occupationalTherapy: Service?
+    public var oncology: Service?
+    public var oralSurgery: Service?
+    public var orthodontics: Service?
+    public var orthopedic: Service?
+    public var otherMedical: Service?
+    public var otologicalExam: Service?
+    public var partialHospitalizationPsychiatric: Service?
+    public var pathology: Service?
+    public var pediatric: Service?
+    public var periodontics: Service?
+    public var pharmacy: Service?
+    public var physicalMedicine: Service?
+    public var physicalTherapy: Service?
+    public var physicianVisitOfficeSick: Service?
+    public var physicianVisitOfficeWell: Service?
+    public var planWaitingPeriod: Service?
+    public var pneumoniaVaccine: Service?
+    public var podiatry: Service?
+    public var podiatryNursingHomeVisits: Service?
+    public var podiatryOfficeVisits: Service?
+    public var preAdmissionTesting: Service?
+    public var privateDutyNursing: Service?
+    public var privateDutyNursingHome: Service?
+    public var privateDutyNursingInpatient: Service?
+    public var professionalPhysician: Service?
+    public var professionalPhysicianVisitHome: Service?
+    public var professionalPhysicianVisitInpatient: Service?
+    public var professionalPhysicianVisitNursingHome: Service?
+    public var officeVisit: Service?
+    public var professionalPhysicianVisitOutpatient: Service?
+    public var professionalPhysicianVisitSkilledNursing: Service?
+    public var prostheticDevice: Service?
+    public var prosthodontics: Service?
+    public var psychiatric: Service?
+    public var psychiatricInpatient: Service?
+    public var psychiatricOutpatient: Service?
+    public var psychiatricRoomAndBoard: Service?
+    public var psychotherapy: Service?
+    public var pulmonary: Service?
+    public var pulmonaryRehabilitation: Service?
+    public var radiationTherapy: Service?
+    public var rehabilitation: Service?
+    public var rehabilitationInpatient: Service?
+    public var rehabilitationOutpatient: Service?
+    public var rehabilitationRoomAndBoard: Service?
+    public var renal: Service?
+    public var renalSuppliesInTheHome: Service?
+    public var residentialPsychiatricTreatment: Service?
+    public var respiteCare: Service?
+    public var restorative: Service?
+    public var routinePreventiveDental: Service?
+    public var routineExamUseForRoutineVisionExamOnly: Service?
+    public var routinePhysical: Service?
+    public var screeningLaboratory: Service?
+    public var screeningXRay: Service?
+    public var secondSurgicalOpinion: Service?
+    public var skilledNursingCare: Service?
+    public var skilledNursingCareRoomAndBoard: Service?
+    public var skin: Service?
+    public var smokingCessation: Service?
+    public var socialWork: Service?
+    public var speechTherapy: Service?
+    public var substanceAbuse: Service?
+    public var substanceAbuseFacilityInpatient: Service?
+    public var substanceAbuseFacilityOutpatient: Service?
+    public var substanceAbuseProviderInpatient: Service?
+    public var substanceAbuseProviderOutpatient: Service?
+    public var surgical: Service?
+    public var surgicalAssistance: Service?
+    public var surgicalBenefitsFacility: Service?
+    public var surgicalBenefitsProfessionalPhysician: Service?
+    public var thirdSurgicalOpinion: Service?
+    public var transitionalCare: Service?
+    public var transitionalNurseryCare: Service?
+    public var transplants: Service?
+    public var urgentCare: Service?
+    public var usedDurableMedicalEquipment: Service?
+    public var vision: Service?
+    public var wellBabyCare: Service?
 
-    public init(eligibilityRequestId: UUID? = nil, subscriberDetails: SubscriberDetails? = nil, payerDetails: PayerDetails? = nil, planDetails: PlanDetails? = nil, coverageSummary: CoverageSummary? = nil, chiropractic: Service? = nil, emergencyRoom: Service? = nil, officeVisit: Service? = nil, urgentCare: Service? = nil, hospitalOutpatient: Service? = nil) {
-        self.eligibilityRequestId = eligibilityRequestId
+    public init(subscriberDetails: SubscriberDetails? = nil, payerDetails: PayerDetails? = nil, planDetails: PlanDetails? = nil, coverageSummary: CoverageSummary? = nil, abortion: Service? = nil, acupuncture: Service? = nil, adjunctiveDentalServices: Service? = nil, aids: Service? = nil, airTransportation: Service? = nil, alcoholism: Service? = nil, allergy: Service? = nil, allergyTesting: Service? = nil, alternateMethodDialysis: Service? = nil, ambulatoryServiceCenterFacility: Service? = nil, anesthesia: Service? = nil, anesthesiologist: Service? = nil, audiologyExam: Service? = nil, bloodCharges: Service? = nil, brandNamePrescriptionDrug: Service? = nil, brandNamePrescriptionDrugFormulary: Service? = nil, brandNamePrescriptionDrugNonFormulary: Service? = nil, burnCare: Service? = nil, cabulance: Service? = nil, cancer: Service? = nil, cardiac: Service? = nil, cardiacRehabilitation: Service? = nil, caseManagement: Service? = nil, chemotherapy: Service? = nil, chiropractic: Service? = nil, chiropracticOfficeVisits: Service? = nil, chronicRenalDiseaseCrdEquipment: Service? = nil, cognitiveTherapy: Service? = nil, consultation: Service? = nil, coronaryCare: Service? = nil, dayCarePsychiatric: Service? = nil, dentalAccident: Service? = nil, dentalCare: Service? = nil, dentalCrowns: Service? = nil, dermatology: Service? = nil, diabeticSupplies: Service? = nil, diagnosticDental: Service? = nil, diagnosticLab: Service? = nil, diagnosticMedical: Service? = nil, diagnosticXRay: Service? = nil, dialysis: Service? = nil, donorProcedures: Service? = nil, drugAddiction: Service? = nil, durableMedicalEquipment: Service? = nil, durableMedicalEquipmentPurchase: Service? = nil, durableMedicalEquipmentRental: Service? = nil, emergencyRoom: Service? = nil, endocrine: Service? = nil, endodontics: Service? = nil, experimentalDrugTherapy: Service? = nil, eye: Service? = nil, eyewearAndEyewearAccessories: Service? = nil, familyPlanning: Service? = nil, fluVaccination: Service? = nil, frames: Service? = nil, freeStandingPrescriptionDrug: Service? = nil, gastrointestinal: Service? = nil, generalBenefits: Service? = nil, genericPrescriptionDrug: Service? = nil, genericPrescriptionDrugFormulary: Service? = nil, genericPrescriptionDrugNonFormulary: Service? = nil, gynecological: Service? = nil, homeHealthCare: Service? = nil, homeHealthPrescriptions: Service? = nil, homeHealthVisits: Service? = nil, hospice: Service? = nil, hospitalInpatient: Service? = nil, hospitalAmbulatorySurgical: Service? = nil, hospitalEmergencyAccident: Service? = nil, hospitalEmergencyMedical: Service? = nil, hospitalOutpatient: Service? = nil, hospitalRoomAndBoard: Service? = nil, immunizations: Service? = nil, inVitroFertilization: Service? = nil, independentMedicalEvaluation: Service? = nil, infertility: Service? = nil, inhalationTherapy: Service? = nil, intensiveCare: Service? = nil, invasiveProcedures: Service? = nil, lenses: Service? = nil, licensedAmbulance: Service? = nil, longTermCare: Service? = nil, lymphatic: Service? = nil, mailOrderPrescriptionDrug: Service? = nil, mailOrderPrescriptionDrugBrandName: Service? = nil, mailOrderPrescriptionDrugGeneric: Service? = nil, majorMedical: Service? = nil, mammogramHighRiskPatient: Service? = nil, mammogramLowRiskPatient: Service? = nil, massageTherapy: Service? = nil, maternity: Service? = nil, maxillofacialProsthetics: Service? = nil, medicalCare: Service? = nil, medicallyRelatedTransportation: Service? = nil, mentalHealth: Service? = nil, mentalHealthFacilityInpatient: Service? = nil, mentalHealthFacilityOutpatient: Service? = nil, mentalHealthProviderInpatient: Service? = nil, mentalHealthProviderOutpatient: Service? = nil, mriCatScan: Service? = nil, neonatalIntensiveCare: Service? = nil, neurology: Service? = nil, newbornCare: Service? = nil, nonmedicallyNecessaryPhysical: Service? = nil, nursery: Service? = nil, obstetrical: Service? = nil, obstetricalGynecological: Service? = nil, occupationalTherapy: Service? = nil, oncology: Service? = nil, oralSurgery: Service? = nil, orthodontics: Service? = nil, orthopedic: Service? = nil, otherMedical: Service? = nil, otologicalExam: Service? = nil, partialHospitalizationPsychiatric: Service? = nil, pathology: Service? = nil, pediatric: Service? = nil, periodontics: Service? = nil, pharmacy: Service? = nil, physicalMedicine: Service? = nil, physicalTherapy: Service? = nil, physicianVisitOfficeSick: Service? = nil, physicianVisitOfficeWell: Service? = nil, planWaitingPeriod: Service? = nil, pneumoniaVaccine: Service? = nil, podiatry: Service? = nil, podiatryNursingHomeVisits: Service? = nil, podiatryOfficeVisits: Service? = nil, preAdmissionTesting: Service? = nil, privateDutyNursing: Service? = nil, privateDutyNursingHome: Service? = nil, privateDutyNursingInpatient: Service? = nil, professionalPhysician: Service? = nil, professionalPhysicianVisitHome: Service? = nil, professionalPhysicianVisitInpatient: Service? = nil, professionalPhysicianVisitNursingHome: Service? = nil, officeVisit: Service? = nil, professionalPhysicianVisitOutpatient: Service? = nil, professionalPhysicianVisitSkilledNursing: Service? = nil, prostheticDevice: Service? = nil, prosthodontics: Service? = nil, psychiatric: Service? = nil, psychiatricInpatient: Service? = nil, psychiatricOutpatient: Service? = nil, psychiatricRoomAndBoard: Service? = nil, psychotherapy: Service? = nil, pulmonary: Service? = nil, pulmonaryRehabilitation: Service? = nil, radiationTherapy: Service? = nil, rehabilitation: Service? = nil, rehabilitationInpatient: Service? = nil, rehabilitationOutpatient: Service? = nil, rehabilitationRoomAndBoard: Service? = nil, renal: Service? = nil, renalSuppliesInTheHome: Service? = nil, residentialPsychiatricTreatment: Service? = nil, respiteCare: Service? = nil, restorative: Service? = nil, routinePreventiveDental: Service? = nil, routineExamUseForRoutineVisionExamOnly: Service? = nil, routinePhysical: Service? = nil, screeningLaboratory: Service? = nil, screeningXRay: Service? = nil, secondSurgicalOpinion: Service? = nil, skilledNursingCare: Service? = nil, skilledNursingCareRoomAndBoard: Service? = nil, skin: Service? = nil, smokingCessation: Service? = nil, socialWork: Service? = nil, speechTherapy: Service? = nil, substanceAbuse: Service? = nil, substanceAbuseFacilityInpatient: Service? = nil, substanceAbuseFacilityOutpatient: Service? = nil, substanceAbuseProviderInpatient: Service? = nil, substanceAbuseProviderOutpatient: Service? = nil, surgical: Service? = nil, surgicalAssistance: Service? = nil, surgicalBenefitsFacility: Service? = nil, surgicalBenefitsProfessionalPhysician: Service? = nil, thirdSurgicalOpinion: Service? = nil, transitionalCare: Service? = nil, transitionalNurseryCare: Service? = nil, transplants: Service? = nil, urgentCare: Service? = nil, usedDurableMedicalEquipment: Service? = nil, vision: Service? = nil, wellBabyCare: Service? = nil) {
         self.subscriberDetails = subscriberDetails
         self.payerDetails = payerDetails
         self.planDetails = planDetails
         self.coverageSummary = coverageSummary
+        self.abortion = abortion
+        self.acupuncture = acupuncture
+        self.adjunctiveDentalServices = adjunctiveDentalServices
+        self.aids = aids
+        self.airTransportation = airTransportation
+        self.alcoholism = alcoholism
+        self.allergy = allergy
+        self.allergyTesting = allergyTesting
+        self.alternateMethodDialysis = alternateMethodDialysis
+        self.ambulatoryServiceCenterFacility = ambulatoryServiceCenterFacility
+        self.anesthesia = anesthesia
+        self.anesthesiologist = anesthesiologist
+        self.audiologyExam = audiologyExam
+        self.bloodCharges = bloodCharges
+        self.brandNamePrescriptionDrug = brandNamePrescriptionDrug
+        self.brandNamePrescriptionDrugFormulary = brandNamePrescriptionDrugFormulary
+        self.brandNamePrescriptionDrugNonFormulary = brandNamePrescriptionDrugNonFormulary
+        self.burnCare = burnCare
+        self.cabulance = cabulance
+        self.cancer = cancer
+        self.cardiac = cardiac
+        self.cardiacRehabilitation = cardiacRehabilitation
+        self.caseManagement = caseManagement
+        self.chemotherapy = chemotherapy
         self.chiropractic = chiropractic
+        self.chiropracticOfficeVisits = chiropracticOfficeVisits
+        self.chronicRenalDiseaseCrdEquipment = chronicRenalDiseaseCrdEquipment
+        self.cognitiveTherapy = cognitiveTherapy
+        self.consultation = consultation
+        self.coronaryCare = coronaryCare
+        self.dayCarePsychiatric = dayCarePsychiatric
+        self.dentalAccident = dentalAccident
+        self.dentalCare = dentalCare
+        self.dentalCrowns = dentalCrowns
+        self.dermatology = dermatology
+        self.diabeticSupplies = diabeticSupplies
+        self.diagnosticDental = diagnosticDental
+        self.diagnosticLab = diagnosticLab
+        self.diagnosticMedical = diagnosticMedical
+        self.diagnosticXRay = diagnosticXRay
+        self.dialysis = dialysis
+        self.donorProcedures = donorProcedures
+        self.drugAddiction = drugAddiction
+        self.durableMedicalEquipment = durableMedicalEquipment
+        self.durableMedicalEquipmentPurchase = durableMedicalEquipmentPurchase
+        self.durableMedicalEquipmentRental = durableMedicalEquipmentRental
         self.emergencyRoom = emergencyRoom
-        self.officeVisit = officeVisit
-        self.urgentCare = urgentCare
+        self.endocrine = endocrine
+        self.endodontics = endodontics
+        self.experimentalDrugTherapy = experimentalDrugTherapy
+        self.eye = eye
+        self.eyewearAndEyewearAccessories = eyewearAndEyewearAccessories
+        self.familyPlanning = familyPlanning
+        self.fluVaccination = fluVaccination
+        self.frames = frames
+        self.freeStandingPrescriptionDrug = freeStandingPrescriptionDrug
+        self.gastrointestinal = gastrointestinal
+        self.generalBenefits = generalBenefits
+        self.genericPrescriptionDrug = genericPrescriptionDrug
+        self.genericPrescriptionDrugFormulary = genericPrescriptionDrugFormulary
+        self.genericPrescriptionDrugNonFormulary = genericPrescriptionDrugNonFormulary
+        self.gynecological = gynecological
+        self.homeHealthCare = homeHealthCare
+        self.homeHealthPrescriptions = homeHealthPrescriptions
+        self.homeHealthVisits = homeHealthVisits
+        self.hospice = hospice
+        self.hospitalInpatient = hospitalInpatient
+        self.hospitalAmbulatorySurgical = hospitalAmbulatorySurgical
+        self.hospitalEmergencyAccident = hospitalEmergencyAccident
+        self.hospitalEmergencyMedical = hospitalEmergencyMedical
         self.hospitalOutpatient = hospitalOutpatient
+        self.hospitalRoomAndBoard = hospitalRoomAndBoard
+        self.immunizations = immunizations
+        self.inVitroFertilization = inVitroFertilization
+        self.independentMedicalEvaluation = independentMedicalEvaluation
+        self.infertility = infertility
+        self.inhalationTherapy = inhalationTherapy
+        self.intensiveCare = intensiveCare
+        self.invasiveProcedures = invasiveProcedures
+        self.lenses = lenses
+        self.licensedAmbulance = licensedAmbulance
+        self.longTermCare = longTermCare
+        self.lymphatic = lymphatic
+        self.mailOrderPrescriptionDrug = mailOrderPrescriptionDrug
+        self.mailOrderPrescriptionDrugBrandName = mailOrderPrescriptionDrugBrandName
+        self.mailOrderPrescriptionDrugGeneric = mailOrderPrescriptionDrugGeneric
+        self.majorMedical = majorMedical
+        self.mammogramHighRiskPatient = mammogramHighRiskPatient
+        self.mammogramLowRiskPatient = mammogramLowRiskPatient
+        self.massageTherapy = massageTherapy
+        self.maternity = maternity
+        self.maxillofacialProsthetics = maxillofacialProsthetics
+        self.medicalCare = medicalCare
+        self.medicallyRelatedTransportation = medicallyRelatedTransportation
+        self.mentalHealth = mentalHealth
+        self.mentalHealthFacilityInpatient = mentalHealthFacilityInpatient
+        self.mentalHealthFacilityOutpatient = mentalHealthFacilityOutpatient
+        self.mentalHealthProviderInpatient = mentalHealthProviderInpatient
+        self.mentalHealthProviderOutpatient = mentalHealthProviderOutpatient
+        self.mriCatScan = mriCatScan
+        self.neonatalIntensiveCare = neonatalIntensiveCare
+        self.neurology = neurology
+        self.newbornCare = newbornCare
+        self.nonmedicallyNecessaryPhysical = nonmedicallyNecessaryPhysical
+        self.nursery = nursery
+        self.obstetrical = obstetrical
+        self.obstetricalGynecological = obstetricalGynecological
+        self.occupationalTherapy = occupationalTherapy
+        self.oncology = oncology
+        self.oralSurgery = oralSurgery
+        self.orthodontics = orthodontics
+        self.orthopedic = orthopedic
+        self.otherMedical = otherMedical
+        self.otologicalExam = otologicalExam
+        self.partialHospitalizationPsychiatric = partialHospitalizationPsychiatric
+        self.pathology = pathology
+        self.pediatric = pediatric
+        self.periodontics = periodontics
+        self.pharmacy = pharmacy
+        self.physicalMedicine = physicalMedicine
+        self.physicalTherapy = physicalTherapy
+        self.physicianVisitOfficeSick = physicianVisitOfficeSick
+        self.physicianVisitOfficeWell = physicianVisitOfficeWell
+        self.planWaitingPeriod = planWaitingPeriod
+        self.pneumoniaVaccine = pneumoniaVaccine
+        self.podiatry = podiatry
+        self.podiatryNursingHomeVisits = podiatryNursingHomeVisits
+        self.podiatryOfficeVisits = podiatryOfficeVisits
+        self.preAdmissionTesting = preAdmissionTesting
+        self.privateDutyNursing = privateDutyNursing
+        self.privateDutyNursingHome = privateDutyNursingHome
+        self.privateDutyNursingInpatient = privateDutyNursingInpatient
+        self.professionalPhysician = professionalPhysician
+        self.professionalPhysicianVisitHome = professionalPhysicianVisitHome
+        self.professionalPhysicianVisitInpatient = professionalPhysicianVisitInpatient
+        self.professionalPhysicianVisitNursingHome = professionalPhysicianVisitNursingHome
+        self.officeVisit = officeVisit
+        self.professionalPhysicianVisitOutpatient = professionalPhysicianVisitOutpatient
+        self.professionalPhysicianVisitSkilledNursing = professionalPhysicianVisitSkilledNursing
+        self.prostheticDevice = prostheticDevice
+        self.prosthodontics = prosthodontics
+        self.psychiatric = psychiatric
+        self.psychiatricInpatient = psychiatricInpatient
+        self.psychiatricOutpatient = psychiatricOutpatient
+        self.psychiatricRoomAndBoard = psychiatricRoomAndBoard
+        self.psychotherapy = psychotherapy
+        self.pulmonary = pulmonary
+        self.pulmonaryRehabilitation = pulmonaryRehabilitation
+        self.radiationTherapy = radiationTherapy
+        self.rehabilitation = rehabilitation
+        self.rehabilitationInpatient = rehabilitationInpatient
+        self.rehabilitationOutpatient = rehabilitationOutpatient
+        self.rehabilitationRoomAndBoard = rehabilitationRoomAndBoard
+        self.renal = renal
+        self.renalSuppliesInTheHome = renalSuppliesInTheHome
+        self.residentialPsychiatricTreatment = residentialPsychiatricTreatment
+        self.respiteCare = respiteCare
+        self.restorative = restorative
+        self.routinePreventiveDental = routinePreventiveDental
+        self.routineExamUseForRoutineVisionExamOnly = routineExamUseForRoutineVisionExamOnly
+        self.routinePhysical = routinePhysical
+        self.screeningLaboratory = screeningLaboratory
+        self.screeningXRay = screeningXRay
+        self.secondSurgicalOpinion = secondSurgicalOpinion
+        self.skilledNursingCare = skilledNursingCare
+        self.skilledNursingCareRoomAndBoard = skilledNursingCareRoomAndBoard
+        self.skin = skin
+        self.smokingCessation = smokingCessation
+        self.socialWork = socialWork
+        self.speechTherapy = speechTherapy
+        self.substanceAbuse = substanceAbuse
+        self.substanceAbuseFacilityInpatient = substanceAbuseFacilityInpatient
+        self.substanceAbuseFacilityOutpatient = substanceAbuseFacilityOutpatient
+        self.substanceAbuseProviderInpatient = substanceAbuseProviderInpatient
+        self.substanceAbuseProviderOutpatient = substanceAbuseProviderOutpatient
+        self.surgical = surgical
+        self.surgicalAssistance = surgicalAssistance
+        self.surgicalBenefitsFacility = surgicalBenefitsFacility
+        self.surgicalBenefitsProfessionalPhysician = surgicalBenefitsProfessionalPhysician
+        self.thirdSurgicalOpinion = thirdSurgicalOpinion
+        self.transitionalCare = transitionalCare
+        self.transitionalNurseryCare = transitionalNurseryCare
+        self.transplants = transplants
+        self.urgentCare = urgentCare
+        self.usedDurableMedicalEquipment = usedDurableMedicalEquipment
+        self.vision = vision
+        self.wellBabyCare = wellBabyCare
     }
 
     public enum CodingKeys: String, CodingKey, CaseIterable {
-        case eligibilityRequestId = "eligibility_request_id"
         case subscriberDetails = "subscriber_details"
         case payerDetails = "payer_details"
         case planDetails = "plan_details"
         case coverageSummary = "coverage_summary"
+        case abortion
+        case acupuncture
+        case adjunctiveDentalServices = "adjunctive_dental_services"
+        case aids
+        case airTransportation = "air_transportation"
+        case alcoholism
+        case allergy
+        case allergyTesting = "allergy_testing"
+        case alternateMethodDialysis = "alternate_method_dialysis"
+        case ambulatoryServiceCenterFacility = "ambulatory_service_center_facility"
+        case anesthesia
+        case anesthesiologist
+        case audiologyExam = "audiology_exam"
+        case bloodCharges = "blood_charges"
+        case brandNamePrescriptionDrug = "brand_name_prescription_drug"
+        case brandNamePrescriptionDrugFormulary = "brand_name_prescription_drug_formulary"
+        case brandNamePrescriptionDrugNonFormulary = "brand_name_prescription_drug_non_formulary"
+        case burnCare = "burn_care"
+        case cabulance
+        case cancer
+        case cardiac
+        case cardiacRehabilitation = "cardiac_rehabilitation"
+        case caseManagement = "case_management"
+        case chemotherapy
         case chiropractic
+        case chiropracticOfficeVisits = "chiropractic_office_visits"
+        case chronicRenalDiseaseCrdEquipment = "chronic_renal_disease_crd_equipment"
+        case cognitiveTherapy = "cognitive_therapy"
+        case consultation
+        case coronaryCare = "coronary_care"
+        case dayCarePsychiatric = "day_care_psychiatric"
+        case dentalAccident = "dental_accident"
+        case dentalCare = "dental_care"
+        case dentalCrowns = "dental_crowns"
+        case dermatology
+        case diabeticSupplies = "diabetic_supplies"
+        case diagnosticDental = "diagnostic_dental"
+        case diagnosticLab = "diagnostic_lab"
+        case diagnosticMedical = "diagnostic_medical"
+        case diagnosticXRay = "diagnostic_x_ray"
+        case dialysis
+        case donorProcedures = "donor_procedures"
+        case drugAddiction = "drug_addiction"
+        case durableMedicalEquipment = "durable_medical_equipment"
+        case durableMedicalEquipmentPurchase = "durable_medical_equipment_purchase"
+        case durableMedicalEquipmentRental = "durable_medical_equipment_rental"
         case emergencyRoom = "emergency_room"
-        case officeVisit = "office_visit"
-        case urgentCare = "urgent_care"
+        case endocrine
+        case endodontics
+        case experimentalDrugTherapy = "experimental_drug_therapy"
+        case eye
+        case eyewearAndEyewearAccessories = "eyewear_and_eyewear_accessories"
+        case familyPlanning = "family_planning"
+        case fluVaccination = "flu_vaccination"
+        case frames
+        case freeStandingPrescriptionDrug = "free_standing_prescription_drug"
+        case gastrointestinal
+        case generalBenefits = "general_benefits"
+        case genericPrescriptionDrug = "generic_prescription_drug"
+        case genericPrescriptionDrugFormulary = "generic_prescription_drug_formulary"
+        case genericPrescriptionDrugNonFormulary = "generic_prescription_drug_non_formulary"
+        case gynecological
+        case homeHealthCare = "home_health_care"
+        case homeHealthPrescriptions = "home_health_prescriptions"
+        case homeHealthVisits = "home_health_visits"
+        case hospice
+        case hospitalInpatient = "hospital_inpatient"
+        case hospitalAmbulatorySurgical = "hospital_ambulatory_surgical"
+        case hospitalEmergencyAccident = "hospital_emergency_accident"
+        case hospitalEmergencyMedical = "hospital_emergency_medical"
         case hospitalOutpatient = "hospital_outpatient"
+        case hospitalRoomAndBoard = "hospital_room_and_board"
+        case immunizations
+        case inVitroFertilization = "in_vitro_fertilization"
+        case independentMedicalEvaluation = "independent_medical_evaluation"
+        case infertility
+        case inhalationTherapy = "inhalation_therapy"
+        case intensiveCare = "intensive_care"
+        case invasiveProcedures = "invasive_procedures"
+        case lenses
+        case licensedAmbulance = "licensed_ambulance"
+        case longTermCare = "long_term_care"
+        case lymphatic
+        case mailOrderPrescriptionDrug = "mail_order_prescription_drug"
+        case mailOrderPrescriptionDrugBrandName = "mail_order_prescription_drug_brand_name"
+        case mailOrderPrescriptionDrugGeneric = "mail_order_prescription_drug_generic"
+        case majorMedical = "major_medical"
+        case mammogramHighRiskPatient = "mammogram_high_risk_patient"
+        case mammogramLowRiskPatient = "mammogram_low_risk_patient"
+        case massageTherapy = "massage_therapy"
+        case maternity
+        case maxillofacialProsthetics = "maxillofacial_prosthetics"
+        case medicalCare = "medical_care"
+        case medicallyRelatedTransportation = "medically_related_transportation"
+        case mentalHealth = "mental_health"
+        case mentalHealthFacilityInpatient = "mental_health_facility_inpatient"
+        case mentalHealthFacilityOutpatient = "mental_health_facility_outpatient"
+        case mentalHealthProviderInpatient = "mental_health_provider_inpatient"
+        case mentalHealthProviderOutpatient = "mental_health_provider_outpatient"
+        case mriCatScan = "mri_cat_scan"
+        case neonatalIntensiveCare = "neonatal_intensive_care"
+        case neurology
+        case newbornCare = "newborn_care"
+        case nonmedicallyNecessaryPhysical = "nonmedically_necessary_physical"
+        case nursery
+        case obstetrical
+        case obstetricalGynecological = "obstetrical_gynecological"
+        case occupationalTherapy = "occupational_therapy"
+        case oncology
+        case oralSurgery = "oral_surgery"
+        case orthodontics
+        case orthopedic
+        case otherMedical = "other_medical"
+        case otologicalExam = "otological_exam"
+        case partialHospitalizationPsychiatric = "partial_hospitalization_psychiatric"
+        case pathology
+        case pediatric
+        case periodontics
+        case pharmacy
+        case physicalMedicine = "physical_medicine"
+        case physicalTherapy = "physical_therapy"
+        case physicianVisitOfficeSick = "physician_visit_office_sick"
+        case physicianVisitOfficeWell = "physician_visit_office_well"
+        case planWaitingPeriod = "plan_waiting_period"
+        case pneumoniaVaccine = "pneumonia_vaccine"
+        case podiatry
+        case podiatryNursingHomeVisits = "podiatry_nursing_home_visits"
+        case podiatryOfficeVisits = "podiatry_office_visits"
+        case preAdmissionTesting = "pre_admission_testing"
+        case privateDutyNursing = "private_duty_nursing"
+        case privateDutyNursingHome = "private_duty_nursing_home"
+        case privateDutyNursingInpatient = "private_duty_nursing_inpatient"
+        case professionalPhysician = "professional_physician"
+        case professionalPhysicianVisitHome = "professional_physician_visit_home"
+        case professionalPhysicianVisitInpatient = "professional_physician_visit_inpatient"
+        case professionalPhysicianVisitNursingHome = "professional_physician_visit_nursing_home"
+        case officeVisit = "office_visit"
+        case professionalPhysicianVisitOutpatient = "professional_physician_visit_outpatient"
+        case professionalPhysicianVisitSkilledNursing = "professional_physician_visit_skilled_nursing"
+        case prostheticDevice = "prosthetic_device"
+        case prosthodontics
+        case psychiatric
+        case psychiatricInpatient = "psychiatric_inpatient"
+        case psychiatricOutpatient = "psychiatric_outpatient"
+        case psychiatricRoomAndBoard = "psychiatric_room_and_board"
+        case psychotherapy
+        case pulmonary
+        case pulmonaryRehabilitation = "pulmonary_rehabilitation"
+        case radiationTherapy = "radiation_therapy"
+        case rehabilitation
+        case rehabilitationInpatient = "rehabilitation_inpatient"
+        case rehabilitationOutpatient = "rehabilitation_outpatient"
+        case rehabilitationRoomAndBoard = "rehabilitation_room_and_board"
+        case renal
+        case renalSuppliesInTheHome = "renal_supplies_in_the_home"
+        case residentialPsychiatricTreatment = "residential_psychiatric_treatment"
+        case respiteCare = "respite_care"
+        case restorative
+        case routinePreventiveDental = "routine_preventive_dental"
+        case routineExamUseForRoutineVisionExamOnly = "routine_exam_use_for_routine_vision_exam_only"
+        case routinePhysical = "routine_physical"
+        case screeningLaboratory = "screening_laboratory"
+        case screeningXRay = "screening_x_ray"
+        case secondSurgicalOpinion = "second_surgical_opinion"
+        case skilledNursingCare = "skilled_nursing_care"
+        case skilledNursingCareRoomAndBoard = "skilled_nursing_care_room_and_board"
+        case skin
+        case smokingCessation = "smoking_cessation"
+        case socialWork = "social_work"
+        case speechTherapy = "speech_therapy"
+        case substanceAbuse = "substance_abuse"
+        case substanceAbuseFacilityInpatient = "substance_abuse_facility_inpatient"
+        case substanceAbuseFacilityOutpatient = "substance_abuse_facility_outpatient"
+        case substanceAbuseProviderInpatient = "substance_abuse_provider_inpatient"
+        case substanceAbuseProviderOutpatient = "substance_abuse_provider_outpatient"
+        case surgical
+        case surgicalAssistance = "surgical_assistance"
+        case surgicalBenefitsFacility = "surgical_benefits_facility"
+        case surgicalBenefitsProfessionalPhysician = "surgical_benefits_professional_physician"
+        case thirdSurgicalOpinion = "third_surgical_opinion"
+        case transitionalCare = "transitional_care"
+        case transitionalNurseryCare = "transitional_nursery_care"
+        case transplants
+        case urgentCare = "urgent_care"
+        case usedDurableMedicalEquipment = "used_durable_medical_equipment"
+        case vision
+        case wellBabyCare = "well_baby_care"
     }
 
     // Encodable protocol methods
 
     public func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
-        try container.encodeIfPresent(eligibilityRequestId, forKey: .eligibilityRequestId)
         try container.encodeIfPresent(subscriberDetails, forKey: .subscriberDetails)
         try container.encodeIfPresent(payerDetails, forKey: .payerDetails)
         try container.encodeIfPresent(planDetails, forKey: .planDetails)
         try container.encodeIfPresent(coverageSummary, forKey: .coverageSummary)
+        try container.encodeIfPresent(abortion, forKey: .abortion)
+        try container.encodeIfPresent(acupuncture, forKey: .acupuncture)
+        try container.encodeIfPresent(adjunctiveDentalServices, forKey: .adjunctiveDentalServices)
+        try container.encodeIfPresent(aids, forKey: .aids)
+        try container.encodeIfPresent(airTransportation, forKey: .airTransportation)
+        try container.encodeIfPresent(alcoholism, forKey: .alcoholism)
+        try container.encodeIfPresent(allergy, forKey: .allergy)
+        try container.encodeIfPresent(allergyTesting, forKey: .allergyTesting)
+        try container.encodeIfPresent(alternateMethodDialysis, forKey: .alternateMethodDialysis)
+        try container.encodeIfPresent(ambulatoryServiceCenterFacility, forKey: .ambulatoryServiceCenterFacility)
+        try container.encodeIfPresent(anesthesia, forKey: .anesthesia)
+        try container.encodeIfPresent(anesthesiologist, forKey: .anesthesiologist)
+        try container.encodeIfPresent(audiologyExam, forKey: .audiologyExam)
+        try container.encodeIfPresent(bloodCharges, forKey: .bloodCharges)
+        try container.encodeIfPresent(brandNamePrescriptionDrug, forKey: .brandNamePrescriptionDrug)
+        try container.encodeIfPresent(brandNamePrescriptionDrugFormulary, forKey: .brandNamePrescriptionDrugFormulary)
+        try container.encodeIfPresent(brandNamePrescriptionDrugNonFormulary, forKey: .brandNamePrescriptionDrugNonFormulary)
+        try container.encodeIfPresent(burnCare, forKey: .burnCare)
+        try container.encodeIfPresent(cabulance, forKey: .cabulance)
+        try container.encodeIfPresent(cancer, forKey: .cancer)
+        try container.encodeIfPresent(cardiac, forKey: .cardiac)
+        try container.encodeIfPresent(cardiacRehabilitation, forKey: .cardiacRehabilitation)
+        try container.encodeIfPresent(caseManagement, forKey: .caseManagement)
+        try container.encodeIfPresent(chemotherapy, forKey: .chemotherapy)
         try container.encodeIfPresent(chiropractic, forKey: .chiropractic)
+        try container.encodeIfPresent(chiropracticOfficeVisits, forKey: .chiropracticOfficeVisits)
+        try container.encodeIfPresent(chronicRenalDiseaseCrdEquipment, forKey: .chronicRenalDiseaseCrdEquipment)
+        try container.encodeIfPresent(cognitiveTherapy, forKey: .cognitiveTherapy)
+        try container.encodeIfPresent(consultation, forKey: .consultation)
+        try container.encodeIfPresent(coronaryCare, forKey: .coronaryCare)
+        try container.encodeIfPresent(dayCarePsychiatric, forKey: .dayCarePsychiatric)
+        try container.encodeIfPresent(dentalAccident, forKey: .dentalAccident)
+        try container.encodeIfPresent(dentalCare, forKey: .dentalCare)
+        try container.encodeIfPresent(dentalCrowns, forKey: .dentalCrowns)
+        try container.encodeIfPresent(dermatology, forKey: .dermatology)
+        try container.encodeIfPresent(diabeticSupplies, forKey: .diabeticSupplies)
+        try container.encodeIfPresent(diagnosticDental, forKey: .diagnosticDental)
+        try container.encodeIfPresent(diagnosticLab, forKey: .diagnosticLab)
+        try container.encodeIfPresent(diagnosticMedical, forKey: .diagnosticMedical)
+        try container.encodeIfPresent(diagnosticXRay, forKey: .diagnosticXRay)
+        try container.encodeIfPresent(dialysis, forKey: .dialysis)
+        try container.encodeIfPresent(donorProcedures, forKey: .donorProcedures)
+        try container.encodeIfPresent(drugAddiction, forKey: .drugAddiction)
+        try container.encodeIfPresent(durableMedicalEquipment, forKey: .durableMedicalEquipment)
+        try container.encodeIfPresent(durableMedicalEquipmentPurchase, forKey: .durableMedicalEquipmentPurchase)
+        try container.encodeIfPresent(durableMedicalEquipmentRental, forKey: .durableMedicalEquipmentRental)
         try container.encodeIfPresent(emergencyRoom, forKey: .emergencyRoom)
-        try container.encodeIfPresent(officeVisit, forKey: .officeVisit)
-        try container.encodeIfPresent(urgentCare, forKey: .urgentCare)
+        try container.encodeIfPresent(endocrine, forKey: .endocrine)
+        try container.encodeIfPresent(endodontics, forKey: .endodontics)
+        try container.encodeIfPresent(experimentalDrugTherapy, forKey: .experimentalDrugTherapy)
+        try container.encodeIfPresent(eye, forKey: .eye)
+        try container.encodeIfPresent(eyewearAndEyewearAccessories, forKey: .eyewearAndEyewearAccessories)
+        try container.encodeIfPresent(familyPlanning, forKey: .familyPlanning)
+        try container.encodeIfPresent(fluVaccination, forKey: .fluVaccination)
+        try container.encodeIfPresent(frames, forKey: .frames)
+        try container.encodeIfPresent(freeStandingPrescriptionDrug, forKey: .freeStandingPrescriptionDrug)
+        try container.encodeIfPresent(gastrointestinal, forKey: .gastrointestinal)
+        try container.encodeIfPresent(generalBenefits, forKey: .generalBenefits)
+        try container.encodeIfPresent(genericPrescriptionDrug, forKey: .genericPrescriptionDrug)
+        try container.encodeIfPresent(genericPrescriptionDrugFormulary, forKey: .genericPrescriptionDrugFormulary)
+        try container.encodeIfPresent(genericPrescriptionDrugNonFormulary, forKey: .genericPrescriptionDrugNonFormulary)
+        try container.encodeIfPresent(gynecological, forKey: .gynecological)
+        try container.encodeIfPresent(homeHealthCare, forKey: .homeHealthCare)
+        try container.encodeIfPresent(homeHealthPrescriptions, forKey: .homeHealthPrescriptions)
+        try container.encodeIfPresent(homeHealthVisits, forKey: .homeHealthVisits)
+        try container.encodeIfPresent(hospice, forKey: .hospice)
+        try container.encodeIfPresent(hospitalInpatient, forKey: .hospitalInpatient)
+        try container.encodeIfPresent(hospitalAmbulatorySurgical, forKey: .hospitalAmbulatorySurgical)
+        try container.encodeIfPresent(hospitalEmergencyAccident, forKey: .hospitalEmergencyAccident)
+        try container.encodeIfPresent(hospitalEmergencyMedical, forKey: .hospitalEmergencyMedical)
         try container.encodeIfPresent(hospitalOutpatient, forKey: .hospitalOutpatient)
+        try container.encodeIfPresent(hospitalRoomAndBoard, forKey: .hospitalRoomAndBoard)
+        try container.encodeIfPresent(immunizations, forKey: .immunizations)
+        try container.encodeIfPresent(inVitroFertilization, forKey: .inVitroFertilization)
+        try container.encodeIfPresent(independentMedicalEvaluation, forKey: .independentMedicalEvaluation)
+        try container.encodeIfPresent(infertility, forKey: .infertility)
+        try container.encodeIfPresent(inhalationTherapy, forKey: .inhalationTherapy)
+        try container.encodeIfPresent(intensiveCare, forKey: .intensiveCare)
+        try container.encodeIfPresent(invasiveProcedures, forKey: .invasiveProcedures)
+        try container.encodeIfPresent(lenses, forKey: .lenses)
+        try container.encodeIfPresent(licensedAmbulance, forKey: .licensedAmbulance)
+        try container.encodeIfPresent(longTermCare, forKey: .longTermCare)
+        try container.encodeIfPresent(lymphatic, forKey: .lymphatic)
+        try container.encodeIfPresent(mailOrderPrescriptionDrug, forKey: .mailOrderPrescriptionDrug)
+        try container.encodeIfPresent(mailOrderPrescriptionDrugBrandName, forKey: .mailOrderPrescriptionDrugBrandName)
+        try container.encodeIfPresent(mailOrderPrescriptionDrugGeneric, forKey: .mailOrderPrescriptionDrugGeneric)
+        try container.encodeIfPresent(majorMedical, forKey: .majorMedical)
+        try container.encodeIfPresent(mammogramHighRiskPatient, forKey: .mammogramHighRiskPatient)
+        try container.encodeIfPresent(mammogramLowRiskPatient, forKey: .mammogramLowRiskPatient)
+        try container.encodeIfPresent(massageTherapy, forKey: .massageTherapy)
+        try container.encodeIfPresent(maternity, forKey: .maternity)
+        try container.encodeIfPresent(maxillofacialProsthetics, forKey: .maxillofacialProsthetics)
+        try container.encodeIfPresent(medicalCare, forKey: .medicalCare)
+        try container.encodeIfPresent(medicallyRelatedTransportation, forKey: .medicallyRelatedTransportation)
+        try container.encodeIfPresent(mentalHealth, forKey: .mentalHealth)
+        try container.encodeIfPresent(mentalHealthFacilityInpatient, forKey: .mentalHealthFacilityInpatient)
+        try container.encodeIfPresent(mentalHealthFacilityOutpatient, forKey: .mentalHealthFacilityOutpatient)
+        try container.encodeIfPresent(mentalHealthProviderInpatient, forKey: .mentalHealthProviderInpatient)
+        try container.encodeIfPresent(mentalHealthProviderOutpatient, forKey: .mentalHealthProviderOutpatient)
+        try container.encodeIfPresent(mriCatScan, forKey: .mriCatScan)
+        try container.encodeIfPresent(neonatalIntensiveCare, forKey: .neonatalIntensiveCare)
+        try container.encodeIfPresent(neurology, forKey: .neurology)
+        try container.encodeIfPresent(newbornCare, forKey: .newbornCare)
+        try container.encodeIfPresent(nonmedicallyNecessaryPhysical, forKey: .nonmedicallyNecessaryPhysical)
+        try container.encodeIfPresent(nursery, forKey: .nursery)
+        try container.encodeIfPresent(obstetrical, forKey: .obstetrical)
+        try container.encodeIfPresent(obstetricalGynecological, forKey: .obstetricalGynecological)
+        try container.encodeIfPresent(occupationalTherapy, forKey: .occupationalTherapy)
+        try container.encodeIfPresent(oncology, forKey: .oncology)
+        try container.encodeIfPresent(oralSurgery, forKey: .oralSurgery)
+        try container.encodeIfPresent(orthodontics, forKey: .orthodontics)
+        try container.encodeIfPresent(orthopedic, forKey: .orthopedic)
+        try container.encodeIfPresent(otherMedical, forKey: .otherMedical)
+        try container.encodeIfPresent(otologicalExam, forKey: .otologicalExam)
+        try container.encodeIfPresent(partialHospitalizationPsychiatric, forKey: .partialHospitalizationPsychiatric)
+        try container.encodeIfPresent(pathology, forKey: .pathology)
+        try container.encodeIfPresent(pediatric, forKey: .pediatric)
+        try container.encodeIfPresent(periodontics, forKey: .periodontics)
+        try container.encodeIfPresent(pharmacy, forKey: .pharmacy)
+        try container.encodeIfPresent(physicalMedicine, forKey: .physicalMedicine)
+        try container.encodeIfPresent(physicalTherapy, forKey: .physicalTherapy)
+        try container.encodeIfPresent(physicianVisitOfficeSick, forKey: .physicianVisitOfficeSick)
+        try container.encodeIfPresent(physicianVisitOfficeWell, forKey: .physicianVisitOfficeWell)
+        try container.encodeIfPresent(planWaitingPeriod, forKey: .planWaitingPeriod)
+        try container.encodeIfPresent(pneumoniaVaccine, forKey: .pneumoniaVaccine)
+        try container.encodeIfPresent(podiatry, forKey: .podiatry)
+        try container.encodeIfPresent(podiatryNursingHomeVisits, forKey: .podiatryNursingHomeVisits)
+        try container.encodeIfPresent(podiatryOfficeVisits, forKey: .podiatryOfficeVisits)
+        try container.encodeIfPresent(preAdmissionTesting, forKey: .preAdmissionTesting)
+        try container.encodeIfPresent(privateDutyNursing, forKey: .privateDutyNursing)
+        try container.encodeIfPresent(privateDutyNursingHome, forKey: .privateDutyNursingHome)
+        try container.encodeIfPresent(privateDutyNursingInpatient, forKey: .privateDutyNursingInpatient)
+        try container.encodeIfPresent(professionalPhysician, forKey: .professionalPhysician)
+        try container.encodeIfPresent(professionalPhysicianVisitHome, forKey: .professionalPhysicianVisitHome)
+        try container.encodeIfPresent(professionalPhysicianVisitInpatient, forKey: .professionalPhysicianVisitInpatient)
+        try container.encodeIfPresent(professionalPhysicianVisitNursingHome, forKey: .professionalPhysicianVisitNursingHome)
+        try container.encodeIfPresent(officeVisit, forKey: .officeVisit)
+        try container.encodeIfPresent(professionalPhysicianVisitOutpatient, forKey: .professionalPhysicianVisitOutpatient)
+        try container.encodeIfPresent(professionalPhysicianVisitSkilledNursing, forKey: .professionalPhysicianVisitSkilledNursing)
+        try container.encodeIfPresent(prostheticDevice, forKey: .prostheticDevice)
+        try container.encodeIfPresent(prosthodontics, forKey: .prosthodontics)
+        try container.encodeIfPresent(psychiatric, forKey: .psychiatric)
+        try container.encodeIfPresent(psychiatricInpatient, forKey: .psychiatricInpatient)
+        try container.encodeIfPresent(psychiatricOutpatient, forKey: .psychiatricOutpatient)
+        try container.encodeIfPresent(psychiatricRoomAndBoard, forKey: .psychiatricRoomAndBoard)
+        try container.encodeIfPresent(psychotherapy, forKey: .psychotherapy)
+        try container.encodeIfPresent(pulmonary, forKey: .pulmonary)
+        try container.encodeIfPresent(pulmonaryRehabilitation, forKey: .pulmonaryRehabilitation)
+        try container.encodeIfPresent(radiationTherapy, forKey: .radiationTherapy)
+        try container.encodeIfPresent(rehabilitation, forKey: .rehabilitation)
+        try container.encodeIfPresent(rehabilitationInpatient, forKey: .rehabilitationInpatient)
+        try container.encodeIfPresent(rehabilitationOutpatient, forKey: .rehabilitationOutpatient)
+        try container.encodeIfPresent(rehabilitationRoomAndBoard, forKey: .rehabilitationRoomAndBoard)
+        try container.encodeIfPresent(renal, forKey: .renal)
+        try container.encodeIfPresent(renalSuppliesInTheHome, forKey: .renalSuppliesInTheHome)
+        try container.encodeIfPresent(residentialPsychiatricTreatment, forKey: .residentialPsychiatricTreatment)
+        try container.encodeIfPresent(respiteCare, forKey: .respiteCare)
+        try container.encodeIfPresent(restorative, forKey: .restorative)
+        try container.encodeIfPresent(routinePreventiveDental, forKey: .routinePreventiveDental)
+        try container.encodeIfPresent(routineExamUseForRoutineVisionExamOnly, forKey: .routineExamUseForRoutineVisionExamOnly)
+        try container.encodeIfPresent(routinePhysical, forKey: .routinePhysical)
+        try container.encodeIfPresent(screeningLaboratory, forKey: .screeningLaboratory)
+        try container.encodeIfPresent(screeningXRay, forKey: .screeningXRay)
+        try container.encodeIfPresent(secondSurgicalOpinion, forKey: .secondSurgicalOpinion)
+        try container.encodeIfPresent(skilledNursingCare, forKey: .skilledNursingCare)
+        try container.encodeIfPresent(skilledNursingCareRoomAndBoard, forKey: .skilledNursingCareRoomAndBoard)
+        try container.encodeIfPresent(skin, forKey: .skin)
+        try container.encodeIfPresent(smokingCessation, forKey: .smokingCessation)
+        try container.encodeIfPresent(socialWork, forKey: .socialWork)
+        try container.encodeIfPresent(speechTherapy, forKey: .speechTherapy)
+        try container.encodeIfPresent(substanceAbuse, forKey: .substanceAbuse)
+        try container.encodeIfPresent(substanceAbuseFacilityInpatient, forKey: .substanceAbuseFacilityInpatient)
+        try container.encodeIfPresent(substanceAbuseFacilityOutpatient, forKey: .substanceAbuseFacilityOutpatient)
+        try container.encodeIfPresent(substanceAbuseProviderInpatient, forKey: .substanceAbuseProviderInpatient)
+        try container.encodeIfPresent(substanceAbuseProviderOutpatient, forKey: .substanceAbuseProviderOutpatient)
+        try container.encodeIfPresent(surgical, forKey: .surgical)
+        try container.encodeIfPresent(surgicalAssistance, forKey: .surgicalAssistance)
+        try container.encodeIfPresent(surgicalBenefitsFacility, forKey: .surgicalBenefitsFacility)
+        try container.encodeIfPresent(surgicalBenefitsProfessionalPhysician, forKey: .surgicalBenefitsProfessionalPhysician)
+        try container.encodeIfPresent(thirdSurgicalOpinion, forKey: .thirdSurgicalOpinion)
+        try container.encodeIfPresent(transitionalCare, forKey: .transitionalCare)
+        try container.encodeIfPresent(transitionalNurseryCare, forKey: .transitionalNurseryCare)
+        try container.encodeIfPresent(transplants, forKey: .transplants)
+        try container.encodeIfPresent(urgentCare, forKey: .urgentCare)
+        try container.encodeIfPresent(usedDurableMedicalEquipment, forKey: .usedDurableMedicalEquipment)
+        try container.encodeIfPresent(vision, forKey: .vision)
+        try container.encodeIfPresent(wellBabyCare, forKey: .wellBabyCare)
     }
 }
 
