@@ -23,7 +23,7 @@ describe("Cardscan Pipelines", () => {
           provider: {
             firstName: "John",
             lastName: "Doe",
-            npi: "1234567890",
+            npi: "1952535221",
           },
           subscriber: {
             firstName: "Jane",
@@ -51,7 +51,7 @@ describe("Cardscan Pipelines", () => {
           provider: {
             firstName: "John",
             lastName: "Doe",
-            npi: "1234567890",
+            npi: "1952535221",
           },
           subscriber: {
             firstName: "Jane",
