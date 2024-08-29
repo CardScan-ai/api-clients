@@ -465,6 +465,15 @@ paths:
       operationId: listEligibility
       security:
       - bearerAuth: []
+      parameters:
+      - name: limit
+        in: query
+        schema:
+          type: integer
+      - name: cursor
+        in: query
+        schema:
+          type: string
       responses:
         '200':
           description: Successful response
