@@ -26,15 +26,14 @@ public struct EligibilityApiResponse: Codable, JSONEncodable, Hashable {
     public var eligibilityRequest: EligibilityApiResponseEligibilityRequest?
     /** The eligibility raw response. */
     public var eligibilityResponse: [String: AnyCodable]?
-    /** The eligibility summarized response. */
-    public var eligibilitySummarizedResponse: [String: AnyCodable]?
-    public var error: EligibilityApiResponseError?
+    public var eligibilitySummarizedResponse: EligibilitySummarizedResponse?
+    public var error: ModelError?
     /** The timestamp when the eligibility record was created. */
     public var createdAt: Date
     /** The timestamp when the eligibility record was last updated. */
     public var updateAt: Date
 
-    public init(eligibilityId: String, state: State, cardId: String, eligibilityRequest: EligibilityApiResponseEligibilityRequest? = nil, eligibilityResponse: [String: AnyCodable]? = nil, eligibilitySummarizedResponse: [String: AnyCodable]? = nil, error: EligibilityApiResponseError? = nil, createdAt: Date, updateAt: Date) {
+    public init(eligibilityId: String, state: State, cardId: String, eligibilityRequest: EligibilityApiResponseEligibilityRequest? = nil, eligibilityResponse: [String: AnyCodable]? = nil, eligibilitySummarizedResponse: EligibilitySummarizedResponse? = nil, error: ModelError? = nil, createdAt: Date, updateAt: Date) {
         self.eligibilityId = eligibilityId
         self.state = state
         self.cardId = cardId

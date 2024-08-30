@@ -6,7 +6,7 @@ Name | Type | Description | Notes
 **cardId** | **UUID** |  | 
 **state** | [**CardState**](CardState.md) |  | 
 **createdAt** | **Date** | The timestamp when the eligibility response was created. | 
-**error** | [**ApiErrorResponse**](ApiErrorResponse.md) |  | [optional] 
+**error** | [**ModelError**](ModelError.md) |  | [optional] 
 **images** | [**CardApiResponseImages**](CardApiResponseImages.md) |  | [optional] 
 **deleted** | **Bool** |  | 
 **details** | [**CardApiResponseDetails**](CardApiResponseDetails.md) |  | [optional] 

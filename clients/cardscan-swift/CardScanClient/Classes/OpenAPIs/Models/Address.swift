@@ -10,7 +10,6 @@ import Foundation
 import AnyCodable
 #endif
 
-/** Address: N3 and N4 */
 public struct Address: Codable, JSONEncodable, Hashable {
 
     static let address1Rule = StringRule(minLength: 0, maxLength: 55, pattern: nil)
@@ -18,32 +17,18 @@ public struct Address: Codable, JSONEncodable, Hashable {
     static let cityRule = StringRule(minLength: 0, maxLength: 30, pattern: nil)
     static let stateRule = StringRule(minLength: 0, maxLength: 2, pattern: nil)
     static let postalCodeRule = StringRule(minLength: 0, maxLength: 15, pattern: nil)
-    /** Segment: N3, Element: N301, Notes: Required, Address Information */
     public var address1: String?
-    /** Segment: N3, Element: N302, Notes: Address Information */
     public var address2: String?
-    /** Segment: N4, Element: N401, Notes: Required, city */
     public var city: String?
-    /** Segment: N4, Element: N402, Notes: state example: TN, WA */
     public var state: String?
-    /** Segment: N4, Element: N403 */
     public var postalCode: String?
-    /** Segment: N4, Element: N404 */
-    public var countryCode: String?
-    /** Segment: N4, Element: N406 */
-    public var locationIdentifier: String?
-    /** Segment: N4, Element: N407, Notes: Country SubDivision Code */
-    public var countrySubDivisionCode: String?
 
-    public init(address1: String? = nil, address2: String? = nil, city: String? = nil, state: String? = nil, postalCode: String? = nil, countryCode: String? = nil, locationIdentifier: String? = nil, countrySubDivisionCode: String? = nil) {
+    public init(address1: String? = nil, address2: String? = nil, city: String? = nil, state: String? = nil, postalCode: String? = nil) {
         self.address1 = address1
         self.address2 = address2
         self.city = city
         self.state = state
         self.postalCode = postalCode
-        self.countryCode = countryCode
-        self.locationIdentifier = locationIdentifier
-        self.countrySubDivisionCode = countrySubDivisionCode
     }
 
     public enum CodingKeys: String, CodingKey, CaseIterable {
@@ -52,9 +37,6 @@ public struct Address: Codable, JSONEncodable, Hashable {
         case city
         case state
         case postalCode
-        case countryCode
-        case locationIdentifier
-        case countrySubDivisionCode
     }
 
     // Encodable protocol methods
@@ -66,9 +48,6 @@ public struct Address: Codable, JSONEncodable, Hashable {
         try container.encodeIfPresent(city, forKey: .city)
         try container.encodeIfPresent(state, forKey: .state)
         try container.encodeIfPresent(postalCode, forKey: .postalCode)
-        try container.encodeIfPresent(countryCode, forKey: .countryCode)
-        try container.encodeIfPresent(locationIdentifier, forKey: .locationIdentifier)
-        try container.encodeIfPresent(countrySubDivisionCode, forKey: .countrySubDivisionCode)
     }
 }
 

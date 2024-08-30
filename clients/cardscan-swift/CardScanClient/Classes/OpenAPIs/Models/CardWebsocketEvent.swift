@@ -21,9 +21,9 @@ public struct CardWebsocketEvent: Codable, JSONEncodable, Hashable {
     public var state: CardState
     public var createdAt: Date
     public var sessionId: String?
-    public var error: ApiErrorResponse?
+    public var error: WebsocketError?
 
-    public init(eventId: String, type: ModelType, cardId: String, state: CardState, createdAt: Date, sessionId: String? = nil, error: ApiErrorResponse? = nil) {
+    public init(eventId: String, type: ModelType, cardId: String, state: CardState, createdAt: Date, sessionId: String? = nil, error: WebsocketError? = nil) {
         self.eventId = eventId
         self.type = type
         self.cardId = cardId

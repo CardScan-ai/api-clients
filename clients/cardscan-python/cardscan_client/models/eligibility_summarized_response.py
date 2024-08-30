@@ -34,12 +34,194 @@ class EligibilitySummarizedResponse(BaseModel):
     payer_details: Optional[PayerDetails] = None
     plan_details: Optional[PlanDetails] = None
     coverage_summary: Optional[CoverageSummary] = None
+    abortion: Optional[Service] = None
+    acupuncture: Optional[Service] = None
+    adjunctive_dental_services: Optional[Service] = None
+    aids: Optional[Service] = None
+    air_transportation: Optional[Service] = None
+    alcoholism: Optional[Service] = None
+    allergy: Optional[Service] = None
+    allergy_testing: Optional[Service] = None
+    alternate_method_dialysis: Optional[Service] = None
+    ambulatory_service_center_facility: Optional[Service] = None
+    anesthesia: Optional[Service] = None
+    anesthesiologist: Optional[Service] = None
+    audiology_exam: Optional[Service] = None
+    blood_charges: Optional[Service] = None
+    brand_name_prescription_drug: Optional[Service] = None
+    brand_name_prescription_drug_formulary: Optional[Service] = None
+    brand_name_prescription_drug_non_formulary: Optional[Service] = None
+    burn_care: Optional[Service] = None
+    cabulance: Optional[Service] = None
+    cancer: Optional[Service] = None
+    cardiac: Optional[Service] = None
+    cardiac_rehabilitation: Optional[Service] = None
+    case_management: Optional[Service] = None
+    chemotherapy: Optional[Service] = None
     chiropractic: Optional[Service] = None
+    chiropractic_office_visits: Optional[Service] = None
+    chronic_renal_disease_crd_equipment: Optional[Service] = None
+    cognitive_therapy: Optional[Service] = None
+    consultation: Optional[Service] = None
+    coronary_care: Optional[Service] = None
+    day_care_psychiatric: Optional[Service] = None
+    dental_accident: Optional[Service] = None
+    dental_care: Optional[Service] = None
+    dental_crowns: Optional[Service] = None
+    dermatology: Optional[Service] = None
+    diabetic_supplies: Optional[Service] = None
+    diagnostic_dental: Optional[Service] = None
+    diagnostic_lab: Optional[Service] = None
+    diagnostic_medical: Optional[Service] = None
+    diagnostic_x_ray: Optional[Service] = None
+    dialysis: Optional[Service] = None
+    donor_procedures: Optional[Service] = None
+    drug_addiction: Optional[Service] = None
+    durable_medical_equipment: Optional[Service] = None
+    durable_medical_equipment_purchase: Optional[Service] = None
+    durable_medical_equipment_rental: Optional[Service] = None
     emergency_room: Optional[Service] = None
-    office_visit: Optional[Service] = None
-    urgent_care: Optional[Service] = None
+    endocrine: Optional[Service] = None
+    endodontics: Optional[Service] = None
+    experimental_drug_therapy: Optional[Service] = None
+    eye: Optional[Service] = None
+    eyewear_and_eyewear_accessories: Optional[Service] = None
+    family_planning: Optional[Service] = None
+    flu_vaccination: Optional[Service] = None
+    frames: Optional[Service] = None
+    free_standing_prescription_drug: Optional[Service] = None
+    gastrointestinal: Optional[Service] = None
+    general_benefits: Optional[Service] = None
+    generic_prescription_drug: Optional[Service] = None
+    generic_prescription_drug_formulary: Optional[Service] = None
+    generic_prescription_drug_non_formulary: Optional[Service] = None
+    gynecological: Optional[Service] = None
+    home_health_care: Optional[Service] = None
+    home_health_prescriptions: Optional[Service] = None
+    home_health_visits: Optional[Service] = None
+    hospice: Optional[Service] = None
+    hospital_inpatient: Optional[Service] = None
+    hospital_ambulatory_surgical: Optional[Service] = None
+    hospital_emergency_accident: Optional[Service] = None
+    hospital_emergency_medical: Optional[Service] = None
     hospital_outpatient: Optional[Service] = None
-    __properties = ["subscriber_details", "payer_details", "plan_details", "coverage_summary", "chiropractic", "emergency_room", "office_visit", "urgent_care", "hospital_outpatient"]
+    hospital_room_and_board: Optional[Service] = None
+    immunizations: Optional[Service] = None
+    in_vitro_fertilization: Optional[Service] = None
+    independent_medical_evaluation: Optional[Service] = None
+    infertility: Optional[Service] = None
+    inhalation_therapy: Optional[Service] = None
+    intensive_care: Optional[Service] = None
+    invasive_procedures: Optional[Service] = None
+    lenses: Optional[Service] = None
+    licensed_ambulance: Optional[Service] = None
+    long_term_care: Optional[Service] = None
+    lymphatic: Optional[Service] = None
+    mail_order_prescription_drug: Optional[Service] = None
+    mail_order_prescription_drug_brand_name: Optional[Service] = None
+    mail_order_prescription_drug_generic: Optional[Service] = None
+    major_medical: Optional[Service] = None
+    mammogram_high_risk_patient: Optional[Service] = None
+    mammogram_low_risk_patient: Optional[Service] = None
+    massage_therapy: Optional[Service] = None
+    maternity: Optional[Service] = None
+    maxillofacial_prosthetics: Optional[Service] = None
+    medical_care: Optional[Service] = None
+    medically_related_transportation: Optional[Service] = None
+    mental_health: Optional[Service] = None
+    mental_health_facility_inpatient: Optional[Service] = None
+    mental_health_facility_outpatient: Optional[Service] = None
+    mental_health_provider_inpatient: Optional[Service] = None
+    mental_health_provider_outpatient: Optional[Service] = None
+    mri_cat_scan: Optional[Service] = None
+    neonatal_intensive_care: Optional[Service] = None
+    neurology: Optional[Service] = None
+    newborn_care: Optional[Service] = None
+    nonmedically_necessary_physical: Optional[Service] = None
+    nursery: Optional[Service] = None
+    obstetrical: Optional[Service] = None
+    obstetrical_gynecological: Optional[Service] = None
+    occupational_therapy: Optional[Service] = None
+    oncology: Optional[Service] = None
+    oral_surgery: Optional[Service] = None
+    orthodontics: Optional[Service] = None
+    orthopedic: Optional[Service] = None
+    other_medical: Optional[Service] = None
+    otological_exam: Optional[Service] = None
+    partial_hospitalization_psychiatric: Optional[Service] = None
+    pathology: Optional[Service] = None
+    pediatric: Optional[Service] = None
+    periodontics: Optional[Service] = None
+    pharmacy: Optional[Service] = None
+    physical_medicine: Optional[Service] = None
+    physical_therapy: Optional[Service] = None
+    physician_visit_office_sick: Optional[Service] = None
+    physician_visit_office_well: Optional[Service] = None
+    plan_waiting_period: Optional[Service] = None
+    pneumonia_vaccine: Optional[Service] = None
+    podiatry: Optional[Service] = None
+    podiatry_nursing_home_visits: Optional[Service] = None
+    podiatry_office_visits: Optional[Service] = None
+    pre_admission_testing: Optional[Service] = None
+    private_duty_nursing: Optional[Service] = None
+    private_duty_nursing_home: Optional[Service] = None
+    private_duty_nursing_inpatient: Optional[Service] = None
+    professional_physician: Optional[Service] = None
+    professional_physician_visit_home: Optional[Service] = None
+    professional_physician_visit_inpatient: Optional[Service] = None
+    professional_physician_visit_nursing_home: Optional[Service] = None
+    office_visit: Optional[Service] = None
+    professional_physician_visit_outpatient: Optional[Service] = None
+    professional_physician_visit_skilled_nursing: Optional[Service] = None
+    prosthetic_device: Optional[Service] = None
+    prosthodontics: Optional[Service] = None
+    psychiatric: Optional[Service] = None
+    psychiatric_inpatient: Optional[Service] = None
+    psychiatric_outpatient: Optional[Service] = None
+    psychiatric_room_and_board: Optional[Service] = None
+    psychotherapy: Optional[Service] = None
+    pulmonary: Optional[Service] = None
+    pulmonary_rehabilitation: Optional[Service] = None
+    radiation_therapy: Optional[Service] = None
+    rehabilitation: Optional[Service] = None
+    rehabilitation_inpatient: Optional[Service] = None
+    rehabilitation_outpatient: Optional[Service] = None
+    rehabilitation_room_and_board: Optional[Service] = None
+    renal: Optional[Service] = None
+    renal_supplies_in_the_home: Optional[Service] = None
+    residential_psychiatric_treatment: Optional[Service] = None
+    respite_care: Optional[Service] = None
+    restorative: Optional[Service] = None
+    routine_preventive_dental: Optional[Service] = None
+    routine_exam_use_for_routine_vision_exam_only: Optional[Service] = None
+    routine_physical: Optional[Service] = None
+    screening_laboratory: Optional[Service] = None
+    screening_x_ray: Optional[Service] = None
+    second_surgical_opinion: Optional[Service] = None
+    skilled_nursing_care: Optional[Service] = None
+    skilled_nursing_care_room_and_board: Optional[Service] = None
+    skin: Optional[Service] = None
+    smoking_cessation: Optional[Service] = None
+    social_work: Optional[Service] = None
+    speech_therapy: Optional[Service] = None
+    substance_abuse: Optional[Service] = None
+    substance_abuse_facility_inpatient: Optional[Service] = None
+    substance_abuse_facility_outpatient: Optional[Service] = None
+    substance_abuse_provider_inpatient: Optional[Service] = None
+    substance_abuse_provider_outpatient: Optional[Service] = None
+    surgical: Optional[Service] = None
+    surgical_assistance: Optional[Service] = None
+    surgical_benefits_facility: Optional[Service] = None
+    surgical_benefits_professional_physician: Optional[Service] = None
+    third_surgical_opinion: Optional[Service] = None
+    transitional_care: Optional[Service] = None
+    transitional_nursery_care: Optional[Service] = None
+    transplants: Optional[Service] = None
+    urgent_care: Optional[Service] = None
+    used_durable_medical_equipment: Optional[Service] = None
+    vision: Optional[Service] = None
+    well_baby_care: Optional[Service] = None
+    __properties = ["subscriber_details", "payer_details", "plan_details", "coverage_summary", "abortion", "acupuncture", "adjunctive_dental_services", "aids", "air_transportation", "alcoholism", "allergy", "allergy_testing", "alternate_method_dialysis", "ambulatory_service_center_facility", "anesthesia", "anesthesiologist", "audiology_exam", "blood_charges", "brand_name_prescription_drug", "brand_name_prescription_drug_formulary", "brand_name_prescription_drug_non_formulary", "burn_care", "cabulance", "cancer", "cardiac", "cardiac_rehabilitation", "case_management", "chemotherapy", "chiropractic", "chiropractic_office_visits", "chronic_renal_disease_crd_equipment", "cognitive_therapy", "consultation", "coronary_care", "day_care_psychiatric", "dental_accident", "dental_care", "dental_crowns", "dermatology", "diabetic_supplies", "diagnostic_dental", "diagnostic_lab", "diagnostic_medical", "diagnostic_x_ray", "dialysis", "donor_procedures", "drug_addiction", "durable_medical_equipment", "durable_medical_equipment_purchase", "durable_medical_equipment_rental", "emergency_room", "endocrine", "endodontics", "experimental_drug_therapy", "eye", "eyewear_and_eyewear_accessories", "family_planning", "flu_vaccination", "frames", "free_standing_prescription_drug", "gastrointestinal", "general_benefits", "generic_prescription_drug", "generic_prescription_drug_formulary", "generic_prescription_drug_non_formulary", "gynecological", "home_health_care", "home_health_prescriptions", "home_health_visits", "hospice", "hospital_inpatient", "hospital_ambulatory_surgical", "hospital_emergency_accident", "hospital_emergency_medical", "hospital_outpatient", "hospital_room_and_board", "immunizations", "in_vitro_fertilization", "independent_medical_evaluation", "infertility", "inhalation_therapy", "intensive_care", "invasive_procedures", "lenses", "licensed_ambulance", "long_term_care", "lymphatic", "mail_order_prescription_drug", "mail_order_prescription_drug_brand_name", "mail_order_prescription_drug_generic", "major_medical", "mammogram_high_risk_patient", "mammogram_low_risk_patient", "massage_therapy", "maternity", "maxillofacial_prosthetics", "medical_care", "medically_related_transportation", "mental_health", "mental_health_facility_inpatient", "mental_health_facility_outpatient", "mental_health_provider_inpatient", "mental_health_provider_outpatient", "mri_cat_scan", "neonatal_intensive_care", "neurology", "newborn_care", "nonmedically_necessary_physical", "nursery", "obstetrical", "obstetrical_gynecological", "occupational_therapy", "oncology", "oral_surgery", "orthodontics", "orthopedic", "other_medical", "otological_exam", "partial_hospitalization_psychiatric", "pathology", "pediatric", "periodontics", "pharmacy", "physical_medicine", "physical_therapy", "physician_visit_office_sick", "physician_visit_office_well", "plan_waiting_period", "pneumonia_vaccine", "podiatry", "podiatry_nursing_home_visits", "podiatry_office_visits", "pre_admission_testing", "private_duty_nursing", "private_duty_nursing_home", "private_duty_nursing_inpatient", "professional_physician", "professional_physician_visit_home", "professional_physician_visit_inpatient", "professional_physician_visit_nursing_home", "office_visit", "professional_physician_visit_outpatient", "professional_physician_visit_skilled_nursing", "prosthetic_device", "prosthodontics", "psychiatric", "psychiatric_inpatient", "psychiatric_outpatient", "psychiatric_room_and_board", "psychotherapy", "pulmonary", "pulmonary_rehabilitation", "radiation_therapy", "rehabilitation", "rehabilitation_inpatient", "rehabilitation_outpatient", "rehabilitation_room_and_board", "renal", "renal_supplies_in_the_home", "residential_psychiatric_treatment", "respite_care", "restorative", "routine_preventive_dental", "routine_exam_use_for_routine_vision_exam_only", "routine_physical", "screening_laboratory", "screening_x_ray", "second_surgical_opinion", "skilled_nursing_care", "skilled_nursing_care_room_and_board", "skin", "smoking_cessation", "social_work", "speech_therapy", "substance_abuse", "substance_abuse_facility_inpatient", "substance_abuse_facility_outpatient", "substance_abuse_provider_inpatient", "substance_abuse_provider_outpatient", "surgical", "surgical_assistance", "surgical_benefits_facility", "surgical_benefits_professional_physician", "third_surgical_opinion", "transitional_care", "transitional_nursery_care", "transplants", "urgent_care", "used_durable_medical_equipment", "vision", "well_baby_care"]
 
     class Config:
         """Pydantic configuration"""
@@ -77,21 +259,567 @@ class EligibilitySummarizedResponse(BaseModel):
         # override the default output from pydantic by calling `to_dict()` of coverage_summary
         if self.coverage_summary:
             _dict['coverage_summary'] = self.coverage_summary.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of abortion
+        if self.abortion:
+            _dict['abortion'] = self.abortion.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of acupuncture
+        if self.acupuncture:
+            _dict['acupuncture'] = self.acupuncture.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of adjunctive_dental_services
+        if self.adjunctive_dental_services:
+            _dict['adjunctive_dental_services'] = self.adjunctive_dental_services.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of aids
+        if self.aids:
+            _dict['aids'] = self.aids.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of air_transportation
+        if self.air_transportation:
+            _dict['air_transportation'] = self.air_transportation.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of alcoholism
+        if self.alcoholism:
+            _dict['alcoholism'] = self.alcoholism.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of allergy
+        if self.allergy:
+            _dict['allergy'] = self.allergy.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of allergy_testing
+        if self.allergy_testing:
+            _dict['allergy_testing'] = self.allergy_testing.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of alternate_method_dialysis
+        if self.alternate_method_dialysis:
+            _dict['alternate_method_dialysis'] = self.alternate_method_dialysis.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of ambulatory_service_center_facility
+        if self.ambulatory_service_center_facility:
+            _dict['ambulatory_service_center_facility'] = self.ambulatory_service_center_facility.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of anesthesia
+        if self.anesthesia:
+            _dict['anesthesia'] = self.anesthesia.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of anesthesiologist
+        if self.anesthesiologist:
+            _dict['anesthesiologist'] = self.anesthesiologist.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of audiology_exam
+        if self.audiology_exam:
+            _dict['audiology_exam'] = self.audiology_exam.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of blood_charges
+        if self.blood_charges:
+            _dict['blood_charges'] = self.blood_charges.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of brand_name_prescription_drug
+        if self.brand_name_prescription_drug:
+            _dict['brand_name_prescription_drug'] = self.brand_name_prescription_drug.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of brand_name_prescription_drug_formulary
+        if self.brand_name_prescription_drug_formulary:
+            _dict['brand_name_prescription_drug_formulary'] = self.brand_name_prescription_drug_formulary.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of brand_name_prescription_drug_non_formulary
+        if self.brand_name_prescription_drug_non_formulary:
+            _dict['brand_name_prescription_drug_non_formulary'] = self.brand_name_prescription_drug_non_formulary.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of burn_care
+        if self.burn_care:
+            _dict['burn_care'] = self.burn_care.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of cabulance
+        if self.cabulance:
+            _dict['cabulance'] = self.cabulance.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of cancer
+        if self.cancer:
+            _dict['cancer'] = self.cancer.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of cardiac
+        if self.cardiac:
+            _dict['cardiac'] = self.cardiac.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of cardiac_rehabilitation
+        if self.cardiac_rehabilitation:
+            _dict['cardiac_rehabilitation'] = self.cardiac_rehabilitation.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of case_management
+        if self.case_management:
+            _dict['case_management'] = self.case_management.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of chemotherapy
+        if self.chemotherapy:
+            _dict['chemotherapy'] = self.chemotherapy.to_dict()
         # override the default output from pydantic by calling `to_dict()` of chiropractic
         if self.chiropractic:
             _dict['chiropractic'] = self.chiropractic.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of chiropractic_office_visits
+        if self.chiropractic_office_visits:
+            _dict['chiropractic_office_visits'] = self.chiropractic_office_visits.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of chronic_renal_disease_crd_equipment
+        if self.chronic_renal_disease_crd_equipment:
+            _dict['chronic_renal_disease_crd_equipment'] = self.chronic_renal_disease_crd_equipment.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of cognitive_therapy
+        if self.cognitive_therapy:
+            _dict['cognitive_therapy'] = self.cognitive_therapy.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of consultation
+        if self.consultation:
+            _dict['consultation'] = self.consultation.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of coronary_care
+        if self.coronary_care:
+            _dict['coronary_care'] = self.coronary_care.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of day_care_psychiatric
+        if self.day_care_psychiatric:
+            _dict['day_care_psychiatric'] = self.day_care_psychiatric.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of dental_accident
+        if self.dental_accident:
+            _dict['dental_accident'] = self.dental_accident.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of dental_care
+        if self.dental_care:
+            _dict['dental_care'] = self.dental_care.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of dental_crowns
+        if self.dental_crowns:
+            _dict['dental_crowns'] = self.dental_crowns.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of dermatology
+        if self.dermatology:
+            _dict['dermatology'] = self.dermatology.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of diabetic_supplies
+        if self.diabetic_supplies:
+            _dict['diabetic_supplies'] = self.diabetic_supplies.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of diagnostic_dental
+        if self.diagnostic_dental:
+            _dict['diagnostic_dental'] = self.diagnostic_dental.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of diagnostic_lab
+        if self.diagnostic_lab:
+            _dict['diagnostic_lab'] = self.diagnostic_lab.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of diagnostic_medical
+        if self.diagnostic_medical:
+            _dict['diagnostic_medical'] = self.diagnostic_medical.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of diagnostic_x_ray
+        if self.diagnostic_x_ray:
+            _dict['diagnostic_x_ray'] = self.diagnostic_x_ray.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of dialysis
+        if self.dialysis:
+            _dict['dialysis'] = self.dialysis.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of donor_procedures
+        if self.donor_procedures:
+            _dict['donor_procedures'] = self.donor_procedures.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of drug_addiction
+        if self.drug_addiction:
+            _dict['drug_addiction'] = self.drug_addiction.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of durable_medical_equipment
+        if self.durable_medical_equipment:
+            _dict['durable_medical_equipment'] = self.durable_medical_equipment.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of durable_medical_equipment_purchase
+        if self.durable_medical_equipment_purchase:
+            _dict['durable_medical_equipment_purchase'] = self.durable_medical_equipment_purchase.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of durable_medical_equipment_rental
+        if self.durable_medical_equipment_rental:
+            _dict['durable_medical_equipment_rental'] = self.durable_medical_equipment_rental.to_dict()
         # override the default output from pydantic by calling `to_dict()` of emergency_room
         if self.emergency_room:
             _dict['emergency_room'] = self.emergency_room.to_dict()
-        # override the default output from pydantic by calling `to_dict()` of office_visit
-        if self.office_visit:
-            _dict['office_visit'] = self.office_visit.to_dict()
-        # override the default output from pydantic by calling `to_dict()` of urgent_care
-        if self.urgent_care:
-            _dict['urgent_care'] = self.urgent_care.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of endocrine
+        if self.endocrine:
+            _dict['endocrine'] = self.endocrine.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of endodontics
+        if self.endodontics:
+            _dict['endodontics'] = self.endodontics.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of experimental_drug_therapy
+        if self.experimental_drug_therapy:
+            _dict['experimental_drug_therapy'] = self.experimental_drug_therapy.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of eye
+        if self.eye:
+            _dict['eye'] = self.eye.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of eyewear_and_eyewear_accessories
+        if self.eyewear_and_eyewear_accessories:
+            _dict['eyewear_and_eyewear_accessories'] = self.eyewear_and_eyewear_accessories.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of family_planning
+        if self.family_planning:
+            _dict['family_planning'] = self.family_planning.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of flu_vaccination
+        if self.flu_vaccination:
+            _dict['flu_vaccination'] = self.flu_vaccination.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of frames
+        if self.frames:
+            _dict['frames'] = self.frames.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of free_standing_prescription_drug
+        if self.free_standing_prescription_drug:
+            _dict['free_standing_prescription_drug'] = self.free_standing_prescription_drug.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of gastrointestinal
+        if self.gastrointestinal:
+            _dict['gastrointestinal'] = self.gastrointestinal.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of general_benefits
+        if self.general_benefits:
+            _dict['general_benefits'] = self.general_benefits.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of generic_prescription_drug
+        if self.generic_prescription_drug:
+            _dict['generic_prescription_drug'] = self.generic_prescription_drug.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of generic_prescription_drug_formulary
+        if self.generic_prescription_drug_formulary:
+            _dict['generic_prescription_drug_formulary'] = self.generic_prescription_drug_formulary.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of generic_prescription_drug_non_formulary
+        if self.generic_prescription_drug_non_formulary:
+            _dict['generic_prescription_drug_non_formulary'] = self.generic_prescription_drug_non_formulary.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of gynecological
+        if self.gynecological:
+            _dict['gynecological'] = self.gynecological.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of home_health_care
+        if self.home_health_care:
+            _dict['home_health_care'] = self.home_health_care.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of home_health_prescriptions
+        if self.home_health_prescriptions:
+            _dict['home_health_prescriptions'] = self.home_health_prescriptions.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of home_health_visits
+        if self.home_health_visits:
+            _dict['home_health_visits'] = self.home_health_visits.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of hospice
+        if self.hospice:
+            _dict['hospice'] = self.hospice.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of hospital_inpatient
+        if self.hospital_inpatient:
+            _dict['hospital_inpatient'] = self.hospital_inpatient.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of hospital_ambulatory_surgical
+        if self.hospital_ambulatory_surgical:
+            _dict['hospital_ambulatory_surgical'] = self.hospital_ambulatory_surgical.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of hospital_emergency_accident
+        if self.hospital_emergency_accident:
+            _dict['hospital_emergency_accident'] = self.hospital_emergency_accident.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of hospital_emergency_medical
+        if self.hospital_emergency_medical:
+            _dict['hospital_emergency_medical'] = self.hospital_emergency_medical.to_dict()
         # override the default output from pydantic by calling `to_dict()` of hospital_outpatient
         if self.hospital_outpatient:
             _dict['hospital_outpatient'] = self.hospital_outpatient.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of hospital_room_and_board
+        if self.hospital_room_and_board:
+            _dict['hospital_room_and_board'] = self.hospital_room_and_board.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of immunizations
+        if self.immunizations:
+            _dict['immunizations'] = self.immunizations.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of in_vitro_fertilization
+        if self.in_vitro_fertilization:
+            _dict['in_vitro_fertilization'] = self.in_vitro_fertilization.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of independent_medical_evaluation
+        if self.independent_medical_evaluation:
+            _dict['independent_medical_evaluation'] = self.independent_medical_evaluation.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of infertility
+        if self.infertility:
+            _dict['infertility'] = self.infertility.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of inhalation_therapy
+        if self.inhalation_therapy:
+            _dict['inhalation_therapy'] = self.inhalation_therapy.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of intensive_care
+        if self.intensive_care:
+            _dict['intensive_care'] = self.intensive_care.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of invasive_procedures
+        if self.invasive_procedures:
+            _dict['invasive_procedures'] = self.invasive_procedures.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of lenses
+        if self.lenses:
+            _dict['lenses'] = self.lenses.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of licensed_ambulance
+        if self.licensed_ambulance:
+            _dict['licensed_ambulance'] = self.licensed_ambulance.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of long_term_care
+        if self.long_term_care:
+            _dict['long_term_care'] = self.long_term_care.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of lymphatic
+        if self.lymphatic:
+            _dict['lymphatic'] = self.lymphatic.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of mail_order_prescription_drug
+        if self.mail_order_prescription_drug:
+            _dict['mail_order_prescription_drug'] = self.mail_order_prescription_drug.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of mail_order_prescription_drug_brand_name
+        if self.mail_order_prescription_drug_brand_name:
+            _dict['mail_order_prescription_drug_brand_name'] = self.mail_order_prescription_drug_brand_name.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of mail_order_prescription_drug_generic
+        if self.mail_order_prescription_drug_generic:
+            _dict['mail_order_prescription_drug_generic'] = self.mail_order_prescription_drug_generic.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of major_medical
+        if self.major_medical:
+            _dict['major_medical'] = self.major_medical.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of mammogram_high_risk_patient
+        if self.mammogram_high_risk_patient:
+            _dict['mammogram_high_risk_patient'] = self.mammogram_high_risk_patient.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of mammogram_low_risk_patient
+        if self.mammogram_low_risk_patient:
+            _dict['mammogram_low_risk_patient'] = self.mammogram_low_risk_patient.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of massage_therapy
+        if self.massage_therapy:
+            _dict['massage_therapy'] = self.massage_therapy.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of maternity
+        if self.maternity:
+            _dict['maternity'] = self.maternity.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of maxillofacial_prosthetics
+        if self.maxillofacial_prosthetics:
+            _dict['maxillofacial_prosthetics'] = self.maxillofacial_prosthetics.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of medical_care
+        if self.medical_care:
+            _dict['medical_care'] = self.medical_care.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of medically_related_transportation
+        if self.medically_related_transportation:
+            _dict['medically_related_transportation'] = self.medically_related_transportation.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of mental_health
+        if self.mental_health:
+            _dict['mental_health'] = self.mental_health.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of mental_health_facility_inpatient
+        if self.mental_health_facility_inpatient:
+            _dict['mental_health_facility_inpatient'] = self.mental_health_facility_inpatient.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of mental_health_facility_outpatient
+        if self.mental_health_facility_outpatient:
+            _dict['mental_health_facility_outpatient'] = self.mental_health_facility_outpatient.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of mental_health_provider_inpatient
+        if self.mental_health_provider_inpatient:
+            _dict['mental_health_provider_inpatient'] = self.mental_health_provider_inpatient.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of mental_health_provider_outpatient
+        if self.mental_health_provider_outpatient:
+            _dict['mental_health_provider_outpatient'] = self.mental_health_provider_outpatient.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of mri_cat_scan
+        if self.mri_cat_scan:
+            _dict['mri_cat_scan'] = self.mri_cat_scan.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of neonatal_intensive_care
+        if self.neonatal_intensive_care:
+            _dict['neonatal_intensive_care'] = self.neonatal_intensive_care.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of neurology
+        if self.neurology:
+            _dict['neurology'] = self.neurology.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of newborn_care
+        if self.newborn_care:
+            _dict['newborn_care'] = self.newborn_care.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of nonmedically_necessary_physical
+        if self.nonmedically_necessary_physical:
+            _dict['nonmedically_necessary_physical'] = self.nonmedically_necessary_physical.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of nursery
+        if self.nursery:
+            _dict['nursery'] = self.nursery.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of obstetrical
+        if self.obstetrical:
+            _dict['obstetrical'] = self.obstetrical.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of obstetrical_gynecological
+        if self.obstetrical_gynecological:
+            _dict['obstetrical_gynecological'] = self.obstetrical_gynecological.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of occupational_therapy
+        if self.occupational_therapy:
+            _dict['occupational_therapy'] = self.occupational_therapy.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of oncology
+        if self.oncology:
+            _dict['oncology'] = self.oncology.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of oral_surgery
+        if self.oral_surgery:
+            _dict['oral_surgery'] = self.oral_surgery.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of orthodontics
+        if self.orthodontics:
+            _dict['orthodontics'] = self.orthodontics.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of orthopedic
+        if self.orthopedic:
+            _dict['orthopedic'] = self.orthopedic.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of other_medical
+        if self.other_medical:
+            _dict['other_medical'] = self.other_medical.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of otological_exam
+        if self.otological_exam:
+            _dict['otological_exam'] = self.otological_exam.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of partial_hospitalization_psychiatric
+        if self.partial_hospitalization_psychiatric:
+            _dict['partial_hospitalization_psychiatric'] = self.partial_hospitalization_psychiatric.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of pathology
+        if self.pathology:
+            _dict['pathology'] = self.pathology.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of pediatric
+        if self.pediatric:
+            _dict['pediatric'] = self.pediatric.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of periodontics
+        if self.periodontics:
+            _dict['periodontics'] = self.periodontics.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of pharmacy
+        if self.pharmacy:
+            _dict['pharmacy'] = self.pharmacy.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of physical_medicine
+        if self.physical_medicine:
+            _dict['physical_medicine'] = self.physical_medicine.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of physical_therapy
+        if self.physical_therapy:
+            _dict['physical_therapy'] = self.physical_therapy.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of physician_visit_office_sick
+        if self.physician_visit_office_sick:
+            _dict['physician_visit_office_sick'] = self.physician_visit_office_sick.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of physician_visit_office_well
+        if self.physician_visit_office_well:
+            _dict['physician_visit_office_well'] = self.physician_visit_office_well.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of plan_waiting_period
+        if self.plan_waiting_period:
+            _dict['plan_waiting_period'] = self.plan_waiting_period.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of pneumonia_vaccine
+        if self.pneumonia_vaccine:
+            _dict['pneumonia_vaccine'] = self.pneumonia_vaccine.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of podiatry
+        if self.podiatry:
+            _dict['podiatry'] = self.podiatry.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of podiatry_nursing_home_visits
+        if self.podiatry_nursing_home_visits:
+            _dict['podiatry_nursing_home_visits'] = self.podiatry_nursing_home_visits.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of podiatry_office_visits
+        if self.podiatry_office_visits:
+            _dict['podiatry_office_visits'] = self.podiatry_office_visits.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of pre_admission_testing
+        if self.pre_admission_testing:
+            _dict['pre_admission_testing'] = self.pre_admission_testing.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of private_duty_nursing
+        if self.private_duty_nursing:
+            _dict['private_duty_nursing'] = self.private_duty_nursing.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of private_duty_nursing_home
+        if self.private_duty_nursing_home:
+            _dict['private_duty_nursing_home'] = self.private_duty_nursing_home.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of private_duty_nursing_inpatient
+        if self.private_duty_nursing_inpatient:
+            _dict['private_duty_nursing_inpatient'] = self.private_duty_nursing_inpatient.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of professional_physician
+        if self.professional_physician:
+            _dict['professional_physician'] = self.professional_physician.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of professional_physician_visit_home
+        if self.professional_physician_visit_home:
+            _dict['professional_physician_visit_home'] = self.professional_physician_visit_home.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of professional_physician_visit_inpatient
+        if self.professional_physician_visit_inpatient:
+            _dict['professional_physician_visit_inpatient'] = self.professional_physician_visit_inpatient.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of professional_physician_visit_nursing_home
+        if self.professional_physician_visit_nursing_home:
+            _dict['professional_physician_visit_nursing_home'] = self.professional_physician_visit_nursing_home.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of office_visit
+        if self.office_visit:
+            _dict['office_visit'] = self.office_visit.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of professional_physician_visit_outpatient
+        if self.professional_physician_visit_outpatient:
+            _dict['professional_physician_visit_outpatient'] = self.professional_physician_visit_outpatient.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of professional_physician_visit_skilled_nursing
+        if self.professional_physician_visit_skilled_nursing:
+            _dict['professional_physician_visit_skilled_nursing'] = self.professional_physician_visit_skilled_nursing.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of prosthetic_device
+        if self.prosthetic_device:
+            _dict['prosthetic_device'] = self.prosthetic_device.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of prosthodontics
+        if self.prosthodontics:
+            _dict['prosthodontics'] = self.prosthodontics.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of psychiatric
+        if self.psychiatric:
+            _dict['psychiatric'] = self.psychiatric.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of psychiatric_inpatient
+        if self.psychiatric_inpatient:
+            _dict['psychiatric_inpatient'] = self.psychiatric_inpatient.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of psychiatric_outpatient
+        if self.psychiatric_outpatient:
+            _dict['psychiatric_outpatient'] = self.psychiatric_outpatient.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of psychiatric_room_and_board
+        if self.psychiatric_room_and_board:
+            _dict['psychiatric_room_and_board'] = self.psychiatric_room_and_board.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of psychotherapy
+        if self.psychotherapy:
+            _dict['psychotherapy'] = self.psychotherapy.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of pulmonary
+        if self.pulmonary:
+            _dict['pulmonary'] = self.pulmonary.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of pulmonary_rehabilitation
+        if self.pulmonary_rehabilitation:
+            _dict['pulmonary_rehabilitation'] = self.pulmonary_rehabilitation.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of radiation_therapy
+        if self.radiation_therapy:
+            _dict['radiation_therapy'] = self.radiation_therapy.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of rehabilitation
+        if self.rehabilitation:
+            _dict['rehabilitation'] = self.rehabilitation.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of rehabilitation_inpatient
+        if self.rehabilitation_inpatient:
+            _dict['rehabilitation_inpatient'] = self.rehabilitation_inpatient.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of rehabilitation_outpatient
+        if self.rehabilitation_outpatient:
+            _dict['rehabilitation_outpatient'] = self.rehabilitation_outpatient.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of rehabilitation_room_and_board
+        if self.rehabilitation_room_and_board:
+            _dict['rehabilitation_room_and_board'] = self.rehabilitation_room_and_board.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of renal
+        if self.renal:
+            _dict['renal'] = self.renal.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of renal_supplies_in_the_home
+        if self.renal_supplies_in_the_home:
+            _dict['renal_supplies_in_the_home'] = self.renal_supplies_in_the_home.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of residential_psychiatric_treatment
+        if self.residential_psychiatric_treatment:
+            _dict['residential_psychiatric_treatment'] = self.residential_psychiatric_treatment.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of respite_care
+        if self.respite_care:
+            _dict['respite_care'] = self.respite_care.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of restorative
+        if self.restorative:
+            _dict['restorative'] = self.restorative.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of routine_preventive_dental
+        if self.routine_preventive_dental:
+            _dict['routine_preventive_dental'] = self.routine_preventive_dental.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of routine_exam_use_for_routine_vision_exam_only
+        if self.routine_exam_use_for_routine_vision_exam_only:
+            _dict['routine_exam_use_for_routine_vision_exam_only'] = self.routine_exam_use_for_routine_vision_exam_only.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of routine_physical
+        if self.routine_physical:
+            _dict['routine_physical'] = self.routine_physical.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of screening_laboratory
+        if self.screening_laboratory:
+            _dict['screening_laboratory'] = self.screening_laboratory.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of screening_x_ray
+        if self.screening_x_ray:
+            _dict['screening_x_ray'] = self.screening_x_ray.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of second_surgical_opinion
+        if self.second_surgical_opinion:
+            _dict['second_surgical_opinion'] = self.second_surgical_opinion.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of skilled_nursing_care
+        if self.skilled_nursing_care:
+            _dict['skilled_nursing_care'] = self.skilled_nursing_care.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of skilled_nursing_care_room_and_board
+        if self.skilled_nursing_care_room_and_board:
+            _dict['skilled_nursing_care_room_and_board'] = self.skilled_nursing_care_room_and_board.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of skin
+        if self.skin:
+            _dict['skin'] = self.skin.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of smoking_cessation
+        if self.smoking_cessation:
+            _dict['smoking_cessation'] = self.smoking_cessation.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of social_work
+        if self.social_work:
+            _dict['social_work'] = self.social_work.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of speech_therapy
+        if self.speech_therapy:
+            _dict['speech_therapy'] = self.speech_therapy.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of substance_abuse
+        if self.substance_abuse:
+            _dict['substance_abuse'] = self.substance_abuse.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of substance_abuse_facility_inpatient
+        if self.substance_abuse_facility_inpatient:
+            _dict['substance_abuse_facility_inpatient'] = self.substance_abuse_facility_inpatient.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of substance_abuse_facility_outpatient
+        if self.substance_abuse_facility_outpatient:
+            _dict['substance_abuse_facility_outpatient'] = self.substance_abuse_facility_outpatient.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of substance_abuse_provider_inpatient
+        if self.substance_abuse_provider_inpatient:
+            _dict['substance_abuse_provider_inpatient'] = self.substance_abuse_provider_inpatient.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of substance_abuse_provider_outpatient
+        if self.substance_abuse_provider_outpatient:
+            _dict['substance_abuse_provider_outpatient'] = self.substance_abuse_provider_outpatient.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of surgical
+        if self.surgical:
+            _dict['surgical'] = self.surgical.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of surgical_assistance
+        if self.surgical_assistance:
+            _dict['surgical_assistance'] = self.surgical_assistance.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of surgical_benefits_facility
+        if self.surgical_benefits_facility:
+            _dict['surgical_benefits_facility'] = self.surgical_benefits_facility.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of surgical_benefits_professional_physician
+        if self.surgical_benefits_professional_physician:
+            _dict['surgical_benefits_professional_physician'] = self.surgical_benefits_professional_physician.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of third_surgical_opinion
+        if self.third_surgical_opinion:
+            _dict['third_surgical_opinion'] = self.third_surgical_opinion.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of transitional_care
+        if self.transitional_care:
+            _dict['transitional_care'] = self.transitional_care.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of transitional_nursery_care
+        if self.transitional_nursery_care:
+            _dict['transitional_nursery_care'] = self.transitional_nursery_care.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of transplants
+        if self.transplants:
+            _dict['transplants'] = self.transplants.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of urgent_care
+        if self.urgent_care:
+            _dict['urgent_care'] = self.urgent_care.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of used_durable_medical_equipment
+        if self.used_durable_medical_equipment:
+            _dict['used_durable_medical_equipment'] = self.used_durable_medical_equipment.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of vision
+        if self.vision:
+            _dict['vision'] = self.vision.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of well_baby_care
+        if self.well_baby_care:
+            _dict['well_baby_care'] = self.well_baby_care.to_dict()
         return _dict
 
     @classmethod
@@ -108,11 +836,193 @@ class EligibilitySummarizedResponse(BaseModel):
             "payer_details": PayerDetails.from_dict(obj.get("payer_details")) if obj.get("payer_details") is not None else None,
             "plan_details": PlanDetails.from_dict(obj.get("plan_details")) if obj.get("plan_details") is not None else None,
             "coverage_summary": CoverageSummary.from_dict(obj.get("coverage_summary")) if obj.get("coverage_summary") is not None else None,
+            "abortion": Service.from_dict(obj.get("abortion")) if obj.get("abortion") is not None else None,
+            "acupuncture": Service.from_dict(obj.get("acupuncture")) if obj.get("acupuncture") is not None else None,
+            "adjunctive_dental_services": Service.from_dict(obj.get("adjunctive_dental_services")) if obj.get("adjunctive_dental_services") is not None else None,
+            "aids": Service.from_dict(obj.get("aids")) if obj.get("aids") is not None else None,
+            "air_transportation": Service.from_dict(obj.get("air_transportation")) if obj.get("air_transportation") is not None else None,
+            "alcoholism": Service.from_dict(obj.get("alcoholism")) if obj.get("alcoholism") is not None else None,
+            "allergy": Service.from_dict(obj.get("allergy")) if obj.get("allergy") is not None else None,
+            "allergy_testing": Service.from_dict(obj.get("allergy_testing")) if obj.get("allergy_testing") is not None else None,
+            "alternate_method_dialysis": Service.from_dict(obj.get("alternate_method_dialysis")) if obj.get("alternate_method_dialysis") is not None else None,
+            "ambulatory_service_center_facility": Service.from_dict(obj.get("ambulatory_service_center_facility")) if obj.get("ambulatory_service_center_facility") is not None else None,
+            "anesthesia": Service.from_dict(obj.get("anesthesia")) if obj.get("anesthesia") is not None else None,
+            "anesthesiologist": Service.from_dict(obj.get("anesthesiologist")) if obj.get("anesthesiologist") is not None else None,
+            "audiology_exam": Service.from_dict(obj.get("audiology_exam")) if obj.get("audiology_exam") is not None else None,
+            "blood_charges": Service.from_dict(obj.get("blood_charges")) if obj.get("blood_charges") is not None else None,
+            "brand_name_prescription_drug": Service.from_dict(obj.get("brand_name_prescription_drug")) if obj.get("brand_name_prescription_drug") is not None else None,
+            "brand_name_prescription_drug_formulary": Service.from_dict(obj.get("brand_name_prescription_drug_formulary")) if obj.get("brand_name_prescription_drug_formulary") is not None else None,
+            "brand_name_prescription_drug_non_formulary": Service.from_dict(obj.get("brand_name_prescription_drug_non_formulary")) if obj.get("brand_name_prescription_drug_non_formulary") is not None else None,
+            "burn_care": Service.from_dict(obj.get("burn_care")) if obj.get("burn_care") is not None else None,
+            "cabulance": Service.from_dict(obj.get("cabulance")) if obj.get("cabulance") is not None else None,
+            "cancer": Service.from_dict(obj.get("cancer")) if obj.get("cancer") is not None else None,
+            "cardiac": Service.from_dict(obj.get("cardiac")) if obj.get("cardiac") is not None else None,
+            "cardiac_rehabilitation": Service.from_dict(obj.get("cardiac_rehabilitation")) if obj.get("cardiac_rehabilitation") is not None else None,
+            "case_management": Service.from_dict(obj.get("case_management")) if obj.get("case_management") is not None else None,
+            "chemotherapy": Service.from_dict(obj.get("chemotherapy")) if obj.get("chemotherapy") is not None else None,
             "chiropractic": Service.from_dict(obj.get("chiropractic")) if obj.get("chiropractic") is not None else None,
+            "chiropractic_office_visits": Service.from_dict(obj.get("chiropractic_office_visits")) if obj.get("chiropractic_office_visits") is not None else None,
+            "chronic_renal_disease_crd_equipment": Service.from_dict(obj.get("chronic_renal_disease_crd_equipment")) if obj.get("chronic_renal_disease_crd_equipment") is not None else None,
+            "cognitive_therapy": Service.from_dict(obj.get("cognitive_therapy")) if obj.get("cognitive_therapy") is not None else None,
+            "consultation": Service.from_dict(obj.get("consultation")) if obj.get("consultation") is not None else None,
+            "coronary_care": Service.from_dict(obj.get("coronary_care")) if obj.get("coronary_care") is not None else None,
+            "day_care_psychiatric": Service.from_dict(obj.get("day_care_psychiatric")) if obj.get("day_care_psychiatric") is not None else None,
+            "dental_accident": Service.from_dict(obj.get("dental_accident")) if obj.get("dental_accident") is not None else None,
+            "dental_care": Service.from_dict(obj.get("dental_care")) if obj.get("dental_care") is not None else None,
+            "dental_crowns": Service.from_dict(obj.get("dental_crowns")) if obj.get("dental_crowns") is not None else None,
+            "dermatology": Service.from_dict(obj.get("dermatology")) if obj.get("dermatology") is not None else None,
+            "diabetic_supplies": Service.from_dict(obj.get("diabetic_supplies")) if obj.get("diabetic_supplies") is not None else None,
+            "diagnostic_dental": Service.from_dict(obj.get("diagnostic_dental")) if obj.get("diagnostic_dental") is not None else None,
+            "diagnostic_lab": Service.from_dict(obj.get("diagnostic_lab")) if obj.get("diagnostic_lab") is not None else None,
+            "diagnostic_medical": Service.from_dict(obj.get("diagnostic_medical")) if obj.get("diagnostic_medical") is not None else None,
+            "diagnostic_x_ray": Service.from_dict(obj.get("diagnostic_x_ray")) if obj.get("diagnostic_x_ray") is not None else None,
+            "dialysis": Service.from_dict(obj.get("dialysis")) if obj.get("dialysis") is not None else None,
+            "donor_procedures": Service.from_dict(obj.get("donor_procedures")) if obj.get("donor_procedures") is not None else None,
+            "drug_addiction": Service.from_dict(obj.get("drug_addiction")) if obj.get("drug_addiction") is not None else None,
+            "durable_medical_equipment": Service.from_dict(obj.get("durable_medical_equipment")) if obj.get("durable_medical_equipment") is not None else None,
+            "durable_medical_equipment_purchase": Service.from_dict(obj.get("durable_medical_equipment_purchase")) if obj.get("durable_medical_equipment_purchase") is not None else None,
+            "durable_medical_equipment_rental": Service.from_dict(obj.get("durable_medical_equipment_rental")) if obj.get("durable_medical_equipment_rental") is not None else None,
             "emergency_room": Service.from_dict(obj.get("emergency_room")) if obj.get("emergency_room") is not None else None,
+            "endocrine": Service.from_dict(obj.get("endocrine")) if obj.get("endocrine") is not None else None,
+            "endodontics": Service.from_dict(obj.get("endodontics")) if obj.get("endodontics") is not None else None,
+            "experimental_drug_therapy": Service.from_dict(obj.get("experimental_drug_therapy")) if obj.get("experimental_drug_therapy") is not None else None,
+            "eye": Service.from_dict(obj.get("eye")) if obj.get("eye") is not None else None,
+            "eyewear_and_eyewear_accessories": Service.from_dict(obj.get("eyewear_and_eyewear_accessories")) if obj.get("eyewear_and_eyewear_accessories") is not None else None,
+            "family_planning": Service.from_dict(obj.get("family_planning")) if obj.get("family_planning") is not None else None,
+            "flu_vaccination": Service.from_dict(obj.get("flu_vaccination")) if obj.get("flu_vaccination") is not None else None,
+            "frames": Service.from_dict(obj.get("frames")) if obj.get("frames") is not None else None,
+            "free_standing_prescription_drug": Service.from_dict(obj.get("free_standing_prescription_drug")) if obj.get("free_standing_prescription_drug") is not None else None,
+            "gastrointestinal": Service.from_dict(obj.get("gastrointestinal")) if obj.get("gastrointestinal") is not None else None,
+            "general_benefits": Service.from_dict(obj.get("general_benefits")) if obj.get("general_benefits") is not None else None,
+            "generic_prescription_drug": Service.from_dict(obj.get("generic_prescription_drug")) if obj.get("generic_prescription_drug") is not None else None,
+            "generic_prescription_drug_formulary": Service.from_dict(obj.get("generic_prescription_drug_formulary")) if obj.get("generic_prescription_drug_formulary") is not None else None,
+            "generic_prescription_drug_non_formulary": Service.from_dict(obj.get("generic_prescription_drug_non_formulary")) if obj.get("generic_prescription_drug_non_formulary") is not None else None,
+            "gynecological": Service.from_dict(obj.get("gynecological")) if obj.get("gynecological") is not None else None,
+            "home_health_care": Service.from_dict(obj.get("home_health_care")) if obj.get("home_health_care") is not None else None,
+            "home_health_prescriptions": Service.from_dict(obj.get("home_health_prescriptions")) if obj.get("home_health_prescriptions") is not None else None,
+            "home_health_visits": Service.from_dict(obj.get("home_health_visits")) if obj.get("home_health_visits") is not None else None,
+            "hospice": Service.from_dict(obj.get("hospice")) if obj.get("hospice") is not None else None,
+            "hospital_inpatient": Service.from_dict(obj.get("hospital_inpatient")) if obj.get("hospital_inpatient") is not None else None,
+            "hospital_ambulatory_surgical": Service.from_dict(obj.get("hospital_ambulatory_surgical")) if obj.get("hospital_ambulatory_surgical") is not None else None,
+            "hospital_emergency_accident": Service.from_dict(obj.get("hospital_emergency_accident")) if obj.get("hospital_emergency_accident") is not None else None,
+            "hospital_emergency_medical": Service.from_dict(obj.get("hospital_emergency_medical")) if obj.get("hospital_emergency_medical") is not None else None,
+            "hospital_outpatient": Service.from_dict(obj.get("hospital_outpatient")) if obj.get("hospital_outpatient") is not None else None,
+            "hospital_room_and_board": Service.from_dict(obj.get("hospital_room_and_board")) if obj.get("hospital_room_and_board") is not None else None,
+            "immunizations": Service.from_dict(obj.get("immunizations")) if obj.get("immunizations") is not None else None,
+            "in_vitro_fertilization": Service.from_dict(obj.get("in_vitro_fertilization")) if obj.get("in_vitro_fertilization") is not None else None,
+            "independent_medical_evaluation": Service.from_dict(obj.get("independent_medical_evaluation")) if obj.get("independent_medical_evaluation") is not None else None,
+            "infertility": Service.from_dict(obj.get("infertility")) if obj.get("infertility") is not None else None,
+            "inhalation_therapy": Service.from_dict(obj.get("inhalation_therapy")) if obj.get("inhalation_therapy") is not None else None,
+            "intensive_care": Service.from_dict(obj.get("intensive_care")) if obj.get("intensive_care") is not None else None,
+            "invasive_procedures": Service.from_dict(obj.get("invasive_procedures")) if obj.get("invasive_procedures") is not None else None,
+            "lenses": Service.from_dict(obj.get("lenses")) if obj.get("lenses") is not None else None,
+            "licensed_ambulance": Service.from_dict(obj.get("licensed_ambulance")) if obj.get("licensed_ambulance") is not None else None,
+            "long_term_care": Service.from_dict(obj.get("long_term_care")) if obj.get("long_term_care") is not None else None,
+            "lymphatic": Service.from_dict(obj.get("lymphatic")) if obj.get("lymphatic") is not None else None,
+            "mail_order_prescription_drug": Service.from_dict(obj.get("mail_order_prescription_drug")) if obj.get("mail_order_prescription_drug") is not None else None,
+            "mail_order_prescription_drug_brand_name": Service.from_dict(obj.get("mail_order_prescription_drug_brand_name")) if obj.get("mail_order_prescription_drug_brand_name") is not None else None,
+            "mail_order_prescription_drug_generic": Service.from_dict(obj.get("mail_order_prescription_drug_generic")) if obj.get("mail_order_prescription_drug_generic") is not None else None,
+            "major_medical": Service.from_dict(obj.get("major_medical")) if obj.get("major_medical") is not None else None,
+            "mammogram_high_risk_patient": Service.from_dict(obj.get("mammogram_high_risk_patient")) if obj.get("mammogram_high_risk_patient") is not None else None,
+            "mammogram_low_risk_patient": Service.from_dict(obj.get("mammogram_low_risk_patient")) if obj.get("mammogram_low_risk_patient") is not None else None,
+            "massage_therapy": Service.from_dict(obj.get("massage_therapy")) if obj.get("massage_therapy") is not None else None,
+            "maternity": Service.from_dict(obj.get("maternity")) if obj.get("maternity") is not None else None,
+            "maxillofacial_prosthetics": Service.from_dict(obj.get("maxillofacial_prosthetics")) if obj.get("maxillofacial_prosthetics") is not None else None,
+            "medical_care": Service.from_dict(obj.get("medical_care")) if obj.get("medical_care") is not None else None,
+            "medically_related_transportation": Service.from_dict(obj.get("medically_related_transportation")) if obj.get("medically_related_transportation") is not None else None,
+            "mental_health": Service.from_dict(obj.get("mental_health")) if obj.get("mental_health") is not None else None,
+            "mental_health_facility_inpatient": Service.from_dict(obj.get("mental_health_facility_inpatient")) if obj.get("mental_health_facility_inpatient") is not None else None,
+            "mental_health_facility_outpatient": Service.from_dict(obj.get("mental_health_facility_outpatient")) if obj.get("mental_health_facility_outpatient") is not None else None,
+            "mental_health_provider_inpatient": Service.from_dict(obj.get("mental_health_provider_inpatient")) if obj.get("mental_health_provider_inpatient") is not None else None,
+            "mental_health_provider_outpatient": Service.from_dict(obj.get("mental_health_provider_outpatient")) if obj.get("mental_health_provider_outpatient") is not None else None,
+            "mri_cat_scan": Service.from_dict(obj.get("mri_cat_scan")) if obj.get("mri_cat_scan") is not None else None,
+            "neonatal_intensive_care": Service.from_dict(obj.get("neonatal_intensive_care")) if obj.get("neonatal_intensive_care") is not None else None,
+            "neurology": Service.from_dict(obj.get("neurology")) if obj.get("neurology") is not None else None,
+            "newborn_care": Service.from_dict(obj.get("newborn_care")) if obj.get("newborn_care") is not None else None,
+            "nonmedically_necessary_physical": Service.from_dict(obj.get("nonmedically_necessary_physical")) if obj.get("nonmedically_necessary_physical") is not None else None,
+            "nursery": Service.from_dict(obj.get("nursery")) if obj.get("nursery") is not None else None,
+            "obstetrical": Service.from_dict(obj.get("obstetrical")) if obj.get("obstetrical") is not None else None,
+            "obstetrical_gynecological": Service.from_dict(obj.get("obstetrical_gynecological")) if obj.get("obstetrical_gynecological") is not None else None,
+            "occupational_therapy": Service.from_dict(obj.get("occupational_therapy")) if obj.get("occupational_therapy") is not None else None,
+            "oncology": Service.from_dict(obj.get("oncology")) if obj.get("oncology") is not None else None,
+            "oral_surgery": Service.from_dict(obj.get("oral_surgery")) if obj.get("oral_surgery") is not None else None,
+            "orthodontics": Service.from_dict(obj.get("orthodontics")) if obj.get("orthodontics") is not None else None,
+            "orthopedic": Service.from_dict(obj.get("orthopedic")) if obj.get("orthopedic") is not None else None,
+            "other_medical": Service.from_dict(obj.get("other_medical")) if obj.get("other_medical") is not None else None,
+            "otological_exam": Service.from_dict(obj.get("otological_exam")) if obj.get("otological_exam") is not None else None,
+            "partial_hospitalization_psychiatric": Service.from_dict(obj.get("partial_hospitalization_psychiatric")) if obj.get("partial_hospitalization_psychiatric") is not None else None,
+            "pathology": Service.from_dict(obj.get("pathology")) if obj.get("pathology") is not None else None,
+            "pediatric": Service.from_dict(obj.get("pediatric")) if obj.get("pediatric") is not None else None,
+            "periodontics": Service.from_dict(obj.get("periodontics")) if obj.get("periodontics") is not None else None,
+            "pharmacy": Service.from_dict(obj.get("pharmacy")) if obj.get("pharmacy") is not None else None,
+            "physical_medicine": Service.from_dict(obj.get("physical_medicine")) if obj.get("physical_medicine") is not None else None,
+            "physical_therapy": Service.from_dict(obj.get("physical_therapy")) if obj.get("physical_therapy") is not None else None,
+            "physician_visit_office_sick": Service.from_dict(obj.get("physician_visit_office_sick")) if obj.get("physician_visit_office_sick") is not None else None,
+            "physician_visit_office_well": Service.from_dict(obj.get("physician_visit_office_well")) if obj.get("physician_visit_office_well") is not None else None,
+            "plan_waiting_period": Service.from_dict(obj.get("plan_waiting_period")) if obj.get("plan_waiting_period") is not None else None,
+            "pneumonia_vaccine": Service.from_dict(obj.get("pneumonia_vaccine")) if obj.get("pneumonia_vaccine") is not None else None,
+            "podiatry": Service.from_dict(obj.get("podiatry")) if obj.get("podiatry") is not None else None,
+            "podiatry_nursing_home_visits": Service.from_dict(obj.get("podiatry_nursing_home_visits")) if obj.get("podiatry_nursing_home_visits") is not None else None,
+            "podiatry_office_visits": Service.from_dict(obj.get("podiatry_office_visits")) if obj.get("podiatry_office_visits") is not None else None,
+            "pre_admission_testing": Service.from_dict(obj.get("pre_admission_testing")) if obj.get("pre_admission_testing") is not None else None,
+            "private_duty_nursing": Service.from_dict(obj.get("private_duty_nursing")) if obj.get("private_duty_nursing") is not None else None,
+            "private_duty_nursing_home": Service.from_dict(obj.get("private_duty_nursing_home")) if obj.get("private_duty_nursing_home") is not None else None,
+            "private_duty_nursing_inpatient": Service.from_dict(obj.get("private_duty_nursing_inpatient")) if obj.get("private_duty_nursing_inpatient") is not None else None,
+            "professional_physician": Service.from_dict(obj.get("professional_physician")) if obj.get("professional_physician") is not None else None,
+            "professional_physician_visit_home": Service.from_dict(obj.get("professional_physician_visit_home")) if obj.get("professional_physician_visit_home") is not None else None,
+            "professional_physician_visit_inpatient": Service.from_dict(obj.get("professional_physician_visit_inpatient")) if obj.get("professional_physician_visit_inpatient") is not None else None,
+            "professional_physician_visit_nursing_home": Service.from_dict(obj.get("professional_physician_visit_nursing_home")) if obj.get("professional_physician_visit_nursing_home") is not None else None,
             "office_visit": Service.from_dict(obj.get("office_visit")) if obj.get("office_visit") is not None else None,
+            "professional_physician_visit_outpatient": Service.from_dict(obj.get("professional_physician_visit_outpatient")) if obj.get("professional_physician_visit_outpatient") is not None else None,
+            "professional_physician_visit_skilled_nursing": Service.from_dict(obj.get("professional_physician_visit_skilled_nursing")) if obj.get("professional_physician_visit_skilled_nursing") is not None else None,
+            "prosthetic_device": Service.from_dict(obj.get("prosthetic_device")) if obj.get("prosthetic_device") is not None else None,
+            "prosthodontics": Service.from_dict(obj.get("prosthodontics")) if obj.get("prosthodontics") is not None else None,
+            "psychiatric": Service.from_dict(obj.get("psychiatric")) if obj.get("psychiatric") is not None else None,
+            "psychiatric_inpatient": Service.from_dict(obj.get("psychiatric_inpatient")) if obj.get("psychiatric_inpatient") is not None else None,
+            "psychiatric_outpatient": Service.from_dict(obj.get("psychiatric_outpatient")) if obj.get("psychiatric_outpatient") is not None else None,
+            "psychiatric_room_and_board": Service.from_dict(obj.get("psychiatric_room_and_board")) if obj.get("psychiatric_room_and_board") is not None else None,
+            "psychotherapy": Service.from_dict(obj.get("psychotherapy")) if obj.get("psychotherapy") is not None else None,
+            "pulmonary": Service.from_dict(obj.get("pulmonary")) if obj.get("pulmonary") is not None else None,
+            "pulmonary_rehabilitation": Service.from_dict(obj.get("pulmonary_rehabilitation")) if obj.get("pulmonary_rehabilitation") is not None else None,
+            "radiation_therapy": Service.from_dict(obj.get("radiation_therapy")) if obj.get("radiation_therapy") is not None else None,
+            "rehabilitation": Service.from_dict(obj.get("rehabilitation")) if obj.get("rehabilitation") is not None else None,
+            "rehabilitation_inpatient": Service.from_dict(obj.get("rehabilitation_inpatient")) if obj.get("rehabilitation_inpatient") is not None else None,
+            "rehabilitation_outpatient": Service.from_dict(obj.get("rehabilitation_outpatient")) if obj.get("rehabilitation_outpatient") is not None else None,
+            "rehabilitation_room_and_board": Service.from_dict(obj.get("rehabilitation_room_and_board")) if obj.get("rehabilitation_room_and_board") is not None else None,
+            "renal": Service.from_dict(obj.get("renal")) if obj.get("renal") is not None else None,
+            "renal_supplies_in_the_home": Service.from_dict(obj.get("renal_supplies_in_the_home")) if obj.get("renal_supplies_in_the_home") is not None else None,
+            "residential_psychiatric_treatment": Service.from_dict(obj.get("residential_psychiatric_treatment")) if obj.get("residential_psychiatric_treatment") is not None else None,
+            "respite_care": Service.from_dict(obj.get("respite_care")) if obj.get("respite_care") is not None else None,
+            "restorative": Service.from_dict(obj.get("restorative")) if obj.get("restorative") is not None else None,
+            "routine_preventive_dental": Service.from_dict(obj.get("routine_preventive_dental")) if obj.get("routine_preventive_dental") is not None else None,
+            "routine_exam_use_for_routine_vision_exam_only": Service.from_dict(obj.get("routine_exam_use_for_routine_vision_exam_only")) if obj.get("routine_exam_use_for_routine_vision_exam_only") is not None else None,
+            "routine_physical": Service.from_dict(obj.get("routine_physical")) if obj.get("routine_physical") is not None else None,
+            "screening_laboratory": Service.from_dict(obj.get("screening_laboratory")) if obj.get("screening_laboratory") is not None else None,
+            "screening_x_ray": Service.from_dict(obj.get("screening_x_ray")) if obj.get("screening_x_ray") is not None else None,
+            "second_surgical_opinion": Service.from_dict(obj.get("second_surgical_opinion")) if obj.get("second_surgical_opinion") is not None else None,
+            "skilled_nursing_care": Service.from_dict(obj.get("skilled_nursing_care")) if obj.get("skilled_nursing_care") is not None else None,
+            "skilled_nursing_care_room_and_board": Service.from_dict(obj.get("skilled_nursing_care_room_and_board")) if obj.get("skilled_nursing_care_room_and_board") is not None else None,
+            "skin": Service.from_dict(obj.get("skin")) if obj.get("skin") is not None else None,
+            "smoking_cessation": Service.from_dict(obj.get("smoking_cessation")) if obj.get("smoking_cessation") is not None else None,
+            "social_work": Service.from_dict(obj.get("social_work")) if obj.get("social_work") is not None else None,
+            "speech_therapy": Service.from_dict(obj.get("speech_therapy")) if obj.get("speech_therapy") is not None else None,
+            "substance_abuse": Service.from_dict(obj.get("substance_abuse")) if obj.get("substance_abuse") is not None else None,
+            "substance_abuse_facility_inpatient": Service.from_dict(obj.get("substance_abuse_facility_inpatient")) if obj.get("substance_abuse_facility_inpatient") is not None else None,
+            "substance_abuse_facility_outpatient": Service.from_dict(obj.get("substance_abuse_facility_outpatient")) if obj.get("substance_abuse_facility_outpatient") is not None else None,
+            "substance_abuse_provider_inpatient": Service.from_dict(obj.get("substance_abuse_provider_inpatient")) if obj.get("substance_abuse_provider_inpatient") is not None else None,
+            "substance_abuse_provider_outpatient": Service.from_dict(obj.get("substance_abuse_provider_outpatient")) if obj.get("substance_abuse_provider_outpatient") is not None else None,
+            "surgical": Service.from_dict(obj.get("surgical")) if obj.get("surgical") is not None else None,
+            "surgical_assistance": Service.from_dict(obj.get("surgical_assistance")) if obj.get("surgical_assistance") is not None else None,
+            "surgical_benefits_facility": Service.from_dict(obj.get("surgical_benefits_facility")) if obj.get("surgical_benefits_facility") is not None else None,
+            "surgical_benefits_professional_physician": Service.from_dict(obj.get("surgical_benefits_professional_physician")) if obj.get("surgical_benefits_professional_physician") is not None else None,
+            "third_surgical_opinion": Service.from_dict(obj.get("third_surgical_opinion")) if obj.get("third_surgical_opinion") is not None else None,
+            "transitional_care": Service.from_dict(obj.get("transitional_care")) if obj.get("transitional_care") is not None else None,
+            "transitional_nursery_care": Service.from_dict(obj.get("transitional_nursery_care")) if obj.get("transitional_nursery_care") is not None else None,
+            "transplants": Service.from_dict(obj.get("transplants")) if obj.get("transplants") is not None else None,
             "urgent_care": Service.from_dict(obj.get("urgent_care")) if obj.get("urgent_care") is not None else None,
-            "hospital_outpatient": Service.from_dict(obj.get("hospital_outpatient")) if obj.get("hospital_outpatient") is not None else None
+            "used_durable_medical_equipment": Service.from_dict(obj.get("used_durable_medical_equipment")) if obj.get("used_durable_medical_equipment") is not None else None,
+            "vision": Service.from_dict(obj.get("vision")) if obj.get("vision") is not None else None,
+            "well_baby_care": Service.from_dict(obj.get("well_baby_care")) if obj.get("well_baby_care") is not None else None
         })
         return _obj
 

@@ -37,7 +37,7 @@ def test_eligibility(cardscan):
                 provider=ProviderDto(
                     firstName="John",
                     lastName="Doe",
-                    npi="1234567890",
+                    npi="1952535221",
                 ),
                 subscriber=SubscriberDto(
                     firstName="Jane",
@@ -71,7 +71,7 @@ def test_invalid_api_key():
                     provider=ProviderDto(
                         firstName="John",
                         lastName="Doe",
-                        npi="1234567890",
+                        npi="1952535221",
                     ),
                     subscriber=SubscriberDto(
                         firstName="Jane",
