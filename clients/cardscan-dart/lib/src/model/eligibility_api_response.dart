@@ -4,9 +4,10 @@
 
 // ignore_for_file: unused_element
 import 'package:built_collection/built_collection.dart';
-import 'package:cardscan_client/src/model/eligibility_api_response_error.dart';
 import 'package:cardscan_client/src/model/eligibility_api_response_eligibility_request.dart';
+import 'package:cardscan_client/src/model/eligibility_summarized_response.dart';
 import 'package:built_value/json_object.dart';
+import 'package:cardscan_client/src/model/model_error.dart';
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 
@@ -20,7 +21,7 @@ part 'eligibility_api_response.g.dart';
 /// * [cardId] - The ID of the card.
 /// * [eligibilityRequest] 
 /// * [eligibilityResponse] - The eligibility raw response.
-/// * [eligibilitySummarizedResponse] - The eligibility summarized response.
+/// * [eligibilitySummarizedResponse] 
 /// * [error] 
 /// * [createdAt] - The timestamp when the eligibility record was created.
 /// * [updateAt] - The timestamp when the eligibility record was last updated.
@@ -46,12 +47,11 @@ abstract class EligibilityApiResponse implements Built<EligibilityApiResponse, E
   @BuiltValueField(wireName: r'eligibility_response')
   BuiltMap<String, JsonObject?>? get eligibilityResponse;
 
-  /// The eligibility summarized response.
   @BuiltValueField(wireName: r'eligibility_summarized_response')
-  BuiltMap<String, JsonObject?>? get eligibilitySummarizedResponse;
+  EligibilitySummarizedResponse? get eligibilitySummarizedResponse;
 
   @BuiltValueField(wireName: r'error')
-  EligibilityApiResponseError? get error;
+  ModelError? get error;
 
   /// The timestamp when the eligibility record was created.
   @BuiltValueField(wireName: r'created_at')
@@ -117,14 +117,14 @@ class _$EligibilityApiResponseSerializer implements PrimitiveSerializer<Eligibil
       yield r'eligibility_summarized_response';
       yield serializers.serialize(
         object.eligibilitySummarizedResponse,
-        specifiedType: const FullType.nullable(BuiltMap, [FullType(String), FullType.nullable(JsonObject)]),
+        specifiedType: const FullType(EligibilitySummarizedResponse),
       );
     }
     if (object.error != null) {
       yield r'error';
       yield serializers.serialize(
         object.error,
-        specifiedType: const FullType.nullable(EligibilityApiResponseError),
+        specifiedType: const FullType(ModelError),
       );
     }
     yield r'created_at';
@@ -199,17 +199,15 @@ class _$EligibilityApiResponseSerializer implements PrimitiveSerializer<Eligibil
         case r'eligibility_summarized_response':
           final valueDes = serializers.deserialize(
             value,
-            specifiedType: const FullType.nullable(BuiltMap, [FullType(String), FullType.nullable(JsonObject)]),
-          ) as BuiltMap<String, JsonObject?>?;
-          if (valueDes == null) continue;
+            specifiedType: const FullType(EligibilitySummarizedResponse),
+          ) as EligibilitySummarizedResponse;
           result.eligibilitySummarizedResponse.replace(valueDes);
           break;
         case r'error':
           final valueDes = serializers.deserialize(
             value,
-            specifiedType: const FullType.nullable(EligibilityApiResponseError),
-          ) as EligibilityApiResponseError?;
-          if (valueDes == null) continue;
+            specifiedType: const FullType(ModelError),
+          ) as ModelError;
           result.error.replace(valueDes);
           break;
         case r'created_at':

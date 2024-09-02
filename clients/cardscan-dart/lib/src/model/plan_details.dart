@@ -16,7 +16,9 @@ part 'plan_details.g.dart';
 /// * [groupName] - The name of the group associated with the plan.
 /// * [groupNumber] - The group number.
 /// * [planStartDate] - The start date of the plan.
+/// * [planEndDate] - The end date of the plan.
 /// * [planEligibilityStartDate] - The eligibility start date of the plan.
+/// * [planEligibilityEndDate] - The eligibility end date of the plan.
 /// * [planName] - The name of the plan.
 /// * [planActive] - Indicates whether the plan is active.
 @BuiltValue()
@@ -37,9 +39,17 @@ abstract class PlanDetails implements Built<PlanDetails, PlanDetailsBuilder> {
   @BuiltValueField(wireName: r'plan_start_date')
   Date? get planStartDate;
 
+  /// The end date of the plan.
+  @BuiltValueField(wireName: r'plan_end_date')
+  Date? get planEndDate;
+
   /// The eligibility start date of the plan.
   @BuiltValueField(wireName: r'plan_eligibility_start_date')
   Date? get planEligibilityStartDate;
+
+  /// The eligibility end date of the plan.
+  @BuiltValueField(wireName: r'plan_eligibility_end_date')
+  Date? get planEligibilityEndDate;
 
   /// The name of the plan.
   @BuiltValueField(wireName: r'plan_name')
@@ -100,10 +110,24 @@ class _$PlanDetailsSerializer implements PrimitiveSerializer<PlanDetails> {
         specifiedType: const FullType(Date),
       );
     }
+    if (object.planEndDate != null) {
+      yield r'plan_end_date';
+      yield serializers.serialize(
+        object.planEndDate,
+        specifiedType: const FullType(Date),
+      );
+    }
     if (object.planEligibilityStartDate != null) {
       yield r'plan_eligibility_start_date';
       yield serializers.serialize(
         object.planEligibilityStartDate,
+        specifiedType: const FullType(Date),
+      );
+    }
+    if (object.planEligibilityEndDate != null) {
+      yield r'plan_eligibility_end_date';
+      yield serializers.serialize(
+        object.planEligibilityEndDate,
         specifiedType: const FullType(Date),
       );
     }
@@ -172,12 +196,26 @@ class _$PlanDetailsSerializer implements PrimitiveSerializer<PlanDetails> {
           ) as Date;
           result.planStartDate = valueDes;
           break;
+        case r'plan_end_date':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(Date),
+          ) as Date;
+          result.planEndDate = valueDes;
+          break;
         case r'plan_eligibility_start_date':
           final valueDes = serializers.deserialize(
             value,
             specifiedType: const FullType(Date),
           ) as Date;
           result.planEligibilityStartDate = valueDes;
+          break;
+        case r'plan_eligibility_end_date':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(Date),
+          ) as Date;
+          result.planEligibilityEndDate = valueDes;
           break;
         case r'plan_name':
           final valueDes = serializers.deserialize(

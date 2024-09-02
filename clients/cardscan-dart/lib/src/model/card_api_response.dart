@@ -5,8 +5,8 @@
 // ignore_for_file: unused_element
 import 'package:cardscan_client/src/model/card_state.dart';
 import 'package:cardscan_client/src/model/card_api_response_details.dart';
-import 'package:cardscan_client/src/model/api_error_response.dart';
 import 'package:cardscan_client/src/model/card_api_response_images.dart';
+import 'package:cardscan_client/src/model/model_error.dart';
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 
@@ -36,7 +36,7 @@ abstract class CardApiResponse implements Built<CardApiResponse, CardApiResponse
   DateTime get createdAt;
 
   @BuiltValueField(wireName: r'error')
-  ApiErrorResponse? get error;
+  ModelError? get error;
 
   @BuiltValueField(wireName: r'images')
   CardApiResponseImages? get images;
@@ -89,7 +89,7 @@ class _$CardApiResponseSerializer implements PrimitiveSerializer<CardApiResponse
       yield r'error';
       yield serializers.serialize(
         object.error,
-        specifiedType: const FullType(ApiErrorResponse),
+        specifiedType: const FullType(ModelError),
       );
     }
     if (object.images != null) {
@@ -158,8 +158,8 @@ class _$CardApiResponseSerializer implements PrimitiveSerializer<CardApiResponse
         case r'error':
           final valueDes = serializers.deserialize(
             value,
-            specifiedType: const FullType(ApiErrorResponse),
-          ) as ApiErrorResponse;
+            specifiedType: const FullType(ModelError),
+          ) as ModelError;
           result.error.replace(valueDes);
           break;
         case r'images':

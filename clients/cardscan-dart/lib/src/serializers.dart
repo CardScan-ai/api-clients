@@ -36,7 +36,6 @@ import 'package:cardscan_client/src/model/direct_upload_request.dart';
 import 'package:cardscan_client/src/model/eligibility_api_response.dart';
 import 'package:cardscan_client/src/model/eligibility_api_response_eligibility_request.dart';
 import 'package:cardscan_client/src/model/eligibility_api_response_eligibility_request_subscriber.dart';
-import 'package:cardscan_client/src/model/eligibility_api_response_error.dart';
 import 'package:cardscan_client/src/model/eligibility_info.dart';
 import 'package:cardscan_client/src/model/eligibility_state.dart';
 import 'package:cardscan_client/src/model/eligibility_summarized_response.dart';
@@ -48,6 +47,7 @@ import 'package:cardscan_client/src/model/get_access_token200_response.dart';
 import 'package:cardscan_client/src/model/get_access_token500_response.dart';
 import 'package:cardscan_client/src/model/list_eligibility200_response.dart';
 import 'package:cardscan_client/src/model/match_score.dart';
+import 'package:cardscan_client/src/model/model_error.dart';
 import 'package:cardscan_client/src/model/oop.dart';
 import 'package:cardscan_client/src/model/payer_details.dart';
 import 'package:cardscan_client/src/model/plan_details.dart';
@@ -71,6 +71,7 @@ import 'package:cardscan_client/src/model/subscriber_details.dart';
 import 'package:cardscan_client/src/model/subscriber_dto.dart';
 import 'package:cardscan_client/src/model/upload_parameters.dart';
 import 'package:cardscan_client/src/model/validate_magic_link200_response.dart';
+import 'package:cardscan_client/src/model/websocket_error.dart';
 
 part 'serializers.g.dart';
 
@@ -97,7 +98,6 @@ part 'serializers.g.dart';
   EligibilityApiResponse,
   EligibilityApiResponseEligibilityRequest,
   EligibilityApiResponseEligibilityRequestSubscriber,
-  EligibilityApiResponseError,
   EligibilityInfo,
   EligibilityState,
   EligibilitySummarizedResponse,
@@ -109,6 +109,7 @@ part 'serializers.g.dart';
   GetAccessToken500Response,
   ListEligibility200Response,
   MatchScore,
+  ModelError,
   OOP,
   PayerDetails,
   PlanDetails,
@@ -132,6 +133,7 @@ part 'serializers.g.dart';
   SubscriberDto,
   UploadParameters,
   ValidateMagicLink200Response,
+  WebsocketError,
 ])
 Serializers serializers = (_$serializers.toBuilder()
       ..add(const OneOfSerializer())
