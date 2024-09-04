@@ -6,88 +6,88 @@
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 
-part 'address.g.dart';
+part 'websocket_error.g.dart';
 
-/// Address
+/// WebsocketError
 ///
 /// Properties:
-/// * [address1] 
-/// * [address2] 
-/// * [city] 
-/// * [state] 
-/// * [postalCode] 
+/// * [message] - A message describing the error.
+/// * [type] - The type of error.
+/// * [code] - The error code.
+/// * [internalError] - The internal error message.
+/// * [error] - The type of the error (deprecated)
 @BuiltValue()
-abstract class Address implements Built<Address, AddressBuilder> {
-  @BuiltValueField(wireName: r'address1')
-  String? get address1;
+abstract class WebsocketError implements Built<WebsocketError, WebsocketErrorBuilder> {
+  /// A message describing the error.
+  @BuiltValueField(wireName: r'message')
+  String get message;
 
-  @BuiltValueField(wireName: r'address2')
-  String? get address2;
+  /// The type of error.
+  @BuiltValueField(wireName: r'type')
+  String get type;
 
-  @BuiltValueField(wireName: r'city')
-  String? get city;
+  /// The error code.
+  @BuiltValueField(wireName: r'code')
+  String get code;
 
-  @BuiltValueField(wireName: r'state')
-  String? get state;
+  /// The internal error message.
+  @BuiltValueField(wireName: r'internal_error')
+  String? get internalError;
 
-  @BuiltValueField(wireName: r'postalCode')
-  String? get postalCode;
+  /// The type of the error (deprecated)
+  @Deprecated('error has been deprecated')
+  @BuiltValueField(wireName: r'error')
+  String? get error;
 
-  Address._();
+  WebsocketError._();
 
-  factory Address([void updates(AddressBuilder b)]) = _$Address;
+  factory WebsocketError([void updates(WebsocketErrorBuilder b)]) = _$WebsocketError;
 
   @BuiltValueHook(initializeBuilder: true)
-  static void _defaults(AddressBuilder b) => b;
+  static void _defaults(WebsocketErrorBuilder b) => b;
 
   @BuiltValueSerializer(custom: true)
-  static Serializer<Address> get serializer => _$AddressSerializer();
+  static Serializer<WebsocketError> get serializer => _$WebsocketErrorSerializer();
 }
 
-class _$AddressSerializer implements PrimitiveSerializer<Address> {
+class _$WebsocketErrorSerializer implements PrimitiveSerializer<WebsocketError> {
   @override
-  final Iterable<Type> types = const [Address, _$Address];
+  final Iterable<Type> types = const [WebsocketError, _$WebsocketError];
 
   @override
-  final String wireName = r'Address';
+  final String wireName = r'WebsocketError';
 
   Iterable<Object?> _serializeProperties(
     Serializers serializers,
-    Address object, {
+    WebsocketError object, {
     FullType specifiedType = FullType.unspecified,
   }) sync* {
-    if (object.address1 != null) {
-      yield r'address1';
+    yield r'message';
+    yield serializers.serialize(
+      object.message,
+      specifiedType: const FullType(String),
+    );
+    yield r'type';
+    yield serializers.serialize(
+      object.type,
+      specifiedType: const FullType(String),
+    );
+    yield r'code';
+    yield serializers.serialize(
+      object.code,
+      specifiedType: const FullType(String),
+    );
+    if (object.internalError != null) {
+      yield r'internal_error';
       yield serializers.serialize(
-        object.address1,
+        object.internalError,
         specifiedType: const FullType(String),
       );
     }
-    if (object.address2 != null) {
-      yield r'address2';
+    if (object.error != null) {
+      yield r'error';
       yield serializers.serialize(
-        object.address2,
-        specifiedType: const FullType(String),
-      );
-    }
-    if (object.city != null) {
-      yield r'city';
-      yield serializers.serialize(
-        object.city,
-        specifiedType: const FullType(String),
-      );
-    }
-    if (object.state != null) {
-      yield r'state';
-      yield serializers.serialize(
-        object.state,
-        specifiedType: const FullType(String),
-      );
-    }
-    if (object.postalCode != null) {
-      yield r'postalCode';
-      yield serializers.serialize(
-        object.postalCode,
+        object.error,
         specifiedType: const FullType(String),
       );
     }
@@ -96,7 +96,7 @@ class _$AddressSerializer implements PrimitiveSerializer<Address> {
   @override
   Object serialize(
     Serializers serializers,
-    Address object, {
+    WebsocketError object, {
     FullType specifiedType = FullType.unspecified,
   }) {
     return _serializeProperties(serializers, object, specifiedType: specifiedType).toList();
@@ -107,47 +107,47 @@ class _$AddressSerializer implements PrimitiveSerializer<Address> {
     Object serialized, {
     FullType specifiedType = FullType.unspecified,
     required List<Object?> serializedList,
-    required AddressBuilder result,
+    required WebsocketErrorBuilder result,
     required List<Object?> unhandled,
   }) {
     for (var i = 0; i < serializedList.length; i += 2) {
       final key = serializedList[i] as String;
       final value = serializedList[i + 1];
       switch (key) {
-        case r'address1':
+        case r'message':
           final valueDes = serializers.deserialize(
             value,
             specifiedType: const FullType(String),
           ) as String;
-          result.address1 = valueDes;
+          result.message = valueDes;
           break;
-        case r'address2':
+        case r'type':
           final valueDes = serializers.deserialize(
             value,
             specifiedType: const FullType(String),
           ) as String;
-          result.address2 = valueDes;
+          result.type = valueDes;
           break;
-        case r'city':
+        case r'code':
           final valueDes = serializers.deserialize(
             value,
             specifiedType: const FullType(String),
           ) as String;
-          result.city = valueDes;
+          result.code = valueDes;
           break;
-        case r'state':
+        case r'internal_error':
           final valueDes = serializers.deserialize(
             value,
             specifiedType: const FullType(String),
           ) as String;
-          result.state = valueDes;
+          result.internalError = valueDes;
           break;
-        case r'postalCode':
+        case r'error':
           final valueDes = serializers.deserialize(
             value,
             specifiedType: const FullType(String),
           ) as String;
-          result.postalCode = valueDes;
+          result.error = valueDes;
           break;
         default:
           unhandled.add(key);
@@ -158,12 +158,12 @@ class _$AddressSerializer implements PrimitiveSerializer<Address> {
   }
 
   @override
-  Address deserialize(
+  WebsocketError deserialize(
     Serializers serializers,
     Object serialized, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final result = AddressBuilder();
+    final result = WebsocketErrorBuilder();
     final serializedList = (serialized as Iterable<Object?>).toList();
     final unhandled = <Object?>[];
     _deserializeProperties(

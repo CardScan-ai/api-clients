@@ -14,6 +14,7 @@ part 'payer_details.g.dart';
 /// Properties:
 /// * [payerName] - The name of the payer.
 /// * [address] 
+/// * [url] 
 @BuiltValue()
 abstract class PayerDetails implements Built<PayerDetails, PayerDetailsBuilder> {
   /// The name of the payer.
@@ -22,6 +23,9 @@ abstract class PayerDetails implements Built<PayerDetails, PayerDetailsBuilder> 
 
   @BuiltValueField(wireName: r'address')
   Address? get address;
+
+  @BuiltValueField(wireName: r'url')
+  String? get url;
 
   PayerDetails._();
 
@@ -60,6 +64,13 @@ class _$PayerDetailsSerializer implements PrimitiveSerializer<PayerDetails> {
         specifiedType: const FullType(Address),
       );
     }
+    if (object.url != null) {
+      yield r'url';
+      yield serializers.serialize(
+        object.url,
+        specifiedType: const FullType(String),
+      );
+    }
   }
 
   @override
@@ -96,6 +107,13 @@ class _$PayerDetailsSerializer implements PrimitiveSerializer<PayerDetails> {
             specifiedType: const FullType(Address),
           ) as Address;
           result.address.replace(valueDes);
+          break;
+        case r'url':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String;
+          result.url = valueDes;
           break;
         default:
           unhandled.add(key);

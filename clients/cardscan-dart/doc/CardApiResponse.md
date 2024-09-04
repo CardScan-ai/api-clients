@@ -11,7 +11,7 @@ Name | Type | Description | Notes
 **cardId** | **String** |  | 
 **state** | [**CardState**](CardState.md) |  | 
 **createdAt** | [**DateTime**](DateTime.md) | The timestamp when the eligibility response was created. | 
-**error** | [**ApiErrorResponse**](ApiErrorResponse.md) |  | [optional] 
+**error** | [**ModelError**](ModelError.md) |  | [optional] 
 **images** | [**CardApiResponseImages**](CardApiResponseImages.md) |  | [optional] 
 **deleted** | **bool** |  | 
 **details** | [**CardApiResponseDetails**](CardApiResponseDetails.md) |  | [optional] 

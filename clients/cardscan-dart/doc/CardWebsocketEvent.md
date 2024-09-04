@@ -14,7 +14,7 @@ Name | Type | Description | Notes
 **state** | [**CardState**](CardState.md) |  | 
 **createdAt** | [**DateTime**](DateTime.md) |  | 
 **sessionId** | **String** |  | [optional] 
-**error** | [**ApiErrorResponse**](ApiErrorResponse.md) |  | [optional] 
+**error** | [**WebsocketError**](WebsocketError.md) |  | [optional] 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

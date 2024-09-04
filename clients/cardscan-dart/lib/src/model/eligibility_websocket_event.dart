@@ -5,7 +5,7 @@
 // ignore_for_file: unused_element
 import 'package:cardscan_client/src/model/card_state.dart';
 import 'package:built_collection/built_collection.dart';
-import 'package:cardscan_client/src/model/api_error_response.dart';
+import 'package:cardscan_client/src/model/websocket_error.dart';
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 
@@ -45,7 +45,7 @@ abstract class EligibilityWebsocketEvent implements Built<EligibilityWebsocketEv
   String? get sessionId;
 
   @BuiltValueField(wireName: r'error')
-  ApiErrorResponse? get error;
+  WebsocketError? get error;
 
   @BuiltValueField(wireName: r'card_id')
   String? get cardId;
@@ -109,7 +109,7 @@ class _$EligibilityWebsocketEventSerializer implements PrimitiveSerializer<Eligi
       yield r'error';
       yield serializers.serialize(
         object.error,
-        specifiedType: const FullType(ApiErrorResponse),
+        specifiedType: const FullType(WebsocketError),
       );
     }
     if (object.cardId != null) {
@@ -187,8 +187,8 @@ class _$EligibilityWebsocketEventSerializer implements PrimitiveSerializer<Eligi
         case r'error':
           final valueDes = serializers.deserialize(
             value,
-            specifiedType: const FullType(ApiErrorResponse),
-          ) as ApiErrorResponse;
+            specifiedType: const FullType(WebsocketError),
+          ) as WebsocketError;
           result.error.replace(valueDes);
           break;
         case r'card_id':

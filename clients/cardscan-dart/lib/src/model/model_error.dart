@@ -6,88 +6,76 @@
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 
-part 'address.g.dart';
+part 'model_error.g.dart';
 
-/// Address
+/// ModelError
 ///
 /// Properties:
-/// * [address1] 
-/// * [address2] 
-/// * [city] 
-/// * [state] 
-/// * [postalCode] 
+/// * [message] - A message describing the error.
+/// * [type] - The type of error.
+/// * [code] - The error code.
+/// * [error] - The type of the error (deprecated)
 @BuiltValue()
-abstract class Address implements Built<Address, AddressBuilder> {
-  @BuiltValueField(wireName: r'address1')
-  String? get address1;
+abstract class ModelError implements Built<ModelError, ModelErrorBuilder> {
+  /// A message describing the error.
+  @BuiltValueField(wireName: r'message')
+  String get message;
 
-  @BuiltValueField(wireName: r'address2')
-  String? get address2;
+  /// The type of error.
+  @BuiltValueField(wireName: r'type')
+  String get type;
 
-  @BuiltValueField(wireName: r'city')
-  String? get city;
+  /// The error code.
+  @BuiltValueField(wireName: r'code')
+  String get code;
 
-  @BuiltValueField(wireName: r'state')
-  String? get state;
+  /// The type of the error (deprecated)
+  @Deprecated('error has been deprecated')
+  @BuiltValueField(wireName: r'error')
+  String? get error;
 
-  @BuiltValueField(wireName: r'postalCode')
-  String? get postalCode;
+  ModelError._();
 
-  Address._();
-
-  factory Address([void updates(AddressBuilder b)]) = _$Address;
+  factory ModelError([void updates(ModelErrorBuilder b)]) = _$ModelError;
 
   @BuiltValueHook(initializeBuilder: true)
-  static void _defaults(AddressBuilder b) => b;
+  static void _defaults(ModelErrorBuilder b) => b;
 
   @BuiltValueSerializer(custom: true)
-  static Serializer<Address> get serializer => _$AddressSerializer();
+  static Serializer<ModelError> get serializer => _$ModelErrorSerializer();
 }
 
-class _$AddressSerializer implements PrimitiveSerializer<Address> {
+class _$ModelErrorSerializer implements PrimitiveSerializer<ModelError> {
   @override
-  final Iterable<Type> types = const [Address, _$Address];
+  final Iterable<Type> types = const [ModelError, _$ModelError];
 
   @override
-  final String wireName = r'Address';
+  final String wireName = r'ModelError';
 
   Iterable<Object?> _serializeProperties(
     Serializers serializers,
-    Address object, {
+    ModelError object, {
     FullType specifiedType = FullType.unspecified,
   }) sync* {
-    if (object.address1 != null) {
-      yield r'address1';
+    yield r'message';
+    yield serializers.serialize(
+      object.message,
+      specifiedType: const FullType(String),
+    );
+    yield r'type';
+    yield serializers.serialize(
+      object.type,
+      specifiedType: const FullType(String),
+    );
+    yield r'code';
+    yield serializers.serialize(
+      object.code,
+      specifiedType: const FullType(String),
+    );
+    if (object.error != null) {
+      yield r'error';
       yield serializers.serialize(
-        object.address1,
-        specifiedType: const FullType(String),
-      );
-    }
-    if (object.address2 != null) {
-      yield r'address2';
-      yield serializers.serialize(
-        object.address2,
-        specifiedType: const FullType(String),
-      );
-    }
-    if (object.city != null) {
-      yield r'city';
-      yield serializers.serialize(
-        object.city,
-        specifiedType: const FullType(String),
-      );
-    }
-    if (object.state != null) {
-      yield r'state';
-      yield serializers.serialize(
-        object.state,
-        specifiedType: const FullType(String),
-      );
-    }
-    if (object.postalCode != null) {
-      yield r'postalCode';
-      yield serializers.serialize(
-        object.postalCode,
+        object.error,
         specifiedType: const FullType(String),
       );
     }
@@ -96,7 +84,7 @@ class _$AddressSerializer implements PrimitiveSerializer<Address> {
   @override
   Object serialize(
     Serializers serializers,
-    Address object, {
+    ModelError object, {
     FullType specifiedType = FullType.unspecified,
   }) {
     return _serializeProperties(serializers, object, specifiedType: specifiedType).toList();
@@ -107,47 +95,40 @@ class _$AddressSerializer implements PrimitiveSerializer<Address> {
     Object serialized, {
     FullType specifiedType = FullType.unspecified,
     required List<Object?> serializedList,
-    required AddressBuilder result,
+    required ModelErrorBuilder result,
     required List<Object?> unhandled,
   }) {
     for (var i = 0; i < serializedList.length; i += 2) {
       final key = serializedList[i] as String;
       final value = serializedList[i + 1];
       switch (key) {
-        case r'address1':
+        case r'message':
           final valueDes = serializers.deserialize(
             value,
             specifiedType: const FullType(String),
           ) as String;
-          result.address1 = valueDes;
+          result.message = valueDes;
           break;
-        case r'address2':
+        case r'type':
           final valueDes = serializers.deserialize(
             value,
             specifiedType: const FullType(String),
           ) as String;
-          result.address2 = valueDes;
+          result.type = valueDes;
           break;
-        case r'city':
+        case r'code':
           final valueDes = serializers.deserialize(
             value,
             specifiedType: const FullType(String),
           ) as String;
-          result.city = valueDes;
+          result.code = valueDes;
           break;
-        case r'state':
+        case r'error':
           final valueDes = serializers.deserialize(
             value,
             specifiedType: const FullType(String),
           ) as String;
-          result.state = valueDes;
-          break;
-        case r'postalCode':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String;
-          result.postalCode = valueDes;
+          result.error = valueDes;
           break;
         default:
           unhandled.add(key);
@@ -158,12 +139,12 @@ class _$AddressSerializer implements PrimitiveSerializer<Address> {
   }
 
   @override
-  Address deserialize(
+  ModelError deserialize(
     Serializers serializers,
     Object serialized, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final result = AddressBuilder();
+    final result = ModelErrorBuilder();
     final serializedList = (serialized as Iterable<Object?>).toList();
     final unhandled = <Object?>[];
     _deserializeProperties(
