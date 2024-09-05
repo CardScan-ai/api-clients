@@ -1073,6 +1073,8 @@ class CardScanApi {
   /// 
   ///
   /// Parameters:
+  /// * [limit] 
+  /// * [cursor] 
   /// * [cancelToken] - A [CancelToken] that can be used to cancel the operation
   /// * [headers] - Can be used to add additional headers to the request
   /// * [extras] - Can be used to add flags to the request
@@ -1083,6 +1085,8 @@ class CardScanApi {
   /// Returns a [Future] containing a [Response] with a [ListEligibility200Response] as data
   /// Throws [DioException] if API call or serialization fails
   Future<Response<ListEligibility200Response>> listEligibility({ 
+    int? limit,
+    String? cursor,
     CancelToken? cancelToken,
     Map<String, dynamic>? headers,
     Map<String, dynamic>? extra,
@@ -1109,9 +1113,15 @@ class CardScanApi {
       validateStatus: validateStatus,
     );
 
+    final _queryParameters = <String, dynamic>{
+      if (limit != null) r'limit': encodeQueryParameter(_serializers, limit, const FullType(int)),
+      if (cursor != null) r'cursor': encodeQueryParameter(_serializers, cursor, const FullType(String)),
+    };
+
     final _response = await _dio.request<Object>(
       _path,
       options: _options,
+      queryParameters: _queryParameters,
       cancelToken: cancelToken,
       onSendProgress: onSendProgress,
       onReceiveProgress: onReceiveProgress,
