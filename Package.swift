@@ -27,7 +27,7 @@ let package = Package(
         .target(
             name: "CardScanClient",
             dependencies: ["AnyCodable", ],
-            path: "CardScanClient/Classes"
+            path: "clients/cardscan-swift/CardScanClient/Classes"
         ),
     ]
 )
