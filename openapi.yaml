@@ -669,8 +669,6 @@ components:
     ProviderDto:
       type: object
       required:
-      - firstName
-      - lastName
       - npi
       properties:
         firstName:
@@ -693,6 +691,11 @@ components:
           minLength: 1
           description: >
             Loop: 2100B Segment: MN1, Element: NM109, Notes: NM108=XX Centers for Medicare and Medicaid Services National Provider Identifier 2-80 alphanumeric characters
+
+        organizationName:
+          type: string
+          maxLength: 60
+          minLength: 0
 
     SubscriberDto:
       type: object
