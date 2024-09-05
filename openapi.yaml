@@ -1411,7 +1411,7 @@ components:
         scores:
           type: array
           items:
-            type: string
+            type: number
     ScanCaptureType:
       type: string
       enum:
