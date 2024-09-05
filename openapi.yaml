@@ -741,7 +741,6 @@ components:
       - state
       - card_id
       - created_at
-      - update_at
       properties:
         eligibility_id:
           type: string
@@ -799,10 +798,6 @@ components:
           type: string
           format: date-time
           description: The timestamp when the eligibility record was created.
-        update_at:
-          type: string
-          format: date-time
-          description: The timestamp when the eligibility record was last updated.
     EligibilitySummarizedResponse:
       type: object
       properties:
