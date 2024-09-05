@@ -720,9 +720,9 @@ components:
 
         dateOfBirth:
           type: string
-          pattern: ^\d{8}$
           description: >
             Loop: 2100C and 2100D, Segment: DMG, Element: DMG02, Notes: date of birth in YYYYMMDD format
+          example: '19800101'
 
     EligibilityInfo:
       type: object
@@ -1211,7 +1211,6 @@ components:
           $ref: '#/components/schemas/Address'
         dob:
           type: string
-          format: date
           description: The date of birth of the subscriber.
     PayerDetails:
       type: object
