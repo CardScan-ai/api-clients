@@ -4,7 +4,6 @@
 
 // ignore_for_file: unused_element
 import 'package:cardscan_client/src/model/address.dart';
-import 'package:cardscan_client/src/model/date.dart';
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 
@@ -47,7 +46,7 @@ abstract class SubscriberDetails implements Built<SubscriberDetails, SubscriberD
 
   /// The date of birth of the subscriber.
   @BuiltValueField(wireName: r'dob')
-  Date? get dob;
+  String? get dob;
 
   SubscriberDetails._();
 
@@ -118,7 +117,7 @@ class _$SubscriberDetailsSerializer implements PrimitiveSerializer<SubscriberDet
       yield r'dob';
       yield serializers.serialize(
         object.dob,
-        specifiedType: const FullType(Date),
+        specifiedType: const FullType(String),
       );
     }
   }
@@ -189,8 +188,8 @@ class _$SubscriberDetailsSerializer implements PrimitiveSerializer<SubscriberDet
         case r'dob':
           final valueDes = serializers.deserialize(
             value,
-            specifiedType: const FullType(Date),
-          ) as Date;
+            specifiedType: const FullType(String),
+          ) as String;
           result.dob = valueDes;
           break;
         default:

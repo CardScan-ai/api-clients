@@ -24,9 +24,9 @@ public struct SubscriberDetails: Codable, JSONEncodable, Hashable {
     public var gender: String?
     public var address: Address?
     /** The date of birth of the subscriber. */
-    public var dob: Date?
+    public var dob: String?
 
-    public init(memberId: String? = nil, firstname: String? = nil, lastname: String? = nil, middlename: String? = nil, gender: String? = nil, address: Address? = nil, dob: Date? = nil) {
+    public init(memberId: String? = nil, firstname: String? = nil, lastname: String? = nil, middlename: String? = nil, gender: String? = nil, address: Address? = nil, dob: String? = nil) {
         self.memberId = memberId
         self.firstname = firstname
         self.lastname = lastname

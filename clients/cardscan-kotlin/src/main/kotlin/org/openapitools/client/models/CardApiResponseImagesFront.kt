@@ -32,5 +32,8 @@ data class CardApiResponseImagesFront (
     @Json(name = "url")
     val url: java.net.URI? = null
 
-)
+) {
+
+
+}
 

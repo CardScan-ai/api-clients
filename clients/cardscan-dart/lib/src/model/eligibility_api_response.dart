@@ -24,7 +24,6 @@ part 'eligibility_api_response.g.dart';
 /// * [eligibilitySummarizedResponse] 
 /// * [error] 
 /// * [createdAt] - The timestamp when the eligibility record was created.
-/// * [updateAt] - The timestamp when the eligibility record was last updated.
 @BuiltValue()
 abstract class EligibilityApiResponse implements Built<EligibilityApiResponse, EligibilityApiResponseBuilder> {
   /// The ID of the eligibility record.
@@ -56,10 +55,6 @@ abstract class EligibilityApiResponse implements Built<EligibilityApiResponse, E
   /// The timestamp when the eligibility record was created.
   @BuiltValueField(wireName: r'created_at')
   DateTime get createdAt;
-
-  /// The timestamp when the eligibility record was last updated.
-  @BuiltValueField(wireName: r'update_at')
-  DateTime get updateAt;
 
   EligibilityApiResponse._();
 
@@ -130,11 +125,6 @@ class _$EligibilityApiResponseSerializer implements PrimitiveSerializer<Eligibil
     yield r'created_at';
     yield serializers.serialize(
       object.createdAt,
-      specifiedType: const FullType(DateTime),
-    );
-    yield r'update_at';
-    yield serializers.serialize(
-      object.updateAt,
       specifiedType: const FullType(DateTime),
     );
   }
@@ -216,13 +206,6 @@ class _$EligibilityApiResponseSerializer implements PrimitiveSerializer<Eligibil
             specifiedType: const FullType(DateTime),
           ) as DateTime;
           result.createdAt = valueDes;
-          break;
-        case r'update_at':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType(DateTime),
-          ) as DateTime;
-          result.updateAt = valueDes;
           break;
         default:
           unhandled.add(key);

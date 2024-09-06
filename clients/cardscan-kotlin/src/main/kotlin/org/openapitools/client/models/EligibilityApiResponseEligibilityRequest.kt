@@ -15,8 +15,8 @@
 
 package org.openapitools.client.models
 
+import org.openapitools.client.models.EligibilityApiResponseEligibilityRequestSubscriber
 import org.openapitools.client.models.ProviderDto
-import org.openapitools.client.models.SubscriberDto
 
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
@@ -45,7 +45,10 @@ data class EligibilityApiResponseEligibilityRequest (
     val provider: ProviderDto? = null,
 
     @Json(name = "subscriber")
-    val subscriber: SubscriberDto? = null
+    val subscriber: EligibilityApiResponseEligibilityRequestSubscriber? = null
 
-)
+) {
+
+
+}
 

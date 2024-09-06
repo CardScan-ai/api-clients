@@ -12,7 +12,6 @@ Name | Type | Description | Notes
 **eligibility_summarized_response** | [**EligibilitySummarizedResponse**](EligibilitySummarizedResponse.md) |  | [optional] 
 **error** | [**ModelError**](ModelError.md) |  | [optional] 
 **created_at** | **datetime** | The timestamp when the eligibility record was created. | 
-**update_at** | **datetime** | The timestamp when the eligibility record was last updated. | 
 
 ## Example
 

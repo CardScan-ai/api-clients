@@ -40,5 +40,8 @@ data class DirectUpload200Response (
     @Json(name = "metadata")
     val metadata: DirectUpload200ResponseMetadata
 
-)
+) {
+
+
+}
 

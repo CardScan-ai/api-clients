@@ -32,5 +32,8 @@ data class DirectUpload200ResponseMetadata (
     @Json(name = "ocr_latency")
     val ocrLatency: kotlin.String? = null
 
-)
+) {
+
+
+}
 

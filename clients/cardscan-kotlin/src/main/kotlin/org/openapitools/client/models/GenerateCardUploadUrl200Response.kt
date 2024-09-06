@@ -45,5 +45,8 @@ data class GenerateCardUploadUrl200Response (
     @Json(name = "upload_parameters")
     val uploadParameters: UploadParameters
 
-)
+) {
+
+
+}
 

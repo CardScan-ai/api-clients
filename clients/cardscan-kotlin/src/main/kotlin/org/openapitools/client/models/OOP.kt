@@ -37,5 +37,8 @@ data class OOP (
     @Json(name = "remaining_amount")
     val remainingAmount: kotlin.String? = null
 
-)
+) {
+
+
+}
 

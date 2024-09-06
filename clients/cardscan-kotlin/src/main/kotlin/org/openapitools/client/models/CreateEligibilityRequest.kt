@@ -37,5 +37,8 @@ data class CreateEligibilityRequest (
     @Json(name = "card_id")
     val cardId: java.util.UUID
 
-)
+) {
+
+
+}
 

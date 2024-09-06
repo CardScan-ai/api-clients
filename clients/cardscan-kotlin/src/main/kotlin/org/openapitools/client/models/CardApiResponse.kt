@@ -15,10 +15,10 @@
 
 package org.openapitools.client.models
 
-import org.openapitools.client.models.ApiErrorResponse
 import org.openapitools.client.models.CardApiResponseDetails
 import org.openapitools.client.models.CardApiResponseImages
 import org.openapitools.client.models.CardState
+import org.openapitools.client.models.ModelError
 
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
@@ -52,7 +52,7 @@ data class CardApiResponse (
     val deleted: kotlin.Boolean,
 
     @Json(name = "error")
-    val error: ApiErrorResponse? = null,
+    val error: ModelError? = null,
 
     @Json(name = "images")
     val images: CardApiResponseImages? = null,
@@ -60,5 +60,8 @@ data class CardApiResponse (
     @Json(name = "details")
     val details: CardApiResponseDetails? = null
 
-)
+) {
+
+
+}
 

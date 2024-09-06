@@ -42,5 +42,8 @@ data class GenerateCardUploadUrlRequest (
     @Json(name = "metadata")
     val metadata: ScanMetadata? = null
 
-)
+) {
+
+
+}
 

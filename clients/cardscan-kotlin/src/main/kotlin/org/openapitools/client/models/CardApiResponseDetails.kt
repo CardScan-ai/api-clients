@@ -68,5 +68,8 @@ data class CardApiResponseDetails (
     @Json(name = "card_specific_id")
     val cardSpecificId: MatchScore? = null
 
-)
+) {
+
+
+}
 

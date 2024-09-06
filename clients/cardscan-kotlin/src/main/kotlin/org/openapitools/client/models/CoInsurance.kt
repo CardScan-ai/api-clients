@@ -32,5 +32,8 @@ data class CoInsurance (
     @Json(name = "amount")
     val amount: kotlin.String? = null
 
-)
+) {
+
+
+}
 

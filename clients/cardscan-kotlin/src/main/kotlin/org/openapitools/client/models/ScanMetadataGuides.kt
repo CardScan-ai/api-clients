@@ -43,5 +43,8 @@ data class ScanMetadataGuides (
     @Json(name = "height")
     val height: kotlin.Int? = null
 
-)
+) {
+
+
+}
 

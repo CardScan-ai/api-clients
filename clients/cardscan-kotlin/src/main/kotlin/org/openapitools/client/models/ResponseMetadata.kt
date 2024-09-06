@@ -42,5 +42,8 @@ data class ResponseMetadata (
     @Json(name = "total")
     val total: kotlin.Int? = null
 
-)
+) {
+
+
+}
 

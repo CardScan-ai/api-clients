@@ -30,10 +30,8 @@ public struct EligibilityApiResponse: Codable, JSONEncodable, Hashable {
     public var error: ModelError?
     /** The timestamp when the eligibility record was created. */
     public var createdAt: Date
-    /** The timestamp when the eligibility record was last updated. */
-    public var updateAt: Date
 
-    public init(eligibilityId: String, state: State, cardId: String, eligibilityRequest: EligibilityApiResponseEligibilityRequest? = nil, eligibilityResponse: [String: AnyCodable]? = nil, eligibilitySummarizedResponse: EligibilitySummarizedResponse? = nil, error: ModelError? = nil, createdAt: Date, updateAt: Date) {
+    public init(eligibilityId: String, state: State, cardId: String, eligibilityRequest: EligibilityApiResponseEligibilityRequest? = nil, eligibilityResponse: [String: AnyCodable]? = nil, eligibilitySummarizedResponse: EligibilitySummarizedResponse? = nil, error: ModelError? = nil, createdAt: Date) {
         self.eligibilityId = eligibilityId
         self.state = state
         self.cardId = cardId
@@ -42,7 +40,6 @@ public struct EligibilityApiResponse: Codable, JSONEncodable, Hashable {
         self.eligibilitySummarizedResponse = eligibilitySummarizedResponse
         self.error = error
         self.createdAt = createdAt
-        self.updateAt = updateAt
     }
 
     public enum CodingKeys: String, CodingKey, CaseIterable {
@@ -54,7 +51,6 @@ public struct EligibilityApiResponse: Codable, JSONEncodable, Hashable {
         case eligibilitySummarizedResponse = "eligibility_summarized_response"
         case error
         case createdAt = "created_at"
-        case updateAt = "update_at"
     }
 
     // Encodable protocol methods
@@ -69,7 +65,6 @@ public struct EligibilityApiResponse: Codable, JSONEncodable, Hashable {
         try container.encodeIfPresent(eligibilitySummarizedResponse, forKey: .eligibilitySummarizedResponse)
         try container.encodeIfPresent(error, forKey: .error)
         try container.encode(createdAt, forKey: .createdAt)
-        try container.encode(updateAt, forKey: .updateAt)
     }
 }
 

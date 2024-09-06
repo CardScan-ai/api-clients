@@ -37,5 +37,8 @@ data class EligibilityInfo (
     @Json(name = "subscriber")
     val subscriber: SubscriberDto
 
-)
+) {
+
+
+}
 

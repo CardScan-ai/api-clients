@@ -22,6 +22,11 @@ import com.squareup.moshi.JsonClass
 /**
  * 
  *
+ * @param contentType The content type of the file
+ * @param contentDisposition The content disposition of the file
+ * @param xAmzMetaCardscanAccountId The account ID
+ * @param xAmzMetaCardscanCardId The card ID
+ * @param xAmzMetaCardscanScanId The scan ID
  * @param key The key of the file
  * @param xAmzAlgorithm The algorithm used to sign the request
  * @param xAmzCredential The credential used to sign the request
@@ -29,10 +34,32 @@ import com.squareup.moshi.JsonClass
  * @param xAmzSecurityToken The security token used to sign the request
  * @param policy The policy used to sign the request
  * @param xAmzSignature The signature used to sign the request
+ * @param xAmzMetaCardscanUserId The user ID
+ * @param xAmzMetaCardscanDeveloperUserId The developer user ID
  */
 
 
 data class UploadParameters (
+
+    /* The content type of the file */
+    @Json(name = "Content-Type")
+    val contentType: kotlin.String,
+
+    /* The content disposition of the file */
+    @Json(name = "Content-Disposition")
+    val contentDisposition: kotlin.String,
+
+    /* The account ID */
+    @Json(name = "x-amz-meta-cardscan-account-id")
+    val xAmzMetaCardscanAccountId: kotlin.String,
+
+    /* The card ID */
+    @Json(name = "x-amz-meta-cardscan-card-id")
+    val xAmzMetaCardscanCardId: kotlin.String,
+
+    /* The scan ID */
+    @Json(name = "x-amz-meta-cardscan-scan-id")
+    val xAmzMetaCardscanScanId: kotlin.String,
 
     /* The key of the file */
     @Json(name = "key")
@@ -60,7 +87,18 @@ data class UploadParameters (
 
     /* The signature used to sign the request */
     @Json(name = "x-amz-signature")
-    val xAmzSignature: kotlin.String
+    val xAmzSignature: kotlin.String,
 
-)
+    /* The user ID */
+    @Json(name = "x-amz-meta-cardscan-user-id")
+    val xAmzMetaCardscanUserId: kotlin.String? = null,
+
+    /* The developer user ID */
+    @Json(name = "x-amz-meta-cardscan-developer-user-id")
+    val xAmzMetaCardscanDeveloperUserId: kotlin.String? = null
+
+) {
+
+
+}
 

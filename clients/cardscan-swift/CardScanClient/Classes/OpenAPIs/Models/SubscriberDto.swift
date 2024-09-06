@@ -14,7 +14,6 @@ public struct SubscriberDto: Codable, JSONEncodable, Hashable {
 
     static let firstNameRule = StringRule(minLength: 1, maxLength: 35, pattern: nil)
     static let lastNameRule = StringRule(minLength: 1, maxLength: 60, pattern: nil)
-    static let dateOfBirthRule = StringRule(minLength: nil, maxLength: nil, pattern: "/^\\d{8}$/")
     /** Loop: 2100C and 2100D, Segment: MN1, Element: NM104, Notes: firstName 1-35 alphanumeric characters  */
     public var firstName: String
     /** Loop: 2100C and 2100D, Segment: MN1, Element: NM103, Notes: lastName 1-60 alphanumeric characters  */

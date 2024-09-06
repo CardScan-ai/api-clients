@@ -17,7 +17,7 @@ import pprint
 import re  # noqa: F401
 import json
 
-from datetime import date
+
 from typing import Optional
 from pydantic import BaseModel, Field, StrictStr
 from cardscan_client.models.address import Address
@@ -32,7 +32,7 @@ class SubscriberDetails(BaseModel):
     middlename: Optional[StrictStr] = Field(default=None, description="The middle name of the subscriber.")
     gender: Optional[StrictStr] = Field(default=None, description="The gender of the subscriber.")
     address: Optional[Address] = None
-    dob: Optional[date] = Field(default=None, description="The date of birth of the subscriber.")
+    dob: Optional[StrictStr] = Field(default=None, description="The date of birth of the subscriber.")
     __properties = ["member_id", "firstname", "lastname", "middlename", "gender", "address", "dob"]
 
     class Config:

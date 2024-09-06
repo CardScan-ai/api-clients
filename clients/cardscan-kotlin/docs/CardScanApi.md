@@ -2,23 +2,23 @@
 
 All URIs are relative to *https://sandbox.cardscan.ai/v1*
 
-Method | HTTP request | Description
-------------- | ------------- | -------------
-[**createCard**](CardScanApi.md#createCard) | **POST** /cards | Creates a new card
-[**createEligibility**](CardScanApi.md#createEligibility) | **POST** /eligibility | Create Eligibility Record
-[**deleteCardById**](CardScanApi.md#deleteCardById) | **DELETE** /cards/{card_id} | Delete Card
-[**directUpload**](CardScanApi.md#directUpload) | **POST** /cards/{card_id}/upload | Direct Upload
-[**generateCardUploadUrl**](CardScanApi.md#generateCardUploadUrl) | **POST** /cards/{card_id}/generate-upload-url | Card - Generate Upload URL
-[**generateMagicLink**](CardScanApi.md#generateMagicLink) | **GET** /generate-magic-link | Generate Magic Link
-[**generateUploadUrl**](CardScanApi.md#generateUploadUrl) | **GET** /generate-upload-url | Generate an upload URL
-[**getAccessToken**](CardScanApi.md#getAccessToken) | **GET** /access-token | Access Token
-[**getCardById**](CardScanApi.md#getCardById) | **GET** /cards/{card_id} | Get Card by ID
-[**getEligibilityById**](CardScanApi.md#getEligibilityById) | **GET** /eligibility/{eligibility_id} | Get Eligibility
-[**getScanMetadata**](CardScanApi.md#getScanMetadata) | **GET** /scans/{scan_id}/metadata | Get Scan Metadata
-[**listCards**](CardScanApi.md#listCards) | **GET** /cards | List Cards
-[**listEligibility**](CardScanApi.md#listEligibility) | **GET** /eligibility | List Eligibility
-[**searchCards**](CardScanApi.md#searchCards) | **GET** /cards/search | Search Cards (200) OK
-[**validateMagicLink**](CardScanApi.md#validateMagicLink) | **GET** /validate-magic-link | Validate Magic Link
+| Method | HTTP request | Description |
+| ------------- | ------------- | ------------- |
+| [**createCard**](CardScanApi.md#createCard) | **POST** /cards | Creates a new card |
+| [**createEligibility**](CardScanApi.md#createEligibility) | **POST** /eligibility | Create Eligibility Record |
+| [**deleteCardById**](CardScanApi.md#deleteCardById) | **DELETE** /cards/{card_id} | Delete Card |
+| [**directUpload**](CardScanApi.md#directUpload) | **POST** /cards/{card_id}/upload | Direct Upload |
+| [**generateCardUploadUrl**](CardScanApi.md#generateCardUploadUrl) | **POST** /cards/{card_id}/generate-upload-url | Card - Generate Upload URL |
+| [**generateMagicLink**](CardScanApi.md#generateMagicLink) | **GET** /generate-magic-link | Generate Magic Link |
+| [**generateUploadUrl**](CardScanApi.md#generateUploadUrl) | **GET** /generate-upload-url | Generate an upload URL |
+| [**getAccessToken**](CardScanApi.md#getAccessToken) | **GET** /access-token | Access Token |
+| [**getCardById**](CardScanApi.md#getCardById) | **GET** /cards/{card_id} | Get Card by ID |
+| [**getEligibilityById**](CardScanApi.md#getEligibilityById) | **GET** /eligibility/{eligibility_id} | Get Eligibility |
+| [**getScanMetadata**](CardScanApi.md#getScanMetadata) | **GET** /scans/{scan_id}/metadata | Get Scan Metadata |
+| [**listCards**](CardScanApi.md#listCards) | **GET** /cards | List Cards |
+| [**listEligibility**](CardScanApi.md#listEligibility) | **GET** /eligibility | List Eligibility |
+| [**searchCards**](CardScanApi.md#searchCards) | **GET** /cards/search | Search Cards (200) OK |
+| [**validateMagicLink**](CardScanApi.md#validateMagicLink) | **GET** /validate-magic-link | Validate Magic Link |
 
 
 <a id="createCard"></a>
@@ -48,10 +48,9 @@ try {
 ```
 
 ### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **createCardRequest** | [**CreateCardRequest**](CreateCardRequest.md)|  | [optional]
+| Name | Type | Description  | Notes |
+| ------------- | ------------- | ------------- | ------------- |
+| **createCardRequest** | [**CreateCardRequest**](CreateCardRequest.md)|  | [optional] |
 
 ### Return type
 
@@ -95,10 +94,9 @@ try {
 ```
 
 ### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **createEligibilityRequest** | [**CreateEligibilityRequest**](CreateEligibilityRequest.md)|  | [optional]
+| Name | Type | Description  | Notes |
+| ------------- | ------------- | ------------- | ------------- |
+| **createEligibilityRequest** | [**CreateEligibilityRequest**](CreateEligibilityRequest.md)|  | [optional] |
 
 ### Return type
 
@@ -141,10 +139,9 @@ try {
 ```
 
 ### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **cardId** | **java.util.UUID**| The ID of the card |
+| Name | Type | Description  | Notes |
+| ------------- | ------------- | ------------- | ------------- |
+| **cardId** | **java.util.UUID**| The ID of the card | |
 
 ### Return type
 
@@ -191,13 +188,12 @@ try {
 ```
 
 ### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **cardId** | **java.util.UUID**|  |
- **orientation** | [**ScanOrientation**](.md)|  | [enum: front, back]
- **captureType** | [**ScanCaptureType**](.md)|  | [enum: manual, automatic, selectedFile, api]
- **directUploadRequest** | [**DirectUploadRequest**](DirectUploadRequest.md)|  | [optional]
+| **cardId** | **java.util.UUID**|  | |
+| **orientation** | [**ScanOrientation**](.md)|  | [enum: front, back] |
+| **captureType** | [**ScanCaptureType**](.md)|  | [enum: manual, automatic, selectedFile, api] |
+| Name | Type | Description  | Notes |
+| ------------- | ------------- | ------------- | ------------- |
+| **directUploadRequest** | [**DirectUploadRequest**](DirectUploadRequest.md)|  | [optional] |
 
 ### Return type
 
@@ -243,12 +239,11 @@ try {
 ```
 
 ### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **cardId** | **java.util.UUID**|  |
- **expiration** | **kotlin.Int**|  | [optional] [default to 3600]
- **generateCardUploadUrlRequest** | [**GenerateCardUploadUrlRequest**](GenerateCardUploadUrlRequest.md)|  | [optional]
+| **cardId** | **java.util.UUID**|  | |
+| **expiration** | **kotlin.Int**|  | [optional] [default to 3600] |
+| Name | Type | Description  | Notes |
+| ------------- | ------------- | ------------- | ------------- |
+| **generateCardUploadUrlRequest** | [**GenerateCardUploadUrlRequest**](GenerateCardUploadUrlRequest.md)|  | [optional] |
 
 ### Return type
 
@@ -335,10 +330,9 @@ try {
 ```
 
 ### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **expiration** | **kotlin.Int**|  |
+| Name | Type | Description  | Notes |
+| ------------- | ------------- | ------------- | ------------- |
+| **expiration** | **kotlin.Int**|  | |
 
 ### Return type
 
@@ -382,10 +376,9 @@ try {
 ```
 
 ### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **userId** | **kotlin.String**| The ID of the user | [optional]
+| Name | Type | Description  | Notes |
+| ------------- | ------------- | ------------- | ------------- |
+| **userId** | **kotlin.String**| The ID of the user | [optional] |
 
 ### Return type
 
@@ -429,10 +422,9 @@ try {
 ```
 
 ### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **cardId** | **java.util.UUID**| The ID of the card |
+| Name | Type | Description  | Notes |
+| ------------- | ------------- | ------------- | ------------- |
+| **cardId** | **java.util.UUID**| The ID of the card | |
 
 ### Return type
 
@@ -476,10 +468,9 @@ try {
 ```
 
 ### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **eligibilityId** | **kotlin.String**|  |
+| Name | Type | Description  | Notes |
+| ------------- | ------------- | ------------- | ------------- |
+| **eligibilityId** | **kotlin.String**|  | |
 
 ### Return type
 
@@ -522,10 +513,9 @@ try {
 ```
 
 ### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **scanId** | **java.util.UUID**|  |
+| Name | Type | Description  | Notes |
+| ------------- | ------------- | ------------- | ------------- |
+| **scanId** | **java.util.UUID**|  | |
 
 ### Return type
 
@@ -570,11 +560,10 @@ try {
 ```
 
 ### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **limit** | **kotlin.Int**|  | [optional]
- **cursor** | **kotlin.String**|  | [optional]
+| **limit** | **kotlin.Int**|  | [optional] |
+| Name | Type | Description  | Notes |
+| ------------- | ------------- | ------------- | ------------- |
+| **cursor** | **kotlin.String**|  | [optional] |
 
 ### Return type
 
@@ -593,7 +582,7 @@ Configure bearerAuth:
 
 <a id="listEligibility"></a>
 # **listEligibility**
-> ListEligibility200Response listEligibility()
+> ListEligibility200Response listEligibility(limit, cursor)
 
 List Eligibility
 
@@ -604,8 +593,10 @@ List Eligibility
 //import org.openapitools.client.models.*
 
 val apiInstance = CardScanApi()
+val limit : kotlin.Int = 56 // kotlin.Int | 
+val cursor : kotlin.String = cursor_example // kotlin.String | 
 try {
-    val result : ListEligibility200Response = apiInstance.listEligibility()
+    val result : ListEligibility200Response = apiInstance.listEligibility(limit, cursor)
     println(result)
 } catch (e: ClientException) {
     println("4xx response calling CardScanApi#listEligibility")
@@ -617,7 +608,10 @@ try {
 ```
 
 ### Parameters
-This endpoint does not need any parameter.
+| **limit** | **kotlin.Int**|  | [optional] |
+| Name | Type | Description  | Notes |
+| ------------- | ------------- | ------------- | ------------- |
+| **cursor** | **kotlin.String**|  | [optional] |
 
 ### Return type
 
@@ -663,12 +657,11 @@ try {
 ```
 
 ### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **query** | **kotlin.String**|  |
- **limit** | **kotlin.Int**|  | [optional]
- **cursor** | **kotlin.String**|  | [optional]
+| **query** | **kotlin.String**|  | |
+| **limit** | **kotlin.Int**|  | [optional] |
+| Name | Type | Description  | Notes |
+| ------------- | ------------- | ------------- | ------------- |
+| **cursor** | **kotlin.String**|  | [optional] |
 
 ### Return type
 
@@ -712,10 +705,9 @@ try {
 ```
 
 ### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **token** | **kotlin.String**|  |
+| Name | Type | Description  | Notes |
+| ------------- | ------------- | ------------- | ------------- |
+| **token** | **kotlin.String**|  | |
 
 ### Return type
 

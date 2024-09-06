@@ -2001,15 +2001,19 @@ class CardScanApi:
             _request_auth=_params.get('_request_auth'))
 
     @validate_arguments
-    def list_eligibility(self, **kwargs) -> ListEligibility200Response:  # noqa: E501
+    def list_eligibility(self, limit : Optional[StrictInt] = None, cursor : Optional[StrictStr] = None, **kwargs) -> ListEligibility200Response:  # noqa: E501
         """List Eligibility  # noqa: E501
 
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
 
-        >>> thread = api.list_eligibility(async_req=True)
+        >>> thread = api.list_eligibility(limit, cursor, async_req=True)
         >>> result = thread.get()
 
+        :param limit:
+        :type limit: int
+        :param cursor:
+        :type cursor: str
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
         :param _request_timeout: timeout setting for this request.
@@ -2025,18 +2029,22 @@ class CardScanApi:
         if '_preload_content' in kwargs:
             message = "Error! Please call the list_eligibility_with_http_info method with `_preload_content` instead and obtain raw data from ApiResponse.raw_data"  # noqa: E501
             raise ValueError(message)
-        return self.list_eligibility_with_http_info(**kwargs)  # noqa: E501
+        return self.list_eligibility_with_http_info(limit, cursor, **kwargs)  # noqa: E501
 
     @validate_arguments
-    def list_eligibility_with_http_info(self, **kwargs) -> ApiResponse:  # noqa: E501
+    def list_eligibility_with_http_info(self, limit : Optional[StrictInt] = None, cursor : Optional[StrictStr] = None, **kwargs) -> ApiResponse:  # noqa: E501
         """List Eligibility  # noqa: E501
 
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
 
-        >>> thread = api.list_eligibility_with_http_info(async_req=True)
+        >>> thread = api.list_eligibility_with_http_info(limit, cursor, async_req=True)
         >>> result = thread.get()
 
+        :param limit:
+        :type limit: int
+        :param cursor:
+        :type cursor: str
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
         :param _preload_content: if False, the ApiResponse.data will
@@ -2065,6 +2073,8 @@ class CardScanApi:
         _params = locals()
 
         _all_params = [
+            'limit',
+            'cursor'
         ]
         _all_params.extend(
             [
@@ -2095,6 +2105,12 @@ class CardScanApi:
 
         # process the query parameters
         _query_params = []
+        if _params.get('limit') is not None:  # noqa: E501
+            _query_params.append(('limit', _params['limit']))
+
+        if _params.get('cursor') is not None:  # noqa: E501
+            _query_params.append(('cursor', _params['cursor']))
+
         # process the header parameters
         _header_params = dict(_params.get('_headers', {}))
         # process the form parameters

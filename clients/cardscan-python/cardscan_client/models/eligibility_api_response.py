@@ -36,8 +36,7 @@ class EligibilityApiResponse(BaseModel):
     eligibility_summarized_response: Optional[EligibilitySummarizedResponse] = None
     error: Optional[ModelError] = None
     created_at: datetime = Field(default=..., description="The timestamp when the eligibility record was created.")
-    update_at: datetime = Field(default=..., description="The timestamp when the eligibility record was last updated.")
-    __properties = ["eligibility_id", "state", "card_id", "eligibility_request", "eligibility_response", "eligibility_summarized_response", "error", "created_at", "update_at"]
+    __properties = ["eligibility_id", "state", "card_id", "eligibility_request", "eligibility_response", "eligibility_summarized_response", "error", "created_at"]
 
     @validator('state')
     def state_validate_enum(cls, value):
@@ -103,8 +102,7 @@ class EligibilityApiResponse(BaseModel):
             "eligibility_response": obj.get("eligibility_response"),
             "eligibility_summarized_response": EligibilitySummarizedResponse.from_dict(obj.get("eligibility_summarized_response")) if obj.get("eligibility_summarized_response") is not None else None,
             "error": ModelError.from_dict(obj.get("error")) if obj.get("error") is not None else None,
-            "created_at": obj.get("created_at"),
-            "update_at": obj.get("update_at")
+            "created_at": obj.get("created_at")
         })
         return _obj
 

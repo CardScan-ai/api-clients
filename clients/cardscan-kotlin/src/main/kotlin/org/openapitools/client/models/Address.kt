@@ -20,52 +20,35 @@ import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
 
 /**
- * Address: N3 and N4
+ * 
  *
- * @param address1 Segment: N3, Element: N301, Notes: Required, Address Information
- * @param address2 Segment: N3, Element: N302, Notes: Address Information
- * @param city Segment: N4, Element: N401, Notes: Required, city
- * @param state Segment: N4, Element: N402, Notes: state example: TN, WA
- * @param postalCode Segment: N4, Element: N403
- * @param countryCode Segment: N4, Element: N404
- * @param locationIdentifier Segment: N4, Element: N406
- * @param countrySubDivisionCode Segment: N4, Element: N407, Notes: Country SubDivision Code
+ * @param address1 
+ * @param address2 
+ * @param city 
+ * @param state 
+ * @param postalCode 
  */
 
 
 data class Address (
 
-    /* Segment: N3, Element: N301, Notes: Required, Address Information */
     @Json(name = "address1")
     val address1: kotlin.String? = null,
 
-    /* Segment: N3, Element: N302, Notes: Address Information */
     @Json(name = "address2")
     val address2: kotlin.String? = null,
 
-    /* Segment: N4, Element: N401, Notes: Required, city */
     @Json(name = "city")
     val city: kotlin.String? = null,
 
-    /* Segment: N4, Element: N402, Notes: state example: TN, WA */
     @Json(name = "state")
     val state: kotlin.String? = null,
 
-    /* Segment: N4, Element: N403 */
     @Json(name = "postalCode")
-    val postalCode: kotlin.String? = null,
+    val postalCode: kotlin.String? = null
 
-    /* Segment: N4, Element: N404 */
-    @Json(name = "countryCode")
-    val countryCode: kotlin.String? = null,
+) {
 
-    /* Segment: N4, Element: N406 */
-    @Json(name = "locationIdentifier")
-    val locationIdentifier: kotlin.String? = null,
 
-    /* Segment: N4, Element: N407, Notes: Country SubDivision Code */
-    @Json(name = "countrySubDivisionCode")
-    val countrySubDivisionCode: kotlin.String? = null
-
-)
+}
 

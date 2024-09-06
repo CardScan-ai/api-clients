@@ -26,7 +26,9 @@ import com.squareup.moshi.JsonClass
  * @param groupName The name of the group associated with the plan.
  * @param groupNumber The group number.
  * @param planStartDate The start date of the plan.
+ * @param planEndDate The end date of the plan.
  * @param planEligibilityStartDate The eligibility start date of the plan.
+ * @param planEligibilityEndDate The eligibility end date of the plan.
  * @param planName The name of the plan.
  * @param planActive Indicates whether the plan is active.
  */
@@ -50,9 +52,17 @@ data class PlanDetails (
     @Json(name = "plan_start_date")
     val planStartDate: java.time.LocalDate? = null,
 
+    /* The end date of the plan. */
+    @Json(name = "plan_end_date")
+    val planEndDate: java.time.LocalDate? = null,
+
     /* The eligibility start date of the plan. */
     @Json(name = "plan_eligibility_start_date")
     val planEligibilityStartDate: java.time.LocalDate? = null,
+
+    /* The eligibility end date of the plan. */
+    @Json(name = "plan_eligibility_end_date")
+    val planEligibilityEndDate: java.time.LocalDate? = null,
 
     /* The name of the plan. */
     @Json(name = "plan_name")
@@ -62,5 +72,8 @@ data class PlanDetails (
     @Json(name = "plan_active")
     val planActive: kotlin.Boolean? = null
 
-)
+) {
+
+
+}
 

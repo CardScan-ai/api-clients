@@ -42,5 +42,8 @@ data class GetAccessToken200Response (
     @Json(name = "session_id")
     val sessionId: kotlin.String? = null
 
-)
+) {
+
+
+}
 
