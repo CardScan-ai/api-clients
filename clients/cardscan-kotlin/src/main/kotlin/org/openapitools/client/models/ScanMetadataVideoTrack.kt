@@ -55,5 +55,8 @@ data class ScanMetadataVideoTrack (
     @Json(name = "width")
     val width: kotlin.Int? = null
 
-)
+) {
+
+
+}
 

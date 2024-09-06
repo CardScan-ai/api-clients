@@ -18,17 +18,18 @@ import re  # noqa: F401
 import json
 
 
-
+from typing import Optional
 from pydantic import BaseModel, Field, constr
 
 class ProviderDto(BaseModel):
     """
     ProviderDto
     """
-    first_name: constr(strict=True, max_length=35, min_length=1) = Field(default=..., alias="firstName", description="Loop: 2100B Segment: MN1, Element: NM104, Notes: NM101=PR when providerType='payer' && payerId is present otherwise 1P for Provider, NM102=1 Person, firstName 1-35 alphanumeric characters ")
-    last_name: constr(strict=True, max_length=60, min_length=1) = Field(default=..., alias="lastName", description="Loop: 2100B Segment: MN1, Element: NM103, Notes: NM101=PR when providerType='payer' && payerId is present otherwise 1P for Provider, NM102=1 Person, lastName 1-60 alphanumeric characters ")
+    first_name: Optional[constr(strict=True, max_length=35, min_length=1)] = Field(default=None, alias="firstName", description="Loop: 2100B Segment: MN1, Element: NM104, Notes: NM101=PR when providerType='payer' && payerId is present otherwise 1P for Provider, NM102=1 Person, firstName 1-35 alphanumeric characters ")
+    last_name: Optional[constr(strict=True, max_length=60, min_length=1)] = Field(default=None, alias="lastName", description="Loop: 2100B Segment: MN1, Element: NM103, Notes: NM101=PR when providerType='payer' && payerId is present otherwise 1P for Provider, NM102=1 Person, lastName 1-60 alphanumeric characters ")
     npi: constr(strict=True, max_length=80, min_length=1) = Field(default=..., description="Loop: 2100B Segment: MN1, Element: NM109, Notes: NM108=XX Centers for Medicare and Medicaid Services National Provider Identifier 2-80 alphanumeric characters ")
-    __properties = ["firstName", "lastName", "npi"]
+    organization_name: Optional[constr(strict=True, max_length=60, min_length=0)] = Field(default=None, alias="organizationName")
+    __properties = ["firstName", "lastName", "npi", "organizationName"]
 
     class Config:
         """Pydantic configuration"""
@@ -68,7 +69,8 @@ class ProviderDto(BaseModel):
         _obj = ProviderDto.parse_obj({
             "first_name": obj.get("firstName"),
             "last_name": obj.get("lastName"),
-            "npi": obj.get("npi")
+            "npi": obj.get("npi"),
+            "organization_name": obj.get("organizationName")
         })
         return _obj
 

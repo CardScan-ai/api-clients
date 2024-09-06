@@ -15,8 +15,8 @@
 
 package org.openapitools.client.models
 
-import org.openapitools.client.models.ApiErrorResponse
 import org.openapitools.client.models.CardState
+import org.openapitools.client.models.WebsocketError
 
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
@@ -55,7 +55,7 @@ data class CardWebsocketEvent (
     val sessionId: kotlin.String? = null,
 
     @Json(name = "error")
-    val error: ApiErrorResponse? = null
+    val error: WebsocketError? = null
 
 ) {
 
@@ -68,5 +68,6 @@ data class CardWebsocketEvent (
     enum class Type(val value: kotlin.String) {
         @Json(name = "card") card("card");
     }
+
 }
 

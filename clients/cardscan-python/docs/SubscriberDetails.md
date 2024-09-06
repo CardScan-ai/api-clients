@@ -10,7 +10,7 @@ Name | Type | Description | Notes
 **middlename** | **str** | The middle name of the subscriber. | [optional] 
 **gender** | **str** | The gender of the subscriber. | [optional] 
 **address** | [**Address**](Address.md) |  | [optional] 
-**dob** | **date** | The date of birth of the subscriber. | [optional] 
+**dob** | **str** | The date of birth of the subscriber. | [optional] 
 
 ## Example
 

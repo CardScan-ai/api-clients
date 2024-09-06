@@ -42,5 +42,8 @@ data class GenerateMagicLink200Response (
     @Json(name = "expires_at")
     val expiresAt: java.time.OffsetDateTime
 
-)
+) {
+
+
+}
 

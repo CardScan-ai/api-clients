@@ -35,5 +35,8 @@ data class ScanMetadataCameraCapabilitiesAspectRatio (
     @Json(name = "min")
     val min: java.math.BigDecimal? = null
 
-)
+) {
+
+
+}
 

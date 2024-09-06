@@ -27,24 +27,201 @@ import com.squareup.moshi.JsonClass
 /**
  * 
  *
- * @param eligibilityRequestId The ID of the eligibility request.
  * @param subscriberDetails 
  * @param payerDetails 
  * @param planDetails 
  * @param coverageSummary 
+ * @param abortion 
+ * @param acupuncture 
+ * @param adjunctiveDentalServices 
+ * @param aids 
+ * @param airTransportation 
+ * @param alcoholism 
+ * @param allergy 
+ * @param allergyTesting 
+ * @param alternateMethodDialysis 
+ * @param ambulatoryServiceCenterFacility 
+ * @param anesthesia 
+ * @param anesthesiologist 
+ * @param audiologyExam 
+ * @param bloodCharges 
+ * @param brandNamePrescriptionDrug 
+ * @param brandNamePrescriptionDrugFormulary 
+ * @param brandNamePrescriptionDrugNonFormulary 
+ * @param burnCare 
+ * @param cabulance 
+ * @param cancer 
+ * @param cardiac 
+ * @param cardiacRehabilitation 
+ * @param caseManagement 
+ * @param chemotherapy 
  * @param chiropractic 
+ * @param chiropracticOfficeVisits 
+ * @param chronicRenalDiseaseCrdEquipment 
+ * @param cognitiveTherapy 
+ * @param consultation 
+ * @param coronaryCare 
+ * @param dayCarePsychiatric 
+ * @param dentalAccident 
+ * @param dentalCare 
+ * @param dentalCrowns 
+ * @param dermatology 
+ * @param diabeticSupplies 
+ * @param diagnosticDental 
+ * @param diagnosticLab 
+ * @param diagnosticMedical 
+ * @param diagnosticXRay 
+ * @param dialysis 
+ * @param donorProcedures 
+ * @param drugAddiction 
+ * @param durableMedicalEquipment 
+ * @param durableMedicalEquipmentPurchase 
+ * @param durableMedicalEquipmentRental 
  * @param emergencyRoom 
- * @param officeVisit 
- * @param urgentCare 
+ * @param endocrine 
+ * @param endodontics 
+ * @param experimentalDrugTherapy 
+ * @param eye 
+ * @param eyewearAndEyewearAccessories 
+ * @param familyPlanning 
+ * @param fluVaccination 
+ * @param frames 
+ * @param freeStandingPrescriptionDrug 
+ * @param gastrointestinal 
+ * @param generalBenefits 
+ * @param genericPrescriptionDrug 
+ * @param genericPrescriptionDrugFormulary 
+ * @param genericPrescriptionDrugNonFormulary 
+ * @param gynecological 
+ * @param homeHealthCare 
+ * @param homeHealthPrescriptions 
+ * @param homeHealthVisits 
+ * @param hospice 
+ * @param hospitalInpatient 
+ * @param hospitalAmbulatorySurgical 
+ * @param hospitalEmergencyAccident 
+ * @param hospitalEmergencyMedical 
  * @param hospitalOutpatient 
+ * @param hospitalRoomAndBoard 
+ * @param immunizations 
+ * @param inVitroFertilization 
+ * @param independentMedicalEvaluation 
+ * @param infertility 
+ * @param inhalationTherapy 
+ * @param intensiveCare 
+ * @param invasiveProcedures 
+ * @param lenses 
+ * @param licensedAmbulance 
+ * @param longTermCare 
+ * @param lymphatic 
+ * @param mailOrderPrescriptionDrug 
+ * @param mailOrderPrescriptionDrugBrandName 
+ * @param mailOrderPrescriptionDrugGeneric 
+ * @param majorMedical 
+ * @param mammogramHighRiskPatient 
+ * @param mammogramLowRiskPatient 
+ * @param massageTherapy 
+ * @param maternity 
+ * @param maxillofacialProsthetics 
+ * @param medicalCare 
+ * @param medicallyRelatedTransportation 
+ * @param mentalHealth 
+ * @param mentalHealthFacilityInpatient 
+ * @param mentalHealthFacilityOutpatient 
+ * @param mentalHealthProviderInpatient 
+ * @param mentalHealthProviderOutpatient 
+ * @param mriCatScan 
+ * @param neonatalIntensiveCare 
+ * @param neurology 
+ * @param newbornCare 
+ * @param nonmedicallyNecessaryPhysical 
+ * @param nursery 
+ * @param obstetrical 
+ * @param obstetricalGynecological 
+ * @param occupationalTherapy 
+ * @param oncology 
+ * @param oralSurgery 
+ * @param orthodontics 
+ * @param orthopedic 
+ * @param otherMedical 
+ * @param otologicalExam 
+ * @param partialHospitalizationPsychiatric 
+ * @param pathology 
+ * @param pediatric 
+ * @param periodontics 
+ * @param pharmacy 
+ * @param physicalMedicine 
+ * @param physicalTherapy 
+ * @param physicianVisitOfficeSick 
+ * @param physicianVisitOfficeWell 
+ * @param planWaitingPeriod 
+ * @param pneumoniaVaccine 
+ * @param podiatry 
+ * @param podiatryNursingHomeVisits 
+ * @param podiatryOfficeVisits 
+ * @param preAdmissionTesting 
+ * @param privateDutyNursing 
+ * @param privateDutyNursingHome 
+ * @param privateDutyNursingInpatient 
+ * @param professionalPhysician 
+ * @param professionalPhysicianVisitHome 
+ * @param professionalPhysicianVisitInpatient 
+ * @param professionalPhysicianVisitNursingHome 
+ * @param officeVisit 
+ * @param professionalPhysicianVisitOutpatient 
+ * @param professionalPhysicianVisitSkilledNursing 
+ * @param prostheticDevice 
+ * @param prosthodontics 
+ * @param psychiatric 
+ * @param psychiatricInpatient 
+ * @param psychiatricOutpatient 
+ * @param psychiatricRoomAndBoard 
+ * @param psychotherapy 
+ * @param pulmonary 
+ * @param pulmonaryRehabilitation 
+ * @param radiationTherapy 
+ * @param rehabilitation 
+ * @param rehabilitationInpatient 
+ * @param rehabilitationOutpatient 
+ * @param rehabilitationRoomAndBoard 
+ * @param renal 
+ * @param renalSuppliesInTheHome 
+ * @param residentialPsychiatricTreatment 
+ * @param respiteCare 
+ * @param restorative 
+ * @param routinePreventiveDental 
+ * @param routineExamUseForRoutineVisionExamOnly 
+ * @param routinePhysical 
+ * @param screeningLaboratory 
+ * @param screeningXRay 
+ * @param secondSurgicalOpinion 
+ * @param skilledNursingCare 
+ * @param skilledNursingCareRoomAndBoard 
+ * @param skin 
+ * @param smokingCessation 
+ * @param socialWork 
+ * @param speechTherapy 
+ * @param substanceAbuse 
+ * @param substanceAbuseFacilityInpatient 
+ * @param substanceAbuseFacilityOutpatient 
+ * @param substanceAbuseProviderInpatient 
+ * @param substanceAbuseProviderOutpatient 
+ * @param surgical 
+ * @param surgicalAssistance 
+ * @param surgicalBenefitsFacility 
+ * @param surgicalBenefitsProfessionalPhysician 
+ * @param thirdSurgicalOpinion 
+ * @param transitionalCare 
+ * @param transitionalNurseryCare 
+ * @param transplants 
+ * @param urgentCare 
+ * @param usedDurableMedicalEquipment 
+ * @param vision 
+ * @param wellBabyCare 
  */
 
 
 data class EligibilitySummarizedResponse (
-
-    /* The ID of the eligibility request. */
-    @Json(name = "eligibility_request_id")
-    val eligibilityRequestId: java.util.UUID? = null,
 
     @Json(name = "subscriber_details")
     val subscriberDetails: SubscriberDetails? = null,
@@ -58,20 +235,569 @@ data class EligibilitySummarizedResponse (
     @Json(name = "coverage_summary")
     val coverageSummary: CoverageSummary? = null,
 
+    @Json(name = "abortion")
+    val abortion: Service? = null,
+
+    @Json(name = "acupuncture")
+    val acupuncture: Service? = null,
+
+    @Json(name = "adjunctive_dental_services")
+    val adjunctiveDentalServices: Service? = null,
+
+    @Json(name = "aids")
+    val aids: Service? = null,
+
+    @Json(name = "air_transportation")
+    val airTransportation: Service? = null,
+
+    @Json(name = "alcoholism")
+    val alcoholism: Service? = null,
+
+    @Json(name = "allergy")
+    val allergy: Service? = null,
+
+    @Json(name = "allergy_testing")
+    val allergyTesting: Service? = null,
+
+    @Json(name = "alternate_method_dialysis")
+    val alternateMethodDialysis: Service? = null,
+
+    @Json(name = "ambulatory_service_center_facility")
+    val ambulatoryServiceCenterFacility: Service? = null,
+
+    @Json(name = "anesthesia")
+    val anesthesia: Service? = null,
+
+    @Json(name = "anesthesiologist")
+    val anesthesiologist: Service? = null,
+
+    @Json(name = "audiology_exam")
+    val audiologyExam: Service? = null,
+
+    @Json(name = "blood_charges")
+    val bloodCharges: Service? = null,
+
+    @Json(name = "brand_name_prescription_drug")
+    val brandNamePrescriptionDrug: Service? = null,
+
+    @Json(name = "brand_name_prescription_drug_formulary")
+    val brandNamePrescriptionDrugFormulary: Service? = null,
+
+    @Json(name = "brand_name_prescription_drug_non_formulary")
+    val brandNamePrescriptionDrugNonFormulary: Service? = null,
+
+    @Json(name = "burn_care")
+    val burnCare: Service? = null,
+
+    @Json(name = "cabulance")
+    val cabulance: Service? = null,
+
+    @Json(name = "cancer")
+    val cancer: Service? = null,
+
+    @Json(name = "cardiac")
+    val cardiac: Service? = null,
+
+    @Json(name = "cardiac_rehabilitation")
+    val cardiacRehabilitation: Service? = null,
+
+    @Json(name = "case_management")
+    val caseManagement: Service? = null,
+
+    @Json(name = "chemotherapy")
+    val chemotherapy: Service? = null,
+
     @Json(name = "chiropractic")
     val chiropractic: Service? = null,
+
+    @Json(name = "chiropractic_office_visits")
+    val chiropracticOfficeVisits: Service? = null,
+
+    @Json(name = "chronic_renal_disease_crd_equipment")
+    val chronicRenalDiseaseCrdEquipment: Service? = null,
+
+    @Json(name = "cognitive_therapy")
+    val cognitiveTherapy: Service? = null,
+
+    @Json(name = "consultation")
+    val consultation: Service? = null,
+
+    @Json(name = "coronary_care")
+    val coronaryCare: Service? = null,
+
+    @Json(name = "day_care_psychiatric")
+    val dayCarePsychiatric: Service? = null,
+
+    @Json(name = "dental_accident")
+    val dentalAccident: Service? = null,
+
+    @Json(name = "dental_care")
+    val dentalCare: Service? = null,
+
+    @Json(name = "dental_crowns")
+    val dentalCrowns: Service? = null,
+
+    @Json(name = "dermatology")
+    val dermatology: Service? = null,
+
+    @Json(name = "diabetic_supplies")
+    val diabeticSupplies: Service? = null,
+
+    @Json(name = "diagnostic_dental")
+    val diagnosticDental: Service? = null,
+
+    @Json(name = "diagnostic_lab")
+    val diagnosticLab: Service? = null,
+
+    @Json(name = "diagnostic_medical")
+    val diagnosticMedical: Service? = null,
+
+    @Json(name = "diagnostic_x_ray")
+    val diagnosticXRay: Service? = null,
+
+    @Json(name = "dialysis")
+    val dialysis: Service? = null,
+
+    @Json(name = "donor_procedures")
+    val donorProcedures: Service? = null,
+
+    @Json(name = "drug_addiction")
+    val drugAddiction: Service? = null,
+
+    @Json(name = "durable_medical_equipment")
+    val durableMedicalEquipment: Service? = null,
+
+    @Json(name = "durable_medical_equipment_purchase")
+    val durableMedicalEquipmentPurchase: Service? = null,
+
+    @Json(name = "durable_medical_equipment_rental")
+    val durableMedicalEquipmentRental: Service? = null,
 
     @Json(name = "emergency_room")
     val emergencyRoom: Service? = null,
 
+    @Json(name = "endocrine")
+    val endocrine: Service? = null,
+
+    @Json(name = "endodontics")
+    val endodontics: Service? = null,
+
+    @Json(name = "experimental_drug_therapy")
+    val experimentalDrugTherapy: Service? = null,
+
+    @Json(name = "eye")
+    val eye: Service? = null,
+
+    @Json(name = "eyewear_and_eyewear_accessories")
+    val eyewearAndEyewearAccessories: Service? = null,
+
+    @Json(name = "family_planning")
+    val familyPlanning: Service? = null,
+
+    @Json(name = "flu_vaccination")
+    val fluVaccination: Service? = null,
+
+    @Json(name = "frames")
+    val frames: Service? = null,
+
+    @Json(name = "free_standing_prescription_drug")
+    val freeStandingPrescriptionDrug: Service? = null,
+
+    @Json(name = "gastrointestinal")
+    val gastrointestinal: Service? = null,
+
+    @Json(name = "general_benefits")
+    val generalBenefits: Service? = null,
+
+    @Json(name = "generic_prescription_drug")
+    val genericPrescriptionDrug: Service? = null,
+
+    @Json(name = "generic_prescription_drug_formulary")
+    val genericPrescriptionDrugFormulary: Service? = null,
+
+    @Json(name = "generic_prescription_drug_non_formulary")
+    val genericPrescriptionDrugNonFormulary: Service? = null,
+
+    @Json(name = "gynecological")
+    val gynecological: Service? = null,
+
+    @Json(name = "home_health_care")
+    val homeHealthCare: Service? = null,
+
+    @Json(name = "home_health_prescriptions")
+    val homeHealthPrescriptions: Service? = null,
+
+    @Json(name = "home_health_visits")
+    val homeHealthVisits: Service? = null,
+
+    @Json(name = "hospice")
+    val hospice: Service? = null,
+
+    @Json(name = "hospital_inpatient")
+    val hospitalInpatient: Service? = null,
+
+    @Json(name = "hospital_ambulatory_surgical")
+    val hospitalAmbulatorySurgical: Service? = null,
+
+    @Json(name = "hospital_emergency_accident")
+    val hospitalEmergencyAccident: Service? = null,
+
+    @Json(name = "hospital_emergency_medical")
+    val hospitalEmergencyMedical: Service? = null,
+
+    @Json(name = "hospital_outpatient")
+    val hospitalOutpatient: Service? = null,
+
+    @Json(name = "hospital_room_and_board")
+    val hospitalRoomAndBoard: Service? = null,
+
+    @Json(name = "immunizations")
+    val immunizations: Service? = null,
+
+    @Json(name = "in_vitro_fertilization")
+    val inVitroFertilization: Service? = null,
+
+    @Json(name = "independent_medical_evaluation")
+    val independentMedicalEvaluation: Service? = null,
+
+    @Json(name = "infertility")
+    val infertility: Service? = null,
+
+    @Json(name = "inhalation_therapy")
+    val inhalationTherapy: Service? = null,
+
+    @Json(name = "intensive_care")
+    val intensiveCare: Service? = null,
+
+    @Json(name = "invasive_procedures")
+    val invasiveProcedures: Service? = null,
+
+    @Json(name = "lenses")
+    val lenses: Service? = null,
+
+    @Json(name = "licensed_ambulance")
+    val licensedAmbulance: Service? = null,
+
+    @Json(name = "long_term_care")
+    val longTermCare: Service? = null,
+
+    @Json(name = "lymphatic")
+    val lymphatic: Service? = null,
+
+    @Json(name = "mail_order_prescription_drug")
+    val mailOrderPrescriptionDrug: Service? = null,
+
+    @Json(name = "mail_order_prescription_drug_brand_name")
+    val mailOrderPrescriptionDrugBrandName: Service? = null,
+
+    @Json(name = "mail_order_prescription_drug_generic")
+    val mailOrderPrescriptionDrugGeneric: Service? = null,
+
+    @Json(name = "major_medical")
+    val majorMedical: Service? = null,
+
+    @Json(name = "mammogram_high_risk_patient")
+    val mammogramHighRiskPatient: Service? = null,
+
+    @Json(name = "mammogram_low_risk_patient")
+    val mammogramLowRiskPatient: Service? = null,
+
+    @Json(name = "massage_therapy")
+    val massageTherapy: Service? = null,
+
+    @Json(name = "maternity")
+    val maternity: Service? = null,
+
+    @Json(name = "maxillofacial_prosthetics")
+    val maxillofacialProsthetics: Service? = null,
+
+    @Json(name = "medical_care")
+    val medicalCare: Service? = null,
+
+    @Json(name = "medically_related_transportation")
+    val medicallyRelatedTransportation: Service? = null,
+
+    @Json(name = "mental_health")
+    val mentalHealth: Service? = null,
+
+    @Json(name = "mental_health_facility_inpatient")
+    val mentalHealthFacilityInpatient: Service? = null,
+
+    @Json(name = "mental_health_facility_outpatient")
+    val mentalHealthFacilityOutpatient: Service? = null,
+
+    @Json(name = "mental_health_provider_inpatient")
+    val mentalHealthProviderInpatient: Service? = null,
+
+    @Json(name = "mental_health_provider_outpatient")
+    val mentalHealthProviderOutpatient: Service? = null,
+
+    @Json(name = "mri_cat_scan")
+    val mriCatScan: Service? = null,
+
+    @Json(name = "neonatal_intensive_care")
+    val neonatalIntensiveCare: Service? = null,
+
+    @Json(name = "neurology")
+    val neurology: Service? = null,
+
+    @Json(name = "newborn_care")
+    val newbornCare: Service? = null,
+
+    @Json(name = "nonmedically_necessary_physical")
+    val nonmedicallyNecessaryPhysical: Service? = null,
+
+    @Json(name = "nursery")
+    val nursery: Service? = null,
+
+    @Json(name = "obstetrical")
+    val obstetrical: Service? = null,
+
+    @Json(name = "obstetrical_gynecological")
+    val obstetricalGynecological: Service? = null,
+
+    @Json(name = "occupational_therapy")
+    val occupationalTherapy: Service? = null,
+
+    @Json(name = "oncology")
+    val oncology: Service? = null,
+
+    @Json(name = "oral_surgery")
+    val oralSurgery: Service? = null,
+
+    @Json(name = "orthodontics")
+    val orthodontics: Service? = null,
+
+    @Json(name = "orthopedic")
+    val orthopedic: Service? = null,
+
+    @Json(name = "other_medical")
+    val otherMedical: Service? = null,
+
+    @Json(name = "otological_exam")
+    val otologicalExam: Service? = null,
+
+    @Json(name = "partial_hospitalization_psychiatric")
+    val partialHospitalizationPsychiatric: Service? = null,
+
+    @Json(name = "pathology")
+    val pathology: Service? = null,
+
+    @Json(name = "pediatric")
+    val pediatric: Service? = null,
+
+    @Json(name = "periodontics")
+    val periodontics: Service? = null,
+
+    @Json(name = "pharmacy")
+    val pharmacy: Service? = null,
+
+    @Json(name = "physical_medicine")
+    val physicalMedicine: Service? = null,
+
+    @Json(name = "physical_therapy")
+    val physicalTherapy: Service? = null,
+
+    @Json(name = "physician_visit_office_sick")
+    val physicianVisitOfficeSick: Service? = null,
+
+    @Json(name = "physician_visit_office_well")
+    val physicianVisitOfficeWell: Service? = null,
+
+    @Json(name = "plan_waiting_period")
+    val planWaitingPeriod: Service? = null,
+
+    @Json(name = "pneumonia_vaccine")
+    val pneumoniaVaccine: Service? = null,
+
+    @Json(name = "podiatry")
+    val podiatry: Service? = null,
+
+    @Json(name = "podiatry_nursing_home_visits")
+    val podiatryNursingHomeVisits: Service? = null,
+
+    @Json(name = "podiatry_office_visits")
+    val podiatryOfficeVisits: Service? = null,
+
+    @Json(name = "pre_admission_testing")
+    val preAdmissionTesting: Service? = null,
+
+    @Json(name = "private_duty_nursing")
+    val privateDutyNursing: Service? = null,
+
+    @Json(name = "private_duty_nursing_home")
+    val privateDutyNursingHome: Service? = null,
+
+    @Json(name = "private_duty_nursing_inpatient")
+    val privateDutyNursingInpatient: Service? = null,
+
+    @Json(name = "professional_physician")
+    val professionalPhysician: Service? = null,
+
+    @Json(name = "professional_physician_visit_home")
+    val professionalPhysicianVisitHome: Service? = null,
+
+    @Json(name = "professional_physician_visit_inpatient")
+    val professionalPhysicianVisitInpatient: Service? = null,
+
+    @Json(name = "professional_physician_visit_nursing_home")
+    val professionalPhysicianVisitNursingHome: Service? = null,
+
     @Json(name = "office_visit")
     val officeVisit: Service? = null,
+
+    @Json(name = "professional_physician_visit_outpatient")
+    val professionalPhysicianVisitOutpatient: Service? = null,
+
+    @Json(name = "professional_physician_visit_skilled_nursing")
+    val professionalPhysicianVisitSkilledNursing: Service? = null,
+
+    @Json(name = "prosthetic_device")
+    val prostheticDevice: Service? = null,
+
+    @Json(name = "prosthodontics")
+    val prosthodontics: Service? = null,
+
+    @Json(name = "psychiatric")
+    val psychiatric: Service? = null,
+
+    @Json(name = "psychiatric_inpatient")
+    val psychiatricInpatient: Service? = null,
+
+    @Json(name = "psychiatric_outpatient")
+    val psychiatricOutpatient: Service? = null,
+
+    @Json(name = "psychiatric_room_and_board")
+    val psychiatricRoomAndBoard: Service? = null,
+
+    @Json(name = "psychotherapy")
+    val psychotherapy: Service? = null,
+
+    @Json(name = "pulmonary")
+    val pulmonary: Service? = null,
+
+    @Json(name = "pulmonary_rehabilitation")
+    val pulmonaryRehabilitation: Service? = null,
+
+    @Json(name = "radiation_therapy")
+    val radiationTherapy: Service? = null,
+
+    @Json(name = "rehabilitation")
+    val rehabilitation: Service? = null,
+
+    @Json(name = "rehabilitation_inpatient")
+    val rehabilitationInpatient: Service? = null,
+
+    @Json(name = "rehabilitation_outpatient")
+    val rehabilitationOutpatient: Service? = null,
+
+    @Json(name = "rehabilitation_room_and_board")
+    val rehabilitationRoomAndBoard: Service? = null,
+
+    @Json(name = "renal")
+    val renal: Service? = null,
+
+    @Json(name = "renal_supplies_in_the_home")
+    val renalSuppliesInTheHome: Service? = null,
+
+    @Json(name = "residential_psychiatric_treatment")
+    val residentialPsychiatricTreatment: Service? = null,
+
+    @Json(name = "respite_care")
+    val respiteCare: Service? = null,
+
+    @Json(name = "restorative")
+    val restorative: Service? = null,
+
+    @Json(name = "routine_preventive_dental")
+    val routinePreventiveDental: Service? = null,
+
+    @Json(name = "routine_exam_use_for_routine_vision_exam_only")
+    val routineExamUseForRoutineVisionExamOnly: Service? = null,
+
+    @Json(name = "routine_physical")
+    val routinePhysical: Service? = null,
+
+    @Json(name = "screening_laboratory")
+    val screeningLaboratory: Service? = null,
+
+    @Json(name = "screening_x_ray")
+    val screeningXRay: Service? = null,
+
+    @Json(name = "second_surgical_opinion")
+    val secondSurgicalOpinion: Service? = null,
+
+    @Json(name = "skilled_nursing_care")
+    val skilledNursingCare: Service? = null,
+
+    @Json(name = "skilled_nursing_care_room_and_board")
+    val skilledNursingCareRoomAndBoard: Service? = null,
+
+    @Json(name = "skin")
+    val skin: Service? = null,
+
+    @Json(name = "smoking_cessation")
+    val smokingCessation: Service? = null,
+
+    @Json(name = "social_work")
+    val socialWork: Service? = null,
+
+    @Json(name = "speech_therapy")
+    val speechTherapy: Service? = null,
+
+    @Json(name = "substance_abuse")
+    val substanceAbuse: Service? = null,
+
+    @Json(name = "substance_abuse_facility_inpatient")
+    val substanceAbuseFacilityInpatient: Service? = null,
+
+    @Json(name = "substance_abuse_facility_outpatient")
+    val substanceAbuseFacilityOutpatient: Service? = null,
+
+    @Json(name = "substance_abuse_provider_inpatient")
+    val substanceAbuseProviderInpatient: Service? = null,
+
+    @Json(name = "substance_abuse_provider_outpatient")
+    val substanceAbuseProviderOutpatient: Service? = null,
+
+    @Json(name = "surgical")
+    val surgical: Service? = null,
+
+    @Json(name = "surgical_assistance")
+    val surgicalAssistance: Service? = null,
+
+    @Json(name = "surgical_benefits_facility")
+    val surgicalBenefitsFacility: Service? = null,
+
+    @Json(name = "surgical_benefits_professional_physician")
+    val surgicalBenefitsProfessionalPhysician: Service? = null,
+
+    @Json(name = "third_surgical_opinion")
+    val thirdSurgicalOpinion: Service? = null,
+
+    @Json(name = "transitional_care")
+    val transitionalCare: Service? = null,
+
+    @Json(name = "transitional_nursery_care")
+    val transitionalNurseryCare: Service? = null,
+
+    @Json(name = "transplants")
+    val transplants: Service? = null,
 
     @Json(name = "urgent_care")
     val urgentCare: Service? = null,
 
-    @Json(name = "hospital_outpatient")
-    val hospitalOutpatient: Service? = null
+    @Json(name = "used_durable_medical_equipment")
+    val usedDurableMedicalEquipment: Service? = null,
 
-)
+    @Json(name = "vision")
+    val vision: Service? = null,
+
+    @Json(name = "well_baby_care")
+    val wellBabyCare: Service? = null
+
+) {
+
+
+}
 

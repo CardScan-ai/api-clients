@@ -525,7 +525,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **listEligibility**
-> ListEligibility200Response listEligibility()
+> ListEligibility200Response listEligibility(limit, cursor)
 
 List Eligibility
 
@@ -534,9 +534,11 @@ List Eligibility
 import 'package:cardscan_client/api.dart';
 
 final api = CardscanClient().getCardScanApi();
+final int limit = 56; // int | 
+final String cursor = cursor_example; // String | 
 
 try {
-    final response = api.listEligibility();
+    final response = api.listEligibility(limit, cursor);
     print(response);
 } catch on DioException (e) {
     print('Exception when calling CardScanApi->listEligibility: $e\n');
@@ -544,7 +546,11 @@ try {
 ```
 
 ### Parameters
-This endpoint does not need any parameter.
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **limit** | **int**|  | [optional] 
+ **cursor** | **String**|  | [optional] 
 
 ### Return type
 

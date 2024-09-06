@@ -60,5 +60,8 @@ data class ScanMetadataCameraCapabilities (
     @Json(name = "width")
     val width: ScanMetadataCameraCapabilitiesAspectRatio? = null
 
-)
+) {
+
+
+}
 

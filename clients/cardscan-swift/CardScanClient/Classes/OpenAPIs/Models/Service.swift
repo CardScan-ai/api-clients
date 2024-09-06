@@ -12,19 +12,49 @@ import AnyCodable
 
 public struct Service: Codable, JSONEncodable, Hashable {
 
+    public var individualDeductibleInNetwork: Deductible?
+    public var individualDeductibleOutNetwork: Deductible?
+    public var individualOopInNetwork: OOP?
+    public var individualOopOutNetwork: OOP?
+    public var familyDeductibleInNetwork: Deductible?
+    public var familyDeductibleOutNetwork: Deductible?
+    public var familyOopInNetwork: OOP?
+    public var familyOopOutNetwork: OOP?
     public var coInsuranceInNetwork: CoInsurance?
+    public var coInsuranceOutNetwork: CoInsurance?
+    public var coPaymentOutNetwork: CoPayment?
     public var coPaymentInNetwork: CoPayment?
     /** The service code. */
     public var serviceCode: String?
 
-    public init(coInsuranceInNetwork: CoInsurance? = nil, coPaymentInNetwork: CoPayment? = nil, serviceCode: String? = nil) {
+    public init(individualDeductibleInNetwork: Deductible? = nil, individualDeductibleOutNetwork: Deductible? = nil, individualOopInNetwork: OOP? = nil, individualOopOutNetwork: OOP? = nil, familyDeductibleInNetwork: Deductible? = nil, familyDeductibleOutNetwork: Deductible? = nil, familyOopInNetwork: OOP? = nil, familyOopOutNetwork: OOP? = nil, coInsuranceInNetwork: CoInsurance? = nil, coInsuranceOutNetwork: CoInsurance? = nil, coPaymentOutNetwork: CoPayment? = nil, coPaymentInNetwork: CoPayment? = nil, serviceCode: String? = nil) {
+        self.individualDeductibleInNetwork = individualDeductibleInNetwork
+        self.individualDeductibleOutNetwork = individualDeductibleOutNetwork
+        self.individualOopInNetwork = individualOopInNetwork
+        self.individualOopOutNetwork = individualOopOutNetwork
+        self.familyDeductibleInNetwork = familyDeductibleInNetwork
+        self.familyDeductibleOutNetwork = familyDeductibleOutNetwork
+        self.familyOopInNetwork = familyOopInNetwork
+        self.familyOopOutNetwork = familyOopOutNetwork
         self.coInsuranceInNetwork = coInsuranceInNetwork
+        self.coInsuranceOutNetwork = coInsuranceOutNetwork
+        self.coPaymentOutNetwork = coPaymentOutNetwork
         self.coPaymentInNetwork = coPaymentInNetwork
         self.serviceCode = serviceCode
     }
 
     public enum CodingKeys: String, CodingKey, CaseIterable {
+        case individualDeductibleInNetwork = "individual_deductible_in_network"
+        case individualDeductibleOutNetwork = "individual_deductible_out_network"
+        case individualOopInNetwork = "individual_oop_in_network"
+        case individualOopOutNetwork = "individual_oop_out_network"
+        case familyDeductibleInNetwork = "family_deductible_in_network"
+        case familyDeductibleOutNetwork = "family_deductible_out_network"
+        case familyOopInNetwork = "family_oop_in_network"
+        case familyOopOutNetwork = "family_oop_out_network"
         case coInsuranceInNetwork = "co_insurance_in_network"
+        case coInsuranceOutNetwork = "co_insurance_out_network"
+        case coPaymentOutNetwork = "co_payment_out_network"
         case coPaymentInNetwork = "co_payment_in_network"
         case serviceCode = "service_code"
     }
@@ -33,7 +63,17 @@ public struct Service: Codable, JSONEncodable, Hashable {
 
     public func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encodeIfPresent(individualDeductibleInNetwork, forKey: .individualDeductibleInNetwork)
+        try container.encodeIfPresent(individualDeductibleOutNetwork, forKey: .individualDeductibleOutNetwork)
+        try container.encodeIfPresent(individualOopInNetwork, forKey: .individualOopInNetwork)
+        try container.encodeIfPresent(individualOopOutNetwork, forKey: .individualOopOutNetwork)
+        try container.encodeIfPresent(familyDeductibleInNetwork, forKey: .familyDeductibleInNetwork)
+        try container.encodeIfPresent(familyDeductibleOutNetwork, forKey: .familyDeductibleOutNetwork)
+        try container.encodeIfPresent(familyOopInNetwork, forKey: .familyOopInNetwork)
+        try container.encodeIfPresent(familyOopOutNetwork, forKey: .familyOopOutNetwork)
         try container.encodeIfPresent(coInsuranceInNetwork, forKey: .coInsuranceInNetwork)
+        try container.encodeIfPresent(coInsuranceOutNetwork, forKey: .coInsuranceOutNetwork)
+        try container.encodeIfPresent(coPaymentOutNetwork, forKey: .coPaymentOutNetwork)
         try container.encodeIfPresent(coPaymentInNetwork, forKey: .coPaymentInNetwork)
         try container.encodeIfPresent(serviceCode, forKey: .serviceCode)
     }

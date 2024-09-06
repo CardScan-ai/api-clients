@@ -42,5 +42,8 @@ data class SubscriberDto (
     @Json(name = "dateOfBirth")
     val dateOfBirth: kotlin.String
 
-)
+) {
+
+
+}
 

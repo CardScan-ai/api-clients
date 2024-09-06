@@ -973,7 +973,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **list_eligibility**
-> ListEligibility200Response list_eligibility()
+> ListEligibility200Response list_eligibility(limit=limit, cursor=cursor)
 
 List Eligibility
 
@@ -1008,10 +1008,12 @@ configuration = cardscan_client.Configuration(
 with cardscan_client.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = cardscan_client.CardScanApi(api_client)
+    limit = 56 # int |  (optional)
+    cursor = 'cursor_example' # str |  (optional)
 
     try:
         # List Eligibility
-        api_response = api_instance.list_eligibility()
+        api_response = api_instance.list_eligibility(limit=limit, cursor=cursor)
         print("The response of CardScanApi->list_eligibility:\n")
         pprint(api_response)
     except Exception as e:
@@ -1021,7 +1023,11 @@ with cardscan_client.ApiClient(configuration) as api_client:
 
 
 ### Parameters
-This endpoint does not need any parameter.
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **limit** | **int**|  | [optional] 
+ **cursor** | **str**|  | [optional] 
 
 ### Return type
 

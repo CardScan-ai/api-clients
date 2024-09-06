@@ -130,5 +130,3 @@ lib/src/model/upload_parameters.dart
 lib/src/model/validate_magic_link200_response.dart
 lib/src/model/websocket_error.dart
 lib/src/serializers.dart
-test/model_error_test.dart
-test/websocket_error_test.dart

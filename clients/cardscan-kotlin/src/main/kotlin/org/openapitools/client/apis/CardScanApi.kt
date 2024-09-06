@@ -955,6 +955,8 @@ class CardScanApi(basePath: kotlin.String = defaultBasePath, client: OkHttpClien
     /**
      * List Eligibility
      * 
+     * @param limit  (optional)
+     * @param cursor  (optional)
      * @return ListEligibility200Response
      * @throws IllegalStateException If the request is not correctly configured
      * @throws IOException Rethrows the OkHttp execute method exception
@@ -964,8 +966,8 @@ class CardScanApi(basePath: kotlin.String = defaultBasePath, client: OkHttpClien
      */
     @Suppress("UNCHECKED_CAST")
     @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
-    fun listEligibility() : ListEligibility200Response {
-        val localVarResponse = listEligibilityWithHttpInfo()
+    fun listEligibility(limit: kotlin.Int? = null, cursor: kotlin.String? = null) : ListEligibility200Response {
+        val localVarResponse = listEligibilityWithHttpInfo(limit = limit, cursor = cursor)
 
         return when (localVarResponse.responseType) {
             ResponseType.Success -> (localVarResponse as Success<*>).data as ListEligibility200Response
@@ -985,14 +987,16 @@ class CardScanApi(basePath: kotlin.String = defaultBasePath, client: OkHttpClien
     /**
      * List Eligibility
      * 
+     * @param limit  (optional)
+     * @param cursor  (optional)
      * @return ApiResponse<ListEligibility200Response?>
      * @throws IllegalStateException If the request is not correctly configured
      * @throws IOException Rethrows the OkHttp execute method exception
      */
     @Suppress("UNCHECKED_CAST")
     @Throws(IllegalStateException::class, IOException::class)
-    fun listEligibilityWithHttpInfo() : ApiResponse<ListEligibility200Response?> {
-        val localVariableConfig = listEligibilityRequestConfig()
+    fun listEligibilityWithHttpInfo(limit: kotlin.Int?, cursor: kotlin.String?) : ApiResponse<ListEligibility200Response?> {
+        val localVariableConfig = listEligibilityRequestConfig(limit = limit, cursor = cursor)
 
         return request<Unit, ListEligibility200Response>(
             localVariableConfig
@@ -1002,11 +1006,21 @@ class CardScanApi(basePath: kotlin.String = defaultBasePath, client: OkHttpClien
     /**
      * To obtain the request config of the operation listEligibility
      *
+     * @param limit  (optional)
+     * @param cursor  (optional)
      * @return RequestConfig
      */
-    fun listEligibilityRequestConfig() : RequestConfig<Unit> {
+    fun listEligibilityRequestConfig(limit: kotlin.Int?, cursor: kotlin.String?) : RequestConfig<Unit> {
         val localVariableBody = null
-        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableQuery: MultiValueMap = mutableMapOf<kotlin.String, kotlin.collections.List<kotlin.String>>()
+            .apply {
+                if (limit != null) {
+                    put("limit", listOf(limit.toString()))
+                }
+                if (cursor != null) {
+                    put("cursor", listOf(cursor.toString()))
+                }
+            }
         val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
         localVariableHeaders["Accept"] = "application/json"
 

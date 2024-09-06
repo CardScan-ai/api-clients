@@ -17,6 +17,8 @@ package org.openapitools.client.models
 
 import org.openapitools.client.models.CoInsurance
 import org.openapitools.client.models.CoPayment
+import org.openapitools.client.models.Deductible
+import org.openapitools.client.models.OOP
 
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
@@ -24,7 +26,17 @@ import com.squareup.moshi.JsonClass
 /**
  * 
  *
+ * @param individualDeductibleInNetwork 
+ * @param individualDeductibleOutNetwork 
+ * @param individualOopInNetwork 
+ * @param individualOopOutNetwork 
+ * @param familyDeductibleInNetwork 
+ * @param familyDeductibleOutNetwork 
+ * @param familyOopInNetwork 
+ * @param familyOopOutNetwork 
  * @param coInsuranceInNetwork 
+ * @param coInsuranceOutNetwork 
+ * @param coPaymentOutNetwork 
  * @param coPaymentInNetwork 
  * @param serviceCode The service code.
  */
@@ -32,8 +44,38 @@ import com.squareup.moshi.JsonClass
 
 data class Service (
 
+    @Json(name = "individual_deductible_in_network")
+    val individualDeductibleInNetwork: Deductible? = null,
+
+    @Json(name = "individual_deductible_out_network")
+    val individualDeductibleOutNetwork: Deductible? = null,
+
+    @Json(name = "individual_oop_in_network")
+    val individualOopInNetwork: OOP? = null,
+
+    @Json(name = "individual_oop_out_network")
+    val individualOopOutNetwork: OOP? = null,
+
+    @Json(name = "family_deductible_in_network")
+    val familyDeductibleInNetwork: Deductible? = null,
+
+    @Json(name = "family_deductible_out_network")
+    val familyDeductibleOutNetwork: Deductible? = null,
+
+    @Json(name = "family_oop_in_network")
+    val familyOopInNetwork: OOP? = null,
+
+    @Json(name = "family_oop_out_network")
+    val familyOopOutNetwork: OOP? = null,
+
     @Json(name = "co_insurance_in_network")
     val coInsuranceInNetwork: CoInsurance? = null,
+
+    @Json(name = "co_insurance_out_network")
+    val coInsuranceOutNetwork: CoInsurance? = null,
+
+    @Json(name = "co_payment_out_network")
+    val coPaymentOutNetwork: CoPayment? = null,
 
     @Json(name = "co_payment_in_network")
     val coPaymentInNetwork: CoPayment? = null,
@@ -42,5 +84,8 @@ data class Service (
     @Json(name = "service_code")
     val serviceCode: kotlin.String? = null
 
-)
+) {
+
+
+}
 

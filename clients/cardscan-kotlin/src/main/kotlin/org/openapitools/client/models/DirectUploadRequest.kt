@@ -26,7 +26,9 @@ import com.squareup.moshi.JsonClass
 
 
 data class DirectUploadRequest (
-    // dummy variable to avoid raising error
-    var dummy: String? = null
-)
+
+) {
+
+
+}
 

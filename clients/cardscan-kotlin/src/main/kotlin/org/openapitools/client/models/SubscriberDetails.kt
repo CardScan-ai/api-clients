@@ -60,7 +60,10 @@ data class SubscriberDetails (
 
     /* The date of birth of the subscriber. */
     @Json(name = "dob")
-    val dob: java.time.LocalDate? = null
+    val dob: kotlin.String? = null
 
-)
+) {
+
+
+}
 

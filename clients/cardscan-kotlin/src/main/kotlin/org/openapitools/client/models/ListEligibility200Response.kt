@@ -37,5 +37,8 @@ data class ListEligibility200Response (
     @Json(name = "response_metadata")
     val responseMetadata: ResponseMetadata
 
-)
+) {
+
+
+}
 

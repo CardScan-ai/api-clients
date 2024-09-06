@@ -612,12 +612,14 @@ open class CardScanAPI {
     /**
      List Eligibility
      
+     - parameter limit: (query)  (optional)
+     - parameter cursor: (query)  (optional)
      - parameter apiResponseQueue: The queue on which api response is dispatched.
      - parameter completion: completion handler to receive the data and the error objects
      */
     @discardableResult
-    open class func listEligibility(apiResponseQueue: DispatchQueue = CardScanClientAPI.apiResponseQueue, completion: @escaping ((_ data: ListEligibility200Response?, _ error: Error?) -> Void)) -> RequestTask {
-        return listEligibilityWithRequestBuilder().execute(apiResponseQueue) { result in
+    open class func listEligibility(limit: Int? = nil, cursor: String? = nil, apiResponseQueue: DispatchQueue = CardScanClientAPI.apiResponseQueue, completion: @escaping ((_ data: ListEligibility200Response?, _ error: Error?) -> Void)) -> RequestTask {
+        return listEligibilityWithRequestBuilder(limit: limit, cursor: cursor).execute(apiResponseQueue) { result in
             switch result {
             case let .success(response):
                 completion(response.body, nil)
@@ -633,14 +635,20 @@ open class CardScanAPI {
      - Bearer Token:
        - type: http
        - name: bearerAuth
+     - parameter limit: (query)  (optional)
+     - parameter cursor: (query)  (optional)
      - returns: RequestBuilder<ListEligibility200Response> 
      */
-    open class func listEligibilityWithRequestBuilder() -> RequestBuilder<ListEligibility200Response> {
+    open class func listEligibilityWithRequestBuilder(limit: Int? = nil, cursor: String? = nil) -> RequestBuilder<ListEligibility200Response> {
         let localVariablePath = "/eligibility"
         let localVariableURLString = CardScanClientAPI.basePath + localVariablePath
         let localVariableParameters: [String: Any]? = nil
 
-        let localVariableUrlComponents = URLComponents(string: localVariableURLString)
+        var localVariableUrlComponents = URLComponents(string: localVariableURLString)
+        localVariableUrlComponents?.queryItems = APIHelper.mapValuesToQueryItems([
+            "limit": (wrappedValue: limit?.encodeToJSON(), isExplode: true),
+            "cursor": (wrappedValue: cursor?.encodeToJSON(), isExplode: true),
+        ])
 
         let localVariableNillableHeaders: [String: Any?] = [
             :

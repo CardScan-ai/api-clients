@@ -20,6 +20,8 @@ import json
 
 from typing import Optional
 from pydantic import BaseModel
+from cardscan_client.models.co_insurance import CoInsurance
+from cardscan_client.models.co_payment import CoPayment
 from cardscan_client.models.deductible import Deductible
 from cardscan_client.models.oop import OOP
 
@@ -28,10 +30,18 @@ class CoverageSummary(BaseModel):
     CoverageSummary
     """
     individual_deductible_in_network: Optional[Deductible] = None
+    individual_deductible_out_network: Optional[Deductible] = None
     individual_oop_in_network: Optional[OOP] = None
+    individual_oop_out_network: Optional[OOP] = None
     family_deductible_in_network: Optional[Deductible] = None
+    family_deductible_out_network: Optional[Deductible] = None
     family_oop_in_network: Optional[OOP] = None
-    __properties = ["individual_deductible_in_network", "individual_oop_in_network", "family_deductible_in_network", "family_oop_in_network"]
+    family_oop_out_network: Optional[OOP] = None
+    co_insurance_in_network: Optional[CoInsurance] = None
+    co_insurance_out_network: Optional[CoInsurance] = None
+    co_payment_out_network: Optional[CoPayment] = None
+    co_payment_in_network: Optional[CoPayment] = None
+    __properties = ["individual_deductible_in_network", "individual_deductible_out_network", "individual_oop_in_network", "individual_oop_out_network", "family_deductible_in_network", "family_deductible_out_network", "family_oop_in_network", "family_oop_out_network", "co_insurance_in_network", "co_insurance_out_network", "co_payment_out_network", "co_payment_in_network"]
 
     class Config:
         """Pydantic configuration"""
@@ -60,15 +70,39 @@ class CoverageSummary(BaseModel):
         # override the default output from pydantic by calling `to_dict()` of individual_deductible_in_network
         if self.individual_deductible_in_network:
             _dict['individual_deductible_in_network'] = self.individual_deductible_in_network.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of individual_deductible_out_network
+        if self.individual_deductible_out_network:
+            _dict['individual_deductible_out_network'] = self.individual_deductible_out_network.to_dict()
         # override the default output from pydantic by calling `to_dict()` of individual_oop_in_network
         if self.individual_oop_in_network:
             _dict['individual_oop_in_network'] = self.individual_oop_in_network.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of individual_oop_out_network
+        if self.individual_oop_out_network:
+            _dict['individual_oop_out_network'] = self.individual_oop_out_network.to_dict()
         # override the default output from pydantic by calling `to_dict()` of family_deductible_in_network
         if self.family_deductible_in_network:
             _dict['family_deductible_in_network'] = self.family_deductible_in_network.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of family_deductible_out_network
+        if self.family_deductible_out_network:
+            _dict['family_deductible_out_network'] = self.family_deductible_out_network.to_dict()
         # override the default output from pydantic by calling `to_dict()` of family_oop_in_network
         if self.family_oop_in_network:
             _dict['family_oop_in_network'] = self.family_oop_in_network.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of family_oop_out_network
+        if self.family_oop_out_network:
+            _dict['family_oop_out_network'] = self.family_oop_out_network.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of co_insurance_in_network
+        if self.co_insurance_in_network:
+            _dict['co_insurance_in_network'] = self.co_insurance_in_network.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of co_insurance_out_network
+        if self.co_insurance_out_network:
+            _dict['co_insurance_out_network'] = self.co_insurance_out_network.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of co_payment_out_network
+        if self.co_payment_out_network:
+            _dict['co_payment_out_network'] = self.co_payment_out_network.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of co_payment_in_network
+        if self.co_payment_in_network:
+            _dict['co_payment_in_network'] = self.co_payment_in_network.to_dict()
         return _dict
 
     @classmethod
@@ -82,9 +116,17 @@ class CoverageSummary(BaseModel):
 
         _obj = CoverageSummary.parse_obj({
             "individual_deductible_in_network": Deductible.from_dict(obj.get("individual_deductible_in_network")) if obj.get("individual_deductible_in_network") is not None else None,
+            "individual_deductible_out_network": Deductible.from_dict(obj.get("individual_deductible_out_network")) if obj.get("individual_deductible_out_network") is not None else None,
             "individual_oop_in_network": OOP.from_dict(obj.get("individual_oop_in_network")) if obj.get("individual_oop_in_network") is not None else None,
+            "individual_oop_out_network": OOP.from_dict(obj.get("individual_oop_out_network")) if obj.get("individual_oop_out_network") is not None else None,
             "family_deductible_in_network": Deductible.from_dict(obj.get("family_deductible_in_network")) if obj.get("family_deductible_in_network") is not None else None,
-            "family_oop_in_network": OOP.from_dict(obj.get("family_oop_in_network")) if obj.get("family_oop_in_network") is not None else None
+            "family_deductible_out_network": Deductible.from_dict(obj.get("family_deductible_out_network")) if obj.get("family_deductible_out_network") is not None else None,
+            "family_oop_in_network": OOP.from_dict(obj.get("family_oop_in_network")) if obj.get("family_oop_in_network") is not None else None,
+            "family_oop_out_network": OOP.from_dict(obj.get("family_oop_out_network")) if obj.get("family_oop_out_network") is not None else None,
+            "co_insurance_in_network": CoInsurance.from_dict(obj.get("co_insurance_in_network")) if obj.get("co_insurance_in_network") is not None else None,
+            "co_insurance_out_network": CoInsurance.from_dict(obj.get("co_insurance_out_network")) if obj.get("co_insurance_out_network") is not None else None,
+            "co_payment_out_network": CoPayment.from_dict(obj.get("co_payment_out_network")) if obj.get("co_payment_out_network") is not None else None,
+            "co_payment_in_network": CoPayment.from_dict(obj.get("co_payment_in_network")) if obj.get("co_payment_in_network") is not None else None
         })
         return _obj
 
