@@ -37,5 +37,8 @@ data class CardApiResponseImages (
     @Json(name = "back")
     val back: CardApiResponseImagesBack? = null
 
-)
+) {
+
+
+}
 

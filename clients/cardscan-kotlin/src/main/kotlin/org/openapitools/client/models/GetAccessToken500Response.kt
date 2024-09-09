@@ -32,5 +32,8 @@ data class GetAccessToken500Response (
     @Json(name = "message")
     val message: kotlin.String? = null
 
-)
+) {
+
+
+}
 

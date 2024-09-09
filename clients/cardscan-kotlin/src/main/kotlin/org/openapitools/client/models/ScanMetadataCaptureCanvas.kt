@@ -35,5 +35,8 @@ data class ScanMetadataCaptureCanvas (
     @Json(name = "height")
     val height: kotlin.Int? = null
 
-)
+) {
+
+
+}
 

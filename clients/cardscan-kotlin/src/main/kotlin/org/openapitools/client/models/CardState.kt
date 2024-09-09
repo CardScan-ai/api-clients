@@ -22,7 +22,7 @@ import com.squareup.moshi.JsonClass
 /**
  * 
  *
- * Values: pending,frontside_processing,frontside_failed,backside_processing,backside_failed,completed,error,unknown
+ * Values: pending,processing,frontside_processing,frontside_failed,backside_processing,backside_failed,post_processing,completed,error,unknown
  */
 
 @JsonClass(generateAdapter = false)
@@ -30,6 +30,9 @@ enum class CardState(val value: kotlin.String) {
 
     @Json(name = "pending")
     pending("pending"),
+
+    @Json(name = "processing")
+    processing("processing"),
 
     @Json(name = "frontside_processing")
     frontside_processing("frontside_processing"),
@@ -42,6 +45,9 @@ enum class CardState(val value: kotlin.String) {
 
     @Json(name = "backside_failed")
     backside_failed("backside_failed"),
+
+    @Json(name = "post_processing")
+    post_processing("post_processing"),
 
     @Json(name = "completed")
     completed("completed"),

@@ -19,7 +19,7 @@ import json
 
 
 
-from pydantic import BaseModel, Field, constr, validator
+from pydantic import BaseModel, Field, StrictStr, constr
 
 class SubscriberDto(BaseModel):
     """
@@ -27,15 +27,8 @@ class SubscriberDto(BaseModel):
     """
     first_name: constr(strict=True, max_length=35, min_length=1) = Field(default=..., alias="firstName", description="Loop: 2100C and 2100D, Segment: MN1, Element: NM104, Notes: firstName 1-35 alphanumeric characters ")
     last_name: constr(strict=True, max_length=60, min_length=1) = Field(default=..., alias="lastName", description="Loop: 2100C and 2100D, Segment: MN1, Element: NM103, Notes: lastName 1-60 alphanumeric characters ")
-    date_of_birth: constr(strict=True) = Field(default=..., alias="dateOfBirth", description="Loop: 2100C and 2100D, Segment: DMG, Element: DMG02, Notes: date of birth in YYYYMMDD format ")
+    date_of_birth: StrictStr = Field(default=..., alias="dateOfBirth", description="Loop: 2100C and 2100D, Segment: DMG, Element: DMG02, Notes: date of birth in YYYYMMDD format ")
     __properties = ["firstName", "lastName", "dateOfBirth"]
-
-    @validator('date_of_birth')
-    def date_of_birth_validate_regular_expression(cls, value):
-        """Validates the regular expression"""
-        if not re.match(r"^\d{8}$", value):
-            raise ValueError(r"must validate the regular expression /^\d{8}$/")
-        return value
 
     class Config:
         """Pydantic configuration"""

@@ -99,5 +99,6 @@ data class ScanMetadata (
         @Json(name = "automatic") automatic("automatic"),
         @Json(name = "manual") manual("manual");
     }
+
 }
 

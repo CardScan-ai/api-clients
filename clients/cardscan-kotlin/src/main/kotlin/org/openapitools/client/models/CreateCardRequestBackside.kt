@@ -45,5 +45,6 @@ data class CreateCardRequestBackside (
         @Json(name = "optional") optional("optional"),
         @Json(name = "disabled") disabled("disabled");
     }
+
 }
 

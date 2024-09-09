@@ -11,14 +11,14 @@ part 'response_metadata.g.dart';
 /// ResponseMetadata
 ///
 /// Properties:
-/// * [cursor] - The cursor for the next page of results.
+/// * [nextCursor] - The cursor for the next page of results.
 /// * [limit] - The maximum number of items to return.
 /// * [total] - The total number of items available.
 @BuiltValue()
 abstract class ResponseMetadata implements Built<ResponseMetadata, ResponseMetadataBuilder> {
   /// The cursor for the next page of results.
-  @BuiltValueField(wireName: r'cursor')
-  String? get cursor;
+  @BuiltValueField(wireName: r'next_cursor')
+  String? get nextCursor;
 
   /// The maximum number of items to return.
   @BuiltValueField(wireName: r'limit')
@@ -51,10 +51,10 @@ class _$ResponseMetadataSerializer implements PrimitiveSerializer<ResponseMetada
     ResponseMetadata object, {
     FullType specifiedType = FullType.unspecified,
   }) sync* {
-    if (object.cursor != null) {
-      yield r'cursor';
+    if (object.nextCursor != null) {
+      yield r'next_cursor';
       yield serializers.serialize(
-        object.cursor,
+        object.nextCursor,
         specifiedType: const FullType(String),
       );
     }
@@ -95,12 +95,12 @@ class _$ResponseMetadataSerializer implements PrimitiveSerializer<ResponseMetada
       final key = serializedList[i] as String;
       final value = serializedList[i + 1];
       switch (key) {
-        case r'cursor':
+        case r'next_cursor':
           final valueDes = serializers.deserialize(
             value,
             specifiedType: const FullType(String),
           ) as String;
-          result.cursor = valueDes;
+          result.nextCursor = valueDes;
           break;
         case r'limit':
           final valueDes = serializers.deserialize(

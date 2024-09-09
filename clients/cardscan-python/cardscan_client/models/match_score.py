@@ -18,15 +18,15 @@ import re  # noqa: F401
 import json
 
 
-from typing import List, Optional
-from pydantic import BaseModel, Field, StrictStr, conlist
+from typing import List, Optional, Union
+from pydantic import BaseModel, Field, StrictFloat, StrictInt, StrictStr, conlist
 
 class MatchScore(BaseModel):
     """
     MatchScore
     """
     value: Optional[StrictStr] = Field(default=None, description="The matching score value of the card.")
-    scores: Optional[conlist(StrictStr)] = None
+    scores: Optional[conlist(Union[StrictFloat, StrictInt])] = None
     __properties = ["value", "scores"]
 
     class Config:

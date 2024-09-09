@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **value** | **str** | The matching score value of the card. | [optional] 
-**scores** | **List[str]** |  | [optional] 
+**scores** | **List[float]** |  | [optional] 
 
 ## Example
 

@@ -37,5 +37,8 @@ data class ValidateMagicLink200Response (
     @Json(name = "IdentityId")
     val identityId: kotlin.String
 
-)
+) {
+
+
+}
 

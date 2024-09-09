@@ -35,5 +35,8 @@ data class ScanMetadataVideoBackground (
     @Json(name = "height")
     val height: kotlin.Int? = null
 
-)
+) {
+
+
+}
 

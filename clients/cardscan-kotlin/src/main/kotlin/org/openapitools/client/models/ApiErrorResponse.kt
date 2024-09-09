@@ -42,5 +42,8 @@ data class ApiErrorResponse (
     @Json(name = "code")
     val code: java.math.BigDecimal? = null
 
-)
+) {
+
+
+}
 

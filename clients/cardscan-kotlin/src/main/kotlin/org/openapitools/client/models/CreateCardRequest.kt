@@ -42,5 +42,8 @@ data class CreateCardRequest (
     @Json(name = "backside")
     val backside: CreateCardRequestBackside? = null
 
-)
+) {
+
+
+}
 

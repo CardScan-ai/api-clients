@@ -1256,12 +1256,28 @@ components:
       properties:
         individual_deductible_in_network:
           $ref: '#/components/schemas/Deductible'
+        individual_deductible_out_network:
+          $ref: '#/components/schemas/Deductible'
         individual_oop_in_network:
+          $ref: '#/components/schemas/OOP'
+        individual_oop_out_network:
           $ref: '#/components/schemas/OOP'
         family_deductible_in_network:
           $ref: '#/components/schemas/Deductible'
+        family_deductible_out_network:
+          $ref: '#/components/schemas/Deductible'
         family_oop_in_network:
           $ref: '#/components/schemas/OOP'
+        family_oop_out_network:
+          $ref: '#/components/schemas/OOP'
+        co_insurance_in_network:
+          $ref: '#/components/schemas/CoInsurance'
+        co_insurance_out_network:
+          $ref: '#/components/schemas/CoInsurance'
+        co_payment_out_network:
+          $ref: '#/components/schemas/CoPayment'
+        co_payment_in_network:
+          $ref: '#/components/schemas/CoPayment'
     Deductible:
       type: object
       properties:
@@ -1280,11 +1296,31 @@ components:
         remaining_amount:
           type: string
           description: The remaining out-of-pocket amount.
-    Service:
+    Service: # Had to duplicate from CoverageSummary, using allOf does not work
       type: object
       properties:
+        individual_deductible_in_network:
+          $ref: '#/components/schemas/Deductible'
+        individual_deductible_out_network:
+          $ref: '#/components/schemas/Deductible'
+        individual_oop_in_network:
+          $ref: '#/components/schemas/OOP'
+        individual_oop_out_network:
+          $ref: '#/components/schemas/OOP'
+        family_deductible_in_network:
+          $ref: '#/components/schemas/Deductible'
+        family_deductible_out_network:
+          $ref: '#/components/schemas/Deductible'
+        family_oop_in_network:
+          $ref: '#/components/schemas/OOP'
+        family_oop_out_network:
+          $ref: '#/components/schemas/OOP'
         co_insurance_in_network:
           $ref: '#/components/schemas/CoInsurance'
+        co_insurance_out_network:
+          $ref: '#/components/schemas/CoInsurance'
+        co_payment_out_network:
+          $ref: '#/components/schemas/CoPayment'
         co_payment_in_network:
           $ref: '#/components/schemas/CoPayment'
         service_code:
@@ -1305,7 +1341,7 @@ components:
     ResponseMetadata:
       type: object
       properties:
-        cursor:
+        next_cursor:
           type: string
           description: The cursor for the next page of results.
         limit:

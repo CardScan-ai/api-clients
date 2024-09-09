@@ -16,7 +16,8 @@
 package org.openapitools.client.models
 
 import org.openapitools.client.models.EligibilityApiResponseEligibilityRequest
-import org.openapitools.client.models.EligibilityApiResponseError
+import org.openapitools.client.models.EligibilitySummarizedResponse
+import org.openapitools.client.models.ModelError
 
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
@@ -28,10 +29,9 @@ import com.squareup.moshi.JsonClass
  * @param state The state of the eligibility record.
  * @param cardId The ID of the card.
  * @param createdAt The timestamp when the eligibility record was created.
- * @param updateAt The timestamp when the eligibility record was last updated.
  * @param eligibilityRequest 
  * @param eligibilityResponse The eligibility raw response.
- * @param eligibilitySummarizedResponse The eligibility summarized response.
+ * @param eligibilitySummarizedResponse 
  * @param error 
  */
 
@@ -54,10 +54,6 @@ data class EligibilityApiResponse (
     @Json(name = "created_at")
     val createdAt: java.time.OffsetDateTime,
 
-    /* The timestamp when the eligibility record was last updated. */
-    @Json(name = "update_at")
-    val updateAt: java.time.OffsetDateTime,
-
     @Json(name = "eligibility_request")
     val eligibilityRequest: EligibilityApiResponseEligibilityRequest? = null,
 
@@ -65,12 +61,11 @@ data class EligibilityApiResponse (
     @Json(name = "eligibility_response")
     val eligibilityResponse: kotlin.collections.Map<kotlin.String, kotlin.Any>? = null,
 
-    /* The eligibility summarized response. */
     @Json(name = "eligibility_summarized_response")
-    val eligibilitySummarizedResponse: kotlin.collections.Map<kotlin.String, kotlin.Any>? = null,
+    val eligibilitySummarizedResponse: EligibilitySummarizedResponse? = null,
 
     @Json(name = "error")
-    val error: EligibilityApiResponseError? = null
+    val error: ModelError? = null
 
 ) {
 
@@ -85,5 +80,6 @@ data class EligibilityApiResponse (
         @Json(name = "processing") processing("processing"),
         @Json(name = "error") error("error");
     }
+
 }
 

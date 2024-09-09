@@ -35,5 +35,8 @@ data class ScanMetadataCaptureScoreScoresInner (
     @Json(name = "laplacian")
     val laplacian: java.math.BigDecimal? = null
 
-)
+) {
+
+
+}
 

@@ -38,5 +38,8 @@ data class ScanMetadataCaptureScore (
     @Json(name = "max_lapScore")
     val maxLapScore: java.math.BigDecimal? = null
 
-)
+) {
+
+
+}
 

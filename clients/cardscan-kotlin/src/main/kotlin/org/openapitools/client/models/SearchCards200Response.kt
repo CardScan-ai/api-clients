@@ -37,5 +37,8 @@ data class SearchCards200Response (
     @Json(name = "response_metadata")
     val responseMetadata: ResponseMetadata
 
-)
+) {
+
+
+}
 

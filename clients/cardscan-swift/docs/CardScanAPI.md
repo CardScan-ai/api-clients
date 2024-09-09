@@ -81,7 +81,7 @@ Create Eligibility Record
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
 import CardScanClient
 
-let createEligibilityRequest = createEligibility_request(eligibility: EligibilityInfo(provider: ProviderDto(firstName: "firstName_example", lastName: "lastName_example", npi: "npi_example"), subscriber: SubscriberDto(firstName: "firstName_example", lastName: "lastName_example", dateOfBirth: "dateOfBirth_example")), cardId: 123) // CreateEligibilityRequest |  (optional)
+let createEligibilityRequest = createEligibility_request(eligibility: EligibilityInfo(provider: ProviderDto(firstName: "firstName_example", lastName: "lastName_example", npi: "npi_example", organizationName: "organizationName_example"), subscriber: SubscriberDto(firstName: "firstName_example", lastName: "lastName_example", dateOfBirth: "dateOfBirth_example")), cardId: 123) // CreateEligibilityRequest |  (optional)
 
 // Create Eligibility Record
 CardScanAPI.createEligibility(createEligibilityRequest: createEligibilityRequest) { (response, error) in
@@ -607,7 +607,7 @@ Name | Type | Description  | Notes
 
 # **listEligibility**
 ```swift
-    open class func listEligibility(completion: @escaping (_ data: ListEligibility200Response?, _ error: Error?) -> Void)
+    open class func listEligibility(limit: Int? = nil, cursor: String? = nil, completion: @escaping (_ data: ListEligibility200Response?, _ error: Error?) -> Void)
 ```
 
 List Eligibility
@@ -617,9 +617,11 @@ List Eligibility
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
 import CardScanClient
 
+let limit = 987 // Int |  (optional)
+let cursor = "cursor_example" // String |  (optional)
 
 // List Eligibility
-CardScanAPI.listEligibility() { (response, error) in
+CardScanAPI.listEligibility(limit: limit, cursor: cursor) { (response, error) in
     guard error == nil else {
         print(error)
         return
@@ -632,7 +634,11 @@ CardScanAPI.listEligibility() { (response, error) in
 ```
 
 ### Parameters
-This endpoint does not need any parameter.
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **limit** | **Int** |  | [optional] 
+ **cursor** | **String** |  | [optional] 
 
 ### Return type
 

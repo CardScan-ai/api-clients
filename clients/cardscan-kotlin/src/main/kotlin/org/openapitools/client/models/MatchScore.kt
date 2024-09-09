@@ -31,10 +31,13 @@ data class MatchScore (
 
     /* The matching score value of the card. */
     @Json(name = "value")
-    val `value`: java.math.BigDecimal? = null,
+    val `value`: kotlin.String? = null,
 
     @Json(name = "scores")
-    val scores: kotlin.collections.List<kotlin.String>? = null
+    val scores: kotlin.collections.List<java.math.BigDecimal>? = null
 
-)
+) {
+
+
+}
 
