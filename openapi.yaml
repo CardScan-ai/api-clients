@@ -1341,7 +1341,7 @@ components:
     ResponseMetadata:
       type: object
       properties:
-        cursor:
+        next_cursor:
           type: string
           description: The cursor for the next page of results.
         limit:
