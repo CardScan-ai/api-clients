@@ -13,20 +13,20 @@ import AnyCodable
 public struct ResponseMetadata: Codable, JSONEncodable, Hashable {
 
     /** The cursor for the next page of results. */
-    public var cursor: String?
+    public var nextCursor: String?
     /** The maximum number of items to return. */
     public var limit: Int?
     /** The total number of items available. */
     public var total: Int?
 
-    public init(cursor: String? = nil, limit: Int? = nil, total: Int? = nil) {
-        self.cursor = cursor
+    public init(nextCursor: String? = nil, limit: Int? = nil, total: Int? = nil) {
+        self.nextCursor = nextCursor
         self.limit = limit
         self.total = total
     }
 
     public enum CodingKeys: String, CodingKey, CaseIterable {
-        case cursor
+        case nextCursor = "next_cursor"
         case limit
         case total
     }
@@ -35,7 +35,7 @@ public struct ResponseMetadata: Codable, JSONEncodable, Hashable {
 
     public func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
-        try container.encodeIfPresent(cursor, forKey: .cursor)
+        try container.encodeIfPresent(nextCursor, forKey: .nextCursor)
         try container.encodeIfPresent(limit, forKey: .limit)
         try container.encodeIfPresent(total, forKey: .total)
     }

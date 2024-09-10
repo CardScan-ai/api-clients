@@ -3,7 +3,7 @@
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**cursor** | **String** | The cursor for the next page of results. | [optional] 
+**nextCursor** | **String** | The cursor for the next page of results. | [optional] 
 **limit** | **Int** | The maximum number of items to return. | [optional] 
 **total** | **Int** | The total number of items available. | [optional] 
 
