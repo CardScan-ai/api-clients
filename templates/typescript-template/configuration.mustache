@@ -2,6 +2,8 @@
 /* eslint-disable */
 {{>licenseInfo}}
 
+import * as log from "console-log-level";
+
 export type LogLevels = "debug" | "info" | "warn" | "error";
 
 export interface ConfigurationParameters {
@@ -108,7 +110,7 @@ export class Configuration {
    * */
   logging?: LogLevels;
 
-  private logger: Console;
+  private logger: log.Logger;
 
   constructor(param: ConfigurationParameters) {
     this.apiKey = param.apiKey;
@@ -138,12 +140,14 @@ export class Configuration {
       this.websocketUrl = "wss://ws.cardscan.ai";
     }
 
-    this.logger = console;
+    this.logger = log({
+      level: this.logging,
+    })
   }
 
   public log(msg: string, level: LogLevels) {
     if (this.logging) {
-      this.logger.log(`[${level}] ${msg}`);
+      this.logger[level](msg);
     }
   }
 
