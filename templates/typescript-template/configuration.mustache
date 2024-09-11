@@ -6,6 +6,8 @@ import * as winston from "winston";
 
 export type LogLevels = "debug" | "info" | "warn" | "error";
 
+export type NameCase = "snake" | "camel";
+
 export interface ConfigurationParameters {
   apiKey?:
     | string
@@ -27,6 +29,7 @@ export interface ConfigurationParameters {
   environment?: "sandbox" | "production";
   debug?: boolean;
   logging?: LogLevels;
+  nameCase?: NameCase;
 }
 
 export class Configuration {
@@ -110,6 +113,8 @@ export class Configuration {
    * */
   logging?: LogLevels;
 
+  nameCase?: NameCase;
+
   private logger: winston.Logger;
 
   constructor(param: ConfigurationParameters) {
@@ -123,6 +128,7 @@ export class Configuration {
     this.formDataCtor = param.formDataCtor;
     this.environment = param.environment;
     this.logging = param.logging;
+    this.nameCase = param.nameCase;
 
     if (!this.basePath) {
       if (this.environment === "sandbox") {

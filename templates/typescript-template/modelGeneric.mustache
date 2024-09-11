@@ -1,3 +1,5 @@
+import { KeysToCamelCase } from "./";
+
 /**
  * {{{description}}}
  * @export
@@ -60,3 +62,5 @@ export type {{enumName}} = typeof {{enumName}}[keyof typeof {{enumName}}];
 {{/isEnum}}
 {{/vars}}
 {{/hasEnums}}
+
+export type {{classname}}Camel = KeysToCamelCase<{{classname}}>;
