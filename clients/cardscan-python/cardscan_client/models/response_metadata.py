@@ -25,10 +25,10 @@ class ResponseMetadata(BaseModel):
     """
     ResponseMetadata
     """
-    cursor: Optional[StrictStr] = Field(default=None, description="The cursor for the next page of results.")
+    next_cursor: Optional[StrictStr] = Field(default=None, description="The cursor for the next page of results.")
     limit: Optional[StrictInt] = Field(default=None, description="The maximum number of items to return.")
     total: Optional[StrictInt] = Field(default=None, description="The total number of items available.")
-    __properties = ["cursor", "limit", "total"]
+    __properties = ["next_cursor", "limit", "total"]
 
     class Config:
         """Pydantic configuration"""
@@ -66,7 +66,7 @@ class ResponseMetadata(BaseModel):
             return ResponseMetadata.parse_obj(obj)
 
         _obj = ResponseMetadata.parse_obj({
-            "cursor": obj.get("cursor"),
+            "next_cursor": obj.get("next_cursor"),
             "limit": obj.get("limit"),
             "total": obj.get("total")
         })

@@ -22,7 +22,7 @@ import com.squareup.moshi.JsonClass
 /**
  * 
  *
- * @param cursor The cursor for the next page of results.
+ * @param nextCursor The cursor for the next page of results.
  * @param limit The maximum number of items to return.
  * @param total The total number of items available.
  */
@@ -31,8 +31,8 @@ import com.squareup.moshi.JsonClass
 data class ResponseMetadata (
 
     /* The cursor for the next page of results. */
-    @Json(name = "cursor")
-    val cursor: kotlin.String? = null,
+    @Json(name = "next_cursor")
+    val nextCursor: kotlin.String? = null,
 
     /* The maximum number of items to return. */
     @Json(name = "limit")

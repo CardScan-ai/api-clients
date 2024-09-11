@@ -397,7 +397,11 @@ export class {{classname}} extends BaseAPI {
     super(configuration, basePath, axios);
   }
 
-  private withWebsocket = (
+  /**
+   * Utility method to create a websocket connection
+   * @param cb This callback will be invoked with the websocket object once the connection is established or with an error if the connection fails.
+   */
+  public withWebsocket = (
     cb: (websocket: WebSocket | null, error: Error | null) => Promise<any>,
   ) => {
     const token = this.configuration.accessToken ?? this.configuration.apiKey;
