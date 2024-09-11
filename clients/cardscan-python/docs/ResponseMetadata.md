@@ -4,7 +4,7 @@
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**cursor** | **str** | The cursor for the next page of results. | [optional] 
+**next_cursor** | **str** | The cursor for the next page of results. | [optional] 
 **limit** | **int** | The maximum number of items to return. | [optional] 
 **total** | **int** | The total number of items available. | [optional] 
 

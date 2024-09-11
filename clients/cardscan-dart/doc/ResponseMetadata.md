@@ -8,7 +8,7 @@ import 'package:cardscan_client/api.dart';
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**cursor** | **String** | The cursor for the next page of results. | [optional] 
+**nextCursor** | **String** | The cursor for the next page of results. | [optional] 
 **limit** | **int** | The maximum number of items to return. | [optional] 
 **total** | **int** | The total number of items available. | [optional] 
 

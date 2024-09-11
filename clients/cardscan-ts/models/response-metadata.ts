@@ -25,7 +25,7 @@ export interface ResponseMetadata {
      * @type {string}
      * @memberof ResponseMetadata
      */
-    'cursor'?: string;
+    'next_cursor'?: string;
     /**
      * The maximum number of items to return.
      * @type {number}
