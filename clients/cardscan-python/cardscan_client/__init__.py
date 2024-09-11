@@ -38,6 +38,7 @@ from cardscan_client.models.card_api_response_details import CardApiResponseDeta
 from cardscan_client.models.card_api_response_images import CardApiResponseImages
 from cardscan_client.models.card_api_response_images_back import CardApiResponseImagesBack
 from cardscan_client.models.card_api_response_images_front import CardApiResponseImagesFront
+from cardscan_client.models.card_performance200_response import CardPerformance200Response
 from cardscan_client.models.card_state import CardState
 from cardscan_client.models.card_websocket_event import CardWebsocketEvent
 from cardscan_client.models.co_insurance import CoInsurance

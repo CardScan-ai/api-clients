@@ -18,6 +18,7 @@ export 'package:cardscan_client/src/model/card_api_response_details.dart';
 export 'package:cardscan_client/src/model/card_api_response_images.dart';
 export 'package:cardscan_client/src/model/card_api_response_images_back.dart';
 export 'package:cardscan_client/src/model/card_api_response_images_front.dart';
+export 'package:cardscan_client/src/model/card_performance200_response.dart';
 export 'package:cardscan_client/src/model/card_state.dart';
 export 'package:cardscan_client/src/model/card_websocket_event.dart';
 export 'package:cardscan_client/src/model/co_insurance.dart';

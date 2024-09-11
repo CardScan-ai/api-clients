@@ -17,6 +17,7 @@ cardscan_client/models/card_api_response_details.py
 cardscan_client/models/card_api_response_images.py
 cardscan_client/models/card_api_response_images_back.py
 cardscan_client/models/card_api_response_images_front.py
+cardscan_client/models/card_performance200_response.py
 cardscan_client/models/card_state.py
 cardscan_client/models/card_websocket_event.py
 cardscan_client/models/co_insurance.py
@@ -77,6 +78,7 @@ docs/CardApiResponseDetails.md
 docs/CardApiResponseImages.md
 docs/CardApiResponseImagesBack.md
 docs/CardApiResponseImagesFront.md
+docs/CardPerformance200Response.md
 docs/CardScanApi.md
 docs/CardState.md
 docs/CardWebsocketEvent.md

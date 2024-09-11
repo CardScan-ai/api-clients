@@ -4,6 +4,7 @@ All URIs are relative to *https://sandbox.cardscan.ai/v1*
 
 | Method | HTTP request | Description |
 | ------------- | ------------- | ------------- |
+| [**cardPerformance**](CardScanApi.md#cardPerformance) | **POST** /cards/{card_id}/performance | Card - Send performance data |
 | [**createCard**](CardScanApi.md#createCard) | **POST** /cards | Creates a new card |
 | [**createEligibility**](CardScanApi.md#createEligibility) | **POST** /eligibility | Create Eligibility Record |
 | [**deleteCardById**](CardScanApi.md#deleteCardById) | **DELETE** /cards/{card_id} | Delete Card |
@@ -20,6 +21,54 @@ All URIs are relative to *https://sandbox.cardscan.ai/v1*
 | [**searchCards**](CardScanApi.md#searchCards) | **GET** /cards/search | Search Cards (200) OK |
 | [**validateMagicLink**](CardScanApi.md#validateMagicLink) | **GET** /validate-magic-link | Validate Magic Link |
 
+
+<a id="cardPerformance"></a>
+# **cardPerformance**
+> CardPerformance200Response cardPerformance(cardId, body)
+
+Card - Send performance data
+
+### Example
+```kotlin
+// Import classes:
+//import org.openapitools.client.infrastructure.*
+//import org.openapitools.client.models.*
+
+val apiInstance = CardScanApi()
+val cardId : java.util.UUID = 38400000-8cf0-11bd-b23e-10b96e4ef00d // java.util.UUID | 
+val body : kotlin.Any = Object // kotlin.Any | 
+try {
+    val result : CardPerformance200Response = apiInstance.cardPerformance(cardId, body)
+    println(result)
+} catch (e: ClientException) {
+    println("4xx response calling CardScanApi#cardPerformance")
+    e.printStackTrace()
+} catch (e: ServerException) {
+    println("5xx response calling CardScanApi#cardPerformance")
+    e.printStackTrace()
+}
+```
+
+### Parameters
+| **cardId** | **java.util.UUID**|  | |
+| Name | Type | Description  | Notes |
+| ------------- | ------------- | ------------- | ------------- |
+| **body** | **kotlin.Any**|  | [optional] |
+
+### Return type
+
+[**CardPerformance200Response**](CardPerformance200Response.md)
+
+### Authorization
+
+
+Configure bearerAuth:
+    ApiClient.accessToken = ""
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
 
 <a id="createCard"></a>
 # **createCard**

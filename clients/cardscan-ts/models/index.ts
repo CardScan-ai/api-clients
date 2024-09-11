@@ -5,6 +5,7 @@ export * from './card-api-response-details';
 export * from './card-api-response-images';
 export * from './card-api-response-images-back';
 export * from './card-api-response-images-front';
+export * from './card-performance200-response';
 export * from './card-state';
 export * from './card-websocket-event';
 export * from './co-insurance';

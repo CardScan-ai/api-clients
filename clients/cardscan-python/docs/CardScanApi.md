@@ -4,6 +4,7 @@ All URIs are relative to *https://sandbox.cardscan.ai/v1*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
+[**card_performance**](CardScanApi.md#card_performance) | **POST** /cards/{card_id}/performance | Card - Send performance data
 [**create_card**](CardScanApi.md#create_card) | **POST** /cards | Creates a new card
 [**create_eligibility**](CardScanApi.md#create_eligibility) | **POST** /eligibility | Create Eligibility Record
 [**delete_card_by_id**](CardScanApi.md#delete_card_by_id) | **DELETE** /cards/{card_id} | Delete Card
@@ -20,6 +21,87 @@ Method | HTTP request | Description
 [**search_cards**](CardScanApi.md#search_cards) | **GET** /cards/search | Search Cards (200) OK
 [**validate_magic_link**](CardScanApi.md#validate_magic_link) | **GET** /validate-magic-link | Validate Magic Link
 
+
+# **card_performance**
+> CardPerformance200Response card_performance(card_id, body=body)
+
+Card - Send performance data
+
+### Example
+
+* Bearer Authentication (bearerAuth):
+```python
+import time
+import os
+import cardscan_client
+from cardscan_client.models.card_performance200_response import CardPerformance200Response
+from cardscan_client.rest import ApiException
+from pprint import pprint
+
+# Defining the host is optional and defaults to https://sandbox.cardscan.ai/v1
+# See configuration.py for a list of all supported configuration parameters.
+configuration = cardscan_client.Configuration(
+    host = "https://sandbox.cardscan.ai/v1"
+)
+
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure Bearer authorization: bearerAuth
+configuration = cardscan_client.Configuration(
+    access_token = os.environ["BEARER_TOKEN"]
+)
+
+# Enter a context with an instance of the API client
+with cardscan_client.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = cardscan_client.CardScanApi(api_client)
+    card_id = 'card_id_example' # str | 
+    body = None # object |  (optional)
+
+    try:
+        # Card - Send performance data
+        api_response = api_instance.card_performance(card_id, body=body)
+        print("The response of CardScanApi->card_performance:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling CardScanApi->card_performance: %s\n" % e)
+```
+
+
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **card_id** | **str**|  | 
+ **body** | **object**|  | [optional] 
+
+### Return type
+
+[**CardPerformance200Response**](CardPerformance200Response.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Successful response |  -  |
+**401** | Error response |  -  |
+**403** | Error response |  -  |
+**404** | Error response |  -  |
+**500** | Internal Error response |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **create_card**
 > CardApiResponse create_card(create_card_request=create_card_request)
