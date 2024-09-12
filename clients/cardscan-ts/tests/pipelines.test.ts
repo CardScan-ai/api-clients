@@ -1,6 +1,9 @@
 import { createReadStream } from "node:fs";
-import { CardScanApi, CardState, Configuration, EligibilityState } from "../";
+import { CardScanApi } from "../api/card-scan-api";
+
 import { config } from "dotenv";
+import { Configuration } from "../configuration";
+import { CardState, EligibilityState } from "../models";
 
 config();
 
@@ -9,6 +12,7 @@ const cardscan = new CardScanApi(
     basePath: process.env.CARDSCAN_BASE_PATH,
     apiKey: process.env.CARDSCAN_API_KEY,
     websocketUrl: process.env.CARDSCAN_WEBSOCKET_URL,
+    logging: "info"
   }),
 );
 
@@ -18,7 +22,7 @@ describe("Cardscan Pipelines", () => {
   describe("Eligibility", () => {
     it("runs the eligibility pipeline and returns successfully", async () => {
       const response = await cardscan.checkEligibility(
-        process.env.TEST_CARD_ID,
+        process.env.TEST_CARD_ID as string,
         {
           provider: {
             firstName: "John",
@@ -47,7 +51,7 @@ describe("Cardscan Pipelines", () => {
       );
 
       try {
-        await invalidCardscan.checkEligibility(process.env.TEST_CARD_ID, {
+        await invalidCardscan.checkEligibility(process.env.TEST_CARD_ID as string, {
           provider: {
             firstName: "John",
             lastName: "Doe",

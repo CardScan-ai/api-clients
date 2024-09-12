@@ -15,7 +15,7 @@
 
 import type { Configuration } from '../configuration';
 import type { AxiosPromise, AxiosInstance, RawAxiosRequestConfig } from 'axios';
-import * as WebSocket from "ws";
+import * as WebSocket from "isomorphic-ws";
 import { XMLParser } from "fast-xml-parser";
 import { Stream } from "stream";
 import * as FormData from "form-data";
