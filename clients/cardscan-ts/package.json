@@ -33,8 +33,7 @@
     "console-log-level": "^1.4.1",
     "fast-xml-parser": "4.3.5",
     "form-data": "4.0.0",
-    "isomorphic-ws": "^5.0.0",
-    "winston": "3.13.0",
+    "modern-isomorphic-ws": "^1.0.5",
     "ws": "^8.18.0"
   },
   "devDependencies": {
