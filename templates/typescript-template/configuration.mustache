@@ -4,7 +4,7 @@
 
 import log from "loglevel";
 
-export type LogLevels = "debug" | "info" | "warn" | "error";
+export type LogLevels = log.LogLevelDesc;
 
 export interface ConfigurationParameters {
   apiKey?:
@@ -141,11 +141,11 @@ export class Configuration {
     }
 
     this.logger = log;
-    this.logger.setLevel(this.logging);
+    this.logger.setLevel(this.logging || "silent");
   }
 
-  public log(msg: string, level: LogLevels) {
-    if (this.logging) {
+  public log(msg: string, level: log.LogLevelNames) {
+    if (this.logging && this.logging !== 'silent') {
       this.logger[level](`[CardScan-client] ${msg}`);
     }
   }
