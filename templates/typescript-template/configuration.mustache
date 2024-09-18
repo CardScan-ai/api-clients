@@ -2,7 +2,7 @@
 /* eslint-disable */
 {{>licenseInfo}}
 
-import * as log from "console-log-level";
+import log from "loglevel";
 
 export type LogLevels = "debug" | "info" | "warn" | "error";
 
@@ -140,14 +140,13 @@ export class Configuration {
       this.websocketUrl = "wss://ws.cardscan.ai";
     }
 
-    this.logger = log({
-      level: this.logging,
-    })
+    this.logger = log;
+    this.logger.setLevel(this.logging);
   }
 
   public log(msg: string, level: LogLevels) {
     if (this.logging) {
-      this.logger[level](msg);
+      this.logger[level](`[CardScan-client] ${msg}`);
     }
   }
 

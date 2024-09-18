@@ -5,11 +5,11 @@
 
 import type { Configuration } from '{{apiRelativeToRoot}}configuration';
 import type { AxiosPromise, AxiosInstance, RawAxiosRequestConfig } from 'axios';
-import * as WebSocket from "isomorphic-ws";
+import WebSocket from "modern-isomorphic-ws";
 import { XMLParser } from "fast-xml-parser";
-import { Stream } from "stream";
-import * as FormData from "form-data";
-import globalAxios from 'axios';
+import type { Stream } from "stream";
+import FormData from "form-data";
+import globalAxios from "axios";
 import {
   CardState,
   CardWebsocketEvent,
@@ -402,7 +402,7 @@ export class {{classname}} extends BaseAPI {
    * @param cb This callback will be invoked with the websocket object once the connection is established or with an error if the connection fails.
    */
   public withWebsocket = (
-    cb: (websocket: WebSocket | null, error: Error | null) => Promise<any>,
+    cb: (websocket: WebSocket | null, error: WebSocket.ErrorEvent | null) => Promise<any>,
   ) => {
     const token = this.configuration.accessToken ?? this.configuration.apiKey;
 
@@ -412,10 +412,10 @@ export class {{classname}} extends BaseAPI {
 
     this.debug("Connecting to websocket...");
 
-    websocket.on("error", async (err) => {
+    websocket.onerror = async (err) => {
       this.error(`Websocket error: ${err.message}`);
       await cb(null, err);
-    });
+    };
 
     websocket.onopen = async () => {
       try {
