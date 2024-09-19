@@ -1782,12 +1782,28 @@ export const CardScanApiFactory = function (
  * @extends {BaseAPI}
  */
 export class CardScanApi extends BaseAPI {
+  private _websocket: WebSocket;
+
   constructor(
     configuration?: Configuration,
     protected basePath: string = BASE_PATH,
     protected axios: AxiosInstance = globalAxios,
   ) {
     super(configuration, basePath, axios);
+
+    if (this.configuration.preInitializeWebsocket) {
+      const token = this.configuration.accessToken ?? this.configuration.apiKey;
+
+      this._websocket = new WebSocket(
+        `${this.configuration.websocketUrl}?token=${token}`,
+      );
+
+      this.debug("Connecting to websocket (Pre initializating)...");
+    }
+  }
+
+  get websocket() {
+    return this._websocket;
   }
 
   /**

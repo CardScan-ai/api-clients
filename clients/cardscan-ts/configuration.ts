@@ -37,6 +37,7 @@ export interface ConfigurationParameters {
   environment?: "sandbox" | "production";
   debug?: boolean;
   logging?: LogLevels;
+  preInitializeWebsocket?: boolean;
 }
 
 export class Configuration {
@@ -120,6 +121,11 @@ export class Configuration {
    * */
   logging?: LogLevels;
 
+  /**
+   * A websocket connection will be created on class instantiation if this param is true
+   * */
+  preInitializeWebsocket?: boolean = false;
+
   private logger: log.Logger;
 
   constructor(param: ConfigurationParameters) {
@@ -133,6 +139,7 @@ export class Configuration {
     this.formDataCtor = param.formDataCtor;
     this.environment = param.environment;
     this.logging = param.logging;
+    this.preInitializeWebsocket = param.preInitializeWebsocket;
 
     if (!this.basePath) {
       if (this.environment === "sandbox") {
