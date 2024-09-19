@@ -1782,7 +1782,7 @@ export const CardScanApiFactory = function (
  * @extends {BaseAPI}
  */
 export class CardScanApi extends BaseAPI {
-  private readonly _websocket?: WebSocket;
+  public readonly websocket?: WebSocket;
 
   constructor(
     configuration?: Configuration,
@@ -1794,16 +1794,12 @@ export class CardScanApi extends BaseAPI {
     if (this.configuration.preInitializeWebsocket) {
       const token = this.configuration.accessToken ?? this.configuration.apiKey;
 
-      this._websocket = new WebSocket(
+      this.websocket = new WebSocket(
         `${this.configuration.websocketUrl}?token=${token}`,
       );
 
       this.debug("Connecting to websocket (Pre initializating)...");
     }
-  }
-
-  get websocket() {
-    return this._websocket;
   }
 
   /**
