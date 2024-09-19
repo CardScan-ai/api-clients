@@ -389,7 +389,7 @@ export class {{classname}} extends BaseAPI implements {{classname}}Interface {
 {{/withInterfaces}}
 {{^withInterfaces}}
 export class {{classname}} extends BaseAPI {
-  private _websocket: WebSocket;
+  private readonly _websocket?: WebSocket;
 
   constructor(
     configuration?: Configuration,

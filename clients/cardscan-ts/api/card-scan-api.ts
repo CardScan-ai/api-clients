@@ -1782,7 +1782,7 @@ export const CardScanApiFactory = function (
  * @extends {BaseAPI}
  */
 export class CardScanApi extends BaseAPI {
-  private _websocket: WebSocket;
+  private readonly _websocket?: WebSocket;
 
   constructor(
     configuration?: Configuration,
