@@ -12,7 +12,8 @@
  * Do not edit the class manually.
  */
 
-import type { Configuration } from "../configuration";
+import type { ConfigurationParameters, NameCase } from "../configuration";
+import { Configuration } from "../configuration";
 import type { AxiosPromise, AxiosInstance, RawAxiosRequestConfig } from "axios";
 import WebSocket from "modern-isomorphic-ws";
 import { XMLParser } from "fast-xml-parser";
@@ -28,6 +29,7 @@ import {
   EligibilityState,
   UploadParameters,
   CardWebsocketEventTypeEnum,
+  KeysToCamelCase,
 } from "../models";
 // Some imports not used depending on template conditions
 // @ts-ignore
@@ -53,41 +55,71 @@ import {
   operationServerMap,
 } from "../base";
 // @ts-ignore
-import { ApiErrorResponse } from "../models";
+import { ApiErrorResponse, ApiErrorResponseCamel } from "../models";
 // @ts-ignore
-import { CardApiResponse } from "../models";
+import { CardApiResponse, CardApiResponseCamel } from "../models";
 // @ts-ignore
-import { CardPerformance200Response } from "../models";
+import {
+  CardPerformance200Response,
+  CardPerformance200ResponseCamel,
+} from "../models";
 // @ts-ignore
-import { CreateCardRequest } from "../models";
+import { CreateCardRequest, CreateCardRequestCamel } from "../models";
 // @ts-ignore
-import { CreateEligibilityRequest } from "../models";
+import {
+  CreateEligibilityRequest,
+  CreateEligibilityRequestCamel,
+} from "../models";
 // @ts-ignore
-import { DirectUpload200Response } from "../models";
+import {
+  DirectUpload200Response,
+  DirectUpload200ResponseCamel,
+} from "../models";
 // @ts-ignore
-import { DirectUploadRequest } from "../models";
+import { DirectUploadRequest, DirectUploadRequestCamel } from "../models";
 // @ts-ignore
-import { EligibilityApiResponse } from "../models";
+import { EligibilityApiResponse, EligibilityApiResponseCamel } from "../models";
 // @ts-ignore
-import { GenerateCardUploadUrl200Response } from "../models";
+import {
+  GenerateCardUploadUrl200Response,
+  GenerateCardUploadUrl200ResponseCamel,
+} from "../models";
 // @ts-ignore
-import { GenerateCardUploadUrlRequest } from "../models";
+import {
+  GenerateCardUploadUrlRequest,
+  GenerateCardUploadUrlRequestCamel,
+} from "../models";
 // @ts-ignore
-import { GenerateMagicLink200Response } from "../models";
+import {
+  GenerateMagicLink200Response,
+  GenerateMagicLink200ResponseCamel,
+} from "../models";
 // @ts-ignore
-import { GetAccessToken200Response } from "../models";
+import {
+  GetAccessToken200Response,
+  GetAccessToken200ResponseCamel,
+} from "../models";
 // @ts-ignore
-import { GetAccessToken500Response } from "../models";
+import {
+  GetAccessToken500Response,
+  GetAccessToken500ResponseCamel,
+} from "../models";
 // @ts-ignore
-import { ListEligibility200Response } from "../models";
+import {
+  ListEligibility200Response,
+  ListEligibility200ResponseCamel,
+} from "../models";
 // @ts-ignore
-import { ScanCaptureType } from "../models";
+import { ScanCaptureType, ScanCaptureTypeCamel } from "../models";
 // @ts-ignore
-import { ScanOrientation } from "../models";
+import { ScanOrientation, ScanOrientationCamel } from "../models";
 // @ts-ignore
-import { SearchCards200Response } from "../models";
+import { SearchCards200Response, SearchCards200ResponseCamel } from "../models";
 // @ts-ignore
-import { ValidateMagicLink200Response } from "../models";
+import {
+  ValidateMagicLink200Response,
+  ValidateMagicLink200ResponseCamel,
+} from "../models";
 /**
  * CardScanApi - axios parameter creator
  * @export
@@ -1781,16 +1813,14 @@ export const CardScanApiFactory = function (
  * @class CardScanApi
  * @extends {BaseAPI}
  */
-export class CardScanApi extends BaseAPI {
+export class CardScanApi<TCase extends NameCase = "snake"> extends BaseAPI {
   public readonly websocket?: WebSocket;
-
   constructor(
-    configuration?: Configuration,
+    configuration?: ConfigurationParameters | { nameCase?: TCase },
     protected basePath: string = BASE_PATH,
     protected axios: AxiosInstance = globalAxios,
   ) {
-    super(configuration, basePath, axios);
-
+    super(new Configuration(configuration), basePath, axios);
     if (this.configuration.preInitializeWebsocket) {
       const token = this.configuration.accessToken ?? this.configuration.apiKey;
 
@@ -1800,6 +1830,7 @@ export class CardScanApi extends BaseAPI {
 
       this.debug("Connecting to websocket (Pre initializating)...");
     }
+    this.configuration.nameCase = configuration.nameCase ?? ("snake" as TCase);
   }
 
   /**
@@ -1857,12 +1888,15 @@ export class CardScanApi extends BaseAPI {
     }
 
     this.debug("Creating card...");
-    const card = (
-      await this.createCard({
+    const card = (await this.createCard(
+      {
         enable_livescan: false,
         enable_backside_scan: Boolean(backImage),
-      })
-    ).data;
+      },
+      {
+        forceOriginalCase: true,
+      },
+    )) as CardApiResponse;
 
     this.debug(`Card created successfully: ${JSON.stringify(card)}`);
 
@@ -1882,11 +1916,14 @@ export class CardScanApi extends BaseAPI {
         this.debug("Websocket card registered");
 
         this.debug("Generating front side upload URL...");
-        const frontSideUploadUrlResponse = (
-          await this.generateCardUploadUrl(card.card_id, 3600, {
+        const frontSideUploadUrlResponse = (await this.generateCardUploadUrl(
+          card.card_id,
+          3600,
+          {
             orientation: ScanOrientation.Front,
-          })
-        ).data;
+          },
+          { forceOriginalCase: true },
+        )) as GenerateCardUploadUrl200Response;
         this.debug(
           `Front side upload URL generated successfully, response: ${JSON.stringify(frontSideUploadUrlResponse)}}`,
         );
@@ -1969,18 +2006,24 @@ export class CardScanApi extends BaseAPI {
           this.info("Full scan completed successfully");
 
           this.debug("Fetching card details...");
-          const cardDetails = (await this.getCardById(frontSideEvent.card_id))
-            .data;
+          const cardDetails = (await this.getCardById(frontSideEvent.card_id, {
+            forceOriginalCase: true,
+          })) as CardApiResponse;
 
           return resolve(cardDetails);
         }
 
         this.debug("Generating back side upload URL...");
-        const backSideUploadUrlResponse = (
-          await this.generateCardUploadUrl(card.card_id, 3600, {
+        const backSideUploadUrlResponse = (await this.generateCardUploadUrl(
+          card.card_id,
+          3600,
+          {
             orientation: ScanOrientation.Back,
-          })
-        ).data;
+          },
+          {
+            forceOriginalCase: true,
+          },
+        )) as GenerateCardUploadUrl200Response;
 
         const formDataBack = this.cardFormDataFactory(
           backImage,
@@ -2055,7 +2098,9 @@ export class CardScanApi extends BaseAPI {
         this.info("Full scan completed successfully");
         this.debug("Fetching card details...");
 
-        const cardDetails = (await this.getCardById(event.card_id)).data;
+        const cardDetails = (await this.getCardById(event.card_id, {
+          forceOriginalCase: true,
+        })) as CardApiResponse;
         resolve(cardDetails);
       });
     });
@@ -2113,12 +2158,15 @@ export class CardScanApi extends BaseAPI {
         try {
           this.debug(`Creating eligibility for card: ${cardId}`);
 
-          const response = (
-            await this.createEligibility({
+          const response = (await this.createEligibility(
+            {
               card_id: cardId,
               eligibility,
-            })
-          ).data;
+            },
+            {
+              forceOriginalCase: true,
+            },
+          )) as EligibilityApiResponse;
 
           this.debug(
             `Eligibility created successfully: ${JSON.stringify(response)}`,
@@ -2178,14 +2226,25 @@ export class CardScanApi extends BaseAPI {
    * @throws {RequiredError}
    * @memberof CardScanApi
    */
-  public cardPerformance(
+  public async cardPerformance(
     cardId: string,
     body?: object,
-    options?: RawAxiosRequestConfig,
+    options?: RawAxiosRequestConfig & { forceOriginalCase?: boolean },
   ) {
-    return CardScanApiFp(this.configuration)
+    let data = await CardScanApiFp(this.configuration)
       .cardPerformance(cardId, body, options)
-      .then((request) => request(this.axios, this.basePath));
+      .then((request) => request(this.axios, this.basePath))
+      .then((r) => r.data);
+
+    if (this.configuration.nameCase === "camel" && !options.forceOriginalCase) {
+      data = this.toCamelCase<typeof data>(data);
+    }
+
+    return data as TCase extends "snake"
+      ? typeof data
+      : TCase extends "camel"
+        ? KeysToCamelCase<typeof data>
+        : never;
   }
 
   /**
@@ -2196,13 +2255,24 @@ export class CardScanApi extends BaseAPI {
    * @throws {RequiredError}
    * @memberof CardScanApi
    */
-  public createCard(
+  public async createCard(
     createCardRequest?: CreateCardRequest,
-    options?: RawAxiosRequestConfig,
+    options?: RawAxiosRequestConfig & { forceOriginalCase?: boolean },
   ) {
-    return CardScanApiFp(this.configuration)
+    let data = await CardScanApiFp(this.configuration)
       .createCard(createCardRequest, options)
-      .then((request) => request(this.axios, this.basePath));
+      .then((request) => request(this.axios, this.basePath))
+      .then((r) => r.data);
+
+    if (this.configuration.nameCase === "camel" && !options.forceOriginalCase) {
+      data = this.toCamelCase<typeof data>(data);
+    }
+
+    return data as TCase extends "snake"
+      ? typeof data
+      : TCase extends "camel"
+        ? KeysToCamelCase<typeof data>
+        : never;
   }
 
   /**
@@ -2213,13 +2283,24 @@ export class CardScanApi extends BaseAPI {
    * @throws {RequiredError}
    * @memberof CardScanApi
    */
-  public createEligibility(
+  public async createEligibility(
     createEligibilityRequest?: CreateEligibilityRequest,
-    options?: RawAxiosRequestConfig,
+    options?: RawAxiosRequestConfig & { forceOriginalCase?: boolean },
   ) {
-    return CardScanApiFp(this.configuration)
+    let data = await CardScanApiFp(this.configuration)
       .createEligibility(createEligibilityRequest, options)
-      .then((request) => request(this.axios, this.basePath));
+      .then((request) => request(this.axios, this.basePath))
+      .then((r) => r.data);
+
+    if (this.configuration.nameCase === "camel" && !options.forceOriginalCase) {
+      data = this.toCamelCase<typeof data>(data);
+    }
+
+    return data as TCase extends "snake"
+      ? typeof data
+      : TCase extends "camel"
+        ? KeysToCamelCase<typeof data>
+        : never;
   }
 
   /**
@@ -2230,10 +2311,24 @@ export class CardScanApi extends BaseAPI {
    * @throws {RequiredError}
    * @memberof CardScanApi
    */
-  public deleteCardById(cardId: string, options?: RawAxiosRequestConfig) {
-    return CardScanApiFp(this.configuration)
+  public async deleteCardById(
+    cardId: string,
+    options?: RawAxiosRequestConfig & { forceOriginalCase?: boolean },
+  ) {
+    let data = await CardScanApiFp(this.configuration)
       .deleteCardById(cardId, options)
-      .then((request) => request(this.axios, this.basePath));
+      .then((request) => request(this.axios, this.basePath))
+      .then((r) => r.data);
+
+    if (this.configuration.nameCase === "camel" && !options.forceOriginalCase) {
+      data = this.toCamelCase<typeof data>(data);
+    }
+
+    return data as TCase extends "snake"
+      ? typeof data
+      : TCase extends "camel"
+        ? KeysToCamelCase<typeof data>
+        : never;
   }
 
   /**
@@ -2247,16 +2342,27 @@ export class CardScanApi extends BaseAPI {
    * @throws {RequiredError}
    * @memberof CardScanApi
    */
-  public directUpload(
+  public async directUpload(
     orientation: ScanOrientation,
     captureType: ScanCaptureType,
     cardId: string,
     stringAny?: string | any,
-    options?: RawAxiosRequestConfig,
+    options?: RawAxiosRequestConfig & { forceOriginalCase?: boolean },
   ) {
-    return CardScanApiFp(this.configuration)
+    let data = await CardScanApiFp(this.configuration)
       .directUpload(orientation, captureType, cardId, stringAny, options)
-      .then((request) => request(this.axios, this.basePath));
+      .then((request) => request(this.axios, this.basePath))
+      .then((r) => r.data);
+
+    if (this.configuration.nameCase === "camel" && !options.forceOriginalCase) {
+      data = this.toCamelCase<typeof data>(data);
+    }
+
+    return data as TCase extends "snake"
+      ? typeof data
+      : TCase extends "camel"
+        ? KeysToCamelCase<typeof data>
+        : never;
   }
 
   /**
@@ -2269,20 +2375,31 @@ export class CardScanApi extends BaseAPI {
    * @throws {RequiredError}
    * @memberof CardScanApi
    */
-  public generateCardUploadUrl(
+  public async generateCardUploadUrl(
     cardId: string,
     expiration?: number,
     generateCardUploadUrlRequest?: GenerateCardUploadUrlRequest,
-    options?: RawAxiosRequestConfig,
+    options?: RawAxiosRequestConfig & { forceOriginalCase?: boolean },
   ) {
-    return CardScanApiFp(this.configuration)
+    let data = await CardScanApiFp(this.configuration)
       .generateCardUploadUrl(
         cardId,
         expiration,
         generateCardUploadUrlRequest,
         options,
       )
-      .then((request) => request(this.axios, this.basePath));
+      .then((request) => request(this.axios, this.basePath))
+      .then((r) => r.data);
+
+    if (this.configuration.nameCase === "camel" && !options.forceOriginalCase) {
+      data = this.toCamelCase<typeof data>(data);
+    }
+
+    return data as TCase extends "snake"
+      ? typeof data
+      : TCase extends "camel"
+        ? KeysToCamelCase<typeof data>
+        : never;
   }
 
   /**
@@ -2292,10 +2409,23 @@ export class CardScanApi extends BaseAPI {
    * @throws {RequiredError}
    * @memberof CardScanApi
    */
-  public generateMagicLink(options?: RawAxiosRequestConfig) {
-    return CardScanApiFp(this.configuration)
+  public async generateMagicLink(
+    options?: RawAxiosRequestConfig & { forceOriginalCase?: boolean },
+  ) {
+    let data = await CardScanApiFp(this.configuration)
       .generateMagicLink(options)
-      .then((request) => request(this.axios, this.basePath));
+      .then((request) => request(this.axios, this.basePath))
+      .then((r) => r.data);
+
+    if (this.configuration.nameCase === "camel" && !options.forceOriginalCase) {
+      data = this.toCamelCase<typeof data>(data);
+    }
+
+    return data as TCase extends "snake"
+      ? typeof data
+      : TCase extends "camel"
+        ? KeysToCamelCase<typeof data>
+        : never;
   }
 
   /**
@@ -2306,13 +2436,24 @@ export class CardScanApi extends BaseAPI {
    * @throws {RequiredError}
    * @memberof CardScanApi
    */
-  public generateUploadUrl(
+  public async generateUploadUrl(
     expiration: number,
-    options?: RawAxiosRequestConfig,
+    options?: RawAxiosRequestConfig & { forceOriginalCase?: boolean },
   ) {
-    return CardScanApiFp(this.configuration)
+    let data = await CardScanApiFp(this.configuration)
       .generateUploadUrl(expiration, options)
-      .then((request) => request(this.axios, this.basePath));
+      .then((request) => request(this.axios, this.basePath))
+      .then((r) => r.data);
+
+    if (this.configuration.nameCase === "camel" && !options.forceOriginalCase) {
+      data = this.toCamelCase<typeof data>(data);
+    }
+
+    return data as TCase extends "snake"
+      ? typeof data
+      : TCase extends "camel"
+        ? KeysToCamelCase<typeof data>
+        : never;
   }
 
   /**
@@ -2323,10 +2464,24 @@ export class CardScanApi extends BaseAPI {
    * @throws {RequiredError}
    * @memberof CardScanApi
    */
-  public getAccessToken(userId?: string, options?: RawAxiosRequestConfig) {
-    return CardScanApiFp(this.configuration)
+  public async getAccessToken(
+    userId?: string,
+    options?: RawAxiosRequestConfig & { forceOriginalCase?: boolean },
+  ) {
+    let data = await CardScanApiFp(this.configuration)
       .getAccessToken(userId, options)
-      .then((request) => request(this.axios, this.basePath));
+      .then((request) => request(this.axios, this.basePath))
+      .then((r) => r.data);
+
+    if (this.configuration.nameCase === "camel" && !options.forceOriginalCase) {
+      data = this.toCamelCase<typeof data>(data);
+    }
+
+    return data as TCase extends "snake"
+      ? typeof data
+      : TCase extends "camel"
+        ? KeysToCamelCase<typeof data>
+        : never;
   }
 
   /**
@@ -2337,10 +2492,24 @@ export class CardScanApi extends BaseAPI {
    * @throws {RequiredError}
    * @memberof CardScanApi
    */
-  public getCardById(cardId: string, options?: RawAxiosRequestConfig) {
-    return CardScanApiFp(this.configuration)
+  public async getCardById(
+    cardId: string,
+    options?: RawAxiosRequestConfig & { forceOriginalCase?: boolean },
+  ) {
+    let data = await CardScanApiFp(this.configuration)
       .getCardById(cardId, options)
-      .then((request) => request(this.axios, this.basePath));
+      .then((request) => request(this.axios, this.basePath))
+      .then((r) => r.data);
+
+    if (this.configuration.nameCase === "camel" && !options.forceOriginalCase) {
+      data = this.toCamelCase<typeof data>(data);
+    }
+
+    return data as TCase extends "snake"
+      ? typeof data
+      : TCase extends "camel"
+        ? KeysToCamelCase<typeof data>
+        : never;
   }
 
   /**
@@ -2351,13 +2520,24 @@ export class CardScanApi extends BaseAPI {
    * @throws {RequiredError}
    * @memberof CardScanApi
    */
-  public getEligibilityById(
+  public async getEligibilityById(
     eligibilityId: string,
-    options?: RawAxiosRequestConfig,
+    options?: RawAxiosRequestConfig & { forceOriginalCase?: boolean },
   ) {
-    return CardScanApiFp(this.configuration)
+    let data = await CardScanApiFp(this.configuration)
       .getEligibilityById(eligibilityId, options)
-      .then((request) => request(this.axios, this.basePath));
+      .then((request) => request(this.axios, this.basePath))
+      .then((r) => r.data);
+
+    if (this.configuration.nameCase === "camel" && !options.forceOriginalCase) {
+      data = this.toCamelCase<typeof data>(data);
+    }
+
+    return data as TCase extends "snake"
+      ? typeof data
+      : TCase extends "camel"
+        ? KeysToCamelCase<typeof data>
+        : never;
   }
 
   /**
@@ -2369,14 +2549,25 @@ export class CardScanApi extends BaseAPI {
    * @throws {RequiredError}
    * @memberof CardScanApi
    */
-  public listCards(
+  public async listCards(
     limit?: number,
     cursor?: string,
-    options?: RawAxiosRequestConfig,
+    options?: RawAxiosRequestConfig & { forceOriginalCase?: boolean },
   ) {
-    return CardScanApiFp(this.configuration)
+    let data = await CardScanApiFp(this.configuration)
       .listCards(limit, cursor, options)
-      .then((request) => request(this.axios, this.basePath));
+      .then((request) => request(this.axios, this.basePath))
+      .then((r) => r.data);
+
+    if (this.configuration.nameCase === "camel" && !options.forceOriginalCase) {
+      data = this.toCamelCase<typeof data>(data);
+    }
+
+    return data as TCase extends "snake"
+      ? typeof data
+      : TCase extends "camel"
+        ? KeysToCamelCase<typeof data>
+        : never;
   }
 
   /**
@@ -2388,14 +2579,25 @@ export class CardScanApi extends BaseAPI {
    * @throws {RequiredError}
    * @memberof CardScanApi
    */
-  public listEligibility(
+  public async listEligibility(
     limit?: number,
     cursor?: string,
-    options?: RawAxiosRequestConfig,
+    options?: RawAxiosRequestConfig & { forceOriginalCase?: boolean },
   ) {
-    return CardScanApiFp(this.configuration)
+    let data = await CardScanApiFp(this.configuration)
       .listEligibility(limit, cursor, options)
-      .then((request) => request(this.axios, this.basePath));
+      .then((request) => request(this.axios, this.basePath))
+      .then((r) => r.data);
+
+    if (this.configuration.nameCase === "camel" && !options.forceOriginalCase) {
+      data = this.toCamelCase<typeof data>(data);
+    }
+
+    return data as TCase extends "snake"
+      ? typeof data
+      : TCase extends "camel"
+        ? KeysToCamelCase<typeof data>
+        : never;
   }
 
   /**
@@ -2408,15 +2610,26 @@ export class CardScanApi extends BaseAPI {
    * @throws {RequiredError}
    * @memberof CardScanApi
    */
-  public searchCards(
+  public async searchCards(
     query: string,
     limit?: number,
     cursor?: string,
-    options?: RawAxiosRequestConfig,
+    options?: RawAxiosRequestConfig & { forceOriginalCase?: boolean },
   ) {
-    return CardScanApiFp(this.configuration)
+    let data = await CardScanApiFp(this.configuration)
       .searchCards(query, limit, cursor, options)
-      .then((request) => request(this.axios, this.basePath));
+      .then((request) => request(this.axios, this.basePath))
+      .then((r) => r.data);
+
+    if (this.configuration.nameCase === "camel" && !options.forceOriginalCase) {
+      data = this.toCamelCase<typeof data>(data);
+    }
+
+    return data as TCase extends "snake"
+      ? typeof data
+      : TCase extends "camel"
+        ? KeysToCamelCase<typeof data>
+        : never;
   }
 
   /**
@@ -2428,14 +2641,25 @@ export class CardScanApi extends BaseAPI {
    * @throws {RequiredError}
    * @memberof CardScanApi
    */
-  public setScanMetadata(
+  public async setScanMetadata(
     scanId: string,
     body?: object,
-    options?: RawAxiosRequestConfig,
+    options?: RawAxiosRequestConfig & { forceOriginalCase?: boolean },
   ) {
-    return CardScanApiFp(this.configuration)
+    let data = await CardScanApiFp(this.configuration)
       .setScanMetadata(scanId, body, options)
-      .then((request) => request(this.axios, this.basePath));
+      .then((request) => request(this.axios, this.basePath))
+      .then((r) => r.data);
+
+    if (this.configuration.nameCase === "camel" && !options.forceOriginalCase) {
+      data = this.toCamelCase<typeof data>(data);
+    }
+
+    return data as TCase extends "snake"
+      ? typeof data
+      : TCase extends "camel"
+        ? KeysToCamelCase<typeof data>
+        : never;
   }
 
   /**
@@ -2446,9 +2670,30 @@ export class CardScanApi extends BaseAPI {
    * @throws {RequiredError}
    * @memberof CardScanApi
    */
-  public validateMagicLink(token: string, options?: RawAxiosRequestConfig) {
-    return CardScanApiFp(this.configuration)
+  public async validateMagicLink(
+    token: string,
+    options?: RawAxiosRequestConfig & { forceOriginalCase?: boolean },
+  ) {
+    let data = await CardScanApiFp(this.configuration)
       .validateMagicLink(token, options)
-      .then((request) => request(this.axios, this.basePath));
+      .then((request) => request(this.axios, this.basePath))
+      .then((r) => r.data);
+
+    if (this.configuration.nameCase === "camel" && !options.forceOriginalCase) {
+      data = this.toCamelCase<typeof data>(data);
+    }
+
+    return data as TCase extends "snake"
+      ? typeof data
+      : TCase extends "camel"
+        ? KeysToCamelCase<typeof data>
+        : never;
   }
+
+  private toCamelCase = <T>(obj: any): T => {
+    return Object.keys(obj).reduce((acc, key) => {
+      const camelKey = key.replace(/_([a-z])/g, (g) => g[1].toUpperCase());
+      return { ...acc, [camelKey]: obj[key] };
+    }, {}) as T;
+  };
 }

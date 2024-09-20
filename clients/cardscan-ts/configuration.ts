@@ -16,6 +16,8 @@ import log from "loglevel";
 
 export type LogLevels = log.LogLevelDesc;
 
+export type NameCase = "snake" | "camel";
+
 export interface ConfigurationParameters {
   apiKey?:
     | string
@@ -38,6 +40,7 @@ export interface ConfigurationParameters {
   debug?: boolean;
   logging?: LogLevels;
   preInitializeWebsocket?: boolean;
+  nameCase?: NameCase;
 }
 
 export class Configuration {
@@ -125,8 +128,8 @@ export class Configuration {
    * A websocket connection will be created on class instantiation if this param is true
    * */
   preInitializeWebsocket?: boolean = false;
-
   private logger: log.Logger;
+  nameCase?: NameCase;
 
   constructor(param: ConfigurationParameters) {
     this.apiKey = param.apiKey;
@@ -140,6 +143,7 @@ export class Configuration {
     this.environment = param.environment;
     this.logging = param.logging;
     this.preInitializeWebsocket = param.preInitializeWebsocket;
+    this.nameCase = param.nameCase;
 
     if (!this.basePath) {
       if (this.environment === "sandbox") {

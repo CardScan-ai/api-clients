@@ -12,6 +12,8 @@
  * Do not edit the class manually.
  */
 
+import { KeysToCamelCase } from "./";
+
 /**
  *
  * @export
@@ -25,3 +27,5 @@ export interface CardPerformance200Response {
    */
   message?: string;
 }
+export type CardPerformance200ResponseCamel =
+  KeysToCamelCase<CardPerformance200Response>;
