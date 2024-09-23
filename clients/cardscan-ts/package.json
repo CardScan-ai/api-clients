@@ -35,8 +35,10 @@
     "form-data": "4.0.0",
     "loglevel": "^1.9.2",
     "modern-isomorphic-ws": "^1.0.5",
+    "npi-validator": "^1.0.0",
     "uninstall": "^0.0.0",
-    "ws": "^8.18.0"
+    "ws": "^8.18.0",
+    "yup": "^1.4.0"
   },
   "devDependencies": {
     "@types/console-log-level": "^1.4.5",
