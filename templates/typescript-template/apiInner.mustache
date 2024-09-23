@@ -6,7 +6,6 @@
 import type { ConfigurationParameters, NameCase } from '{{apiRelativeToRoot}}configuration';
 import { Configuration } from '../configuration';
 import * as yup from 'yup';
-import { npiValid } from 'npi-validator';
 import type { AxiosPromise, AxiosInstance, RawAxiosRequestConfig } from 'axios';
 import WebSocket from "modern-isomorphic-ws";
 import { XMLParser } from "fast-xml-parser";
@@ -791,10 +790,9 @@ export class {{classname}}<TCase extends NameCase = 'snake'> extends BaseAPI {
    * @returns The validated eligibility object
    * @throws {yup.ValidationError}
    */
-  public validateEligibility(
-    cardId: string,
-    eligibility: EligibilityInfo,
-  ) {
+  public validateEligibility(cardId: string, eligibility: EligibilityInfo) {
+    const npiValid = this.npiValid;
+
     const schema = yup.object({
       cardId: yup.string().required().uuid(),
       eligibility: yup.object({
@@ -866,10 +864,57 @@ export class {{classname}}<TCase extends NameCase = 'snake'> extends BaseAPI {
               ),
           })
           .required(),
-      })
-    })
+      }),
+    });
 
     return schema.validateSync({ cardId, eligibility });
+  }
+
+  private toInt(num: string) {
+    return Number.parseInt(num, 10)
+  }
+
+  private sumDigits(int: number) {
+    let sum = 0;
+    while (int) {
+      sum += int % 10;
+      int = Math.floor(int / 10);
+    }
+
+    return sum;
+  };
+
+  private doubleAlternate(value: string, index?: number) {
+    let pos = index ?? value.length - 1;
+    let sum = 0;
+    let alt = true;
+    for (; pos >= 0; pos--) {
+      const cur = this.toInt(value.charAt(pos));
+      sum += alt ? this.sumDigits(cur * 2) : cur;
+      alt = !alt;
+    }
+
+    return sum;
+  };
+
+  private npiValid(id: string, prefix = '80840') {
+    const prefixRegex = /^80\d{3}$/;
+    const npiRegex = /^\d{10}$/;
+    const usPrefixSum = 24; // Precalculated value for 80840 (United States)
+    const npi = id?.toString() ?? '';
+    const pre = prefix?.toString() ?? '';
+
+    if (!npiRegex.test(npi) || !prefixRegex.test(pre)) {
+      return false;
+    }
+
+    const check = this.toInt(npi.charAt(9));
+    const npiSum = this.doubleAlternate(npi, 8);
+    const preSum = pre === '80840' ? usPrefixSum : this.doubleAlternate(pre, 3);
+    const total = npiSum + preSum;
+    const totalCeil = Math.ceil(total / 10) * 10;
+
+    return totalCeil - total === check;
   }
 
 {{/withInterfaces}}
