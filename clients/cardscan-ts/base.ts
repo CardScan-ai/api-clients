@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import type { LogLevelNames } from "loglevel";
+import type { LogLevelNames as _LogLevelNames } from "loglevel";
 import type { Configuration } from "./configuration";
 // Some imports not used depending on template conditions
 // @ts-ignore
@@ -49,7 +49,7 @@ class Logging {
     this.configuration = config;
   }
 
-  private log(msg: string, level: LogLevelNames) {
+  private log(msg: string, level: _LogLevelNames) {
     if (this.configuration) {
       this.configuration.log(msg, level);
     }

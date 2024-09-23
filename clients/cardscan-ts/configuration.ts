@@ -14,7 +14,7 @@
 
 import log from "loglevel";
 
-export type LogLevels = log.LogLevelDesc;
+export type _LogLevels = log.LogLevelDesc;
 
 export type NameCase = "snake" | "camel";
 
@@ -38,7 +38,7 @@ export interface ConfigurationParameters {
   websocketUrl?: string;
   environment?: "sandbox" | "production";
   debug?: boolean;
-  logging?: LogLevels;
+  logging?: _LogLevels;
   preInitializeWebsocket?: boolean;
   nameCase?: NameCase;
 }
@@ -122,7 +122,7 @@ export class Configuration {
    * @memberof Configuration
    * @default undefined
    * */
-  logging?: LogLevels;
+  logging?: _LogLevels;
 
   /**
    * A websocket connection will be created on class instantiation if this param is true
