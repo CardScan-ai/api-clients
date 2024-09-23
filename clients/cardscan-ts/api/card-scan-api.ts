@@ -14,6 +14,8 @@
 
 import type { ConfigurationParameters, NameCase } from "../configuration";
 import { Configuration } from "../configuration";
+import * as yup from "yup";
+import { npiValid } from "npi-validator";
 import type { AxiosPromise, AxiosInstance, RawAxiosRequestConfig } from "axios";
 import WebSocket from "modern-isomorphic-ws";
 import { XMLParser } from "fast-xml-parser";
@@ -2146,6 +2148,10 @@ export class CardScanApi<TCase extends NameCase = "snake"> extends BaseAPI {
       throw new Error("This method cannot be called without a websocket URL.");
     }
 
+    if (!this.validateEligibility(cardId, eligibility)) {
+      throw new Error("Invalid eligibility information");
+    }
+
     this.info(`Checking eligibility for card: ${cardId}`);
 
     return new Promise((resolve, reject) => {
@@ -2218,6 +2224,89 @@ export class CardScanApi<TCase extends NameCase = "snake"> extends BaseAPI {
   }
 
   /**
+   * Utility method to validate eligibility information
+   * @returns The validated eligibility object
+   * @throws {yup.ValidationError}
+   */
+  public validateEligibility(cardId: string, eligibility: EligibilityInfo) {
+    const schema = yup.object({
+      cardId: yup.string().required().uuid(),
+      eligibility: yup.object({
+        provider: yup
+          .object({
+            firstName: yup.string().when("organizationName", {
+              is: (organizationName: string) => !organizationName,
+              then: (schema) =>
+                schema.required(
+                  "provider first name is required if organization name is not provided",
+                ),
+              otherwise: (schema) => schema.optional(),
+            }),
+            lastName: yup
+              .string()
+              .optional()
+              .when("organizationName", {
+                is: (organizationName: string) => !organizationName,
+                then: (schema) =>
+                  schema.required(
+                    "provider last name is required if organization name is not provided",
+                  ),
+                otherwise: (schema) => schema.optional(),
+              }),
+            organizationName: yup.string().optional(),
+            npi: yup
+              .string()
+              .required("provider npi is a required field")
+              .test("isValidNpi", "npi is not valid", function (value) {
+                return npiValid(value);
+              }),
+          })
+          .required(),
+        subscriber: yup
+          .object({
+            firstName: yup
+              .string()
+              .required("subscriber first name is a required field"),
+            lastName: yup
+              .string()
+              .required("subscriber last name is a required field"),
+            dateOfBirth: yup
+              .string()
+              .required("subscriber date of birth is a required field")
+              .test(
+                "isValidDate",
+                "subscriber date of birth is not valid",
+                function (value) {
+                  if (value) {
+                    try {
+                      const date = new Date(
+                        parseInt(value.substring(0, 4), 10),
+                        parseInt(value.substring(4, 6), 10) - 1,
+                        parseInt(value.substring(6, 8), 10),
+                      );
+
+                      const formattedDate = date
+                        .toISOString()
+                        .slice(0, 10)
+                        .replace(/-/g, "");
+
+                      return formattedDate === value;
+                    } catch (e) {
+                      return false;
+                    }
+                  }
+                  return true;
+                },
+              ),
+          })
+          .required(),
+      }),
+    });
+
+    return schema.validateSync({ cardId, eligibility });
+  }
+
+  /**
    *
    * @summary Card - Send performance data
    * @param {string} cardId
@@ -2236,7 +2325,10 @@ export class CardScanApi<TCase extends NameCase = "snake"> extends BaseAPI {
       .then((request) => request(this.axios, this.basePath))
       .then((r) => r.data);
 
-    if (this.configuration.nameCase === "camel" && !options.forceOriginalCase) {
+    if (
+      this.configuration.nameCase === "camel" &&
+      !options?.forceOriginalCase
+    ) {
       data = this.toCamelCase<typeof data>(data);
     }
 
@@ -2264,7 +2356,10 @@ export class CardScanApi<TCase extends NameCase = "snake"> extends BaseAPI {
       .then((request) => request(this.axios, this.basePath))
       .then((r) => r.data);
 
-    if (this.configuration.nameCase === "camel" && !options.forceOriginalCase) {
+    if (
+      this.configuration.nameCase === "camel" &&
+      !options?.forceOriginalCase
+    ) {
       data = this.toCamelCase<typeof data>(data);
     }
 
@@ -2292,7 +2387,10 @@ export class CardScanApi<TCase extends NameCase = "snake"> extends BaseAPI {
       .then((request) => request(this.axios, this.basePath))
       .then((r) => r.data);
 
-    if (this.configuration.nameCase === "camel" && !options.forceOriginalCase) {
+    if (
+      this.configuration.nameCase === "camel" &&
+      !options?.forceOriginalCase
+    ) {
       data = this.toCamelCase<typeof data>(data);
     }
 
@@ -2320,7 +2418,10 @@ export class CardScanApi<TCase extends NameCase = "snake"> extends BaseAPI {
       .then((request) => request(this.axios, this.basePath))
       .then((r) => r.data);
 
-    if (this.configuration.nameCase === "camel" && !options.forceOriginalCase) {
+    if (
+      this.configuration.nameCase === "camel" &&
+      !options?.forceOriginalCase
+    ) {
       data = this.toCamelCase<typeof data>(data);
     }
 
@@ -2354,7 +2455,10 @@ export class CardScanApi<TCase extends NameCase = "snake"> extends BaseAPI {
       .then((request) => request(this.axios, this.basePath))
       .then((r) => r.data);
 
-    if (this.configuration.nameCase === "camel" && !options.forceOriginalCase) {
+    if (
+      this.configuration.nameCase === "camel" &&
+      !options?.forceOriginalCase
+    ) {
       data = this.toCamelCase<typeof data>(data);
     }
 
@@ -2391,7 +2495,10 @@ export class CardScanApi<TCase extends NameCase = "snake"> extends BaseAPI {
       .then((request) => request(this.axios, this.basePath))
       .then((r) => r.data);
 
-    if (this.configuration.nameCase === "camel" && !options.forceOriginalCase) {
+    if (
+      this.configuration.nameCase === "camel" &&
+      !options?.forceOriginalCase
+    ) {
       data = this.toCamelCase<typeof data>(data);
     }
 
@@ -2417,7 +2524,10 @@ export class CardScanApi<TCase extends NameCase = "snake"> extends BaseAPI {
       .then((request) => request(this.axios, this.basePath))
       .then((r) => r.data);
 
-    if (this.configuration.nameCase === "camel" && !options.forceOriginalCase) {
+    if (
+      this.configuration.nameCase === "camel" &&
+      !options?.forceOriginalCase
+    ) {
       data = this.toCamelCase<typeof data>(data);
     }
 
@@ -2445,7 +2555,10 @@ export class CardScanApi<TCase extends NameCase = "snake"> extends BaseAPI {
       .then((request) => request(this.axios, this.basePath))
       .then((r) => r.data);
 
-    if (this.configuration.nameCase === "camel" && !options.forceOriginalCase) {
+    if (
+      this.configuration.nameCase === "camel" &&
+      !options?.forceOriginalCase
+    ) {
       data = this.toCamelCase<typeof data>(data);
     }
 
@@ -2473,7 +2586,10 @@ export class CardScanApi<TCase extends NameCase = "snake"> extends BaseAPI {
       .then((request) => request(this.axios, this.basePath))
       .then((r) => r.data);
 
-    if (this.configuration.nameCase === "camel" && !options.forceOriginalCase) {
+    if (
+      this.configuration.nameCase === "camel" &&
+      !options?.forceOriginalCase
+    ) {
       data = this.toCamelCase<typeof data>(data);
     }
 
@@ -2501,7 +2617,10 @@ export class CardScanApi<TCase extends NameCase = "snake"> extends BaseAPI {
       .then((request) => request(this.axios, this.basePath))
       .then((r) => r.data);
 
-    if (this.configuration.nameCase === "camel" && !options.forceOriginalCase) {
+    if (
+      this.configuration.nameCase === "camel" &&
+      !options?.forceOriginalCase
+    ) {
       data = this.toCamelCase<typeof data>(data);
     }
 
@@ -2529,7 +2648,10 @@ export class CardScanApi<TCase extends NameCase = "snake"> extends BaseAPI {
       .then((request) => request(this.axios, this.basePath))
       .then((r) => r.data);
 
-    if (this.configuration.nameCase === "camel" && !options.forceOriginalCase) {
+    if (
+      this.configuration.nameCase === "camel" &&
+      !options?.forceOriginalCase
+    ) {
       data = this.toCamelCase<typeof data>(data);
     }
 
@@ -2559,7 +2681,10 @@ export class CardScanApi<TCase extends NameCase = "snake"> extends BaseAPI {
       .then((request) => request(this.axios, this.basePath))
       .then((r) => r.data);
 
-    if (this.configuration.nameCase === "camel" && !options.forceOriginalCase) {
+    if (
+      this.configuration.nameCase === "camel" &&
+      !options?.forceOriginalCase
+    ) {
       data = this.toCamelCase<typeof data>(data);
     }
 
@@ -2589,7 +2714,10 @@ export class CardScanApi<TCase extends NameCase = "snake"> extends BaseAPI {
       .then((request) => request(this.axios, this.basePath))
       .then((r) => r.data);
 
-    if (this.configuration.nameCase === "camel" && !options.forceOriginalCase) {
+    if (
+      this.configuration.nameCase === "camel" &&
+      !options?.forceOriginalCase
+    ) {
       data = this.toCamelCase<typeof data>(data);
     }
 
@@ -2621,7 +2749,10 @@ export class CardScanApi<TCase extends NameCase = "snake"> extends BaseAPI {
       .then((request) => request(this.axios, this.basePath))
       .then((r) => r.data);
 
-    if (this.configuration.nameCase === "camel" && !options.forceOriginalCase) {
+    if (
+      this.configuration.nameCase === "camel" &&
+      !options?.forceOriginalCase
+    ) {
       data = this.toCamelCase<typeof data>(data);
     }
 
@@ -2651,7 +2782,10 @@ export class CardScanApi<TCase extends NameCase = "snake"> extends BaseAPI {
       .then((request) => request(this.axios, this.basePath))
       .then((r) => r.data);
 
-    if (this.configuration.nameCase === "camel" && !options.forceOriginalCase) {
+    if (
+      this.configuration.nameCase === "camel" &&
+      !options?.forceOriginalCase
+    ) {
       data = this.toCamelCase<typeof data>(data);
     }
 
@@ -2679,7 +2813,10 @@ export class CardScanApi<TCase extends NameCase = "snake"> extends BaseAPI {
       .then((request) => request(this.axios, this.basePath))
       .then((r) => r.data);
 
-    if (this.configuration.nameCase === "camel" && !options.forceOriginalCase) {
+    if (
+      this.configuration.nameCase === "camel" &&
+      !options?.forceOriginalCase
+    ) {
       data = this.toCamelCase<typeof data>(data);
     }
 
