@@ -960,15 +960,24 @@ export class {{classname}}<TCase extends NameCase = 'snake'> extends BaseAPI {
     {{/-last}}
     {{/operation}}
 
-    /**
-     * Utility function to transform an object's fields to camelCase
-     **/
-    public toCamelCase = <T>(obj: any): T => {
-        return Object.keys(obj).reduce((acc, key) => {
-            const camelKey = key.replace(/_([a-z])/g, (g) => g[1].toUpperCase());
-            return { ...acc, [camelKey]: obj[key] };
-        }, {}) as T;
+  /**
+   * Utility function to transform an object's fields to camelCase
+   **/
+  public toCamelCase = <T>(obj: any): T => {
+    if (Array.isArray(obj)) {
+      return obj.map((item) => this.toCamelCase(item)) as unknown as T;
+    } else if (obj !== null && typeof obj === "object") {
+      return Object.keys(obj).reduce((acc, key) => {
+        const camelKey = key.replace(/_([a-z])/g, (g) => g[1].toUpperCase());
+        const value = obj[key];
+        return {
+          ...acc,
+          [camelKey]: this.toCamelCase(value),
+        };
+      }, {} as any) as T;
     }
+    return obj as T;
+  };
 }
 {{/operations}}
 
