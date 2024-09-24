@@ -2228,7 +2228,7 @@ export class CardScanApi<TCase extends NameCase = "snake"> extends BaseAPI {
    * @throws {yup.ValidationError}
    */
   public validateEligibility(cardId: string, eligibility: EligibilityInfo) {
-    const npiValid = this.npiValid;
+    const npiValid = this.npiValid.bind(this);
 
     const schema = yup.object({
       cardId: yup.string().required().uuid(),
