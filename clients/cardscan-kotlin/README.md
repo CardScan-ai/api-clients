@@ -45,6 +45,7 @@ All URIs are relative to *https://sandbox.cardscan.ai/v1*
 
 | Class | Method | HTTP request | Description |
 | ------------ | ------------- | ------------- | ------------- |
+| *CardScanApi* | [**cardPerformance**](docs/CardScanApi.md#cardperformance) | **POST** /cards/{card_id}/performance | Card - Send performance data |
 | *CardScanApi* | [**createCard**](docs/CardScanApi.md#createcard) | **POST** /cards | Creates a new card |
 | *CardScanApi* | [**createEligibility**](docs/CardScanApi.md#createeligibility) | **POST** /eligibility | Create Eligibility Record |
 | *CardScanApi* | [**deleteCardById**](docs/CardScanApi.md#deletecardbyid) | **DELETE** /cards/{card_id} | Delete Card |
@@ -72,6 +73,7 @@ All URIs are relative to *https://sandbox.cardscan.ai/v1*
  - [org.openapitools.client.models.CardApiResponseImages](docs/CardApiResponseImages.md)
  - [org.openapitools.client.models.CardApiResponseImagesBack](docs/CardApiResponseImagesBack.md)
  - [org.openapitools.client.models.CardApiResponseImagesFront](docs/CardApiResponseImagesFront.md)
+ - [org.openapitools.client.models.CardPerformance200Response](docs/CardPerformance200Response.md)
  - [org.openapitools.client.models.CardState](docs/CardState.md)
  - [org.openapitools.client.models.CardWebsocketEvent](docs/CardWebsocketEvent.md)
  - [org.openapitools.client.models.CoInsurance](docs/CoInsurance.md)
@@ -86,6 +88,7 @@ All URIs are relative to *https://sandbox.cardscan.ai/v1*
  - [org.openapitools.client.models.DirectUploadRequest](docs/DirectUploadRequest.md)
  - [org.openapitools.client.models.EligibilityApiResponse](docs/EligibilityApiResponse.md)
  - [org.openapitools.client.models.EligibilityApiResponseEligibilityRequest](docs/EligibilityApiResponseEligibilityRequest.md)
+ - [org.openapitools.client.models.EligibilityApiResponseEligibilityRequestProvider](docs/EligibilityApiResponseEligibilityRequestProvider.md)
  - [org.openapitools.client.models.EligibilityApiResponseEligibilityRequestSubscriber](docs/EligibilityApiResponseEligibilityRequestSubscriber.md)
  - [org.openapitools.client.models.EligibilityInfo](docs/EligibilityInfo.md)
  - [org.openapitools.client.models.EligibilityState](docs/EligibilityState.md)

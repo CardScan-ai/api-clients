@@ -34,7 +34,7 @@ data class MatchScore (
     val `value`: kotlin.String? = null,
 
     @Json(name = "scores")
-    val scores: kotlin.collections.List<java.math.BigDecimal>? = null
+    val scores: kotlin.collections.List<kotlin.String>? = null
 
 ) {
 

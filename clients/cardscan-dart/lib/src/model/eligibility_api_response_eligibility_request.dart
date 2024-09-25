@@ -3,8 +3,8 @@
 //
 
 // ignore_for_file: unused_element
-import 'package:cardscan_client/src/model/provider_dto.dart';
 import 'package:cardscan_client/src/model/eligibility_api_response_eligibility_request_subscriber.dart';
+import 'package:cardscan_client/src/model/eligibility_api_response_eligibility_request_provider.dart';
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 
@@ -20,15 +20,15 @@ part 'eligibility_api_response_eligibility_request.g.dart';
 @BuiltValue()
 abstract class EligibilityApiResponseEligibilityRequest implements Built<EligibilityApiResponseEligibilityRequest, EligibilityApiResponseEligibilityRequestBuilder> {
   /// The control number of the claim.
-  @BuiltValueField(wireName: r'controlNumber')
+  @BuiltValueField(wireName: r'control_number')
   String? get controlNumber;
 
   /// The ID of the trading partner service.
-  @BuiltValueField(wireName: r'tradingPartnerServiceId')
+  @BuiltValueField(wireName: r'trading_partner_service_id')
   String? get tradingPartnerServiceId;
 
   @BuiltValueField(wireName: r'provider')
-  ProviderDto? get provider;
+  EligibilityApiResponseEligibilityRequestProvider? get provider;
 
   @BuiltValueField(wireName: r'subscriber')
   EligibilityApiResponseEligibilityRequestSubscriber? get subscriber;
@@ -57,14 +57,14 @@ class _$EligibilityApiResponseEligibilityRequestSerializer implements PrimitiveS
     FullType specifiedType = FullType.unspecified,
   }) sync* {
     if (object.controlNumber != null) {
-      yield r'controlNumber';
+      yield r'control_number';
       yield serializers.serialize(
         object.controlNumber,
         specifiedType: const FullType(String),
       );
     }
     if (object.tradingPartnerServiceId != null) {
-      yield r'tradingPartnerServiceId';
+      yield r'trading_partner_service_id';
       yield serializers.serialize(
         object.tradingPartnerServiceId,
         specifiedType: const FullType(String),
@@ -74,7 +74,7 @@ class _$EligibilityApiResponseEligibilityRequestSerializer implements PrimitiveS
       yield r'provider';
       yield serializers.serialize(
         object.provider,
-        specifiedType: const FullType(ProviderDto),
+        specifiedType: const FullType(EligibilityApiResponseEligibilityRequestProvider),
       );
     }
     if (object.subscriber != null) {
@@ -107,14 +107,14 @@ class _$EligibilityApiResponseEligibilityRequestSerializer implements PrimitiveS
       final key = serializedList[i] as String;
       final value = serializedList[i + 1];
       switch (key) {
-        case r'controlNumber':
+        case r'control_number':
           final valueDes = serializers.deserialize(
             value,
             specifiedType: const FullType(String),
           ) as String;
           result.controlNumber = valueDes;
           break;
-        case r'tradingPartnerServiceId':
+        case r'trading_partner_service_id':
           final valueDes = serializers.deserialize(
             value,
             specifiedType: const FullType(String),
@@ -124,8 +124,8 @@ class _$EligibilityApiResponseEligibilityRequestSerializer implements PrimitiveS
         case r'provider':
           final valueDes = serializers.deserialize(
             value,
-            specifiedType: const FullType(ProviderDto),
-          ) as ProviderDto;
+            specifiedType: const FullType(EligibilityApiResponseEligibilityRequestProvider),
+          ) as EligibilityApiResponseEligibilityRequestProvider;
           result.provider.replace(valueDes);
           break;
         case r'subscriber':

@@ -7,6 +7,7 @@ docs/CardApiResponseDetails.md
 docs/CardApiResponseImages.md
 docs/CardApiResponseImagesBack.md
 docs/CardApiResponseImagesFront.md
+docs/CardPerformance200Response.md
 docs/CardScanApi.md
 docs/CardState.md
 docs/CardWebsocketEvent.md
@@ -22,6 +23,7 @@ docs/DirectUpload200ResponseMetadata.md
 docs/DirectUploadRequest.md
 docs/EligibilityApiResponse.md
 docs/EligibilityApiResponseEligibilityRequest.md
+docs/EligibilityApiResponseEligibilityRequestProvider.md
 docs/EligibilityApiResponseEligibilityRequestSubscriber.md
 docs/EligibilityInfo.md
 docs/EligibilityState.md
@@ -89,6 +91,7 @@ src/main/kotlin/org/openapitools/client/models/CardApiResponseDetails.kt
 src/main/kotlin/org/openapitools/client/models/CardApiResponseImages.kt
 src/main/kotlin/org/openapitools/client/models/CardApiResponseImagesBack.kt
 src/main/kotlin/org/openapitools/client/models/CardApiResponseImagesFront.kt
+src/main/kotlin/org/openapitools/client/models/CardPerformance200Response.kt
 src/main/kotlin/org/openapitools/client/models/CardState.kt
 src/main/kotlin/org/openapitools/client/models/CardWebsocketEvent.kt
 src/main/kotlin/org/openapitools/client/models/CoInsurance.kt
@@ -103,6 +106,7 @@ src/main/kotlin/org/openapitools/client/models/DirectUpload200ResponseMetadata.k
 src/main/kotlin/org/openapitools/client/models/DirectUploadRequest.kt
 src/main/kotlin/org/openapitools/client/models/EligibilityApiResponse.kt
 src/main/kotlin/org/openapitools/client/models/EligibilityApiResponseEligibilityRequest.kt
+src/main/kotlin/org/openapitools/client/models/EligibilityApiResponseEligibilityRequestProvider.kt
 src/main/kotlin/org/openapitools/client/models/EligibilityApiResponseEligibilityRequestSubscriber.kt
 src/main/kotlin/org/openapitools/client/models/EligibilityInfo.kt
 src/main/kotlin/org/openapitools/client/models/EligibilityState.kt
@@ -140,3 +144,5 @@ src/main/kotlin/org/openapitools/client/models/SubscriberDto.kt
 src/main/kotlin/org/openapitools/client/models/UploadParameters.kt
 src/main/kotlin/org/openapitools/client/models/ValidateMagicLink200Response.kt
 src/main/kotlin/org/openapitools/client/models/WebsocketError.kt
+src/test/kotlin/org/openapitools/client/models/CardPerformance200ResponseTest.kt
+src/test/kotlin/org/openapitools/client/models/EligibilityApiResponseEligibilityRequestProviderTest.kt

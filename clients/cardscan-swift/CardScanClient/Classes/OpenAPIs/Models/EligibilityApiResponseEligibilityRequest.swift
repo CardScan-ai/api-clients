@@ -17,10 +17,10 @@ public struct EligibilityApiResponseEligibilityRequest: Codable, JSONEncodable, 
     public var controlNumber: String?
     /** The ID of the trading partner service. */
     public var tradingPartnerServiceId: String?
-    public var provider: ProviderDto?
+    public var provider: EligibilityApiResponseEligibilityRequestProvider?
     public var subscriber: EligibilityApiResponseEligibilityRequestSubscriber?
 
-    public init(controlNumber: String? = nil, tradingPartnerServiceId: String? = nil, provider: ProviderDto? = nil, subscriber: EligibilityApiResponseEligibilityRequestSubscriber? = nil) {
+    public init(controlNumber: String? = nil, tradingPartnerServiceId: String? = nil, provider: EligibilityApiResponseEligibilityRequestProvider? = nil, subscriber: EligibilityApiResponseEligibilityRequestSubscriber? = nil) {
         self.controlNumber = controlNumber
         self.tradingPartnerServiceId = tradingPartnerServiceId
         self.provider = provider
@@ -28,8 +28,8 @@ public struct EligibilityApiResponseEligibilityRequest: Codable, JSONEncodable, 
     }
 
     public enum CodingKeys: String, CodingKey, CaseIterable {
-        case controlNumber
-        case tradingPartnerServiceId
+        case controlNumber = "control_number"
+        case tradingPartnerServiceId = "trading_partner_service_id"
         case provider
         case subscriber
     }

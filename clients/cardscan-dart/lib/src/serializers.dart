@@ -21,6 +21,7 @@ import 'package:cardscan_client/src/model/card_api_response_details.dart';
 import 'package:cardscan_client/src/model/card_api_response_images.dart';
 import 'package:cardscan_client/src/model/card_api_response_images_back.dart';
 import 'package:cardscan_client/src/model/card_api_response_images_front.dart';
+import 'package:cardscan_client/src/model/card_performance200_response.dart';
 import 'package:cardscan_client/src/model/card_state.dart';
 import 'package:cardscan_client/src/model/card_websocket_event.dart';
 import 'package:cardscan_client/src/model/co_insurance.dart';
@@ -35,6 +36,7 @@ import 'package:cardscan_client/src/model/direct_upload200_response_metadata.dar
 import 'package:cardscan_client/src/model/direct_upload_request.dart';
 import 'package:cardscan_client/src/model/eligibility_api_response.dart';
 import 'package:cardscan_client/src/model/eligibility_api_response_eligibility_request.dart';
+import 'package:cardscan_client/src/model/eligibility_api_response_eligibility_request_provider.dart';
 import 'package:cardscan_client/src/model/eligibility_api_response_eligibility_request_subscriber.dart';
 import 'package:cardscan_client/src/model/eligibility_info.dart';
 import 'package:cardscan_client/src/model/eligibility_state.dart';
@@ -83,6 +85,7 @@ part 'serializers.g.dart';
   CardApiResponseImages,
   CardApiResponseImagesBack,
   CardApiResponseImagesFront,
+  CardPerformance200Response,
   CardState,
   CardWebsocketEvent,
   CoInsurance,
@@ -97,6 +100,7 @@ part 'serializers.g.dart';
   DirectUploadRequest,
   EligibilityApiResponse,
   EligibilityApiResponseEligibilityRequest,
+  EligibilityApiResponseEligibilityRequestProvider,
   EligibilityApiResponseEligibilityRequestSubscriber,
   EligibilityInfo,
   EligibilityState,

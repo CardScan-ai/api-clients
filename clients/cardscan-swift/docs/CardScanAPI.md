@@ -4,6 +4,7 @@ All URIs are relative to *https://sandbox.cardscan.ai/v1*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
+[**cardPerformance**](CardScanAPI.md#cardperformance) | **POST** /cards/{card_id}/performance | Card - Send performance data
 [**createCard**](CardScanAPI.md#createcard) | **POST** /cards | Creates a new card
 [**createEligibility**](CardScanAPI.md#createeligibility) | **POST** /eligibility | Create Eligibility Record
 [**deleteCardById**](CardScanAPI.md#deletecardbyid) | **DELETE** /cards/{card_id} | Delete Card
@@ -20,6 +21,56 @@ Method | HTTP request | Description
 [**searchCards**](CardScanAPI.md#searchcards) | **GET** /cards/search | Search Cards (200) OK
 [**validateMagicLink**](CardScanAPI.md#validatemagiclink) | **GET** /validate-magic-link | Validate Magic Link
 
+
+# **cardPerformance**
+```swift
+    open class func cardPerformance(cardId: UUID, body: AnyCodable? = nil, completion: @escaping (_ data: CardPerformance200Response?, _ error: Error?) -> Void)
+```
+
+Card - Send performance data
+
+### Example
+```swift
+// The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
+import CardScanClient
+
+let cardId = 987 // UUID | 
+let body = "TODO" // AnyCodable |  (optional)
+
+// Card - Send performance data
+CardScanAPI.cardPerformance(cardId: cardId, body: body) { (response, error) in
+    guard error == nil else {
+        print(error)
+        return
+    }
+
+    if (response) {
+        dump(response)
+    }
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **cardId** | **UUID** |  | 
+ **body** | **AnyCodable** |  | [optional] 
+
+### Return type
+
+[**CardPerformance200Response**](CardPerformance200Response.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **createCard**
 ```swift

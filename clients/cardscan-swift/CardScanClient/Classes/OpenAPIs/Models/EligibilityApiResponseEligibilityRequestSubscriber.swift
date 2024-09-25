@@ -19,20 +19,20 @@ public struct EligibilityApiResponseEligibilityRequestSubscriber: Codable, JSONE
     /** The member ID of the subscriber. */
     public var memberId: String?
     /** The date of birth of the subscriber. */
-    public var dob: String?
+    public var dateOfBirth: String?
 
-    public init(firstName: String? = nil, lastName: String? = nil, memberId: String? = nil, dob: String? = nil) {
+    public init(firstName: String? = nil, lastName: String? = nil, memberId: String? = nil, dateOfBirth: String? = nil) {
         self.firstName = firstName
         self.lastName = lastName
         self.memberId = memberId
-        self.dob = dob
+        self.dateOfBirth = dateOfBirth
     }
 
     public enum CodingKeys: String, CodingKey, CaseIterable {
-        case firstName
-        case lastName
-        case memberId
-        case dob
+        case firstName = "first_name"
+        case lastName = "last_name"
+        case memberId = "member_id"
+        case dateOfBirth = "date_of_birth"
     }
 
     // Encodable protocol methods
@@ -42,7 +42,7 @@ public struct EligibilityApiResponseEligibilityRequestSubscriber: Codable, JSONE
         try container.encodeIfPresent(firstName, forKey: .firstName)
         try container.encodeIfPresent(lastName, forKey: .lastName)
         try container.encodeIfPresent(memberId, forKey: .memberId)
-        try container.encodeIfPresent(dob, forKey: .dob)
+        try container.encodeIfPresent(dateOfBirth, forKey: .dateOfBirth)
     }
 }
 

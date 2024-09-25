@@ -25,11 +25,11 @@ class EligibilityApiResponseEligibilityRequestSubscriber(BaseModel):
     """
     EligibilityApiResponseEligibilityRequestSubscriber
     """
-    first_name: Optional[StrictStr] = Field(default=None, alias="firstName", description="The first name of the subscriber.")
-    last_name: Optional[StrictStr] = Field(default=None, alias="lastName", description="The last name of the subscriber.")
-    member_id: Optional[StrictStr] = Field(default=None, alias="memberId", description="The member ID of the subscriber.")
-    dob: Optional[StrictStr] = Field(default=None, description="The date of birth of the subscriber.")
-    __properties = ["firstName", "lastName", "memberId", "dob"]
+    first_name: Optional[StrictStr] = Field(default=None, description="The first name of the subscriber.")
+    last_name: Optional[StrictStr] = Field(default=None, description="The last name of the subscriber.")
+    member_id: Optional[StrictStr] = Field(default=None, description="The member ID of the subscriber.")
+    date_of_birth: Optional[StrictStr] = Field(default=None, description="The date of birth of the subscriber.")
+    __properties = ["first_name", "last_name", "member_id", "date_of_birth"]
 
     class Config:
         """Pydantic configuration"""
@@ -67,10 +67,10 @@ class EligibilityApiResponseEligibilityRequestSubscriber(BaseModel):
             return EligibilityApiResponseEligibilityRequestSubscriber.parse_obj(obj)
 
         _obj = EligibilityApiResponseEligibilityRequestSubscriber.parse_obj({
-            "first_name": obj.get("firstName"),
-            "last_name": obj.get("lastName"),
-            "member_id": obj.get("memberId"),
-            "dob": obj.get("dob")
+            "first_name": obj.get("first_name"),
+            "last_name": obj.get("last_name"),
+            "member_id": obj.get("member_id"),
+            "date_of_birth": obj.get("date_of_birth")
         })
         return _obj
 

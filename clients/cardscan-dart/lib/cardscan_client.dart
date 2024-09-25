@@ -18,6 +18,7 @@ export 'package:cardscan_client/src/model/card_api_response_details.dart';
 export 'package:cardscan_client/src/model/card_api_response_images.dart';
 export 'package:cardscan_client/src/model/card_api_response_images_back.dart';
 export 'package:cardscan_client/src/model/card_api_response_images_front.dart';
+export 'package:cardscan_client/src/model/card_performance200_response.dart';
 export 'package:cardscan_client/src/model/card_state.dart';
 export 'package:cardscan_client/src/model/card_websocket_event.dart';
 export 'package:cardscan_client/src/model/co_insurance.dart';
@@ -32,6 +33,7 @@ export 'package:cardscan_client/src/model/direct_upload200_response_metadata.dar
 export 'package:cardscan_client/src/model/direct_upload_request.dart';
 export 'package:cardscan_client/src/model/eligibility_api_response.dart';
 export 'package:cardscan_client/src/model/eligibility_api_response_eligibility_request.dart';
+export 'package:cardscan_client/src/model/eligibility_api_response_eligibility_request_provider.dart';
 export 'package:cardscan_client/src/model/eligibility_api_response_eligibility_request_subscriber.dart';
 export 'package:cardscan_client/src/model/eligibility_info.dart';
 export 'package:cardscan_client/src/model/eligibility_state.dart';
