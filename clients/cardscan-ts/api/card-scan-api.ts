@@ -1829,7 +1829,7 @@ export class CardScanApi<TCase extends NameCase = "snake"> extends BaseAPI {
         `${this.configuration.websocketUrl}?token=${token}`,
       );
 
-      this.debug("Connecting to websocket (Pre initializating)...");
+      this.debug("Connecting to websocket (Pre initializing)...");
     }
     this.configuration.nameCase = configuration.nameCase ?? ("snake" as TCase);
   }
@@ -2276,7 +2276,7 @@ export class CardScanApi<TCase extends NameCase = "snake"> extends BaseAPI {
               .required("subscriber date of birth is a required field")
               .test(
                 "isValidDate",
-                "subscriber date of birth is not valid",
+                "subscriber date of birth is not valid. Expected format: YYYYMMDD",
                 function (value) {
                   if (value) {
                     try {
@@ -2304,7 +2304,7 @@ export class CardScanApi<TCase extends NameCase = "snake"> extends BaseAPI {
       }),
     });
 
-    return schema.validateSync({ cardId, eligibility });
+    return schema.validateSync({ cardId, eligibility }, { abortEarly: false });
   }
 
   private toInt(num: string) {
