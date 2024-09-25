@@ -800,29 +800,36 @@ components:
           type: object
           description: The eligibility request.
           properties:
-            controlNumber:
+            control_number:
               type: string
               description: The control number of the claim.
               nullable: false
-            tradingPartnerServiceId:
+            trading_partner_service_id:
               type: string
               description: The ID of the trading partner service.
               nullable: false
             provider:
-              $ref: '#/components/schemas/ProviderDto'
+              type: object
+              properties:
+                first_name:
+                  type: string
+                last_name:
+                  type: string
+                npi:
+                  type: string
             subscriber:
               type: object
               properties:
-                firstName:
+                first_name:
                   type: string
                   description: The first name of the subscriber.
-                lastName:
+                last_name:
                   type: string
                   description: The last name of the subscriber.
-                memberId:
+                member_id:
                   type: string
                   description: The member ID of the subscriber.
-                dob:
+                date_of_birth:
                   type: string
                   description: The date of birth of the subscriber.
         eligibility_response:
@@ -1485,7 +1492,7 @@ components:
         scores:
           type: array
           items:
-            type: number
+            type: string
     ScanCaptureType:
       type: string
       enum:
