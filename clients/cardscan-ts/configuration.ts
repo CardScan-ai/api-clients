@@ -147,9 +147,9 @@ export class Configuration {
 
     if (!this.basePath) {
       if (this.environment === "sandbox") {
-        this.basePath = "https://sandbox.cardscan.ai";
+        this.basePath = "https://sandbox.cardscan.ai/v1";
       } else {
-        this.basePath = "https://cardscan.ai";
+        this.basePath = "https://api.cardscan.ai/v1";
       }
     }
 
