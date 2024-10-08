@@ -41,7 +41,7 @@ import { KeysToCamelCase } from "./";
  * @export
  * @interface ScanMetadata
  */
-export interface ScanMetadata {
+export interface ScanMetadataSnake {
   /**
    * The type of capture (automatic or manual)
    * @type {string}
@@ -124,4 +124,4 @@ export const ScanMetadataCaptureTypeEnum = {
 export type ScanMetadataCaptureTypeEnum =
   (typeof ScanMetadataCaptureTypeEnum)[keyof typeof ScanMetadataCaptureTypeEnum];
 
-export type ScanMetadataCamel = KeysToCamelCase<ScanMetadata>;
+export type ScanMetadata = KeysToCamelCase<ScanMetadataSnake>;

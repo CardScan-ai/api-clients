@@ -32,7 +32,7 @@ import { KeysToCamelCase } from "./";
  * @export
  * @interface Service
  */
-export interface Service {
+export interface ServiceSnake {
   /**
    *
    * @type {Deductible}
@@ -112,4 +112,4 @@ export interface Service {
    */
   service_code?: string;
 }
-export type ServiceCamel = KeysToCamelCase<Service>;
+export type Service = KeysToCamelCase<ServiceSnake>;

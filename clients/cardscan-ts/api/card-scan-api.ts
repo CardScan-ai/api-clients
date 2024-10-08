@@ -1814,7 +1814,7 @@ export const CardScanApiFactory = function (
  * @class CardScanApi
  * @extends {BaseAPI}
  */
-export class CardScanApi<TCase extends NameCase = "snake"> extends BaseAPI {
+export class CardScanApi<TCase extends NameCase = "camel"> extends BaseAPI {
   public readonly websocket?: WebSocket;
   constructor(
     configuration?: ConfigurationParameters | { nameCase?: TCase },
@@ -1829,9 +1829,9 @@ export class CardScanApi<TCase extends NameCase = "snake"> extends BaseAPI {
         `${this.configuration.websocketUrl}?token=${token}`,
       );
 
-      this.debug("Connecting to websocket (Pre initializing)...");
+      this.debug("Connecting to websocket (Pre initializating)...");
     }
-    this.configuration.nameCase = configuration.nameCase ?? ("snake" as TCase);
+    this.configuration.nameCase = configuration.nameCase ?? ("camel" as TCase);
   }
 
   /**

@@ -19,7 +19,7 @@ import { KeysToCamelCase } from "./";
  * @export
  * @interface GetAccessToken500Response
  */
-export interface GetAccessToken500Response {
+export interface GetAccessToken500ResponseSnake {
   /**
    * A message describing the error.
    * @type {string}
@@ -27,5 +27,5 @@ export interface GetAccessToken500Response {
    */
   message?: string;
 }
-export type GetAccessToken500ResponseCamel =
-  KeysToCamelCase<GetAccessToken500Response>;
+export type GetAccessToken500Response =
+  KeysToCamelCase<GetAccessToken500ResponseSnake>;

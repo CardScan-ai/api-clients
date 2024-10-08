@@ -26,7 +26,7 @@ import { KeysToCamelCase } from "./";
  * @export
  * @interface SearchCards200Response
  */
-export interface SearchCards200Response {
+export interface SearchCards200ResponseSnake {
   /**
    *
    * @type {Array<CardApiResponse>}
@@ -40,5 +40,5 @@ export interface SearchCards200Response {
    */
   response_metadata: ResponseMetadata;
 }
-export type SearchCards200ResponseCamel =
-  KeysToCamelCase<SearchCards200Response>;
+export type SearchCards200Response =
+  KeysToCamelCase<SearchCards200ResponseSnake>;

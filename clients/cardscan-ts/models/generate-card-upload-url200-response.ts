@@ -23,7 +23,7 @@ import { KeysToCamelCase } from "./";
  * @export
  * @interface GenerateCardUploadUrl200Response
  */
-export interface GenerateCardUploadUrl200Response {
+export interface GenerateCardUploadUrl200ResponseSnake {
   /**
    *
    * @type {string}
@@ -49,5 +49,5 @@ export interface GenerateCardUploadUrl200Response {
    */
   upload_parameters: UploadParameters;
 }
-export type GenerateCardUploadUrl200ResponseCamel =
-  KeysToCamelCase<GenerateCardUploadUrl200Response>;
+export type GenerateCardUploadUrl200Response =
+  KeysToCamelCase<GenerateCardUploadUrl200ResponseSnake>;

@@ -32,7 +32,7 @@ import { KeysToCamelCase } from "./";
  * @export
  * @interface CoverageSummary
  */
-export interface CoverageSummary {
+export interface CoverageSummarySnake {
   /**
    *
    * @type {Deductible}
@@ -106,4 +106,4 @@ export interface CoverageSummary {
    */
   co_payment_in_network?: CoPayment;
 }
-export type CoverageSummaryCamel = KeysToCamelCase<CoverageSummary>;
+export type CoverageSummary = KeysToCamelCase<CoverageSummarySnake>;

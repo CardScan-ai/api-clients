@@ -19,7 +19,7 @@ import { KeysToCamelCase } from "./";
  * @export
  * @interface ScanMetadataCameraCapabilitiesAspectRatio
  */
-export interface ScanMetadataCameraCapabilitiesAspectRatio {
+export interface ScanMetadataCameraCapabilitiesAspectRatioSnake {
   /**
    *
    * @type {number}
@@ -33,5 +33,5 @@ export interface ScanMetadataCameraCapabilitiesAspectRatio {
    */
   min?: number;
 }
-export type ScanMetadataCameraCapabilitiesAspectRatioCamel =
-  KeysToCamelCase<ScanMetadataCameraCapabilitiesAspectRatio>;
+export type ScanMetadataCameraCapabilitiesAspectRatio =
+  KeysToCamelCase<ScanMetadataCameraCapabilitiesAspectRatioSnake>;

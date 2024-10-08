@@ -23,7 +23,7 @@ import { KeysToCamelCase } from "./";
  * @export
  * @interface CardApiResponseDetails
  */
-export interface CardApiResponseDetails {
+export interface CardApiResponseDetailsSnake {
   /**
    *
    * @type {MatchScore}
@@ -85,5 +85,5 @@ export interface CardApiResponseDetails {
    */
   card_specific_id?: MatchScore;
 }
-export type CardApiResponseDetailsCamel =
-  KeysToCamelCase<CardApiResponseDetails>;
+export type CardApiResponseDetails =
+  KeysToCamelCase<CardApiResponseDetailsSnake>;

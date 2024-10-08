@@ -19,7 +19,7 @@ import { KeysToCamelCase } from "./";
  * @export
  * @interface ScanMetadataVideoBackground
  */
-export interface ScanMetadataVideoBackground {
+export interface ScanMetadataVideoBackgroundSnake {
   /**
    *
    * @type {number}
@@ -33,5 +33,5 @@ export interface ScanMetadataVideoBackground {
    */
   height?: number;
 }
-export type ScanMetadataVideoBackgroundCamel =
-  KeysToCamelCase<ScanMetadataVideoBackground>;
+export type ScanMetadataVideoBackground =
+  KeysToCamelCase<ScanMetadataVideoBackgroundSnake>;

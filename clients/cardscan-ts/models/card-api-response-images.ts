@@ -26,7 +26,7 @@ import { KeysToCamelCase } from "./";
  * @export
  * @interface CardApiResponseImages
  */
-export interface CardApiResponseImages {
+export interface CardApiResponseImagesSnake {
   /**
    *
    * @type {CardApiResponseImagesFront}
@@ -40,4 +40,4 @@ export interface CardApiResponseImages {
    */
   back?: CardApiResponseImagesBack;
 }
-export type CardApiResponseImagesCamel = KeysToCamelCase<CardApiResponseImages>;
+export type CardApiResponseImages = KeysToCamelCase<CardApiResponseImagesSnake>;

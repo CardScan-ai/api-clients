@@ -32,7 +32,7 @@ import { KeysToCamelCase } from "./";
  * @export
  * @interface CardApiResponse
  */
-export interface CardApiResponse {
+export interface CardApiResponseSnake {
   /**
    *
    * @type {string}
@@ -77,4 +77,4 @@ export interface CardApiResponse {
   details?: CardApiResponseDetails | null;
 }
 
-export type CardApiResponseCamel = KeysToCamelCase<CardApiResponse>;
+export type CardApiResponse = KeysToCamelCase<CardApiResponseSnake>;

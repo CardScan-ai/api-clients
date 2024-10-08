@@ -23,7 +23,7 @@ import { KeysToCamelCase } from "./";
  * @export
  * @interface CreateCardRequest
  */
-export interface CreateCardRequest {
+export interface CreateCardRequestSnake {
   /**
    * Whether to enable backside scanning
    * @type {boolean}
@@ -43,4 +43,4 @@ export interface CreateCardRequest {
    */
   backside?: CreateCardRequestBackside;
 }
-export type CreateCardRequestCamel = KeysToCamelCase<CreateCardRequest>;
+export type CreateCardRequest = KeysToCamelCase<CreateCardRequestSnake>;

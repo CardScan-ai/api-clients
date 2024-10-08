@@ -19,7 +19,7 @@ import { KeysToCamelCase } from "./";
  * @export
  * @interface ScanMetadataGuides
  */
-export interface ScanMetadataGuides {
+export interface ScanMetadataGuidesSnake {
   /**
    *
    * @type {number}
@@ -45,4 +45,4 @@ export interface ScanMetadataGuides {
    */
   height?: number;
 }
-export type ScanMetadataGuidesCamel = KeysToCamelCase<ScanMetadataGuides>;
+export type ScanMetadataGuides = KeysToCamelCase<ScanMetadataGuidesSnake>;

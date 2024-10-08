@@ -19,7 +19,7 @@ import { KeysToCamelCase } from "./";
  * @export
  * @interface ModelError
  */
-export interface ModelError {
+export interface ModelErrorSnake {
   /**
    * A message describing the error.
    * @type {string}
@@ -46,4 +46,4 @@ export interface ModelError {
    */
   error?: string;
 }
-export type ModelErrorCamel = KeysToCamelCase<ModelError>;
+export type ModelError = KeysToCamelCase<ModelErrorSnake>;

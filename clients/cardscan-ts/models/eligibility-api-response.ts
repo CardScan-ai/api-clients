@@ -29,7 +29,7 @@ import { KeysToCamelCase } from "./";
  * @export
  * @interface EligibilityApiResponse
  */
-export interface EligibilityApiResponse {
+export interface EligibilityApiResponseSnake {
   /**
    * The ID of the eligibility record.
    * @type {string}
@@ -89,5 +89,5 @@ export const EligibilityApiResponseStateEnum = {
 export type EligibilityApiResponseStateEnum =
   (typeof EligibilityApiResponseStateEnum)[keyof typeof EligibilityApiResponseStateEnum];
 
-export type EligibilityApiResponseCamel =
-  KeysToCamelCase<EligibilityApiResponse>;
+export type EligibilityApiResponse =
+  KeysToCamelCase<EligibilityApiResponseSnake>;

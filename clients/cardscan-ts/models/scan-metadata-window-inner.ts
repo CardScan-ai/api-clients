@@ -19,7 +19,7 @@ import { KeysToCamelCase } from "./";
  * @export
  * @interface ScanMetadataWindowInner
  */
-export interface ScanMetadataWindowInner {
+export interface ScanMetadataWindowInnerSnake {
   /**
    *
    * @type {number}
@@ -33,5 +33,5 @@ export interface ScanMetadataWindowInner {
    */
   height?: number;
 }
-export type ScanMetadataWindowInnerCamel =
-  KeysToCamelCase<ScanMetadataWindowInner>;
+export type ScanMetadataWindowInner =
+  KeysToCamelCase<ScanMetadataWindowInnerSnake>;

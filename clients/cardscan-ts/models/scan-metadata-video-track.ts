@@ -19,7 +19,7 @@ import { KeysToCamelCase } from "./";
  * @export
  * @interface ScanMetadataVideoTrack
  */
-export interface ScanMetadataVideoTrack {
+export interface ScanMetadataVideoTrackSnake {
   /**
    *
    * @type {number}
@@ -63,5 +63,5 @@ export interface ScanMetadataVideoTrack {
    */
   width?: number;
 }
-export type ScanMetadataVideoTrackCamel =
-  KeysToCamelCase<ScanMetadataVideoTrack>;
+export type ScanMetadataVideoTrack =
+  KeysToCamelCase<ScanMetadataVideoTrackSnake>;

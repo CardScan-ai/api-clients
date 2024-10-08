@@ -19,7 +19,7 @@ import { KeysToCamelCase } from "./";
  * @export
  * @interface OOP
  */
-export interface OOP {
+export interface OOPSnake {
   /**
    * The total out-of-pocket amount.
    * @type {string}
@@ -33,4 +33,4 @@ export interface OOP {
    */
   remaining_amount?: string;
 }
-export type OOPCamel = KeysToCamelCase<OOP>;
+export type OOP = KeysToCamelCase<OOPSnake>;

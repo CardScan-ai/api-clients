@@ -19,7 +19,7 @@ import { KeysToCamelCase } from "./";
  * @export
  * @interface CoInsurance
  */
-export interface CoInsurance {
+export interface CoInsuranceSnake {
   /**
    * The co-insurance amount.
    * @type {string}
@@ -27,4 +27,4 @@ export interface CoInsurance {
    */
   amount?: string;
 }
-export type CoInsuranceCamel = KeysToCamelCase<CoInsurance>;
+export type CoInsurance = KeysToCamelCase<CoInsuranceSnake>;

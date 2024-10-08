@@ -26,7 +26,7 @@ import { KeysToCamelCase } from "./";
  * @export
  * @interface ListEligibility200Response
  */
-export interface ListEligibility200Response {
+export interface ListEligibility200ResponseSnake {
   /**
    *
    * @type {Array<EligibilityApiResponse>}
@@ -40,5 +40,5 @@ export interface ListEligibility200Response {
    */
   response_metadata: ResponseMetadata;
 }
-export type ListEligibility200ResponseCamel =
-  KeysToCamelCase<ListEligibility200Response>;
+export type ListEligibility200Response =
+  KeysToCamelCase<ListEligibility200ResponseSnake>;

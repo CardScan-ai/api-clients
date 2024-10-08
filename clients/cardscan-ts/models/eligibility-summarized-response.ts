@@ -35,7 +35,7 @@ import { KeysToCamelCase } from "./";
  * @export
  * @interface EligibilitySummarizedResponse
  */
-export interface EligibilitySummarizedResponse {
+export interface EligibilitySummarizedResponseSnake {
   /**
    *
    * @type {SubscriberDetails}
@@ -1183,5 +1183,5 @@ export interface EligibilitySummarizedResponse {
    */
   well_baby_care?: Service;
 }
-export type EligibilitySummarizedResponseCamel =
-  KeysToCamelCase<EligibilitySummarizedResponse>;
+export type EligibilitySummarizedResponse =
+  KeysToCamelCase<EligibilitySummarizedResponseSnake>;

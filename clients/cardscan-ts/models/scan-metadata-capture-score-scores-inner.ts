@@ -19,7 +19,7 @@ import { KeysToCamelCase } from "./";
  * @export
  * @interface ScanMetadataCaptureScoreScoresInner
  */
-export interface ScanMetadataCaptureScoreScoresInner {
+export interface ScanMetadataCaptureScoreScoresInnerSnake {
   /**
    *
    * @type {number}
@@ -33,5 +33,5 @@ export interface ScanMetadataCaptureScoreScoresInner {
    */
   laplacian?: number;
 }
-export type ScanMetadataCaptureScoreScoresInnerCamel =
-  KeysToCamelCase<ScanMetadataCaptureScoreScoresInner>;
+export type ScanMetadataCaptureScoreScoresInner =
+  KeysToCamelCase<ScanMetadataCaptureScoreScoresInnerSnake>;

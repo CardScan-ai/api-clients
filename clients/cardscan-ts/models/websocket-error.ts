@@ -19,7 +19,7 @@ import { KeysToCamelCase } from "./";
  * @export
  * @interface WebsocketError
  */
-export interface WebsocketError {
+export interface WebsocketErrorSnake {
   /**
    * A message describing the error.
    * @type {string}
@@ -39,12 +39,6 @@ export interface WebsocketError {
    */
   code: string;
   /**
-   * The internal error message.
-   * @type {string}
-   * @memberof WebsocketError
-   */
-  internal_error?: string;
-  /**
    * The type of the error (deprecated)
    * @type {string}
    * @memberof WebsocketError
@@ -52,4 +46,4 @@ export interface WebsocketError {
    */
   error?: string;
 }
-export type WebsocketErrorCamel = KeysToCamelCase<WebsocketError>;
+export type WebsocketError = KeysToCamelCase<WebsocketErrorSnake>;

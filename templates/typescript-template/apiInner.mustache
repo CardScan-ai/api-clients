@@ -391,7 +391,7 @@ export interface {{classname}}{{operationIdCamelCase}}Request {
 export class {{classname}} extends BaseAPI implements {{classname}}Interface {
 {{/withInterfaces}}
 {{^withInterfaces}}
-export class {{classname}}<TCase extends NameCase = 'snake'> extends BaseAPI {
+export class {{classname}}<TCase extends NameCase = "camel"> extends BaseAPI {
   public readonly websocket?: WebSocket;
   constructor(
     configuration?: ConfigurationParameters | { nameCase?: TCase },
@@ -408,7 +408,7 @@ export class {{classname}}<TCase extends NameCase = 'snake'> extends BaseAPI {
 
       this.debug("Connecting to websocket (Pre initializating)...");
     }
-    this.configuration.nameCase = configuration.nameCase ?? "snake" as TCase;
+    this.configuration.nameCase = configuration.nameCase ?? "camel" as TCase;
   }
 
   /**

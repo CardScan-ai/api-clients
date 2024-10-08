@@ -19,7 +19,7 @@ import { KeysToCamelCase } from "./";
  * @export
  * @interface PlanDetails
  */
-export interface PlanDetails {
+export interface PlanDetailsSnake {
   /**
    * The plan number.
    * @type {string}
@@ -75,4 +75,4 @@ export interface PlanDetails {
    */
   plan_active?: boolean;
 }
-export type PlanDetailsCamel = KeysToCamelCase<PlanDetails>;
+export type PlanDetails = KeysToCamelCase<PlanDetailsSnake>;

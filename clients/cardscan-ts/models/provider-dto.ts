@@ -19,7 +19,7 @@ import { KeysToCamelCase } from "./";
  * @export
  * @interface ProviderDto
  */
-export interface ProviderDto {
+export interface ProviderDtoSnake {
   /**
    * Loop: 2100B Segment: MN1, Element: NM104, Notes: NM101=PR when providerType=\'payer\' && payerId is present otherwise 1P for Provider, NM102=1 Person, firstName 1-35 alphanumeric characters
    * @type {string}
@@ -45,4 +45,4 @@ export interface ProviderDto {
    */
   organizationName?: string;
 }
-export type ProviderDtoCamel = KeysToCamelCase<ProviderDto>;
+export type ProviderDto = KeysToCamelCase<ProviderDtoSnake>;

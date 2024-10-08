@@ -19,7 +19,7 @@ import { KeysToCamelCase } from "./";
  * @export
  * @interface ValidateMagicLink200Response
  */
-export interface ValidateMagicLink200Response {
+export interface ValidateMagicLink200ResponseSnake {
   /**
    * The token associated with the magic link
    * @type {string}
@@ -33,5 +33,5 @@ export interface ValidateMagicLink200Response {
    */
   IdentityId: string;
 }
-export type ValidateMagicLink200ResponseCamel =
-  KeysToCamelCase<ValidateMagicLink200Response>;
+export type ValidateMagicLink200Response =
+  KeysToCamelCase<ValidateMagicLink200ResponseSnake>;

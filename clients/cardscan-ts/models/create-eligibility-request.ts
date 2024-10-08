@@ -23,7 +23,7 @@ import { KeysToCamelCase } from "./";
  * @export
  * @interface CreateEligibilityRequest
  */
-export interface CreateEligibilityRequest {
+export interface CreateEligibilityRequestSnake {
   /**
    *
    * @type {EligibilityInfo}
@@ -37,5 +37,5 @@ export interface CreateEligibilityRequest {
    */
   card_id: string;
 }
-export type CreateEligibilityRequestCamel =
-  KeysToCamelCase<CreateEligibilityRequest>;
+export type CreateEligibilityRequest =
+  KeysToCamelCase<CreateEligibilityRequestSnake>;

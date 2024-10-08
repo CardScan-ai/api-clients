@@ -23,7 +23,7 @@ import { KeysToCamelCase } from "./";
  * @export
  * @interface DirectUpload200Response
  */
-export interface DirectUpload200Response {
+export interface DirectUpload200ResponseSnake {
   /**
    *
    * @type {string}
@@ -43,5 +43,5 @@ export interface DirectUpload200Response {
    */
   metadata: DirectUpload200ResponseMetadata;
 }
-export type DirectUpload200ResponseCamel =
-  KeysToCamelCase<DirectUpload200Response>;
+export type DirectUpload200Response =
+  KeysToCamelCase<DirectUpload200ResponseSnake>;

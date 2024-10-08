@@ -19,7 +19,7 @@ import { KeysToCamelCase } from "./";
  * @export
  * @interface CreateCardRequestBackside
  */
-export interface CreateCardRequestBackside {
+export interface CreateCardRequestBacksideSnake {
   /**
    * The scanning mode
    * @type {string}
@@ -37,5 +37,5 @@ export const CreateCardRequestBacksideScanningEnum = {
 export type CreateCardRequestBacksideScanningEnum =
   (typeof CreateCardRequestBacksideScanningEnum)[keyof typeof CreateCardRequestBacksideScanningEnum];
 
-export type CreateCardRequestBacksideCamel =
-  KeysToCamelCase<CreateCardRequestBackside>;
+export type CreateCardRequestBackside =
+  KeysToCamelCase<CreateCardRequestBacksideSnake>;

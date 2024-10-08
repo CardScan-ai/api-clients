@@ -19,7 +19,7 @@ import { KeysToCamelCase } from "./";
  * @export
  * @interface ResponseMetadata
  */
-export interface ResponseMetadata {
+export interface ResponseMetadataSnake {
   /**
    * The cursor for the next page of results.
    * @type {string}
@@ -39,4 +39,4 @@ export interface ResponseMetadata {
    */
   total?: number;
 }
-export type ResponseMetadataCamel = KeysToCamelCase<ResponseMetadata>;
+export type ResponseMetadata = KeysToCamelCase<ResponseMetadataSnake>;

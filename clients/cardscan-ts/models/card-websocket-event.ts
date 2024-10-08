@@ -26,7 +26,7 @@ import { KeysToCamelCase } from "./";
  * @export
  * @interface CardWebsocketEvent
  */
-export interface CardWebsocketEvent {
+export interface CardWebsocketEventSnake {
   /**
    *
    * @type {string}
@@ -78,4 +78,4 @@ export const CardWebsocketEventTypeEnum = {
 export type CardWebsocketEventTypeEnum =
   (typeof CardWebsocketEventTypeEnum)[keyof typeof CardWebsocketEventTypeEnum];
 
-export type CardWebsocketEventCamel = KeysToCamelCase<CardWebsocketEvent>;
+export type CardWebsocketEvent = KeysToCamelCase<CardWebsocketEventSnake>;

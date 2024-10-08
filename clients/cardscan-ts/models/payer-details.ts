@@ -23,7 +23,7 @@ import { KeysToCamelCase } from "./";
  * @export
  * @interface PayerDetails
  */
-export interface PayerDetails {
+export interface PayerDetailsSnake {
   /**
    * The name of the payer.
    * @type {string}
@@ -43,4 +43,4 @@ export interface PayerDetails {
    */
   url?: string;
 }
-export type PayerDetailsCamel = KeysToCamelCase<PayerDetails>;
+export type PayerDetails = KeysToCamelCase<PayerDetailsSnake>;

@@ -23,7 +23,7 @@ import { KeysToCamelCase } from "./";
  * @export
  * @interface SubscriberDetails
  */
-export interface SubscriberDetails {
+export interface SubscriberDetailsSnake {
   /**
    * The member ID of the subscriber.
    * @type {string}
@@ -67,4 +67,4 @@ export interface SubscriberDetails {
    */
   dob?: string;
 }
-export type SubscriberDetailsCamel = KeysToCamelCase<SubscriberDetails>;
+export type SubscriberDetails = KeysToCamelCase<SubscriberDetailsSnake>;

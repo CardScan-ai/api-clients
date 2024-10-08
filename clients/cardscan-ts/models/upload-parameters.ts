@@ -19,7 +19,7 @@ import { KeysToCamelCase } from "./";
  * @export
  * @interface UploadParameters
  */
-export interface UploadParameters {
+export interface UploadParametersSnake {
   /**
    * The content type of the file
    * @type {string}
@@ -105,4 +105,4 @@ export interface UploadParameters {
    */
   "x-amz-signature": string;
 }
-export type UploadParametersCamel = KeysToCamelCase<UploadParameters>;
+export type UploadParameters = KeysToCamelCase<UploadParametersSnake>;

@@ -19,7 +19,7 @@ import { KeysToCamelCase } from "./";
  * @export
  * @interface MatchScore
  */
-export interface MatchScore {
+export interface MatchScoreSnake {
   /**
    * The matching score value of the card.
    * @type {string}
@@ -28,9 +28,9 @@ export interface MatchScore {
   value?: string;
   /**
    *
-   * @type {Array<number>}
+   * @type {Array<string>}
    * @memberof MatchScore
    */
-  scores?: Array<number>;
+  scores?: Array<string>;
 }
-export type MatchScoreCamel = KeysToCamelCase<MatchScore>;
+export type MatchScore = KeysToCamelCase<MatchScoreSnake>;

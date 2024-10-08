@@ -29,7 +29,7 @@ import { KeysToCamelCase } from "./";
  * @export
  * @interface GenerateCardUploadUrlRequest
  */
-export interface GenerateCardUploadUrlRequest {
+export interface GenerateCardUploadUrlRequestSnake {
   /**
    *
    * @type {ScanOrientation}
@@ -50,5 +50,5 @@ export interface GenerateCardUploadUrlRequest {
   metadata?: ScanMetadata;
 }
 
-export type GenerateCardUploadUrlRequestCamel =
-  KeysToCamelCase<GenerateCardUploadUrlRequest>;
+export type GenerateCardUploadUrlRequest =
+  KeysToCamelCase<GenerateCardUploadUrlRequestSnake>;

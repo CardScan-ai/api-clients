@@ -19,7 +19,7 @@ import { KeysToCamelCase } from "./";
  * @export
  * @interface ApiErrorResponse
  */
-export interface ApiErrorResponse {
+export interface ApiErrorResponseSnake {
   /**
    * A message describing the error.
    * @type {string}
@@ -39,4 +39,4 @@ export interface ApiErrorResponse {
    */
   code?: number;
 }
-export type ApiErrorResponseCamel = KeysToCamelCase<ApiErrorResponse>;
+export type ApiErrorResponse = KeysToCamelCase<ApiErrorResponseSnake>;

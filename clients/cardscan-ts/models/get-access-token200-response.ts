@@ -19,7 +19,7 @@ import { KeysToCamelCase } from "./";
  * @export
  * @interface GetAccessToken200Response
  */
-export interface GetAccessToken200Response {
+export interface GetAccessToken200ResponseSnake {
   /**
    * The access token.
    * @type {string}
@@ -39,5 +39,5 @@ export interface GetAccessToken200Response {
    */
   session_id?: string;
 }
-export type GetAccessToken200ResponseCamel =
-  KeysToCamelCase<GetAccessToken200Response>;
+export type GetAccessToken200Response =
+  KeysToCamelCase<GetAccessToken200ResponseSnake>;

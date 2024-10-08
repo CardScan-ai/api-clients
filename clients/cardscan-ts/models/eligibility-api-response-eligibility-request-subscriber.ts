@@ -19,31 +19,31 @@ import { KeysToCamelCase } from "./";
  * @export
  * @interface EligibilityApiResponseEligibilityRequestSubscriber
  */
-export interface EligibilityApiResponseEligibilityRequestSubscriber {
+export interface EligibilityApiResponseEligibilityRequestSubscriberSnake {
   /**
    * The first name of the subscriber.
    * @type {string}
    * @memberof EligibilityApiResponseEligibilityRequestSubscriber
    */
-  firstName?: string;
+  first_name?: string;
   /**
    * The last name of the subscriber.
    * @type {string}
    * @memberof EligibilityApiResponseEligibilityRequestSubscriber
    */
-  lastName?: string;
+  last_name?: string;
   /**
    * The member ID of the subscriber.
    * @type {string}
    * @memberof EligibilityApiResponseEligibilityRequestSubscriber
    */
-  memberId?: string;
+  member_id?: string;
   /**
    * The date of birth of the subscriber.
    * @type {string}
    * @memberof EligibilityApiResponseEligibilityRequestSubscriber
    */
-  dob?: string;
+  date_of_birth?: string;
 }
-export type EligibilityApiResponseEligibilityRequestSubscriberCamel =
-  KeysToCamelCase<EligibilityApiResponseEligibilityRequestSubscriber>;
+export type EligibilityApiResponseEligibilityRequestSubscriber =
+  KeysToCamelCase<EligibilityApiResponseEligibilityRequestSubscriberSnake>;

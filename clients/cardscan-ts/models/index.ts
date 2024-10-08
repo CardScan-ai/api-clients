@@ -20,6 +20,7 @@ export * from "./direct-upload200-response-metadata";
 export * from "./direct-upload-request";
 export * from "./eligibility-api-response";
 export * from "./eligibility-api-response-eligibility-request";
+export * from "./eligibility-api-response-eligibility-request-provider";
 export * from "./eligibility-api-response-eligibility-request-subscriber";
 export * from "./eligibility-info";
 export * from "./eligibility-state";

@@ -19,7 +19,7 @@ import { KeysToCamelCase } from "./";
  * @export
  * @interface CardPerformance200Response
  */
-export interface CardPerformance200Response {
+export interface CardPerformance200ResponseSnake {
   /**
    *
    * @type {string}
@@ -27,5 +27,5 @@ export interface CardPerformance200Response {
    */
   message?: string;
 }
-export type CardPerformance200ResponseCamel =
-  KeysToCamelCase<CardPerformance200Response>;
+export type CardPerformance200Response =
+  KeysToCamelCase<CardPerformance200ResponseSnake>;

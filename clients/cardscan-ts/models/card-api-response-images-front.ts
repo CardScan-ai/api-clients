@@ -19,7 +19,7 @@ import { KeysToCamelCase } from "./";
  * @export
  * @interface CardApiResponseImagesFront
  */
-export interface CardApiResponseImagesFront {
+export interface CardApiResponseImagesFrontSnake {
   /**
    * The URL to the front image of the card.
    * @type {string}
@@ -27,5 +27,5 @@ export interface CardApiResponseImagesFront {
    */
   url?: string;
 }
-export type CardApiResponseImagesFrontCamel =
-  KeysToCamelCase<CardApiResponseImagesFront>;
+export type CardApiResponseImagesFront =
+  KeysToCamelCase<CardApiResponseImagesFrontSnake>;

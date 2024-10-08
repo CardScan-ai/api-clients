@@ -23,7 +23,7 @@ import { KeysToCamelCase } from "./";
  * @export
  * @interface ScanMetadataCaptureScore
  */
-export interface ScanMetadataCaptureScore {
+export interface ScanMetadataCaptureScoreSnake {
   /**
    * List of capture scores
    * @type {Array<ScanMetadataCaptureScoreScoresInner>}
@@ -37,5 +37,5 @@ export interface ScanMetadataCaptureScore {
    */
   max_lapScore?: number;
 }
-export type ScanMetadataCaptureScoreCamel =
-  KeysToCamelCase<ScanMetadataCaptureScore>;
+export type ScanMetadataCaptureScore =
+  KeysToCamelCase<ScanMetadataCaptureScoreSnake>;

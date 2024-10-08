@@ -19,7 +19,7 @@ import { KeysToCamelCase } from "./";
  * @export
  * @interface Address
  */
-export interface Address {
+export interface AddressSnake {
   /**
    *
    * @type {string}
@@ -49,6 +49,6 @@ export interface Address {
    * @type {string}
    * @memberof Address
    */
-  postalCode?: string;
+  postal_code?: string;
 }
-export type AddressCamel = KeysToCamelCase<Address>;
+export type Address = KeysToCamelCase<AddressSnake>;

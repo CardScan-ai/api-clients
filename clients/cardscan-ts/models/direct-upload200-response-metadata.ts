@@ -19,7 +19,7 @@ import { KeysToCamelCase } from "./";
  * @export
  * @interface DirectUpload200ResponseMetadata
  */
-export interface DirectUpload200ResponseMetadata {
+export interface DirectUpload200ResponseMetadataSnake {
   /**
    * OCR latency in milliseconds
    * @type {string}
@@ -27,5 +27,5 @@ export interface DirectUpload200ResponseMetadata {
    */
   ocr_latency?: string;
 }
-export type DirectUpload200ResponseMetadataCamel =
-  KeysToCamelCase<DirectUpload200ResponseMetadata>;
+export type DirectUpload200ResponseMetadata =
+  KeysToCamelCase<DirectUpload200ResponseMetadataSnake>;

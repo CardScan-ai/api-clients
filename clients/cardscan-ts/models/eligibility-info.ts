@@ -26,7 +26,7 @@ import { KeysToCamelCase } from "./";
  * @export
  * @interface EligibilityInfo
  */
-export interface EligibilityInfo {
+export interface EligibilityInfoSnake {
   /**
    *
    * @type {ProviderDto}
@@ -40,4 +40,4 @@ export interface EligibilityInfo {
    */
   subscriber: SubscriberDto;
 }
-export type EligibilityInfoCamel = KeysToCamelCase<EligibilityInfo>;
+export type EligibilityInfo = KeysToCamelCase<EligibilityInfoSnake>;

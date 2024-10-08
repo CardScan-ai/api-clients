@@ -19,7 +19,7 @@ import { KeysToCamelCase } from "./";
  * @export
  * @interface GenerateMagicLink200Response
  */
-export interface GenerateMagicLink200Response {
+export interface GenerateMagicLink200ResponseSnake {
   /**
    * The URL of the magic link
    * @type {string}
@@ -39,5 +39,5 @@ export interface GenerateMagicLink200Response {
    */
   expires_at: string;
 }
-export type GenerateMagicLink200ResponseCamel =
-  KeysToCamelCase<GenerateMagicLink200Response>;
+export type GenerateMagicLink200Response =
+  KeysToCamelCase<GenerateMagicLink200ResponseSnake>;
