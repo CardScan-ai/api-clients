@@ -7,14 +7,12 @@ import { CardState, EligibilityState } from "../models";
 
 config();
 
-const cardscan = new CardScanApi(
-  new Configuration({
-    basePath: process.env.CARDSCAN_BASE_PATH,
-    apiKey: process.env.CARDSCAN_API_KEY,
-    websocketUrl: process.env.CARDSCAN_WEBSOCKET_URL,
-    logging: "info"
-  }),
-);
+const cardscan = new CardScanApi({
+  basePath: process.env.CARDSCAN_BASE_PATH,
+  apiKey: process.env.CARDSCAN_API_KEY,
+  websocketUrl: process.env.CARDSCAN_WEBSOCKET_URL,
+  logging: "info",
+});
 
 jest.setTimeout(60 * 1000);
 
@@ -51,18 +49,21 @@ describe("Cardscan Pipelines", () => {
       );
 
       try {
-        await invalidCardscan.checkEligibility(process.env.TEST_CARD_ID as string, {
-          provider: {
-            firstName: "John",
-            lastName: "Doe",
-            npi: "1952535221",
+        await invalidCardscan.checkEligibility(
+          process.env.TEST_CARD_ID as string,
+          {
+            provider: {
+              firstName: "John",
+              lastName: "Doe",
+              npi: "1952535221",
+            },
+            subscriber: {
+              firstName: "Jane",
+              lastName: "Doe",
+              dateOfBirth: "18020101",
+            },
           },
-          subscriber: {
-            firstName: "Jane",
-            lastName: "Doe",
-            dateOfBirth: "18020101",
-          },
-        });
+        );
       } catch (e) {
         expect(e.message).toMatch(/403/);
       }
