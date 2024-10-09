@@ -23,3 +23,5 @@
 #!docs/README.md
 README.md
 package.json
+models/create-eligibility-request.ts
+models/create-card-request.ts

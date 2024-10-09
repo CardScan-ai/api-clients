@@ -16,8 +16,6 @@
 // @ts-ignore
 import { EligibilityInfo } from "./eligibility-info";
 
-import { KeysToCamelCase } from "./";
-
 /**
  *
  * @export
@@ -37,5 +35,4 @@ export interface CreateEligibilityRequestSnake {
    */
   card_id: string;
 }
-export type CreateEligibilityRequest =
-  KeysToCamelCase<CreateEligibilityRequestSnake>;
+export type CreateEligibilityRequest = CreateEligibilityRequestSnake;

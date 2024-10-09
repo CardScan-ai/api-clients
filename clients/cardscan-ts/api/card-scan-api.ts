@@ -1864,8 +1864,8 @@ export class CardScanApi<TCase extends NameCase = "camel"> extends BaseAPI {
     this.debug("Creating card...");
     const card = await this.createCard(
       {
-        enableLivescan: false,
-        enableBacksideScan: Boolean(backImage),
+        enable_livescan: false,
+        enable_backside_scan: Boolean(backImage),
       },
       {
         forceOriginalCase: true,
@@ -2142,7 +2142,7 @@ export class CardScanApi<TCase extends NameCase = "camel"> extends BaseAPI {
 
           const response = await this.createEligibility(
             {
-              cardId: cardId,
+              card_id: cardId,
               eligibility,
             },
             {
