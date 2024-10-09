@@ -65,7 +65,20 @@ export type CamelCase<S extends string> =
     : Lowercase<S>;
 
 export type KeysToCamelCase<T> = {
-  [K in keyof T as CamelCase<string & K>]: T[K] extends {}
-    ? KeysToCamelCase<T[K]>
+  [K in keyof T as CamelCase<string & K>]: T[K] extends KeysToCamelCase<any>
+    ? T[K]
+    : T[K] extends {}
+      ? KeysToCamelCase<T[K]>
+      : T[K];
+};
+
+export type CamelToSnakeCase<S extends string> =
+  S extends `${infer T}${infer U}`
+    ? `${T extends Capitalize<T> ? "_" : ""}${Lowercase<T>}${CamelToSnakeCase<U>}`
+    : S;
+
+export type KeysToSnakeCase<T> = {
+  [K in keyof T as CamelToSnakeCase<string & K>]: T[K] extends {}
+    ? KeysToSnakeCase<T[K]>
     : T[K];
 };

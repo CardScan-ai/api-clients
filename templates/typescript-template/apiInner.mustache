@@ -22,6 +22,9 @@ import {
   UploadParameters,
   CardWebsocketEventTypeEnum,
   KeysToCamelCase,
+  KeysToSnakeCase,
+  UploadParametersSnake,
+  CardWebsocketEventSnake,
 } from "../models";
 {{#withNodeImports}}
 // URLSearchParams not necessarily used
@@ -38,7 +41,7 @@ import { DUMMY_BASE_URL, assertParamExists, setApiKeyToObject, setBasicAuthToObj
 import { BASE_PATH, COLLECTION_FORMATS, RequestArgs, BaseAPI, RequiredError, operationServerMap } from '{{apiRelativeToRoot}}base';
 {{#imports}}
 // @ts-ignore
-import { {{classname}}, {{classname}}Camel } from '{{apiRelativeToRoot}}{{tsModelPackage}}';
+import { {{classname}} } from '{{apiRelativeToRoot}}{{tsModelPackage}}';
 {{/imports}}
 {{/withSeparateModelsAndApi}}
 {{^withSeparateModelsAndApi}}
@@ -448,7 +451,7 @@ export class {{classname}}<TCase extends NameCase = "camel"> extends BaseAPI {
    * @param frontImage The front side image to scan. For client side code this can be a File object, for server side code this can be a Blob or a Stream.
    * @param backImage The back side image to scan. For client side code this can be a File object, for server side code this can be a Blob or a Stream.
    * */
-    public async fullScan({
+  public async fullScan({
     frontImage,
     backImage,
   }: {
@@ -463,14 +466,15 @@ export class {{classname}}<TCase extends NameCase = "camel"> extends BaseAPI {
     }
 
     this.debug("Creating card...");
-    const card = (
-      await this.createCard({
-        enable_livescan: false,
-        enable_backside_scan: Boolean(backImage),
-      }, {
-        forceOriginalCase: true
-      })
-    ) as CardApiResponse;
+    const card = (await this.createCard(
+      {
+        enableLivescan: false,
+        enableBacksideScan: Boolean(backImage),
+      },
+      {
+        forceOriginalCase: true,
+      },
+    ));
 
     this.debug(`Card created successfully: ${JSON.stringify(card)}`);
 
@@ -490,18 +494,21 @@ export class {{classname}}<TCase extends NameCase = "camel"> extends BaseAPI {
         this.debug("Websocket card registered");
 
         this.debug("Generating front side upload URL...");
-        const frontSideUploadUrlResponse = (
-          await this.generateCardUploadUrl(card.card_id, 3600, {
+        const frontSideUploadUrlResponse = (await this.generateCardUploadUrl(
+          card.card_id,
+          3600,
+          {
             orientation: ScanOrientation.Front,
-          }, { forceOriginalCase: true })
-        ) as GenerateCardUploadUrl200Response;
+          },
+          { forceOriginalCase: true },
+        ));
         this.debug(
           `Front side upload URL generated successfully, response: ${JSON.stringify(frontSideUploadUrlResponse)}}`,
         );
 
         const formDataFront = this.cardFormDataFactory(
           frontImage,
-          frontSideUploadUrlResponse.upload_parameters,
+          frontSideUploadUrlResponse.upload_parameters as unknown as UploadParametersSnake,
         );
 
         try {
@@ -544,10 +551,10 @@ export class {{classname}}<TCase extends NameCase = "camel"> extends BaseAPI {
         ];
 
         this.debug("Waiting for front side processing to complete...");
-        const frontSideEvent: CardWebsocketEvent = await new Promise(
+        const frontSideEvent: CardWebsocketEventSnake = await new Promise(
           (resolve, reject) => {
             websocket.onmessage = (event) => {
-              const data: CardWebsocketEvent = JSON.parse(event.data as string);
+              const data: CardWebsocketEventSnake = JSON.parse(event.data as string);
               this.debug(`Received websocket message: ${event.data}`);
 
               if (data.type !== CardWebsocketEventTypeEnum.Card) return;
@@ -577,23 +584,28 @@ export class {{classname}}<TCase extends NameCase = "camel"> extends BaseAPI {
           this.info("Full scan completed successfully");
 
           this.debug("Fetching card details...");
-          const cardDetails = (await this.getCardById(frontSideEvent.card_id, { forceOriginalCase: true })) as CardApiResponse;
+          const cardDetails = (await this.getCardById(frontSideEvent.card_id, {
+            forceOriginalCase: true,
+          }));
 
           return resolve(cardDetails);
         }
 
         this.debug("Generating back side upload URL...");
-        const backSideUploadUrlResponse = (
-          await this.generateCardUploadUrl(card.card_id, 3600, {
+        const backSideUploadUrlResponse = (await this.generateCardUploadUrl(
+          card.card_id,
+          3600,
+          {
             orientation: ScanOrientation.Back,
-          }, {
-            forceOriginalCase: true
-          })
-        ) as GenerateCardUploadUrl200Response;
+          },
+          {
+            forceOriginalCase: true,
+          },
+        ));
 
         const formDataBack = this.cardFormDataFactory(
           backImage,
-          backSideUploadUrlResponse.upload_parameters,
+          backSideUploadUrlResponse.upload_parameters as unknown as UploadParametersSnake,
         );
 
         try {
@@ -636,10 +648,10 @@ export class {{classname}}<TCase extends NameCase = "camel"> extends BaseAPI {
 
         this.debug("Waiting for back side processing to complete...");
 
-        const event: CardWebsocketEvent = await new Promise(
+        const event: CardWebsocketEventSnake = await new Promise(
           (resolve, reject) => {
             websocket.onmessage = (event) => {
-              const data: CardWebsocketEvent = JSON.parse(event.data as string);
+              const data: CardWebsocketEventSnake = JSON.parse(event.data as string);
               this.debug(`Received websocket message: ${event.data}`);
 
               if (data.type !== CardWebsocketEventTypeEnum.Card) return;
@@ -664,7 +676,9 @@ export class {{classname}}<TCase extends NameCase = "camel"> extends BaseAPI {
         this.info("Full scan completed successfully");
         this.debug("Fetching card details...");
 
-        const cardDetails = (await this.getCardById(event.card_id, { forceOriginalCase: true })) as CardApiResponse;
+        const cardDetails = (await this.getCardById(event.card_id, {
+          forceOriginalCase: true,
+        }));
         resolve(cardDetails);
       });
     });
@@ -672,7 +686,7 @@ export class {{classname}}<TCase extends NameCase = "camel"> extends BaseAPI {
   
   private cardFormDataFactory(
     file: File | Blob | Stream,
-    uploadParameters: UploadParameters,
+    uploadParameters: UploadParametersSnake,
   ) {
     const formData = new FormData();
 
@@ -727,14 +741,15 @@ export class {{classname}}<TCase extends NameCase = "camel"> extends BaseAPI {
         try {
           this.debug(`Creating eligibility for card: ${cardId}`);
 
-          const response = (
-            await this.createEligibility({
-              card_id: cardId,
+          const response = (await this.createEligibility(
+            {
+              cardId: cardId,
               eligibility,
-            }, {
-              forceOriginalCase: true
-            })
-          ) as EligibilityApiResponse;
+            },
+            {
+              forceOriginalCase: true,
+            },
+          ));
 
           this.debug(
             `Eligibility created successfully: ${JSON.stringify(response)}`,
@@ -945,14 +960,19 @@ export class {{classname}}<TCase extends NameCase = "camel"> extends BaseAPI {
     }
     {{/useSingleRequestParameter}}
     {{^useSingleRequestParameter}}
-    public async {{nickname}}({{#allParams}}{{paramName}}{{^required}}?{{/required}}: {{#isEnum}}{{{datatypeWithEnum}}}{{/isEnum}}{{^isEnum}}{{{dataType}}}{{#isNullable}} | null{{/isNullable}}{{/isEnum}}, {{/allParams}}options?: RawAxiosRequestConfig & { forceOriginalCase?: boolean } ) {
+    public async {{nickname}}<OriginalCase extends boolean = false>({{#allParams}}{{paramName}}{{^required}}?{{/required}}: {{#isEnum}}{{{datatypeWithEnum}}}{{/isEnum}}{{^isEnum}}{{{dataType}}}{{#isNullable}} | null{{/isNullable}}{{/isEnum}}, {{/allParams}}options?: RawAxiosRequestConfig & { forceOriginalCase?: OriginalCase } ) {
         let data = await {{classname}}Fp(this.configuration).{{nickname}}({{#allParams}}{{paramName}}, {{/allParams}}options).then((request) => request(this.axios, this.basePath)).then(r => r.data);
 
         if (this.configuration.nameCase === 'camel' && !options?.forceOriginalCase) {
           data = this.toCamelCase<typeof data>(data);
         }
 
-        return data as TCase extends 'snake' ? typeof data : TCase extends 'camel' ? KeysToCamelCase<typeof data> : never;
+        return data as TCase extends "snake"
+          ? KeysToSnakeCase<typeof data>
+          : OriginalCase extends true
+          ? KeysToSnakeCase<typeof data>
+          : TCase extends "camel"
+          ? typeof data : never;
     }
     {{/useSingleRequestParameter}}
     {{^-last}}
