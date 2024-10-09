@@ -2885,6 +2885,28 @@ export class CardScanApi<TCase extends NameCase = "camel"> extends BaseAPI {
   }
 
   /**
+   * Utility function to transform an object's fields to snake_case
+   */
+  public toSnakeCase = <T>(obj: any): T => {
+    if (Array.isArray(obj)) {
+      return obj.map((item) => this.toSnakeCase(item)) as unknown as T;
+    } else if (obj !== null && typeof obj === "object") {
+      return Object.keys(obj).reduce((acc, key) => {
+        const snakeKey = key.replace(
+          /[A-Z]/g,
+          (letter) => `_${letter.toLowerCase()}`,
+        );
+        const value = obj[key];
+        return {
+          ...acc,
+          [snakeKey]: this.toSnakeCase(value),
+        };
+      }, {} as any) as T;
+    }
+    return obj as T;
+  };
+
+  /**
    * Utility function to transform an object's fields to camelCase
    **/
   public toCamelCase = <T>(obj: any): T => {
