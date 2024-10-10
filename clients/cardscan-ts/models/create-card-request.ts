@@ -16,6 +16,8 @@
 // @ts-ignore
 import { CreateCardRequestBackside } from "./create-card-request-backside";
 
+import { KeysToCamelCase } from "./";
+
 /**
  *
  * @export
@@ -40,5 +42,11 @@ export interface CreateCardRequestSnake {
    * @memberof CreateCardRequest
    */
   backside?: CreateCardRequestBackside;
+  /**
+   *
+   * @type {object}
+   * @memberof CreateCardRequest
+   */
+  metadata?: object;
 }
 export type CreateCardRequest = CreateCardRequestSnake;

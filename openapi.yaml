@@ -232,6 +232,8 @@ paths:
                       - optional
                       - disabled
                       description: The scanning mode
+                metadata:
+                  type: object
       responses:
         '201':
           $ref: '#/components/responses/CardResponse'
