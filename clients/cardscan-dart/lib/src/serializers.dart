@@ -21,6 +21,7 @@ import 'package:cardscan_client/src/model/card_api_response_details.dart';
 import 'package:cardscan_client/src/model/card_api_response_images.dart';
 import 'package:cardscan_client/src/model/card_api_response_images_back.dart';
 import 'package:cardscan_client/src/model/card_api_response_images_front.dart';
+import 'package:cardscan_client/src/model/card_performance200_response.dart';
 import 'package:cardscan_client/src/model/card_state.dart';
 import 'package:cardscan_client/src/model/card_websocket_event.dart';
 import 'package:cardscan_client/src/model/co_insurance.dart';
@@ -83,6 +84,7 @@ part 'serializers.g.dart';
   CardApiResponseImages,
   CardApiResponseImagesBack,
   CardApiResponseImagesFront,
+  CardPerformance200Response,
   CardState,
   CardWebsocketEvent,
   CoInsurance,

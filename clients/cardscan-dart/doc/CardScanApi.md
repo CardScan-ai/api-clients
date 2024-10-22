@@ -9,6 +9,7 @@ All URIs are relative to *https://sandbox.cardscan.ai/v1*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
+[**cardPerformance**](CardScanApi.md#cardperformance) | **POST** /cards/{card_id}/performance | Card - Send performance data
 [**createCard**](CardScanApi.md#createcard) | **POST** /cards | Creates a new card
 [**createEligibility**](CardScanApi.md#createeligibility) | **POST** /eligibility | Create Eligibility Record
 [**deleteCardById**](CardScanApi.md#deletecardbyid) | **DELETE** /cards/{card_id} | Delete Card
@@ -25,6 +26,49 @@ Method | HTTP request | Description
 [**searchCards**](CardScanApi.md#searchcards) | **GET** /cards/search | Search Cards (200) OK
 [**validateMagicLink**](CardScanApi.md#validatemagiclink) | **GET** /validate-magic-link | Validate Magic Link
 
+
+# **cardPerformance**
+> CardPerformance200Response cardPerformance(cardId, body)
+
+Card - Send performance data
+
+### Example
+```dart
+import 'package:cardscan_client/api.dart';
+
+final api = CardscanClient().getCardScanApi();
+final String cardId = 38400000-8cf0-11bd-b23e-10b96e4ef00d; // String | 
+final JsonObject body = Object; // JsonObject | 
+
+try {
+    final response = api.cardPerformance(cardId, body);
+    print(response);
+} catch on DioException (e) {
+    print('Exception when calling CardScanApi->cardPerformance: $e\n');
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **cardId** | **String**|  | 
+ **body** | **JsonObject**|  | [optional] 
+
+### Return type
+
+[**CardPerformance200Response**](CardPerformance200Response.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **createCard**
 > CardApiResponse createCard(createCardRequest)

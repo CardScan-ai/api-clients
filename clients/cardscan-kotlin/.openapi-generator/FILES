@@ -7,6 +7,7 @@ docs/CardApiResponseDetails.md
 docs/CardApiResponseImages.md
 docs/CardApiResponseImagesBack.md
 docs/CardApiResponseImagesFront.md
+docs/CardPerformance200Response.md
 docs/CardScanApi.md
 docs/CardState.md
 docs/CardWebsocketEvent.md
@@ -89,6 +90,7 @@ src/main/kotlin/org/openapitools/client/models/CardApiResponseDetails.kt
 src/main/kotlin/org/openapitools/client/models/CardApiResponseImages.kt
 src/main/kotlin/org/openapitools/client/models/CardApiResponseImagesBack.kt
 src/main/kotlin/org/openapitools/client/models/CardApiResponseImagesFront.kt
+src/main/kotlin/org/openapitools/client/models/CardPerformance200Response.kt
 src/main/kotlin/org/openapitools/client/models/CardState.kt
 src/main/kotlin/org/openapitools/client/models/CardWebsocketEvent.kt
 src/main/kotlin/org/openapitools/client/models/CoInsurance.kt
@@ -140,3 +142,4 @@ src/main/kotlin/org/openapitools/client/models/SubscriberDto.kt
 src/main/kotlin/org/openapitools/client/models/UploadParameters.kt
 src/main/kotlin/org/openapitools/client/models/ValidateMagicLink200Response.kt
 src/main/kotlin/org/openapitools/client/models/WebsocketError.kt
+src/test/kotlin/org/openapitools/client/models/CardPerformance200ResponseTest.kt

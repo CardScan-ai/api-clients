@@ -14,6 +14,7 @@ models/card-api-response-images-back.ts
 models/card-api-response-images-front.ts
 models/card-api-response-images.ts
 models/card-api-response.ts
+models/card-performance200-response.ts
 models/card-state.ts
 models/card-websocket-event.ts
 models/co-insurance.ts

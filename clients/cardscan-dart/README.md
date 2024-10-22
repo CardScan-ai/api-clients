@@ -48,13 +48,14 @@ import 'package:cardscan_client/cardscan_client.dart';
 
 
 final api = CardscanClient().getCardScanApi();
-final CreateCardRequest createCardRequest = ; // CreateCardRequest | 
+final String cardId = 38400000-8cf0-11bd-b23e-10b96e4ef00d; // String | 
+final JsonObject body = Object; // JsonObject | 
 
 try {
-    final response = await api.createCard(createCardRequest);
+    final response = await api.cardPerformance(cardId, body);
     print(response);
 } catch on DioException (e) {
-    print("Exception when calling CardScanApi->createCard: $e\n");
+    print("Exception when calling CardScanApi->cardPerformance: $e\n");
 }
 
 ```
@@ -65,6 +66,7 @@ All URIs are relative to *https://sandbox.cardscan.ai/v1*
 
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
+[*CardScanApi*](doc/CardScanApi.md) | [**cardPerformance**](doc/CardScanApi.md#cardperformance) | **POST** /cards/{card_id}/performance | Card - Send performance data
 [*CardScanApi*](doc/CardScanApi.md) | [**createCard**](doc/CardScanApi.md#createcard) | **POST** /cards | Creates a new card
 [*CardScanApi*](doc/CardScanApi.md) | [**createEligibility**](doc/CardScanApi.md#createeligibility) | **POST** /eligibility | Create Eligibility Record
 [*CardScanApi*](doc/CardScanApi.md) | [**deleteCardById**](doc/CardScanApi.md#deletecardbyid) | **DELETE** /cards/{card_id} | Delete Card
@@ -91,6 +93,7 @@ Class | Method | HTTP request | Description
  - [CardApiResponseImages](doc/CardApiResponseImages.md)
  - [CardApiResponseImagesBack](doc/CardApiResponseImagesBack.md)
  - [CardApiResponseImagesFront](doc/CardApiResponseImagesFront.md)
+ - [CardPerformance200Response](doc/CardPerformance200Response.md)
  - [CardState](doc/CardState.md)
  - [CardWebsocketEvent](doc/CardWebsocketEvent.md)
  - [CoInsurance](doc/CoInsurance.md)

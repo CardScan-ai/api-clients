@@ -40,6 +40,8 @@ import { ApiErrorResponse } from '../models';
 // @ts-ignore
 import { CardApiResponse } from '../models';
 // @ts-ignore
+import { CardPerformance200Response } from '../models';
+// @ts-ignore
 import { CreateCardRequest } from '../models';
 // @ts-ignore
 import { CreateEligibilityRequest } from '../models';
@@ -75,6 +77,48 @@ import { ValidateMagicLink200Response } from '../models';
  */
 export const CardScanApiAxiosParamCreator = function (configuration?: Configuration) {
     return {
+        /**
+         * 
+         * @summary Card - Send performance data
+         * @param {string} cardId 
+         * @param {object} [body] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        cardPerformance: async (cardId: string, body?: object, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'cardId' is not null or undefined
+            assertParamExists('cardPerformance', 'cardId', cardId)
+            const localVarPath = `/cards/{card_id}/performance`
+                .replace(`{${"card_id"}}`, encodeURIComponent(String(cardId)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication bearerAuth required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(body, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
         /**
          * 
          * @summary Creates a new card
@@ -708,6 +752,20 @@ export const CardScanApiFp = function(configuration?: Configuration) {
     return {
         /**
          * 
+         * @summary Card - Send performance data
+         * @param {string} cardId 
+         * @param {object} [body] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async cardPerformance(cardId: string, body?: object, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<CardPerformance200Response>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.cardPerformance(cardId, body, options);
+            const index = configuration?.serverIndex ?? 0;
+            const operationBasePath = operationServerMap['CardScanApi.cardPerformance']?.[index]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
+        },
+        /**
+         * 
          * @summary Creates a new card
          * @param {CreateCardRequest} [createCardRequest] 
          * @param {*} [options] Override http request option.
@@ -921,6 +979,17 @@ export const CardScanApiFactory = function (configuration?: Configuration, baseP
     return {
         /**
          * 
+         * @summary Card - Send performance data
+         * @param {string} cardId 
+         * @param {object} [body] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        cardPerformance(cardId: string, body?: object, options?: any): AxiosPromise<CardPerformance200Response> {
+            return localVarFp.cardPerformance(cardId, body, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
          * @summary Creates a new card
          * @param {CreateCardRequest} [createCardRequest] 
          * @param {*} [options] Override http request option.
@@ -1095,7 +1164,11 @@ export class CardScanApi extends BaseAPI {
     super(configuration, basePath, axios);
   }
 
-  private withWebsocket = (
+  /**
+   * Utility method to create a websocket connection
+   * @param cb This callback will be invoked with the websocket object once the connection is established or with an error if the connection fails.
+   */
+  public withWebsocket = (
     cb: (websocket: WebSocket | null, error: Error | null) => Promise<any>,
   ) => {
     const token = this.configuration.accessToken ?? this.configuration.apiKey;
@@ -1455,6 +1528,19 @@ export class CardScanApi extends BaseAPI {
       });
     });
   }
+
+    /**
+     * 
+     * @summary Card - Send performance data
+     * @param {string} cardId 
+     * @param {object} [body] 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof CardScanApi
+     */
+    public cardPerformance(cardId: string, body?: object, options?: RawAxiosRequestConfig) {
+        return CardScanApiFp(this.configuration).cardPerformance(cardId, body, options).then((request) => request(this.axios, this.basePath));
+    }
 
     /**
      * 
