@@ -31,8 +31,8 @@ Card - Send performance data
 ### Example
 ```kotlin
 // Import classes:
-//import org.openapitools.client.infrastructure.*
-//import org.openapitools.client.models.*
+//import ai.cardscan.client.infrastructure.*
+//import ai.cardscan.client.models.*
 
 val apiInstance = CardScanApi()
 val cardId : java.util.UUID = 38400000-8cf0-11bd-b23e-10b96e4ef00d // java.util.UUID | 
@@ -79,8 +79,8 @@ Creates a new card
 ### Example
 ```kotlin
 // Import classes:
-//import org.openapitools.client.infrastructure.*
-//import org.openapitools.client.models.*
+//import ai.cardscan.client.infrastructure.*
+//import ai.cardscan.client.models.*
 
 val apiInstance = CardScanApi()
 val createCardRequest : CreateCardRequest =  // CreateCardRequest | 
@@ -125,8 +125,8 @@ Create Eligibility Record
 ### Example
 ```kotlin
 // Import classes:
-//import org.openapitools.client.infrastructure.*
-//import org.openapitools.client.models.*
+//import ai.cardscan.client.infrastructure.*
+//import ai.cardscan.client.models.*
 
 val apiInstance = CardScanApi()
 val createEligibilityRequest : CreateEligibilityRequest =  // CreateEligibilityRequest | 
@@ -171,8 +171,8 @@ Delete Card
 ### Example
 ```kotlin
 // Import classes:
-//import org.openapitools.client.infrastructure.*
-//import org.openapitools.client.models.*
+//import ai.cardscan.client.infrastructure.*
+//import ai.cardscan.client.models.*
 
 val apiInstance = CardScanApi()
 val cardId : java.util.UUID = 38400000-8cf0-11bd-b23e-10b96e4ef00d // java.util.UUID | The ID of the card
@@ -216,8 +216,8 @@ Direct Upload
 ### Example
 ```kotlin
 // Import classes:
-//import org.openapitools.client.infrastructure.*
-//import org.openapitools.client.models.*
+//import ai.cardscan.client.infrastructure.*
+//import ai.cardscan.client.models.*
 
 val apiInstance = CardScanApi()
 val cardId : java.util.UUID = 38400000-8cf0-11bd-b23e-10b96e4ef00d // java.util.UUID | 
@@ -268,8 +268,8 @@ Card - Generate Upload URL
 ### Example
 ```kotlin
 // Import classes:
-//import org.openapitools.client.infrastructure.*
-//import org.openapitools.client.models.*
+//import ai.cardscan.client.infrastructure.*
+//import ai.cardscan.client.models.*
 
 val apiInstance = CardScanApi()
 val cardId : java.util.UUID = 38400000-8cf0-11bd-b23e-10b96e4ef00d // java.util.UUID | 
@@ -318,8 +318,8 @@ Generate Magic Link
 ### Example
 ```kotlin
 // Import classes:
-//import org.openapitools.client.infrastructure.*
-//import org.openapitools.client.models.*
+//import ai.cardscan.client.infrastructure.*
+//import ai.cardscan.client.models.*
 
 val apiInstance = CardScanApi()
 try {
@@ -361,8 +361,8 @@ Generate an upload URL
 ### Example
 ```kotlin
 // Import classes:
-//import org.openapitools.client.infrastructure.*
-//import org.openapitools.client.models.*
+//import ai.cardscan.client.infrastructure.*
+//import ai.cardscan.client.models.*
 
 val apiInstance = CardScanApi()
 val expiration : kotlin.Int = 56 // kotlin.Int | 
@@ -407,8 +407,8 @@ Access Token
 ### Example
 ```kotlin
 // Import classes:
-//import org.openapitools.client.infrastructure.*
-//import org.openapitools.client.models.*
+//import ai.cardscan.client.infrastructure.*
+//import ai.cardscan.client.models.*
 
 val apiInstance = CardScanApi()
 val userId : kotlin.String = userId_example // kotlin.String | The ID of the user
@@ -453,8 +453,8 @@ Get Card by ID
 ### Example
 ```kotlin
 // Import classes:
-//import org.openapitools.client.infrastructure.*
-//import org.openapitools.client.models.*
+//import ai.cardscan.client.infrastructure.*
+//import ai.cardscan.client.models.*
 
 val apiInstance = CardScanApi()
 val cardId : java.util.UUID = 38400000-8cf0-11bd-b23e-10b96e4ef00d // java.util.UUID | The ID of the card
@@ -499,8 +499,8 @@ Get Eligibility
 ### Example
 ```kotlin
 // Import classes:
-//import org.openapitools.client.infrastructure.*
-//import org.openapitools.client.models.*
+//import ai.cardscan.client.infrastructure.*
+//import ai.cardscan.client.models.*
 
 val apiInstance = CardScanApi()
 val eligibilityId : kotlin.String = eligibilityId_example // kotlin.String | 
@@ -545,8 +545,8 @@ Get Scan Metadata
 ### Example
 ```kotlin
 // Import classes:
-//import org.openapitools.client.infrastructure.*
-//import org.openapitools.client.models.*
+//import ai.cardscan.client.infrastructure.*
+//import ai.cardscan.client.models.*
 
 val apiInstance = CardScanApi()
 val scanId : java.util.UUID = 38400000-8cf0-11bd-b23e-10b96e4ef00d // java.util.UUID | 
@@ -590,8 +590,8 @@ List Cards
 ### Example
 ```kotlin
 // Import classes:
-//import org.openapitools.client.infrastructure.*
-//import org.openapitools.client.models.*
+//import ai.cardscan.client.infrastructure.*
+//import ai.cardscan.client.models.*
 
 val apiInstance = CardScanApi()
 val limit : kotlin.Int = 56 // kotlin.Int | 
@@ -638,8 +638,8 @@ List Eligibility
 ### Example
 ```kotlin
 // Import classes:
-//import org.openapitools.client.infrastructure.*
-//import org.openapitools.client.models.*
+//import ai.cardscan.client.infrastructure.*
+//import ai.cardscan.client.models.*
 
 val apiInstance = CardScanApi()
 val limit : kotlin.Int = 56 // kotlin.Int | 
@@ -686,8 +686,8 @@ Search Cards (200) OK
 ### Example
 ```kotlin
 // Import classes:
-//import org.openapitools.client.infrastructure.*
-//import org.openapitools.client.models.*
+//import ai.cardscan.client.infrastructure.*
+//import ai.cardscan.client.models.*
 
 val apiInstance = CardScanApi()
 val query : kotlin.String = query_example // kotlin.String | 
@@ -736,8 +736,8 @@ Validate Magic Link
 ### Example
 ```kotlin
 // Import classes:
-//import org.openapitools.client.infrastructure.*
-//import org.openapitools.client.models.*
+//import ai.cardscan.client.infrastructure.*
+//import ai.cardscan.client.models.*
 
 val apiInstance = CardScanApi()
 val token : kotlin.String = token_example // kotlin.String | 

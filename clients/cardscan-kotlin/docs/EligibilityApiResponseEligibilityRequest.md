@@ -6,7 +6,7 @@
 | ------------ | ------------- | ------------- | ------------- |
 | **controlNumber** | **kotlin.String** | The control number of the claim. |  [optional] |
 | **tradingPartnerServiceId** | **kotlin.String** | The ID of the trading partner service. |  [optional] |
-| **provider** | [**ProviderDto**](ProviderDto.md) |  |  [optional] |
+| **provider** | [**EligibilityApiResponseEligibilityRequestProvider**](EligibilityApiResponseEligibilityRequestProvider.md) |  |  [optional] |
 | **subscriber** | [**EligibilityApiResponseEligibilityRequestSubscriber**](EligibilityApiResponseEligibilityRequestSubscriber.md) |  |  [optional] |
 
 
