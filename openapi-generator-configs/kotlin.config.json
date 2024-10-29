@@ -1,0 +1,4 @@
+{
+  "serializationLibrary": "kotlinx_serialization",
+  "packageName": "ai.cardscan.client"
+}
