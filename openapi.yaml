@@ -1464,15 +1464,9 @@ components:
               $ref: '#/components/schemas/MatchScore'
             card_specific_id:
               $ref: '#/components/schemas/MatchScore'
-            address:
-              type: array
-              items:
-                $ref: '#/components/schemas/MatchScore'
             client_name:
               $ref: '#/components/schemas/MatchScore'
             payer_id:
-              $ref: '#/components/schemas/MatchScore'
-            phone_number:
               $ref: '#/components/schemas/MatchScore'
             plan_details:
               $ref: '#/components/schemas/MatchScore'
@@ -1484,14 +1478,6 @@ components:
               $ref: '#/components/schemas/MatchScore'
             start_date:
               $ref: '#/components/schemas/MatchScore'
-            copay_amount:
-              type: array
-              items:
-                $ref: '#/components/schemas/MatchScore'
-            copay_benefit:
-              type: array
-              items:
-                $ref: '#/components/schemas/MatchScore'
             employer:
               $ref: '#/components/schemas/MatchScore'
             medicare_medicaid_id:
@@ -1507,10 +1493,6 @@ components:
             part_a_effective_date:
               $ref: '#/components/schemas/MatchScore'
             part_b_effective_date:
-              $ref: '#/components/schemas/MatchScore'
-            payer_address:
-              $ref: '#/components/schemas/MatchScore'
-            payer_phone_number:
               $ref: '#/components/schemas/MatchScore'
             pharmacy_benefit_manager:
               $ref: '#/components/schemas/MatchScore'
