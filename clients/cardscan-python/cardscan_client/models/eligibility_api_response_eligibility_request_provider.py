@@ -19,17 +19,16 @@ import json
 
 
 from typing import Optional
-from pydantic import BaseModel, Field, StrictStr
+from pydantic import BaseModel, StrictStr
 
-class EligibilityApiResponseEligibilityRequestSubscriber(BaseModel):
+class EligibilityApiResponseEligibilityRequestProvider(BaseModel):
     """
-    EligibilityApiResponseEligibilityRequestSubscriber
+    EligibilityApiResponseEligibilityRequestProvider
     """
-    first_name: Optional[StrictStr] = Field(default=None, description="The first name of the subscriber.")
-    last_name: Optional[StrictStr] = Field(default=None, description="The last name of the subscriber.")
-    member_id: Optional[StrictStr] = Field(default=None, description="The member ID of the subscriber.")
-    date_of_birth: Optional[StrictStr] = Field(default=None, description="The date of birth of the subscriber.")
-    __properties = ["first_name", "last_name", "member_id", "date_of_birth"]
+    first_name: Optional[StrictStr] = None
+    last_name: Optional[StrictStr] = None
+    npi: Optional[StrictStr] = None
+    __properties = ["first_name", "last_name", "npi"]
 
     class Config:
         """Pydantic configuration"""
@@ -45,8 +44,8 @@ class EligibilityApiResponseEligibilityRequestSubscriber(BaseModel):
         return json.dumps(self.to_dict())
 
     @classmethod
-    def from_json(cls, json_str: str) -> EligibilityApiResponseEligibilityRequestSubscriber:
-        """Create an instance of EligibilityApiResponseEligibilityRequestSubscriber from a JSON string"""
+    def from_json(cls, json_str: str) -> EligibilityApiResponseEligibilityRequestProvider:
+        """Create an instance of EligibilityApiResponseEligibilityRequestProvider from a JSON string"""
         return cls.from_dict(json.loads(json_str))
 
     def to_dict(self):
@@ -58,19 +57,18 @@ class EligibilityApiResponseEligibilityRequestSubscriber(BaseModel):
         return _dict
 
     @classmethod
-    def from_dict(cls, obj: dict) -> EligibilityApiResponseEligibilityRequestSubscriber:
-        """Create an instance of EligibilityApiResponseEligibilityRequestSubscriber from a dict"""
+    def from_dict(cls, obj: dict) -> EligibilityApiResponseEligibilityRequestProvider:
+        """Create an instance of EligibilityApiResponseEligibilityRequestProvider from a dict"""
         if obj is None:
             return None
 
         if not isinstance(obj, dict):
-            return EligibilityApiResponseEligibilityRequestSubscriber.parse_obj(obj)
+            return EligibilityApiResponseEligibilityRequestProvider.parse_obj(obj)
 
-        _obj = EligibilityApiResponseEligibilityRequestSubscriber.parse_obj({
+        _obj = EligibilityApiResponseEligibilityRequestProvider.parse_obj({
             "first_name": obj.get("first_name"),
             "last_name": obj.get("last_name"),
-            "member_id": obj.get("member_id"),
-            "date_of_birth": obj.get("date_of_birth")
+            "npi": obj.get("npi")
         })
         return _obj
 

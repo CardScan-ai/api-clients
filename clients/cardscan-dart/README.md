@@ -108,6 +108,7 @@ Class | Method | HTTP request | Description
  - [DirectUploadRequest](doc/DirectUploadRequest.md)
  - [EligibilityApiResponse](doc/EligibilityApiResponse.md)
  - [EligibilityApiResponseEligibilityRequest](doc/EligibilityApiResponseEligibilityRequest.md)
+ - [EligibilityApiResponseEligibilityRequestProvider](doc/EligibilityApiResponseEligibilityRequestProvider.md)
  - [EligibilityApiResponseEligibilityRequestSubscriber](doc/EligibilityApiResponseEligibilityRequestSubscriber.md)
  - [EligibilityInfo](doc/EligibilityInfo.md)
  - [EligibilityState](doc/EligibilityState.md)

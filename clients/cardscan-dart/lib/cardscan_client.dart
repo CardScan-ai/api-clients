@@ -33,6 +33,7 @@ export 'package:cardscan_client/src/model/direct_upload200_response_metadata.dar
 export 'package:cardscan_client/src/model/direct_upload_request.dart';
 export 'package:cardscan_client/src/model/eligibility_api_response.dart';
 export 'package:cardscan_client/src/model/eligibility_api_response_eligibility_request.dart';
+export 'package:cardscan_client/src/model/eligibility_api_response_eligibility_request_provider.dart';
 export 'package:cardscan_client/src/model/eligibility_api_response_eligibility_request_subscriber.dart';
 export 'package:cardscan_client/src/model/eligibility_info.dart';
 export 'package:cardscan_client/src/model/eligibility_state.dart';
