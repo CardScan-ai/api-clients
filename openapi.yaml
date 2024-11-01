@@ -1464,6 +1464,40 @@ components:
               $ref: '#/components/schemas/MatchScore'
             card_specific_id:
               $ref: '#/components/schemas/MatchScore'
+            client_name:
+              $ref: '#/components/schemas/MatchScore'
+            payer_id:
+              $ref: '#/components/schemas/MatchScore'
+            plan_details:
+              $ref: '#/components/schemas/MatchScore'
+            rx_id:
+              $ref: '#/components/schemas/MatchScore'
+            rx_issuer:
+              $ref: '#/components/schemas/MatchScore'
+            rx_plan:
+              $ref: '#/components/schemas/MatchScore'
+            start_date:
+              $ref: '#/components/schemas/MatchScore'
+            employer:
+              $ref: '#/components/schemas/MatchScore'
+            medicare_medicaid_id:
+              $ref: '#/components/schemas/MatchScore'
+            member_dob:
+              $ref: '#/components/schemas/MatchScore'
+            member_gender:
+              $ref: '#/components/schemas/MatchScore'
+            member_id_prefix:
+              $ref: '#/components/schemas/MatchScore'
+            member_id_suffix:
+              $ref: '#/components/schemas/MatchScore'
+            part_a_effective_date:
+              $ref: '#/components/schemas/MatchScore'
+            part_b_effective_date:
+              $ref: '#/components/schemas/MatchScore'
+            pharmacy_benefit_manager:
+              $ref: '#/components/schemas/MatchScore'
+            plan_type:
+              $ref: '#/components/schemas/MatchScore'
     CardState:
       type: string
       enum:
