@@ -16,7 +16,7 @@ import type { ConfigurationParameters, NameCase } from "../configuration";
 import { Configuration } from "../configuration";
 import * as yup from "yup";
 import type { AxiosPromise, AxiosInstance, RawAxiosRequestConfig } from "axios";
-import WebSocket from "modern-isomorphic-ws";
+import WebSocket from "isomorphic-ws";
 import { XMLParser } from "fast-xml-parser";
 import type { Stream } from "stream";
 import FormData from "form-data";

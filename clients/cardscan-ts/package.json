@@ -29,16 +29,15 @@
     "format": "prettier --write **/*.ts"
   },
   "dependencies": {
-    "console-log-level": "^1.4.1",
-    "loglevel": "^1.9.2",
-    "modern-isomorphic-ws": "^1.0.5",
-    "uninstall": "^0.0.0",
-    "ws": "^8.18.0",
-    "yup": "^1.4.0",
     "axios": "1.7.4",
+    "console-log-level": "^1.4.1",
     "fast-xml-parser": "4.4.1",
     "form-data": "4.0.0",
-    "winston": "3.13.0"
+    "isomorphic-ws": "^5.0.0",
+    "loglevel": "^1.9.2",
+    "winston": "3.13.0",
+    "ws": "^8.18.0",
+    "yup": "^1.4.0"
   },
   "devDependencies": {
     "@types/console-log-level": "^1.4.5",

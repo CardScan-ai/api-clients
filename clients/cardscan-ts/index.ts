@@ -15,4 +15,4 @@
 export * from "./api";
 export * from "./configuration";
 export * from "./models";
-export { default as IsoWebSocket } from "modern-isomorphic-ws";
+export { default as IsoWebSocket } from "isomorphic-ws";
