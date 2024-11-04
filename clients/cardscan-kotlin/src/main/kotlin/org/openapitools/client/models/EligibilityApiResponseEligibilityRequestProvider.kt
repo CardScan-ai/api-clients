@@ -22,19 +22,22 @@ import com.squareup.moshi.JsonClass
 /**
  * 
  *
- * @param `value` The matching score value of the card.
- * @param scores 
+ * @param firstName 
+ * @param lastName 
+ * @param npi 
  */
 
 
-data class MatchScore (
+data class EligibilityApiResponseEligibilityRequestProvider (
 
-    /* The matching score value of the card. */
-    @Json(name = "value")
-    val `value`: kotlin.String? = null,
+    @Json(name = "first_name")
+    val firstName: kotlin.String? = null,
 
-    @Json(name = "scores")
-    val scores: kotlin.collections.List<kotlin.String>? = null
+    @Json(name = "last_name")
+    val lastName: kotlin.String? = null,
+
+    @Json(name = "npi")
+    val npi: kotlin.String? = null
 
 ) {
 

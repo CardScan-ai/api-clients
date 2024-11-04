@@ -6,54 +6,46 @@
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 
-part 'eligibility_api_response_eligibility_request_subscriber.g.dart';
+part 'eligibility_api_response_eligibility_request_provider.g.dart';
 
-/// EligibilityApiResponseEligibilityRequestSubscriber
+/// EligibilityApiResponseEligibilityRequestProvider
 ///
 /// Properties:
-/// * [firstName] - The first name of the subscriber.
-/// * [lastName] - The last name of the subscriber.
-/// * [memberId] - The member ID of the subscriber.
-/// * [dateOfBirth] - The date of birth of the subscriber.
+/// * [firstName] 
+/// * [lastName] 
+/// * [npi] 
 @BuiltValue()
-abstract class EligibilityApiResponseEligibilityRequestSubscriber implements Built<EligibilityApiResponseEligibilityRequestSubscriber, EligibilityApiResponseEligibilityRequestSubscriberBuilder> {
-  /// The first name of the subscriber.
+abstract class EligibilityApiResponseEligibilityRequestProvider implements Built<EligibilityApiResponseEligibilityRequestProvider, EligibilityApiResponseEligibilityRequestProviderBuilder> {
   @BuiltValueField(wireName: r'first_name')
   String? get firstName;
 
-  /// The last name of the subscriber.
   @BuiltValueField(wireName: r'last_name')
   String? get lastName;
 
-  /// The member ID of the subscriber.
-  @BuiltValueField(wireName: r'member_id')
-  String? get memberId;
+  @BuiltValueField(wireName: r'npi')
+  String? get npi;
 
-  /// The date of birth of the subscriber.
-  @BuiltValueField(wireName: r'date_of_birth')
-  String? get dateOfBirth;
+  EligibilityApiResponseEligibilityRequestProvider._();
 
-  EligibilityApiResponseEligibilityRequestSubscriber._();
-
-  factory EligibilityApiResponseEligibilityRequestSubscriber([void updates(EligibilityApiResponseEligibilityRequestSubscriberBuilder b)]) = _$EligibilityApiResponseEligibilityRequestSubscriber;
+  factory EligibilityApiResponseEligibilityRequestProvider([void updates(EligibilityApiResponseEligibilityRequestProviderBuilder b)]) = _$EligibilityApiResponseEligibilityRequestProvider;
 
   @BuiltValueHook(initializeBuilder: true)
-  static void _defaults(EligibilityApiResponseEligibilityRequestSubscriberBuilder b) => b;
+  static void _defaults(EligibilityApiResponseEligibilityRequestProviderBuilder b) => b;
 
   @BuiltValueSerializer(custom: true)
-  static Serializer<EligibilityApiResponseEligibilityRequestSubscriber> get serializer => _$EligibilityApiResponseEligibilityRequestSubscriberSerializer();
+  static Serializer<EligibilityApiResponseEligibilityRequestProvider> get serializer => _$EligibilityApiResponseEligibilityRequestProviderSerializer();
 }
 
-class _$EligibilityApiResponseEligibilityRequestSubscriberSerializer implements PrimitiveSerializer<EligibilityApiResponseEligibilityRequestSubscriber> {
+class _$EligibilityApiResponseEligibilityRequestProviderSerializer implements PrimitiveSerializer<EligibilityApiResponseEligibilityRequestProvider> {
   @override
-  final Iterable<Type> types = const [EligibilityApiResponseEligibilityRequestSubscriber, _$EligibilityApiResponseEligibilityRequestSubscriber];
+  final Iterable<Type> types = const [EligibilityApiResponseEligibilityRequestProvider, _$EligibilityApiResponseEligibilityRequestProvider];
 
   @override
-  final String wireName = r'EligibilityApiResponseEligibilityRequestSubscriber';
+  final String wireName = r'EligibilityApiResponseEligibilityRequestProvider';
 
   Iterable<Object?> _serializeProperties(
     Serializers serializers,
-    EligibilityApiResponseEligibilityRequestSubscriber object, {
+    EligibilityApiResponseEligibilityRequestProvider object, {
     FullType specifiedType = FullType.unspecified,
   }) sync* {
     if (object.firstName != null) {
@@ -70,17 +62,10 @@ class _$EligibilityApiResponseEligibilityRequestSubscriberSerializer implements 
         specifiedType: const FullType(String),
       );
     }
-    if (object.memberId != null) {
-      yield r'member_id';
+    if (object.npi != null) {
+      yield r'npi';
       yield serializers.serialize(
-        object.memberId,
-        specifiedType: const FullType(String),
-      );
-    }
-    if (object.dateOfBirth != null) {
-      yield r'date_of_birth';
-      yield serializers.serialize(
-        object.dateOfBirth,
+        object.npi,
         specifiedType: const FullType(String),
       );
     }
@@ -89,7 +74,7 @@ class _$EligibilityApiResponseEligibilityRequestSubscriberSerializer implements 
   @override
   Object serialize(
     Serializers serializers,
-    EligibilityApiResponseEligibilityRequestSubscriber object, {
+    EligibilityApiResponseEligibilityRequestProvider object, {
     FullType specifiedType = FullType.unspecified,
   }) {
     return _serializeProperties(serializers, object, specifiedType: specifiedType).toList();
@@ -100,7 +85,7 @@ class _$EligibilityApiResponseEligibilityRequestSubscriberSerializer implements 
     Object serialized, {
     FullType specifiedType = FullType.unspecified,
     required List<Object?> serializedList,
-    required EligibilityApiResponseEligibilityRequestSubscriberBuilder result,
+    required EligibilityApiResponseEligibilityRequestProviderBuilder result,
     required List<Object?> unhandled,
   }) {
     for (var i = 0; i < serializedList.length; i += 2) {
@@ -121,19 +106,12 @@ class _$EligibilityApiResponseEligibilityRequestSubscriberSerializer implements 
           ) as String;
           result.lastName = valueDes;
           break;
-        case r'member_id':
+        case r'npi':
           final valueDes = serializers.deserialize(
             value,
             specifiedType: const FullType(String),
           ) as String;
-          result.memberId = valueDes;
-          break;
-        case r'date_of_birth':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String;
-          result.dateOfBirth = valueDes;
+          result.npi = valueDes;
           break;
         default:
           unhandled.add(key);
@@ -144,12 +122,12 @@ class _$EligibilityApiResponseEligibilityRequestSubscriberSerializer implements 
   }
 
   @override
-  EligibilityApiResponseEligibilityRequestSubscriber deserialize(
+  EligibilityApiResponseEligibilityRequestProvider deserialize(
     Serializers serializers,
     Object serialized, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final result = EligibilityApiResponseEligibilityRequestSubscriberBuilder();
+    final result = EligibilityApiResponseEligibilityRequestProviderBuilder();
     final serializedList = (serialized as Iterable<Object?>).toList();
     final unhandled = <Object?>[];
     _deserializeProperties(

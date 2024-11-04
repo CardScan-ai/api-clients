@@ -24,6 +24,7 @@ doc/DirectUpload200ResponseMetadata.md
 doc/DirectUploadRequest.md
 doc/EligibilityApiResponse.md
 doc/EligibilityApiResponseEligibilityRequest.md
+doc/EligibilityApiResponseEligibilityRequestProvider.md
 doc/EligibilityApiResponseEligibilityRequestSubscriber.md
 doc/EligibilityInfo.md
 doc/EligibilityState.md
@@ -94,6 +95,7 @@ lib/src/model/direct_upload200_response_metadata.dart
 lib/src/model/direct_upload_request.dart
 lib/src/model/eligibility_api_response.dart
 lib/src/model/eligibility_api_response_eligibility_request.dart
+lib/src/model/eligibility_api_response_eligibility_request_provider.dart
 lib/src/model/eligibility_api_response_eligibility_request_subscriber.dart
 lib/src/model/eligibility_info.dart
 lib/src/model/eligibility_state.dart
@@ -132,4 +134,4 @@ lib/src/model/upload_parameters.dart
 lib/src/model/validate_magic_link200_response.dart
 lib/src/model/websocket_error.dart
 lib/src/serializers.dart
-test/card_performance200_response_test.dart
+test/eligibility_api_response_eligibility_request_provider_test.dart

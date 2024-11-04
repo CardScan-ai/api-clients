@@ -36,6 +36,7 @@ import 'package:cardscan_client/src/model/direct_upload200_response_metadata.dar
 import 'package:cardscan_client/src/model/direct_upload_request.dart';
 import 'package:cardscan_client/src/model/eligibility_api_response.dart';
 import 'package:cardscan_client/src/model/eligibility_api_response_eligibility_request.dart';
+import 'package:cardscan_client/src/model/eligibility_api_response_eligibility_request_provider.dart';
 import 'package:cardscan_client/src/model/eligibility_api_response_eligibility_request_subscriber.dart';
 import 'package:cardscan_client/src/model/eligibility_info.dart';
 import 'package:cardscan_client/src/model/eligibility_state.dart';
@@ -99,6 +100,7 @@ part 'serializers.g.dart';
   DirectUploadRequest,
   EligibilityApiResponse,
   EligibilityApiResponseEligibilityRequest,
+  EligibilityApiResponseEligibilityRequestProvider,
   EligibilityApiResponseEligibilityRequestSubscriber,
   EligibilityInfo,
   EligibilityState,

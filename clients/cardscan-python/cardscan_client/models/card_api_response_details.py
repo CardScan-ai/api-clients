@@ -36,7 +36,24 @@ class CardApiResponseDetails(BaseModel):
     plan_name: Optional[MatchScore] = None
     plan_id: Optional[MatchScore] = None
     card_specific_id: Optional[MatchScore] = None
-    __properties = ["group_number", "member_number", "payer_name", "rx_bin", "rx_pcn", "member_name", "dependent_names", "plan_name", "plan_id", "card_specific_id"]
+    client_name: Optional[MatchScore] = None
+    payer_id: Optional[MatchScore] = None
+    plan_details: Optional[MatchScore] = None
+    rx_id: Optional[MatchScore] = None
+    rx_issuer: Optional[MatchScore] = None
+    rx_plan: Optional[MatchScore] = None
+    start_date: Optional[MatchScore] = None
+    employer: Optional[MatchScore] = None
+    medicare_medicaid_id: Optional[MatchScore] = None
+    member_dob: Optional[MatchScore] = None
+    member_gender: Optional[MatchScore] = None
+    member_id_prefix: Optional[MatchScore] = None
+    member_id_suffix: Optional[MatchScore] = None
+    part_a_effective_date: Optional[MatchScore] = None
+    part_b_effective_date: Optional[MatchScore] = None
+    pharmacy_benefit_manager: Optional[MatchScore] = None
+    plan_type: Optional[MatchScore] = None
+    __properties = ["group_number", "member_number", "payer_name", "rx_bin", "rx_pcn", "member_name", "dependent_names", "plan_name", "plan_id", "card_specific_id", "client_name", "payer_id", "plan_details", "rx_id", "rx_issuer", "rx_plan", "start_date", "employer", "medicare_medicaid_id", "member_dob", "member_gender", "member_id_prefix", "member_id_suffix", "part_a_effective_date", "part_b_effective_date", "pharmacy_benefit_manager", "plan_type"]
 
     class Config:
         """Pydantic configuration"""
@@ -96,6 +113,57 @@ class CardApiResponseDetails(BaseModel):
         # override the default output from pydantic by calling `to_dict()` of card_specific_id
         if self.card_specific_id:
             _dict['card_specific_id'] = self.card_specific_id.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of client_name
+        if self.client_name:
+            _dict['client_name'] = self.client_name.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of payer_id
+        if self.payer_id:
+            _dict['payer_id'] = self.payer_id.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of plan_details
+        if self.plan_details:
+            _dict['plan_details'] = self.plan_details.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of rx_id
+        if self.rx_id:
+            _dict['rx_id'] = self.rx_id.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of rx_issuer
+        if self.rx_issuer:
+            _dict['rx_issuer'] = self.rx_issuer.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of rx_plan
+        if self.rx_plan:
+            _dict['rx_plan'] = self.rx_plan.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of start_date
+        if self.start_date:
+            _dict['start_date'] = self.start_date.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of employer
+        if self.employer:
+            _dict['employer'] = self.employer.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of medicare_medicaid_id
+        if self.medicare_medicaid_id:
+            _dict['medicare_medicaid_id'] = self.medicare_medicaid_id.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of member_dob
+        if self.member_dob:
+            _dict['member_dob'] = self.member_dob.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of member_gender
+        if self.member_gender:
+            _dict['member_gender'] = self.member_gender.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of member_id_prefix
+        if self.member_id_prefix:
+            _dict['member_id_prefix'] = self.member_id_prefix.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of member_id_suffix
+        if self.member_id_suffix:
+            _dict['member_id_suffix'] = self.member_id_suffix.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of part_a_effective_date
+        if self.part_a_effective_date:
+            _dict['part_a_effective_date'] = self.part_a_effective_date.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of part_b_effective_date
+        if self.part_b_effective_date:
+            _dict['part_b_effective_date'] = self.part_b_effective_date.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of pharmacy_benefit_manager
+        if self.pharmacy_benefit_manager:
+            _dict['pharmacy_benefit_manager'] = self.pharmacy_benefit_manager.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of plan_type
+        if self.plan_type:
+            _dict['plan_type'] = self.plan_type.to_dict()
         return _dict
 
     @classmethod
@@ -117,7 +185,24 @@ class CardApiResponseDetails(BaseModel):
             "dependent_names": [MatchScore.from_dict(_item) for _item in obj.get("dependent_names")] if obj.get("dependent_names") is not None else None,
             "plan_name": MatchScore.from_dict(obj.get("plan_name")) if obj.get("plan_name") is not None else None,
             "plan_id": MatchScore.from_dict(obj.get("plan_id")) if obj.get("plan_id") is not None else None,
-            "card_specific_id": MatchScore.from_dict(obj.get("card_specific_id")) if obj.get("card_specific_id") is not None else None
+            "card_specific_id": MatchScore.from_dict(obj.get("card_specific_id")) if obj.get("card_specific_id") is not None else None,
+            "client_name": MatchScore.from_dict(obj.get("client_name")) if obj.get("client_name") is not None else None,
+            "payer_id": MatchScore.from_dict(obj.get("payer_id")) if obj.get("payer_id") is not None else None,
+            "plan_details": MatchScore.from_dict(obj.get("plan_details")) if obj.get("plan_details") is not None else None,
+            "rx_id": MatchScore.from_dict(obj.get("rx_id")) if obj.get("rx_id") is not None else None,
+            "rx_issuer": MatchScore.from_dict(obj.get("rx_issuer")) if obj.get("rx_issuer") is not None else None,
+            "rx_plan": MatchScore.from_dict(obj.get("rx_plan")) if obj.get("rx_plan") is not None else None,
+            "start_date": MatchScore.from_dict(obj.get("start_date")) if obj.get("start_date") is not None else None,
+            "employer": MatchScore.from_dict(obj.get("employer")) if obj.get("employer") is not None else None,
+            "medicare_medicaid_id": MatchScore.from_dict(obj.get("medicare_medicaid_id")) if obj.get("medicare_medicaid_id") is not None else None,
+            "member_dob": MatchScore.from_dict(obj.get("member_dob")) if obj.get("member_dob") is not None else None,
+            "member_gender": MatchScore.from_dict(obj.get("member_gender")) if obj.get("member_gender") is not None else None,
+            "member_id_prefix": MatchScore.from_dict(obj.get("member_id_prefix")) if obj.get("member_id_prefix") is not None else None,
+            "member_id_suffix": MatchScore.from_dict(obj.get("member_id_suffix")) if obj.get("member_id_suffix") is not None else None,
+            "part_a_effective_date": MatchScore.from_dict(obj.get("part_a_effective_date")) if obj.get("part_a_effective_date") is not None else None,
+            "part_b_effective_date": MatchScore.from_dict(obj.get("part_b_effective_date")) if obj.get("part_b_effective_date") is not None else None,
+            "pharmacy_benefit_manager": MatchScore.from_dict(obj.get("pharmacy_benefit_manager")) if obj.get("pharmacy_benefit_manager") is not None else None,
+            "plan_type": MatchScore.from_dict(obj.get("plan_type")) if obj.get("plan_type") is not None else None
         })
         return _obj
 

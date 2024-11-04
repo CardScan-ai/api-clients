@@ -27,6 +27,7 @@ models/deductible.ts
 models/direct-upload-request.ts
 models/direct-upload200-response-metadata.ts
 models/direct-upload200-response.ts
+models/eligibility-api-response-eligibility-request-provider.ts
 models/eligibility-api-response-eligibility-request-subscriber.ts
 models/eligibility-api-response-eligibility-request.ts
 models/eligibility-api-response.ts

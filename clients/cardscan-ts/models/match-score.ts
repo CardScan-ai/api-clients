@@ -28,9 +28,9 @@ export interface MatchScore {
     'value'?: string;
     /**
      * 
-     * @type {Array<number>}
+     * @type {Array<string>}
      * @memberof MatchScore
      */
-    'scores'?: Array<number>;
+    'scores'?: Array<string>;
 }
 

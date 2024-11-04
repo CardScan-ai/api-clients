@@ -14,9 +14,9 @@ public struct MatchScore: Codable, JSONEncodable, Hashable {
 
     /** The matching score value of the card. */
     public var value: String?
-    public var scores: [Double]?
+    public var scores: [String]?
 
-    public init(value: String? = nil, scores: [Double]? = nil) {
+    public init(value: String? = nil, scores: [String]? = nil) {
         self.value = value
         self.scores = scores
     }

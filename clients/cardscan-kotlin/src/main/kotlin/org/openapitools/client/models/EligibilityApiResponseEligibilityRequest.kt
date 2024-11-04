@@ -15,8 +15,8 @@
 
 package org.openapitools.client.models
 
+import org.openapitools.client.models.EligibilityApiResponseEligibilityRequestProvider
 import org.openapitools.client.models.EligibilityApiResponseEligibilityRequestSubscriber
-import org.openapitools.client.models.ProviderDto
 
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
@@ -34,15 +34,15 @@ import com.squareup.moshi.JsonClass
 data class EligibilityApiResponseEligibilityRequest (
 
     /* The control number of the claim. */
-    @Json(name = "controlNumber")
+    @Json(name = "control_number")
     val controlNumber: kotlin.String? = null,
 
     /* The ID of the trading partner service. */
-    @Json(name = "tradingPartnerServiceId")
+    @Json(name = "trading_partner_service_id")
     val tradingPartnerServiceId: kotlin.String? = null,
 
     @Json(name = "provider")
-    val provider: ProviderDto? = null,
+    val provider: EligibilityApiResponseEligibilityRequestProvider? = null,
 
     @Json(name = "subscriber")
     val subscriber: EligibilityApiResponseEligibilityRequestSubscriber? = null

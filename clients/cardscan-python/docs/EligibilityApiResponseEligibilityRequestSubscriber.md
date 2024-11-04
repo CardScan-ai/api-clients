@@ -7,7 +7,7 @@ Name | Type | Description | Notes
 **first_name** | **str** | The first name of the subscriber. | [optional] 
 **last_name** | **str** | The last name of the subscriber. | [optional] 
 **member_id** | **str** | The member ID of the subscriber. | [optional] 
-**dob** | **str** | The date of birth of the subscriber. | [optional] 
+**date_of_birth** | **str** | The date of birth of the subscriber. | [optional] 
 
 ## Example
 

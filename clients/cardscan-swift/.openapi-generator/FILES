@@ -32,6 +32,7 @@ CardScanClient/Classes/OpenAPIs/Models/DirectUpload200ResponseMetadata.swift
 CardScanClient/Classes/OpenAPIs/Models/DirectUploadRequest.swift
 CardScanClient/Classes/OpenAPIs/Models/EligibilityApiResponse.swift
 CardScanClient/Classes/OpenAPIs/Models/EligibilityApiResponseEligibilityRequest.swift
+CardScanClient/Classes/OpenAPIs/Models/EligibilityApiResponseEligibilityRequestProvider.swift
 CardScanClient/Classes/OpenAPIs/Models/EligibilityApiResponseEligibilityRequestSubscriber.swift
 CardScanClient/Classes/OpenAPIs/Models/EligibilityInfo.swift
 CardScanClient/Classes/OpenAPIs/Models/EligibilityState.swift
@@ -99,6 +100,7 @@ docs/DirectUpload200ResponseMetadata.md
 docs/DirectUploadRequest.md
 docs/EligibilityApiResponse.md
 docs/EligibilityApiResponseEligibilityRequest.md
+docs/EligibilityApiResponseEligibilityRequestProvider.md
 docs/EligibilityApiResponseEligibilityRequestSubscriber.md
 docs/EligibilityInfo.md
 docs/EligibilityState.md

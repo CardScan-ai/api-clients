@@ -15,10 +15,10 @@
 
 // May contain unused imports in some cases
 // @ts-ignore
-import { EligibilityApiResponseEligibilityRequestSubscriber } from './eligibility-api-response-eligibility-request-subscriber';
+import { EligibilityApiResponseEligibilityRequestProvider } from './eligibility-api-response-eligibility-request-provider';
 // May contain unused imports in some cases
 // @ts-ignore
-import { ProviderDto } from './provider-dto';
+import { EligibilityApiResponseEligibilityRequestSubscriber } from './eligibility-api-response-eligibility-request-subscriber';
 
 /**
  * The eligibility request.
@@ -31,19 +31,19 @@ export interface EligibilityApiResponseEligibilityRequest {
      * @type {string}
      * @memberof EligibilityApiResponseEligibilityRequest
      */
-    'controlNumber'?: string;
+    'control_number'?: string;
     /**
      * The ID of the trading partner service.
      * @type {string}
      * @memberof EligibilityApiResponseEligibilityRequest
      */
-    'tradingPartnerServiceId'?: string;
+    'trading_partner_service_id'?: string;
     /**
      * 
-     * @type {ProviderDto}
+     * @type {EligibilityApiResponseEligibilityRequestProvider}
      * @memberof EligibilityApiResponseEligibilityRequest
      */
-    'provider'?: ProviderDto;
+    'provider'?: EligibilityApiResponseEligibilityRequestProvider;
     /**
      * 
      * @type {EligibilityApiResponseEligibilityRequestSubscriber}

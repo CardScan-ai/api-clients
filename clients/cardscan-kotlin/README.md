@@ -88,6 +88,7 @@ All URIs are relative to *https://sandbox.cardscan.ai/v1*
  - [org.openapitools.client.models.DirectUploadRequest](docs/DirectUploadRequest.md)
  - [org.openapitools.client.models.EligibilityApiResponse](docs/EligibilityApiResponse.md)
  - [org.openapitools.client.models.EligibilityApiResponseEligibilityRequest](docs/EligibilityApiResponseEligibilityRequest.md)
+ - [org.openapitools.client.models.EligibilityApiResponseEligibilityRequestProvider](docs/EligibilityApiResponseEligibilityRequestProvider.md)
  - [org.openapitools.client.models.EligibilityApiResponseEligibilityRequestSubscriber](docs/EligibilityApiResponseEligibilityRequestSubscriber.md)
  - [org.openapitools.client.models.EligibilityInfo](docs/EligibilityInfo.md)
  - [org.openapitools.client.models.EligibilityState](docs/EligibilityState.md)
