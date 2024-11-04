@@ -20,18 +20,18 @@ import json
 
 from typing import Optional
 from pydantic import BaseModel, Field, StrictStr
+from cardscan_client.models.eligibility_api_response_eligibility_request_provider import EligibilityApiResponseEligibilityRequestProvider
 from cardscan_client.models.eligibility_api_response_eligibility_request_subscriber import EligibilityApiResponseEligibilityRequestSubscriber
-from cardscan_client.models.provider_dto import ProviderDto
 
 class EligibilityApiResponseEligibilityRequest(BaseModel):
     """
     The eligibility request.  # noqa: E501
     """
-    control_number: Optional[StrictStr] = Field(default=None, alias="controlNumber", description="The control number of the claim.")
-    trading_partner_service_id: Optional[StrictStr] = Field(default=None, alias="tradingPartnerServiceId", description="The ID of the trading partner service.")
-    provider: Optional[ProviderDto] = None
+    control_number: Optional[StrictStr] = Field(default=None, description="The control number of the claim.")
+    trading_partner_service_id: Optional[StrictStr] = Field(default=None, description="The ID of the trading partner service.")
+    provider: Optional[EligibilityApiResponseEligibilityRequestProvider] = None
     subscriber: Optional[EligibilityApiResponseEligibilityRequestSubscriber] = None
-    __properties = ["controlNumber", "tradingPartnerServiceId", "provider", "subscriber"]
+    __properties = ["control_number", "trading_partner_service_id", "provider", "subscriber"]
 
     class Config:
         """Pydantic configuration"""
@@ -75,9 +75,9 @@ class EligibilityApiResponseEligibilityRequest(BaseModel):
             return EligibilityApiResponseEligibilityRequest.parse_obj(obj)
 
         _obj = EligibilityApiResponseEligibilityRequest.parse_obj({
-            "control_number": obj.get("controlNumber"),
-            "trading_partner_service_id": obj.get("tradingPartnerServiceId"),
-            "provider": ProviderDto.from_dict(obj.get("provider")) if obj.get("provider") is not None else None,
+            "control_number": obj.get("control_number"),
+            "trading_partner_service_id": obj.get("trading_partner_service_id"),
+            "provider": EligibilityApiResponseEligibilityRequestProvider.from_dict(obj.get("provider")) if obj.get("provider") is not None else None,
             "subscriber": EligibilityApiResponseEligibilityRequestSubscriber.from_dict(obj.get("subscriber")) if obj.get("subscriber") is not None else None
         })
         return _obj

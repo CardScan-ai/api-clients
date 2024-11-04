@@ -21,7 +21,7 @@ abstract class MatchScore implements Built<MatchScore, MatchScoreBuilder> {
   String? get value;
 
   @BuiltValueField(wireName: r'scores')
-  BuiltList<num>? get scores;
+  BuiltList<String>? get scores;
 
   MatchScore._();
 
@@ -57,7 +57,7 @@ class _$MatchScoreSerializer implements PrimitiveSerializer<MatchScore> {
       yield r'scores';
       yield serializers.serialize(
         object.scores,
-        specifiedType: const FullType(BuiltList, [FullType(num)]),
+        specifiedType: const FullType(BuiltList, [FullType(String)]),
       );
     }
   }
@@ -93,8 +93,8 @@ class _$MatchScoreSerializer implements PrimitiveSerializer<MatchScore> {
         case r'scores':
           final valueDes = serializers.deserialize(
             value,
-            specifiedType: const FullType(BuiltList, [FullType(num)]),
-          ) as BuiltList<num>;
+            specifiedType: const FullType(BuiltList, [FullType(String)]),
+          ) as BuiltList<String>;
           result.scores.replace(valueDes);
           break;
         default:

@@ -17,6 +17,7 @@ CardScanClient/Classes/OpenAPIs/Models/CardApiResponseDetails.swift
 CardScanClient/Classes/OpenAPIs/Models/CardApiResponseImages.swift
 CardScanClient/Classes/OpenAPIs/Models/CardApiResponseImagesBack.swift
 CardScanClient/Classes/OpenAPIs/Models/CardApiResponseImagesFront.swift
+CardScanClient/Classes/OpenAPIs/Models/CardPerformance200Response.swift
 CardScanClient/Classes/OpenAPIs/Models/CardState.swift
 CardScanClient/Classes/OpenAPIs/Models/CardWebsocketEvent.swift
 CardScanClient/Classes/OpenAPIs/Models/CoInsurance.swift
@@ -31,6 +32,7 @@ CardScanClient/Classes/OpenAPIs/Models/DirectUpload200ResponseMetadata.swift
 CardScanClient/Classes/OpenAPIs/Models/DirectUploadRequest.swift
 CardScanClient/Classes/OpenAPIs/Models/EligibilityApiResponse.swift
 CardScanClient/Classes/OpenAPIs/Models/EligibilityApiResponseEligibilityRequest.swift
+CardScanClient/Classes/OpenAPIs/Models/EligibilityApiResponseEligibilityRequestProvider.swift
 CardScanClient/Classes/OpenAPIs/Models/EligibilityApiResponseEligibilityRequestSubscriber.swift
 CardScanClient/Classes/OpenAPIs/Models/EligibilityInfo.swift
 CardScanClient/Classes/OpenAPIs/Models/EligibilityState.swift
@@ -82,6 +84,7 @@ docs/CardApiResponseDetails.md
 docs/CardApiResponseImages.md
 docs/CardApiResponseImagesBack.md
 docs/CardApiResponseImagesFront.md
+docs/CardPerformance200Response.md
 docs/CardScanAPI.md
 docs/CardState.md
 docs/CardWebsocketEvent.md
@@ -97,6 +100,7 @@ docs/DirectUpload200ResponseMetadata.md
 docs/DirectUploadRequest.md
 docs/EligibilityApiResponse.md
 docs/EligibilityApiResponseEligibilityRequest.md
+docs/EligibilityApiResponseEligibilityRequestProvider.md
 docs/EligibilityApiResponseEligibilityRequestSubscriber.md
 docs/EligibilityInfo.md
 docs/EligibilityState.md

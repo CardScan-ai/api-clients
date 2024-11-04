@@ -13,6 +13,57 @@ import AnyCodable
 open class CardScanAPI {
 
     /**
+     Card - Send performance data
+     
+     - parameter cardId: (path)  
+     - parameter body: (body)  (optional)
+     - parameter apiResponseQueue: The queue on which api response is dispatched.
+     - parameter completion: completion handler to receive the data and the error objects
+     */
+    @discardableResult
+    open class func cardPerformance(cardId: UUID, body: AnyCodable? = nil, apiResponseQueue: DispatchQueue = CardScanClientAPI.apiResponseQueue, completion: @escaping ((_ data: CardPerformance200Response?, _ error: Error?) -> Void)) -> RequestTask {
+        return cardPerformanceWithRequestBuilder(cardId: cardId, body: body).execute(apiResponseQueue) { result in
+            switch result {
+            case let .success(response):
+                completion(response.body, nil)
+            case let .failure(error):
+                completion(nil, error)
+            }
+        }
+    }
+
+    /**
+     Card - Send performance data
+     - POST /cards/{card_id}/performance
+     - Bearer Token:
+       - type: http
+       - name: bearerAuth
+     - parameter cardId: (path)  
+     - parameter body: (body)  (optional)
+     - returns: RequestBuilder<CardPerformance200Response> 
+     */
+    open class func cardPerformanceWithRequestBuilder(cardId: UUID, body: AnyCodable? = nil) -> RequestBuilder<CardPerformance200Response> {
+        var localVariablePath = "/cards/{card_id}/performance"
+        let cardIdPreEscape = "\(APIHelper.mapValueToPathItem(cardId))"
+        let cardIdPostEscape = cardIdPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
+        localVariablePath = localVariablePath.replacingOccurrences(of: "{card_id}", with: cardIdPostEscape, options: .literal, range: nil)
+        let localVariableURLString = CardScanClientAPI.basePath + localVariablePath
+        let localVariableParameters = JSONEncodingHelper.encodingParameters(forEncodableObject: body)
+
+        let localVariableUrlComponents = URLComponents(string: localVariableURLString)
+
+        let localVariableNillableHeaders: [String: Any?] = [
+            "Content-Type": "application/json",
+        ]
+
+        let localVariableHeaderParameters = APIHelper.rejectNilHeaders(localVariableNillableHeaders)
+
+        let localVariableRequestBuilder: RequestBuilder<CardPerformance200Response>.Type = CardScanClientAPI.requestBuilderFactory.getBuilder()
+
+        return localVariableRequestBuilder.init(method: "POST", URLString: (localVariableUrlComponents?.string ?? localVariableURLString), parameters: localVariableParameters, headers: localVariableHeaderParameters, requiresAuthentication: true)
+    }
+
+    /**
      Creates a new card
      
      - parameter createCardRequest: (body)  (optional)

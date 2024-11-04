@@ -84,6 +84,108 @@ export interface CardApiResponseDetailsSnake {
    * @memberof CardApiResponseDetails
    */
   card_specific_id?: MatchScore;
+  /**
+   *
+   * @type {MatchScore}
+   * @memberof CardApiResponseDetails
+   */
+  client_name?: MatchScore;
+  /**
+   *
+   * @type {MatchScore}
+   * @memberof CardApiResponseDetails
+   */
+  payer_id?: MatchScore;
+  /**
+   *
+   * @type {MatchScore}
+   * @memberof CardApiResponseDetails
+   */
+  plan_details?: MatchScore;
+  /**
+   *
+   * @type {MatchScore}
+   * @memberof CardApiResponseDetails
+   */
+  rx_id?: MatchScore;
+  /**
+   *
+   * @type {MatchScore}
+   * @memberof CardApiResponseDetails
+   */
+  rx_issuer?: MatchScore;
+  /**
+   *
+   * @type {MatchScore}
+   * @memberof CardApiResponseDetails
+   */
+  rx_plan?: MatchScore;
+  /**
+   *
+   * @type {MatchScore}
+   * @memberof CardApiResponseDetails
+   */
+  start_date?: MatchScore;
+  /**
+   *
+   * @type {MatchScore}
+   * @memberof CardApiResponseDetails
+   */
+  employer?: MatchScore;
+  /**
+   *
+   * @type {MatchScore}
+   * @memberof CardApiResponseDetails
+   */
+  medicare_medicaid_id?: MatchScore;
+  /**
+   *
+   * @type {MatchScore}
+   * @memberof CardApiResponseDetails
+   */
+  member_dob?: MatchScore;
+  /**
+   *
+   * @type {MatchScore}
+   * @memberof CardApiResponseDetails
+   */
+  member_gender?: MatchScore;
+  /**
+   *
+   * @type {MatchScore}
+   * @memberof CardApiResponseDetails
+   */
+  member_id_prefix?: MatchScore;
+  /**
+   *
+   * @type {MatchScore}
+   * @memberof CardApiResponseDetails
+   */
+  member_id_suffix?: MatchScore;
+  /**
+   *
+   * @type {MatchScore}
+   * @memberof CardApiResponseDetails
+   */
+  part_a_effective_date?: MatchScore;
+  /**
+   *
+   * @type {MatchScore}
+   * @memberof CardApiResponseDetails
+   */
+  part_b_effective_date?: MatchScore;
+  /**
+   *
+   * @type {MatchScore}
+   * @memberof CardApiResponseDetails
+   */
+  pharmacy_benefit_manager?: MatchScore;
+  /**
+   *
+   * @type {MatchScore}
+   * @memberof CardApiResponseDetails
+   */
+  plan_type?: MatchScore;
 }
 export type CardApiResponseDetails =
   KeysToCamelCase<CardApiResponseDetailsSnake>;

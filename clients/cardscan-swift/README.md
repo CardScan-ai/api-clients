@@ -26,6 +26,7 @@ All URIs are relative to *https://sandbox.cardscan.ai/v1*
 
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
+*CardScanAPI* | [**cardPerformance**](docs/CardScanAPI.md#cardperformance) | **POST** /cards/{card_id}/performance | Card - Send performance data
 *CardScanAPI* | [**createCard**](docs/CardScanAPI.md#createcard) | **POST** /cards | Creates a new card
 *CardScanAPI* | [**createEligibility**](docs/CardScanAPI.md#createeligibility) | **POST** /eligibility | Create Eligibility Record
 *CardScanAPI* | [**deleteCardById**](docs/CardScanAPI.md#deletecardbyid) | **DELETE** /cards/{card_id} | Delete Card
@@ -52,6 +53,7 @@ Class | Method | HTTP request | Description
  - [CardApiResponseImages](docs/CardApiResponseImages.md)
  - [CardApiResponseImagesBack](docs/CardApiResponseImagesBack.md)
  - [CardApiResponseImagesFront](docs/CardApiResponseImagesFront.md)
+ - [CardPerformance200Response](docs/CardPerformance200Response.md)
  - [CardState](docs/CardState.md)
  - [CardWebsocketEvent](docs/CardWebsocketEvent.md)
  - [CoInsurance](docs/CoInsurance.md)
@@ -66,6 +68,7 @@ Class | Method | HTTP request | Description
  - [DirectUploadRequest](docs/DirectUploadRequest.md)
  - [EligibilityApiResponse](docs/EligibilityApiResponse.md)
  - [EligibilityApiResponseEligibilityRequest](docs/EligibilityApiResponseEligibilityRequest.md)
+ - [EligibilityApiResponseEligibilityRequestProvider](docs/EligibilityApiResponseEligibilityRequestProvider.md)
  - [EligibilityApiResponseEligibilityRequestSubscriber](docs/EligibilityApiResponseEligibilityRequestSubscriber.md)
  - [EligibilityInfo](docs/EligibilityInfo.md)
  - [EligibilityState](docs/EligibilityState.md)

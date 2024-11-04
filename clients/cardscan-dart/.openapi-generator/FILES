@@ -8,6 +8,7 @@ doc/CardApiResponseDetails.md
 doc/CardApiResponseImages.md
 doc/CardApiResponseImagesBack.md
 doc/CardApiResponseImagesFront.md
+doc/CardPerformance200Response.md
 doc/CardScanApi.md
 doc/CardState.md
 doc/CardWebsocketEvent.md
@@ -23,6 +24,7 @@ doc/DirectUpload200ResponseMetadata.md
 doc/DirectUploadRequest.md
 doc/EligibilityApiResponse.md
 doc/EligibilityApiResponseEligibilityRequest.md
+doc/EligibilityApiResponseEligibilityRequestProvider.md
 doc/EligibilityApiResponseEligibilityRequestSubscriber.md
 doc/EligibilityInfo.md
 doc/EligibilityState.md
@@ -77,6 +79,7 @@ lib/src/model/card_api_response_details.dart
 lib/src/model/card_api_response_images.dart
 lib/src/model/card_api_response_images_back.dart
 lib/src/model/card_api_response_images_front.dart
+lib/src/model/card_performance200_response.dart
 lib/src/model/card_state.dart
 lib/src/model/card_websocket_event.dart
 lib/src/model/co_insurance.dart
@@ -92,6 +95,7 @@ lib/src/model/direct_upload200_response_metadata.dart
 lib/src/model/direct_upload_request.dart
 lib/src/model/eligibility_api_response.dart
 lib/src/model/eligibility_api_response_eligibility_request.dart
+lib/src/model/eligibility_api_response_eligibility_request_provider.dart
 lib/src/model/eligibility_api_response_eligibility_request_subscriber.dart
 lib/src/model/eligibility_info.dart
 lib/src/model/eligibility_state.dart
@@ -130,3 +134,4 @@ lib/src/model/upload_parameters.dart
 lib/src/model/validate_magic_link200_response.dart
 lib/src/model/websocket_error.dart
 lib/src/serializers.dart
+test/eligibility_api_response_eligibility_request_provider_test.dart

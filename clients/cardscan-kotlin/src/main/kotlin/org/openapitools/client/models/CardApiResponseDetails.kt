@@ -33,6 +33,23 @@ import com.squareup.moshi.JsonClass
  * @param planName 
  * @param planId 
  * @param cardSpecificId 
+ * @param clientName 
+ * @param payerId 
+ * @param planDetails 
+ * @param rxId 
+ * @param rxIssuer 
+ * @param rxPlan 
+ * @param startDate 
+ * @param employer 
+ * @param medicareMedicaidId 
+ * @param memberDob 
+ * @param memberGender 
+ * @param memberIdPrefix 
+ * @param memberIdSuffix 
+ * @param partAEffectiveDate 
+ * @param partBEffectiveDate 
+ * @param pharmacyBenefitManager 
+ * @param planType 
  */
 
 
@@ -66,7 +83,58 @@ data class CardApiResponseDetails (
     val planId: MatchScore? = null,
 
     @Json(name = "card_specific_id")
-    val cardSpecificId: MatchScore? = null
+    val cardSpecificId: MatchScore? = null,
+
+    @Json(name = "client_name")
+    val clientName: MatchScore? = null,
+
+    @Json(name = "payer_id")
+    val payerId: MatchScore? = null,
+
+    @Json(name = "plan_details")
+    val planDetails: MatchScore? = null,
+
+    @Json(name = "rx_id")
+    val rxId: MatchScore? = null,
+
+    @Json(name = "rx_issuer")
+    val rxIssuer: MatchScore? = null,
+
+    @Json(name = "rx_plan")
+    val rxPlan: MatchScore? = null,
+
+    @Json(name = "start_date")
+    val startDate: MatchScore? = null,
+
+    @Json(name = "employer")
+    val employer: MatchScore? = null,
+
+    @Json(name = "medicare_medicaid_id")
+    val medicareMedicaidId: MatchScore? = null,
+
+    @Json(name = "member_dob")
+    val memberDob: MatchScore? = null,
+
+    @Json(name = "member_gender")
+    val memberGender: MatchScore? = null,
+
+    @Json(name = "member_id_prefix")
+    val memberIdPrefix: MatchScore? = null,
+
+    @Json(name = "member_id_suffix")
+    val memberIdSuffix: MatchScore? = null,
+
+    @Json(name = "part_a_effective_date")
+    val partAEffectiveDate: MatchScore? = null,
+
+    @Json(name = "part_b_effective_date")
+    val partBEffectiveDate: MatchScore? = null,
+
+    @Json(name = "pharmacy_benefit_manager")
+    val pharmacyBenefitManager: MatchScore? = null,
+
+    @Json(name = "plan_type")
+    val planType: MatchScore? = null
 
 ) {
 

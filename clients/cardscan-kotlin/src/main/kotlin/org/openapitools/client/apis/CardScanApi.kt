@@ -21,6 +21,7 @@ import okhttp3.HttpUrl
 
 import org.openapitools.client.models.ApiErrorResponse
 import org.openapitools.client.models.CardApiResponse
+import org.openapitools.client.models.CardPerformance200Response
 import org.openapitools.client.models.CreateCardRequest
 import org.openapitools.client.models.CreateEligibilityRequest
 import org.openapitools.client.models.DirectUpload200Response
@@ -59,6 +60,81 @@ class CardScanApi(basePath: kotlin.String = defaultBasePath, client: OkHttpClien
         val defaultBasePath: String by lazy {
             System.getProperties().getProperty(ApiClient.baseUrlKey, "https://sandbox.cardscan.ai/v1")
         }
+    }
+
+    /**
+     * Card - Send performance data
+     * 
+     * @param cardId 
+     * @param body  (optional)
+     * @return CardPerformance200Response
+     * @throws IllegalStateException If the request is not correctly configured
+     * @throws IOException Rethrows the OkHttp execute method exception
+     * @throws UnsupportedOperationException If the API returns an informational or redirection response
+     * @throws ClientException If the API returns a client error response
+     * @throws ServerException If the API returns a server error response
+     */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun cardPerformance(cardId: java.util.UUID, body: kotlin.Any? = null) : CardPerformance200Response {
+        val localVarResponse = cardPerformanceWithHttpInfo(cardId = cardId, body = body)
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as CardPerformance200Response
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()} ${localVarError.body}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+     * Card - Send performance data
+     * 
+     * @param cardId 
+     * @param body  (optional)
+     * @return ApiResponse<CardPerformance200Response?>
+     * @throws IllegalStateException If the request is not correctly configured
+     * @throws IOException Rethrows the OkHttp execute method exception
+     */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun cardPerformanceWithHttpInfo(cardId: java.util.UUID, body: kotlin.Any?) : ApiResponse<CardPerformance200Response?> {
+        val localVariableConfig = cardPerformanceRequestConfig(cardId = cardId, body = body)
+
+        return request<kotlin.Any, CardPerformance200Response>(
+            localVariableConfig
+        )
+    }
+
+    /**
+     * To obtain the request config of the operation cardPerformance
+     *
+     * @param cardId 
+     * @param body  (optional)
+     * @return RequestConfig
+     */
+    fun cardPerformanceRequestConfig(cardId: java.util.UUID, body: kotlin.Any?) : RequestConfig<kotlin.Any> {
+        val localVariableBody = body
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Content-Type"] = "application/json"
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.POST,
+            path = "/cards/{card_id}/performance".replace("{"+"card_id"+"}", encodeURIComponent(cardId.toString())),
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            requiresAuthentication = true,
+            body = localVariableBody
+        )
     }
 
     /**

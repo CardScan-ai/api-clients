@@ -14,24 +14,24 @@ part 'eligibility_api_response_eligibility_request_subscriber.g.dart';
 /// * [firstName] - The first name of the subscriber.
 /// * [lastName] - The last name of the subscriber.
 /// * [memberId] - The member ID of the subscriber.
-/// * [dob] - The date of birth of the subscriber.
+/// * [dateOfBirth] - The date of birth of the subscriber.
 @BuiltValue()
 abstract class EligibilityApiResponseEligibilityRequestSubscriber implements Built<EligibilityApiResponseEligibilityRequestSubscriber, EligibilityApiResponseEligibilityRequestSubscriberBuilder> {
   /// The first name of the subscriber.
-  @BuiltValueField(wireName: r'firstName')
+  @BuiltValueField(wireName: r'first_name')
   String? get firstName;
 
   /// The last name of the subscriber.
-  @BuiltValueField(wireName: r'lastName')
+  @BuiltValueField(wireName: r'last_name')
   String? get lastName;
 
   /// The member ID of the subscriber.
-  @BuiltValueField(wireName: r'memberId')
+  @BuiltValueField(wireName: r'member_id')
   String? get memberId;
 
   /// The date of birth of the subscriber.
-  @BuiltValueField(wireName: r'dob')
-  String? get dob;
+  @BuiltValueField(wireName: r'date_of_birth')
+  String? get dateOfBirth;
 
   EligibilityApiResponseEligibilityRequestSubscriber._();
 
@@ -57,30 +57,30 @@ class _$EligibilityApiResponseEligibilityRequestSubscriberSerializer implements 
     FullType specifiedType = FullType.unspecified,
   }) sync* {
     if (object.firstName != null) {
-      yield r'firstName';
+      yield r'first_name';
       yield serializers.serialize(
         object.firstName,
         specifiedType: const FullType(String),
       );
     }
     if (object.lastName != null) {
-      yield r'lastName';
+      yield r'last_name';
       yield serializers.serialize(
         object.lastName,
         specifiedType: const FullType(String),
       );
     }
     if (object.memberId != null) {
-      yield r'memberId';
+      yield r'member_id';
       yield serializers.serialize(
         object.memberId,
         specifiedType: const FullType(String),
       );
     }
-    if (object.dob != null) {
-      yield r'dob';
+    if (object.dateOfBirth != null) {
+      yield r'date_of_birth';
       yield serializers.serialize(
-        object.dob,
+        object.dateOfBirth,
         specifiedType: const FullType(String),
       );
     }
@@ -107,33 +107,33 @@ class _$EligibilityApiResponseEligibilityRequestSubscriberSerializer implements 
       final key = serializedList[i] as String;
       final value = serializedList[i + 1];
       switch (key) {
-        case r'firstName':
+        case r'first_name':
           final valueDes = serializers.deserialize(
             value,
             specifiedType: const FullType(String),
           ) as String;
           result.firstName = valueDes;
           break;
-        case r'lastName':
+        case r'last_name':
           final valueDes = serializers.deserialize(
             value,
             specifiedType: const FullType(String),
           ) as String;
           result.lastName = valueDes;
           break;
-        case r'memberId':
+        case r'member_id':
           final valueDes = serializers.deserialize(
             value,
             specifiedType: const FullType(String),
           ) as String;
           result.memberId = valueDes;
           break;
-        case r'dob':
+        case r'date_of_birth':
           final valueDes = serializers.deserialize(
             value,
             specifiedType: const FullType(String),
           ) as String;
-          result.dob = valueDes;
+          result.dateOfBirth = valueDes;
           break;
         default:
           unhandled.add(key);

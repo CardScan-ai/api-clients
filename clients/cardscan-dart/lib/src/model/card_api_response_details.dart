@@ -23,6 +23,23 @@ part 'card_api_response_details.g.dart';
 /// * [planName] 
 /// * [planId] 
 /// * [cardSpecificId] 
+/// * [clientName] 
+/// * [payerId] 
+/// * [planDetails] 
+/// * [rxId] 
+/// * [rxIssuer] 
+/// * [rxPlan] 
+/// * [startDate] 
+/// * [employer] 
+/// * [medicareMedicaidId] 
+/// * [memberDob] 
+/// * [memberGender] 
+/// * [memberIdPrefix] 
+/// * [memberIdSuffix] 
+/// * [partAEffectiveDate] 
+/// * [partBEffectiveDate] 
+/// * [pharmacyBenefitManager] 
+/// * [planType] 
 @BuiltValue()
 abstract class CardApiResponseDetails implements Built<CardApiResponseDetails, CardApiResponseDetailsBuilder> {
   @BuiltValueField(wireName: r'group_number')
@@ -54,6 +71,57 @@ abstract class CardApiResponseDetails implements Built<CardApiResponseDetails, C
 
   @BuiltValueField(wireName: r'card_specific_id')
   MatchScore? get cardSpecificId;
+
+  @BuiltValueField(wireName: r'client_name')
+  MatchScore? get clientName;
+
+  @BuiltValueField(wireName: r'payer_id')
+  MatchScore? get payerId;
+
+  @BuiltValueField(wireName: r'plan_details')
+  MatchScore? get planDetails;
+
+  @BuiltValueField(wireName: r'rx_id')
+  MatchScore? get rxId;
+
+  @BuiltValueField(wireName: r'rx_issuer')
+  MatchScore? get rxIssuer;
+
+  @BuiltValueField(wireName: r'rx_plan')
+  MatchScore? get rxPlan;
+
+  @BuiltValueField(wireName: r'start_date')
+  MatchScore? get startDate;
+
+  @BuiltValueField(wireName: r'employer')
+  MatchScore? get employer;
+
+  @BuiltValueField(wireName: r'medicare_medicaid_id')
+  MatchScore? get medicareMedicaidId;
+
+  @BuiltValueField(wireName: r'member_dob')
+  MatchScore? get memberDob;
+
+  @BuiltValueField(wireName: r'member_gender')
+  MatchScore? get memberGender;
+
+  @BuiltValueField(wireName: r'member_id_prefix')
+  MatchScore? get memberIdPrefix;
+
+  @BuiltValueField(wireName: r'member_id_suffix')
+  MatchScore? get memberIdSuffix;
+
+  @BuiltValueField(wireName: r'part_a_effective_date')
+  MatchScore? get partAEffectiveDate;
+
+  @BuiltValueField(wireName: r'part_b_effective_date')
+  MatchScore? get partBEffectiveDate;
+
+  @BuiltValueField(wireName: r'pharmacy_benefit_manager')
+  MatchScore? get pharmacyBenefitManager;
+
+  @BuiltValueField(wireName: r'plan_type')
+  MatchScore? get planType;
 
   CardApiResponseDetails._();
 
@@ -145,6 +213,125 @@ class _$CardApiResponseDetailsSerializer implements PrimitiveSerializer<CardApiR
       yield r'card_specific_id';
       yield serializers.serialize(
         object.cardSpecificId,
+        specifiedType: const FullType(MatchScore),
+      );
+    }
+    if (object.clientName != null) {
+      yield r'client_name';
+      yield serializers.serialize(
+        object.clientName,
+        specifiedType: const FullType(MatchScore),
+      );
+    }
+    if (object.payerId != null) {
+      yield r'payer_id';
+      yield serializers.serialize(
+        object.payerId,
+        specifiedType: const FullType(MatchScore),
+      );
+    }
+    if (object.planDetails != null) {
+      yield r'plan_details';
+      yield serializers.serialize(
+        object.planDetails,
+        specifiedType: const FullType(MatchScore),
+      );
+    }
+    if (object.rxId != null) {
+      yield r'rx_id';
+      yield serializers.serialize(
+        object.rxId,
+        specifiedType: const FullType(MatchScore),
+      );
+    }
+    if (object.rxIssuer != null) {
+      yield r'rx_issuer';
+      yield serializers.serialize(
+        object.rxIssuer,
+        specifiedType: const FullType(MatchScore),
+      );
+    }
+    if (object.rxPlan != null) {
+      yield r'rx_plan';
+      yield serializers.serialize(
+        object.rxPlan,
+        specifiedType: const FullType(MatchScore),
+      );
+    }
+    if (object.startDate != null) {
+      yield r'start_date';
+      yield serializers.serialize(
+        object.startDate,
+        specifiedType: const FullType(MatchScore),
+      );
+    }
+    if (object.employer != null) {
+      yield r'employer';
+      yield serializers.serialize(
+        object.employer,
+        specifiedType: const FullType(MatchScore),
+      );
+    }
+    if (object.medicareMedicaidId != null) {
+      yield r'medicare_medicaid_id';
+      yield serializers.serialize(
+        object.medicareMedicaidId,
+        specifiedType: const FullType(MatchScore),
+      );
+    }
+    if (object.memberDob != null) {
+      yield r'member_dob';
+      yield serializers.serialize(
+        object.memberDob,
+        specifiedType: const FullType(MatchScore),
+      );
+    }
+    if (object.memberGender != null) {
+      yield r'member_gender';
+      yield serializers.serialize(
+        object.memberGender,
+        specifiedType: const FullType(MatchScore),
+      );
+    }
+    if (object.memberIdPrefix != null) {
+      yield r'member_id_prefix';
+      yield serializers.serialize(
+        object.memberIdPrefix,
+        specifiedType: const FullType(MatchScore),
+      );
+    }
+    if (object.memberIdSuffix != null) {
+      yield r'member_id_suffix';
+      yield serializers.serialize(
+        object.memberIdSuffix,
+        specifiedType: const FullType(MatchScore),
+      );
+    }
+    if (object.partAEffectiveDate != null) {
+      yield r'part_a_effective_date';
+      yield serializers.serialize(
+        object.partAEffectiveDate,
+        specifiedType: const FullType(MatchScore),
+      );
+    }
+    if (object.partBEffectiveDate != null) {
+      yield r'part_b_effective_date';
+      yield serializers.serialize(
+        object.partBEffectiveDate,
+        specifiedType: const FullType(MatchScore),
+      );
+    }
+    if (object.pharmacyBenefitManager != null) {
+      yield r'pharmacy_benefit_manager';
+      yield serializers.serialize(
+        object.pharmacyBenefitManager,
+        specifiedType: const FullType(MatchScore),
+      );
+    }
+    if (object.planType != null) {
+      yield r'plan_type';
+      yield serializers.serialize(
+        object.planType,
         specifiedType: const FullType(MatchScore),
       );
     }
@@ -240,6 +427,125 @@ class _$CardApiResponseDetailsSerializer implements PrimitiveSerializer<CardApiR
             specifiedType: const FullType(MatchScore),
           ) as MatchScore;
           result.cardSpecificId.replace(valueDes);
+          break;
+        case r'client_name':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(MatchScore),
+          ) as MatchScore;
+          result.clientName.replace(valueDes);
+          break;
+        case r'payer_id':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(MatchScore),
+          ) as MatchScore;
+          result.payerId.replace(valueDes);
+          break;
+        case r'plan_details':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(MatchScore),
+          ) as MatchScore;
+          result.planDetails.replace(valueDes);
+          break;
+        case r'rx_id':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(MatchScore),
+          ) as MatchScore;
+          result.rxId.replace(valueDes);
+          break;
+        case r'rx_issuer':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(MatchScore),
+          ) as MatchScore;
+          result.rxIssuer.replace(valueDes);
+          break;
+        case r'rx_plan':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(MatchScore),
+          ) as MatchScore;
+          result.rxPlan.replace(valueDes);
+          break;
+        case r'start_date':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(MatchScore),
+          ) as MatchScore;
+          result.startDate.replace(valueDes);
+          break;
+        case r'employer':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(MatchScore),
+          ) as MatchScore;
+          result.employer.replace(valueDes);
+          break;
+        case r'medicare_medicaid_id':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(MatchScore),
+          ) as MatchScore;
+          result.medicareMedicaidId.replace(valueDes);
+          break;
+        case r'member_dob':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(MatchScore),
+          ) as MatchScore;
+          result.memberDob.replace(valueDes);
+          break;
+        case r'member_gender':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(MatchScore),
+          ) as MatchScore;
+          result.memberGender.replace(valueDes);
+          break;
+        case r'member_id_prefix':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(MatchScore),
+          ) as MatchScore;
+          result.memberIdPrefix.replace(valueDes);
+          break;
+        case r'member_id_suffix':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(MatchScore),
+          ) as MatchScore;
+          result.memberIdSuffix.replace(valueDes);
+          break;
+        case r'part_a_effective_date':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(MatchScore),
+          ) as MatchScore;
+          result.partAEffectiveDate.replace(valueDes);
+          break;
+        case r'part_b_effective_date':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(MatchScore),
+          ) as MatchScore;
+          result.partBEffectiveDate.replace(valueDes);
+          break;
+        case r'pharmacy_benefit_manager':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(MatchScore),
+          ) as MatchScore;
+          result.pharmacyBenefitManager.replace(valueDes);
+          break;
+        case r'plan_type':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(MatchScore),
+          ) as MatchScore;
+          result.planType.replace(valueDes);
           break;
         default:
           unhandled.add(key);

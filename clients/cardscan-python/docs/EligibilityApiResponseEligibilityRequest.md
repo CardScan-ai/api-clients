@@ -7,7 +7,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **control_number** | **str** | The control number of the claim. | [optional] 
 **trading_partner_service_id** | **str** | The ID of the trading partner service. | [optional] 
-**provider** | [**ProviderDto**](ProviderDto.md) |  | [optional] 
+**provider** | [**EligibilityApiResponseEligibilityRequestProvider**](EligibilityApiResponseEligibilityRequestProvider.md) |  | [optional] 
 **subscriber** | [**EligibilityApiResponseEligibilityRequestSubscriber**](EligibilityApiResponseEligibilityRequestSubscriber.md) |  | [optional] 
 
 ## Example
