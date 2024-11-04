@@ -8,55 +8,58 @@ jobs:
   check_changes:
     runs-on: ubuntu-latest
     outputs:
+      oas_changed: ${{ steps.filter.outputs.oas }}
       ts_changed: ${{ steps.filter.outputs.ts }}
       py_changed: ${{ steps.filter.outputs.py }}
     steps:
-      - uses: actions/checkout@v2
-      - uses: dorny/paths-filter@v2
-        id: filter
-        with:
-          filters: |
-            ts:
-              - 'clients/cardscan-ts/**/*.ts'
-            py:
-              - 'clients/cardscan-python/**/*.py'
+    - uses: actions/checkout@v2
+    - uses: dorny/paths-filter@v2
+      id: filter
+      with:
+        filters: |
+          ts:
+            - 'clients/cardscan-ts/**/*.ts'
+          py:
+            - 'clients/cardscan-python/**/*.py'
+          oas:
+            - 'openapi.yaml'
   build-test-ts:
     runs-on: ubuntu-latest
     needs: check_changes
-    if: ${{ needs.check_changes.outputs.ts_changed == 'true' }}
+    if: ${{ needs.check_changes.outputs.ts_changed == 'true' || needs.check_changes.outputs.oas_changed == 'true' }}
     steps:
-      - uses: actions/checkout@v2
-      - name: Setup Node.js
-        uses: actions/setup-node@v2
-        with:
-          node-version: 18.x
-      - name: Install dependencies
-        working-directory: clients/cardscan-ts
-        run: npm ci
-      - name: Test build
-        working-directory: clients/cardscan-ts
-        run: npm run build
+    - uses: actions/checkout@v2
+    - name: Setup Node.js
+      uses: actions/setup-node@v2
+      with:
+        node-version: 18.x
+    - name: Install dependencies
+      working-directory: clients/cardscan-ts
+      run: npm ci
+    - name: Test build
+      working-directory: clients/cardscan-ts
+      run: npm run build
 
   build-test-python:
     runs-on: ubuntu-latest
     needs: check_changes
-    if: ${{ needs.check_changes.outputs.py_changed == 'true' }}
+    if: ${{ needs.check_changes.outputs.py_changed == 'true' || needs.check_changes.outputs.oas_changed == 'true' }}
     strategy:
       matrix:
-        python-version: ["3.8", "3.12"]
+        python-version: ['3.8', '3.12']
     steps:
-      - uses: actions/checkout@v3
-      - name: Set up Python ${{ matrix.python-version }}
-        uses: actions/setup-python@v4
-        with:
-          python-version: ${{ matrix.python-version }}
-      - name: Setup poetry
-        uses: Gr1N/setup-poetry@v8
-        with:
-          poetry-version: "1.2.2"
-      - name: Install dependencies
-        working-directory: clients/cardscan-python
-        run: poetry install
-      - name: Test build
-        working-directory: clients/cardscan-python
-        run: poetry build
+    - uses: actions/checkout@v3
+    - name: Set up Python ${{ matrix.python-version }}
+      uses: actions/setup-python@v4
+      with:
+        python-version: ${{ matrix.python-version }}
+    - name: Setup poetry
+      uses: Gr1N/setup-poetry@v8
+      with:
+        poetry-version: 1.2.2
+    - name: Install dependencies
+      working-directory: clients/cardscan-python
+      run: poetry install
+    - name: Test build
+      working-directory: clients/cardscan-python
+      run: poetry build
