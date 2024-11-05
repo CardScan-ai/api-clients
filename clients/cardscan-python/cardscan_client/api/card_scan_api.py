@@ -21,6 +21,8 @@ from pydantic import validate_arguments, ValidationError
 import asyncio
 import json
 import websockets
+import websocket
+import time
 
 from cardscan_client.models.card_websocket_event import CardWebsocketEvent
 from cardscan_client.models.eligibility_websocket_event import EligibilityWebsocketEvent
@@ -87,9 +89,129 @@ class CardScanApi:
         :param front_image_path: The path to the front image of the card.
         """
 
-        return asyncio.run(self._full_scan(front_image_path, back_image_path=back_image_path))
+        if not self.websocket_url:
+            raise ValueError("This method cannot be called without a websocket URL.")
 
-    async def _full_scan(
+        response = self.create_card(
+            CreateCardRequest(enable_livescan=False, enable_backside_scan=(back_image_path is not None))
+        )
+
+        result = None
+
+        ws = websocket.WebSocket()
+        ws.connect(self.websocket_url)
+        ws.send(
+            json.dumps({"card_id": response.card_id, "action": "register"})
+        )
+
+        front_upload_url_response = self.generate_card_upload_url(
+            response.card_id,
+            3600,
+            GenerateCardUploadUrlRequest(orientation=ScanOrientation.FRONT),
+        )
+
+        upload_params = front_upload_url_response.upload_parameters.to_dict()
+
+        self.api_client.call_api(
+            '',
+            "POST",
+            _host=front_upload_url_response.upload_url,
+            post_params=list(upload_params.items()),
+            files={"file": front_image_path},
+            header_params={"Content-Type": "multipart/form-data"},
+            response_types_map={}
+        )
+
+        front_side_rejection_states = [
+            CardState.FRONTSIDE_FAILED,
+            CardState.ERROR,
+        ]
+
+        timeout = 30
+        start_time = time.time()
+
+        while True:
+            if time.time() - start_time > timeout:
+                raise TimeoutError("Front side processing timed out")
+
+            message = ws.recv()
+            event = json.loads(message)
+
+            if event['type'] != 'card':
+                continue
+
+            if event["state"] in front_side_rejection_states:
+                raise Exception(
+                        f"Front side failed: {event.get('error', {}).get('message', 'Unknown error')}"
+                    )
+
+            if event['state'] == CardState.COMPLETED:
+                result = CardWebsocketEvent.from_dict(event)
+                break
+
+            if event["state"] == CardState.BACKSIDE_PROCESSING:
+                break
+
+        if back_image_path is None:
+            if result:
+                card = self.get_card_by_id(result.card_id)
+
+                return card
+
+            return result
+
+        back_upload_url_response = self.generate_card_upload_url(
+            response.card_id,
+            3600,
+            GenerateCardUploadUrlRequest(orientation=ScanOrientation.BACK),
+        )
+
+        self.api_client.call_api(
+            '',
+            "POST",
+            _host=back_upload_url_response.upload_url,
+            post_params=list(back_upload_url_response.upload_parameters.to_dict().items()),
+            files={
+                "file": back_image_path,
+            },
+            header_params={"Content-Type": "multipart/form-data"},
+            response_types_map={}
+        )
+
+        back_side_rejection_states = [
+            CardState.BACKSIDE_FAILED,
+            CardState.ERROR,
+        ]
+
+        start_time = time.time()
+
+        while True:
+            if time.time() - start_time > timeout:
+                raise TimeoutError("Back side processing timed out")
+
+            message = ws.recv()
+            event = json.loads(message)
+
+            if event['type'] != 'card':
+                continue
+
+            if event["state"] in back_side_rejection_states:
+                raise Exception(
+                        f"Back side failed: {event.get('error', {}).get('message', 'Unknown error')}"
+                )
+
+            if event["state"] == CardState.COMPLETED and event["type"] == "card":
+                result = CardWebsocketEvent.from_dict(event)
+                break
+
+        ws.close()
+
+        if result:
+            card = self.get_card_by_id(result.card_id)
+
+            return card
+
+    async def full_scan_async(
         self, front_image_path: str, back_image_path: Optional[str] = None
     ) -> Union[CardApiResponse, None]:
         """
