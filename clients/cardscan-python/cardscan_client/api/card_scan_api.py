@@ -81,7 +81,7 @@ class CardScanApi:
         self.websocket_url = f"{self.api_client.configuration.websocket_url}?token={token}"
 
     def full_scan(
-        self, front_image_path: str, back_image_path: Optional[str] = None
+        self, front_image_path: str, back_image_path: Optional[str] = None, timeout: int = 60
     ) -> Union[CardApiResponse, None]:
         """
         Perform a full scan of a card, including both sides of a card.
@@ -127,7 +127,6 @@ class CardScanApi:
             CardState.ERROR,
         ]
 
-        timeout = 30
         start_time = time.time()
 
         while True:
@@ -328,13 +327,46 @@ class CardScanApi:
 
             return card
 
-    def check_eligibility(self, create_eligibility_request: CreateEligibilityRequest) -> Union[EligibilityApiResponse, None]:
-        """
-        Check the eligibility of a card.
-        :param create_eligibility_request: The request object.
-        """
+    def check_eligibility(
+        self, create_eligibility_request: CreateEligibilityRequest, timeout: int = 60
+    ) -> Union[EligibilityApiResponse, None]:
+        if not self.websocket_url:
+            raise ValueError("This method cannot be called without a websocket URL.")
 
-        return asyncio.run(self._check_eligibility(create_eligibility_request))
+        response = self.create_eligibility(create_eligibility_request)
+
+        result = None
+
+        ws = websocket.WebSocket()
+        ws.connect(self.websocket_url)
+        ws.send(
+            json.dumps({"card_id": response.card_id, "action": "register"})
+        )
+
+        start_time = time.time()
+
+        while True:
+            if time.time() - start_time > timeout:
+                raise TimeoutError("Eligibility check timed out")
+
+            message = ws.recv()
+            event = json.loads(message)
+
+            if event['type'] != 'eligibility':
+                continue
+
+            if event["state"] == EligibilityState.COMPLETED:
+                result = EligibilityWebsocketEvent.from_dict(event)
+                break
+            elif event["state"] == EligibilityState.ERROR:
+                raise Exception(f"Eligibility check failed: {event['error']}")
+
+        ws.close()
+
+        if result:
+            eligibility = self.get_eligibility_by_id(result.eligibility_id)
+
+            return eligibility
 
     async def _check_eligibility(
         self, create_eligibility_request: CreateEligibilityRequest
