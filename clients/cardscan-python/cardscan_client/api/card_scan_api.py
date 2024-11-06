@@ -22,6 +22,7 @@ import asyncio
 import json
 import websockets
 import websocket
+from contextlib import closing
 import time
 
 from cardscan_client.models.card_websocket_event import CardWebsocketEvent
@@ -83,10 +84,50 @@ class CardScanApi:
     def full_scan(
         self, front_image_path: str, back_image_path: Optional[str] = None, timeout: int = 60
     ) -> Union[CardApiResponse, None]:
-        """
-        Perform a full scan of a card, including both sides of a card.
-        :param back_image_path: The path to the back image of the card.
+        """Perform a full scan of either the front or both sides of a card.
+        :param back_image_path: The path to the back image of the card. (optional)
         :param front_image_path: The path to the front image of the card.
+        :param timeout: The maximum time to wait for the scan to complete.
+        """
+        if not self.websocket_url:
+            raise ValueError("This method cannot be called without a websocket URL.")
+
+        response = self.create_card(
+            CreateCardRequest(enable_livescan=False, enable_backside_scan=(back_image_path is not None))
+        )
+
+        result = None
+        with closing(websocket.create_connection(self.websocket_url)) as ws:
+            ws.send(json.dumps({"card_id": response.card_id, "action": "register"}))
+
+            # Front image upload and processing
+            front_upload_url_response = self.generate_card_upload_url(
+                response.card_id, 3600, GenerateCardUploadUrlRequest(orientation=ScanOrientation.FRONT)
+            )
+            self.upload_image(front_upload_url_response.upload_url, front_upload_url_response.upload_parameters.to_dict(), front_image_path)
+
+            result = self.handle_card_events(ws, [CardState.FRONTSIDE_FAILED, CardState.ERROR], timeout)
+
+            # Check if backside processing is needed
+            if back_image_path:
+                back_upload_url_response = self.generate_card_upload_url(
+                    response.card_id, 3600, GenerateCardUploadUrlRequest(orientation=ScanOrientation.BACK)
+                )
+                self.upload_image(back_upload_url_response.upload_url, back_upload_url_response.upload_parameters.to_dict(), back_image_path)
+                result = self.handle_card_events(ws, [CardState.BACKSIDE_FAILED, CardState.ERROR], timeout)
+
+        if result:
+            return self.get_card_by_id(result.card_id)
+        return result
+
+    async def full_scan_async(
+        self, front_image_path: str, back_image_path: Optional[str] = None, timeout: int = 60
+    ) -> Union[CardApiResponse, None]:
+        """
+        Asynchronously perform a full scan of either the front or both sides of a card.
+        :param back_image_path: The path to the back image of the card. (optional)
+        :param front_image_path: The path to the front image of the card.
+        :param timeout: The maximum time to wait for the scan to complete.
         """
 
         if not self.websocket_url:
@@ -97,41 +138,49 @@ class CardScanApi:
         )
 
         result = None
+        async with websockets.connect(self.websocket_url) as ws:
+            await ws.send(json.dumps({"card_id": response.card_id, "action": "register"}))
 
-        ws = websocket.WebSocket()
-        ws.connect(self.websocket_url)
-        ws.send(
-            json.dumps({"card_id": response.card_id, "action": "register"})
-        )
+            # Front image upload and processing
+            front_upload_url_response = self.generate_card_upload_url(
+                response.card_id, 3600, GenerateCardUploadUrlRequest(orientation=ScanOrientation.FRONT)
+            )
+            self.upload_image(front_upload_url_response.upload_url, front_upload_url_response.upload_parameters.to_dict(), front_image_path)
 
-        front_upload_url_response = self.generate_card_upload_url(
-            response.card_id,
-            3600,
-            GenerateCardUploadUrlRequest(orientation=ScanOrientation.FRONT),
-        )
+            result = await self.handle_card_events_async(ws, [CardState.FRONTSIDE_FAILED, CardState.ERROR], timeout=timeout)
 
-        upload_params = front_upload_url_response.upload_parameters.to_dict()
+            # Check if backside processing is needed
+            if back_image_path:
+                back_upload_url_response = self.generate_card_upload_url(
+                    response.card_id, 3600, GenerateCardUploadUrlRequest(orientation=ScanOrientation.BACK)
+                )
+                self.upload_image(back_upload_url_response.upload_url, back_upload_url_response.upload_parameters.to_dict(), back_image_path)
+                result = await self.handle_card_events_async(ws, [CardState.BACKSIDE_FAILED, CardState.ERROR], timeout=timeout)
 
+        if result:
+            return self.get_card_by_id(result.card_id)
+        return result
+
+    def upload_image(self, upload_url, upload_params, image_path):
+        """Handles image upload."""
         self.api_client.call_api(
             '',
             "POST",
-            _host=front_upload_url_response.upload_url,
+            _host=upload_url,
             post_params=list(upload_params.items()),
-            files={"file": front_image_path},
+            files={"file": image_path},
             header_params={"Content-Type": "multipart/form-data"},
             response_types_map={}
         )
 
-        front_side_rejection_states = [
-            CardState.FRONTSIDE_FAILED,
-            CardState.ERROR,
-        ]
-
+    def handle_card_events(self, ws: websocket.WebSocket, rejection_states, timeout):
+        """Handles WebSocket events, including rejection and completion checking."""
         start_time = time.time()
+        result = None
 
         while True:
             if time.time() - start_time > timeout:
-                raise TimeoutError("Front side processing timed out")
+                raise TimeoutError("Processing timed out")
 
             message = ws.recv()
             event = json.loads(message)
@@ -139,193 +188,46 @@ class CardScanApi:
             if event['type'] != 'card':
                 continue
 
-            if event["state"] in front_side_rejection_states:
-                raise Exception(
-                        f"Front side failed: {event.get('error', {}).get('message', 'Unknown error')}"
-                    )
+            if event["state"] in rejection_states:
+                raise Exception(f"Process failed: {event.get('error', {}).get('message', 'Unknown error')}")
 
-            if event['state'] == CardState.COMPLETED:
+            if event["state"] == CardState.COMPLETED:
                 result = CardWebsocketEvent.from_dict(event)
                 break
 
             if event["state"] == CardState.BACKSIDE_PROCESSING:
                 break
 
-        if back_image_path is None:
-            if result:
-                card = self.get_card_by_id(result.card_id)
+        return result
 
-                return card
-
-            return result
-
-        back_upload_url_response = self.generate_card_upload_url(
-            response.card_id,
-            3600,
-            GenerateCardUploadUrlRequest(orientation=ScanOrientation.BACK),
-        )
-
-        self.api_client.call_api(
-            '',
-            "POST",
-            _host=back_upload_url_response.upload_url,
-            post_params=list(back_upload_url_response.upload_parameters.to_dict().items()),
-            files={
-                "file": back_image_path,
-            },
-            header_params={"Content-Type": "multipart/form-data"},
-            response_types_map={}
-        )
-
-        back_side_rejection_states = [
-            CardState.BACKSIDE_FAILED,
-            CardState.ERROR,
-        ]
-
-        start_time = time.time()
-
-        while True:
-            if time.time() - start_time > timeout:
-                raise TimeoutError("Back side processing timed out")
-
-            message = ws.recv()
-            event = json.loads(message)
-
-            if event['type'] != 'card':
-                continue
-
-            if event["state"] in back_side_rejection_states:
-                raise Exception(
-                        f"Back side failed: {event.get('error', {}).get('message', 'Unknown error')}"
-                )
-
-            if event["state"] == CardState.COMPLETED and event["type"] == "card":
-                result = CardWebsocketEvent.from_dict(event)
-                break
-
-        ws.close()
-
-        if result:
-            card = self.get_card_by_id(result.card_id)
-
-            return card
-
-    async def full_scan_async(
-        self, front_image_path: str, back_image_path: Optional[str] = None
-    ) -> Union[CardApiResponse, None]:
-        """
-        Perform a full scan of a card, including both sides of a card.
-        :param back_image_path: The path to the back image of the card. (optional)
-        :param front_image_path: The path to the front image of the card.
-        """
-
-        if not self.websocket_url:
-            raise ValueError("This method cannot be called without a websocket URL.")
-
-        response = self.create_card(
-            CreateCardRequest(enable_livescan=False, enable_backside_scan=(back_image_path is not None))
-        )
-
+    async def handle_card_events_async(self, ws, rejection_states, timeout):
+        """Async version of handling WebSocket events."""
         result = None
 
-        async with websockets.connect(self.websocket_url) as ws:
-            await ws.send(
-                json.dumps({"card_id": response.card_id, "action": "register"})
-            )
-
-            front_upload_url_response = self.generate_card_upload_url(
-                response.card_id,
-                3600,
-                GenerateCardUploadUrlRequest(orientation=ScanOrientation.FRONT),
-            )
-
-            upload_params = front_upload_url_response.upload_parameters.to_dict()
-
-            self.api_client.call_api(
-                '',
-                "POST",
-                _host=front_upload_url_response.upload_url,
-                post_params=list(upload_params.items()),
-                files={"file": front_image_path},
-                header_params={"Content-Type": "multipart/form-data"},
-                response_types_map={}
-            )
-
-            front_side_rejection_states = [
-                CardState.FRONTSIDE_FAILED,
-                CardState.ERROR,
-            ]
-
+        async def receive_messages():
+            nonlocal result
             async for message in ws:
                 event = json.loads(message)
 
                 if event['type'] != 'card':
                     continue
 
-                if event["state"] in front_side_rejection_states:
-                    raise Exception(
-                            f"Front side failed: {event.get('error', {}).get('message', 'Unknown error')}"
-                        )
+                if event["state"] in rejection_states:
+                    raise Exception(f"Process failed: {event.get('error', {}).get('message', 'Unknown error')}")
 
-                if event['state'] == CardState.COMPLETED:
+                if event["state"] == CardState.COMPLETED:
                     result = CardWebsocketEvent.from_dict(event)
                     break
 
                 if event["state"] == CardState.BACKSIDE_PROCESSING:
                     break
 
-            if back_image_path is None:
-                if result:
-                    card = self.get_card_by_id(result.card_id)
+        try:
+            await asyncio.wait_for(receive_messages(), timeout)
+        except asyncio.TimeoutError:
+            raise TimeoutError("Operation timed out while waiting for WebSocket events.")
 
-                    return card
-
-                return result
-
-            back_upload_url_response = self.generate_card_upload_url(
-                response.card_id,
-                3600,
-                GenerateCardUploadUrlRequest(orientation=ScanOrientation.BACK),
-            )
-
-            self.api_client.call_api(
-                '',
-                "POST",
-                _host=back_upload_url_response.upload_url,
-                post_params=list(back_upload_url_response.upload_parameters.to_dict().items()),
-                files={
-                    "file": back_image_path,
-                },
-                header_params={"Content-Type": "multipart/form-data"},
-                response_types_map={}
-            )
-
-            back_side_rejection_states = [
-                CardState.BACKSIDE_FAILED,
-                CardState.ERROR,
-            ]
-
-            async for message in ws:
-                event = json.loads(message)
-
-                if event['type'] != 'card':
-                    continue
-
-                if event["state"] in back_side_rejection_states:
-                    raise Exception(
-                            f"Back side failed: {event.get('error', {}).get('message', 'Unknown error')}"
-                    )
-
-                if event["state"] == CardState.COMPLETED and event["type"] == "card":
-                    result = CardWebsocketEvent.from_dict(event)
-                    break
-
-            await ws.close()
-
-        if result:
-            card = self.get_card_by_id(result.card_id)
-
-            return card
+        return result
 
     def check_eligibility(
         self, create_eligibility_request: CreateEligibilityRequest, timeout: int = 60
@@ -337,35 +239,70 @@ class CardScanApi:
 
         result = None
 
-        ws = websocket.WebSocket()
-        ws.connect(self.websocket_url)
-        ws.send(
-            json.dumps({"card_id": response.card_id, "action": "register"})
-        )
+        with closing(websocket.create_connection(self.websocket_url)) as ws:
+            ws.send(
+                json.dumps({"card_id": response.card_id, "action": "register"})
+            )
 
-        start_time = time.time()
+            start_time = time.time()
 
-        while True:
-            if time.time() - start_time > timeout:
-                raise TimeoutError("Eligibility check timed out")
+            while True:
+                if time.time() - start_time > timeout:
+                    raise TimeoutError("Eligibility check timed out")
 
-            message = ws.recv()
-            event = json.loads(message)
+                message = ws.recv()
+                event = json.loads(message)
 
-            if event['type'] != 'eligibility':
-                continue
+                if event['type'] != 'eligibility':
+                    continue
 
-            if event["state"] == EligibilityState.COMPLETED:
-                result = EligibilityWebsocketEvent.from_dict(event)
-                break
-            elif event["state"] == EligibilityState.ERROR:
-                raise Exception(f"Eligibility check failed: {event['error']}")
-
-        ws.close()
+                if event["state"] == EligibilityState.COMPLETED:
+                    result = EligibilityWebsocketEvent.from_dict(event)
+                    break
+                elif event["state"] == EligibilityState.ERROR:
+                    raise Exception(f"Eligibility check failed: {event['error']}")
 
         if result:
             eligibility = self.get_eligibility_by_id(result.eligibility_id)
 
+            return eligibility
+
+    async def check_eligibility_async(
+        self, create_eligibility_request: CreateEligibilityRequest, timeout: int = 60
+    ) -> Union[EligibilityApiResponse, None]:
+        if not self.websocket_url:
+            raise ValueError("This method cannot be called without a websocket URL.")
+
+        response = self.create_eligibility(create_eligibility_request)
+
+        result = None
+
+        async def receive_messages():
+            nonlocal result
+            async with websockets.connect(self.websocket_url) as ws:
+                await ws.send(
+                    json.dumps({"card_id": response.card_id, "action": "register"})
+                )
+
+                async for message in ws:
+                    event = json.loads(message)
+
+                    if event['type'] != 'eligibility':
+                        continue
+
+                    if event["state"] == EligibilityState.COMPLETED:
+                        result = EligibilityWebsocketEvent.from_dict(event)
+                        break
+                    elif event["state"] == EligibilityState.ERROR:
+                        raise Exception(f"Eligibility check failed: {event['error']}")
+
+        try:
+            await asyncio.wait_for(receive_messages(), timeout)
+        except asyncio.TimeoutError:
+            raise TimeoutError("Operation timed out while waiting for eligibility check to complete.")
+
+        if result:
+            eligibility = self.get_eligibility_by_id(result.eligibility_id)
             return eligibility
 
     async def _check_eligibility(
