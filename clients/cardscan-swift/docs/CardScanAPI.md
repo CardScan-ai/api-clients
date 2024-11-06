@@ -15,10 +15,10 @@ Method | HTTP request | Description
 [**getAccessToken**](CardScanAPI.md#getaccesstoken) | **GET** /access-token | Access Token
 [**getCardById**](CardScanAPI.md#getcardbyid) | **GET** /cards/{card_id} | Get Card by ID
 [**getEligibilityById**](CardScanAPI.md#geteligibilitybyid) | **GET** /eligibility/{eligibility_id} | Get Eligibility
-[**getScanMetadata**](CardScanAPI.md#getscanmetadata) | **GET** /scans/{scan_id}/metadata | Get Scan Metadata
 [**listCards**](CardScanAPI.md#listcards) | **GET** /cards | List Cards
 [**listEligibility**](CardScanAPI.md#listeligibility) | **GET** /eligibility | List Eligibility
 [**searchCards**](CardScanAPI.md#searchcards) | **GET** /cards/search | Search Cards (200) OK
+[**setScanMetadata**](CardScanAPI.md#setscanmetadata) | **POST** /scans/{scan_id}/metadata | Set Scan Metadata
 [**validateMagicLink**](CardScanAPI.md#validatemagiclink) | **GET** /validate-magic-link | Validate Magic Link
 
 
@@ -84,7 +84,7 @@ Creates a new card
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
 import CardScanClient
 
-let createCardRequest = createCard_request(enableBacksideScan: false, enableLivescan: false, backside: createCard_request_backside(scanning: "scanning_example")) // CreateCardRequest |  (optional)
+let createCardRequest = createCard_request(enableBacksideScan: false, enableLivescan: false, backside: createCard_request_backside(scanning: "scanning_example"), metadata: 123) // CreateCardRequest |  (optional)
 
 // Creates a new card
 CardScanAPI.createCard(createCardRequest: createCardRequest) { (response, error) in
@@ -558,54 +558,6 @@ Name | Type | Description  | Notes
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **getScanMetadata**
-```swift
-    open class func getScanMetadata(scanId: UUID, completion: @escaping (_ data: Void?, _ error: Error?) -> Void)
-```
-
-Get Scan Metadata
-
-### Example
-```swift
-// The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
-import CardScanClient
-
-let scanId = 987 // UUID | 
-
-// Get Scan Metadata
-CardScanAPI.getScanMetadata(scanId: scanId) { (response, error) in
-    guard error == nil else {
-        print(error)
-        return
-    }
-
-    if (response) {
-        dump(response)
-    }
-}
-```
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **scanId** | **UUID** |  | 
-
-### Return type
-
-Void (empty response body)
-
-### Authorization
-
-[bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
- - **Content-Type**: Not defined
- - **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
-
 # **listCards**
 ```swift
     open class func listCards(limit: Int? = nil, cursor: String? = nil, completion: @escaping (_ data: SearchCards200Response?, _ error: Error?) -> Void)
@@ -754,6 +706,56 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
  - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **setScanMetadata**
+```swift
+    open class func setScanMetadata(scanId: UUID, body: AnyCodable? = nil, completion: @escaping (_ data: Void?, _ error: Error?) -> Void)
+```
+
+Set Scan Metadata
+
+### Example
+```swift
+// The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
+import CardScanClient
+
+let scanId = 987 // UUID | 
+let body = "TODO" // AnyCodable |  (optional)
+
+// Set Scan Metadata
+CardScanAPI.setScanMetadata(scanId: scanId, body: body) { (response, error) in
+    guard error == nil else {
+        print(error)
+        return
+    }
+
+    if (response) {
+        dump(response)
+    }
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **scanId** | **UUID** |  | 
+ **body** | **AnyCodable** |  | [optional] 
+
+### Return type
+
+Void (empty response body)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
  - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)

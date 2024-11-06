@@ -7,6 +7,7 @@ Name | Type | Description | Notes
 **enable_backside_scan** | **bool** | Whether to enable backside scanning | [optional] [default to False]
 **enable_livescan** | **bool** | Whether to enable live scanning | [optional] [default to False]
 **backside** | [**CreateCardRequestBackside**](CreateCardRequestBackside.md) |  | [optional] 
+**metadata** | **object** |  | [optional] 
 
 ## Example
 

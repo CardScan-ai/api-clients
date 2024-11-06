@@ -134,4 +134,3 @@ lib/src/model/upload_parameters.dart
 lib/src/model/validate_magic_link200_response.dart
 lib/src/model/websocket_error.dart
 lib/src/serializers.dart
-test/eligibility_api_response_eligibility_request_provider_test.dart

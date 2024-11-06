@@ -26,6 +26,7 @@ import com.squareup.moshi.JsonClass
  * @param enableBacksideScan Whether to enable backside scanning
  * @param enableLivescan Whether to enable live scanning
  * @param backside 
+ * @param metadata 
  */
 
 
@@ -40,7 +41,10 @@ data class CreateCardRequest (
     val enableLivescan: kotlin.Boolean? = false,
 
     @Json(name = "backside")
-    val backside: CreateCardRequestBackside? = null
+    val backside: CreateCardRequestBackside? = null,
+
+    @Json(name = "metadata")
+    val metadata: kotlin.Any? = null
 
 ) {
 

@@ -77,10 +77,10 @@ Class | Method | HTTP request | Description
 [*CardScanApi*](doc/CardScanApi.md) | [**getAccessToken**](doc/CardScanApi.md#getaccesstoken) | **GET** /access-token | Access Token
 [*CardScanApi*](doc/CardScanApi.md) | [**getCardById**](doc/CardScanApi.md#getcardbyid) | **GET** /cards/{card_id} | Get Card by ID
 [*CardScanApi*](doc/CardScanApi.md) | [**getEligibilityById**](doc/CardScanApi.md#geteligibilitybyid) | **GET** /eligibility/{eligibility_id} | Get Eligibility
-[*CardScanApi*](doc/CardScanApi.md) | [**getScanMetadata**](doc/CardScanApi.md#getscanmetadata) | **GET** /scans/{scan_id}/metadata | Get Scan Metadata
 [*CardScanApi*](doc/CardScanApi.md) | [**listCards**](doc/CardScanApi.md#listcards) | **GET** /cards | List Cards
 [*CardScanApi*](doc/CardScanApi.md) | [**listEligibility**](doc/CardScanApi.md#listeligibility) | **GET** /eligibility | List Eligibility
 [*CardScanApi*](doc/CardScanApi.md) | [**searchCards**](doc/CardScanApi.md#searchcards) | **GET** /cards/search | Search Cards (200) OK
+[*CardScanApi*](doc/CardScanApi.md) | [**setScanMetadata**](doc/CardScanApi.md#setscanmetadata) | **POST** /scans/{scan_id}/metadata | Set Scan Metadata
 [*CardScanApi*](doc/CardScanApi.md) | [**validateMagicLink**](doc/CardScanApi.md#validatemagiclink) | **GET** /validate-magic-link | Validate Magic Link
 
 

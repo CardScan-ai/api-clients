@@ -28,9 +28,8 @@ class WebsocketError(BaseModel):
     message: StrictStr = Field(default=..., description="A message describing the error.")
     type: StrictStr = Field(default=..., description="The type of error.")
     code: StrictStr = Field(default=..., description="The error code.")
-    internal_error: Optional[StrictStr] = Field(default=None, description="The internal error message.")
     error: Optional[StrictStr] = Field(default=None, description="The type of the error (deprecated)")
-    __properties = ["message", "type", "code", "internal_error", "error"]
+    __properties = ["message", "type", "code", "error"]
 
     class Config:
         """Pydantic configuration"""
@@ -78,7 +77,6 @@ class WebsocketError(BaseModel):
             "message": obj.get("message"),
             "type": obj.get("type"),
             "code": obj.get("code"),
-            "internal_error": obj.get("internal_error"),
             "error": obj.get("error")
         })
         return _obj

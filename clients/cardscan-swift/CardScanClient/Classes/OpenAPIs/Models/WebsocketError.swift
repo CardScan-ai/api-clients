@@ -18,17 +18,14 @@ public struct WebsocketError: Codable, JSONEncodable, Hashable {
     public var type: String
     /** The error code. */
     public var code: String
-    /** The internal error message. */
-    public var internalError: String?
     /** The type of the error (deprecated) */
     @available(*, deprecated, message: "This property is deprecated.")
     public var error: String?
 
-    public init(message: String, type: String, code: String, internalError: String? = nil, error: String? = nil) {
+    public init(message: String, type: String, code: String, error: String? = nil) {
         self.message = message
         self.type = type
         self.code = code
-        self.internalError = internalError
         self.error = error
     }
 
@@ -36,7 +33,6 @@ public struct WebsocketError: Codable, JSONEncodable, Hashable {
         case message
         case type
         case code
-        case internalError = "internal_error"
         case error
     }
 
@@ -47,7 +43,6 @@ public struct WebsocketError: Codable, JSONEncodable, Hashable {
         try container.encode(message, forKey: .message)
         try container.encode(type, forKey: .type)
         try container.encode(code, forKey: .code)
-        try container.encodeIfPresent(internalError, forKey: .internalError)
         try container.encodeIfPresent(error, forKey: .error)
     }
 }

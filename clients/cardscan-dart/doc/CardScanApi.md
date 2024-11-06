@@ -20,10 +20,10 @@ Method | HTTP request | Description
 [**getAccessToken**](CardScanApi.md#getaccesstoken) | **GET** /access-token | Access Token
 [**getCardById**](CardScanApi.md#getcardbyid) | **GET** /cards/{card_id} | Get Card by ID
 [**getEligibilityById**](CardScanApi.md#geteligibilitybyid) | **GET** /eligibility/{eligibility_id} | Get Eligibility
-[**getScanMetadata**](CardScanApi.md#getscanmetadata) | **GET** /scans/{scan_id}/metadata | Get Scan Metadata
 [**listCards**](CardScanApi.md#listcards) | **GET** /cards | List Cards
 [**listEligibility**](CardScanApi.md#listeligibility) | **GET** /eligibility | List Eligibility
 [**searchCards**](CardScanApi.md#searchcards) | **GET** /cards/search | Search Cards (200) OK
+[**setScanMetadata**](CardScanApi.md#setscanmetadata) | **POST** /scans/{scan_id}/metadata | Set Scan Metadata
 [**validateMagicLink**](CardScanApi.md#validatemagiclink) | **GET** /validate-magic-link | Validate Magic Link
 
 
@@ -485,46 +485,6 @@ Name | Type | Description  | Notes
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **getScanMetadata**
-> getScanMetadata(scanId)
-
-Get Scan Metadata
-
-### Example
-```dart
-import 'package:cardscan_client/api.dart';
-
-final api = CardscanClient().getCardScanApi();
-final String scanId = 38400000-8cf0-11bd-b23e-10b96e4ef00d; // String | 
-
-try {
-    api.getScanMetadata(scanId);
-} catch on DioException (e) {
-    print('Exception when calling CardScanApi->getScanMetadata: $e\n');
-}
-```
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **scanId** | **String**|  | 
-
-### Return type
-
-void (empty response body)
-
-### Authorization
-
-[bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
- - **Content-Type**: Not defined
- - **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
-
 # **listCards**
 > SearchCards200Response listCards(limit, cursor)
 
@@ -652,6 +612,48 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
  - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **setScanMetadata**
+> setScanMetadata(scanId, body)
+
+Set Scan Metadata
+
+### Example
+```dart
+import 'package:cardscan_client/api.dart';
+
+final api = CardscanClient().getCardScanApi();
+final String scanId = 38400000-8cf0-11bd-b23e-10b96e4ef00d; // String | 
+final JsonObject body = Object; // JsonObject | 
+
+try {
+    api.setScanMetadata(scanId, body);
+} catch on DioException (e) {
+    print('Exception when calling CardScanApi->setScanMetadata: $e\n');
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **scanId** | **String**|  | 
+ **body** | **JsonObject**|  | [optional] 
+
+### Return type
+
+void (empty response body)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
  - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)

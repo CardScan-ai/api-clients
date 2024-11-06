@@ -4,6 +4,7 @@
 
 // ignore_for_file: unused_element
 import 'package:cardscan_client/src/model/create_card_request_backside.dart';
+import 'package:built_value/json_object.dart';
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 
@@ -15,6 +16,7 @@ part 'create_card_request.g.dart';
 /// * [enableBacksideScan] - Whether to enable backside scanning
 /// * [enableLivescan] - Whether to enable live scanning
 /// * [backside] 
+/// * [metadata] 
 @BuiltValue()
 abstract class CreateCardRequest implements Built<CreateCardRequest, CreateCardRequestBuilder> {
   /// Whether to enable backside scanning
@@ -27,6 +29,9 @@ abstract class CreateCardRequest implements Built<CreateCardRequest, CreateCardR
 
   @BuiltValueField(wireName: r'backside')
   CreateCardRequestBackside? get backside;
+
+  @BuiltValueField(wireName: r'metadata')
+  JsonObject? get metadata;
 
   CreateCardRequest._();
 
@@ -74,6 +79,13 @@ class _$CreateCardRequestSerializer implements PrimitiveSerializer<CreateCardReq
         specifiedType: const FullType(CreateCardRequestBackside),
       );
     }
+    if (object.metadata != null) {
+      yield r'metadata';
+      yield serializers.serialize(
+        object.metadata,
+        specifiedType: const FullType(JsonObject),
+      );
+    }
   }
 
   @override
@@ -117,6 +129,13 @@ class _$CreateCardRequestSerializer implements PrimitiveSerializer<CreateCardReq
             specifiedType: const FullType(CreateCardRequestBackside),
           ) as CreateCardRequestBackside;
           result.backside.replace(valueDes);
+          break;
+        case r'metadata':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(JsonObject),
+          ) as JsonObject;
+          result.metadata = valueDes;
           break;
         default:
           unhandled.add(key);

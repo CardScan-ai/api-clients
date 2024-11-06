@@ -44,7 +44,7 @@ data class Address (
     @Json(name = "state")
     val state: kotlin.String? = null,
 
-    @Json(name = "postalCode")
+    @Json(name = "postal_code")
     val postalCode: kotlin.String? = null
 
 ) {

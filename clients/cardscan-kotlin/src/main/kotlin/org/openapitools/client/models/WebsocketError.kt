@@ -25,7 +25,6 @@ import com.squareup.moshi.JsonClass
  * @param message A message describing the error.
  * @param type The type of error.
  * @param code The error code.
- * @param internalError The internal error message.
  * @param error The type of the error (deprecated)
  */
 
@@ -43,10 +42,6 @@ data class WebsocketError (
     /* The error code. */
     @Json(name = "code")
     val code: kotlin.String,
-
-    /* The internal error message. */
-    @Json(name = "internal_error")
-    val internalError: kotlin.String? = null,
 
     /* The type of the error (deprecated) */
     @Json(name = "error")

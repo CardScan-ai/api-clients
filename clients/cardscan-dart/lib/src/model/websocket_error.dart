@@ -14,7 +14,6 @@ part 'websocket_error.g.dart';
 /// * [message] - A message describing the error.
 /// * [type] - The type of error.
 /// * [code] - The error code.
-/// * [internalError] - The internal error message.
 /// * [error] - The type of the error (deprecated)
 @BuiltValue()
 abstract class WebsocketError implements Built<WebsocketError, WebsocketErrorBuilder> {
@@ -29,10 +28,6 @@ abstract class WebsocketError implements Built<WebsocketError, WebsocketErrorBui
   /// The error code.
   @BuiltValueField(wireName: r'code')
   String get code;
-
-  /// The internal error message.
-  @BuiltValueField(wireName: r'internal_error')
-  String? get internalError;
 
   /// The type of the error (deprecated)
   @Deprecated('error has been deprecated')
@@ -77,13 +72,6 @@ class _$WebsocketErrorSerializer implements PrimitiveSerializer<WebsocketError> 
       object.code,
       specifiedType: const FullType(String),
     );
-    if (object.internalError != null) {
-      yield r'internal_error';
-      yield serializers.serialize(
-        object.internalError,
-        specifiedType: const FullType(String),
-      );
-    }
     if (object.error != null) {
       yield r'error';
       yield serializers.serialize(
@@ -134,13 +122,6 @@ class _$WebsocketErrorSerializer implements PrimitiveSerializer<WebsocketError> 
             specifiedType: const FullType(String),
           ) as String;
           result.code = valueDes;
-          break;
-        case r'internal_error':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String;
-          result.internalError = valueDes;
           break;
         case r'error':
           final valueDes = serializers.deserialize(

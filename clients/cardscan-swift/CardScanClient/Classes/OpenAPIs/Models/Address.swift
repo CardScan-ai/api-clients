@@ -36,7 +36,7 @@ public struct Address: Codable, JSONEncodable, Hashable {
         case address2
         case city
         case state
-        case postalCode
+        case postalCode = "postal_code"
     }
 
     // Encodable protocol methods
