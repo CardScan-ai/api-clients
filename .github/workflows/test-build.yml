@@ -63,3 +63,15 @@ jobs:
     - name: Test build
       working-directory: clients/cardscan-python
       run: poetry build
+  set-check-run:
+    runs-on: ubuntu-latest
+    if: ${{ needs.check_changes.outputs.py_changed == 'true' }}
+    steps:
+    - name: Create a check run for build-test-python
+      uses: peter-evans/create-check@v3
+      with:
+        check-name: build-test-python
+        status: completed
+        conclusion: success
+        output-title: Skipped
+        output-summary: No changes detected in Python files.
