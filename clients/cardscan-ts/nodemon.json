@@ -1,0 +1,5 @@
+{
+  "watch": ["api", "configuration.ts"],
+  "ext": "ts",
+  "exec": "npm run build"
+}

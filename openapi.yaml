@@ -232,6 +232,8 @@ paths:
                       - optional
                       - disabled
                       description: The scanning mode
+                metadata:
+                  type: object
       responses:
         '201':
           $ref: '#/components/responses/CardResponse'
@@ -411,11 +413,11 @@ paths:
         '500':
           $ref: '#/components/responses/ApiInternalErrorResponse'
   /scans/{scan_id}/metadata:
-    get:
+    post:
       tags:
       - CardScan
-      summary: Get Scan Metadata
-      operationId: getScanMetadata
+      summary: Set Scan Metadata
+      operationId: setScanMetadata
       security:
       - bearerAuth: []
       parameters:
@@ -425,6 +427,11 @@ paths:
           type: string
           format: uuid
         required: true
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
       responses:
         '200':
           description: Successful response
@@ -1836,9 +1843,6 @@ components:
         code:
           type: string
           description: The error code.
-        internal_error:
-          type: string
-          description: The internal error message.
         error:
           type: string
           deprecated: true
@@ -1866,7 +1870,7 @@ components:
           minLength: 0
           type: string
           example: wa
-        postalCode:
+        postal_code:
           maxLength: 15
           minLength: 0
           type: string

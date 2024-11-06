@@ -3,13 +3,15 @@
 /* eslint-disable */
 {{>licenseInfo}}
 
-import type { Configuration } from '{{apiRelativeToRoot}}configuration';
+import type { ConfigurationParameters, NameCase } from '{{apiRelativeToRoot}}configuration';
+import { Configuration } from '../configuration';
+import * as yup from 'yup';
 import type { AxiosPromise, AxiosInstance, RawAxiosRequestConfig } from 'axios';
-import * as WebSocket from "ws";
+import WebSocket from "modern-isomorphic-ws";
 import { XMLParser } from "fast-xml-parser";
-import { Stream } from "stream";
-import * as FormData from "form-data";
-import globalAxios from 'axios';
+import type { Stream } from "stream";
+import FormData from "form-data";
+import globalAxios from "axios";
 import {
   CardState,
   CardWebsocketEvent,
@@ -19,6 +21,10 @@ import {
   EligibilityState,
   UploadParameters,
   CardWebsocketEventTypeEnum,
+  KeysToCamelCase,
+  KeysToSnakeCase,
+  UploadParametersSnake,
+  CardWebsocketEventSnake,
 } from "../models";
 {{#withNodeImports}}
 // URLSearchParams not necessarily used
@@ -388,13 +394,24 @@ export interface {{classname}}{{operationIdCamelCase}}Request {
 export class {{classname}} extends BaseAPI implements {{classname}}Interface {
 {{/withInterfaces}}
 {{^withInterfaces}}
-export class {{classname}} extends BaseAPI {
+export class {{classname}}<TCase extends NameCase = "camel"> extends BaseAPI {
+  public readonly websocket?: WebSocket;
   constructor(
-    configuration?: Configuration,
+    configuration?: ConfigurationParameters | { nameCase?: TCase },
     protected basePath: string = BASE_PATH,
     protected axios: AxiosInstance = globalAxios,
   ) {
-    super(configuration, basePath, axios);
+    super(new Configuration(configuration), basePath, axios);
+    if (this.configuration.preInitializeWebsocket) {
+      const token = this.configuration.accessToken ?? this.configuration.apiKey;
+
+      this.websocket = new WebSocket(
+        `${this.configuration.websocketUrl}?token=${token}`,
+      );
+
+      this.debug("Connecting to websocket (Pre initializating)...");
+    }
+    this.configuration.nameCase = configuration.nameCase ?? "camel" as TCase;
   }
 
   /**
@@ -402,7 +419,7 @@ export class {{classname}} extends BaseAPI {
    * @param cb This callback will be invoked with the websocket object once the connection is established or with an error if the connection fails.
    */
   public withWebsocket = (
-    cb: (websocket: WebSocket | null, error: Error | null) => Promise<any>,
+    cb: (websocket: WebSocket | null, error: WebSocket.ErrorEvent | null) => Promise<any>,
   ) => {
     const token = this.configuration.accessToken ?? this.configuration.apiKey;
 
@@ -412,10 +429,10 @@ export class {{classname}} extends BaseAPI {
 
     this.debug("Connecting to websocket...");
 
-    websocket.on("error", async (err) => {
+    websocket.onerror = async (err) => {
       this.error(`Websocket error: ${err.message}`);
       await cb(null, err);
-    });
+    };
 
     websocket.onopen = async () => {
       try {
@@ -449,12 +466,15 @@ export class {{classname}} extends BaseAPI {
     }
 
     this.debug("Creating card...");
-    const card = (
-      await this.createCard({
+    const card = (await this.createCard(
+      {
         enable_livescan: false,
         enable_backside_scan: Boolean(backImage),
-      })
-    ).data;
+      },
+      {
+        forceOriginalCase: true,
+      },
+    ));
 
     this.debug(`Card created successfully: ${JSON.stringify(card)}`);
 
@@ -474,18 +494,21 @@ export class {{classname}} extends BaseAPI {
         this.debug("Websocket card registered");
 
         this.debug("Generating front side upload URL...");
-        const frontSideUploadUrlResponse = (
-          await this.generateCardUploadUrl(card.card_id, 3600, {
+        const frontSideUploadUrlResponse = (await this.generateCardUploadUrl(
+          card.card_id,
+          3600,
+          {
             orientation: ScanOrientation.Front,
-          })
-        ).data;
+          },
+          { forceOriginalCase: true },
+        ));
         this.debug(
           `Front side upload URL generated successfully, response: ${JSON.stringify(frontSideUploadUrlResponse)}}`,
         );
 
         const formDataFront = this.cardFormDataFactory(
           frontImage,
-          frontSideUploadUrlResponse.upload_parameters,
+          frontSideUploadUrlResponse.upload_parameters as unknown as UploadParametersSnake,
         );
 
         try {
@@ -528,10 +551,10 @@ export class {{classname}} extends BaseAPI {
         ];
 
         this.debug("Waiting for front side processing to complete...");
-        const frontSideEvent: CardWebsocketEvent = await new Promise(
+        const frontSideEvent: CardWebsocketEventSnake = await new Promise(
           (resolve, reject) => {
             websocket.onmessage = (event) => {
-              const data: CardWebsocketEvent = JSON.parse(event.data as string);
+              const data: CardWebsocketEventSnake = JSON.parse(event.data as string);
               this.debug(`Received websocket message: ${event.data}`);
 
               if (data.type !== CardWebsocketEventTypeEnum.Card) return;
@@ -561,22 +584,28 @@ export class {{classname}} extends BaseAPI {
           this.info("Full scan completed successfully");
 
           this.debug("Fetching card details...");
-          const cardDetails = (await this.getCardById(frontSideEvent.card_id))
-            .data;
+          const cardDetails = (await this.getCardById(frontSideEvent.card_id, {
+            forceOriginalCase: true,
+          }));
 
           return resolve(cardDetails);
         }
 
         this.debug("Generating back side upload URL...");
-        const backSideUploadUrlResponse = (
-          await this.generateCardUploadUrl(card.card_id, 3600, {
+        const backSideUploadUrlResponse = (await this.generateCardUploadUrl(
+          card.card_id,
+          3600,
+          {
             orientation: ScanOrientation.Back,
-          })
-        ).data;
+          },
+          {
+            forceOriginalCase: true,
+          },
+        ));
 
         const formDataBack = this.cardFormDataFactory(
           backImage,
-          backSideUploadUrlResponse.upload_parameters,
+          backSideUploadUrlResponse.upload_parameters as unknown as UploadParametersSnake,
         );
 
         try {
@@ -619,10 +648,10 @@ export class {{classname}} extends BaseAPI {
 
         this.debug("Waiting for back side processing to complete...");
 
-        const event: CardWebsocketEvent = await new Promise(
+        const event: CardWebsocketEventSnake = await new Promise(
           (resolve, reject) => {
             websocket.onmessage = (event) => {
-              const data: CardWebsocketEvent = JSON.parse(event.data as string);
+              const data: CardWebsocketEventSnake = JSON.parse(event.data as string);
               this.debug(`Received websocket message: ${event.data}`);
 
               if (data.type !== CardWebsocketEventTypeEnum.Card) return;
@@ -647,7 +676,9 @@ export class {{classname}} extends BaseAPI {
         this.info("Full scan completed successfully");
         this.debug("Fetching card details...");
 
-        const cardDetails = (await this.getCardById(event.card_id)).data;
+        const cardDetails = (await this.getCardById(event.card_id, {
+          forceOriginalCase: true,
+        }));
         resolve(cardDetails);
       });
     });
@@ -655,7 +686,7 @@ export class {{classname}} extends BaseAPI {
   
   private cardFormDataFactory(
     file: File | Blob | Stream,
-    uploadParameters: UploadParameters,
+    uploadParameters: UploadParametersSnake,
   ) {
     const formData = new FormData();
 
@@ -694,6 +725,10 @@ export class {{classname}} extends BaseAPI {
       throw new Error("This method cannot be called without a websocket URL.");
     }
 
+    if (!this.validateEligibility(cardId, eligibility)) {
+      throw new Error("Invalid eligibility information");
+    }
+
     this.info(`Checking eligibility for card: ${cardId}`);
 
     return new Promise((resolve, reject) => {
@@ -706,12 +741,15 @@ export class {{classname}} extends BaseAPI {
         try {
           this.debug(`Creating eligibility for card: ${cardId}`);
 
-          const response = (
-            await this.createEligibility({
+          const response = (await this.createEligibility(
+            {
               card_id: cardId,
               eligibility,
-            })
-          ).data;
+            },
+            {
+              forceOriginalCase: true,
+            },
+          ));
 
           this.debug(
             `Eligibility created successfully: ${JSON.stringify(response)}`,
@@ -762,6 +800,138 @@ export class {{classname}} extends BaseAPI {
     });
   }
 
+  /**
+   * Utility method to validate eligibility information
+   * @returns The validated eligibility object
+   * @throws {yup.ValidationError}
+   */
+  public validateEligibility(cardId: string, eligibility: EligibilityInfo) {
+    const npiValid = this.npiValid.bind(this);
+
+    const schema = yup.object({
+      cardId: yup.string().required().uuid(),
+      eligibility: yup.object({
+        provider: yup
+          .object({
+            firstName: yup.string().when("organizationName", {
+              is: (organizationName: string) => !organizationName,
+              then: (schema) =>
+                schema.required(
+                  "provider first name is required if organization name is not provided",
+                ),
+              otherwise: (schema) => schema.optional(),
+            }),
+            lastName: yup
+              .string()
+              .optional()
+              .when("organizationName", {
+                is: (organizationName: string) => !organizationName,
+                then: (schema) =>
+                  schema.required(
+                    "provider last name is required if organization name is not provided",
+                  ),
+                otherwise: (schema) => schema.optional(),
+              }),
+            organizationName: yup.string().optional(),
+            npi: yup
+              .string()
+              .required("provider npi is a required field")
+              .test("isValidNpi", "npi is not valid", function (value) {
+                return npiValid(value);
+              }),
+          })
+          .required(),
+        subscriber: yup
+          .object({
+            firstName: yup
+              .string()
+              .required("subscriber first name is a required field"),
+            lastName: yup
+              .string()
+              .required("subscriber last name is a required field"),
+            dateOfBirth: yup
+              .string()
+              .required("subscriber date of birth is a required field")
+              .test(
+                "isValidDate",
+                "subscriber date of birth is not valid. Expected format: YYYYMMDD",
+                function (value) {
+                  if (value) {
+                    try {
+                      const date = new Date(
+                        parseInt(value.substring(0, 4), 10),
+                        parseInt(value.substring(4, 6), 10) - 1,
+                        parseInt(value.substring(6, 8), 10),
+                      );
+
+                      const formattedDate = date
+                        .toISOString()
+                        .slice(0, 10)
+                        .replace(/-/g, "");
+
+                      return formattedDate === value;
+                    } catch (e) {
+                      return false;
+                    }
+                  }
+                  return true;
+                },
+              ),
+          })
+          .required(),
+      }),
+    });
+
+    return schema.validateSync({ cardId, eligibility }, { abortEarly: false });
+  }
+
+  private toInt(num: string) {
+    return Number.parseInt(num, 10)
+  }
+
+  private sumDigits(int: number) {
+    let sum = 0;
+    while (int) {
+      sum += int % 10;
+      int = Math.floor(int / 10);
+    }
+
+    return sum;
+  };
+
+  private doubleAlternate(value: string, index?: number) {
+    let pos = index ?? value.length - 1;
+    let sum = 0;
+    let alt = true;
+    for (; pos >= 0; pos--) {
+      const cur = this.toInt(value.charAt(pos));
+      sum += alt ? this.sumDigits(cur * 2) : cur;
+      alt = !alt;
+    }
+
+    return sum;
+  };
+
+  private npiValid(id: string, prefix = '80840') {
+    const prefixRegex = /^80\d{3}$/;
+    const npiRegex = /^\d{10}$/;
+    const usPrefixSum = 24; // Precalculated value for 80840 (United States)
+    const npi = id?.toString() ?? '';
+    const pre = prefix?.toString() ?? '';
+
+    if (!npiRegex.test(npi) || !prefixRegex.test(pre)) {
+      return false;
+    }
+
+    const check = this.toInt(npi.charAt(9));
+    const npiSum = this.doubleAlternate(npi, 8);
+    const preSum = pre === '80840' ? usPrefixSum : this.doubleAlternate(pre, 3);
+    const total = npiSum + preSum;
+    const totalCeil = Math.ceil(total / 10) * 10;
+
+    return totalCeil - total === check;
+  }
+
 {{/withInterfaces}}
     {{#operation}}
     /**
@@ -790,14 +960,63 @@ export class {{classname}} extends BaseAPI {
     }
     {{/useSingleRequestParameter}}
     {{^useSingleRequestParameter}}
-    public {{nickname}}({{#allParams}}{{paramName}}{{^required}}?{{/required}}: {{#isEnum}}{{{datatypeWithEnum}}}{{/isEnum}}{{^isEnum}}{{{dataType}}}{{#isNullable}} | null{{/isNullable}}{{/isEnum}}, {{/allParams}}options?: RawAxiosRequestConfig) {
-        return {{classname}}Fp(this.configuration).{{nickname}}({{#allParams}}{{paramName}}, {{/allParams}}options).then((request) => request(this.axios, this.basePath));
+    public async {{nickname}}<OriginalCase extends boolean = false>({{#allParams}}{{paramName}}{{^required}}?{{/required}}: {{#isEnum}}{{{datatypeWithEnum}}}{{/isEnum}}{{^isEnum}}{{{dataType}}}{{#isNullable}} | null{{/isNullable}}{{/isEnum}}, {{/allParams}}options?: RawAxiosRequestConfig & { forceOriginalCase?: OriginalCase } ) {
+        let data = await {{classname}}Fp(this.configuration).{{nickname}}({{#allParams}}{{paramName}}, {{/allParams}}options).then((request) => request(this.axios, this.basePath)).then(r => r.data);
+
+        if (this.configuration.nameCase === 'camel' && !options?.forceOriginalCase) {
+          data = this.toCamelCase<typeof data>(data);
+        }
+
+        return data as TCase extends "snake"
+          ? KeysToSnakeCase<typeof data>
+          : OriginalCase extends true
+          ? KeysToSnakeCase<typeof data>
+          : TCase extends "camel"
+          ? typeof data : never;
     }
     {{/useSingleRequestParameter}}
     {{^-last}}
 
     {{/-last}}
     {{/operation}}
+
+  /**
+    * Utility function to transform an object's fields to snake_case
+   */
+  public toSnakeCase = <T>(obj: any): T => {
+    if (Array.isArray(obj)) {
+      return obj.map((item) => this.toSnakeCase(item)) as unknown as T;
+    } else if (obj !== null && typeof obj === "object") {
+      return Object.keys(obj).reduce((acc, key) => {
+        const snakeKey = key.replace(/[A-Z]/g, (letter) => `_${letter.toLowerCase()}`);
+        const value = obj[key];
+        return {
+          ...acc,
+          [snakeKey]: this.toSnakeCase(value),
+        };
+      }, {} as any) as T;
+    }
+    return obj as T;
+  }
+
+  /**
+   * Utility function to transform an object's fields to camelCase
+   **/
+  public toCamelCase = <T>(obj: any): T => {
+    if (Array.isArray(obj)) {
+      return obj.map((item) => this.toCamelCase(item)) as unknown as T;
+    } else if (obj !== null && typeof obj === "object") {
+      return Object.keys(obj).reduce((acc, key) => {
+        const camelKey = key.replace(/_([a-z])/g, (g) => g[1].toUpperCase());
+        const value = obj[key];
+        return {
+          ...acc,
+          [camelKey]: this.toCamelCase(value),
+        };
+      }, {} as any) as T;
+    }
+    return obj as T;
+  };
 }
 {{/operations}}
 

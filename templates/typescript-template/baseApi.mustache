@@ -2,7 +2,8 @@
 /* eslint-disable */
 {{>licenseInfo}}
 
-import type { Configuration, LogLevels } from "./configuration";
+import type { LogLevelNames as _LogLevelNames } from "loglevel";
+import type { Configuration } from "./configuration";
 // Some imports not used depending on template conditions
 // @ts-ignore
 import type { AxiosPromise, AxiosInstance, RawAxiosRequestConfig } from 'axios';
@@ -38,7 +39,7 @@ class Logging {
     this.configuration = config;
   }
 
-  private log(msg: string, level: LogLevels) {
+  private log(msg: string, level: _LogLevelNames) {
     if (this.configuration) {
       this.configuration.log(msg, level);
     }

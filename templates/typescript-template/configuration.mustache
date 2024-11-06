@@ -2,9 +2,11 @@
 /* eslint-disable */
 {{>licenseInfo}}
 
-import * as winston from "winston";
+import log from "loglevel";
 
-export type LogLevels = "debug" | "info" | "warn" | "error";
+export type _LogLevels = log.LogLevelDesc;
+
+export type NameCase = "snake" | "camel";
 
 export interface ConfigurationParameters {
   apiKey?:
@@ -26,7 +28,9 @@ export interface ConfigurationParameters {
   websocketUrl?: string;
   environment?: "sandbox" | "production";
   debug?: boolean;
-  logging?: LogLevels;
+  logging?: _LogLevels;
+  preInitializeWebsocket?: boolean;
+  nameCase?: NameCase;
 }
 
 export class Configuration {
@@ -108,9 +112,14 @@ export class Configuration {
    * @memberof Configuration
    * @default undefined
    * */
-  logging?: LogLevels;
+  logging?: _LogLevels;
 
-  private logger: winston.Logger;
+  /**
+   * A websocket connection will be created on class instantiation if this param is true
+   * */
+  preInitializeWebsocket?: boolean = false;
+  private logger: log.Logger;
+  nameCase?: NameCase;
 
   constructor(param: ConfigurationParameters) {
     this.apiKey = param.apiKey;
@@ -123,12 +132,14 @@ export class Configuration {
     this.formDataCtor = param.formDataCtor;
     this.environment = param.environment;
     this.logging = param.logging;
+    this.preInitializeWebsocket = param.preInitializeWebsocket;
+    this.nameCase = param.nameCase;
 
     if (!this.basePath) {
       if (this.environment === "sandbox") {
-        this.basePath = "https://sandbox.cardscan.ai";
+        this.basePath = "https://sandbox.cardscan.ai/v1";
       } else {
-        this.basePath = "https://cardscan.ai";
+        this.basePath = "https://api.cardscan.ai/v1";
       }
     }
 
@@ -140,39 +151,28 @@ export class Configuration {
       this.websocketUrl = "wss://ws.cardscan.ai";
     }
 
-    const customTransport = new winston.transports.Console({
-      silent: !this.logging,
-      format: winston.format.combine(
-        winston.format.colorize(),
-        winston.format.align(),
-        winston.format.printf((info) => `${info.level}: ${info.message}`),
-      ),
-    });
-
-    this.logger = winston.createLogger({
-      level: param.logging || "error",
-      transports: [customTransport],
-    });
+    this.logger = log;
+    this.logger.setLevel(this.logging || "silent");
   }
 
-  public log(msg: string, level: LogLevels) {
-    if (this.logging) {
-      this.logger.log(level, msg);
+  public log(msg: string, level: log.LogLevelNames) {
+    if (this.logging && this.logging !== 'silent') {
+      this.logger[level](`[CardScan-client] ${msg}`);
     }
   }
 
-    /**
-     * Check if the given MIME is a JSON MIME.
-     * JSON MIME examples:
-     *   application/json
-     *   application/json; charset=UTF8
-     *   APPLICATION/JSON
-     *   application/vnd.company+json
-     * @param mime - MIME (Multipurpose Internet Mail Extensions)
-     * @return True if the given MIME is JSON, false otherwise.
-     */
-    public isJsonMime(mime: string): boolean {
-        const jsonMime: RegExp = new RegExp('^(application\/json|[^;/ \t]+\/[^;/ \t]+[+]json)[ \t]*(;.*)?$', 'i');
-        return mime !== null && (jsonMime.test(mime) || mime.toLowerCase() === 'application/json-patch+json');
-    }
+  /**
+    * Check if the given MIME is a JSON MIME.
+    * JSON MIME examples:
+    *   application/json
+    *   application/json; charset=UTF8
+    *   APPLICATION/JSON
+    *   application/vnd.company+json
+    * @param mime - MIME (Multipurpose Internet Mail Extensions)
+    * @return True if the given MIME is JSON, false otherwise.
+    */
+  public isJsonMime(mime: string): boolean {
+      const jsonMime: RegExp = new RegExp('^(application\/json|[^;/ \t]+\/[^;/ \t]+[+]json)[ \t]*(;.*)?$', 'i');
+      return mime !== null && (jsonMime.test(mime) || mime.toLowerCase() === 'application/json-patch+json');
+  }
 }

@@ -26,19 +26,17 @@ yarn add @cardscan.ai/cardscan-client
 ### Usage
 
 ```typescript
-import { CardScanApi, Configuration } from "@cardscan.ai/cardscan-client";
+import { CardScanApi } from "@cardscan.ai/cardscan-client";
 
-const cardScanApi = new CardScanApi(
-  new Configuration({
-    /*
-     * By default the API will the production url if NODE_ENV is "production" and the sandbox url otherwise.
-     * You can also specify a url manually.
-     * */
-    // baseUrl: "https://api.cardscan.ai/v1",
+const cardScanApi = new CardScanApi({
+  /*
+   * By default the API will the production url if NODE_ENV is "production" and the sandbox url otherwise.
+   * You can also specify a url manually.
+   * */
+  // baseUrl: "https://api.cardscan.ai/v1",
 
-    apiKey: "<your-api-key>",
-  }),
-);
+  apiKey: "<your-api-key>",
+});
 
 const main = async () => {
   try {

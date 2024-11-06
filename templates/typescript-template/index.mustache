@@ -5,3 +5,4 @@
 export * from "./api";
 export * from "./configuration";
 {{#withSeparateModelsAndApi}}export * from "./{{tsModelPackage}}";{{/withSeparateModelsAndApi}}
+export { default as IsoWebSocket } from "modern-isomorphic-ws"

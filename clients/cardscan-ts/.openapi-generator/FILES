@@ -22,7 +22,6 @@ models/co-payment.ts
 models/coverage-summary.ts
 models/create-card-request-backside.ts
 models/create-card-request.ts
-models/create-eligibility-request.ts
 models/deductible.ts
 models/direct-upload-request.ts
 models/direct-upload200-response-metadata.ts
