@@ -40,9 +40,16 @@ class ScanMetadataGuides(BaseModel):
         """Returns the string representation of the model using alias"""
         return pprint.pformat(self.dict(by_alias=True))
 
+    def _json_serializer(self, obj):
+        """JSON serializer function for datetime objects"""
+        if isinstance(obj, datetime):
+            return obj.isoformat()
+
+        raise TypeError(f"Type {type(obj)} not serializable")
+
     def to_json(self) -> str:
         """Returns the JSON representation of the model using alias"""
-        return json.dumps(self.to_dict())
+        return json.dumps(self.to_dict(), default=self._json_serializer)
 
     @classmethod
     def from_json(cls, json_str: str) -> ScanMetadataGuides:
