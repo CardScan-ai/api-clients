@@ -19,7 +19,7 @@ import json
 
 
 from typing import Optional
-from pydantic import BaseModel, Field, constr
+from pydantic import BaseModel, constr
 
 class Address(BaseModel):
     """
@@ -29,8 +29,8 @@ class Address(BaseModel):
     address2: Optional[constr(strict=True, max_length=55, min_length=0)] = None
     city: Optional[constr(strict=True, max_length=30, min_length=0)] = None
     state: Optional[constr(strict=True, max_length=2, min_length=0)] = None
-    postal_code: Optional[constr(strict=True, max_length=15, min_length=0)] = Field(default=None, alias="postalCode")
-    __properties = ["address1", "address2", "city", "state", "postalCode"]
+    postal_code: Optional[constr(strict=True, max_length=15, min_length=0)] = None
+    __properties = ["address1", "address2", "city", "state", "postal_code"]
 
     class Config:
         """Pydantic configuration"""
@@ -79,7 +79,7 @@ class Address(BaseModel):
             "address2": obj.get("address2"),
             "city": obj.get("city"),
             "state": obj.get("state"),
-            "postal_code": obj.get("postalCode")
+            "postal_code": obj.get("postal_code")
         })
         return _obj
 

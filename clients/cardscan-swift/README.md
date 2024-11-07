@@ -37,10 +37,10 @@ Class | Method | HTTP request | Description
 *CardScanAPI* | [**getAccessToken**](docs/CardScanAPI.md#getaccesstoken) | **GET** /access-token | Access Token
 *CardScanAPI* | [**getCardById**](docs/CardScanAPI.md#getcardbyid) | **GET** /cards/{card_id} | Get Card by ID
 *CardScanAPI* | [**getEligibilityById**](docs/CardScanAPI.md#geteligibilitybyid) | **GET** /eligibility/{eligibility_id} | Get Eligibility
-*CardScanAPI* | [**getScanMetadata**](docs/CardScanAPI.md#getscanmetadata) | **GET** /scans/{scan_id}/metadata | Get Scan Metadata
 *CardScanAPI* | [**listCards**](docs/CardScanAPI.md#listcards) | **GET** /cards | List Cards
 *CardScanAPI* | [**listEligibility**](docs/CardScanAPI.md#listeligibility) | **GET** /eligibility | List Eligibility
 *CardScanAPI* | [**searchCards**](docs/CardScanAPI.md#searchcards) | **GET** /cards/search | Search Cards (200) OK
+*CardScanAPI* | [**setScanMetadata**](docs/CardScanAPI.md#setscanmetadata) | **POST** /scans/{scan_id}/metadata | Set Scan Metadata
 *CardScanAPI* | [**validateMagicLink**](docs/CardScanAPI.md#validatemagiclink) | **GET** /validate-magic-link | Validate Magic Link
 
 

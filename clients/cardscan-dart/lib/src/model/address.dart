@@ -30,7 +30,7 @@ abstract class Address implements Built<Address, AddressBuilder> {
   @BuiltValueField(wireName: r'state')
   String? get state;
 
-  @BuiltValueField(wireName: r'postalCode')
+  @BuiltValueField(wireName: r'postal_code')
   String? get postalCode;
 
   Address._();
@@ -85,7 +85,7 @@ class _$AddressSerializer implements PrimitiveSerializer<Address> {
       );
     }
     if (object.postalCode != null) {
-      yield r'postalCode';
+      yield r'postal_code';
       yield serializers.serialize(
         object.postalCode,
         specifiedType: const FullType(String),
@@ -142,7 +142,7 @@ class _$AddressSerializer implements PrimitiveSerializer<Address> {
           ) as String;
           result.state = valueDes;
           break;
-        case r'postalCode':
+        case r'postal_code':
           final valueDes = serializers.deserialize(
             value,
             specifiedType: const FullType(String),

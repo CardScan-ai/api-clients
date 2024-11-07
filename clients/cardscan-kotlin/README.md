@@ -56,10 +56,10 @@ All URIs are relative to *https://sandbox.cardscan.ai/v1*
 | *CardScanApi* | [**getAccessToken**](docs/CardScanApi.md#getaccesstoken) | **GET** /access-token | Access Token |
 | *CardScanApi* | [**getCardById**](docs/CardScanApi.md#getcardbyid) | **GET** /cards/{card_id} | Get Card by ID |
 | *CardScanApi* | [**getEligibilityById**](docs/CardScanApi.md#geteligibilitybyid) | **GET** /eligibility/{eligibility_id} | Get Eligibility |
-| *CardScanApi* | [**getScanMetadata**](docs/CardScanApi.md#getscanmetadata) | **GET** /scans/{scan_id}/metadata | Get Scan Metadata |
 | *CardScanApi* | [**listCards**](docs/CardScanApi.md#listcards) | **GET** /cards | List Cards |
 | *CardScanApi* | [**listEligibility**](docs/CardScanApi.md#listeligibility) | **GET** /eligibility | List Eligibility |
 | *CardScanApi* | [**searchCards**](docs/CardScanApi.md#searchcards) | **GET** /cards/search | Search Cards (200) OK |
+| *CardScanApi* | [**setScanMetadata**](docs/CardScanApi.md#setscanmetadata) | **POST** /scans/{scan_id}/metadata | Set Scan Metadata |
 | *CardScanApi* | [**validateMagicLink**](docs/CardScanApi.md#validatemagiclink) | **GET** /validate-magic-link | Validate Magic Link |
 
 

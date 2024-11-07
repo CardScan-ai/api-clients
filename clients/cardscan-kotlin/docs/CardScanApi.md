@@ -15,10 +15,10 @@ All URIs are relative to *https://sandbox.cardscan.ai/v1*
 | [**getAccessToken**](CardScanApi.md#getAccessToken) | **GET** /access-token | Access Token |
 | [**getCardById**](CardScanApi.md#getCardById) | **GET** /cards/{card_id} | Get Card by ID |
 | [**getEligibilityById**](CardScanApi.md#getEligibilityById) | **GET** /eligibility/{eligibility_id} | Get Eligibility |
-| [**getScanMetadata**](CardScanApi.md#getScanMetadata) | **GET** /scans/{scan_id}/metadata | Get Scan Metadata |
 | [**listCards**](CardScanApi.md#listCards) | **GET** /cards | List Cards |
 | [**listEligibility**](CardScanApi.md#listEligibility) | **GET** /eligibility | List Eligibility |
 | [**searchCards**](CardScanApi.md#searchCards) | **GET** /cards/search | Search Cards (200) OK |
+| [**setScanMetadata**](CardScanApi.md#setScanMetadata) | **POST** /scans/{scan_id}/metadata | Set Scan Metadata |
 | [**validateMagicLink**](CardScanApi.md#validateMagicLink) | **GET** /validate-magic-link | Validate Magic Link |
 
 
@@ -536,51 +536,6 @@ Configure bearerAuth:
  - **Content-Type**: Not defined
  - **Accept**: application/json
 
-<a id="getScanMetadata"></a>
-# **getScanMetadata**
-> getScanMetadata(scanId)
-
-Get Scan Metadata
-
-### Example
-```kotlin
-// Import classes:
-//import org.openapitools.client.infrastructure.*
-//import org.openapitools.client.models.*
-
-val apiInstance = CardScanApi()
-val scanId : java.util.UUID = 38400000-8cf0-11bd-b23e-10b96e4ef00d // java.util.UUID | 
-try {
-    apiInstance.getScanMetadata(scanId)
-} catch (e: ClientException) {
-    println("4xx response calling CardScanApi#getScanMetadata")
-    e.printStackTrace()
-} catch (e: ServerException) {
-    println("5xx response calling CardScanApi#getScanMetadata")
-    e.printStackTrace()
-}
-```
-
-### Parameters
-| Name | Type | Description  | Notes |
-| ------------- | ------------- | ------------- | ------------- |
-| **scanId** | **java.util.UUID**|  | |
-
-### Return type
-
-null (empty response body)
-
-### Authorization
-
-
-Configure bearerAuth:
-    ApiClient.accessToken = ""
-
-### HTTP request headers
-
- - **Content-Type**: Not defined
- - **Accept**: application/json
-
 <a id="listCards"></a>
 # **listCards**
 > SearchCards200Response listCards(limit, cursor)
@@ -725,6 +680,53 @@ Configure bearerAuth:
 ### HTTP request headers
 
  - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+<a id="setScanMetadata"></a>
+# **setScanMetadata**
+> setScanMetadata(scanId, body)
+
+Set Scan Metadata
+
+### Example
+```kotlin
+// Import classes:
+//import org.openapitools.client.infrastructure.*
+//import org.openapitools.client.models.*
+
+val apiInstance = CardScanApi()
+val scanId : java.util.UUID = 38400000-8cf0-11bd-b23e-10b96e4ef00d // java.util.UUID | 
+val body : kotlin.Any = Object // kotlin.Any | 
+try {
+    apiInstance.setScanMetadata(scanId, body)
+} catch (e: ClientException) {
+    println("4xx response calling CardScanApi#setScanMetadata")
+    e.printStackTrace()
+} catch (e: ServerException) {
+    println("5xx response calling CardScanApi#setScanMetadata")
+    e.printStackTrace()
+}
+```
+
+### Parameters
+| **scanId** | **java.util.UUID**|  | |
+| Name | Type | Description  | Notes |
+| ------------- | ------------- | ------------- | ------------- |
+| **body** | **kotlin.Any**|  | [optional] |
+
+### Return type
+
+null (empty response body)
+
+### Authorization
+
+
+Configure bearerAuth:
+    ApiClient.accessToken = ""
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
  - **Accept**: application/json
 
 <a id="validateMagicLink"></a>

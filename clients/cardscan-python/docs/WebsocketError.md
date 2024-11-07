@@ -7,7 +7,6 @@ Name | Type | Description | Notes
 **message** | **str** | A message describing the error. | 
 **type** | **str** | The type of error. | 
 **code** | **str** | The error code. | 
-**internal_error** | **str** | The internal error message. | [optional] 
 **error** | **str** | The type of the error (deprecated) | [optional] 
 
 ## Example

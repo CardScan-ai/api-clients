@@ -560,55 +560,6 @@ open class CardScanAPI {
     }
 
     /**
-     Get Scan Metadata
-     
-     - parameter scanId: (path)  
-     - parameter apiResponseQueue: The queue on which api response is dispatched.
-     - parameter completion: completion handler to receive the data and the error objects
-     */
-    @discardableResult
-    open class func getScanMetadata(scanId: UUID, apiResponseQueue: DispatchQueue = CardScanClientAPI.apiResponseQueue, completion: @escaping ((_ data: Void?, _ error: Error?) -> Void)) -> RequestTask {
-        return getScanMetadataWithRequestBuilder(scanId: scanId).execute(apiResponseQueue) { result in
-            switch result {
-            case .success:
-                completion((), nil)
-            case let .failure(error):
-                completion(nil, error)
-            }
-        }
-    }
-
-    /**
-     Get Scan Metadata
-     - GET /scans/{scan_id}/metadata
-     - Bearer Token:
-       - type: http
-       - name: bearerAuth
-     - parameter scanId: (path)  
-     - returns: RequestBuilder<Void> 
-     */
-    open class func getScanMetadataWithRequestBuilder(scanId: UUID) -> RequestBuilder<Void> {
-        var localVariablePath = "/scans/{scan_id}/metadata"
-        let scanIdPreEscape = "\(APIHelper.mapValueToPathItem(scanId))"
-        let scanIdPostEscape = scanIdPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
-        localVariablePath = localVariablePath.replacingOccurrences(of: "{scan_id}", with: scanIdPostEscape, options: .literal, range: nil)
-        let localVariableURLString = CardScanClientAPI.basePath + localVariablePath
-        let localVariableParameters: [String: Any]? = nil
-
-        let localVariableUrlComponents = URLComponents(string: localVariableURLString)
-
-        let localVariableNillableHeaders: [String: Any?] = [
-            :
-        ]
-
-        let localVariableHeaderParameters = APIHelper.rejectNilHeaders(localVariableNillableHeaders)
-
-        let localVariableRequestBuilder: RequestBuilder<Void>.Type = CardScanClientAPI.requestBuilderFactory.getNonDecodableBuilder()
-
-        return localVariableRequestBuilder.init(method: "GET", URLString: (localVariableUrlComponents?.string ?? localVariableURLString), parameters: localVariableParameters, headers: localVariableHeaderParameters, requiresAuthentication: true)
-    }
-
-    /**
      List Cards
      
      - parameter limit: (query)  (optional)
@@ -765,6 +716,57 @@ open class CardScanAPI {
         let localVariableRequestBuilder: RequestBuilder<SearchCards200Response>.Type = CardScanClientAPI.requestBuilderFactory.getBuilder()
 
         return localVariableRequestBuilder.init(method: "GET", URLString: (localVariableUrlComponents?.string ?? localVariableURLString), parameters: localVariableParameters, headers: localVariableHeaderParameters, requiresAuthentication: true)
+    }
+
+    /**
+     Set Scan Metadata
+     
+     - parameter scanId: (path)  
+     - parameter body: (body)  (optional)
+     - parameter apiResponseQueue: The queue on which api response is dispatched.
+     - parameter completion: completion handler to receive the data and the error objects
+     */
+    @discardableResult
+    open class func setScanMetadata(scanId: UUID, body: AnyCodable? = nil, apiResponseQueue: DispatchQueue = CardScanClientAPI.apiResponseQueue, completion: @escaping ((_ data: Void?, _ error: Error?) -> Void)) -> RequestTask {
+        return setScanMetadataWithRequestBuilder(scanId: scanId, body: body).execute(apiResponseQueue) { result in
+            switch result {
+            case .success:
+                completion((), nil)
+            case let .failure(error):
+                completion(nil, error)
+            }
+        }
+    }
+
+    /**
+     Set Scan Metadata
+     - POST /scans/{scan_id}/metadata
+     - Bearer Token:
+       - type: http
+       - name: bearerAuth
+     - parameter scanId: (path)  
+     - parameter body: (body)  (optional)
+     - returns: RequestBuilder<Void> 
+     */
+    open class func setScanMetadataWithRequestBuilder(scanId: UUID, body: AnyCodable? = nil) -> RequestBuilder<Void> {
+        var localVariablePath = "/scans/{scan_id}/metadata"
+        let scanIdPreEscape = "\(APIHelper.mapValueToPathItem(scanId))"
+        let scanIdPostEscape = scanIdPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
+        localVariablePath = localVariablePath.replacingOccurrences(of: "{scan_id}", with: scanIdPostEscape, options: .literal, range: nil)
+        let localVariableURLString = CardScanClientAPI.basePath + localVariablePath
+        let localVariableParameters = JSONEncodingHelper.encodingParameters(forEncodableObject: body)
+
+        let localVariableUrlComponents = URLComponents(string: localVariableURLString)
+
+        let localVariableNillableHeaders: [String: Any?] = [
+            "Content-Type": "application/json",
+        ]
+
+        let localVariableHeaderParameters = APIHelper.rejectNilHeaders(localVariableNillableHeaders)
+
+        let localVariableRequestBuilder: RequestBuilder<Void>.Type = CardScanClientAPI.requestBuilderFactory.getNonDecodableBuilder()
+
+        return localVariableRequestBuilder.init(method: "POST", URLString: (localVariableUrlComponents?.string ?? localVariableURLString), parameters: localVariableParameters, headers: localVariableHeaderParameters, requiresAuthentication: true)
     }
 
     /**

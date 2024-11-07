@@ -144,4 +144,3 @@ src/main/kotlin/org/openapitools/client/models/SubscriberDto.kt
 src/main/kotlin/org/openapitools/client/models/UploadParameters.kt
 src/main/kotlin/org/openapitools/client/models/ValidateMagicLink200Response.kt
 src/main/kotlin/org/openapitools/client/models/WebsocketError.kt
-src/test/kotlin/org/openapitools/client/models/EligibilityApiResponseEligibilityRequestProviderTest.kt

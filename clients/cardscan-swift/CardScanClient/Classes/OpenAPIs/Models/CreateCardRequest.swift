@@ -17,17 +17,20 @@ public struct CreateCardRequest: Codable, JSONEncodable, Hashable {
     /** Whether to enable live scanning */
     public var enableLivescan: Bool? = false
     public var backside: CreateCardRequestBackside?
+    public var metadata: AnyCodable?
 
-    public init(enableBacksideScan: Bool? = false, enableLivescan: Bool? = false, backside: CreateCardRequestBackside? = nil) {
+    public init(enableBacksideScan: Bool? = false, enableLivescan: Bool? = false, backside: CreateCardRequestBackside? = nil, metadata: AnyCodable? = nil) {
         self.enableBacksideScan = enableBacksideScan
         self.enableLivescan = enableLivescan
         self.backside = backside
+        self.metadata = metadata
     }
 
     public enum CodingKeys: String, CodingKey, CaseIterable {
         case enableBacksideScan = "enable_backside_scan"
         case enableLivescan = "enable_livescan"
         case backside
+        case metadata
     }
 
     // Encodable protocol methods
@@ -37,6 +40,7 @@ public struct CreateCardRequest: Codable, JSONEncodable, Hashable {
         try container.encodeIfPresent(enableBacksideScan, forKey: .enableBacksideScan)
         try container.encodeIfPresent(enableLivescan, forKey: .enableLivescan)
         try container.encodeIfPresent(backside, forKey: .backside)
+        try container.encodeIfPresent(metadata, forKey: .metadata)
     }
 }
 

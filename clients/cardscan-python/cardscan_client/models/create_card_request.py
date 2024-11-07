@@ -18,7 +18,7 @@ import re  # noqa: F401
 import json
 
 
-from typing import Optional
+from typing import Any, Dict, Optional
 from pydantic import BaseModel, Field, StrictBool
 from cardscan_client.models.create_card_request_backside import CreateCardRequestBackside
 
@@ -29,7 +29,8 @@ class CreateCardRequest(BaseModel):
     enable_backside_scan: Optional[StrictBool] = Field(default=False, description="Whether to enable backside scanning")
     enable_livescan: Optional[StrictBool] = Field(default=False, description="Whether to enable live scanning")
     backside: Optional[CreateCardRequestBackside] = None
-    __properties = ["enable_backside_scan", "enable_livescan", "backside"]
+    metadata: Optional[Dict[str, Any]] = None
+    __properties = ["enable_backside_scan", "enable_livescan", "backside", "metadata"]
 
     class Config:
         """Pydantic configuration"""
@@ -79,7 +80,8 @@ class CreateCardRequest(BaseModel):
         _obj = CreateCardRequest.parse_obj({
             "enable_backside_scan": obj.get("enable_backside_scan") if obj.get("enable_backside_scan") is not None else False,
             "enable_livescan": obj.get("enable_livescan") if obj.get("enable_livescan") is not None else False,
-            "backside": CreateCardRequestBackside.from_dict(obj.get("backside")) if obj.get("backside") is not None else None
+            "backside": CreateCardRequestBackside.from_dict(obj.get("backside")) if obj.get("backside") is not None else None,
+            "metadata": obj.get("metadata")
         })
         return _obj
 
