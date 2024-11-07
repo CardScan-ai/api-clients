@@ -14,17 +14,15 @@ import FormData from "form-data";
 import globalAxios from "axios";
 import {
   CardState,
-  CardWebsocketEvent,
-  CreateCardRequestBacksideScanningEnum,
   EligibilityInfo,
-  EligibilityWebsocketEvent,
   EligibilityState,
-  UploadParameters,
   CardWebsocketEventTypeEnum,
-  KeysToCamelCase,
   KeysToSnakeCase,
   UploadParametersSnake,
   CardWebsocketEventSnake,
+  CardApiResponseSnake,
+  EligibilityApiResponseSnake,
+  EligibilityWebsocketEventSnake,
 } from "../models";
 {{#withNodeImports}}
 // URLSearchParams not necessarily used
@@ -457,7 +455,7 @@ export class {{classname}}<TCase extends NameCase = "camel"> extends BaseAPI {
   }: {
     frontImage: File | Blob | Stream;
     backImage?: File | Blob | Stream;
-  }) {
+  }): Promise<TCase extends 'camel' ? CardApiResponse : CardApiResponseSnake> {
     this.info("Starting full scan...");
 
     if (!this.configuration?.websocketUrl) {
@@ -584,11 +582,13 @@ export class {{classname}}<TCase extends NameCase = "camel"> extends BaseAPI {
           this.info("Full scan completed successfully");
 
           this.debug("Fetching card details...");
-          const cardDetails = (await this.getCardById(frontSideEvent.card_id, {
-            forceOriginalCase: true,
-          }));
+          const cardDetails = (await this.getCardById(frontSideEvent.card_id, { forceOriginalCase: true }));
 
-          return resolve(cardDetails);
+          if (this.configuration.nameCase === 'camel') {
+            return resolve(this.toCamelCase(cardDetails));
+          }
+
+          return resolve(this.toSnakeCase(cardDetails))
         }
 
         this.debug("Generating back side upload URL...");
@@ -679,7 +679,12 @@ export class {{classname}}<TCase extends NameCase = "camel"> extends BaseAPI {
         const cardDetails = (await this.getCardById(event.card_id, {
           forceOriginalCase: true,
         }));
-        resolve(cardDetails);
+
+        if (this.configuration.nameCase == 'camel') {
+          return resolve(this.toCamelCase(cardDetails));
+        }
+
+        resolve(this.toSnakeCase(cardDetails));
       });
     });
   }
@@ -719,7 +724,7 @@ export class {{classname}}<TCase extends NameCase = "camel"> extends BaseAPI {
    * @param cardId The ID of the card
    * @param eligibility The eligibility information to check
    * */
-  public async checkEligibility(cardId: string, eligibility: EligibilityInfo) {
+  public async checkEligibility(cardId: string, eligibility: EligibilityInfo): Promise<TCase extends 'camel' ? EligibilityApiResponse : EligibilityApiResponseSnake> {
     if (!this.configuration?.websocketUrl) {
       this.error("Websocket URL not set in configuration");
       throw new Error("This method cannot be called without a websocket URL.");
@@ -769,10 +774,10 @@ export class {{classname}}<TCase extends NameCase = "camel"> extends BaseAPI {
         this.debug("Card registered with websocket");
 
         this.debug("Waiting for eligibility check to complete...");
-        const event: EligibilityWebsocketEvent = await new Promise(
+        const event: EligibilityWebsocketEventSnake = await new Promise(
           (resolve, reject) => {
             websocket.onmessage = (event) => {
-              const data: EligibilityWebsocketEvent = JSON.parse(
+              const data: EligibilityWebsocketEventSnake = JSON.parse(
                 event.data as string,
               );
               this.debug(`Received websocket message: ${event.data}`);
@@ -795,7 +800,17 @@ export class {{classname}}<TCase extends NameCase = "camel"> extends BaseAPI {
         );
 
         this.info(`Eligibility check completed successfully`);
-        resolve(event);
+
+        const elig = (await this.getEligibilityById(event.eligibility_id, {
+          forceOriginalCase: true,
+        }));
+
+        if (this.configuration.nameCase === 'camel') {
+          return resolve(this.toCamelCase(elig));
+        }
+
+        // Not necessary but calling toSnakeCase function makes the compiler happy :)
+        resolve(this.toSnakeCase(elig));
       });
     });
   }
