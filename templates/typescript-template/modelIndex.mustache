@@ -12,7 +12,7 @@ export type KeysToCamelCase<T> = {
   : T[K];
 };
 
-export type CamelToSnakeCase<S extends string> = S extends `${infer T}${infer U}` ?
+export type CamelToSnakeCase<S extends string> = S extends `${infer T}_${infer U}` ? S :  S extends `${infer T}${infer U}` ?
   `${T extends Capitalize<T> ? "_" : ""}${Lowercase<T>}${CamelToSnakeCase<U>}` :
   S
 

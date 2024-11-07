@@ -1,11 +1,11 @@
-import { KeysToCamelCase } from "./";
+import { KeysToCamelCase, KeysToSnakeCase } from "./";
 
 /**
  * {{{description}}}
  * @export
  * @interface {{classname}}
  */
-export interface {{classname}}Snake {{#parent}}extends {{{.}}} {{/parent}}{
+export interface {{classname}}Original {{#parent}}extends {{{.}}} {{/parent}}{
 {{#additionalPropertiesType}}
     [key: string]: {{{additionalPropertiesType}}}{{^additionalPropertiesIsAnyType}}{{#hasVars}} | any{{/hasVars}}{{/additionalPropertiesIsAnyType}};
 
@@ -63,4 +63,5 @@ export type {{enumName}} = typeof {{enumName}}[keyof typeof {{enumName}}];
 {{/vars}}
 {{/hasEnums}}
 
-export type {{classname}} = KeysToCamelCase<{{classname}}Snake>;
+export type {{classname}} = KeysToCamelCase<{{classname}}Original>;
+export type {{classname}}Snake = KeysToSnakeCase<{{classname}}Original>;
