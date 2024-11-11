@@ -14,14 +14,14 @@
 
 
 
-import { KeysToCamelCase } from "./";
+import { KeysToCamelCase, KeysToSnakeCase } from "./";
 
 /**
  * 
  * @export
  * @interface ResponseMetadata
  */
-export interface ResponseMetadataSnake {
+export interface ResponseMetadataOriginal {
     /**
      * The cursor for the next page of results.
      * @type {string}
@@ -41,6 +41,7 @@ export interface ResponseMetadataSnake {
      */
     'total'?: number;
 }
-export type ResponseMetadata = KeysToCamelCase<ResponseMetadataSnake>;
+export type ResponseMetadata = KeysToCamelCase<ResponseMetadataOriginal>;
+export type ResponseMetadataSnake = KeysToSnakeCase<ResponseMetadataOriginal>;
 
 

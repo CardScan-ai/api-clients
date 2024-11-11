@@ -14,14 +14,14 @@
 
 
 
-import { KeysToCamelCase } from "./";
+import { KeysToCamelCase, KeysToSnakeCase } from "./";
 
 /**
  * 
  * @export
  * @interface SubscriberDto
  */
-export interface SubscriberDtoSnake {
+export interface SubscriberDtoOriginal {
     /**
      * Loop: 2100C and 2100D, Segment: MN1, Element: NM104, Notes: firstName 1-35 alphanumeric characters 
      * @type {string}
@@ -41,6 +41,7 @@ export interface SubscriberDtoSnake {
      */
     'dateOfBirth': string;
 }
-export type SubscriberDto = KeysToCamelCase<SubscriberDtoSnake>;
+export type SubscriberDto = KeysToCamelCase<SubscriberDtoOriginal>;
+export type SubscriberDtoSnake = KeysToSnakeCase<SubscriberDtoOriginal>;
 
 

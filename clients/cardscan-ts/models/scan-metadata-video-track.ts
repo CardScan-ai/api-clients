@@ -14,14 +14,14 @@
 
 
 
-import { KeysToCamelCase } from "./";
+import { KeysToCamelCase, KeysToSnakeCase } from "./";
 
 /**
  * Video track details
  * @export
  * @interface ScanMetadataVideoTrack
  */
-export interface ScanMetadataVideoTrackSnake {
+export interface ScanMetadataVideoTrackOriginal {
     /**
      * 
      * @type {number}
@@ -65,6 +65,7 @@ export interface ScanMetadataVideoTrackSnake {
      */
     'width'?: number;
 }
-export type ScanMetadataVideoTrack = KeysToCamelCase<ScanMetadataVideoTrackSnake>;
+export type ScanMetadataVideoTrack = KeysToCamelCase<ScanMetadataVideoTrackOriginal>;
+export type ScanMetadataVideoTrackSnake = KeysToSnakeCase<ScanMetadataVideoTrackOriginal>;
 
 

@@ -23,14 +23,14 @@ import { ScanMetadata } from './scan-metadata';
 // @ts-ignore
 import { ScanOrientation } from './scan-orientation';
 
-import { KeysToCamelCase } from "./";
+import { KeysToCamelCase, KeysToSnakeCase } from "./";
 
 /**
  * 
  * @export
  * @interface GenerateCardUploadUrlRequest
  */
-export interface GenerateCardUploadUrlRequestSnake {
+export interface GenerateCardUploadUrlRequestOriginal {
     /**
      * 
      * @type {ScanOrientation}
@@ -52,6 +52,7 @@ export interface GenerateCardUploadUrlRequestSnake {
 }
 
 
-export type GenerateCardUploadUrlRequest = KeysToCamelCase<GenerateCardUploadUrlRequestSnake>;
+export type GenerateCardUploadUrlRequest = KeysToCamelCase<GenerateCardUploadUrlRequestOriginal>;
+export type GenerateCardUploadUrlRequestSnake = KeysToSnakeCase<GenerateCardUploadUrlRequestOriginal>;
 
 

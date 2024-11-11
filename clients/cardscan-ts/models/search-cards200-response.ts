@@ -20,14 +20,14 @@ import { CardApiResponse } from './card-api-response';
 // @ts-ignore
 import { ResponseMetadata } from './response-metadata';
 
-import { KeysToCamelCase } from "./";
+import { KeysToCamelCase, KeysToSnakeCase } from "./";
 
 /**
  * 
  * @export
  * @interface SearchCards200Response
  */
-export interface SearchCards200ResponseSnake {
+export interface SearchCards200ResponseOriginal {
     /**
      * 
      * @type {Array<CardApiResponse>}
@@ -41,6 +41,7 @@ export interface SearchCards200ResponseSnake {
      */
     'response_metadata': ResponseMetadata;
 }
-export type SearchCards200Response = KeysToCamelCase<SearchCards200ResponseSnake>;
+export type SearchCards200Response = KeysToCamelCase<SearchCards200ResponseOriginal>;
+export type SearchCards200ResponseSnake = KeysToSnakeCase<SearchCards200ResponseOriginal>;
 
 

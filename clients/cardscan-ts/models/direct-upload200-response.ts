@@ -17,14 +17,14 @@
 // @ts-ignore
 import { DirectUpload200ResponseMetadata } from './direct-upload200-response-metadata';
 
-import { KeysToCamelCase } from "./";
+import { KeysToCamelCase, KeysToSnakeCase } from "./";
 
 /**
  * 
  * @export
  * @interface DirectUpload200Response
  */
-export interface DirectUpload200ResponseSnake {
+export interface DirectUpload200ResponseOriginal {
     /**
      * 
      * @type {string}
@@ -44,6 +44,7 @@ export interface DirectUpload200ResponseSnake {
      */
     'metadata': DirectUpload200ResponseMetadata;
 }
-export type DirectUpload200Response = KeysToCamelCase<DirectUpload200ResponseSnake>;
+export type DirectUpload200Response = KeysToCamelCase<DirectUpload200ResponseOriginal>;
+export type DirectUpload200ResponseSnake = KeysToSnakeCase<DirectUpload200ResponseOriginal>;
 
 

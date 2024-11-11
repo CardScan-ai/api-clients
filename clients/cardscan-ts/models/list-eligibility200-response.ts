@@ -20,14 +20,14 @@ import { EligibilityApiResponse } from './eligibility-api-response';
 // @ts-ignore
 import { ResponseMetadata } from './response-metadata';
 
-import { KeysToCamelCase } from "./";
+import { KeysToCamelCase, KeysToSnakeCase } from "./";
 
 /**
  * 
  * @export
  * @interface ListEligibility200Response
  */
-export interface ListEligibility200ResponseSnake {
+export interface ListEligibility200ResponseOriginal {
     /**
      * 
      * @type {Array<EligibilityApiResponse>}
@@ -41,6 +41,7 @@ export interface ListEligibility200ResponseSnake {
      */
     'response_metadata': ResponseMetadata;
 }
-export type ListEligibility200Response = KeysToCamelCase<ListEligibility200ResponseSnake>;
+export type ListEligibility200Response = KeysToCamelCase<ListEligibility200ResponseOriginal>;
+export type ListEligibility200ResponseSnake = KeysToSnakeCase<ListEligibility200ResponseOriginal>;
 
 

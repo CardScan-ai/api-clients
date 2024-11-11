@@ -14,14 +14,14 @@
 
 
 
-import { KeysToCamelCase } from "./";
+import { KeysToCamelCase, KeysToSnakeCase } from "./";
 
 /**
  * 
  * @export
  * @interface ValidateMagicLink200Response
  */
-export interface ValidateMagicLink200ResponseSnake {
+export interface ValidateMagicLink200ResponseOriginal {
     /**
      * The token associated with the magic link
      * @type {string}
@@ -35,6 +35,7 @@ export interface ValidateMagicLink200ResponseSnake {
      */
     'IdentityId': string;
 }
-export type ValidateMagicLink200Response = KeysToCamelCase<ValidateMagicLink200ResponseSnake>;
+export type ValidateMagicLink200Response = KeysToCamelCase<ValidateMagicLink200ResponseOriginal>;
+export type ValidateMagicLink200ResponseSnake = KeysToSnakeCase<ValidateMagicLink200ResponseOriginal>;
 
 

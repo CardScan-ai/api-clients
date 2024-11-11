@@ -14,14 +14,14 @@
 
 
 
-import { KeysToCamelCase } from "./";
+import { KeysToCamelCase, KeysToSnakeCase } from "./";
 
 /**
  * 
  * @export
  * @interface CardApiResponseImagesBack
  */
-export interface CardApiResponseImagesBackSnake {
+export interface CardApiResponseImagesBackOriginal {
     /**
      * The URL to the back image of the card.
      * @type {string}
@@ -29,6 +29,7 @@ export interface CardApiResponseImagesBackSnake {
      */
     'url'?: string;
 }
-export type CardApiResponseImagesBack = KeysToCamelCase<CardApiResponseImagesBackSnake>;
+export type CardApiResponseImagesBack = KeysToCamelCase<CardApiResponseImagesBackOriginal>;
+export type CardApiResponseImagesBackSnake = KeysToSnakeCase<CardApiResponseImagesBackOriginal>;
 
 

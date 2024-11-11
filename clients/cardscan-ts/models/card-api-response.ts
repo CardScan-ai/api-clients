@@ -26,14 +26,14 @@ import { CardState } from './card-state';
 // @ts-ignore
 import { ModelError } from './model-error';
 
-import { KeysToCamelCase } from "./";
+import { KeysToCamelCase, KeysToSnakeCase } from "./";
 
 /**
  * 
  * @export
  * @interface CardApiResponse
  */
-export interface CardApiResponseSnake {
+export interface CardApiResponseOriginal {
     /**
      * 
      * @type {string}
@@ -79,6 +79,7 @@ export interface CardApiResponseSnake {
 }
 
 
-export type CardApiResponse = KeysToCamelCase<CardApiResponseSnake>;
+export type CardApiResponse = KeysToCamelCase<CardApiResponseOriginal>;
+export type CardApiResponseSnake = KeysToSnakeCase<CardApiResponseOriginal>;
 
 

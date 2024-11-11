@@ -29,14 +29,14 @@ import { Service } from './service';
 // @ts-ignore
 import { SubscriberDetails } from './subscriber-details';
 
-import { KeysToCamelCase } from "./";
+import { KeysToCamelCase, KeysToSnakeCase } from "./";
 
 /**
  * 
  * @export
  * @interface EligibilitySummarizedResponse
  */
-export interface EligibilitySummarizedResponseSnake {
+export interface EligibilitySummarizedResponseOriginal {
     /**
      * 
      * @type {SubscriberDetails}
@@ -1184,6 +1184,7 @@ export interface EligibilitySummarizedResponseSnake {
      */
     'well_baby_care'?: Service;
 }
-export type EligibilitySummarizedResponse = KeysToCamelCase<EligibilitySummarizedResponseSnake>;
+export type EligibilitySummarizedResponse = KeysToCamelCase<EligibilitySummarizedResponseOriginal>;
+export type EligibilitySummarizedResponseSnake = KeysToSnakeCase<EligibilitySummarizedResponseOriginal>;
 
 

@@ -17,14 +17,14 @@
 // @ts-ignore
 import { Address } from './address';
 
-import { KeysToCamelCase } from "./";
+import { KeysToCamelCase, KeysToSnakeCase } from "./";
 
 /**
  * 
  * @export
  * @interface SubscriberDetails
  */
-export interface SubscriberDetailsSnake {
+export interface SubscriberDetailsOriginal {
     /**
      * The member ID of the subscriber.
      * @type {string}
@@ -68,6 +68,7 @@ export interface SubscriberDetailsSnake {
      */
     'dob'?: string;
 }
-export type SubscriberDetails = KeysToCamelCase<SubscriberDetailsSnake>;
+export type SubscriberDetails = KeysToCamelCase<SubscriberDetailsOriginal>;
+export type SubscriberDetailsSnake = KeysToSnakeCase<SubscriberDetailsOriginal>;
 
 

@@ -14,14 +14,14 @@
 
 
 
-import { KeysToCamelCase } from "./";
+import { KeysToCamelCase, KeysToSnakeCase } from "./";
 
 /**
  * 
  * @export
  * @interface ApiErrorResponse
  */
-export interface ApiErrorResponseSnake {
+export interface ApiErrorResponseOriginal {
     /**
      * A message describing the error.
      * @type {string}
@@ -41,6 +41,7 @@ export interface ApiErrorResponseSnake {
      */
     'code'?: number;
 }
-export type ApiErrorResponse = KeysToCamelCase<ApiErrorResponseSnake>;
+export type ApiErrorResponse = KeysToCamelCase<ApiErrorResponseOriginal>;
+export type ApiErrorResponseSnake = KeysToSnakeCase<ApiErrorResponseOriginal>;
 
 

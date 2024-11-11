@@ -14,14 +14,14 @@
 
 
 
-import { KeysToCamelCase } from "./";
+import { KeysToCamelCase, KeysToSnakeCase } from "./";
 
 /**
  * 
  * @export
  * @interface GetAccessToken500Response
  */
-export interface GetAccessToken500ResponseSnake {
+export interface GetAccessToken500ResponseOriginal {
     /**
      * A message describing the error.
      * @type {string}
@@ -29,6 +29,7 @@ export interface GetAccessToken500ResponseSnake {
      */
     'message'?: string;
 }
-export type GetAccessToken500Response = KeysToCamelCase<GetAccessToken500ResponseSnake>;
+export type GetAccessToken500Response = KeysToCamelCase<GetAccessToken500ResponseOriginal>;
+export type GetAccessToken500ResponseSnake = KeysToSnakeCase<GetAccessToken500ResponseOriginal>;
 
 

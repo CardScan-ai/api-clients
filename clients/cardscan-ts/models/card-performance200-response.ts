@@ -14,14 +14,14 @@
 
 
 
-import { KeysToCamelCase } from "./";
+import { KeysToCamelCase, KeysToSnakeCase } from "./";
 
 /**
  * 
  * @export
  * @interface CardPerformance200Response
  */
-export interface CardPerformance200ResponseSnake {
+export interface CardPerformance200ResponseOriginal {
     /**
      * 
      * @type {string}
@@ -29,6 +29,7 @@ export interface CardPerformance200ResponseSnake {
      */
     'message'?: string;
 }
-export type CardPerformance200Response = KeysToCamelCase<CardPerformance200ResponseSnake>;
+export type CardPerformance200Response = KeysToCamelCase<CardPerformance200ResponseOriginal>;
+export type CardPerformance200ResponseSnake = KeysToSnakeCase<CardPerformance200ResponseOriginal>;
 
 

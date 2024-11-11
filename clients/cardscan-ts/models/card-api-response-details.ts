@@ -17,14 +17,14 @@
 // @ts-ignore
 import { MatchScore } from './match-score';
 
-import { KeysToCamelCase } from "./";
+import { KeysToCamelCase, KeysToSnakeCase } from "./";
 
 /**
  * 
  * @export
  * @interface CardApiResponseDetails
  */
-export interface CardApiResponseDetailsSnake {
+export interface CardApiResponseDetailsOriginal {
     /**
      * 
      * @type {MatchScore}
@@ -188,6 +188,7 @@ export interface CardApiResponseDetailsSnake {
      */
     'plan_type'?: MatchScore;
 }
-export type CardApiResponseDetails = KeysToCamelCase<CardApiResponseDetailsSnake>;
+export type CardApiResponseDetails = KeysToCamelCase<CardApiResponseDetailsOriginal>;
+export type CardApiResponseDetailsSnake = KeysToSnakeCase<CardApiResponseDetailsOriginal>;
 
 

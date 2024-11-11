@@ -35,14 +35,14 @@ import { ScanMetadataVideoTrack } from './scan-metadata-video-track';
 // @ts-ignore
 import { ScanMetadataWindowInner } from './scan-metadata-window-inner';
 
-import { KeysToCamelCase } from "./";
+import { KeysToCamelCase, KeysToSnakeCase } from "./";
 
 /**
  * 
  * @export
  * @interface ScanMetadata
  */
-export interface ScanMetadataSnake {
+export interface ScanMetadataOriginal {
     /**
      * The type of capture (automatic or manual)
      * @type {string}
@@ -124,6 +124,7 @@ export const ScanMetadataCaptureTypeEnum = {
 
 export type ScanMetadataCaptureTypeEnum = typeof ScanMetadataCaptureTypeEnum[keyof typeof ScanMetadataCaptureTypeEnum];
 
-export type ScanMetadata = KeysToCamelCase<ScanMetadataSnake>;
+export type ScanMetadata = KeysToCamelCase<ScanMetadataOriginal>;
+export type ScanMetadataSnake = KeysToSnakeCase<ScanMetadataOriginal>;
 
 

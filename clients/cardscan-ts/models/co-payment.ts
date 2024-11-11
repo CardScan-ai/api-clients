@@ -14,14 +14,14 @@
 
 
 
-import { KeysToCamelCase } from "./";
+import { KeysToCamelCase, KeysToSnakeCase } from "./";
 
 /**
  * 
  * @export
  * @interface CoPayment
  */
-export interface CoPaymentSnake {
+export interface CoPaymentOriginal {
     /**
      * The co-payment amount.
      * @type {string}
@@ -29,6 +29,7 @@ export interface CoPaymentSnake {
      */
     'amount'?: string;
 }
-export type CoPayment = KeysToCamelCase<CoPaymentSnake>;
+export type CoPayment = KeysToCamelCase<CoPaymentOriginal>;
+export type CoPaymentSnake = KeysToSnakeCase<CoPaymentOriginal>;
 
 

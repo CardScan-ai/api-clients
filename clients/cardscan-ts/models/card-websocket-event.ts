@@ -20,14 +20,14 @@ import { CardState } from './card-state';
 // @ts-ignore
 import { WebsocketError } from './websocket-error';
 
-import { KeysToCamelCase } from "./";
+import { KeysToCamelCase, KeysToSnakeCase } from "./";
 
 /**
  * 
  * @export
  * @interface CardWebsocketEvent
  */
-export interface CardWebsocketEventSnake {
+export interface CardWebsocketEventOriginal {
     /**
      * 
      * @type {string}
@@ -78,6 +78,7 @@ export const CardWebsocketEventTypeEnum = {
 
 export type CardWebsocketEventTypeEnum = typeof CardWebsocketEventTypeEnum[keyof typeof CardWebsocketEventTypeEnum];
 
-export type CardWebsocketEvent = KeysToCamelCase<CardWebsocketEventSnake>;
+export type CardWebsocketEvent = KeysToCamelCase<CardWebsocketEventOriginal>;
+export type CardWebsocketEventSnake = KeysToSnakeCase<CardWebsocketEventOriginal>;
 
 

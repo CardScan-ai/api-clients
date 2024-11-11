@@ -14,14 +14,14 @@
 
 
 
-import { KeysToCamelCase } from "./";
+import { KeysToCamelCase, KeysToSnakeCase } from "./";
 
 /**
  * 
  * @export
  * @interface MatchScore
  */
-export interface MatchScoreSnake {
+export interface MatchScoreOriginal {
     /**
      * The matching score value of the card.
      * @type {string}
@@ -35,6 +35,7 @@ export interface MatchScoreSnake {
      */
     'scores'?: Array<string>;
 }
-export type MatchScore = KeysToCamelCase<MatchScoreSnake>;
+export type MatchScore = KeysToCamelCase<MatchScoreOriginal>;
+export type MatchScoreSnake = KeysToSnakeCase<MatchScoreOriginal>;
 
 
