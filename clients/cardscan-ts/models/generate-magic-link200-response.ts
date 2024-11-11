@@ -14,14 +14,14 @@
 
 
 
-import { KeysToCamelCase } from "./";
+import { KeysToCamelCase, KeysToSnakeCase } from "./";
 
 /**
  * 
  * @export
  * @interface GenerateMagicLink200Response
  */
-export interface GenerateMagicLink200ResponseSnake {
+export interface GenerateMagicLink200ResponseOriginal {
     /**
      * The URL of the magic link
      * @type {string}
@@ -41,6 +41,7 @@ export interface GenerateMagicLink200ResponseSnake {
      */
     'expires_at': string;
 }
-export type GenerateMagicLink200Response = KeysToCamelCase<GenerateMagicLink200ResponseSnake>;
+export type GenerateMagicLink200Response = KeysToCamelCase<GenerateMagicLink200ResponseOriginal>;
+export type GenerateMagicLink200ResponseSnake = KeysToSnakeCase<GenerateMagicLink200ResponseOriginal>;
 
 

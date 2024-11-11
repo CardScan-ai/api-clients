@@ -14,14 +14,14 @@
 
 
 
-import { KeysToCamelCase } from "./";
+import { KeysToCamelCase, KeysToSnakeCase } from "./";
 
 /**
  * 
  * @export
  * @interface GetAccessToken200Response
  */
-export interface GetAccessToken200ResponseSnake {
+export interface GetAccessToken200ResponseOriginal {
     /**
      * The access token.
      * @type {string}
@@ -41,6 +41,7 @@ export interface GetAccessToken200ResponseSnake {
      */
     'session_id'?: string;
 }
-export type GetAccessToken200Response = KeysToCamelCase<GetAccessToken200ResponseSnake>;
+export type GetAccessToken200Response = KeysToCamelCase<GetAccessToken200ResponseOriginal>;
+export type GetAccessToken200ResponseSnake = KeysToSnakeCase<GetAccessToken200ResponseOriginal>;
 
 

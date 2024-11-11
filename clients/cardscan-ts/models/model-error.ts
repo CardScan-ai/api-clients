@@ -14,14 +14,14 @@
 
 
 
-import { KeysToCamelCase } from "./";
+import { KeysToCamelCase, KeysToSnakeCase } from "./";
 
 /**
  * 
  * @export
  * @interface ModelError
  */
-export interface ModelErrorSnake {
+export interface ModelErrorOriginal {
     /**
      * A message describing the error.
      * @type {string}
@@ -48,6 +48,7 @@ export interface ModelErrorSnake {
      */
     'error'?: string;
 }
-export type ModelError = KeysToCamelCase<ModelErrorSnake>;
+export type ModelError = KeysToCamelCase<ModelErrorOriginal>;
+export type ModelErrorSnake = KeysToSnakeCase<ModelErrorOriginal>;
 
 

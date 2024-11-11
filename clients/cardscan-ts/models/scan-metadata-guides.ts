@@ -14,14 +14,14 @@
 
 
 
-import { KeysToCamelCase } from "./";
+import { KeysToCamelCase, KeysToSnakeCase } from "./";
 
 /**
  * Coordinates and dimensions of capture guides
  * @export
  * @interface ScanMetadataGuides
  */
-export interface ScanMetadataGuidesSnake {
+export interface ScanMetadataGuidesOriginal {
     /**
      * 
      * @type {number}
@@ -47,6 +47,7 @@ export interface ScanMetadataGuidesSnake {
      */
     'height'?: number;
 }
-export type ScanMetadataGuides = KeysToCamelCase<ScanMetadataGuidesSnake>;
+export type ScanMetadataGuides = KeysToCamelCase<ScanMetadataGuidesOriginal>;
+export type ScanMetadataGuidesSnake = KeysToSnakeCase<ScanMetadataGuidesOriginal>;
 
 

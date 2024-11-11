@@ -14,14 +14,14 @@
 
 
 
-import { KeysToCamelCase } from "./";
+import { KeysToCamelCase, KeysToSnakeCase } from "./";
 
 /**
  * 
  * @export
  * @interface WebsocketError
  */
-export interface WebsocketErrorSnake {
+export interface WebsocketErrorOriginal {
     /**
      * A message describing the error.
      * @type {string}
@@ -48,6 +48,7 @@ export interface WebsocketErrorSnake {
      */
     'error'?: string;
 }
-export type WebsocketError = KeysToCamelCase<WebsocketErrorSnake>;
+export type WebsocketError = KeysToCamelCase<WebsocketErrorOriginal>;
+export type WebsocketErrorSnake = KeysToSnakeCase<WebsocketErrorOriginal>;
 
 

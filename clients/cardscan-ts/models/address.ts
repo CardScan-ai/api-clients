@@ -14,14 +14,14 @@
 
 
 
-import { KeysToCamelCase } from "./";
+import { KeysToCamelCase, KeysToSnakeCase } from "./";
 
 /**
  * 
  * @export
  * @interface Address
  */
-export interface AddressSnake {
+export interface AddressOriginal {
     /**
      * 
      * @type {string}
@@ -53,6 +53,7 @@ export interface AddressSnake {
      */
     'postal_code'?: string;
 }
-export type Address = KeysToCamelCase<AddressSnake>;
+export type Address = KeysToCamelCase<AddressOriginal>;
+export type AddressSnake = KeysToSnakeCase<AddressOriginal>;
 
 

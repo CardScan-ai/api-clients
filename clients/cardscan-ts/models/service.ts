@@ -26,14 +26,14 @@ import { Deductible } from './deductible';
 // @ts-ignore
 import { OOP } from './oop';
 
-import { KeysToCamelCase } from "./";
+import { KeysToCamelCase, KeysToSnakeCase } from "./";
 
 /**
  * 
  * @export
  * @interface Service
  */
-export interface ServiceSnake {
+export interface ServiceOriginal {
     /**
      * 
      * @type {Deductible}
@@ -113,6 +113,7 @@ export interface ServiceSnake {
      */
     'service_code'?: string;
 }
-export type Service = KeysToCamelCase<ServiceSnake>;
+export type Service = KeysToCamelCase<ServiceOriginal>;
+export type ServiceSnake = KeysToSnakeCase<ServiceOriginal>;
 
 

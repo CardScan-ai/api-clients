@@ -14,14 +14,14 @@
 
 
 
-import { KeysToCamelCase } from "./";
+import { KeysToCamelCase, KeysToSnakeCase } from "./";
 
 /**
  * 
  * @export
  * @interface ScanMetadataCaptureScoreScoresInner
  */
-export interface ScanMetadataCaptureScoreScoresInnerSnake {
+export interface ScanMetadataCaptureScoreScoresInnerOriginal {
     /**
      * 
      * @type {number}
@@ -35,6 +35,7 @@ export interface ScanMetadataCaptureScoreScoresInnerSnake {
      */
     'laplacian'?: number;
 }
-export type ScanMetadataCaptureScoreScoresInner = KeysToCamelCase<ScanMetadataCaptureScoreScoresInnerSnake>;
+export type ScanMetadataCaptureScoreScoresInner = KeysToCamelCase<ScanMetadataCaptureScoreScoresInnerOriginal>;
+export type ScanMetadataCaptureScoreScoresInnerSnake = KeysToSnakeCase<ScanMetadataCaptureScoreScoresInnerOriginal>;
 
 

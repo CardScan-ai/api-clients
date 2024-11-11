@@ -14,14 +14,14 @@
 
 
 
-import { KeysToCamelCase } from "./";
+import { KeysToCamelCase, KeysToSnakeCase } from "./";
 
 /**
  * 
  * @export
  * @interface ScanMetadataCameraCapabilitiesAspectRatio
  */
-export interface ScanMetadataCameraCapabilitiesAspectRatioSnake {
+export interface ScanMetadataCameraCapabilitiesAspectRatioOriginal {
     /**
      * 
      * @type {number}
@@ -35,6 +35,7 @@ export interface ScanMetadataCameraCapabilitiesAspectRatioSnake {
      */
     'min'?: number;
 }
-export type ScanMetadataCameraCapabilitiesAspectRatio = KeysToCamelCase<ScanMetadataCameraCapabilitiesAspectRatioSnake>;
+export type ScanMetadataCameraCapabilitiesAspectRatio = KeysToCamelCase<ScanMetadataCameraCapabilitiesAspectRatioOriginal>;
+export type ScanMetadataCameraCapabilitiesAspectRatioSnake = KeysToSnakeCase<ScanMetadataCameraCapabilitiesAspectRatioOriginal>;
 
 

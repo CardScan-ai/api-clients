@@ -14,14 +14,14 @@
 
 
 
-import { KeysToCamelCase } from "./";
+import { KeysToCamelCase, KeysToSnakeCase } from "./";
 
 /**
  * Inner window dimensions
  * @export
  * @interface ScanMetadataWindowInner
  */
-export interface ScanMetadataWindowInnerSnake {
+export interface ScanMetadataWindowInnerOriginal {
     /**
      * 
      * @type {number}
@@ -35,6 +35,7 @@ export interface ScanMetadataWindowInnerSnake {
      */
     'height'?: number;
 }
-export type ScanMetadataWindowInner = KeysToCamelCase<ScanMetadataWindowInnerSnake>;
+export type ScanMetadataWindowInner = KeysToCamelCase<ScanMetadataWindowInnerOriginal>;
+export type ScanMetadataWindowInnerSnake = KeysToSnakeCase<ScanMetadataWindowInnerOriginal>;
 
 

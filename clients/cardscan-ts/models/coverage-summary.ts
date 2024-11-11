@@ -26,14 +26,14 @@ import { Deductible } from './deductible';
 // @ts-ignore
 import { OOP } from './oop';
 
-import { KeysToCamelCase } from "./";
+import { KeysToCamelCase, KeysToSnakeCase } from "./";
 
 /**
  * 
  * @export
  * @interface CoverageSummary
  */
-export interface CoverageSummarySnake {
+export interface CoverageSummaryOriginal {
     /**
      * 
      * @type {Deductible}
@@ -107,6 +107,7 @@ export interface CoverageSummarySnake {
      */
     'co_payment_in_network'?: CoPayment;
 }
-export type CoverageSummary = KeysToCamelCase<CoverageSummarySnake>;
+export type CoverageSummary = KeysToCamelCase<CoverageSummaryOriginal>;
+export type CoverageSummarySnake = KeysToSnakeCase<CoverageSummaryOriginal>;
 
 

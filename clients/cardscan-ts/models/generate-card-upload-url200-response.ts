@@ -17,14 +17,14 @@
 // @ts-ignore
 import { UploadParameters } from './upload-parameters';
 
-import { KeysToCamelCase } from "./";
+import { KeysToCamelCase, KeysToSnakeCase } from "./";
 
 /**
  * 
  * @export
  * @interface GenerateCardUploadUrl200Response
  */
-export interface GenerateCardUploadUrl200ResponseSnake {
+export interface GenerateCardUploadUrl200ResponseOriginal {
     /**
      * 
      * @type {string}
@@ -50,6 +50,7 @@ export interface GenerateCardUploadUrl200ResponseSnake {
      */
     'upload_parameters': UploadParameters;
 }
-export type GenerateCardUploadUrl200Response = KeysToCamelCase<GenerateCardUploadUrl200ResponseSnake>;
+export type GenerateCardUploadUrl200Response = KeysToCamelCase<GenerateCardUploadUrl200ResponseOriginal>;
+export type GenerateCardUploadUrl200ResponseSnake = KeysToSnakeCase<GenerateCardUploadUrl200ResponseOriginal>;
 
 

@@ -14,14 +14,14 @@
 
 
 
-import { KeysToCamelCase } from "./";
+import { KeysToCamelCase, KeysToSnakeCase } from "./";
 
 /**
  * 
  * @export
  * @interface Deductible
  */
-export interface DeductibleSnake {
+export interface DeductibleOriginal {
     /**
      * The total deductible amount.
      * @type {string}
@@ -35,6 +35,7 @@ export interface DeductibleSnake {
      */
     'remaining_amount'?: string;
 }
-export type Deductible = KeysToCamelCase<DeductibleSnake>;
+export type Deductible = KeysToCamelCase<DeductibleOriginal>;
+export type DeductibleSnake = KeysToSnakeCase<DeductibleOriginal>;
 
 

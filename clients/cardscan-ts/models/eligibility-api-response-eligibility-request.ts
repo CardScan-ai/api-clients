@@ -20,14 +20,14 @@ import { EligibilityApiResponseEligibilityRequestProvider } from './eligibility-
 // @ts-ignore
 import { EligibilityApiResponseEligibilityRequestSubscriber } from './eligibility-api-response-eligibility-request-subscriber';
 
-import { KeysToCamelCase } from "./";
+import { KeysToCamelCase, KeysToSnakeCase } from "./";
 
 /**
  * The eligibility request.
  * @export
  * @interface EligibilityApiResponseEligibilityRequest
  */
-export interface EligibilityApiResponseEligibilityRequestSnake {
+export interface EligibilityApiResponseEligibilityRequestOriginal {
     /**
      * The control number of the claim.
      * @type {string}
@@ -53,6 +53,7 @@ export interface EligibilityApiResponseEligibilityRequestSnake {
      */
     'subscriber'?: EligibilityApiResponseEligibilityRequestSubscriber;
 }
-export type EligibilityApiResponseEligibilityRequest = KeysToCamelCase<EligibilityApiResponseEligibilityRequestSnake>;
+export type EligibilityApiResponseEligibilityRequest = KeysToCamelCase<EligibilityApiResponseEligibilityRequestOriginal>;
+export type EligibilityApiResponseEligibilityRequestSnake = KeysToSnakeCase<EligibilityApiResponseEligibilityRequestOriginal>;
 
 

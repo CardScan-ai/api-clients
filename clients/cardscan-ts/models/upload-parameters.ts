@@ -14,14 +14,14 @@
 
 
 
-import { KeysToCamelCase } from "./";
+import { KeysToCamelCase, KeysToSnakeCase } from "./";
 
 /**
  * 
  * @export
  * @interface UploadParameters
  */
-export interface UploadParametersSnake {
+export interface UploadParametersOriginal {
     /**
      * The content type of the file
      * @type {string}
@@ -107,6 +107,7 @@ export interface UploadParametersSnake {
      */
     'x-amz-signature': string;
 }
-export type UploadParameters = KeysToCamelCase<UploadParametersSnake>;
+export type UploadParameters = KeysToCamelCase<UploadParametersOriginal>;
+export type UploadParametersSnake = KeysToSnakeCase<UploadParametersOriginal>;
 
 

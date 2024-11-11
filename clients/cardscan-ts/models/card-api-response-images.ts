@@ -20,14 +20,14 @@ import { CardApiResponseImagesBack } from './card-api-response-images-back';
 // @ts-ignore
 import { CardApiResponseImagesFront } from './card-api-response-images-front';
 
-import { KeysToCamelCase } from "./";
+import { KeysToCamelCase, KeysToSnakeCase } from "./";
 
 /**
  * 
  * @export
  * @interface CardApiResponseImages
  */
-export interface CardApiResponseImagesSnake {
+export interface CardApiResponseImagesOriginal {
     /**
      * 
      * @type {CardApiResponseImagesFront}
@@ -41,6 +41,7 @@ export interface CardApiResponseImagesSnake {
      */
     'back'?: CardApiResponseImagesBack;
 }
-export type CardApiResponseImages = KeysToCamelCase<CardApiResponseImagesSnake>;
+export type CardApiResponseImages = KeysToCamelCase<CardApiResponseImagesOriginal>;
+export type CardApiResponseImagesSnake = KeysToSnakeCase<CardApiResponseImagesOriginal>;
 
 

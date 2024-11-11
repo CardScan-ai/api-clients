@@ -17,14 +17,14 @@
 // @ts-ignore
 import { Address } from './address';
 
-import { KeysToCamelCase } from "./";
+import { KeysToCamelCase, KeysToSnakeCase } from "./";
 
 /**
  * 
  * @export
  * @interface PayerDetails
  */
-export interface PayerDetailsSnake {
+export interface PayerDetailsOriginal {
     /**
      * The name of the payer.
      * @type {string}
@@ -44,6 +44,7 @@ export interface PayerDetailsSnake {
      */
     'url'?: string;
 }
-export type PayerDetails = KeysToCamelCase<PayerDetailsSnake>;
+export type PayerDetails = KeysToCamelCase<PayerDetailsOriginal>;
+export type PayerDetailsSnake = KeysToSnakeCase<PayerDetailsOriginal>;
 
 

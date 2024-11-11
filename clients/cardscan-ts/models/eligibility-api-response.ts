@@ -23,14 +23,14 @@ import { EligibilitySummarizedResponse } from './eligibility-summarized-response
 // @ts-ignore
 import { ModelError } from './model-error';
 
-import { KeysToCamelCase } from "./";
+import { KeysToCamelCase, KeysToSnakeCase } from "./";
 
 /**
  * 
  * @export
  * @interface EligibilityApiResponse
  */
-export interface EligibilityApiResponseSnake {
+export interface EligibilityApiResponseOriginal {
     /**
      * The ID of the eligibility record.
      * @type {string}
@@ -89,6 +89,7 @@ export const EligibilityApiResponseStateEnum = {
 
 export type EligibilityApiResponseStateEnum = typeof EligibilityApiResponseStateEnum[keyof typeof EligibilityApiResponseStateEnum];
 
-export type EligibilityApiResponse = KeysToCamelCase<EligibilityApiResponseSnake>;
+export type EligibilityApiResponse = KeysToCamelCase<EligibilityApiResponseOriginal>;
+export type EligibilityApiResponseSnake = KeysToSnakeCase<EligibilityApiResponseOriginal>;
 
 

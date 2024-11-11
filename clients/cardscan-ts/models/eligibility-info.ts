@@ -20,14 +20,14 @@ import { ProviderDto } from './provider-dto';
 // @ts-ignore
 import { SubscriberDto } from './subscriber-dto';
 
-import { KeysToCamelCase } from "./";
+import { KeysToCamelCase, KeysToSnakeCase } from "./";
 
 /**
  * 
  * @export
  * @interface EligibilityInfo
  */
-export interface EligibilityInfoSnake {
+export interface EligibilityInfoOriginal {
     /**
      * 
      * @type {ProviderDto}
@@ -41,6 +41,7 @@ export interface EligibilityInfoSnake {
      */
     'subscriber': SubscriberDto;
 }
-export type EligibilityInfo = KeysToCamelCase<EligibilityInfoSnake>;
+export type EligibilityInfo = KeysToCamelCase<EligibilityInfoOriginal>;
+export type EligibilityInfoSnake = KeysToSnakeCase<EligibilityInfoOriginal>;
 
 

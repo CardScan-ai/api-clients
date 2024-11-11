@@ -17,14 +17,14 @@
 // @ts-ignore
 import { ScanMetadataCameraCapabilitiesAspectRatio } from './scan-metadata-camera-capabilities-aspect-ratio';
 
-import { KeysToCamelCase } from "./";
+import { KeysToCamelCase, KeysToSnakeCase } from "./";
 
 /**
  * Camera capabilities
  * @export
  * @interface ScanMetadataCameraCapabilities
  */
-export interface ScanMetadataCameraCapabilitiesSnake {
+export interface ScanMetadataCameraCapabilitiesOriginal {
     /**
      * 
      * @type {ScanMetadataCameraCapabilitiesAspectRatio}
@@ -74,6 +74,7 @@ export interface ScanMetadataCameraCapabilitiesSnake {
      */
     'width'?: ScanMetadataCameraCapabilitiesAspectRatio;
 }
-export type ScanMetadataCameraCapabilities = KeysToCamelCase<ScanMetadataCameraCapabilitiesSnake>;
+export type ScanMetadataCameraCapabilities = KeysToCamelCase<ScanMetadataCameraCapabilitiesOriginal>;
+export type ScanMetadataCameraCapabilitiesSnake = KeysToSnakeCase<ScanMetadataCameraCapabilitiesOriginal>;
 
 

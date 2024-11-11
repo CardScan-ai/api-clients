@@ -14,14 +14,14 @@
 
 
 
-import { KeysToCamelCase } from "./";
+import { KeysToCamelCase, KeysToSnakeCase } from "./";
 
 /**
  * Dimensions of the capture canvas
  * @export
  * @interface ScanMetadataCaptureCanvas
  */
-export interface ScanMetadataCaptureCanvasSnake {
+export interface ScanMetadataCaptureCanvasOriginal {
     /**
      * 
      * @type {number}
@@ -35,6 +35,7 @@ export interface ScanMetadataCaptureCanvasSnake {
      */
     'height'?: number;
 }
-export type ScanMetadataCaptureCanvas = KeysToCamelCase<ScanMetadataCaptureCanvasSnake>;
+export type ScanMetadataCaptureCanvas = KeysToCamelCase<ScanMetadataCaptureCanvasOriginal>;
+export type ScanMetadataCaptureCanvasSnake = KeysToSnakeCase<ScanMetadataCaptureCanvasOriginal>;
 
 

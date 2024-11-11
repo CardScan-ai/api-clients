@@ -17,14 +17,14 @@
 // @ts-ignore
 import { ScanMetadataCaptureScoreScoresInner } from './scan-metadata-capture-score-scores-inner';
 
-import { KeysToCamelCase } from "./";
+import { KeysToCamelCase, KeysToSnakeCase } from "./";
 
 /**
  * 
  * @export
  * @interface ScanMetadataCaptureScore
  */
-export interface ScanMetadataCaptureScoreSnake {
+export interface ScanMetadataCaptureScoreOriginal {
     /**
      * List of capture scores
      * @type {Array<ScanMetadataCaptureScoreScoresInner>}
@@ -38,6 +38,7 @@ export interface ScanMetadataCaptureScoreSnake {
      */
     'max_lapScore'?: number;
 }
-export type ScanMetadataCaptureScore = KeysToCamelCase<ScanMetadataCaptureScoreSnake>;
+export type ScanMetadataCaptureScore = KeysToCamelCase<ScanMetadataCaptureScoreOriginal>;
+export type ScanMetadataCaptureScoreSnake = KeysToSnakeCase<ScanMetadataCaptureScoreOriginal>;
 
 

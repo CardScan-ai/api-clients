@@ -14,14 +14,14 @@
 
 
 
-import { KeysToCamelCase } from "./";
+import { KeysToCamelCase, KeysToSnakeCase } from "./";
 
 /**
  * 
  * @export
  * @interface EligibilityApiResponseEligibilityRequestSubscriber
  */
-export interface EligibilityApiResponseEligibilityRequestSubscriberSnake {
+export interface EligibilityApiResponseEligibilityRequestSubscriberOriginal {
     /**
      * The first name of the subscriber.
      * @type {string}
@@ -47,6 +47,7 @@ export interface EligibilityApiResponseEligibilityRequestSubscriberSnake {
      */
     'date_of_birth'?: string;
 }
-export type EligibilityApiResponseEligibilityRequestSubscriber = KeysToCamelCase<EligibilityApiResponseEligibilityRequestSubscriberSnake>;
+export type EligibilityApiResponseEligibilityRequestSubscriber = KeysToCamelCase<EligibilityApiResponseEligibilityRequestSubscriberOriginal>;
+export type EligibilityApiResponseEligibilityRequestSubscriberSnake = KeysToSnakeCase<EligibilityApiResponseEligibilityRequestSubscriberOriginal>;
 
 
