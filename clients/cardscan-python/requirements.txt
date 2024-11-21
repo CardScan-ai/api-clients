@@ -5,3 +5,4 @@ pydantic >= 1.10.5, < 2
 aenum >= 3.1.11
 
 websockets
+websocket-client
