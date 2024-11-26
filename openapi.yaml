@@ -1505,6 +1505,103 @@ components:
               $ref: '#/components/schemas/MatchScore'
             plan_type:
               $ref: '#/components/schemas/MatchScore'
+            addresses:
+              $ref: '#/components/schemas/AddressResult'
+            phone_numbers:
+              $ref: '#/components/schemas/PhoneNumberResult'
+            copays:
+              $ref: '#/components/schemas/CopayResult'
+    AddressResult:
+      type: array
+      items:
+        type: object
+        properties:
+          value:
+            type: string
+          scores:
+            type: array
+            items:
+              type: string
+          type:
+            $ref: '#/components/schemas/AddressType'
+          label:
+            type: string
+    PhoneNumberResult:
+      type: array
+      items:
+        type: object
+        properties:
+          value:
+            type: number
+          scores:
+            type: array
+            items:
+              type: string
+          type:
+            $ref: '#/components/schemas/PhoneNumberType'
+          label:
+            type: string
+    CopayResult:
+      type: array
+      items:
+        type: object
+        properties:
+          value:
+            type: number
+          scores:
+            type: array
+            items:
+              type: string
+          service:
+            $ref: '#/components/schemas/CopayDeductibleService'
+          category:
+            $ref: '#/components/schemas/CopayCategory'
+    PhoneNumberType:
+      type: string
+      enum:
+      - pcp_phone
+      - member_services_phone
+      - provider_services_phone
+      - pharmacy_services_phone
+      - dental_benefit_phone
+      - vision_benefit_phone
+      - telemedicine_phone
+
+    AddressType:
+      type: string
+      enum:
+      - medical_claims_address
+      - pharmacy_claims_address
+      - vision_claims_address
+      - dental_claims_address
+      - appeals_address
+      - pcp_address
+      - general_address
+
+    CopayDeductibleService:
+      type: string
+      enum:
+      - office_visit
+      - specialist_visit
+      - emergency_room
+      - urgent_care
+      - preventive_care
+      - prescription
+      - vision
+      - dental
+      - telemedicine
+      - in_network_medical
+      - out_of_network_medical
+      - other
+
+    CopayCategory:
+      type: string
+      enum:
+      - copay
+      - coinsurance
+      - deductible
+      - out_of_pocket_max
+      - other
     CardState:
       type: string
       enum:
