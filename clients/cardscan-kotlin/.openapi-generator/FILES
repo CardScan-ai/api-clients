@@ -4,12 +4,14 @@ docs/Address.md
 docs/AddressResultInner.md
 docs/AddressType.md
 docs/ApiErrorResponse.md
+docs/CHCPayerRecord.md
 docs/CardApiResponse.md
 docs/CardApiResponseDetails.md
 docs/CardApiResponseImages.md
 docs/CardApiResponseImagesBack.md
 docs/CardApiResponseImagesFront.md
 docs/CardPerformance200Response.md
+docs/CardResponseMetadata.md
 docs/CardScanApi.md
 docs/CardState.md
 docs/CardWebsocketEvent.md
@@ -22,6 +24,7 @@ docs/CoverageSummary.md
 docs/CreateCardRequest.md
 docs/CreateCardRequestBackside.md
 docs/CreateEligibilityRequest.md
+docs/CustomPayerRecord.md
 docs/Deductible.md
 docs/DirectUpload200Response.md
 docs/DirectUpload200ResponseMetadata.md
@@ -44,6 +47,7 @@ docs/MatchScore.md
 docs/ModelError.md
 docs/OOP.md
 docs/PayerDetails.md
+docs/PayerMatch.md
 docs/PhoneNumberResultInner.md
 docs/PhoneNumberType.md
 docs/PlanDetails.md
@@ -95,12 +99,14 @@ src/main/kotlin/org/openapitools/client/models/Address.kt
 src/main/kotlin/org/openapitools/client/models/AddressResultInner.kt
 src/main/kotlin/org/openapitools/client/models/AddressType.kt
 src/main/kotlin/org/openapitools/client/models/ApiErrorResponse.kt
+src/main/kotlin/org/openapitools/client/models/CHCPayerRecord.kt
 src/main/kotlin/org/openapitools/client/models/CardApiResponse.kt
 src/main/kotlin/org/openapitools/client/models/CardApiResponseDetails.kt
 src/main/kotlin/org/openapitools/client/models/CardApiResponseImages.kt
 src/main/kotlin/org/openapitools/client/models/CardApiResponseImagesBack.kt
 src/main/kotlin/org/openapitools/client/models/CardApiResponseImagesFront.kt
 src/main/kotlin/org/openapitools/client/models/CardPerformance200Response.kt
+src/main/kotlin/org/openapitools/client/models/CardResponseMetadata.kt
 src/main/kotlin/org/openapitools/client/models/CardState.kt
 src/main/kotlin/org/openapitools/client/models/CardWebsocketEvent.kt
 src/main/kotlin/org/openapitools/client/models/CoInsurance.kt
@@ -112,6 +118,7 @@ src/main/kotlin/org/openapitools/client/models/CoverageSummary.kt
 src/main/kotlin/org/openapitools/client/models/CreateCardRequest.kt
 src/main/kotlin/org/openapitools/client/models/CreateCardRequestBackside.kt
 src/main/kotlin/org/openapitools/client/models/CreateEligibilityRequest.kt
+src/main/kotlin/org/openapitools/client/models/CustomPayerRecord.kt
 src/main/kotlin/org/openapitools/client/models/Deductible.kt
 src/main/kotlin/org/openapitools/client/models/DirectUpload200Response.kt
 src/main/kotlin/org/openapitools/client/models/DirectUpload200ResponseMetadata.kt
@@ -134,6 +141,7 @@ src/main/kotlin/org/openapitools/client/models/MatchScore.kt
 src/main/kotlin/org/openapitools/client/models/ModelError.kt
 src/main/kotlin/org/openapitools/client/models/OOP.kt
 src/main/kotlin/org/openapitools/client/models/PayerDetails.kt
+src/main/kotlin/org/openapitools/client/models/PayerMatch.kt
 src/main/kotlin/org/openapitools/client/models/PhoneNumberResultInner.kt
 src/main/kotlin/org/openapitools/client/models/PhoneNumberType.kt
 src/main/kotlin/org/openapitools/client/models/PlanDetails.kt
@@ -158,3 +166,7 @@ src/main/kotlin/org/openapitools/client/models/SubscriberDto.kt
 src/main/kotlin/org/openapitools/client/models/UploadParameters.kt
 src/main/kotlin/org/openapitools/client/models/ValidateMagicLink200Response.kt
 src/main/kotlin/org/openapitools/client/models/WebsocketError.kt
+src/test/kotlin/org/openapitools/client/models/CHCPayerRecordTest.kt
+src/test/kotlin/org/openapitools/client/models/CardResponseMetadataTest.kt
+src/test/kotlin/org/openapitools/client/models/CustomPayerRecordTest.kt
+src/test/kotlin/org/openapitools/client/models/PayerMatchTest.kt

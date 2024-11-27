@@ -17,8 +17,10 @@ models/card-api-response-images-front.ts
 models/card-api-response-images.ts
 models/card-api-response.ts
 models/card-performance200-response.ts
+models/card-response-metadata.ts
 models/card-state.ts
 models/card-websocket-event.ts
+models/chcpayer-record.ts
 models/co-insurance.ts
 models/co-payment.ts
 models/copay-category.ts
@@ -26,6 +28,7 @@ models/copay-deductible-service.ts
 models/copay-result-inner.ts
 models/coverage-summary.ts
 models/create-card-request-backside.ts
+models/custom-payer-record.ts
 models/deductible.ts
 models/direct-upload-request.ts
 models/direct-upload200-response-metadata.ts
@@ -49,6 +52,7 @@ models/match-score.ts
 models/model-error.ts
 models/oop.ts
 models/payer-details.ts
+models/payer-match.ts
 models/phone-number-result-inner.ts
 models/phone-number-type.ts
 models/plan-details.ts

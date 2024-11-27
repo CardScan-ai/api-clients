@@ -9,6 +9,8 @@
 | **createdAt** | [**java.time.OffsetDateTime**](java.time.OffsetDateTime.md) | The timestamp when the eligibility response was created. |  |
 | **deleted** | **kotlin.Boolean** |  |  |
 | **error** | [**ModelError**](ModelError.md) |  |  [optional] |
+| **payerMatch** | [**PayerMatch**](PayerMatch.md) |  |  [optional] |
+| **metadata** | [**CardResponseMetadata**](CardResponseMetadata.md) |  |  [optional] |
 | **images** | [**CardApiResponseImages**](CardApiResponseImages.md) |  |  [optional] |
 | **details** | [**CardApiResponseDetails**](CardApiResponseDetails.md) |  |  [optional] |
 

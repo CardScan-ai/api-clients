@@ -14,12 +14,14 @@ CardScanClient/Classes/OpenAPIs/Models/Address.swift
 CardScanClient/Classes/OpenAPIs/Models/AddressResultInner.swift
 CardScanClient/Classes/OpenAPIs/Models/AddressType.swift
 CardScanClient/Classes/OpenAPIs/Models/ApiErrorResponse.swift
+CardScanClient/Classes/OpenAPIs/Models/CHCPayerRecord.swift
 CardScanClient/Classes/OpenAPIs/Models/CardApiResponse.swift
 CardScanClient/Classes/OpenAPIs/Models/CardApiResponseDetails.swift
 CardScanClient/Classes/OpenAPIs/Models/CardApiResponseImages.swift
 CardScanClient/Classes/OpenAPIs/Models/CardApiResponseImagesBack.swift
 CardScanClient/Classes/OpenAPIs/Models/CardApiResponseImagesFront.swift
 CardScanClient/Classes/OpenAPIs/Models/CardPerformance200Response.swift
+CardScanClient/Classes/OpenAPIs/Models/CardResponseMetadata.swift
 CardScanClient/Classes/OpenAPIs/Models/CardState.swift
 CardScanClient/Classes/OpenAPIs/Models/CardWebsocketEvent.swift
 CardScanClient/Classes/OpenAPIs/Models/CoInsurance.swift
@@ -31,6 +33,7 @@ CardScanClient/Classes/OpenAPIs/Models/CoverageSummary.swift
 CardScanClient/Classes/OpenAPIs/Models/CreateCardRequest.swift
 CardScanClient/Classes/OpenAPIs/Models/CreateCardRequestBackside.swift
 CardScanClient/Classes/OpenAPIs/Models/CreateEligibilityRequest.swift
+CardScanClient/Classes/OpenAPIs/Models/CustomPayerRecord.swift
 CardScanClient/Classes/OpenAPIs/Models/Deductible.swift
 CardScanClient/Classes/OpenAPIs/Models/DirectUpload200Response.swift
 CardScanClient/Classes/OpenAPIs/Models/DirectUpload200ResponseMetadata.swift
@@ -53,6 +56,7 @@ CardScanClient/Classes/OpenAPIs/Models/MatchScore.swift
 CardScanClient/Classes/OpenAPIs/Models/ModelError.swift
 CardScanClient/Classes/OpenAPIs/Models/OOP.swift
 CardScanClient/Classes/OpenAPIs/Models/PayerDetails.swift
+CardScanClient/Classes/OpenAPIs/Models/PayerMatch.swift
 CardScanClient/Classes/OpenAPIs/Models/PhoneNumberResultInner.swift
 CardScanClient/Classes/OpenAPIs/Models/PhoneNumberType.swift
 CardScanClient/Classes/OpenAPIs/Models/PlanDetails.swift
@@ -88,12 +92,14 @@ docs/Address.md
 docs/AddressResultInner.md
 docs/AddressType.md
 docs/ApiErrorResponse.md
+docs/CHCPayerRecord.md
 docs/CardApiResponse.md
 docs/CardApiResponseDetails.md
 docs/CardApiResponseImages.md
 docs/CardApiResponseImagesBack.md
 docs/CardApiResponseImagesFront.md
 docs/CardPerformance200Response.md
+docs/CardResponseMetadata.md
 docs/CardScanAPI.md
 docs/CardState.md
 docs/CardWebsocketEvent.md
@@ -106,6 +112,7 @@ docs/CoverageSummary.md
 docs/CreateCardRequest.md
 docs/CreateCardRequestBackside.md
 docs/CreateEligibilityRequest.md
+docs/CustomPayerRecord.md
 docs/Deductible.md
 docs/DirectUpload200Response.md
 docs/DirectUpload200ResponseMetadata.md
@@ -128,6 +135,7 @@ docs/MatchScore.md
 docs/ModelError.md
 docs/OOP.md
 docs/PayerDetails.md
+docs/PayerMatch.md
 docs/PhoneNumberResultInner.md
 docs/PhoneNumberType.md
 docs/PlanDetails.md

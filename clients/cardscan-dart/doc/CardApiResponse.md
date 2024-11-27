@@ -12,6 +12,8 @@ Name | Type | Description | Notes
 **state** | [**CardState**](CardState.md) |  | 
 **createdAt** | [**DateTime**](DateTime.md) | The timestamp when the eligibility response was created. | 
 **error** | [**ModelError**](ModelError.md) |  | [optional] 
+**payerMatch** | [**PayerMatch**](PayerMatch.md) |  | [optional] 
+**metadata** | [**CardResponseMetadata**](CardResponseMetadata.md) |  | [optional] 
 **images** | [**CardApiResponseImages**](CardApiResponseImages.md) |  | [optional] 
 **deleted** | **bool** |  | 
 **details** | [**CardApiResponseDetails**](CardApiResponseDetails.md) |  | [optional] 

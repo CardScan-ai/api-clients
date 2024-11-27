@@ -17,8 +17,10 @@ package org.openapitools.client.models
 
 import org.openapitools.client.models.CardApiResponseDetails
 import org.openapitools.client.models.CardApiResponseImages
+import org.openapitools.client.models.CardResponseMetadata
 import org.openapitools.client.models.CardState
 import org.openapitools.client.models.ModelError
+import org.openapitools.client.models.PayerMatch
 
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
@@ -31,6 +33,8 @@ import com.squareup.moshi.JsonClass
  * @param createdAt The timestamp when the eligibility response was created.
  * @param deleted 
  * @param error 
+ * @param payerMatch 
+ * @param metadata 
  * @param images 
  * @param details 
  */
@@ -53,6 +57,12 @@ data class CardApiResponse (
 
     @Json(name = "error")
     val error: ModelError? = null,
+
+    @Json(name = "payer_match")
+    val payerMatch: PayerMatch? = null,
+
+    @Json(name = "metadata")
+    val metadata: CardResponseMetadata? = null,
 
     @Json(name = "images")
     val images: CardApiResponseImages? = null,

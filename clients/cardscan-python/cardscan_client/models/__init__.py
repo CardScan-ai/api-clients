@@ -18,12 +18,14 @@ from cardscan_client.models.address import Address
 from cardscan_client.models.address_result_inner import AddressResultInner
 from cardscan_client.models.address_type import AddressType
 from cardscan_client.models.api_error_response import ApiErrorResponse
+from cardscan_client.models.chc_payer_record import CHCPayerRecord
 from cardscan_client.models.card_api_response import CardApiResponse
 from cardscan_client.models.card_api_response_details import CardApiResponseDetails
 from cardscan_client.models.card_api_response_images import CardApiResponseImages
 from cardscan_client.models.card_api_response_images_back import CardApiResponseImagesBack
 from cardscan_client.models.card_api_response_images_front import CardApiResponseImagesFront
 from cardscan_client.models.card_performance200_response import CardPerformance200Response
+from cardscan_client.models.card_response_metadata import CardResponseMetadata
 from cardscan_client.models.card_state import CardState
 from cardscan_client.models.card_websocket_event import CardWebsocketEvent
 from cardscan_client.models.co_insurance import CoInsurance
@@ -35,6 +37,7 @@ from cardscan_client.models.coverage_summary import CoverageSummary
 from cardscan_client.models.create_card_request import CreateCardRequest
 from cardscan_client.models.create_card_request_backside import CreateCardRequestBackside
 from cardscan_client.models.create_eligibility_request import CreateEligibilityRequest
+from cardscan_client.models.custom_payer_record import CustomPayerRecord
 from cardscan_client.models.deductible import Deductible
 from cardscan_client.models.direct_upload200_response import DirectUpload200Response
 from cardscan_client.models.direct_upload200_response_metadata import DirectUpload200ResponseMetadata
@@ -57,6 +60,7 @@ from cardscan_client.models.match_score import MatchScore
 from cardscan_client.models.model_error import ModelError
 from cardscan_client.models.oop import OOP
 from cardscan_client.models.payer_details import PayerDetails
+from cardscan_client.models.payer_match import PayerMatch
 from cardscan_client.models.phone_number_result_inner import PhoneNumberResultInner
 from cardscan_client.models.phone_number_type import PhoneNumberType
 from cardscan_client.models.plan_details import PlanDetails

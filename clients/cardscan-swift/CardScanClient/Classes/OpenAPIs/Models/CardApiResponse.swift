@@ -17,15 +17,19 @@ public struct CardApiResponse: Codable, JSONEncodable, Hashable {
     /** The timestamp when the eligibility response was created. */
     public var createdAt: Date
     public var error: ModelError?
+    public var payerMatch: PayerMatch?
+    public var metadata: CardResponseMetadata?
     public var images: CardApiResponseImages?
     public var deleted: Bool
     public var details: CardApiResponseDetails?
 
-    public init(cardId: UUID, state: CardState, createdAt: Date, error: ModelError? = nil, images: CardApiResponseImages? = nil, deleted: Bool, details: CardApiResponseDetails? = nil) {
+    public init(cardId: UUID, state: CardState, createdAt: Date, error: ModelError? = nil, payerMatch: PayerMatch? = nil, metadata: CardResponseMetadata? = nil, images: CardApiResponseImages? = nil, deleted: Bool, details: CardApiResponseDetails? = nil) {
         self.cardId = cardId
         self.state = state
         self.createdAt = createdAt
         self.error = error
+        self.payerMatch = payerMatch
+        self.metadata = metadata
         self.images = images
         self.deleted = deleted
         self.details = details
@@ -36,6 +40,8 @@ public struct CardApiResponse: Codable, JSONEncodable, Hashable {
         case state
         case createdAt = "created_at"
         case error
+        case payerMatch = "payer_match"
+        case metadata
         case images
         case deleted
         case details
@@ -49,6 +55,8 @@ public struct CardApiResponse: Codable, JSONEncodable, Hashable {
         try container.encode(state, forKey: .state)
         try container.encode(createdAt, forKey: .createdAt)
         try container.encodeIfPresent(error, forKey: .error)
+        try container.encodeIfPresent(payerMatch, forKey: .payerMatch)
+        try container.encodeIfPresent(metadata, forKey: .metadata)
         try container.encodeIfPresent(images, forKey: .images)
         try container.encode(deleted, forKey: .deleted)
         try container.encodeIfPresent(details, forKey: .details)

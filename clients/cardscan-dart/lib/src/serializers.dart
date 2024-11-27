@@ -18,12 +18,14 @@ import 'package:cardscan_client/src/model/address.dart';
 import 'package:cardscan_client/src/model/address_result_inner.dart';
 import 'package:cardscan_client/src/model/address_type.dart';
 import 'package:cardscan_client/src/model/api_error_response.dart';
+import 'package:cardscan_client/src/model/chc_payer_record.dart';
 import 'package:cardscan_client/src/model/card_api_response.dart';
 import 'package:cardscan_client/src/model/card_api_response_details.dart';
 import 'package:cardscan_client/src/model/card_api_response_images.dart';
 import 'package:cardscan_client/src/model/card_api_response_images_back.dart';
 import 'package:cardscan_client/src/model/card_api_response_images_front.dart';
 import 'package:cardscan_client/src/model/card_performance200_response.dart';
+import 'package:cardscan_client/src/model/card_response_metadata.dart';
 import 'package:cardscan_client/src/model/card_state.dart';
 import 'package:cardscan_client/src/model/card_websocket_event.dart';
 import 'package:cardscan_client/src/model/co_insurance.dart';
@@ -35,6 +37,7 @@ import 'package:cardscan_client/src/model/coverage_summary.dart';
 import 'package:cardscan_client/src/model/create_card_request.dart';
 import 'package:cardscan_client/src/model/create_card_request_backside.dart';
 import 'package:cardscan_client/src/model/create_eligibility_request.dart';
+import 'package:cardscan_client/src/model/custom_payer_record.dart';
 import 'package:cardscan_client/src/model/deductible.dart';
 import 'package:cardscan_client/src/model/direct_upload200_response.dart';
 import 'package:cardscan_client/src/model/direct_upload200_response_metadata.dart';
@@ -57,6 +60,7 @@ import 'package:cardscan_client/src/model/match_score.dart';
 import 'package:cardscan_client/src/model/model_error.dart';
 import 'package:cardscan_client/src/model/oop.dart';
 import 'package:cardscan_client/src/model/payer_details.dart';
+import 'package:cardscan_client/src/model/payer_match.dart';
 import 'package:cardscan_client/src/model/phone_number_result_inner.dart';
 import 'package:cardscan_client/src/model/phone_number_type.dart';
 import 'package:cardscan_client/src/model/plan_details.dart';
@@ -89,12 +93,14 @@ part 'serializers.g.dart';
   AddressResultInner,
   AddressType,
   ApiErrorResponse,
+  CHCPayerRecord,
   CardApiResponse,
   CardApiResponseDetails,
   CardApiResponseImages,
   CardApiResponseImagesBack,
   CardApiResponseImagesFront,
   CardPerformance200Response,
+  CardResponseMetadata,
   CardState,
   CardWebsocketEvent,
   CoInsurance,
@@ -106,6 +112,7 @@ part 'serializers.g.dart';
   CreateCardRequest,
   CreateCardRequestBackside,
   CreateEligibilityRequest,
+  CustomPayerRecord,
   Deductible,
   DirectUpload200Response,
   DirectUpload200ResponseMetadata,
@@ -128,6 +135,7 @@ part 'serializers.g.dart';
   ModelError,
   OOP,
   PayerDetails,
+  PayerMatch,
   PhoneNumberResultInner,
   PhoneNumberType,
   PlanDetails,

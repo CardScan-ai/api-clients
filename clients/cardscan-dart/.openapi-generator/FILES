@@ -5,12 +5,14 @@ doc/Address.md
 doc/AddressResultInner.md
 doc/AddressType.md
 doc/ApiErrorResponse.md
+doc/CHCPayerRecord.md
 doc/CardApiResponse.md
 doc/CardApiResponseDetails.md
 doc/CardApiResponseImages.md
 doc/CardApiResponseImagesBack.md
 doc/CardApiResponseImagesFront.md
 doc/CardPerformance200Response.md
+doc/CardResponseMetadata.md
 doc/CardScanApi.md
 doc/CardState.md
 doc/CardWebsocketEvent.md
@@ -23,6 +25,7 @@ doc/CoverageSummary.md
 doc/CreateCardRequest.md
 doc/CreateCardRequestBackside.md
 doc/CreateEligibilityRequest.md
+doc/CustomPayerRecord.md
 doc/Deductible.md
 doc/DirectUpload200Response.md
 doc/DirectUpload200ResponseMetadata.md
@@ -45,6 +48,7 @@ doc/MatchScore.md
 doc/ModelError.md
 doc/OOP.md
 doc/PayerDetails.md
+doc/PayerMatch.md
 doc/PhoneNumberResultInner.md
 doc/PhoneNumberType.md
 doc/PlanDetails.md
@@ -89,8 +93,10 @@ lib/src/model/card_api_response_images.dart
 lib/src/model/card_api_response_images_back.dart
 lib/src/model/card_api_response_images_front.dart
 lib/src/model/card_performance200_response.dart
+lib/src/model/card_response_metadata.dart
 lib/src/model/card_state.dart
 lib/src/model/card_websocket_event.dart
+lib/src/model/chc_payer_record.dart
 lib/src/model/co_insurance.dart
 lib/src/model/co_payment.dart
 lib/src/model/copay_category.dart
@@ -100,6 +106,7 @@ lib/src/model/coverage_summary.dart
 lib/src/model/create_card_request.dart
 lib/src/model/create_card_request_backside.dart
 lib/src/model/create_eligibility_request.dart
+lib/src/model/custom_payer_record.dart
 lib/src/model/date.dart
 lib/src/model/deductible.dart
 lib/src/model/direct_upload200_response.dart
@@ -123,6 +130,7 @@ lib/src/model/match_score.dart
 lib/src/model/model_error.dart
 lib/src/model/oop.dart
 lib/src/model/payer_details.dart
+lib/src/model/payer_match.dart
 lib/src/model/phone_number_result_inner.dart
 lib/src/model/phone_number_type.dart
 lib/src/model/plan_details.dart
@@ -148,3 +156,7 @@ lib/src/model/upload_parameters.dart
 lib/src/model/validate_magic_link200_response.dart
 lib/src/model/websocket_error.dart
 lib/src/serializers.dart
+test/card_response_metadata_test.dart
+test/chc_payer_record_test.dart
+test/custom_payer_record_test.dart
+test/payer_match_test.dart
