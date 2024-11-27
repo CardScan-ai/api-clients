@@ -1,6 +1,8 @@
 README.md
 build.gradle
 docs/Address.md
+docs/AddressResultInner.md
+docs/AddressType.md
 docs/ApiErrorResponse.md
 docs/CardApiResponse.md
 docs/CardApiResponseDetails.md
@@ -13,6 +15,9 @@ docs/CardState.md
 docs/CardWebsocketEvent.md
 docs/CoInsurance.md
 docs/CoPayment.md
+docs/CopayCategory.md
+docs/CopayDeductibleService.md
+docs/CopayResultInner.md
 docs/CoverageSummary.md
 docs/CreateCardRequest.md
 docs/CreateCardRequestBackside.md
@@ -39,6 +44,8 @@ docs/MatchScore.md
 docs/ModelError.md
 docs/OOP.md
 docs/PayerDetails.md
+docs/PhoneNumberResultInner.md
+docs/PhoneNumberType.md
 docs/PlanDetails.md
 docs/ProviderDto.md
 docs/ResponseMetadata.md
@@ -85,6 +92,8 @@ src/main/kotlin/org/openapitools/client/infrastructure/Serializer.kt
 src/main/kotlin/org/openapitools/client/infrastructure/URIAdapter.kt
 src/main/kotlin/org/openapitools/client/infrastructure/UUIDAdapter.kt
 src/main/kotlin/org/openapitools/client/models/Address.kt
+src/main/kotlin/org/openapitools/client/models/AddressResultInner.kt
+src/main/kotlin/org/openapitools/client/models/AddressType.kt
 src/main/kotlin/org/openapitools/client/models/ApiErrorResponse.kt
 src/main/kotlin/org/openapitools/client/models/CardApiResponse.kt
 src/main/kotlin/org/openapitools/client/models/CardApiResponseDetails.kt
@@ -96,6 +105,9 @@ src/main/kotlin/org/openapitools/client/models/CardState.kt
 src/main/kotlin/org/openapitools/client/models/CardWebsocketEvent.kt
 src/main/kotlin/org/openapitools/client/models/CoInsurance.kt
 src/main/kotlin/org/openapitools/client/models/CoPayment.kt
+src/main/kotlin/org/openapitools/client/models/CopayCategory.kt
+src/main/kotlin/org/openapitools/client/models/CopayDeductibleService.kt
+src/main/kotlin/org/openapitools/client/models/CopayResultInner.kt
 src/main/kotlin/org/openapitools/client/models/CoverageSummary.kt
 src/main/kotlin/org/openapitools/client/models/CreateCardRequest.kt
 src/main/kotlin/org/openapitools/client/models/CreateCardRequestBackside.kt
@@ -122,6 +134,8 @@ src/main/kotlin/org/openapitools/client/models/MatchScore.kt
 src/main/kotlin/org/openapitools/client/models/ModelError.kt
 src/main/kotlin/org/openapitools/client/models/OOP.kt
 src/main/kotlin/org/openapitools/client/models/PayerDetails.kt
+src/main/kotlin/org/openapitools/client/models/PhoneNumberResultInner.kt
+src/main/kotlin/org/openapitools/client/models/PhoneNumberType.kt
 src/main/kotlin/org/openapitools/client/models/PlanDetails.kt
 src/main/kotlin/org/openapitools/client/models/ProviderDto.kt
 src/main/kotlin/org/openapitools/client/models/ResponseMetadata.kt
@@ -144,3 +158,10 @@ src/main/kotlin/org/openapitools/client/models/SubscriberDto.kt
 src/main/kotlin/org/openapitools/client/models/UploadParameters.kt
 src/main/kotlin/org/openapitools/client/models/ValidateMagicLink200Response.kt
 src/main/kotlin/org/openapitools/client/models/WebsocketError.kt
+src/test/kotlin/org/openapitools/client/models/AddressResultInnerTest.kt
+src/test/kotlin/org/openapitools/client/models/AddressTypeTest.kt
+src/test/kotlin/org/openapitools/client/models/CopayCategoryTest.kt
+src/test/kotlin/org/openapitools/client/models/CopayDeductibleServiceTest.kt
+src/test/kotlin/org/openapitools/client/models/CopayResultInnerTest.kt
+src/test/kotlin/org/openapitools/client/models/PhoneNumberResultInnerTest.kt
+src/test/kotlin/org/openapitools/client/models/PhoneNumberTypeTest.kt

@@ -11,6 +11,8 @@ cardscan_client/configuration.py
 cardscan_client/exceptions.py
 cardscan_client/models/__init__.py
 cardscan_client/models/address.py
+cardscan_client/models/address_result_inner.py
+cardscan_client/models/address_type.py
 cardscan_client/models/api_error_response.py
 cardscan_client/models/card_api_response.py
 cardscan_client/models/card_api_response_details.py
@@ -22,6 +24,9 @@ cardscan_client/models/card_state.py
 cardscan_client/models/card_websocket_event.py
 cardscan_client/models/co_insurance.py
 cardscan_client/models/co_payment.py
+cardscan_client/models/copay_category.py
+cardscan_client/models/copay_deductible_service.py
+cardscan_client/models/copay_result_inner.py
 cardscan_client/models/coverage_summary.py
 cardscan_client/models/create_card_request.py
 cardscan_client/models/create_card_request_backside.py
@@ -48,6 +53,8 @@ cardscan_client/models/match_score.py
 cardscan_client/models/model_error.py
 cardscan_client/models/oop.py
 cardscan_client/models/payer_details.py
+cardscan_client/models/phone_number_result_inner.py
+cardscan_client/models/phone_number_type.py
 cardscan_client/models/plan_details.py
 cardscan_client/models/provider_dto.py
 cardscan_client/models/response_metadata.py
@@ -73,6 +80,8 @@ cardscan_client/models/websocket_error.py
 cardscan_client/py.typed
 cardscan_client/rest.py
 docs/Address.md
+docs/AddressResultInner.md
+docs/AddressType.md
 docs/ApiErrorResponse.md
 docs/CardApiResponse.md
 docs/CardApiResponseDetails.md
@@ -85,6 +94,9 @@ docs/CardState.md
 docs/CardWebsocketEvent.md
 docs/CoInsurance.md
 docs/CoPayment.md
+docs/CopayCategory.md
+docs/CopayDeductibleService.md
+docs/CopayResultInner.md
 docs/CoverageSummary.md
 docs/CreateCardRequest.md
 docs/CreateCardRequestBackside.md
@@ -111,6 +123,8 @@ docs/MatchScore.md
 docs/ModelError.md
 docs/OOP.md
 docs/PayerDetails.md
+docs/PhoneNumberResultInner.md
+docs/PhoneNumberType.md
 docs/PlanDetails.md
 docs/ProviderDto.md
 docs/ResponseMetadata.md

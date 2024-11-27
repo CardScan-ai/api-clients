@@ -15,7 +15,16 @@
 
 // May contain unused imports in some cases
 // @ts-ignore
+import { AddressResultInner } from './address-result-inner';
+// May contain unused imports in some cases
+// @ts-ignore
+import { CopayResultInner } from './copay-result-inner';
+// May contain unused imports in some cases
+// @ts-ignore
 import { MatchScore } from './match-score';
+// May contain unused imports in some cases
+// @ts-ignore
+import { PhoneNumberResultInner } from './phone-number-result-inner';
 
 import { KeysToCamelCase, KeysToSnakeCase } from "./";
 
@@ -187,6 +196,24 @@ export interface CardApiResponseDetailsOriginal {
      * @memberof CardApiResponseDetails
      */
     'plan_type'?: MatchScore;
+    /**
+     * 
+     * @type {Array<AddressResultInner>}
+     * @memberof CardApiResponseDetails
+     */
+    'addresses'?: Array<AddressResultInner>;
+    /**
+     * 
+     * @type {Array<PhoneNumberResultInner>}
+     * @memberof CardApiResponseDetails
+     */
+    'phone_numbers'?: Array<PhoneNumberResultInner>;
+    /**
+     * 
+     * @type {Array<CopayResultInner>}
+     * @memberof CardApiResponseDetails
+     */
+    'copays'?: Array<CopayResultInner>;
 }
 export type CardApiResponseDetails = KeysToCamelCase<CardApiResponseDetailsOriginal>;
 export type CardApiResponseDetailsSnake = KeysToSnakeCase<CardApiResponseDetailsOriginal>;

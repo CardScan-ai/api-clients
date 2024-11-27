@@ -67,6 +67,8 @@ All URIs are relative to *https://sandbox.cardscan.ai/v1*
 ## Documentation for Models
 
  - [org.openapitools.client.models.Address](docs/Address.md)
+ - [org.openapitools.client.models.AddressResultInner](docs/AddressResultInner.md)
+ - [org.openapitools.client.models.AddressType](docs/AddressType.md)
  - [org.openapitools.client.models.ApiErrorResponse](docs/ApiErrorResponse.md)
  - [org.openapitools.client.models.CardApiResponse](docs/CardApiResponse.md)
  - [org.openapitools.client.models.CardApiResponseDetails](docs/CardApiResponseDetails.md)
@@ -78,6 +80,9 @@ All URIs are relative to *https://sandbox.cardscan.ai/v1*
  - [org.openapitools.client.models.CardWebsocketEvent](docs/CardWebsocketEvent.md)
  - [org.openapitools.client.models.CoInsurance](docs/CoInsurance.md)
  - [org.openapitools.client.models.CoPayment](docs/CoPayment.md)
+ - [org.openapitools.client.models.CopayCategory](docs/CopayCategory.md)
+ - [org.openapitools.client.models.CopayDeductibleService](docs/CopayDeductibleService.md)
+ - [org.openapitools.client.models.CopayResultInner](docs/CopayResultInner.md)
  - [org.openapitools.client.models.CoverageSummary](docs/CoverageSummary.md)
  - [org.openapitools.client.models.CreateCardRequest](docs/CreateCardRequest.md)
  - [org.openapitools.client.models.CreateCardRequestBackside](docs/CreateCardRequestBackside.md)
@@ -104,6 +109,8 @@ All URIs are relative to *https://sandbox.cardscan.ai/v1*
  - [org.openapitools.client.models.ModelError](docs/ModelError.md)
  - [org.openapitools.client.models.OOP](docs/OOP.md)
  - [org.openapitools.client.models.PayerDetails](docs/PayerDetails.md)
+ - [org.openapitools.client.models.PhoneNumberResultInner](docs/PhoneNumberResultInner.md)
+ - [org.openapitools.client.models.PhoneNumberType](docs/PhoneNumberType.md)
  - [org.openapitools.client.models.PlanDetails](docs/PlanDetails.md)
  - [org.openapitools.client.models.ProviderDto](docs/ProviderDto.md)
  - [org.openapitools.client.models.ResponseMetadata](docs/ResponseMetadata.md)

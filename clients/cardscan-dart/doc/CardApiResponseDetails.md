@@ -35,6 +35,9 @@ Name | Type | Description | Notes
 **partBEffectiveDate** | [**MatchScore**](MatchScore.md) |  | [optional] 
 **pharmacyBenefitManager** | [**MatchScore**](MatchScore.md) |  | [optional] 
 **planType** | [**MatchScore**](MatchScore.md) |  | [optional] 
+**addresses** | [**BuiltList&lt;AddressResultInner&gt;**](AddressResultInner.md) |  | [optional] 
+**phoneNumbers** | [**BuiltList&lt;PhoneNumberResultInner&gt;**](PhoneNumberResultInner.md) |  | [optional] 
+**copays** | [**BuiltList&lt;CopayResultInner&gt;**](CopayResultInner.md) |  | [optional] 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

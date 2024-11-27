@@ -15,6 +15,8 @@ import 'package:cardscan_client/src/date_serializer.dart';
 import 'package:cardscan_client/src/model/date.dart';
 
 import 'package:cardscan_client/src/model/address.dart';
+import 'package:cardscan_client/src/model/address_result_inner.dart';
+import 'package:cardscan_client/src/model/address_type.dart';
 import 'package:cardscan_client/src/model/api_error_response.dart';
 import 'package:cardscan_client/src/model/card_api_response.dart';
 import 'package:cardscan_client/src/model/card_api_response_details.dart';
@@ -26,6 +28,9 @@ import 'package:cardscan_client/src/model/card_state.dart';
 import 'package:cardscan_client/src/model/card_websocket_event.dart';
 import 'package:cardscan_client/src/model/co_insurance.dart';
 import 'package:cardscan_client/src/model/co_payment.dart';
+import 'package:cardscan_client/src/model/copay_category.dart';
+import 'package:cardscan_client/src/model/copay_deductible_service.dart';
+import 'package:cardscan_client/src/model/copay_result_inner.dart';
 import 'package:cardscan_client/src/model/coverage_summary.dart';
 import 'package:cardscan_client/src/model/create_card_request.dart';
 import 'package:cardscan_client/src/model/create_card_request_backside.dart';
@@ -52,6 +57,8 @@ import 'package:cardscan_client/src/model/match_score.dart';
 import 'package:cardscan_client/src/model/model_error.dart';
 import 'package:cardscan_client/src/model/oop.dart';
 import 'package:cardscan_client/src/model/payer_details.dart';
+import 'package:cardscan_client/src/model/phone_number_result_inner.dart';
+import 'package:cardscan_client/src/model/phone_number_type.dart';
 import 'package:cardscan_client/src/model/plan_details.dart';
 import 'package:cardscan_client/src/model/provider_dto.dart';
 import 'package:cardscan_client/src/model/response_metadata.dart';
@@ -79,6 +86,8 @@ part 'serializers.g.dart';
 
 @SerializersFor([
   Address,
+  AddressResultInner,
+  AddressType,
   ApiErrorResponse,
   CardApiResponse,
   CardApiResponseDetails,
@@ -90,6 +99,9 @@ part 'serializers.g.dart';
   CardWebsocketEvent,
   CoInsurance,
   CoPayment,
+  CopayCategory,
+  CopayDeductibleService,
+  CopayResultInner,
   CoverageSummary,
   CreateCardRequest,
   CreateCardRequestBackside,
@@ -116,6 +128,8 @@ part 'serializers.g.dart';
   ModelError,
   OOP,
   PayerDetails,
+  PhoneNumberResultInner,
+  PhoneNumberType,
   PlanDetails,
   ProviderDto,
   ResponseMetadata,

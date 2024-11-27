@@ -2,6 +2,8 @@
 README.md
 analysis_options.yaml
 doc/Address.md
+doc/AddressResultInner.md
+doc/AddressType.md
 doc/ApiErrorResponse.md
 doc/CardApiResponse.md
 doc/CardApiResponseDetails.md
@@ -14,6 +16,9 @@ doc/CardState.md
 doc/CardWebsocketEvent.md
 doc/CoInsurance.md
 doc/CoPayment.md
+doc/CopayCategory.md
+doc/CopayDeductibleService.md
+doc/CopayResultInner.md
 doc/CoverageSummary.md
 doc/CreateCardRequest.md
 doc/CreateCardRequestBackside.md
@@ -40,6 +45,8 @@ doc/MatchScore.md
 doc/ModelError.md
 doc/OOP.md
 doc/PayerDetails.md
+doc/PhoneNumberResultInner.md
+doc/PhoneNumberType.md
 doc/PlanDetails.md
 doc/ProviderDto.md
 doc/ResponseMetadata.md
@@ -73,6 +80,8 @@ lib/src/auth/bearer_auth.dart
 lib/src/auth/oauth.dart
 lib/src/date_serializer.dart
 lib/src/model/address.dart
+lib/src/model/address_result_inner.dart
+lib/src/model/address_type.dart
 lib/src/model/api_error_response.dart
 lib/src/model/card_api_response.dart
 lib/src/model/card_api_response_details.dart
@@ -84,6 +93,9 @@ lib/src/model/card_state.dart
 lib/src/model/card_websocket_event.dart
 lib/src/model/co_insurance.dart
 lib/src/model/co_payment.dart
+lib/src/model/copay_category.dart
+lib/src/model/copay_deductible_service.dart
+lib/src/model/copay_result_inner.dart
 lib/src/model/coverage_summary.dart
 lib/src/model/create_card_request.dart
 lib/src/model/create_card_request_backside.dart
@@ -111,6 +123,8 @@ lib/src/model/match_score.dart
 lib/src/model/model_error.dart
 lib/src/model/oop.dart
 lib/src/model/payer_details.dart
+lib/src/model/phone_number_result_inner.dart
+lib/src/model/phone_number_type.dart
 lib/src/model/plan_details.dart
 lib/src/model/provider_dto.dart
 lib/src/model/response_metadata.dart
@@ -134,3 +148,10 @@ lib/src/model/upload_parameters.dart
 lib/src/model/validate_magic_link200_response.dart
 lib/src/model/websocket_error.dart
 lib/src/serializers.dart
+test/address_result_inner_test.dart
+test/address_type_test.dart
+test/copay_category_test.dart
+test/copay_deductible_service_test.dart
+test/copay_result_inner_test.dart
+test/phone_number_result_inner_test.dart
+test/phone_number_type_test.dart

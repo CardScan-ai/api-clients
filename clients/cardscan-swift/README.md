@@ -47,6 +47,8 @@ Class | Method | HTTP request | Description
 ## Documentation For Models
 
  - [Address](docs/Address.md)
+ - [AddressResultInner](docs/AddressResultInner.md)
+ - [AddressType](docs/AddressType.md)
  - [ApiErrorResponse](docs/ApiErrorResponse.md)
  - [CardApiResponse](docs/CardApiResponse.md)
  - [CardApiResponseDetails](docs/CardApiResponseDetails.md)
@@ -58,6 +60,9 @@ Class | Method | HTTP request | Description
  - [CardWebsocketEvent](docs/CardWebsocketEvent.md)
  - [CoInsurance](docs/CoInsurance.md)
  - [CoPayment](docs/CoPayment.md)
+ - [CopayCategory](docs/CopayCategory.md)
+ - [CopayDeductibleService](docs/CopayDeductibleService.md)
+ - [CopayResultInner](docs/CopayResultInner.md)
  - [CoverageSummary](docs/CoverageSummary.md)
  - [CreateCardRequest](docs/CreateCardRequest.md)
  - [CreateCardRequestBackside](docs/CreateCardRequestBackside.md)
@@ -84,6 +89,8 @@ Class | Method | HTTP request | Description
  - [ModelError](docs/ModelError.md)
  - [OOP](docs/OOP.md)
  - [PayerDetails](docs/PayerDetails.md)
+ - [PhoneNumberResultInner](docs/PhoneNumberResultInner.md)
+ - [PhoneNumberType](docs/PhoneNumberType.md)
  - [PlanDetails](docs/PlanDetails.md)
  - [ProviderDto](docs/ProviderDto.md)
  - [ResponseMetadata](docs/ResponseMetadata.md)

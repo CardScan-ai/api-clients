@@ -15,6 +15,8 @@
 
 # import models into model package
 from cardscan_client.models.address import Address
+from cardscan_client.models.address_result_inner import AddressResultInner
+from cardscan_client.models.address_type import AddressType
 from cardscan_client.models.api_error_response import ApiErrorResponse
 from cardscan_client.models.card_api_response import CardApiResponse
 from cardscan_client.models.card_api_response_details import CardApiResponseDetails
@@ -26,6 +28,9 @@ from cardscan_client.models.card_state import CardState
 from cardscan_client.models.card_websocket_event import CardWebsocketEvent
 from cardscan_client.models.co_insurance import CoInsurance
 from cardscan_client.models.co_payment import CoPayment
+from cardscan_client.models.copay_category import CopayCategory
+from cardscan_client.models.copay_deductible_service import CopayDeductibleService
+from cardscan_client.models.copay_result_inner import CopayResultInner
 from cardscan_client.models.coverage_summary import CoverageSummary
 from cardscan_client.models.create_card_request import CreateCardRequest
 from cardscan_client.models.create_card_request_backside import CreateCardRequestBackside
@@ -52,6 +57,8 @@ from cardscan_client.models.match_score import MatchScore
 from cardscan_client.models.model_error import ModelError
 from cardscan_client.models.oop import OOP
 from cardscan_client.models.payer_details import PayerDetails
+from cardscan_client.models.phone_number_result_inner import PhoneNumberResultInner
+from cardscan_client.models.phone_number_type import PhoneNumberType
 from cardscan_client.models.plan_details import PlanDetails
 from cardscan_client.models.provider_dto import ProviderDto
 from cardscan_client.models.response_metadata import ResponseMetadata
