@@ -4,7 +4,9 @@
 
 // ignore_for_file: unused_element
 import 'package:cardscan_client/src/model/card_state.dart';
+import 'package:cardscan_client/src/model/card_response_metadata.dart';
 import 'package:cardscan_client/src/model/card_api_response_details.dart';
+import 'package:cardscan_client/src/model/payer_match.dart';
 import 'package:cardscan_client/src/model/card_api_response_images.dart';
 import 'package:cardscan_client/src/model/model_error.dart';
 import 'package:built_value/built_value.dart';
@@ -19,6 +21,8 @@ part 'card_api_response.g.dart';
 /// * [state] 
 /// * [createdAt] - The timestamp when the eligibility response was created.
 /// * [error] 
+/// * [payerMatch] 
+/// * [metadata] 
 /// * [images] 
 /// * [deleted] 
 /// * [details] 
@@ -37,6 +41,12 @@ abstract class CardApiResponse implements Built<CardApiResponse, CardApiResponse
 
   @BuiltValueField(wireName: r'error')
   ModelError? get error;
+
+  @BuiltValueField(wireName: r'payer_match')
+  PayerMatch? get payerMatch;
+
+  @BuiltValueField(wireName: r'metadata')
+  CardResponseMetadata? get metadata;
 
   @BuiltValueField(wireName: r'images')
   CardApiResponseImages? get images;
@@ -90,6 +100,20 @@ class _$CardApiResponseSerializer implements PrimitiveSerializer<CardApiResponse
       yield serializers.serialize(
         object.error,
         specifiedType: const FullType(ModelError),
+      );
+    }
+    if (object.payerMatch != null) {
+      yield r'payer_match';
+      yield serializers.serialize(
+        object.payerMatch,
+        specifiedType: const FullType(PayerMatch),
+      );
+    }
+    if (object.metadata != null) {
+      yield r'metadata';
+      yield serializers.serialize(
+        object.metadata,
+        specifiedType: const FullType(CardResponseMetadata),
       );
     }
     if (object.images != null) {
@@ -161,6 +185,20 @@ class _$CardApiResponseSerializer implements PrimitiveSerializer<CardApiResponse
             specifiedType: const FullType(ModelError),
           ) as ModelError;
           result.error.replace(valueDes);
+          break;
+        case r'payer_match':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(PayerMatch),
+          ) as PayerMatch;
+          result.payerMatch.replace(valueDes);
+          break;
+        case r'metadata':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(CardResponseMetadata),
+          ) as CardResponseMetadata;
+          result.metadata.replace(valueDes);
           break;
         case r'images':
           final valueDes = serializers.deserialize(

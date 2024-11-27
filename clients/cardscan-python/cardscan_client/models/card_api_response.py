@@ -22,8 +22,10 @@ from typing import Optional
 from pydantic import BaseModel, Field, StrictBool, StrictStr
 from cardscan_client.models.card_api_response_details import CardApiResponseDetails
 from cardscan_client.models.card_api_response_images import CardApiResponseImages
+from cardscan_client.models.card_response_metadata import CardResponseMetadata
 from cardscan_client.models.card_state import CardState
 from cardscan_client.models.model_error import ModelError
+from cardscan_client.models.payer_match import PayerMatch
 
 class CardApiResponse(BaseModel):
     """
@@ -33,10 +35,12 @@ class CardApiResponse(BaseModel):
     state: CardState = Field(...)
     created_at: datetime = Field(default=..., description="The timestamp when the eligibility response was created.")
     error: Optional[ModelError] = None
+    payer_match: Optional[PayerMatch] = None
+    metadata: Optional[CardResponseMetadata] = None
     images: Optional[CardApiResponseImages] = None
     deleted: StrictBool = Field(...)
     details: Optional[CardApiResponseDetails] = None
-    __properties = ["card_id", "state", "created_at", "error", "images", "deleted", "details"]
+    __properties = ["card_id", "state", "created_at", "error", "payer_match", "metadata", "images", "deleted", "details"]
 
     class Config:
         """Pydantic configuration"""
@@ -72,6 +76,12 @@ class CardApiResponse(BaseModel):
         # override the default output from pydantic by calling `to_dict()` of error
         if self.error:
             _dict['error'] = self.error.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of payer_match
+        if self.payer_match:
+            _dict['payer_match'] = self.payer_match.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of metadata
+        if self.metadata:
+            _dict['metadata'] = self.metadata.to_dict()
         # override the default output from pydantic by calling `to_dict()` of images
         if self.images:
             _dict['images'] = self.images.to_dict()
@@ -104,6 +114,8 @@ class CardApiResponse(BaseModel):
             "state": obj.get("state"),
             "created_at": obj.get("created_at"),
             "error": ModelError.from_dict(obj.get("error")) if obj.get("error") is not None else None,
+            "payer_match": PayerMatch.from_dict(obj.get("payer_match")) if obj.get("payer_match") is not None else None,
+            "metadata": CardResponseMetadata.from_dict(obj.get("metadata")) if obj.get("metadata") is not None else None,
             "images": CardApiResponseImages.from_dict(obj.get("images")) if obj.get("images") is not None else None,
             "deleted": obj.get("deleted"),
             "details": CardApiResponseDetails.from_dict(obj.get("details")) if obj.get("details") is not None else None

@@ -20,8 +20,10 @@ cardscan_client/models/card_api_response_images.py
 cardscan_client/models/card_api_response_images_back.py
 cardscan_client/models/card_api_response_images_front.py
 cardscan_client/models/card_performance200_response.py
+cardscan_client/models/card_response_metadata.py
 cardscan_client/models/card_state.py
 cardscan_client/models/card_websocket_event.py
+cardscan_client/models/chc_payer_record.py
 cardscan_client/models/co_insurance.py
 cardscan_client/models/co_payment.py
 cardscan_client/models/copay_category.py
@@ -31,6 +33,7 @@ cardscan_client/models/coverage_summary.py
 cardscan_client/models/create_card_request.py
 cardscan_client/models/create_card_request_backside.py
 cardscan_client/models/create_eligibility_request.py
+cardscan_client/models/custom_payer_record.py
 cardscan_client/models/deductible.py
 cardscan_client/models/direct_upload200_response.py
 cardscan_client/models/direct_upload200_response_metadata.py
@@ -53,6 +56,7 @@ cardscan_client/models/match_score.py
 cardscan_client/models/model_error.py
 cardscan_client/models/oop.py
 cardscan_client/models/payer_details.py
+cardscan_client/models/payer_match.py
 cardscan_client/models/phone_number_result_inner.py
 cardscan_client/models/phone_number_type.py
 cardscan_client/models/plan_details.py
@@ -83,12 +87,14 @@ docs/Address.md
 docs/AddressResultInner.md
 docs/AddressType.md
 docs/ApiErrorResponse.md
+docs/CHCPayerRecord.md
 docs/CardApiResponse.md
 docs/CardApiResponseDetails.md
 docs/CardApiResponseImages.md
 docs/CardApiResponseImagesBack.md
 docs/CardApiResponseImagesFront.md
 docs/CardPerformance200Response.md
+docs/CardResponseMetadata.md
 docs/CardScanApi.md
 docs/CardState.md
 docs/CardWebsocketEvent.md
@@ -101,6 +107,7 @@ docs/CoverageSummary.md
 docs/CreateCardRequest.md
 docs/CreateCardRequestBackside.md
 docs/CreateEligibilityRequest.md
+docs/CustomPayerRecord.md
 docs/Deductible.md
 docs/DirectUpload200Response.md
 docs/DirectUpload200ResponseMetadata.md
@@ -123,6 +130,7 @@ docs/MatchScore.md
 docs/ModelError.md
 docs/OOP.md
 docs/PayerDetails.md
+docs/PayerMatch.md
 docs/PhoneNumberResultInner.md
 docs/PhoneNumberType.md
 docs/PlanDetails.md

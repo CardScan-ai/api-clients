@@ -8,6 +8,8 @@ Name | Type | Description | Notes
 **state** | [**CardState**](CardState.md) |  | 
 **created_at** | **datetime** | The timestamp when the eligibility response was created. | 
 **error** | [**ModelError**](ModelError.md) |  | [optional] 
+**payer_match** | [**PayerMatch**](PayerMatch.md) |  | [optional] 
+**metadata** | [**CardResponseMetadata**](CardResponseMetadata.md) |  | [optional] 
 **images** | [**CardApiResponseImages**](CardApiResponseImages.md) |  | [optional] 
 **deleted** | **bool** |  | 
 **details** | [**CardApiResponseDetails**](CardApiResponseDetails.md) |  | [optional] 

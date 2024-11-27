@@ -21,10 +21,16 @@ import { CardApiResponseDetails } from './card-api-response-details';
 import { CardApiResponseImages } from './card-api-response-images';
 // May contain unused imports in some cases
 // @ts-ignore
+import { CardResponseMetadata } from './card-response-metadata';
+// May contain unused imports in some cases
+// @ts-ignore
 import { CardState } from './card-state';
 // May contain unused imports in some cases
 // @ts-ignore
 import { ModelError } from './model-error';
+// May contain unused imports in some cases
+// @ts-ignore
+import { PayerMatch } from './payer-match';
 
 import { KeysToCamelCase, KeysToSnakeCase } from "./";
 
@@ -58,6 +64,18 @@ export interface CardApiResponseOriginal {
      * @memberof CardApiResponse
      */
     'error'?: ModelError;
+    /**
+     * 
+     * @type {PayerMatch}
+     * @memberof CardApiResponse
+     */
+    'payer_match'?: PayerMatch;
+    /**
+     * 
+     * @type {CardResponseMetadata}
+     * @memberof CardApiResponse
+     */
+    'metadata'?: CardResponseMetadata;
     /**
      * 
      * @type {CardApiResponseImages}
