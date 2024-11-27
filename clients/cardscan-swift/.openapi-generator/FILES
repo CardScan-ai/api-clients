@@ -11,6 +11,8 @@ CardScanClient/Classes/OpenAPIs/JSONDataEncoding.swift
 CardScanClient/Classes/OpenAPIs/JSONEncodingHelper.swift
 CardScanClient/Classes/OpenAPIs/Models.swift
 CardScanClient/Classes/OpenAPIs/Models/Address.swift
+CardScanClient/Classes/OpenAPIs/Models/AddressResultInner.swift
+CardScanClient/Classes/OpenAPIs/Models/AddressType.swift
 CardScanClient/Classes/OpenAPIs/Models/ApiErrorResponse.swift
 CardScanClient/Classes/OpenAPIs/Models/CardApiResponse.swift
 CardScanClient/Classes/OpenAPIs/Models/CardApiResponseDetails.swift
@@ -22,6 +24,9 @@ CardScanClient/Classes/OpenAPIs/Models/CardState.swift
 CardScanClient/Classes/OpenAPIs/Models/CardWebsocketEvent.swift
 CardScanClient/Classes/OpenAPIs/Models/CoInsurance.swift
 CardScanClient/Classes/OpenAPIs/Models/CoPayment.swift
+CardScanClient/Classes/OpenAPIs/Models/CopayCategory.swift
+CardScanClient/Classes/OpenAPIs/Models/CopayDeductibleService.swift
+CardScanClient/Classes/OpenAPIs/Models/CopayResultInner.swift
 CardScanClient/Classes/OpenAPIs/Models/CoverageSummary.swift
 CardScanClient/Classes/OpenAPIs/Models/CreateCardRequest.swift
 CardScanClient/Classes/OpenAPIs/Models/CreateCardRequestBackside.swift
@@ -48,6 +53,8 @@ CardScanClient/Classes/OpenAPIs/Models/MatchScore.swift
 CardScanClient/Classes/OpenAPIs/Models/ModelError.swift
 CardScanClient/Classes/OpenAPIs/Models/OOP.swift
 CardScanClient/Classes/OpenAPIs/Models/PayerDetails.swift
+CardScanClient/Classes/OpenAPIs/Models/PhoneNumberResultInner.swift
+CardScanClient/Classes/OpenAPIs/Models/PhoneNumberType.swift
 CardScanClient/Classes/OpenAPIs/Models/PlanDetails.swift
 CardScanClient/Classes/OpenAPIs/Models/ProviderDto.swift
 CardScanClient/Classes/OpenAPIs/Models/ResponseMetadata.swift
@@ -78,6 +85,8 @@ Cartfile
 Package.swift
 README.md
 docs/Address.md
+docs/AddressResultInner.md
+docs/AddressType.md
 docs/ApiErrorResponse.md
 docs/CardApiResponse.md
 docs/CardApiResponseDetails.md
@@ -90,6 +99,9 @@ docs/CardState.md
 docs/CardWebsocketEvent.md
 docs/CoInsurance.md
 docs/CoPayment.md
+docs/CopayCategory.md
+docs/CopayDeductibleService.md
+docs/CopayResultInner.md
 docs/CoverageSummary.md
 docs/CreateCardRequest.md
 docs/CreateCardRequestBackside.md
@@ -116,6 +128,8 @@ docs/MatchScore.md
 docs/ModelError.md
 docs/OOP.md
 docs/PayerDetails.md
+docs/PhoneNumberResultInner.md
+docs/PhoneNumberType.md
 docs/PlanDetails.md
 docs/ProviderDto.md
 docs/ResponseMetadata.md

@@ -31,6 +31,9 @@ Name | Type | Description | Notes
 **part_b_effective_date** | [**MatchScore**](MatchScore.md) |  | [optional] 
 **pharmacy_benefit_manager** | [**MatchScore**](MatchScore.md) |  | [optional] 
 **plan_type** | [**MatchScore**](MatchScore.md) |  | [optional] 
+**addresses** | [**List[AddressResultInner]**](AddressResultInner.md) |  | [optional] 
+**phone_numbers** | [**List[PhoneNumberResultInner]**](PhoneNumberResultInner.md) |  | [optional] 
+**copays** | [**List[CopayResultInner]**](CopayResultInner.md) |  | [optional] 
 
 ## Example
 

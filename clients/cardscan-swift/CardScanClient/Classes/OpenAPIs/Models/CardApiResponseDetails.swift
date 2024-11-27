@@ -39,8 +39,11 @@ public struct CardApiResponseDetails: Codable, JSONEncodable, Hashable {
     public var partBEffectiveDate: MatchScore?
     public var pharmacyBenefitManager: MatchScore?
     public var planType: MatchScore?
+    public var addresses: [AddressResultInner]?
+    public var phoneNumbers: [PhoneNumberResultInner]?
+    public var copays: [CopayResultInner]?
 
-    public init(groupNumber: MatchScore? = nil, memberNumber: MatchScore? = nil, payerName: MatchScore? = nil, rxBin: MatchScore? = nil, rxPcn: MatchScore? = nil, memberName: MatchScore? = nil, dependentNames: [MatchScore]? = nil, planName: MatchScore? = nil, planId: MatchScore? = nil, cardSpecificId: MatchScore? = nil, clientName: MatchScore? = nil, payerId: MatchScore? = nil, planDetails: MatchScore? = nil, rxId: MatchScore? = nil, rxIssuer: MatchScore? = nil, rxPlan: MatchScore? = nil, startDate: MatchScore? = nil, employer: MatchScore? = nil, medicareMedicaidId: MatchScore? = nil, memberDob: MatchScore? = nil, memberGender: MatchScore? = nil, memberIdPrefix: MatchScore? = nil, memberIdSuffix: MatchScore? = nil, partAEffectiveDate: MatchScore? = nil, partBEffectiveDate: MatchScore? = nil, pharmacyBenefitManager: MatchScore? = nil, planType: MatchScore? = nil) {
+    public init(groupNumber: MatchScore? = nil, memberNumber: MatchScore? = nil, payerName: MatchScore? = nil, rxBin: MatchScore? = nil, rxPcn: MatchScore? = nil, memberName: MatchScore? = nil, dependentNames: [MatchScore]? = nil, planName: MatchScore? = nil, planId: MatchScore? = nil, cardSpecificId: MatchScore? = nil, clientName: MatchScore? = nil, payerId: MatchScore? = nil, planDetails: MatchScore? = nil, rxId: MatchScore? = nil, rxIssuer: MatchScore? = nil, rxPlan: MatchScore? = nil, startDate: MatchScore? = nil, employer: MatchScore? = nil, medicareMedicaidId: MatchScore? = nil, memberDob: MatchScore? = nil, memberGender: MatchScore? = nil, memberIdPrefix: MatchScore? = nil, memberIdSuffix: MatchScore? = nil, partAEffectiveDate: MatchScore? = nil, partBEffectiveDate: MatchScore? = nil, pharmacyBenefitManager: MatchScore? = nil, planType: MatchScore? = nil, addresses: [AddressResultInner]? = nil, phoneNumbers: [PhoneNumberResultInner]? = nil, copays: [CopayResultInner]? = nil) {
         self.groupNumber = groupNumber
         self.memberNumber = memberNumber
         self.payerName = payerName
@@ -68,6 +71,9 @@ public struct CardApiResponseDetails: Codable, JSONEncodable, Hashable {
         self.partBEffectiveDate = partBEffectiveDate
         self.pharmacyBenefitManager = pharmacyBenefitManager
         self.planType = planType
+        self.addresses = addresses
+        self.phoneNumbers = phoneNumbers
+        self.copays = copays
     }
 
     public enum CodingKeys: String, CodingKey, CaseIterable {
@@ -98,6 +104,9 @@ public struct CardApiResponseDetails: Codable, JSONEncodable, Hashable {
         case partBEffectiveDate = "part_b_effective_date"
         case pharmacyBenefitManager = "pharmacy_benefit_manager"
         case planType = "plan_type"
+        case addresses
+        case phoneNumbers = "phone_numbers"
+        case copays
     }
 
     // Encodable protocol methods
@@ -131,6 +140,9 @@ public struct CardApiResponseDetails: Codable, JSONEncodable, Hashable {
         try container.encodeIfPresent(partBEffectiveDate, forKey: .partBEffectiveDate)
         try container.encodeIfPresent(pharmacyBenefitManager, forKey: .pharmacyBenefitManager)
         try container.encodeIfPresent(planType, forKey: .planType)
+        try container.encodeIfPresent(addresses, forKey: .addresses)
+        try container.encodeIfPresent(phoneNumbers, forKey: .phoneNumbers)
+        try container.encodeIfPresent(copays, forKey: .copays)
     }
 }
 

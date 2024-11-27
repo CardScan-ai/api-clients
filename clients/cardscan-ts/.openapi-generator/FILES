@@ -7,6 +7,8 @@ common.ts
 configuration.ts
 git_push.sh
 index.ts
+models/address-result-inner.ts
+models/address-type.ts
 models/address.ts
 models/api-error-response.ts
 models/card-api-response-details.ts
@@ -19,6 +21,9 @@ models/card-state.ts
 models/card-websocket-event.ts
 models/co-insurance.ts
 models/co-payment.ts
+models/copay-category.ts
+models/copay-deductible-service.ts
+models/copay-result-inner.ts
 models/coverage-summary.ts
 models/create-card-request-backside.ts
 models/deductible.ts
@@ -44,6 +49,8 @@ models/match-score.ts
 models/model-error.ts
 models/oop.ts
 models/payer-details.ts
+models/phone-number-result-inner.ts
+models/phone-number-type.ts
 models/plan-details.ts
 models/provider-dto.ts
 models/response-metadata.ts

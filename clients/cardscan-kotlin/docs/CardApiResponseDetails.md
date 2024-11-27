@@ -31,6 +31,9 @@
 | **partBEffectiveDate** | [**MatchScore**](MatchScore.md) |  |  [optional] |
 | **pharmacyBenefitManager** | [**MatchScore**](MatchScore.md) |  |  [optional] |
 | **planType** | [**MatchScore**](MatchScore.md) |  |  [optional] |
+| **addresses** | [**kotlin.collections.List&lt;AddressResultInner&gt;**](AddressResultInner.md) |  |  [optional] |
+| **phoneNumbers** | [**kotlin.collections.List&lt;PhoneNumberResultInner&gt;**](PhoneNumberResultInner.md) |  |  [optional] |
+| **copays** | [**kotlin.collections.List&lt;CopayResultInner&gt;**](CopayResultInner.md) |  |  [optional] |
 
 
 
