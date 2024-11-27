@@ -1425,6 +1425,10 @@ components:
           description: The timestamp when the eligibility response was created.
         error:
           $ref: '#/components/schemas/ModelError'
+        payer_match:
+          $ref: '#/components/schemas/PayerMatch'
+        metadata:
+          $ref: '#/components/schemas/CardResponseMetadata'
         images:
           type: object
           nullable: true
@@ -1511,6 +1515,66 @@ components:
               $ref: '#/components/schemas/PhoneNumberResult'
             copays:
               $ref: '#/components/schemas/CopayResult'
+    PayerMatch:
+      type: object
+      properties:
+        cardscan_payer_id:
+          type: string
+          nullable: true
+        cardscan_payer_name:
+          type: string
+          nullable: true
+        score:
+          type: string
+          nullable: true
+        change_healthcare:
+          type: array
+          items:
+            $ref: '#/components/schemas/CHCPayerRecord'
+          nullable: true
+        custom:
+          type: array
+          items:
+            $ref: '#/components/schemas/CustomPayerRecord'
+          nullable: true
+        message:
+          type: string
+          nullable: true
+
+    CHCPayerRecord:
+      type: object
+      properties:
+        chc_payer_id:
+          type: string
+        chc_payer_name:
+          type: string
+        score:
+          type: string
+
+    CustomPayerRecord:
+      type: object
+      properties:
+        custom_payer_id:
+          type: string
+        custom_payer_name:
+          type: string
+        custom_payer_name_alt:
+          type: string
+          nullable: true
+        score:
+          type: string
+        source:
+          type: string
+
+    CardResponseMetadata:
+      type: object
+      properties:
+        insurance_scan_version:
+          type: string
+          nullable: true
+        payer_match_version:
+          type: string
+          nullable: true
     AddressResult:
       type: array
       items:
