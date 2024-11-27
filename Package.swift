@@ -26,8 +26,11 @@ let package = Package(
         // Targets can depend on other targets in this package, and on products in packages which this package depends on.
         .target(
             name: "CardScanClient",
-            dependencies: ["AnyCodable", ],
-            path: "clients/cardscan-swift/CardScanClient/Classes"
+            dependencies: ["AnyCodable"],
+            path: "clients/cardscan-swift/CardScanClient/Classes",
+            swiftSettings: [
+                .unsafeFlags(["-enable-library-evolution"], .when(configuration: .release))
+            ]
         ),
     ]
 )
