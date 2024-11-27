@@ -21,7 +21,7 @@ part 'copay_result_inner.g.dart';
 @BuiltValue()
 abstract class CopayResultInner implements Built<CopayResultInner, CopayResultInnerBuilder> {
   @BuiltValueField(wireName: r'value')
-  num? get value;
+  String? get value;
 
   @BuiltValueField(wireName: r'scores')
   BuiltList<String>? get scores;
@@ -61,7 +61,7 @@ class _$CopayResultInnerSerializer implements PrimitiveSerializer<CopayResultInn
       yield r'value';
       yield serializers.serialize(
         object.value,
-        specifiedType: const FullType(num),
+        specifiedType: const FullType(String),
       );
     }
     if (object.scores != null) {
@@ -111,8 +111,8 @@ class _$CopayResultInnerSerializer implements PrimitiveSerializer<CopayResultInn
         case r'value':
           final valueDes = serializers.deserialize(
             value,
-            specifiedType: const FullType(num),
-          ) as num;
+            specifiedType: const FullType(String),
+          ) as String;
           result.value = valueDes;
           break;
         case r'scores':

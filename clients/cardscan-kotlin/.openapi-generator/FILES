@@ -158,10 +158,3 @@ src/main/kotlin/org/openapitools/client/models/SubscriberDto.kt
 src/main/kotlin/org/openapitools/client/models/UploadParameters.kt
 src/main/kotlin/org/openapitools/client/models/ValidateMagicLink200Response.kt
 src/main/kotlin/org/openapitools/client/models/WebsocketError.kt
-src/test/kotlin/org/openapitools/client/models/AddressResultInnerTest.kt
-src/test/kotlin/org/openapitools/client/models/AddressTypeTest.kt
-src/test/kotlin/org/openapitools/client/models/CopayCategoryTest.kt
-src/test/kotlin/org/openapitools/client/models/CopayDeductibleServiceTest.kt
-src/test/kotlin/org/openapitools/client/models/CopayResultInnerTest.kt
-src/test/kotlin/org/openapitools/client/models/PhoneNumberResultInnerTest.kt
-src/test/kotlin/org/openapitools/client/models/PhoneNumberTypeTest.kt

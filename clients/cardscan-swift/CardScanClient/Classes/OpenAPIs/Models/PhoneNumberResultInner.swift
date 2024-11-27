@@ -12,12 +12,12 @@ import AnyCodable
 
 public struct PhoneNumberResultInner: Codable, JSONEncodable, Hashable {
 
-    public var value: Double?
+    public var value: String?
     public var scores: [String]?
     public var type: PhoneNumberType?
     public var label: String?
 
-    public init(value: Double? = nil, scores: [String]? = nil, type: PhoneNumberType? = nil, label: String? = nil) {
+    public init(value: String? = nil, scores: [String]? = nil, type: PhoneNumberType? = nil, label: String? = nil) {
         self.value = value
         self.scores = scores
         self.type = type

@@ -18,8 +18,8 @@ import re  # noqa: F401
 import json
 
 
-from typing import List, Optional, Union
-from pydantic import BaseModel, StrictFloat, StrictInt, StrictStr, conlist
+from typing import List, Optional
+from pydantic import BaseModel, StrictStr, conlist
 from cardscan_client.models.copay_category import CopayCategory
 from cardscan_client.models.copay_deductible_service import CopayDeductibleService
 
@@ -27,7 +27,7 @@ class CopayResultInner(BaseModel):
     """
     CopayResultInner
     """
-    value: Optional[Union[StrictFloat, StrictInt]] = None
+    value: Optional[StrictStr] = None
     scores: Optional[conlist(StrictStr)] = None
     service: Optional[CopayDeductibleService] = None
     category: Optional[CopayCategory] = None

@@ -18,15 +18,15 @@ import re  # noqa: F401
 import json
 
 
-from typing import List, Optional, Union
-from pydantic import BaseModel, StrictFloat, StrictInt, StrictStr, conlist
+from typing import List, Optional
+from pydantic import BaseModel, StrictStr, conlist
 from cardscan_client.models.phone_number_type import PhoneNumberType
 
 class PhoneNumberResultInner(BaseModel):
     """
     PhoneNumberResultInner
     """
-    value: Optional[Union[StrictFloat, StrictInt]] = None
+    value: Optional[StrictStr] = None
     scores: Optional[conlist(StrictStr)] = None
     type: Optional[PhoneNumberType] = None
     label: Optional[StrictStr] = None

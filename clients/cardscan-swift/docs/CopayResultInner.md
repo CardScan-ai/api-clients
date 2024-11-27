@@ -3,7 +3,7 @@
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**value** | **Double** |  | [optional] 
+**value** | **String** |  | [optional] 
 **scores** | **[String]** |  | [optional] 
 **service** | [**CopayDeductibleService**](CopayDeductibleService.md) |  | [optional] 
 **category** | [**CopayCategory**](CopayCategory.md) |  | [optional] 

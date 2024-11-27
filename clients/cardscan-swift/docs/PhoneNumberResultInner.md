@@ -3,7 +3,7 @@
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**value** | **Double** |  | [optional] 
+**value** | **String** |  | [optional] 
 **scores** | **[String]** |  | [optional] 
 **type** | [**PhoneNumberType**](PhoneNumberType.md) |  | [optional] 
 **label** | **String** |  | [optional] 
