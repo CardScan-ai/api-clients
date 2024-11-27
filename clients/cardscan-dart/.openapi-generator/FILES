@@ -156,7 +156,3 @@ lib/src/model/upload_parameters.dart
 lib/src/model/validate_magic_link200_response.dart
 lib/src/model/websocket_error.dart
 lib/src/serializers.dart
-test/card_response_metadata_test.dart
-test/chc_payer_record_test.dart
-test/custom_payer_record_test.dart
-test/payer_match_test.dart

@@ -22,7 +22,7 @@ import com.squareup.moshi.JsonClass
 /**
  * 
  *
- * Values: pending,processing,frontside_processing,frontside_failed,backside_processing,backside_failed,post_processing,completed,error,unknown
+ * Values: pending,processing,frontside_processing,frontside_failed,backside_processing,backside_failed,post_processing,completed,enriched,error,unknown
  */
 
 @JsonClass(generateAdapter = false)
@@ -51,6 +51,9 @@ enum class CardState(val value: kotlin.String) {
 
     @Json(name = "completed")
     completed("completed"),
+
+    @Json(name = "enriched")
+    enriched("enriched"),
 
     @Json(name = "error")
     error("error"),

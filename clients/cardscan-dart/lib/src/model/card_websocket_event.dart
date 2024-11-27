@@ -35,7 +35,7 @@ abstract class CardWebsocketEvent implements Built<CardWebsocketEvent, CardWebso
 
   @BuiltValueField(wireName: r'state')
   CardState get state;
-  // enum stateEnum {  pending,  processing,  frontside_processing,  frontside_failed,  backside_processing,  backside_failed,  post_processing,  completed,  error,  unknown,  };
+  // enum stateEnum {  pending,  processing,  frontside_processing,  frontside_failed,  backside_processing,  backside_failed,  post_processing,  completed,  enriched,  error,  unknown,  };
 
   @BuiltValueField(wireName: r'created_at')
   DateTime get createdAt;

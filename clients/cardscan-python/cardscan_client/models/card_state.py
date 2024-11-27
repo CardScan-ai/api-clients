@@ -37,6 +37,7 @@ class CardState(str, Enum):
     BACKSIDE_FAILED = 'backside_failed'
     POST_PROCESSING = 'post_processing'
     COMPLETED = 'completed'
+    ENRICHED = 'enriched'
     ERROR = 'error'
     UNKNOWN = 'unknown'
 

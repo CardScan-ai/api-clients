@@ -33,7 +33,7 @@ abstract class CardApiResponse implements Built<CardApiResponse, CardApiResponse
 
   @BuiltValueField(wireName: r'state')
   CardState get state;
-  // enum stateEnum {  pending,  processing,  frontside_processing,  frontside_failed,  backside_processing,  backside_failed,  post_processing,  completed,  error,  unknown,  };
+  // enum stateEnum {  pending,  processing,  frontside_processing,  frontside_failed,  backside_processing,  backside_failed,  post_processing,  completed,  enriched,  error,  unknown,  };
 
   /// The timestamp when the eligibility response was created.
   @BuiltValueField(wireName: r'created_at')

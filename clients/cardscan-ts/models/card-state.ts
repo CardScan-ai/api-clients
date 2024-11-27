@@ -29,6 +29,7 @@ export const CardState = {
     BacksideFailed: 'backside_failed',
     PostProcessing: 'post_processing',
     Completed: 'completed',
+    Enriched: 'enriched',
     Error: 'error',
     Unknown: 'unknown'
 } as const;
