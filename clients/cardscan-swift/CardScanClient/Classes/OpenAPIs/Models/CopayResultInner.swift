@@ -12,12 +12,12 @@ import AnyCodable
 
 public struct CopayResultInner: Codable, JSONEncodable, Hashable {
 
-    public var value: Double?
+    public var value: String?
     public var scores: [String]?
     public var service: CopayDeductibleService?
     public var category: CopayCategory?
 
-    public init(value: Double? = nil, scores: [String]? = nil, service: CopayDeductibleService? = nil, category: CopayCategory? = nil) {
+    public init(value: String? = nil, scores: [String]? = nil, service: CopayDeductibleService? = nil, category: CopayCategory? = nil) {
         self.value = value
         self.scores = scores
         self.service = service

@@ -27,10 +27,10 @@ import { KeysToCamelCase, KeysToSnakeCase } from "./";
 export interface PhoneNumberResultInnerOriginal {
     /**
      * 
-     * @type {number}
+     * @type {string}
      * @memberof PhoneNumberResultInner
      */
-    'value'?: number;
+    'value'?: string;
     /**
      * 
      * @type {Array<string>}

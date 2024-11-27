@@ -8,7 +8,7 @@ import 'package:cardscan_client/api.dart';
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**value** | **num** |  | [optional] 
+**value** | **String** |  | [optional] 
 **scores** | **BuiltList&lt;String&gt;** |  | [optional] 
 **service** | [**CopayDeductibleService**](CopayDeductibleService.md) |  | [optional] 
 **category** | [**CopayCategory**](CopayCategory.md) |  | [optional] 

@@ -34,7 +34,7 @@ import com.squareup.moshi.JsonClass
 data class CopayResultInner (
 
     @Json(name = "value")
-    val `value`: java.math.BigDecimal? = null,
+    val `value`: kotlin.String? = null,
 
     @Json(name = "scores")
     val scores: kotlin.collections.List<kotlin.String>? = null,

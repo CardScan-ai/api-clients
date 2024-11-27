@@ -30,10 +30,10 @@ import { KeysToCamelCase, KeysToSnakeCase } from "./";
 export interface CopayResultInnerOriginal {
     /**
      * 
-     * @type {number}
+     * @type {string}
      * @memberof CopayResultInner
      */
-    'value'?: number;
+    'value'?: string;
     /**
      * 
      * @type {Array<string>}

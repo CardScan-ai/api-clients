@@ -4,7 +4,7 @@
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**value** | **float** |  | [optional] 
+**value** | **str** |  | [optional] 
 **scores** | **List[str]** |  | [optional] 
 **type** | [**PhoneNumberType**](PhoneNumberType.md) |  | [optional] 
 **label** | **str** |  | [optional] 

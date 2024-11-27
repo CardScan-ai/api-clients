@@ -4,7 +4,7 @@
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**value** | **float** |  | [optional] 
+**value** | **str** |  | [optional] 
 **scores** | **List[str]** |  | [optional] 
 **service** | [**CopayDeductibleService**](CopayDeductibleService.md) |  | [optional] 
 **category** | [**CopayCategory**](CopayCategory.md) |  | [optional] 

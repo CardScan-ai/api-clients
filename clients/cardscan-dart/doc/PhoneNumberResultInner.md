@@ -8,7 +8,7 @@ import 'package:cardscan_client/api.dart';
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**value** | **num** |  | [optional] 
+**value** | **String** |  | [optional] 
 **scores** | **BuiltList&lt;String&gt;** |  | [optional] 
 **type** | [**PhoneNumberType**](PhoneNumberType.md) |  | [optional] 
 **label** | **String** |  | [optional] 

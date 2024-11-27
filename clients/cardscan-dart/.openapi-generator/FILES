@@ -148,10 +148,3 @@ lib/src/model/upload_parameters.dart
 lib/src/model/validate_magic_link200_response.dart
 lib/src/model/websocket_error.dart
 lib/src/serializers.dart
-test/address_result_inner_test.dart
-test/address_type_test.dart
-test/copay_category_test.dart
-test/copay_deductible_service_test.dart
-test/copay_result_inner_test.dart
-test/phone_number_result_inner_test.dart
-test/phone_number_type_test.dart
