@@ -1613,6 +1613,7 @@ components:
       - backside_failed
       - post_processing
       - completed
+      - enriched
       - error
       - unknown
     EligibilityState:
