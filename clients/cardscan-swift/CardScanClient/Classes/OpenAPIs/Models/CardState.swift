@@ -19,6 +19,7 @@ public enum CardState: String, Codable, CaseIterable {
     case backsideFailed = "backside_failed"
     case postProcessing = "post_processing"
     case completed = "completed"
+    case enriched = "enriched"
     case error = "error"
     case unknown = "unknown"
 }

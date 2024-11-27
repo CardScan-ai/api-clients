@@ -27,6 +27,8 @@ class CardState extends EnumClass {
   static const CardState postProcessing = _$postProcessing;
   @BuiltValueEnumConst(wireName: r'completed')
   static const CardState completed = _$completed;
+  @BuiltValueEnumConst(wireName: r'enriched')
+  static const CardState enriched = _$enriched;
   @BuiltValueEnumConst(wireName: r'error')
   static const CardState error = _$error;
   @BuiltValueEnumConst(wireName: r'unknown')

@@ -20,6 +20,8 @@
 
     * `completed` (value: `"completed"`)
 
+    * `enriched` (value: `"enriched"`)
+
     * `error` (value: `"error"`)
 
     * `unknown` (value: `"unknown"`)
