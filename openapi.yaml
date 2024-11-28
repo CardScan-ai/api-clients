@@ -860,6 +860,10 @@ components:
     EligibilitySummarizedResponse:
       type: object
       properties:
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/EligibilityError'
         subscriber_details:
           $ref: '#/components/schemas/SubscriberDetails'
         payer_details:
@@ -1974,6 +1978,28 @@ components:
         code:
           type: number
           description: The error code.
+
+    EligibilityError:
+      type: object
+      properties:
+        field:
+          type: string
+          description: The field that caused the error.
+        code:
+          type: string
+          description: The error code.
+        description:
+          type: string
+          description: A description of the error.
+        followup_action:
+          type: string
+          description: Suggested follow-up action for the error.
+        location:
+          type: string
+          description: The location of the error.
+        possible_resolutions:
+          type: string
+          description: Possible resolutions for the error.
 
     ModelError:
       type: object
