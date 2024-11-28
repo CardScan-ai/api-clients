@@ -1274,7 +1274,7 @@ components:
           description: The name of the payer.
         address:
           $ref: '#/components/schemas/Address'
-        url:
+        payer_url:
           type: string
     PlanDetails:
       type: object
