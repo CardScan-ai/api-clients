@@ -719,14 +719,14 @@ components:
       required:
       - npi
       properties:
-        firstName:
+        first_name:
           type: string
           maxLength: 35
           minLength: 1
           description: >
             Loop: 2100B Segment: MN1, Element: NM104, Notes: NM101=PR when providerType='payer' && payerId is present otherwise 1P for Provider, NM102=1 Person, firstName 1-35 alphanumeric characters
 
-        lastName:
+        last_name:
           type: string
           maxLength: 60
           minLength: 1
@@ -740,7 +740,7 @@ components:
           description: >
             Loop: 2100B Segment: MN1, Element: NM109, Notes: NM108=XX Centers for Medicare and Medicaid Services National Provider Identifier 2-80 alphanumeric characters
 
-        organizationName:
+        organization_name:
           type: string
           maxLength: 60
           minLength: 0
@@ -748,25 +748,25 @@ components:
     SubscriberDto:
       type: object
       required:
-      - firstName
-      - lastName
-      - dateOfBirth
+      - first_name
+      - last_name
+      - date_of_birth
       properties:
-        firstName:
+        first_name:
           type: string
           maxLength: 35
           minLength: 1
           description: >
             Loop: 2100C and 2100D, Segment: MN1, Element: NM104, Notes: firstName 1-35 alphanumeric characters
 
-        lastName:
+        last_name:
           type: string
           maxLength: 60
           minLength: 1
           description: >
             Loop: 2100C and 2100D, Segment: MN1, Element: NM103, Notes: lastName 1-60 alphanumeric characters
 
-        dateOfBirth:
+        date_of_birth:
           type: string
           description: >
             Loop: 2100C and 2100D, Segment: DMG, Element: DMG02, Notes: date of birth in YYYYMMDD format
@@ -1249,13 +1249,13 @@ components:
         member_id:
           type: string
           description: The member ID of the subscriber.
-        firstname:
+        first_name:
           type: string
           description: The first name of the subscriber.
-        lastname:
+        last_name:
           type: string
           description: The last name of the subscriber.
-        middlename:
+        middle_name:
           type: string
           description: The middle name of the subscriber.
         gender:
@@ -1263,7 +1263,7 @@ components:
           description: The gender of the subscriber.
         address:
           $ref: '#/components/schemas/Address'
-        dob:
+        date_of_birth:
           type: string
           description: The date of birth of the subscriber.
     PayerDetails:
