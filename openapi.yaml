@@ -719,14 +719,14 @@ components:
       required:
       - npi
       properties:
-        firstName:
+        first_name:
           type: string
           maxLength: 35
           minLength: 1
           description: >
             Loop: 2100B Segment: MN1, Element: NM104, Notes: NM101=PR when providerType='payer' && payerId is present otherwise 1P for Provider, NM102=1 Person, firstName 1-35 alphanumeric characters
 
-        lastName:
+        last_name:
           type: string
           maxLength: 60
           minLength: 1
@@ -740,7 +740,7 @@ components:
           description: >
             Loop: 2100B Segment: MN1, Element: NM109, Notes: NM108=XX Centers for Medicare and Medicaid Services National Provider Identifier 2-80 alphanumeric characters
 
-        organizationName:
+        organization_name:
           type: string
           maxLength: 60
           minLength: 0
@@ -748,25 +748,25 @@ components:
     SubscriberDto:
       type: object
       required:
-      - firstName
-      - lastName
-      - dateOfBirth
+      - first_name
+      - last_name
+      - date_of_birth
       properties:
-        firstName:
+        first_name:
           type: string
           maxLength: 35
           minLength: 1
           description: >
             Loop: 2100C and 2100D, Segment: MN1, Element: NM104, Notes: firstName 1-35 alphanumeric characters
 
-        lastName:
+        last_name:
           type: string
           maxLength: 60
           minLength: 1
           description: >
             Loop: 2100C and 2100D, Segment: MN1, Element: NM103, Notes: lastName 1-60 alphanumeric characters
 
-        dateOfBirth:
+        date_of_birth:
           type: string
           description: >
             Loop: 2100C and 2100D, Segment: DMG, Element: DMG02, Notes: date of birth in YYYYMMDD format
@@ -792,6 +792,7 @@ components:
       properties:
         eligibility_id:
           type: string
+          format: uuid
           description: The ID of the eligibility record.
         state:
           type: string
@@ -802,6 +803,7 @@ components:
           description: The state of the eligibility record.
         card_id:
           type: string
+          format: uuid
           description: The ID of the card.
         eligibility_request:
           type: object
@@ -821,6 +823,8 @@ components:
                 first_name:
                   type: string
                 last_name:
+                  type: string
+                organization_name:
                   type: string
                 npi:
                   type: string
@@ -856,6 +860,10 @@ components:
     EligibilitySummarizedResponse:
       type: object
       properties:
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/EligibilityError'
         subscriber_details:
           $ref: '#/components/schemas/SubscriberDetails'
         payer_details:
@@ -1245,13 +1253,13 @@ components:
         member_id:
           type: string
           description: The member ID of the subscriber.
-        firstname:
+        first_name:
           type: string
           description: The first name of the subscriber.
-        lastname:
+        last_name:
           type: string
           description: The last name of the subscriber.
-        middlename:
+        middle_name:
           type: string
           description: The middle name of the subscriber.
         gender:
@@ -1259,7 +1267,7 @@ components:
           description: The gender of the subscriber.
         address:
           $ref: '#/components/schemas/Address'
-        dob:
+        date_of_birth:
           type: string
           description: The date of birth of the subscriber.
     PayerDetails:
@@ -1270,7 +1278,7 @@ components:
           description: The name of the payer.
         address:
           $ref: '#/components/schemas/Address'
-        url:
+        payer_url:
           type: string
     PlanDetails:
       type: object
@@ -1917,6 +1925,7 @@ components:
           - card
         card_id:
           type: string
+          format: uuid
         state:
           $ref: '#/components/schemas/CardState'
         created_at:
@@ -1944,6 +1953,7 @@ components:
           - eligibility
         eligibility_id:
           type: string
+          format: uuid
         state:
           $ref: '#/components/schemas/CardState'
         created_at:
@@ -1955,6 +1965,7 @@ components:
           $ref: '#/components/schemas/WebsocketError'
         card_id:
           type: string
+          format: uuid
     ApiErrorResponse:
       type: object
       properties:
@@ -1967,6 +1978,28 @@ components:
         code:
           type: number
           description: The error code.
+
+    EligibilityError:
+      type: object
+      properties:
+        field:
+          type: string
+          description: The field that caused the error.
+        code:
+          type: string
+          description: The error code.
+        description:
+          type: string
+          description: A description of the error.
+        followup_action:
+          type: string
+          description: Suggested follow-up action for the error.
+        location:
+          type: string
+          description: The location of the error.
+        possible_resolutions:
+          type: string
+          description: Possible resolutions for the error.
 
     ModelError:
       type: object
