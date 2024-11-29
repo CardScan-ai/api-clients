@@ -5,12 +5,12 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **member_id** | **str** | The member ID of the subscriber. | [optional] 
-**firstname** | **str** | The first name of the subscriber. | [optional] 
-**lastname** | **str** | The last name of the subscriber. | [optional] 
-**middlename** | **str** | The middle name of the subscriber. | [optional] 
+**first_name** | **str** | The first name of the subscriber. | [optional] 
+**last_name** | **str** | The last name of the subscriber. | [optional] 
+**middle_name** | **str** | The middle name of the subscriber. | [optional] 
 **gender** | **str** | The gender of the subscriber. | [optional] 
 **address** | [**Address**](Address.md) |  | [optional] 
-**dob** | **str** | The date of birth of the subscriber. | [optional] 
+**date_of_birth** | **str** | The date of birth of the subscriber. | [optional] 
 
 ## Example
 

@@ -33,6 +33,7 @@ docs/EligibilityApiResponse.md
 docs/EligibilityApiResponseEligibilityRequest.md
 docs/EligibilityApiResponseEligibilityRequestProvider.md
 docs/EligibilityApiResponseEligibilityRequestSubscriber.md
+docs/EligibilityError.md
 docs/EligibilityInfo.md
 docs/EligibilityState.md
 docs/EligibilitySummarizedResponse.md
@@ -127,6 +128,7 @@ src/main/kotlin/org/openapitools/client/models/EligibilityApiResponse.kt
 src/main/kotlin/org/openapitools/client/models/EligibilityApiResponseEligibilityRequest.kt
 src/main/kotlin/org/openapitools/client/models/EligibilityApiResponseEligibilityRequestProvider.kt
 src/main/kotlin/org/openapitools/client/models/EligibilityApiResponseEligibilityRequestSubscriber.kt
+src/main/kotlin/org/openapitools/client/models/EligibilityError.kt
 src/main/kotlin/org/openapitools/client/models/EligibilityInfo.kt
 src/main/kotlin/org/openapitools/client/models/EligibilityState.kt
 src/main/kotlin/org/openapitools/client/models/EligibilitySummarizedResponse.kt
@@ -166,3 +168,4 @@ src/main/kotlin/org/openapitools/client/models/SubscriberDto.kt
 src/main/kotlin/org/openapitools/client/models/UploadParameters.kt
 src/main/kotlin/org/openapitools/client/models/ValidateMagicLink200Response.kt
 src/main/kotlin/org/openapitools/client/models/WebsocketError.kt
+src/test/kotlin/org/openapitools/client/models/EligibilityErrorTest.kt

@@ -28,8 +28,8 @@ class PayerDetails(BaseModel):
     """
     payer_name: Optional[StrictStr] = Field(default=None, description="The name of the payer.")
     address: Optional[Address] = None
-    url: Optional[StrictStr] = None
-    __properties = ["payer_name", "address", "url"]
+    payer_url: Optional[StrictStr] = None
+    __properties = ["payer_name", "address", "payer_url"]
 
     class Config:
         """Pydantic configuration"""
@@ -79,7 +79,7 @@ class PayerDetails(BaseModel):
         _obj = PayerDetails.parse_obj({
             "payer_name": obj.get("payer_name"),
             "address": Address.from_dict(obj.get("address")) if obj.get("address") is not None else None,
-            "url": obj.get("url")
+            "payer_url": obj.get("payer_url")
         })
         return _obj
 

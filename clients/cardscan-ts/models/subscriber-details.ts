@@ -36,19 +36,19 @@ export interface SubscriberDetailsOriginal {
      * @type {string}
      * @memberof SubscriberDetails
      */
-    'firstname'?: string;
+    'first_name'?: string;
     /**
      * The last name of the subscriber.
      * @type {string}
      * @memberof SubscriberDetails
      */
-    'lastname'?: string;
+    'last_name'?: string;
     /**
      * The middle name of the subscriber.
      * @type {string}
      * @memberof SubscriberDetails
      */
-    'middlename'?: string;
+    'middle_name'?: string;
     /**
      * The gender of the subscriber.
      * @type {string}
@@ -66,7 +66,7 @@ export interface SubscriberDetailsOriginal {
      * @type {string}
      * @memberof SubscriberDetails
      */
-    'dob'?: string;
+    'date_of_birth'?: string;
 }
 export type SubscriberDetails = KeysToCamelCase<SubscriberDetailsOriginal>;
 export type SubscriberDetailsSnake = KeysToSnakeCase<SubscriberDetailsOriginal>;

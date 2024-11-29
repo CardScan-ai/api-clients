@@ -13,12 +13,12 @@ part 'subscriber_details.g.dart';
 ///
 /// Properties:
 /// * [memberId] - The member ID of the subscriber.
-/// * [firstname] - The first name of the subscriber.
-/// * [lastname] - The last name of the subscriber.
-/// * [middlename] - The middle name of the subscriber.
+/// * [firstName] - The first name of the subscriber.
+/// * [lastName] - The last name of the subscriber.
+/// * [middleName] - The middle name of the subscriber.
 /// * [gender] - The gender of the subscriber.
 /// * [address] 
-/// * [dob] - The date of birth of the subscriber.
+/// * [dateOfBirth] - The date of birth of the subscriber.
 @BuiltValue()
 abstract class SubscriberDetails implements Built<SubscriberDetails, SubscriberDetailsBuilder> {
   /// The member ID of the subscriber.
@@ -26,16 +26,16 @@ abstract class SubscriberDetails implements Built<SubscriberDetails, SubscriberD
   String? get memberId;
 
   /// The first name of the subscriber.
-  @BuiltValueField(wireName: r'firstname')
-  String? get firstname;
+  @BuiltValueField(wireName: r'first_name')
+  String? get firstName;
 
   /// The last name of the subscriber.
-  @BuiltValueField(wireName: r'lastname')
-  String? get lastname;
+  @BuiltValueField(wireName: r'last_name')
+  String? get lastName;
 
   /// The middle name of the subscriber.
-  @BuiltValueField(wireName: r'middlename')
-  String? get middlename;
+  @BuiltValueField(wireName: r'middle_name')
+  String? get middleName;
 
   /// The gender of the subscriber.
   @BuiltValueField(wireName: r'gender')
@@ -45,8 +45,8 @@ abstract class SubscriberDetails implements Built<SubscriberDetails, SubscriberD
   Address? get address;
 
   /// The date of birth of the subscriber.
-  @BuiltValueField(wireName: r'dob')
-  String? get dob;
+  @BuiltValueField(wireName: r'date_of_birth')
+  String? get dateOfBirth;
 
   SubscriberDetails._();
 
@@ -78,24 +78,24 @@ class _$SubscriberDetailsSerializer implements PrimitiveSerializer<SubscriberDet
         specifiedType: const FullType(String),
       );
     }
-    if (object.firstname != null) {
-      yield r'firstname';
+    if (object.firstName != null) {
+      yield r'first_name';
       yield serializers.serialize(
-        object.firstname,
+        object.firstName,
         specifiedType: const FullType(String),
       );
     }
-    if (object.lastname != null) {
-      yield r'lastname';
+    if (object.lastName != null) {
+      yield r'last_name';
       yield serializers.serialize(
-        object.lastname,
+        object.lastName,
         specifiedType: const FullType(String),
       );
     }
-    if (object.middlename != null) {
-      yield r'middlename';
+    if (object.middleName != null) {
+      yield r'middle_name';
       yield serializers.serialize(
-        object.middlename,
+        object.middleName,
         specifiedType: const FullType(String),
       );
     }
@@ -113,10 +113,10 @@ class _$SubscriberDetailsSerializer implements PrimitiveSerializer<SubscriberDet
         specifiedType: const FullType(Address),
       );
     }
-    if (object.dob != null) {
-      yield r'dob';
+    if (object.dateOfBirth != null) {
+      yield r'date_of_birth';
       yield serializers.serialize(
-        object.dob,
+        object.dateOfBirth,
         specifiedType: const FullType(String),
       );
     }
@@ -150,26 +150,26 @@ class _$SubscriberDetailsSerializer implements PrimitiveSerializer<SubscriberDet
           ) as String;
           result.memberId = valueDes;
           break;
-        case r'firstname':
+        case r'first_name':
           final valueDes = serializers.deserialize(
             value,
             specifiedType: const FullType(String),
           ) as String;
-          result.firstname = valueDes;
+          result.firstName = valueDes;
           break;
-        case r'lastname':
+        case r'last_name':
           final valueDes = serializers.deserialize(
             value,
             specifiedType: const FullType(String),
           ) as String;
-          result.lastname = valueDes;
+          result.lastName = valueDes;
           break;
-        case r'middlename':
+        case r'middle_name':
           final valueDes = serializers.deserialize(
             value,
             specifiedType: const FullType(String),
           ) as String;
-          result.middlename = valueDes;
+          result.middleName = valueDes;
           break;
         case r'gender':
           final valueDes = serializers.deserialize(
@@ -185,12 +185,12 @@ class _$SubscriberDetailsSerializer implements PrimitiveSerializer<SubscriberDet
           ) as Address;
           result.address.replace(valueDes);
           break;
-        case r'dob':
+        case r'date_of_birth':
           final valueDes = serializers.deserialize(
             value,
             specifiedType: const FullType(String),
           ) as String;
-          result.dob = valueDes;
+          result.dateOfBirth = valueDes;
           break;
         default:
           unhandled.add(key);

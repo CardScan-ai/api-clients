@@ -40,7 +40,7 @@ data class EligibilityApiResponse (
 
     /* The ID of the eligibility record. */
     @Json(name = "eligibility_id")
-    val eligibilityId: kotlin.String,
+    val eligibilityId: java.util.UUID,
 
     /* The state of the eligibility record. */
     @Json(name = "state")
@@ -48,7 +48,7 @@ data class EligibilityApiResponse (
 
     /* The ID of the card. */
     @Json(name = "card_id")
-    val cardId: kotlin.String,
+    val cardId: java.util.UUID,
 
     /* The timestamp when the eligibility record was created. */
     @Json(name = "created_at")

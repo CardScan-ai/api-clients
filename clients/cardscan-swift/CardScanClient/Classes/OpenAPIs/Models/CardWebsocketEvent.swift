@@ -17,13 +17,13 @@ public struct CardWebsocketEvent: Codable, JSONEncodable, Hashable {
     }
     public var eventId: String
     public var type: ModelType
-    public var cardId: String
+    public var cardId: UUID
     public var state: CardState
     public var createdAt: Date
     public var sessionId: String?
     public var error: WebsocketError?
 
-    public init(eventId: String, type: ModelType, cardId: String, state: CardState, createdAt: Date, sessionId: String? = nil, error: WebsocketError? = nil) {
+    public init(eventId: String, type: ModelType, cardId: UUID, state: CardState, createdAt: Date, sessionId: String? = nil, error: WebsocketError? = nil) {
         self.eventId = eventId
         self.type = type
         self.cardId = cardId

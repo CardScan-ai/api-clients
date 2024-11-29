@@ -4,6 +4,7 @@
 ## Properties
 | Name | Type | Description | Notes |
 | ------------ | ------------- | ------------- | ------------- |
+| **errors** | [**kotlin.collections.List&lt;EligibilityError&gt;**](EligibilityError.md) |  |  [optional] |
 | **subscriberDetails** | [**SubscriberDetails**](SubscriberDetails.md) |  |  [optional] |
 | **payerDetails** | [**PayerDetails**](PayerDetails.md) |  |  [optional] |
 | **planDetails** | [**PlanDetails**](PlanDetails.md) |  |  [optional] |

@@ -18,11 +18,11 @@ public struct EligibilityApiResponse: Codable, JSONEncodable, Hashable {
         case error = "error"
     }
     /** The ID of the eligibility record. */
-    public var eligibilityId: String
+    public var eligibilityId: UUID
     /** The state of the eligibility record. */
     public var state: State
     /** The ID of the card. */
-    public var cardId: String
+    public var cardId: UUID
     public var eligibilityRequest: EligibilityApiResponseEligibilityRequest?
     /** The eligibility raw response. */
     public var eligibilityResponse: [String: AnyCodable]?
@@ -31,7 +31,7 @@ public struct EligibilityApiResponse: Codable, JSONEncodable, Hashable {
     /** The timestamp when the eligibility record was created. */
     public var createdAt: Date
 
-    public init(eligibilityId: String, state: State, cardId: String, eligibilityRequest: EligibilityApiResponseEligibilityRequest? = nil, eligibilityResponse: [String: AnyCodable]? = nil, eligibilitySummarizedResponse: EligibilitySummarizedResponse? = nil, error: ModelError? = nil, createdAt: Date) {
+    public init(eligibilityId: UUID, state: State, cardId: UUID, eligibilityRequest: EligibilityApiResponseEligibilityRequest? = nil, eligibilityResponse: [String: AnyCodable]? = nil, eligibilitySummarizedResponse: EligibilitySummarizedResponse? = nil, error: ModelError? = nil, createdAt: Date) {
         self.eligibilityId = eligibilityId
         self.state = state
         self.cardId = cardId

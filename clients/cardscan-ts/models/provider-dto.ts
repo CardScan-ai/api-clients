@@ -27,13 +27,13 @@ export interface ProviderDtoOriginal {
      * @type {string}
      * @memberof ProviderDto
      */
-    'firstName'?: string;
+    'first_name'?: string;
     /**
      * Loop: 2100B Segment: MN1, Element: NM103, Notes: NM101=PR when providerType=\'payer\' && payerId is present otherwise 1P for Provider, NM102=1 Person, lastName 1-60 alphanumeric characters 
      * @type {string}
      * @memberof ProviderDto
      */
-    'lastName'?: string;
+    'last_name'?: string;
     /**
      * Loop: 2100B Segment: MN1, Element: NM109, Notes: NM108=XX Centers for Medicare and Medicaid Services National Provider Identifier 2-80 alphanumeric characters 
      * @type {string}
@@ -45,7 +45,7 @@ export interface ProviderDtoOriginal {
      * @type {string}
      * @memberof ProviderDto
      */
-    'organizationName'?: string;
+    'organization_name'?: string;
 }
 export type ProviderDto = KeysToCamelCase<ProviderDtoOriginal>;
 export type ProviderDtoSnake = KeysToSnakeCase<ProviderDtoOriginal>;

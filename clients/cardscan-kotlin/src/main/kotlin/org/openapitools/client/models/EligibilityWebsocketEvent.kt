@@ -44,7 +44,7 @@ data class EligibilityWebsocketEvent (
     val type: EligibilityWebsocketEvent.Type,
 
     @Json(name = "eligibility_id")
-    val eligibilityId: kotlin.String,
+    val eligibilityId: java.util.UUID,
 
     @Json(name = "state")
     val state: CardState,
@@ -59,7 +59,7 @@ data class EligibilityWebsocketEvent (
     val error: WebsocketError? = null,
 
     @Json(name = "card_id")
-    val cardId: kotlin.String? = null
+    val cardId: java.util.UUID? = null
 
 ) {
 

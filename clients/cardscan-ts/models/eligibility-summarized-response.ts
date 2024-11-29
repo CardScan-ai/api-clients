@@ -18,6 +18,9 @@
 import { CoverageSummary } from './coverage-summary';
 // May contain unused imports in some cases
 // @ts-ignore
+import { EligibilityError } from './eligibility-error';
+// May contain unused imports in some cases
+// @ts-ignore
 import { PayerDetails } from './payer-details';
 // May contain unused imports in some cases
 // @ts-ignore
@@ -37,6 +40,12 @@ import { KeysToCamelCase, KeysToSnakeCase } from "./";
  * @interface EligibilitySummarizedResponse
  */
 export interface EligibilitySummarizedResponseOriginal {
+    /**
+     * 
+     * @type {Array<EligibilityError>}
+     * @memberof EligibilitySummarizedResponse
+     */
+    'errors'?: Array<EligibilityError>;
     /**
      * 
      * @type {SubscriberDetails}
