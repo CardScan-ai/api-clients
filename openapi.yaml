@@ -1876,7 +1876,62 @@ components:
           type: string
           example: '981010000'
 
-    CardCreated:
+    WebhookCardCompletedEvent:
+      type: object
+      title: Card Completed Event
+      description: Triggered after a successful insurance card scan
+      required:
+      - card_id
+      - configuration
+      - created_at
+      - deleted
+      - session_id
+      - type
+      - updated_at
+      - user_id
+      properties:
+        card_id:
+          type: string
+          description: Unique identifier for the created card.
+        configuration:
+          type: object
+          description: Configuration settings used during the card scan.
+          properties:
+            enable_backside_scan:
+              type: boolean
+              description: Flag to enable backside scan.
+            enable_livescan:
+              type: boolean
+              description: Flag to enable live scanning.
+            enable_payer_match:
+              type: boolean
+              description: Flag to enable payer matching.
+          required:
+          - enable_backside_scan
+          - enable_livescan
+          - enable_payer_match
+        created_at:
+          type: string
+          format: date-time
+          description: Timestamp for when the card was created.
+        deleted:
+          type: boolean
+          description: Flag indicating whether the card is deleted.
+        session_id:
+          type: string
+          description: Unique identifier for the session.
+        type:
+          type: string
+          description: Type of event.
+        updated_at:
+          type: string
+          format: date-time
+          description: Timestamp for the last update to the card record.
+        user_id:
+          type: string
+          description: Identifier for the user associated with the event.
+
+    WebhookCardCreatedEvent:
       type: object
       title: Card Created Event
       description: Triggered when a new insurance card is created at the start of a scanning attempt.
@@ -1931,7 +1986,7 @@ components:
           type: string
           description: Identifier for the user associated with the event.
 
-    CardDeleted:
+    WebhookCardDeletedEvent:
       type: object
       title: Card Deleted Event
       description: Triggered when a scanned insurance card is marked as deleted.
@@ -1986,7 +2041,7 @@ components:
           type: string
           description: Identifier for the user associated with the event.
 
-    CardError:
+    WebhookCardErrorEvent:
       type: object
       title: Card Error Event
       description: Triggered when an error occurs during a card scan.
@@ -2037,7 +2092,7 @@ components:
           type: string
           description: Identifier for the user associated with the event.
 
-    EligibilityCreated:
+    WebhookEligibilityCreatedEvent:
       type: object
       title: Eligibility Created Event
       description: Triggered when a new eligibility record is created.
@@ -2078,7 +2133,7 @@ components:
           type: string
           description: Identifier for the user associated with the event.
 
-    EligibilityCompleted:
+    WebhookEligibilityCompletedEvent:
       type: object
       title: Eligibility Completed Event
       description: Triggered when an eligibility check is successfully completed.
@@ -2119,7 +2174,7 @@ components:
           type: string
           description: Identifier for the user associated with the event.
 
-    EligibilityDeleted:
+    WebhookEligibilityDeletedEvent:
       type: object
       title: Eligibility Deleted Event
       description: Triggered when an eligibility record is deleted.
@@ -2160,7 +2215,7 @@ components:
           type: string
           description: Identifier for the user associated with the event.
 
-    EligibilityError:
+    WebhookEligibilityErrorEvent:
       type: object
       title: Eligibility Error Event
       description: Triggered when an error occurs during an eligibility check.
