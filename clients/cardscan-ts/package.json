@@ -10,13 +10,6 @@
     "type": "git",
     "url": "git+https://github.com/CardScan-ai/api-clients.git"
   },
-  "keywords": [
-    "cardscan-ai",
-    "cardscan",
-    "typescript",
-    "client",
-    "api"
-  ],
   "license": "SEE LICENSE IN LICENSE.md",
   "main": "./dist/index.js",
   "typings": "./dist/index.d.ts",
@@ -54,5 +47,36 @@
     "ts-jest": "^29.1.2",
     "ts-node": "^10.9.2",
     "typescript": "^4.0"
-  }
+  },
+  "keywords": [
+    "card",
+    "cards",
+    "scan",
+    "scanning",
+    "scanner",
+    "health",
+    "health insurance",
+    "health insurance card",
+    "medical",
+    "medical insurance",
+    "medical insurance card",
+    "medical card",
+    "insurance",
+    "insurance card",
+    "insurance card scanner",
+    "eligibility",
+    "eligibility check",
+    "eligibility verification",
+    "eligibility verification system",
+    "prior authorization",
+    "prior auth",
+    "payer",
+    "billing",
+    "clinic",
+    "doctor",
+    "medicare",
+    "medicaid",
+    "insurance plan",
+    "medtech"
+  ]
 }
