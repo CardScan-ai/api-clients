@@ -46,6 +46,7 @@ import 'package:cardscan_client/src/model/eligibility_api_response.dart';
 import 'package:cardscan_client/src/model/eligibility_api_response_eligibility_request.dart';
 import 'package:cardscan_client/src/model/eligibility_api_response_eligibility_request_provider.dart';
 import 'package:cardscan_client/src/model/eligibility_api_response_eligibility_request_subscriber.dart';
+import 'package:cardscan_client/src/model/eligibility_error.dart';
 import 'package:cardscan_client/src/model/eligibility_info.dart';
 import 'package:cardscan_client/src/model/eligibility_state.dart';
 import 'package:cardscan_client/src/model/eligibility_summarized_response.dart';
@@ -121,6 +122,7 @@ part 'serializers.g.dart';
   EligibilityApiResponseEligibilityRequest,
   EligibilityApiResponseEligibilityRequestProvider,
   EligibilityApiResponseEligibilityRequestSubscriber,
+  EligibilityError,
   EligibilityInfo,
   EligibilityState,
   EligibilitySummarizedResponse,

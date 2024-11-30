@@ -3,6 +3,7 @@
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
+**errors** | [EligibilityError] |  | [optional] 
 **subscriberDetails** | [**SubscriberDetails**](SubscriberDetails.md) |  | [optional] 
 **payerDetails** | [**PayerDetails**](PayerDetails.md) |  | [optional] 
 **planDetails** | [**PlanDetails**](PlanDetails.md) |  | [optional] 

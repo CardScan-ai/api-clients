@@ -6,7 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **payer_name** | **str** | The name of the payer. | [optional] 
 **address** | [**Address**](Address.md) |  | [optional] 
-**url** | **str** |  | [optional] 
+**payer_url** | **str** |  | [optional] 
 
 ## Example
 

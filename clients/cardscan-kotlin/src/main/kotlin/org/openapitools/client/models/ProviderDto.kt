@@ -36,14 +36,14 @@ data class ProviderDto (
     val npi: kotlin.String,
 
     /* Loop: 2100B Segment: MN1, Element: NM104, Notes: NM101=PR when providerType='payer' && payerId is present otherwise 1P for Provider, NM102=1 Person, firstName 1-35 alphanumeric characters  */
-    @Json(name = "firstName")
+    @Json(name = "first_name")
     val firstName: kotlin.String? = null,
 
     /* Loop: 2100B Segment: MN1, Element: NM103, Notes: NM101=PR when providerType='payer' && payerId is present otherwise 1P for Provider, NM102=1 Person, lastName 1-60 alphanumeric characters  */
-    @Json(name = "lastName")
+    @Json(name = "last_name")
     val lastName: kotlin.String? = null,
 
-    @Json(name = "organizationName")
+    @Json(name = "organization_name")
     val organizationName: kotlin.String? = null
 
 ) {

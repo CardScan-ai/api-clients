@@ -25,7 +25,7 @@ import com.squareup.moshi.JsonClass
  *
  * @param payerName The name of the payer.
  * @param address 
- * @param url 
+ * @param payerUrl 
  */
 
 
@@ -38,8 +38,8 @@ data class PayerDetails (
     @Json(name = "address")
     val address: Address? = null,
 
-    @Json(name = "url")
-    val url: kotlin.String? = null
+    @Json(name = "payer_url")
+    val payerUrl: kotlin.String? = null
 
 ) {
 

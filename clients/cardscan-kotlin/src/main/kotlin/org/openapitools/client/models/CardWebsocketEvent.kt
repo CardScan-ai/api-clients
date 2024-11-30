@@ -43,7 +43,7 @@ data class CardWebsocketEvent (
     val type: CardWebsocketEvent.Type,
 
     @Json(name = "card_id")
-    val cardId: kotlin.String,
+    val cardId: java.util.UUID,
 
     @Json(name = "state")
     val state: CardState,

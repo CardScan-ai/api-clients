@@ -17,14 +17,14 @@ public struct EligibilityWebsocketEvent: Codable, JSONEncodable, Hashable {
     }
     public var eventId: String
     public var type: ModelType
-    public var eligibilityId: String
+    public var eligibilityId: UUID
     public var state: CardState
     public var createdAt: Date
     public var sessionId: String?
     public var error: WebsocketError?
-    public var cardId: String?
+    public var cardId: UUID?
 
-    public init(eventId: String, type: ModelType, eligibilityId: String, state: CardState, createdAt: Date, sessionId: String? = nil, error: WebsocketError? = nil, cardId: String? = nil) {
+    public init(eventId: String, type: ModelType, eligibilityId: UUID, state: CardState, createdAt: Date, sessionId: String? = nil, error: WebsocketError? = nil, cardId: UUID? = nil) {
         self.eventId = eventId
         self.type = type
         self.eligibilityId = eligibilityId

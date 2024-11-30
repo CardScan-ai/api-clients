@@ -118,6 +118,7 @@ Class | Method | HTTP request | Description
  - [EligibilityApiResponseEligibilityRequest](doc/EligibilityApiResponseEligibilityRequest.md)
  - [EligibilityApiResponseEligibilityRequestProvider](doc/EligibilityApiResponseEligibilityRequestProvider.md)
  - [EligibilityApiResponseEligibilityRequestSubscriber](doc/EligibilityApiResponseEligibilityRequestSubscriber.md)
+ - [EligibilityError](doc/EligibilityError.md)
  - [EligibilityInfo](doc/EligibilityInfo.md)
  - [EligibilityState](doc/EligibilityState.md)
  - [EligibilitySummarizedResponse](doc/EligibilitySummarizedResponse.md)

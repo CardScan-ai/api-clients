@@ -37,6 +37,7 @@ models/eligibility-api-response-eligibility-request-provider.ts
 models/eligibility-api-response-eligibility-request-subscriber.ts
 models/eligibility-api-response-eligibility-request.ts
 models/eligibility-api-response.ts
+models/eligibility-error.ts
 models/eligibility-info.ts
 models/eligibility-state.ts
 models/eligibility-summarized-response.ts

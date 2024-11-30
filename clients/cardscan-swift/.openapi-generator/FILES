@@ -42,6 +42,7 @@ CardScanClient/Classes/OpenAPIs/Models/EligibilityApiResponse.swift
 CardScanClient/Classes/OpenAPIs/Models/EligibilityApiResponseEligibilityRequest.swift
 CardScanClient/Classes/OpenAPIs/Models/EligibilityApiResponseEligibilityRequestProvider.swift
 CardScanClient/Classes/OpenAPIs/Models/EligibilityApiResponseEligibilityRequestSubscriber.swift
+CardScanClient/Classes/OpenAPIs/Models/EligibilityError.swift
 CardScanClient/Classes/OpenAPIs/Models/EligibilityInfo.swift
 CardScanClient/Classes/OpenAPIs/Models/EligibilityState.swift
 CardScanClient/Classes/OpenAPIs/Models/EligibilitySummarizedResponse.swift
@@ -121,6 +122,7 @@ docs/EligibilityApiResponse.md
 docs/EligibilityApiResponseEligibilityRequest.md
 docs/EligibilityApiResponseEligibilityRequestProvider.md
 docs/EligibilityApiResponseEligibilityRequestSubscriber.md
+docs/EligibilityError.md
 docs/EligibilityInfo.md
 docs/EligibilityState.md
 docs/EligibilitySummarizedResponse.md

@@ -4,6 +4,7 @@
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
+**errors** | [**List[EligibilityError]**](EligibilityError.md) |  | [optional] 
 **subscriber_details** | [**SubscriberDetails**](SubscriberDetails.md) |  | [optional] 
 **payer_details** | [**PayerDetails**](PayerDetails.md) |  | [optional] 
 **plan_details** | [**PlanDetails**](PlanDetails.md) |  | [optional] 

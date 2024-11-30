@@ -5,6 +5,8 @@
 // ignore_for_file: unused_element
 import 'package:cardscan_client/src/model/coverage_summary.dart';
 import 'package:cardscan_client/src/model/service.dart';
+import 'package:cardscan_client/src/model/eligibility_error.dart';
+import 'package:built_collection/built_collection.dart';
 import 'package:cardscan_client/src/model/payer_details.dart';
 import 'package:cardscan_client/src/model/subscriber_details.dart';
 import 'package:cardscan_client/src/model/plan_details.dart';
@@ -16,6 +18,7 @@ part 'eligibility_summarized_response.g.dart';
 /// EligibilitySummarizedResponse
 ///
 /// Properties:
+/// * [errors] 
 /// * [subscriberDetails] 
 /// * [payerDetails] 
 /// * [planDetails] 
@@ -209,6 +212,9 @@ part 'eligibility_summarized_response.g.dart';
 /// * [wellBabyCare] 
 @BuiltValue()
 abstract class EligibilitySummarizedResponse implements Built<EligibilitySummarizedResponse, EligibilitySummarizedResponseBuilder> {
+  @BuiltValueField(wireName: r'errors')
+  BuiltList<EligibilityError>? get errors;
+
   @BuiltValueField(wireName: r'subscriber_details')
   SubscriberDetails? get subscriberDetails;
 
@@ -805,6 +811,13 @@ class _$EligibilitySummarizedResponseSerializer implements PrimitiveSerializer<E
     EligibilitySummarizedResponse object, {
     FullType specifiedType = FullType.unspecified,
   }) sync* {
+    if (object.errors != null) {
+      yield r'errors';
+      yield serializers.serialize(
+        object.errors,
+        specifiedType: const FullType(BuiltList, [FullType(EligibilityError)]),
+      );
+    }
     if (object.subscriberDetails != null) {
       yield r'subscriber_details';
       yield serializers.serialize(
@@ -2165,6 +2178,13 @@ class _$EligibilitySummarizedResponseSerializer implements PrimitiveSerializer<E
       final key = serializedList[i] as String;
       final value = serializedList[i + 1];
       switch (key) {
+        case r'errors':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(BuiltList, [FullType(EligibilityError)]),
+          ) as BuiltList<EligibilityError>;
+          result.errors.replace(valueDes);
+          break;
         case r'subscriber_details':
           final valueDes = serializers.deserialize(
             value,

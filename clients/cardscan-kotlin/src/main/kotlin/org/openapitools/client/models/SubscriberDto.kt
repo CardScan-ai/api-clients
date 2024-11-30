@@ -31,15 +31,15 @@ import com.squareup.moshi.JsonClass
 data class SubscriberDto (
 
     /* Loop: 2100C and 2100D, Segment: MN1, Element: NM104, Notes: firstName 1-35 alphanumeric characters  */
-    @Json(name = "firstName")
+    @Json(name = "first_name")
     val firstName: kotlin.String,
 
     /* Loop: 2100C and 2100D, Segment: MN1, Element: NM103, Notes: lastName 1-60 alphanumeric characters  */
-    @Json(name = "lastName")
+    @Json(name = "last_name")
     val lastName: kotlin.String,
 
     /* Loop: 2100C and 2100D, Segment: DMG, Element: DMG02, Notes: date of birth in YYYYMMDD format  */
-    @Json(name = "dateOfBirth")
+    @Json(name = "date_of_birth")
     val dateOfBirth: kotlin.String
 
 ) {

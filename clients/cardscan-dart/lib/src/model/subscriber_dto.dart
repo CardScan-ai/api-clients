@@ -17,15 +17,15 @@ part 'subscriber_dto.g.dart';
 @BuiltValue()
 abstract class SubscriberDto implements Built<SubscriberDto, SubscriberDtoBuilder> {
   /// Loop: 2100C and 2100D, Segment: MN1, Element: NM104, Notes: firstName 1-35 alphanumeric characters 
-  @BuiltValueField(wireName: r'firstName')
+  @BuiltValueField(wireName: r'first_name')
   String get firstName;
 
   /// Loop: 2100C and 2100D, Segment: MN1, Element: NM103, Notes: lastName 1-60 alphanumeric characters 
-  @BuiltValueField(wireName: r'lastName')
+  @BuiltValueField(wireName: r'last_name')
   String get lastName;
 
   /// Loop: 2100C and 2100D, Segment: DMG, Element: DMG02, Notes: date of birth in YYYYMMDD format 
-  @BuiltValueField(wireName: r'dateOfBirth')
+  @BuiltValueField(wireName: r'date_of_birth')
   String get dateOfBirth;
 
   SubscriberDto._();
@@ -51,17 +51,17 @@ class _$SubscriberDtoSerializer implements PrimitiveSerializer<SubscriberDto> {
     SubscriberDto object, {
     FullType specifiedType = FullType.unspecified,
   }) sync* {
-    yield r'firstName';
+    yield r'first_name';
     yield serializers.serialize(
       object.firstName,
       specifiedType: const FullType(String),
     );
-    yield r'lastName';
+    yield r'last_name';
     yield serializers.serialize(
       object.lastName,
       specifiedType: const FullType(String),
     );
-    yield r'dateOfBirth';
+    yield r'date_of_birth';
     yield serializers.serialize(
       object.dateOfBirth,
       specifiedType: const FullType(String),
@@ -89,21 +89,21 @@ class _$SubscriberDtoSerializer implements PrimitiveSerializer<SubscriberDto> {
       final key = serializedList[i] as String;
       final value = serializedList[i + 1];
       switch (key) {
-        case r'firstName':
+        case r'first_name':
           final valueDes = serializers.deserialize(
             value,
             specifiedType: const FullType(String),
           ) as String;
           result.firstName = valueDes;
           break;
-        case r'lastName':
+        case r'last_name':
           final valueDes = serializers.deserialize(
             value,
             specifiedType: const FullType(String),
           ) as String;
           result.lastName = valueDes;
           break;
-        case r'dateOfBirth':
+        case r'date_of_birth':
           final valueDes = serializers.deserialize(
             value,
             specifiedType: const FullType(String),

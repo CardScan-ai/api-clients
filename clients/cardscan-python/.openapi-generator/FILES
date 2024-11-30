@@ -42,6 +42,7 @@ cardscan_client/models/eligibility_api_response.py
 cardscan_client/models/eligibility_api_response_eligibility_request.py
 cardscan_client/models/eligibility_api_response_eligibility_request_provider.py
 cardscan_client/models/eligibility_api_response_eligibility_request_subscriber.py
+cardscan_client/models/eligibility_error.py
 cardscan_client/models/eligibility_info.py
 cardscan_client/models/eligibility_state.py
 cardscan_client/models/eligibility_summarized_response.py
@@ -116,6 +117,7 @@ docs/EligibilityApiResponse.md
 docs/EligibilityApiResponseEligibilityRequest.md
 docs/EligibilityApiResponseEligibilityRequestProvider.md
 docs/EligibilityApiResponseEligibilityRequestSubscriber.md
+docs/EligibilityError.md
 docs/EligibilityInfo.md
 docs/EligibilityState.md
 docs/EligibilitySummarizedResponse.md

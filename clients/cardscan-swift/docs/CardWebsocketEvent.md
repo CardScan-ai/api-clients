@@ -5,7 +5,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **eventId** | **String** |  | 
 **type** | **String** |  | 
-**cardId** | **String** |  | 
+**cardId** | **UUID** |  | 
 **state** | [**CardState**](CardState.md) |  | 
 **createdAt** | **Date** |  | 
 **sessionId** | **String** |  | [optional] 

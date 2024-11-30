@@ -13,6 +13,7 @@ part 'eligibility_api_response_eligibility_request_provider.g.dart';
 /// Properties:
 /// * [firstName] 
 /// * [lastName] 
+/// * [organizationName] 
 /// * [npi] 
 @BuiltValue()
 abstract class EligibilityApiResponseEligibilityRequestProvider implements Built<EligibilityApiResponseEligibilityRequestProvider, EligibilityApiResponseEligibilityRequestProviderBuilder> {
@@ -21,6 +22,9 @@ abstract class EligibilityApiResponseEligibilityRequestProvider implements Built
 
   @BuiltValueField(wireName: r'last_name')
   String? get lastName;
+
+  @BuiltValueField(wireName: r'organization_name')
+  String? get organizationName;
 
   @BuiltValueField(wireName: r'npi')
   String? get npi;
@@ -59,6 +63,13 @@ class _$EligibilityApiResponseEligibilityRequestProviderSerializer implements Pr
       yield r'last_name';
       yield serializers.serialize(
         object.lastName,
+        specifiedType: const FullType(String),
+      );
+    }
+    if (object.organizationName != null) {
+      yield r'organization_name';
+      yield serializers.serialize(
+        object.organizationName,
         specifiedType: const FullType(String),
       );
     }
@@ -105,6 +116,13 @@ class _$EligibilityApiResponseEligibilityRequestProviderSerializer implements Pr
             specifiedType: const FullType(String),
           ) as String;
           result.lastName = valueDes;
+          break;
+        case r'organization_name':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String;
+          result.organizationName = valueDes;
           break;
         case r'npi':
           final valueDes = serializers.deserialize(

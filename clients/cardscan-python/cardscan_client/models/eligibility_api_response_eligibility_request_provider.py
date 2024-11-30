@@ -27,8 +27,9 @@ class EligibilityApiResponseEligibilityRequestProvider(BaseModel):
     """
     first_name: Optional[StrictStr] = None
     last_name: Optional[StrictStr] = None
+    organization_name: Optional[StrictStr] = None
     npi: Optional[StrictStr] = None
-    __properties = ["first_name", "last_name", "npi"]
+    __properties = ["first_name", "last_name", "organization_name", "npi"]
 
     class Config:
         """Pydantic configuration"""
@@ -75,6 +76,7 @@ class EligibilityApiResponseEligibilityRequestProvider(BaseModel):
         _obj = EligibilityApiResponseEligibilityRequestProvider.parse_obj({
             "first_name": obj.get("first_name"),
             "last_name": obj.get("last_name"),
+            "organization_name": obj.get("organization_name"),
             "npi": obj.get("npi")
         })
         return _obj

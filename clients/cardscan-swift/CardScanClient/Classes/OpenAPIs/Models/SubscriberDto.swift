@@ -28,9 +28,9 @@ public struct SubscriberDto: Codable, JSONEncodable, Hashable {
     }
 
     public enum CodingKeys: String, CodingKey, CaseIterable {
-        case firstName
-        case lastName
-        case dateOfBirth
+        case firstName = "first_name"
+        case lastName = "last_name"
+        case dateOfBirth = "date_of_birth"
     }
 
     // Encodable protocol methods

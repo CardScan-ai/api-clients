@@ -39,6 +39,12 @@ export interface EligibilityApiResponseEligibilityRequestProviderOriginal {
      * @type {string}
      * @memberof EligibilityApiResponseEligibilityRequestProvider
      */
+    'organization_name'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof EligibilityApiResponseEligibilityRequestProvider
+     */
     'npi'?: string;
 }
 export type EligibilityApiResponseEligibilityRequestProvider = KeysToCamelCase<EligibilityApiResponseEligibilityRequestProviderOriginal>;

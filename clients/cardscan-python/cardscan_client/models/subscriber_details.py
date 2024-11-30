@@ -27,13 +27,13 @@ class SubscriberDetails(BaseModel):
     SubscriberDetails
     """
     member_id: Optional[StrictStr] = Field(default=None, description="The member ID of the subscriber.")
-    firstname: Optional[StrictStr] = Field(default=None, description="The first name of the subscriber.")
-    lastname: Optional[StrictStr] = Field(default=None, description="The last name of the subscriber.")
-    middlename: Optional[StrictStr] = Field(default=None, description="The middle name of the subscriber.")
+    first_name: Optional[StrictStr] = Field(default=None, description="The first name of the subscriber.")
+    last_name: Optional[StrictStr] = Field(default=None, description="The last name of the subscriber.")
+    middle_name: Optional[StrictStr] = Field(default=None, description="The middle name of the subscriber.")
     gender: Optional[StrictStr] = Field(default=None, description="The gender of the subscriber.")
     address: Optional[Address] = None
-    dob: Optional[StrictStr] = Field(default=None, description="The date of birth of the subscriber.")
-    __properties = ["member_id", "firstname", "lastname", "middlename", "gender", "address", "dob"]
+    date_of_birth: Optional[StrictStr] = Field(default=None, description="The date of birth of the subscriber.")
+    __properties = ["member_id", "first_name", "last_name", "middle_name", "gender", "address", "date_of_birth"]
 
     class Config:
         """Pydantic configuration"""
@@ -82,12 +82,12 @@ class SubscriberDetails(BaseModel):
 
         _obj = SubscriberDetails.parse_obj({
             "member_id": obj.get("member_id"),
-            "firstname": obj.get("firstname"),
-            "lastname": obj.get("lastname"),
-            "middlename": obj.get("middlename"),
+            "first_name": obj.get("first_name"),
+            "last_name": obj.get("last_name"),
+            "middle_name": obj.get("middle_name"),
             "gender": obj.get("gender"),
             "address": Address.from_dict(obj.get("address")) if obj.get("address") is not None else None,
-            "dob": obj.get("dob")
+            "date_of_birth": obj.get("date_of_birth")
         })
         return _obj
 

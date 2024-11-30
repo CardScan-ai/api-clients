@@ -32,10 +32,10 @@ public struct ProviderDto: Codable, JSONEncodable, Hashable {
     }
 
     public enum CodingKeys: String, CodingKey, CaseIterable {
-        case firstName
-        case lastName
+        case firstName = "first_name"
+        case lastName = "last_name"
         case npi
-        case organizationName
+        case organizationName = "organization_name"
     }
 
     // Encodable protocol methods
