@@ -792,6 +792,7 @@ components:
       properties:
         eligibility_id:
           type: string
+          format: uuid
           description: The ID of the eligibility record.
         state:
           type: string
@@ -802,6 +803,7 @@ components:
           description: The state of the eligibility record.
         card_id:
           type: string
+          format: uuid
           description: The ID of the card.
         eligibility_request:
           type: object
@@ -1755,6 +1757,7 @@ components:
           - card
         card_id:
           type: string
+          format: uuid
         state:
           $ref: '#/components/schemas/CardState'
         created_at:
@@ -1782,6 +1785,7 @@ components:
           - eligibility
         eligibility_id:
           type: string
+          format: uuid
         state:
           $ref: '#/components/schemas/CardState'
         created_at:
@@ -1793,6 +1797,7 @@ components:
           $ref: '#/components/schemas/WebsocketError'
         card_id:
           type: string
+          format: uuid
     ApiErrorResponse:
       type: object
       properties:
@@ -1892,6 +1897,7 @@ components:
       properties:
         card_id:
           type: string
+          format: uuid
           description: Unique identifier for the created card.
         configuration:
           type: object
@@ -1947,6 +1953,7 @@ components:
       properties:
         card_id:
           type: string
+          format: uuid
           description: Unique identifier for the created card.
         configuration:
           type: object
@@ -2002,6 +2009,7 @@ components:
       properties:
         card_id:
           type: string
+          format: uuid
           description: Unique identifier for the card.
         configuration:
           type: object
@@ -2057,6 +2065,7 @@ components:
       properties:
         card_id:
           type: string
+          format: uuid
           description: Unique identifier for the card.
         created_at:
           type: string
@@ -2108,9 +2117,11 @@ components:
       properties:
         eligibility_id:
           type: string
+          format: uuid
           description: Unique identifier for the eligibility record.
         card_id:
           type: string
+          format: uuid
           description: Unique identifier for the associated card.
         created_at:
           type: string
@@ -2149,9 +2160,11 @@ components:
       properties:
         eligibility_id:
           type: string
+          format: uuid
           description: Unique identifier for the eligibility record.
         card_id:
           type: string
+          format: uuid
           description: Unique identifier for the associated card.
         created_at:
           type: string
@@ -2190,9 +2203,11 @@ components:
       properties:
         eligibility_id:
           type: string
+          format: uuid
           description: Unique identifier for the eligibility record.
         card_id:
           type: string
+          format: uuid
           description: Unique identifier for the associated card.
         created_at:
           type: string
@@ -2232,9 +2247,11 @@ components:
       properties:
         eligibility_id:
           type: string
+          format: uuid
           description: Unique identifier for the eligibility record.
         card_id:
           type: string
+          format: uuid
           description: Unique identifier for the associated card.
         created_at:
           type: string
