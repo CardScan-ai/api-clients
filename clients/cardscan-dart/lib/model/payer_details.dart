@@ -15,7 +15,7 @@ class PayerDetails {
   PayerDetails({
     this.payerName,
     this.address,
-    this.url,
+    this.payerUrl,
   });
 
   /// The name of the payer.
@@ -41,23 +41,23 @@ class PayerDetails {
   /// source code must fall back to having a nullable type.
   /// Consider adding a "default:" property in the specification file to hide this note.
   ///
-  String? url;
+  String? payerUrl;
 
   @override
   bool operator ==(Object other) => identical(this, other) || other is PayerDetails &&
     other.payerName == payerName &&
     other.address == address &&
-    other.url == url;
+    other.payerUrl == payerUrl;
 
   @override
   int get hashCode =>
     // ignore: unnecessary_parenthesis
     (payerName == null ? 0 : payerName!.hashCode) +
     (address == null ? 0 : address!.hashCode) +
-    (url == null ? 0 : url!.hashCode);
+    (payerUrl == null ? 0 : payerUrl!.hashCode);
 
   @override
-  String toString() => 'PayerDetails[payerName=$payerName, address=$address, url=$url]';
+  String toString() => 'PayerDetails[payerName=$payerName, address=$address, payerUrl=$payerUrl]';
 
   Map<String, dynamic> toJson() {
     final json = <String, dynamic>{};
@@ -71,10 +71,10 @@ class PayerDetails {
     } else {
       json[r'address'] = null;
     }
-    if (this.url != null) {
-      json[r'url'] = this.url;
+    if (this.payerUrl != null) {
+      json[r'payer_url'] = this.payerUrl;
     } else {
-      json[r'url'] = null;
+      json[r'payer_url'] = null;
     }
     return json;
   }
@@ -100,7 +100,7 @@ class PayerDetails {
       return PayerDetails(
         payerName: mapValueOfType<String>(json, r'payer_name'),
         address: Address.fromJson(json[r'address']),
-        url: mapValueOfType<String>(json, r'url'),
+        payerUrl: mapValueOfType<String>(json, r'payer_url'),
       );
     }
     return null;

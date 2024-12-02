@@ -69,20 +69,20 @@ class ProviderDto {
   Map<String, dynamic> toJson() {
     final json = <String, dynamic>{};
     if (this.firstName != null) {
-      json[r'firstName'] = this.firstName;
+      json[r'first_name'] = this.firstName;
     } else {
-      json[r'firstName'] = null;
+      json[r'first_name'] = null;
     }
     if (this.lastName != null) {
-      json[r'lastName'] = this.lastName;
+      json[r'last_name'] = this.lastName;
     } else {
-      json[r'lastName'] = null;
+      json[r'last_name'] = null;
     }
       json[r'npi'] = this.npi;
     if (this.organizationName != null) {
-      json[r'organizationName'] = this.organizationName;
+      json[r'organization_name'] = this.organizationName;
     } else {
-      json[r'organizationName'] = null;
+      json[r'organization_name'] = null;
     }
     return json;
   }
@@ -106,10 +106,10 @@ class ProviderDto {
       }());
 
       return ProviderDto(
-        firstName: mapValueOfType<String>(json, r'firstName'),
-        lastName: mapValueOfType<String>(json, r'lastName'),
+        firstName: mapValueOfType<String>(json, r'first_name'),
+        lastName: mapValueOfType<String>(json, r'last_name'),
         npi: mapValueOfType<String>(json, r'npi')!,
-        organizationName: mapValueOfType<String>(json, r'organizationName'),
+        organizationName: mapValueOfType<String>(json, r'organization_name'),
       );
     }
     return null;

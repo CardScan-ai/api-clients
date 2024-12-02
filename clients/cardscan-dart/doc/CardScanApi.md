@@ -217,7 +217,7 @@ void (empty response body)
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **directUpload**
-> DirectUpload200Response directUpload(orientation, captureType, cardId, body)
+> DirectUpload200Response directUpload(orientation, captureType, cardId, directUploadRequest)
 
 Direct Upload
 
@@ -235,10 +235,10 @@ final api_instance = CardScanApi();
 final orientation = ; // ScanOrientation | 
 final captureType = ; // ScanCaptureType | 
 final cardId = 38400000-8cf0-11bd-b23e-10b96e4ef00d; // String | 
-final body = String(); // String | 
+final directUploadRequest = DirectUploadRequest(); // DirectUploadRequest | 
 
 try {
-    final result = api_instance.directUpload(orientation, captureType, cardId, body);
+    final result = api_instance.directUpload(orientation, captureType, cardId, directUploadRequest);
     print(result);
 } catch (e) {
     print('Exception when calling CardScanApi->directUpload: $e\n');
@@ -252,7 +252,7 @@ Name | Type | Description  | Notes
  **orientation** | [**ScanOrientation**](.md)|  | 
  **captureType** | [**ScanCaptureType**](.md)|  | 
  **cardId** | **String**|  | 
- **body** | **String**|  | [optional] 
+ **directUploadRequest** | [**DirectUploadRequest**](DirectUploadRequest.md)|  | [optional] 
 
 ### Return type
 

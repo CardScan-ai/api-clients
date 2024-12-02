@@ -236,14 +236,14 @@ class CardScanApi {
   ///
   /// * [String] cardId (required):
   ///
-  /// * [String] body:
-  Future<Response> directUploadWithHttpInfo(ScanOrientation orientation, ScanCaptureType captureType, String cardId, { String? body, }) async {
+  /// * [DirectUploadRequest] directUploadRequest:
+  Future<Response> directUploadWithHttpInfo(ScanOrientation orientation, ScanCaptureType captureType, String cardId, { DirectUploadRequest? directUploadRequest, }) async {
     // ignore: prefer_const_declarations
     final path = r'/cards/{card_id}/upload'
       .replaceAll('{card_id}', cardId);
 
     // ignore: prefer_final_locals
-    Object? postBody = body;
+    Object? postBody = directUploadRequest;
 
     final queryParams = <QueryParam>[];
     final headerParams = <String, String>{};
@@ -276,9 +276,9 @@ class CardScanApi {
   ///
   /// * [String] cardId (required):
   ///
-  /// * [String] body:
-  Future<DirectUpload200Response?> directUpload(ScanOrientation orientation, ScanCaptureType captureType, String cardId, { String? body, }) async {
-    final response = await directUploadWithHttpInfo(orientation, captureType, cardId,  body: body, );
+  /// * [DirectUploadRequest] directUploadRequest:
+  Future<DirectUpload200Response?> directUpload(ScanOrientation orientation, ScanCaptureType captureType, String cardId, { DirectUploadRequest? directUploadRequest, }) async {
+    final response = await directUploadWithHttpInfo(orientation, captureType, cardId,  directUploadRequest: directUploadRequest, );
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }

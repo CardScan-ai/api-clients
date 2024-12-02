@@ -236,6 +236,8 @@ class ApiClient {
           return DirectUpload200Response.fromJson(value);
         case 'DirectUpload200ResponseMetadata':
           return DirectUpload200ResponseMetadata.fromJson(value);
+        case 'DirectUploadRequest':
+          return DirectUploadRequest.fromJson(value);
         case 'EligibilityApiResponse':
           return EligibilityApiResponse.fromJson(value);
         case 'EligibilityApiResponseEligibilityRequest':
@@ -244,6 +246,8 @@ class ApiClient {
           return EligibilityApiResponseEligibilityRequestProvider.fromJson(value);
         case 'EligibilityApiResponseEligibilityRequestSubscriber':
           return EligibilityApiResponseEligibilityRequestSubscriber.fromJson(value);
+        case 'EligibilityError':
+          return EligibilityError.fromJson(value);
         case 'EligibilityInfo':
           return EligibilityInfo.fromJson(value);
         case 'EligibilityState':

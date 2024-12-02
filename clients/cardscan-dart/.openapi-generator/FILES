@@ -106,7 +106,6 @@ lib/model/copay_deductible_service.dart
 lib/model/copay_result_inner.dart
 lib/model/coverage_summary.dart
 lib/model/create_card_request.dart
-lib/model/create_card_request_backside.dart
 lib/model/create_eligibility_request.dart
 lib/model/custom_payer_record.dart
 lib/model/deductible.dart
@@ -116,6 +115,7 @@ lib/model/eligibility_api_response.dart
 lib/model/eligibility_api_response_eligibility_request.dart
 lib/model/eligibility_api_response_eligibility_request_provider.dart
 lib/model/eligibility_api_response_eligibility_request_subscriber.dart
+lib/model/eligibility_error.dart
 lib/model/eligibility_info.dart
 lib/model/eligibility_state.dart
 lib/model/eligibility_summarized_response.dart
@@ -155,4 +155,3 @@ lib/model/subscriber_dto.dart
 lib/model/upload_parameters.dart
 lib/model/validate_magic_link200_response.dart
 lib/model/websocket_error.dart
-pubspec.yaml

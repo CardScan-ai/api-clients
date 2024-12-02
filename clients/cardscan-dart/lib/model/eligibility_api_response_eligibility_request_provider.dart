@@ -15,6 +15,7 @@ class EligibilityApiResponseEligibilityRequestProvider {
   EligibilityApiResponseEligibilityRequestProvider({
     this.firstName,
     this.lastName,
+    this.organizationName,
     this.npi,
   });
 
@@ -40,12 +41,21 @@ class EligibilityApiResponseEligibilityRequestProvider {
   /// source code must fall back to having a nullable type.
   /// Consider adding a "default:" property in the specification file to hide this note.
   ///
+  String? organizationName;
+
+  ///
+  /// Please note: This property should have been non-nullable! Since the specification file
+  /// does not include a default value (using the "default:" property), however, the generated
+  /// source code must fall back to having a nullable type.
+  /// Consider adding a "default:" property in the specification file to hide this note.
+  ///
   String? npi;
 
   @override
   bool operator ==(Object other) => identical(this, other) || other is EligibilityApiResponseEligibilityRequestProvider &&
     other.firstName == firstName &&
     other.lastName == lastName &&
+    other.organizationName == organizationName &&
     other.npi == npi;
 
   @override
@@ -53,10 +63,11 @@ class EligibilityApiResponseEligibilityRequestProvider {
     // ignore: unnecessary_parenthesis
     (firstName == null ? 0 : firstName!.hashCode) +
     (lastName == null ? 0 : lastName!.hashCode) +
+    (organizationName == null ? 0 : organizationName!.hashCode) +
     (npi == null ? 0 : npi!.hashCode);
 
   @override
-  String toString() => 'EligibilityApiResponseEligibilityRequestProvider[firstName=$firstName, lastName=$lastName, npi=$npi]';
+  String toString() => 'EligibilityApiResponseEligibilityRequestProvider[firstName=$firstName, lastName=$lastName, organizationName=$organizationName, npi=$npi]';
 
   Map<String, dynamic> toJson() {
     final json = <String, dynamic>{};
@@ -69,6 +80,11 @@ class EligibilityApiResponseEligibilityRequestProvider {
       json[r'last_name'] = this.lastName;
     } else {
       json[r'last_name'] = null;
+    }
+    if (this.organizationName != null) {
+      json[r'organization_name'] = this.organizationName;
+    } else {
+      json[r'organization_name'] = null;
     }
     if (this.npi != null) {
       json[r'npi'] = this.npi;
@@ -99,6 +115,7 @@ class EligibilityApiResponseEligibilityRequestProvider {
       return EligibilityApiResponseEligibilityRequestProvider(
         firstName: mapValueOfType<String>(json, r'first_name'),
         lastName: mapValueOfType<String>(json, r'last_name'),
+        organizationName: mapValueOfType<String>(json, r'organization_name'),
         npi: mapValueOfType<String>(json, r'npi'),
       );
     }

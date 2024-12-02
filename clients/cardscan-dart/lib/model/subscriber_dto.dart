@@ -45,9 +45,9 @@ class SubscriberDto {
 
   Map<String, dynamic> toJson() {
     final json = <String, dynamic>{};
-      json[r'firstName'] = this.firstName;
-      json[r'lastName'] = this.lastName;
-      json[r'dateOfBirth'] = this.dateOfBirth;
+      json[r'first_name'] = this.firstName;
+      json[r'last_name'] = this.lastName;
+      json[r'date_of_birth'] = this.dateOfBirth;
     return json;
   }
 
@@ -70,9 +70,9 @@ class SubscriberDto {
       }());
 
       return SubscriberDto(
-        firstName: mapValueOfType<String>(json, r'firstName')!,
-        lastName: mapValueOfType<String>(json, r'lastName')!,
-        dateOfBirth: mapValueOfType<String>(json, r'dateOfBirth')!,
+        firstName: mapValueOfType<String>(json, r'first_name')!,
+        lastName: mapValueOfType<String>(json, r'last_name')!,
+        dateOfBirth: mapValueOfType<String>(json, r'date_of_birth')!,
       );
     }
     return null;
@@ -120,9 +120,9 @@ class SubscriberDto {
 
   /// The list of required keys that must be present in a JSON.
   static const requiredKeys = <String>{
-    'firstName',
-    'lastName',
-    'dateOfBirth',
+    'first_name',
+    'last_name',
+    'date_of_birth',
   };
 }
 

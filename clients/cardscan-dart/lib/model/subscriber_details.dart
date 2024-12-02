@@ -14,12 +14,12 @@ class SubscriberDetails {
   /// Returns a new [SubscriberDetails] instance.
   SubscriberDetails({
     this.memberId,
-    this.firstname,
-    this.lastname,
-    this.middlename,
+    this.firstName,
+    this.lastName,
+    this.middleName,
     this.gender,
     this.address,
-    this.dob,
+    this.dateOfBirth,
   });
 
   /// The member ID of the subscriber.
@@ -38,7 +38,7 @@ class SubscriberDetails {
   /// source code must fall back to having a nullable type.
   /// Consider adding a "default:" property in the specification file to hide this note.
   ///
-  String? firstname;
+  String? firstName;
 
   /// The last name of the subscriber.
   ///
@@ -47,7 +47,7 @@ class SubscriberDetails {
   /// source code must fall back to having a nullable type.
   /// Consider adding a "default:" property in the specification file to hide this note.
   ///
-  String? lastname;
+  String? lastName;
 
   /// The middle name of the subscriber.
   ///
@@ -56,7 +56,7 @@ class SubscriberDetails {
   /// source code must fall back to having a nullable type.
   /// Consider adding a "default:" property in the specification file to hide this note.
   ///
-  String? middlename;
+  String? middleName;
 
   /// The gender of the subscriber.
   ///
@@ -82,31 +82,31 @@ class SubscriberDetails {
   /// source code must fall back to having a nullable type.
   /// Consider adding a "default:" property in the specification file to hide this note.
   ///
-  String? dob;
+  String? dateOfBirth;
 
   @override
   bool operator ==(Object other) => identical(this, other) || other is SubscriberDetails &&
     other.memberId == memberId &&
-    other.firstname == firstname &&
-    other.lastname == lastname &&
-    other.middlename == middlename &&
+    other.firstName == firstName &&
+    other.lastName == lastName &&
+    other.middleName == middleName &&
     other.gender == gender &&
     other.address == address &&
-    other.dob == dob;
+    other.dateOfBirth == dateOfBirth;
 
   @override
   int get hashCode =>
     // ignore: unnecessary_parenthesis
     (memberId == null ? 0 : memberId!.hashCode) +
-    (firstname == null ? 0 : firstname!.hashCode) +
-    (lastname == null ? 0 : lastname!.hashCode) +
-    (middlename == null ? 0 : middlename!.hashCode) +
+    (firstName == null ? 0 : firstName!.hashCode) +
+    (lastName == null ? 0 : lastName!.hashCode) +
+    (middleName == null ? 0 : middleName!.hashCode) +
     (gender == null ? 0 : gender!.hashCode) +
     (address == null ? 0 : address!.hashCode) +
-    (dob == null ? 0 : dob!.hashCode);
+    (dateOfBirth == null ? 0 : dateOfBirth!.hashCode);
 
   @override
-  String toString() => 'SubscriberDetails[memberId=$memberId, firstname=$firstname, lastname=$lastname, middlename=$middlename, gender=$gender, address=$address, dob=$dob]';
+  String toString() => 'SubscriberDetails[memberId=$memberId, firstName=$firstName, lastName=$lastName, middleName=$middleName, gender=$gender, address=$address, dateOfBirth=$dateOfBirth]';
 
   Map<String, dynamic> toJson() {
     final json = <String, dynamic>{};
@@ -115,20 +115,20 @@ class SubscriberDetails {
     } else {
       json[r'member_id'] = null;
     }
-    if (this.firstname != null) {
-      json[r'firstname'] = this.firstname;
+    if (this.firstName != null) {
+      json[r'first_name'] = this.firstName;
     } else {
-      json[r'firstname'] = null;
+      json[r'first_name'] = null;
     }
-    if (this.lastname != null) {
-      json[r'lastname'] = this.lastname;
+    if (this.lastName != null) {
+      json[r'last_name'] = this.lastName;
     } else {
-      json[r'lastname'] = null;
+      json[r'last_name'] = null;
     }
-    if (this.middlename != null) {
-      json[r'middlename'] = this.middlename;
+    if (this.middleName != null) {
+      json[r'middle_name'] = this.middleName;
     } else {
-      json[r'middlename'] = null;
+      json[r'middle_name'] = null;
     }
     if (this.gender != null) {
       json[r'gender'] = this.gender;
@@ -140,10 +140,10 @@ class SubscriberDetails {
     } else {
       json[r'address'] = null;
     }
-    if (this.dob != null) {
-      json[r'dob'] = this.dob;
+    if (this.dateOfBirth != null) {
+      json[r'date_of_birth'] = this.dateOfBirth;
     } else {
-      json[r'dob'] = null;
+      json[r'date_of_birth'] = null;
     }
     return json;
   }
@@ -168,12 +168,12 @@ class SubscriberDetails {
 
       return SubscriberDetails(
         memberId: mapValueOfType<String>(json, r'member_id'),
-        firstname: mapValueOfType<String>(json, r'firstname'),
-        lastname: mapValueOfType<String>(json, r'lastname'),
-        middlename: mapValueOfType<String>(json, r'middlename'),
+        firstName: mapValueOfType<String>(json, r'first_name'),
+        lastName: mapValueOfType<String>(json, r'last_name'),
+        middleName: mapValueOfType<String>(json, r'middle_name'),
         gender: mapValueOfType<String>(json, r'gender'),
         address: Address.fromJson(json[r'address']),
-        dob: mapValueOfType<String>(json, r'dob'),
+        dateOfBirth: mapValueOfType<String>(json, r'date_of_birth'),
       );
     }
     return null;
