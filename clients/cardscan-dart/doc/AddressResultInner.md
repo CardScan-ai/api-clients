@@ -9,7 +9,7 @@ import 'package:cardscan_client/api.dart';
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **value** | **String** |  | [optional] 
-**scores** | **BuiltList&lt;String&gt;** |  | [optional] 
+**scores** | **List<String>** |  | [optional] [default to const []]
 **type** | [**AddressType**](AddressType.md) |  | [optional] 
 **label** | **String** |  | [optional] 
 
