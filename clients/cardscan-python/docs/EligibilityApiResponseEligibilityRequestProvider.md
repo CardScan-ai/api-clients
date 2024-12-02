@@ -6,6 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **first_name** | **str** |  | [optional] 
 **last_name** | **str** |  | [optional] 
+**organization_name** | **str** |  | [optional] 
 **npi** | **str** |  | [optional] 
 
 ## Example

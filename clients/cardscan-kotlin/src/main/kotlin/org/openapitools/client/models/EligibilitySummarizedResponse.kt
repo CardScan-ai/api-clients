@@ -16,6 +16,7 @@
 package org.openapitools.client.models
 
 import org.openapitools.client.models.CoverageSummary
+import org.openapitools.client.models.EligibilityError
 import org.openapitools.client.models.PayerDetails
 import org.openapitools.client.models.PlanDetails
 import org.openapitools.client.models.Service
@@ -27,6 +28,7 @@ import com.squareup.moshi.JsonClass
 /**
  * 
  *
+ * @param errors 
  * @param subscriberDetails 
  * @param payerDetails 
  * @param planDetails 
@@ -222,6 +224,9 @@ import com.squareup.moshi.JsonClass
 
 
 data class EligibilitySummarizedResponse (
+
+    @Json(name = "errors")
+    val errors: kotlin.collections.List<EligibilityError>? = null,
 
     @Json(name = "subscriber_details")
     val subscriberDetails: SubscriberDetails? = null,

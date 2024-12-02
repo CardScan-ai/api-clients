@@ -24,12 +24,12 @@ import com.squareup.moshi.JsonClass
  * 
  *
  * @param memberId The member ID of the subscriber.
- * @param firstname The first name of the subscriber.
- * @param lastname The last name of the subscriber.
- * @param middlename The middle name of the subscriber.
+ * @param firstName The first name of the subscriber.
+ * @param lastName The last name of the subscriber.
+ * @param middleName The middle name of the subscriber.
  * @param gender The gender of the subscriber.
  * @param address 
- * @param dob The date of birth of the subscriber.
+ * @param dateOfBirth The date of birth of the subscriber.
  */
 
 
@@ -40,16 +40,16 @@ data class SubscriberDetails (
     val memberId: kotlin.String? = null,
 
     /* The first name of the subscriber. */
-    @Json(name = "firstname")
-    val firstname: kotlin.String? = null,
+    @Json(name = "first_name")
+    val firstName: kotlin.String? = null,
 
     /* The last name of the subscriber. */
-    @Json(name = "lastname")
-    val lastname: kotlin.String? = null,
+    @Json(name = "last_name")
+    val lastName: kotlin.String? = null,
 
     /* The middle name of the subscriber. */
-    @Json(name = "middlename")
-    val middlename: kotlin.String? = null,
+    @Json(name = "middle_name")
+    val middleName: kotlin.String? = null,
 
     /* The gender of the subscriber. */
     @Json(name = "gender")
@@ -59,8 +59,8 @@ data class SubscriberDetails (
     val address: Address? = null,
 
     /* The date of birth of the subscriber. */
-    @Json(name = "dob")
-    val dob: kotlin.String? = null
+    @Json(name = "date_of_birth")
+    val dateOfBirth: kotlin.String? = null
 
 ) {
 

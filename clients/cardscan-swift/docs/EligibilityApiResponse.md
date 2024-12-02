@@ -3,9 +3,9 @@
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**eligibilityId** | **String** | The ID of the eligibility record. | 
+**eligibilityId** | **UUID** | The ID of the eligibility record. | 
 **state** | **String** | The state of the eligibility record. | 
-**cardId** | **String** | The ID of the card. | 
+**cardId** | **UUID** | The ID of the card. | 
 **eligibilityRequest** | [**EligibilityApiResponseEligibilityRequest**](EligibilityApiResponseEligibilityRequest.md) |  | [optional] 
 **eligibilityResponse** | **[String: AnyCodable]** | The eligibility raw response. | [optional] 
 **eligibilitySummarizedResponse** | [**EligibilitySummarizedResponse**](EligibilitySummarizedResponse.md) |  | [optional] 

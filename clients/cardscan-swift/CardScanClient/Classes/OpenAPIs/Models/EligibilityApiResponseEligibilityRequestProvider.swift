@@ -14,17 +14,20 @@ public struct EligibilityApiResponseEligibilityRequestProvider: Codable, JSONEnc
 
     public var firstName: String?
     public var lastName: String?
+    public var organizationName: String?
     public var npi: String?
 
-    public init(firstName: String? = nil, lastName: String? = nil, npi: String? = nil) {
+    public init(firstName: String? = nil, lastName: String? = nil, organizationName: String? = nil, npi: String? = nil) {
         self.firstName = firstName
         self.lastName = lastName
+        self.organizationName = organizationName
         self.npi = npi
     }
 
     public enum CodingKeys: String, CodingKey, CaseIterable {
         case firstName = "first_name"
         case lastName = "last_name"
+        case organizationName = "organization_name"
         case npi
     }
 
@@ -34,6 +37,7 @@ public struct EligibilityApiResponseEligibilityRequestProvider: Codable, JSONEnc
         var container = encoder.container(keyedBy: CodingKeys.self)
         try container.encodeIfPresent(firstName, forKey: .firstName)
         try container.encodeIfPresent(lastName, forKey: .lastName)
+        try container.encodeIfPresent(organizationName, forKey: .organizationName)
         try container.encodeIfPresent(npi, forKey: .npi)
     }
 }

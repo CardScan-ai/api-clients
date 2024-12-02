@@ -18,17 +18,20 @@ import re  # noqa: F401
 import json
 
 
+from typing import Optional
+from pydantic import BaseModel, Field, StrictStr
 
-from pydantic import BaseModel, Field, StrictStr, constr
-
-class SubscriberDto(BaseModel):
+class EligibilityError(BaseModel):
     """
-    SubscriberDto
+    EligibilityError
     """
-    first_name: constr(strict=True, max_length=35, min_length=1) = Field(default=..., description="Loop: 2100C and 2100D, Segment: MN1, Element: NM104, Notes: firstName 1-35 alphanumeric characters ")
-    last_name: constr(strict=True, max_length=60, min_length=1) = Field(default=..., description="Loop: 2100C and 2100D, Segment: MN1, Element: NM103, Notes: lastName 1-60 alphanumeric characters ")
-    date_of_birth: StrictStr = Field(default=..., description="Loop: 2100C and 2100D, Segment: DMG, Element: DMG02, Notes: date of birth in YYYYMMDD format ")
-    __properties = ["first_name", "last_name", "date_of_birth"]
+    field: Optional[StrictStr] = Field(default=None, description="The field that caused the error.")
+    code: Optional[StrictStr] = Field(default=None, description="The error code.")
+    description: Optional[StrictStr] = Field(default=None, description="A description of the error.")
+    followup_action: Optional[StrictStr] = Field(default=None, description="Suggested follow-up action for the error.")
+    location: Optional[StrictStr] = Field(default=None, description="The location of the error.")
+    possible_resolutions: Optional[StrictStr] = Field(default=None, description="Possible resolutions for the error.")
+    __properties = ["field", "code", "description", "followup_action", "location", "possible_resolutions"]
 
     class Config:
         """Pydantic configuration"""
@@ -51,8 +54,8 @@ class SubscriberDto(BaseModel):
         return json.dumps(self.to_dict(), default=self._json_serializer)
 
     @classmethod
-    def from_json(cls, json_str: str) -> SubscriberDto:
-        """Create an instance of SubscriberDto from a JSON string"""
+    def from_json(cls, json_str: str) -> EligibilityError:
+        """Create an instance of EligibilityError from a JSON string"""
         return cls.from_dict(json.loads(json_str))
 
     def to_dict(self):
@@ -64,18 +67,21 @@ class SubscriberDto(BaseModel):
         return _dict
 
     @classmethod
-    def from_dict(cls, obj: dict) -> SubscriberDto:
-        """Create an instance of SubscriberDto from a dict"""
+    def from_dict(cls, obj: dict) -> EligibilityError:
+        """Create an instance of EligibilityError from a dict"""
         if obj is None:
             return None
 
         if not isinstance(obj, dict):
-            return SubscriberDto.parse_obj(obj)
+            return EligibilityError.parse_obj(obj)
 
-        _obj = SubscriberDto.parse_obj({
-            "first_name": obj.get("first_name"),
-            "last_name": obj.get("last_name"),
-            "date_of_birth": obj.get("date_of_birth")
+        _obj = EligibilityError.parse_obj({
+            "field": obj.get("field"),
+            "code": obj.get("code"),
+            "description": obj.get("description"),
+            "followup_action": obj.get("followup_action"),
+            "location": obj.get("location"),
+            "possible_resolutions": obj.get("possible_resolutions")
         })
         return _obj
 

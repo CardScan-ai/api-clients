@@ -6,7 +6,7 @@
 | ------------ | ------------- | ------------- | ------------- |
 | **payerName** | **kotlin.String** | The name of the payer. |  [optional] |
 | **address** | [**Address**](Address.md) |  |  [optional] |
-| **url** | **kotlin.String** |  |  [optional] |
+| **payerUrl** | **kotlin.String** |  |  [optional] |
 
 
 

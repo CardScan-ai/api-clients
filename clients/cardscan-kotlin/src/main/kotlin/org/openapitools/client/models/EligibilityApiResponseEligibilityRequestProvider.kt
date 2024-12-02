@@ -24,6 +24,7 @@ import com.squareup.moshi.JsonClass
  *
  * @param firstName 
  * @param lastName 
+ * @param organizationName 
  * @param npi 
  */
 
@@ -35,6 +36,9 @@ data class EligibilityApiResponseEligibilityRequestProvider (
 
     @Json(name = "last_name")
     val lastName: kotlin.String? = null,
+
+    @Json(name = "organization_name")
+    val organizationName: kotlin.String? = null,
 
     @Json(name = "npi")
     val npi: kotlin.String? = null

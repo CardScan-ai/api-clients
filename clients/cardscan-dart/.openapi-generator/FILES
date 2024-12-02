@@ -34,6 +34,7 @@ doc/EligibilityApiResponse.md
 doc/EligibilityApiResponseEligibilityRequest.md
 doc/EligibilityApiResponseEligibilityRequestProvider.md
 doc/EligibilityApiResponseEligibilityRequestSubscriber.md
+doc/EligibilityError.md
 doc/EligibilityInfo.md
 doc/EligibilityState.md
 doc/EligibilitySummarizedResponse.md

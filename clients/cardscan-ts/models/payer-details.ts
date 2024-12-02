@@ -42,7 +42,7 @@ export interface PayerDetailsOriginal {
      * @type {string}
      * @memberof PayerDetails
      */
-    'url'?: string;
+    'payer_url'?: string;
 }
 export type PayerDetails = KeysToCamelCase<PayerDetailsOriginal>;
 export type PayerDetailsSnake = KeysToSnakeCase<PayerDetailsOriginal>;
