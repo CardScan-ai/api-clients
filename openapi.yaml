@@ -2070,3 +2070,409 @@ components:
           minLength: 0
           type: string
           example: '981010000'
+
+    WebhookCardCompletedEvent:
+      type: object
+      title: Card Completed Event
+      description: Triggered after a successful insurance card scan
+      required:
+      - card_id
+      - configuration
+      - created_at
+      - deleted
+      - session_id
+      - type
+      - updated_at
+      - user_id
+      properties:
+        card_id:
+          type: string
+          format: uuid
+          description: Unique identifier for the created card.
+        configuration:
+          type: object
+          description: Configuration settings used during the card scan.
+          properties:
+            enable_backside_scan:
+              type: boolean
+              description: Flag to enable backside scan.
+            enable_livescan:
+              type: boolean
+              description: Flag to enable live scanning.
+            enable_payer_match:
+              type: boolean
+              description: Flag to enable payer matching.
+          required:
+          - enable_backside_scan
+          - enable_livescan
+          - enable_payer_match
+        created_at:
+          type: string
+          format: date-time
+          description: Timestamp for when the card was created.
+        deleted:
+          type: boolean
+          description: Flag indicating whether the card is deleted.
+        session_id:
+          type: string
+          description: Unique identifier for the session.
+        type:
+          type: string
+          description: Type of event.
+        updated_at:
+          type: string
+          format: date-time
+          description: Timestamp for the last update to the card record.
+        user_id:
+          type: string
+          description: Identifier for the user associated with the event.
+
+    WebhookCardCreatedEvent:
+      type: object
+      title: Card Created Event
+      description: Triggered when a new insurance card is created at the start of a scanning attempt.
+      required:
+      - card_id
+      - configuration
+      - created_at
+      - deleted
+      - session_id
+      - type
+      - updated_at
+      - user_id
+      properties:
+        card_id:
+          type: string
+          format: uuid
+          description: Unique identifier for the created card.
+        configuration:
+          type: object
+          description: Configuration settings used during the card scan.
+          properties:
+            enable_backside_scan:
+              type: boolean
+              description: Flag to enable backside scan.
+            enable_livescan:
+              type: boolean
+              description: Flag to enable live scanning.
+            enable_payer_match:
+              type: boolean
+              description: Flag to enable payer matching.
+          required:
+          - enable_backside_scan
+          - enable_livescan
+          - enable_payer_match
+        created_at:
+          type: string
+          format: date-time
+          description: Timestamp for when the card was created.
+        deleted:
+          type: boolean
+          description: Flag indicating whether the card is deleted.
+        session_id:
+          type: string
+          description: Unique identifier for the session.
+        type:
+          type: string
+          description: Type of event.
+        updated_at:
+          type: string
+          format: date-time
+          description: Timestamp for the last update to the card record.
+        user_id:
+          type: string
+          description: Identifier for the user associated with the event.
+
+    WebhookCardDeletedEvent:
+      type: object
+      title: Card Deleted Event
+      description: Triggered when a scanned insurance card is marked as deleted.
+      required:
+      - card_id
+      - configuration
+      - created_at
+      - deleted
+      - session_id
+      - type
+      - updated_at
+      - user_id
+      properties:
+        card_id:
+          type: string
+          format: uuid
+          description: Unique identifier for the card.
+        configuration:
+          type: object
+          description: Configuration settings used during the card scan.
+          properties:
+            enable_backside_scan:
+              type: boolean
+              description: Flag to enable backside scan.
+            enable_livescan:
+              type: boolean
+              description: Flag to enable live scanning.
+            enable_payer_match:
+              type: boolean
+              description: Flag to enable payer matching.
+          required:
+          - enable_backside_scan
+          - enable_livescan
+          - enable_payer_match
+        created_at:
+          type: string
+          format: date-time
+          description: Timestamp for when the card was created.
+        deleted:
+          type: boolean
+          description: Flag indicating whether the card is deleted.
+        session_id:
+          type: string
+          description: Unique identifier for the session.
+        type:
+          type: string
+          description: Type of event.
+        updated_at:
+          type: string
+          format: date-time
+          description: Timestamp for the last update.
+        user_id:
+          type: string
+          description: Identifier for the user associated with the event.
+
+    WebhookCardErrorEvent:
+      type: object
+      title: Card Error Event
+      description: Triggered when an error occurs during a card scan.
+      required:
+      - card_id
+      - created_at
+      - deleted
+      - error
+      - session_id
+      - type
+      - updated_at
+      - user_id
+      properties:
+        card_id:
+          type: string
+          format: uuid
+          description: Unique identifier for the card.
+        created_at:
+          type: string
+          format: date-time
+          description: Timestamp for when the card was created.
+        deleted:
+          type: boolean
+          description: Flag indicating whether the card is deleted.
+        error:
+          type: object
+          description: Details about the error encountered during the scan.
+          properties:
+            error:
+              type: string
+              description: Error type or identifier.
+            message:
+              type: string
+              description: Detailed error message.
+          required:
+          - error
+          - message
+        session_id:
+          type: string
+          description: Unique identifier for the session.
+        type:
+          type: string
+          description: Type of event.
+        updated_at:
+          type: string
+          format: date-time
+          description: Timestamp for the last update.
+        user_id:
+          type: string
+          description: Identifier for the user associated with the event.
+
+    WebhookEligibilityCreatedEvent:
+      type: object
+      title: Eligibility Created Event
+      description: Triggered when a new eligibility record is created.
+      required:
+      - eligibility_id
+      - card_id
+      - created_at
+      - deleted
+      - session_id
+      - type
+      - updated_at
+      - user_id
+      properties:
+        eligibility_id:
+          type: string
+          format: uuid
+          description: Unique identifier for the eligibility record.
+        card_id:
+          type: string
+          format: uuid
+          description: Unique identifier for the associated card.
+        created_at:
+          type: string
+          format: date-time
+          description: Timestamp for when the eligibility record was created.
+        deleted:
+          type: boolean
+          description: Flag indicating whether the eligibility record is deleted.
+        session_id:
+          type: string
+          description: Unique identifier for the session.
+        type:
+          type: string
+          description: Type of event.
+        updated_at:
+          type: string
+          format: date-time
+          description: Timestamp for the last update.
+        user_id:
+          type: string
+          description: Identifier for the user associated with the event.
+
+    WebhookEligibilityCompletedEvent:
+      type: object
+      title: Eligibility Completed Event
+      description: Triggered when an eligibility check is successfully completed.
+      required:
+      - eligibility_id
+      - card_id
+      - created_at
+      - deleted
+      - session_id
+      - type
+      - updated_at
+      - user_id
+      properties:
+        eligibility_id:
+          type: string
+          format: uuid
+          description: Unique identifier for the eligibility record.
+        card_id:
+          type: string
+          format: uuid
+          description: Unique identifier for the associated card.
+        created_at:
+          type: string
+          format: date-time
+          description: Timestamp for when the eligibility record was created.
+        deleted:
+          type: boolean
+          description: Flag indicating whether the eligibility record is deleted.
+        session_id:
+          type: string
+          description: Unique identifier for the session.
+        type:
+          type: string
+          description: Type of event.
+        updated_at:
+          type: string
+          format: date-time
+          description: Timestamp for the last update.
+        user_id:
+          type: string
+          description: Identifier for the user associated with the event.
+
+    WebhookEligibilityDeletedEvent:
+      type: object
+      title: Eligibility Deleted Event
+      description: Triggered when an eligibility record is deleted.
+      required:
+      - eligibility_id
+      - card_id
+      - created_at
+      - deleted
+      - session_id
+      - type
+      - updated_at
+      - user_id
+      properties:
+        eligibility_id:
+          type: string
+          format: uuid
+          description: Unique identifier for the eligibility record.
+        card_id:
+          type: string
+          format: uuid
+          description: Unique identifier for the associated card.
+        created_at:
+          type: string
+          format: date-time
+          description: Timestamp for when the eligibility record was created.
+        deleted:
+          type: boolean
+          description: Flag indicating whether the eligibility record is deleted.
+        session_id:
+          type: string
+          description: Unique identifier for the session.
+        type:
+          type: string
+          description: Type of event.
+        updated_at:
+          type: string
+          format: date-time
+          description: Timestamp for the last update.
+        user_id:
+          type: string
+          description: Identifier for the user associated with the event.
+
+    WebhookEligibilityErrorEvent:
+      type: object
+      title: Eligibility Error Event
+      description: Triggered when an error occurs during an eligibility check.
+      required:
+      - eligibility_id
+      - card_id
+      - created_at
+      - deleted
+      - error
+      - session_id
+      - type
+      - updated_at
+      - user_id
+      properties:
+        eligibility_id:
+          type: string
+          format: uuid
+          description: Unique identifier for the eligibility record.
+        card_id:
+          type: string
+          format: uuid
+          description: Unique identifier for the associated card.
+        created_at:
+          type: string
+          format: date-time
+          description: Timestamp for when the eligibility record was created.
+        deleted:
+          type: boolean
+          description: Flag indicating whether the eligibility record is deleted.
+        error:
+          type: object
+          description: Details about the error encountered during the eligibility process.
+          properties:
+            error:
+              type: string
+              description: Error type or identifier.
+            message:
+              type: string
+              description: Detailed error message.
+          required:
+          - error
+          - message
+        session_id:
+          type: string
+          description: Unique identifier for the session.
+        type:
+          type: string
+          description: Type of event.
+        updated_at:
+          type: string
+          format: date-time
+          description: Timestamp for the last update.
+        user_id:
+          type: string
+          description: Identifier for the user associated with the event.
