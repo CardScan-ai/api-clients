@@ -12,7 +12,7 @@ Name | Type | Description | Notes
 **state** | **String** | The state of the eligibility record. | 
 **cardId** | **String** | The ID of the card. | 
 **eligibilityRequest** | [**EligibilityApiResponseEligibilityRequest**](EligibilityApiResponseEligibilityRequest.md) |  | [optional] 
-**eligibilityResponse** | [**Map<String, Object>**](Object.md) | The eligibility raw response. | [optional] [default to const {}]
+**eligibilityResponse** | [**BuiltMap&lt;String, JsonObject&gt;**](JsonObject.md) | The eligibility raw response. | [optional] 
 **eligibilitySummarizedResponse** | [**EligibilitySummarizedResponse**](EligibilitySummarizedResponse.md) |  | [optional] 
 **error** | [**ModelError**](ModelError.md) |  | [optional] 
 **createdAt** | [**DateTime**](DateTime.md) | The timestamp when the eligibility record was created. | 

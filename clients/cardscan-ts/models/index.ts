@@ -69,6 +69,17 @@ export * from './subscriber-details';
 export * from './subscriber-dto';
 export * from './upload-parameters';
 export * from './validate-magic-link200-response';
+export * from './webhook-card-completed-event';
+export * from './webhook-card-completed-event-configuration';
+export * from './webhook-card-created-event';
+export * from './webhook-card-deleted-event';
+export * from './webhook-card-error-event';
+export * from './webhook-card-error-event-error';
+export * from './webhook-eligibility-completed-event';
+export * from './webhook-eligibility-created-event';
+export * from './webhook-eligibility-deleted-event';
+export * from './webhook-eligibility-error-event';
+export * from './webhook-eligibility-error-event-error';
 export * from './websocket-error';
 
 export type CamelCase<S extends string> =
