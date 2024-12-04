@@ -9,7 +9,7 @@ import 'package:cardscan_client/api.dart';
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **value** | **String** |  | [optional] 
-**scores** | **List<String>** |  | [optional] [default to const []]
+**scores** | **BuiltList&lt;String&gt;** |  | [optional] 
 **service** | [**CopayDeductibleService**](CopayDeductibleService.md) |  | [optional] 
 **category** | [**CopayCategory**](CopayCategory.md) |  | [optional] 
 

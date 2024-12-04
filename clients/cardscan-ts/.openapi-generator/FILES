@@ -77,6 +77,17 @@ models/subscriber-details.ts
 models/subscriber-dto.ts
 models/upload-parameters.ts
 models/validate-magic-link200-response.ts
+models/webhook-card-completed-event-configuration.ts
+models/webhook-card-completed-event.ts
+models/webhook-card-created-event.ts
+models/webhook-card-deleted-event.ts
+models/webhook-card-error-event-error.ts
+models/webhook-card-error-event.ts
+models/webhook-eligibility-completed-event.ts
+models/webhook-eligibility-created-event.ts
+models/webhook-eligibility-deleted-event.ts
+models/webhook-eligibility-error-event-error.ts
+models/webhook-eligibility-error-event.ts
 models/websocket-error.ts
 tsconfig.esm.json
 tsconfig.json

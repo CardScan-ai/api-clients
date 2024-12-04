@@ -14,7 +14,7 @@ Name | Type | Description | Notes
 **rxBin** | [**MatchScore**](MatchScore.md) |  | [optional] 
 **rxPcn** | [**MatchScore**](MatchScore.md) |  | [optional] 
 **memberName** | [**MatchScore**](MatchScore.md) |  | [optional] 
-**dependentNames** | [**List<MatchScore>**](MatchScore.md) |  | [optional] [default to const []]
+**dependentNames** | [**BuiltList&lt;MatchScore&gt;**](MatchScore.md) |  | [optional] 
 **planName** | [**MatchScore**](MatchScore.md) |  | [optional] 
 **planId** | [**MatchScore**](MatchScore.md) |  | [optional] 
 **cardSpecificId** | [**MatchScore**](MatchScore.md) |  | [optional] 
@@ -35,9 +35,9 @@ Name | Type | Description | Notes
 **partBEffectiveDate** | [**MatchScore**](MatchScore.md) |  | [optional] 
 **pharmacyBenefitManager** | [**MatchScore**](MatchScore.md) |  | [optional] 
 **planType** | [**MatchScore**](MatchScore.md) |  | [optional] 
-**addresses** | [**List<AddressResultInner>**](AddressResultInner.md) |  | [optional] [default to const []]
-**phoneNumbers** | [**List<PhoneNumberResultInner>**](PhoneNumberResultInner.md) |  | [optional] [default to const []]
-**copays** | [**List<CopayResultInner>**](CopayResultInner.md) |  | [optional] [default to const []]
+**addresses** | [**BuiltList&lt;AddressResultInner&gt;**](AddressResultInner.md) |  | [optional] 
+**phoneNumbers** | [**BuiltList&lt;PhoneNumberResultInner&gt;**](PhoneNumberResultInner.md) |  | [optional] 
+**copays** | [**BuiltList&lt;CopayResultInner&gt;**](CopayResultInner.md) |  | [optional] 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

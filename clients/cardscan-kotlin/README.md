@@ -137,6 +137,17 @@ All URIs are relative to *https://sandbox.cardscan.ai/v1*
  - [org.openapitools.client.models.SubscriberDto](docs/SubscriberDto.md)
  - [org.openapitools.client.models.UploadParameters](docs/UploadParameters.md)
  - [org.openapitools.client.models.ValidateMagicLink200Response](docs/ValidateMagicLink200Response.md)
+ - [org.openapitools.client.models.WebhookCardCompletedEvent](docs/WebhookCardCompletedEvent.md)
+ - [org.openapitools.client.models.WebhookCardCompletedEventConfiguration](docs/WebhookCardCompletedEventConfiguration.md)
+ - [org.openapitools.client.models.WebhookCardCreatedEvent](docs/WebhookCardCreatedEvent.md)
+ - [org.openapitools.client.models.WebhookCardDeletedEvent](docs/WebhookCardDeletedEvent.md)
+ - [org.openapitools.client.models.WebhookCardErrorEvent](docs/WebhookCardErrorEvent.md)
+ - [org.openapitools.client.models.WebhookCardErrorEventError](docs/WebhookCardErrorEventError.md)
+ - [org.openapitools.client.models.WebhookEligibilityCompletedEvent](docs/WebhookEligibilityCompletedEvent.md)
+ - [org.openapitools.client.models.WebhookEligibilityCreatedEvent](docs/WebhookEligibilityCreatedEvent.md)
+ - [org.openapitools.client.models.WebhookEligibilityDeletedEvent](docs/WebhookEligibilityDeletedEvent.md)
+ - [org.openapitools.client.models.WebhookEligibilityErrorEvent](docs/WebhookEligibilityErrorEvent.md)
+ - [org.openapitools.client.models.WebhookEligibilityErrorEventError](docs/WebhookEligibilityErrorEventError.md)
  - [org.openapitools.client.models.WebsocketError](docs/WebsocketError.md)
 
 

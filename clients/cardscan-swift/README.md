@@ -117,6 +117,17 @@ Class | Method | HTTP request | Description
  - [SubscriberDto](docs/SubscriberDto.md)
  - [UploadParameters](docs/UploadParameters.md)
  - [ValidateMagicLink200Response](docs/ValidateMagicLink200Response.md)
+ - [WebhookCardCompletedEvent](docs/WebhookCardCompletedEvent.md)
+ - [WebhookCardCompletedEventConfiguration](docs/WebhookCardCompletedEventConfiguration.md)
+ - [WebhookCardCreatedEvent](docs/WebhookCardCreatedEvent.md)
+ - [WebhookCardDeletedEvent](docs/WebhookCardDeletedEvent.md)
+ - [WebhookCardErrorEvent](docs/WebhookCardErrorEvent.md)
+ - [WebhookCardErrorEventError](docs/WebhookCardErrorEventError.md)
+ - [WebhookEligibilityCompletedEvent](docs/WebhookEligibilityCompletedEvent.md)
+ - [WebhookEligibilityCreatedEvent](docs/WebhookEligibilityCreatedEvent.md)
+ - [WebhookEligibilityDeletedEvent](docs/WebhookEligibilityDeletedEvent.md)
+ - [WebhookEligibilityErrorEvent](docs/WebhookEligibilityErrorEvent.md)
+ - [WebhookEligibilityErrorEventError](docs/WebhookEligibilityErrorEventError.md)
  - [WebsocketError](docs/WebsocketError.md)
 
 

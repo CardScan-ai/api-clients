@@ -8,7 +8,7 @@ import 'package:cardscan_client/api.dart';
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**errors** | [**List<EligibilityError>**](EligibilityError.md) |  | [optional] [default to const []]
+**errors** | [**BuiltList&lt;EligibilityError&gt;**](EligibilityError.md) |  | [optional] 
 **subscriberDetails** | [**SubscriberDetails**](SubscriberDetails.md) |  | [optional] 
 **payerDetails** | [**PayerDetails**](PayerDetails.md) |  | [optional] 
 **planDetails** | [**PlanDetails**](PlanDetails.md) |  | [optional] 
