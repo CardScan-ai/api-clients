@@ -1,14 +1,14 @@
-name: Publish Package to npmjs
+name: Publish Package to npm
+
 on:
-  workflow_dispatch:
   push:
-    branches: deploy-npm-package
+    tags: ts-v*
+
 jobs:
-  deploy-npm-package:
+  publish-npm-package:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v4
-      # Setup .npmrc file to publish to npm
     - uses: actions/setup-node@v4
       with:
         node-version: 17.x
@@ -19,9 +19,6 @@ jobs:
     - name: Build package
       run: npm run prepare
       working-directory: clients/cardscan-ts
-      # - name: Run tests
-      #   run: npm run test
-      #   working-directory: clients/cardscan-ts
     - name: Publish package
       run: npm publish --access public
       env:

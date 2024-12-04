@@ -11,6 +11,10 @@ jobs:
       ts_changed: ${{ steps.filter.outputs.ts }}
       py_changed: ${{ steps.filter.outputs.py }}
       oas_changed: ${{ steps.filter.outputs.oas }}
+      python_config_changed: ${{ steps.filter.outputs.python_config }}
+      python_template_changed: ${{ steps.filter.outputs.python_template }}
+      ts_config_changed: ${{ steps.filter.outputs.ts_config }}
+      ts_template_changed: ${{ steps.filter.outputs.ts_template }}
     steps:
     - uses: actions/checkout@v2
     - uses: dorny/paths-filter@v2
@@ -23,12 +27,30 @@ jobs:
             - 'clients/cardscan-python/**/*.py'
           oas:
             - 'openapi.yaml'
+          python_config:
+            - 'openapi-generator-configs/python.config.json'
+          python_template:
+            - 'templates/python-template/*'
+          ts_config:
+            - 'openapi-generator-configs/ts.config.json'
+          ts_template:
+            - 'templates/typescript-template/*'
   test-ts:
     runs-on: ubuntu-latest
     needs: check_changes
-    if: ${{ needs.check_changes.outputs.ts_changed == 'true' || needs.check_changes.outputs.oas_changed == 'true' }}
+    if: ${{ needs.check_changes.outputs.ts_changed == 'true' || needs.check_changes.outputs.oas_changed == 'true' || needs.check_changes.outputs.ts_config_changed == 'true' || needs.check_changes.outputs.ts_template_changed == 'true' }}
     steps:
     - uses: actions/checkout@v2
+    - name: Generate Typescript Client
+      if: ${{ needs.check_changes.outputs.oas_changed == 'true' || needs.check_changes.outputs.ts_config_changed == 'true' || needs.check_changes.outputs.ts_template_changed == 'true' }}
+      uses: openapi-generators/openapitools-generator-action@v1
+      with:
+        generator: typescript-axios
+        openapi-file: openapi.yaml
+        config-file: openapi-generator-configs/ts.config.json
+        template-dir: templates/typescript-template
+        command-args: -o clients/cardscan-ts
+        generator-tag: v7.7.0
     - name: Setup Node.js
       uses: actions/setup-node@v2
       with:
@@ -45,16 +67,23 @@ jobs:
   test-python:
     runs-on: ubuntu-latest
     needs: check_changes
-    if: ${{ needs.check_changes.outputs.py_changed == 'true' || needs.check_changes.outputs.oas_changed == 'true' }}
-    strategy:
-      matrix:
-        python-version: ['3.8', '3.12']
+    if: ${{ needs.check_changes.outputs.py_changed == 'true' || needs.check_changes.outputs.oas_changed == 'true' || needs.check_changes.outputs.python_config_changed == 'true' || needs.check_changes.outputs.python_template_changed == 'true' }}
     steps:
     - uses: actions/checkout@v3
-    - name: Set up Python ${{ matrix.python-version }}
+    - name: Generate Python Client
+      if: ${{ needs.check_changes.outputs.oas_changed == 'true' || needs.check_changes.outputs.python_config_changed == 'true' || needs.check_changes.outputs.python_template_changed == 'true' }}
+      uses: openapi-generators/openapitools-generator-action@v1
+      with:
+        generator: python-pydantic-v1
+        openapi-file: openapi.yaml
+        config-file: openapi-generator-configs/python.config.json
+        template-dir: templates/python-template
+        command-args: -o clients/cardscan-python
+        generator-tag: v7.7.0
+    - name: Set up Python
       uses: actions/setup-python@v4
       with:
-        python-version: ${{ matrix.python-version }}
+        python-version: 3.x
     - name: Install dependencies
       working-directory: clients/cardscan-python
       run: |

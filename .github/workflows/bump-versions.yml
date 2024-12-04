@@ -1,0 +1,81 @@
+name: Version and Tag
+
+on:
+  workflow_run:
+    workflows: [Re-generate API Clients]
+    types:
+    - completed
+    branches: [main]
+
+jobs:
+  check_trigger:
+    runs-on: ubuntu-latest
+    outputs:
+      should_run: ${{ steps.check.outputs.should_run }}
+    steps:
+    - id: check
+      run: |
+        JOBS_URL="${{ github.event.workflow_run.jobs_url }}"
+        JOBS_JSON=$(curl -s -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" $JOBS_URL)
+        JOB_STATUS=$(echo $JOBS_JSON | jq -r '.jobs[] | select(.name == "generate-and-commit") | .conclusion')
+        if [ "$JOB_STATUS" = "skipped" ]; then
+          echo "should_run=false" >> $GITHUB_OUTPUT
+        else
+          echo "should_run=true" >> $GITHUB_OUTPUT
+        fi
+
+  bump-typescript:
+    runs-on: ubuntu-latest
+    needs: check_trigger
+    if: ${{ needs.check_trigger.outputs.should_run == 'true' }}
+    steps:
+    - uses: actions/checkout@v3
+    - uses: TriPSs/conventional-changelog-action@v3
+      with:
+        version-file: clients/cardscan-ts/package.json
+        version-path: version
+        git-message: 'chore(release): bump typescript client to {version}'
+        tag-prefix: ts-v
+        output-file: false
+
+  bump-python:
+    runs-on: ubuntu-latest
+    needs: [check_trigger, bump-typescript]
+    if: ${{ needs.check_trigger.outputs.should_run == 'true' }}
+    steps:
+    - uses: actions/checkout@v3
+    - uses: TriPSs/conventional-changelog-action@v3
+      with:
+        version-file: clients/cardscan-python/pyproject.toml
+        version-path: tool.poetry.version
+        git-message: 'chore(release): bump python client to {version}'
+        tag-prefix: py-v
+        output-file: false
+
+  bump-dart:
+    runs-on: ubuntu-latest
+    needs: [check_trigger, bump-python]
+    if: ${{ needs.check_trigger.outputs.should_run == 'true' }}
+    steps:
+    - uses: actions/checkout@v3
+    - uses: TriPSs/conventional-changelog-action@v3
+      with:
+        version-file: clients/cardscan-dart/pubspec.yaml
+        version-path: version
+        git-message: 'chore(release): bump dart client to {version}'
+        tag-prefix: dart-v
+        output-file: false
+
+  bump-swift:
+    runs-on: ubuntu-latest
+    needs: [check_trigger, bump-dart]
+    if: ${{ needs.check_trigger.outputs.should_run == 'true' }}
+    steps:
+    - uses: actions/checkout@v3
+    - uses: TriPSs/conventional-changelog-action@v3
+      with:
+        skip-version-file: true
+        skip-commit: true
+        tag-prefix: ''
+        output-file: false
+
