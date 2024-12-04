@@ -27,10 +27,7 @@ let package = Package(
         .target(
             name: "CardScanClient",
             dependencies: ["AnyCodable"],
-            path: "clients/cardscan-swift/CardScanClient/Classes",
-            swiftSettings: [
-                .unsafeFlags(["-enable-library-evolution"], .when(configuration: .release))
-            ]
+            path: "clients/cardscan-swift/CardScanClient/Classes"
         ),
     ]
 )
