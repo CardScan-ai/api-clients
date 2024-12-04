@@ -76,6 +76,6 @@ jobs:
       with:
         skip-version-file: true
         skip-commit: true
-        tag-prefix: swift-v
+        tag-prefix: ''
         output-file: false
 
