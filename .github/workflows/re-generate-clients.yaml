@@ -1,7 +1,6 @@
 name: Re-generate API Clients
 
 on:
-  workflow_dispatch:
   pull_request:
     branches: [main]
   push:
@@ -12,51 +11,30 @@ jobs:
     runs-on: ubuntu-latest
     permissions: read-all
     outputs:
-      oas_changed: ${{ steps.filter.outputs.oas_changed }}
-      ts_config_changed: ${{ steps.filter.outputs.ts_config_changed }}
-      ts_template_changed: ${{ steps.filter.outputs.ts_template_changed }}
-      python_config_changed: ${{ steps.filter.outputs.python_config_changed }}
-      python_template_changed: ${{ steps.filter.outputs.python_template_changed }}
-      swift_config_changed: ${{ steps.filter.outputs.swift_config_changed }}
-      dart_config_changed: ${{ steps.filter.outputs.dart_config_changed }}
-      kotlin_config_changed: ${{ steps.filter.outputs.kotlin_config_changed }}
+      changes: ${{ steps.filter.outputs.changes }}
     steps:
     - uses: actions/checkout@v2
     - uses: dorny/paths-filter@v2
       id: filter
       with:
         filters: |
-          oas_changed:
+          changes:
             - 'openapi.yaml'
-          ts_config_changed:
-            - 'openapi-generator-configs/ts.config.json'
-          ts_template_changed:
-            - 'templates/typescript-template/*'
-          python_config_changed:
-            - 'openapi-generator-configs/python.config.json'
-          python_template_changed:
-            - 'templates/python-template/*'
-          swift_config_changed:
-            - 'openapi-generator-configs/swift.config.json'
-          dart_config_changed:
-            - 'openapi-generator-configs/dart.config.json'
-          kotlin_config_changed:
-            - 'openapi-generator-configs/kotlin.config.json'
+            - 'openapi-generator-configs/*.config.json'
+            - 'templates/*-template/*'
 
-  generate-clients:
+  generate-and-commit:
+    needs: check_changes
+    if: ${{ needs.check_changes.outputs.changes == 'true' }}
     runs-on: ubuntu-latest
     permissions:
       contents: write
-      pull-requests: write
-    needs: check_changes
     steps:
-    - name: Checkout
-      uses: actions/checkout@v2
+    - uses: actions/checkout@v2
       with:
         ref: main
 
-    - name: Generate Typescript Client
-      if: ${{ github.event_name == 'workflow_dispatch' || needs.check_changes.outputs.oas_changed == 'true' || needs.check_changes.outputs.ts_config_changed == 'true' || needs.check_changes.outputs.ts_template_changed == 'true' }}
+    - name: Generate TypeScript Client
       uses: openapi-generators/openapitools-generator-action@v1
       with:
         generator: typescript-axios
@@ -67,7 +45,6 @@ jobs:
         generator-tag: v7.7.0
 
     - name: Generate Python Client
-      if: ${{ github.event_name == 'workflow_dispatch' || needs.check_changes.outputs.oas_changed == 'true' || needs.check_changes.outputs.python_config_changed == 'true' || needs.check_changes.outputs.python_template_changed == 'true' }}
       uses: openapi-generators/openapitools-generator-action@v1
       with:
         generator: python-pydantic-v1
@@ -78,7 +55,6 @@ jobs:
         generator-tag: v7.7.0
 
     - name: Generate Swift Client
-      if: ${{ github.event_name == 'workflow_dispatch' || needs.check_changes.outputs.oas_changed == 'true' || needs.check_changes.outputs.swift_config_changed == 'true' }}
       uses: openapi-generators/openapitools-generator-action@v1
       with:
         generator: swift5
@@ -88,7 +64,6 @@ jobs:
         generator-tag: v7.7.0
 
     - name: Generate Dart Client
-      if: ${{ github.event_name == 'workflow_dispatch' || needs.check_changes.outputs.oas_changed == 'true' || needs.check_changes.outputs.dart_config_changed == 'true' }}
       uses: openapi-generators/openapitools-generator-action@v1
       with:
         generator: dart-dio
@@ -98,7 +73,6 @@ jobs:
         generator-tag: v7.7.0
 
     - name: Generate Kotlin Client
-      if: ${{ github.event_name == 'workflow_dispatch' || needs.check_changes.outputs.oas_changed == 'true' || needs.check_changes.outputs.kotlin_config_changed == 'true' }}
       uses: openapi-generators/openapitools-generator-action@v1
       with:
         generator: kotlin
@@ -106,19 +80,11 @@ jobs:
         command-args: -o clients/cardscan-kotlin
         generator-tag: v7.7.0
 
-    - name: Create Pull Request
-      uses: peter-evans/create-pull-request@v5
-      if: ${{ (github.event_name == 'push' && (needs.check_changes.outputs.oas_changed == 'true' || needs.check_changes.outputs.ts_config_changed == 'true' || needs.check_changes.outputs.ts_template_changed == 'true' || needs.check_changes.outputs.python_config_changed == 'true' || needs.check_changes.outputs.python_template_changed == 'true' || needs.check_changes.outputs.swift_config_changed == 'true' || needs.check_changes.outputs.dart_config_changed == 'true' || needs.check_changes.outputs.kotlin_config_changed == 'true')) || github.event_name == 'workflow_dispatch' }}
-      with:
-        token: ${{ secrets.GITHUB_TOKEN }}
-        delete-branch: true
-        branch: chore/re-generate-clients-${{ github.run_number }}
-        title: Re-generate API clients
-        body: |
-          This is an automated PR triggered by changes to the OpenAPI spec or client generation configuration.
-          --
-          Note:
-          This PR only includes client re-generation. Please review the changes and bump any necessary package versions and publish manually (if needed).
-        assignees: nickls,zcyllainowu
-        reviewers: nickls,zcyllainowu
-        commit-message: 'chore: re-generate clients'
+    - name: Commit Changes
+      if: ${{ github.event_name == 'push' }}
+      run: |-
+        git config --global user.name 'github-actions[bot]'
+        git config --global user.email 'github-actions[bot]@users.noreply.github.com'
+        git add clients/
+        git commit -m 'chore: re-generate clients'
+        git push origin main
