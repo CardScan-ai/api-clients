@@ -7,13 +7,30 @@ on:
     branches: [main]
 
 jobs:
+  check_pr_type:
+    runs-on: ubuntu-latest
+    outputs:
+      should_run: ${{ steps.check.outputs.should_run }}
+    steps:
+    - id: check
+      run: |
+        if [[ "${{ github.event_name }}" == "push" && "${{ contains(github.event.head_commit.message, 'chore/re-generate-clients') }}" == "true" ]]; then
+          echo "should_run=false" >> $GITHUB_OUTPUT
+        elif [[ "${{ github.event_name }}" == "pull_request" && "${{ contains(github.event.pull_request.labels.*.name, 'client-generation') }}" == "true" ]]; then
+          echo "should_run=false" >> $GITHUB_OUTPUT
+        else
+          echo "should_run=true" >> $GITHUB_OUTPUT
+        fi
+
   check_changes:
+    needs: check_pr_type
+    if: needs.check_pr_type.outputs.should_run == 'true'
     runs-on: ubuntu-latest
     permissions: read-all
     outputs:
       changes: ${{ steps.filter.outputs.changes }}
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v3
     - uses: dorny/paths-filter@v2
       id: filter
       with:
@@ -23,17 +40,15 @@ jobs:
             - 'openapi-generator-configs/*.config.json'
             - 'templates/*-template/*'
 
-  generate-and-commit:
-    needs: check_changes
-    if: ${{ needs.check_changes.outputs.changes == 'true' }}
+  generate-clients:
+    needs: [check_pr_type, check_changes]
+    if: needs.check_pr_type.outputs.should_run == 'true' && needs.check_changes.outputs.changes == 'true'
     runs-on: ubuntu-latest
     permissions:
       contents: write
+      pull-requests: write
     steps:
-    - uses: actions/checkout@v2
-      with:
-        ref: main
-
+    - uses: actions/checkout@v3
     - name: Generate TypeScript Client
       uses: openapi-generators/openapitools-generator-action@v1
       with:
@@ -80,11 +95,22 @@ jobs:
         command-args: -o clients/cardscan-kotlin
         generator-tag: v7.7.0
 
-    - name: Commit Changes
-      if: ${{ github.event_name == 'push' }}
-      run: |-
-        git config --global user.name 'github-actions[bot]'
-        git config --global user.email 'github-actions[bot]@users.noreply.github.com'
-        git add clients/
-        git commit -m 'chore: re-generate clients'
-        git push origin main
+    - name: Create Pull Request
+      if: ${{ github.event_name == 'push' && needs.check_changes.outputs.changes == 'true' }}
+      uses: peter-evans/create-pull-request@v7
+      with:
+        title: Re-generate API clients
+        reviewers: nickls,zcyllainowu
+        assignees: nickls,zcyllainowu
+        commit-message: 'chore: re-generate API clients'
+        delete-branch: true
+        body: |
+          This PR updates the generated API clients based on changes to:
+          - OpenAPI specification
+          - Generator configurations
+          - Templates
+
+          This PR was automatically created because changes were detected in the main branch that affect client generation.
+        branch: chore/re-generate-clients-${{ github.run_number }}
+        base: main
+        labels: automated-pr,client-generation
