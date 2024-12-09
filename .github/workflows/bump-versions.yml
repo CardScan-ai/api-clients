@@ -1,10 +1,8 @@
 name: Version and Tag
 
 on:
-  workflow_run:
-    workflows: [Re-generate API Clients]
-    types:
-    - completed
+  pull_request:
+    types: [closed]
     branches: [main]
 
 jobs:
@@ -15,13 +13,10 @@ jobs:
     steps:
     - id: check
       run: |
-        JOBS_URL="${{ github.event.workflow_run.jobs_url }}"
-        JOBS_JSON=$(curl -s -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" $JOBS_URL)
-        JOB_STATUS=$(echo $JOBS_JSON | jq -r '.jobs[] | select(.name == "generate-and-commit") | .conclusion')
-        if [ "$JOB_STATUS" = "skipped" ]; then
-          echo "should_run=false" >> $GITHUB_OUTPUT
-        else
+        if [[ "${{ github.event.pull_request.merged }}" == "true" && ${{ contains(github.event.pull_request.labels.*.name, 'client-generation') }} == "true" ]]; then
           echo "should_run=true" >> $GITHUB_OUTPUT
+        else
+          echo "should_run=false" >> $GITHUB_OUTPUT
         fi
 
   bump-typescript:
@@ -30,6 +25,8 @@ jobs:
     if: ${{ needs.check_trigger.outputs.should_run == 'true' }}
     steps:
     - uses: actions/checkout@v3
+      with:
+        ssh-key: ${{ secrets.SSH_DEPLOY_KEY }}
     - uses: TriPSs/conventional-changelog-action@v3
       with:
         version-file: clients/cardscan-ts/package.json
@@ -44,6 +41,8 @@ jobs:
     if: ${{ needs.check_trigger.outputs.should_run == 'true' }}
     steps:
     - uses: actions/checkout@v3
+      with:
+        ssh-key: ${{ secrets.SSH_DEPLOY_KEY }}
     - uses: TriPSs/conventional-changelog-action@v3
       with:
         version-file: clients/cardscan-python/pyproject.toml
@@ -58,6 +57,8 @@ jobs:
     if: ${{ needs.check_trigger.outputs.should_run == 'true' }}
     steps:
     - uses: actions/checkout@v3
+      with:
+        ssh-key: ${{ secrets.SSH_DEPLOY_KEY }}
     - uses: TriPSs/conventional-changelog-action@v3
       with:
         version-file: clients/cardscan-dart/pubspec.yaml
@@ -72,6 +73,8 @@ jobs:
     if: ${{ needs.check_trigger.outputs.should_run == 'true' }}
     steps:
     - uses: actions/checkout@v3
+      with:
+        ssh-key: ${{ secrets.SSH_DEPLOY_KEY }}
     - uses: TriPSs/conventional-changelog-action@v3
       with:
         skip-version-file: true
