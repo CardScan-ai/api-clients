@@ -821,6 +821,7 @@ export class {{classname}}<TCase extends NameCase = "camel"> extends BaseAPI {
    * @throws {yup.ValidationError}
    */
   public validateEligibility(cardId: string, eligibility: EligibilityInfo) {
+    this.debug(`Validating eligibility information. Raw input: ${JSON.stringify(eligibility)}`);
     const npiValid = this.npiValid.bind(this);
 
     const schema = yup.object({
@@ -851,7 +852,7 @@ export class {{classname}}<TCase extends NameCase = "camel"> extends BaseAPI {
             npi: yup
               .string()
               .required("provider npi is a required field")
-              .test("isValidNpi", "npi is not valid", function (value) {
+              .test("isValidNpi", ({ originalValue }) => `npi "${originalValue}" is not valid`, function (value) {
                 return npiValid(value);
               }),
           })
