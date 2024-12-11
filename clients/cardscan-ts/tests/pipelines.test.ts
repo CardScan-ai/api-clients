@@ -31,7 +31,7 @@ describe("Cardscan Pipelines", () => {
             subscriber: {
               firstName: "Jane",
               lastName: "Doe",
-              dateOfBirth: "18020101",
+              dateOfBirth: "19990101",
             },
           },
         );
@@ -63,7 +63,7 @@ describe("Cardscan Pipelines", () => {
             subscriber: {
               firstName: "Jane",
               lastName: "Doe",
-              dateOfBirth: "18020101",
+              dateOfBirth: "19990101",
             },
           },
         );
