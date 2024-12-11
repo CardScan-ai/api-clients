@@ -869,7 +869,7 @@ export class {{classname}}<TCase extends NameCase = "camel"> extends BaseAPI {
               .required("subscriber date of birth is a required field")
               .test(
                 "isValidDate",
-                "subscriber date of birth is not valid. Expected format: YYYYMMDD",
+                ({ originalValue }) => `subscriber date of birth is not valid: "${originalValue}". Expected format: YYYYMMDD`,
                 function (value) {
                   if (value) {
                     try {
