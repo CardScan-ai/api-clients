@@ -1,3 +1,6 @@
+.DS_Store
+**/.DS_Store
+
 **/node_modules
 **/dist
 **/images
@@ -10,3 +13,7 @@ clients/cardscan-python/images/
 
 **/main.*
 **/Main.*
+
+## Swift
+.build
+Package.resolved
