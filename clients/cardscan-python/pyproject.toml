@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "cardscan-client"
-version = "0.7.1"
+version = "0.8.0"
 description = "Python CardScan API client"
 authors = ["Team CardScan <dev@cardscan.ai>"]
 license = "SEE LICENSE IN LICENSE.md"
