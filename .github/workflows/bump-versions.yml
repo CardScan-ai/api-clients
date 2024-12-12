@@ -1,6 +1,7 @@
 name: Version and Tag
 
 on:
+  workflow_dispatch:
   pull_request:
     types: [closed]
     branches: [main]
