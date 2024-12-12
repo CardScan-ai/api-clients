@@ -8,9 +8,9 @@ import 'package:cardscan_client/api.dart';
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**firstName** | **String** | Loop: 2100C and 2100D, Segment: MN1, Element: NM104, Notes: firstName 1-35 alphanumeric characters  | 
-**lastName** | **String** | Loop: 2100C and 2100D, Segment: MN1, Element: NM103, Notes: lastName 1-60 alphanumeric characters  | 
-**dateOfBirth** | **String** | Loop: 2100C and 2100D, Segment: DMG, Element: DMG02, Notes: date of birth in YYYYMMDD format  | 
+**firstName** | **String** | The subscriber's first name. Required and must contain 1-35 alphanumeric characters.  Use this for accurate identification of the subscriber.  | 
+**lastName** | **String** | The subscriber's last name. Required and must contain 1-60 alphanumeric characters.  This field is critical for matching subscriber records.  | 
+**dateOfBirth** | **String** | The subscriber's date of birth, formatted as YYYYMMDD.  Required for validation and eligibility checks.  Example: '19800101'  | 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

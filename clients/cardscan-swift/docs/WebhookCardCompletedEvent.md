@@ -3,7 +3,7 @@
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**cardId** | **UUID** | Unique identifier for the created card. | 
+**cardId** | **UUID** | Unique identifier for the card. | 
 **configuration** | [**WebhookCardCompletedEventConfiguration**](WebhookCardCompletedEventConfiguration.md) |  | 
 **createdAt** | **Date** | Timestamp for when the card was created. | 
 **deleted** | **Bool** | Flag indicating whether the card is deleted. | 

@@ -73,6 +73,7 @@ export * from './webhook-card-completed-event';
 export * from './webhook-card-completed-event-configuration';
 export * from './webhook-card-created-event';
 export * from './webhook-card-deleted-event';
+export * from './webhook-card-enriched-event';
 export * from './webhook-card-error-event';
 export * from './webhook-card-error-event-error';
 export * from './webhook-eligibility-completed-event';

@@ -89,6 +89,7 @@ import 'package:cardscan_client/src/model/webhook_card_completed_event.dart';
 import 'package:cardscan_client/src/model/webhook_card_completed_event_configuration.dart';
 import 'package:cardscan_client/src/model/webhook_card_created_event.dart';
 import 'package:cardscan_client/src/model/webhook_card_deleted_event.dart';
+import 'package:cardscan_client/src/model/webhook_card_enriched_event.dart';
 import 'package:cardscan_client/src/model/webhook_card_error_event.dart';
 import 'package:cardscan_client/src/model/webhook_card_error_event_error.dart';
 import 'package:cardscan_client/src/model/webhook_eligibility_completed_event.dart';
@@ -176,6 +177,7 @@ part 'serializers.g.dart';
   WebhookCardCompletedEventConfiguration,
   WebhookCardCreatedEvent,
   WebhookCardDeletedEvent,
+  WebhookCardEnrichedEvent,
   WebhookCardErrorEvent,
   WebhookCardErrorEventError,
   WebhookEligibilityCompletedEvent,

@@ -2,7 +2,7 @@
 /* eslint-disable */
 /**
  * CardScan API
- * The official documentation for the CardScan API.
+ * The official documentation for the CardScan API Clients.
  *
  * The version of the OpenAPI document: 1.0.0
  * 
@@ -26,7 +26,7 @@ import { KeysToCamelCase, KeysToSnakeCase } from "./";
  */
 export interface WebhookCardCompletedEventOriginal {
     /**
-     * Unique identifier for the created card.
+     * Unique identifier for the card.
      * @type {string}
      * @memberof WebhookCardCompletedEvent
      */

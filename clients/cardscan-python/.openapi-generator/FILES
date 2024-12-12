@@ -85,6 +85,7 @@ cardscan_client/models/webhook_card_completed_event.py
 cardscan_client/models/webhook_card_completed_event_configuration.py
 cardscan_client/models/webhook_card_created_event.py
 cardscan_client/models/webhook_card_deleted_event.py
+cardscan_client/models/webhook_card_enriched_event.py
 cardscan_client/models/webhook_card_error_event.py
 cardscan_client/models/webhook_card_error_event_error.py
 cardscan_client/models/webhook_eligibility_completed_event.py
@@ -171,6 +172,7 @@ docs/WebhookCardCompletedEvent.md
 docs/WebhookCardCompletedEventConfiguration.md
 docs/WebhookCardCreatedEvent.md
 docs/WebhookCardDeletedEvent.md
+docs/WebhookCardEnrichedEvent.md
 docs/WebhookCardErrorEvent.md
 docs/WebhookCardErrorEventError.md
 docs/WebhookEligibilityCompletedEvent.md

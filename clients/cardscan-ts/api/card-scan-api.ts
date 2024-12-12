@@ -2,7 +2,7 @@
 /* eslint-disable */
 /**
  * CardScan API
- * The official documentation for the CardScan API.
+ * The official documentation for the CardScan API Clients.
  *
  * The version of the OpenAPI document: 1.0.0
  * 
@@ -1594,6 +1594,7 @@ export class CardScanApi<TCase extends NameCase = "camel"> extends BaseAPI {
    * @throws {yup.ValidationError}
    */
   public validateEligibility(cardId: string, eligibility: EligibilityInfo) {
+    this.debug(`Validating eligibility information. Raw input: ${JSON.stringify(eligibility)}`);
     const npiValid = this.npiValid.bind(this);
 
     const schema = yup.object({
@@ -1624,7 +1625,7 @@ export class CardScanApi<TCase extends NameCase = "camel"> extends BaseAPI {
             npi: yup
               .string()
               .required("provider npi is a required field")
-              .test("isValidNpi", "npi is not valid", function (value) {
+              .test("isValidNpi", ({ originalValue }) => `npi "${originalValue}" is not valid`, function (value) {
                 return npiValid(value);
               }),
           })
@@ -1642,28 +1643,85 @@ export class CardScanApi<TCase extends NameCase = "camel"> extends BaseAPI {
               .required("subscriber date of birth is a required field")
               .test(
                 "isValidDate",
-                "subscriber date of birth is not valid. Expected format: YYYYMMDD",
-                function (value) {
-                  if (value) {
-                    try {
-                      const date = new Date(
-                        parseInt(value.substring(0, 4), 10),
-                        parseInt(value.substring(4, 6), 10) - 1,
-                        parseInt(value.substring(6, 8), 10),
-                      );
+                ({ originalValue }) => `subscriber date of birth is not valid: "${originalValue}". Expected format: YYYYMMDD`,
+                (value) => {
+                  if (!value) return true;
+                
+                  try {
+                    let date: Date;
+                    let month: number;
+                    let day: number;
+                    let year: number;
+                
+                    // Check if it's already in YYYYMMDD format
+                    if (/^\d{8}$/.test(value)) {
+                      this.debug(`YYYYMMDD format matched: ${value}`);
 
-                      const formattedDate = date
-                        .toISOString()
-                        .slice(0, 10)
-                        .replace(/-/g, "");
+                      year = parseInt(value.substring(0, 4), 10);
+                      month = parseInt(value.substring(4, 6), 10);
+                      day = parseInt(value.substring(6, 8), 10);
+                    } 
+                    // Handle YYYY-MM-DD format
+                    else if (/^\d{4}-\d{2}-\d{2}$/.test(value)) {
+                      this.debug(`YYYY-MM-DD format matched: ${value}`);
 
-                      return formattedDate === value;
-                    } catch (e) {
-                      return false;
+                      [year, month, day] = value.split('-').map(num => parseInt(num, 10));
                     }
+                    // Handle MM/DD/YYYY format
+                    else if (/^\d{2}\/\d{2}\/\d{4}$/.test(value)) {
+                      this.debug(`MM/DD/YYYY format matched: ${value}`);
+
+                      [month, day, year] = value.split('/').map(num => parseInt(num, 10));
+                    }
+                    // Handle DD-MM-YYYY format
+                    else if (/^\d{2}-\d{2}-\d{4}$/.test(value)) {
+                      this.debug(`DD-MM-YYYY format matched: ${value}`);
+
+                      [day, month, year] = value.split('-').map(num => parseInt(num, 10));
+                    }
+                    else {
+                      this.debug(`No date format matched. Parsing with new Date(): ${value}`);
+
+                      date = new Date(value);
+
+                      if (isNaN(date.getTime())) {
+                        this.debug(`Date is not valid: ${value}`);
+
+                        return false;
+                      }
+
+                      year = date.getFullYear();
+                      month = date.getMonth() + 1;
+                      day = date.getDate();
+                    }
+                
+                    if (month < 1 || month > 12) return false;
+                    if (day < 1 || day > 31) return false;
+                    if (year < 1900 || year > new Date().getFullYear() + 100) return false;
+                
+                    const daysInMonth = new Date(year, month, 0).getDate();
+                    if (day > daysInMonth) return false;
+                
+                    date = new Date(year, month - 1, day);
+                
+                    if (isNaN(date.getTime())) return false;
+                
+                    // Convert to YYYYMMDD format
+                    const formattedDate = `${year}${String(month).padStart(2, '0')}${String(day).padStart(2, '0')}`;
+                
+                    // If the input was already in YYYYMMDD format, ensure it matches
+                    if (/^\d{8}$/.test(value)) {
+                      return formattedDate === value;
+                    }
+                
+                    return true;
+                
+                  } catch (e) {
+                    this.debug(`Error validating date: ${e}`);
+
+                    return false;
                   }
-                  return true;
-                },
+                }
               ),
           })
           .required(),

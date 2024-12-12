@@ -22,23 +22,23 @@ import com.squareup.moshi.JsonClass
 /**
  * 
  *
- * @param firstName Loop: 2100C and 2100D, Segment: MN1, Element: NM104, Notes: firstName 1-35 alphanumeric characters 
- * @param lastName Loop: 2100C and 2100D, Segment: MN1, Element: NM103, Notes: lastName 1-60 alphanumeric characters 
- * @param dateOfBirth Loop: 2100C and 2100D, Segment: DMG, Element: DMG02, Notes: date of birth in YYYYMMDD format 
+ * @param firstName The subscriber's first name. Required and must contain 1-35 alphanumeric characters.  Use this for accurate identification of the subscriber. 
+ * @param lastName The subscriber's last name. Required and must contain 1-60 alphanumeric characters.  This field is critical for matching subscriber records. 
+ * @param dateOfBirth The subscriber's date of birth, formatted as YYYYMMDD.  Required for validation and eligibility checks.  Example: '19800101' 
  */
 
 
 data class SubscriberDto (
 
-    /* Loop: 2100C and 2100D, Segment: MN1, Element: NM104, Notes: firstName 1-35 alphanumeric characters  */
+    /* The subscriber's first name. Required and must contain 1-35 alphanumeric characters.  Use this for accurate identification of the subscriber.  */
     @Json(name = "first_name")
     val firstName: kotlin.String,
 
-    /* Loop: 2100C and 2100D, Segment: MN1, Element: NM103, Notes: lastName 1-60 alphanumeric characters  */
+    /* The subscriber's last name. Required and must contain 1-60 alphanumeric characters.  This field is critical for matching subscriber records.  */
     @Json(name = "last_name")
     val lastName: kotlin.String,
 
-    /* Loop: 2100C and 2100D, Segment: DMG, Element: DMG02, Notes: date of birth in YYYYMMDD format  */
+    /* The subscriber's date of birth, formatted as YYYYMMDD.  Required for validation and eligibility checks.  Example: '19800101'  */
     @Json(name = "date_of_birth")
     val dateOfBirth: kotlin.String
 

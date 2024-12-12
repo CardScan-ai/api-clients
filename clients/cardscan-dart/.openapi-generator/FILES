@@ -76,6 +76,7 @@ doc/WebhookCardCompletedEvent.md
 doc/WebhookCardCompletedEventConfiguration.md
 doc/WebhookCardCreatedEvent.md
 doc/WebhookCardDeletedEvent.md
+doc/WebhookCardEnrichedEvent.md
 doc/WebhookCardErrorEvent.md
 doc/WebhookCardErrorEventError.md
 doc/WebhookEligibilityCompletedEvent.md
@@ -170,6 +171,7 @@ lib/src/model/webhook_card_completed_event.dart
 lib/src/model/webhook_card_completed_event_configuration.dart
 lib/src/model/webhook_card_created_event.dart
 lib/src/model/webhook_card_deleted_event.dart
+lib/src/model/webhook_card_enriched_event.dart
 lib/src/model/webhook_card_error_event.dart
 lib/src/model/webhook_card_error_event_error.dart
 lib/src/model/webhook_eligibility_completed_event.dart

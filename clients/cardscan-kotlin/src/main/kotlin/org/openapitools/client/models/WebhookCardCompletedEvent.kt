@@ -23,7 +23,7 @@ import com.squareup.moshi.JsonClass
 /**
  * Triggered after a successful insurance card scan
  *
- * @param cardId Unique identifier for the created card.
+ * @param cardId Unique identifier for the card.
  * @param configuration 
  * @param createdAt Timestamp for when the card was created.
  * @param deleted Flag indicating whether the card is deleted.
@@ -36,7 +36,7 @@ import com.squareup.moshi.JsonClass
 
 data class WebhookCardCompletedEvent (
 
-    /* Unique identifier for the created card. */
+    /* Unique identifier for the card. */
     @Json(name = "card_id")
     val cardId: java.util.UUID,
 

@@ -85,6 +85,7 @@ CardScanClient/Classes/OpenAPIs/Models/WebhookCardCompletedEvent.swift
 CardScanClient/Classes/OpenAPIs/Models/WebhookCardCompletedEventConfiguration.swift
 CardScanClient/Classes/OpenAPIs/Models/WebhookCardCreatedEvent.swift
 CardScanClient/Classes/OpenAPIs/Models/WebhookCardDeletedEvent.swift
+CardScanClient/Classes/OpenAPIs/Models/WebhookCardEnrichedEvent.swift
 CardScanClient/Classes/OpenAPIs/Models/WebhookCardErrorEvent.swift
 CardScanClient/Classes/OpenAPIs/Models/WebhookCardErrorEventError.swift
 CardScanClient/Classes/OpenAPIs/Models/WebhookEligibilityCompletedEvent.swift
@@ -176,6 +177,7 @@ docs/WebhookCardCompletedEvent.md
 docs/WebhookCardCompletedEventConfiguration.md
 docs/WebhookCardCreatedEvent.md
 docs/WebhookCardDeletedEvent.md
+docs/WebhookCardEnrichedEvent.md
 docs/WebhookCardErrorEvent.md
 docs/WebhookCardErrorEventError.md
 docs/WebhookEligibilityCompletedEvent.md

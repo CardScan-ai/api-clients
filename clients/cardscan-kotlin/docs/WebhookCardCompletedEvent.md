@@ -4,7 +4,7 @@
 ## Properties
 | Name | Type | Description | Notes |
 | ------------ | ------------- | ------------- | ------------- |
-| **cardId** | [**java.util.UUID**](java.util.UUID.md) | Unique identifier for the created card. |  |
+| **cardId** | [**java.util.UUID**](java.util.UUID.md) | Unique identifier for the card. |  |
 | **configuration** | [**WebhookCardCompletedEventConfiguration**](WebhookCardCompletedEventConfiguration.md) |  |  |
 | **createdAt** | [**java.time.OffsetDateTime**](java.time.OffsetDateTime.md) | Timestamp for when the card was created. |  |
 | **deleted** | **kotlin.Boolean** | Flag indicating whether the card is deleted. |  |

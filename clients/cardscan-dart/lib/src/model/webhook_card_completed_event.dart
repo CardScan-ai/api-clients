@@ -12,7 +12,7 @@ part 'webhook_card_completed_event.g.dart';
 /// Triggered after a successful insurance card scan
 ///
 /// Properties:
-/// * [cardId] - Unique identifier for the created card.
+/// * [cardId] - Unique identifier for the card.
 /// * [configuration] 
 /// * [createdAt] - Timestamp for when the card was created.
 /// * [deleted] - Flag indicating whether the card is deleted.
@@ -22,7 +22,7 @@ part 'webhook_card_completed_event.g.dart';
 /// * [userId] - Identifier for the user associated with the event.
 @BuiltValue()
 abstract class WebhookCardCompletedEvent implements Built<WebhookCardCompletedEvent, WebhookCardCompletedEventBuilder> {
-  /// Unique identifier for the created card.
+  /// Unique identifier for the card.
   @BuiltValueField(wireName: r'card_id')
   String get cardId;
 
