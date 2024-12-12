@@ -29,6 +29,7 @@ jobs:
         ssh-key: ${{ secrets.SSH_DEPLOY_KEY }}
     - uses: TriPSs/conventional-changelog-action@v3
       with:
+        github-token: ''
         version-file: clients/cardscan-ts/package.json
         version-path: version
         git-message: 'chore(release): bump typescript client to {version}'
@@ -45,6 +46,7 @@ jobs:
         ssh-key: ${{ secrets.SSH_DEPLOY_KEY }}
     - uses: TriPSs/conventional-changelog-action@v3
       with:
+        github-token: ''
         version-file: clients/cardscan-python/pyproject.toml
         version-path: tool.poetry.version
         git-message: 'chore(release): bump python client to {version}'
@@ -61,6 +63,7 @@ jobs:
         ssh-key: ${{ secrets.SSH_DEPLOY_KEY }}
     - uses: TriPSs/conventional-changelog-action@v3
       with:
+        github-token: ''
         version-file: clients/cardscan-dart/pubspec.yaml
         version-path: version
         git-message: 'chore(release): bump dart client to {version}'
@@ -77,6 +80,7 @@ jobs:
         ssh-key: ${{ secrets.SSH_DEPLOY_KEY }}
     - uses: TriPSs/conventional-changelog-action@v3
       with:
+        github-token: ''
         skip-version-file: true
         skip-commit: true
         tag-prefix: ''
