@@ -2,7 +2,7 @@
 /* eslint-disable */
 /**
  * CardScan API
- * The official documentation for the CardScan API.
+ * The official documentation for the CardScan API Clients.
  *
  * The version of the OpenAPI document: 1.0.0
  * 

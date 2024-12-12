@@ -20,29 +20,30 @@ import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
 
 /**
- * 
+ * A valid provider record must include either an `organization_name` or both a `first_name` and `last_name`.  The `npi` must always be exactly 10 numeric digits. 
  *
- * @param npi Loop: 2100B Segment: MN1, Element: NM109, Notes: NM108=XX Centers for Medicare and Medicaid Services National Provider Identifier 2-80 alphanumeric characters 
- * @param firstName Loop: 2100B Segment: MN1, Element: NM104, Notes: NM101=PR when providerType='payer' && payerId is present otherwise 1P for Provider, NM102=1 Person, firstName 1-35 alphanumeric characters 
- * @param lastName Loop: 2100B Segment: MN1, Element: NM103, Notes: NM101=PR when providerType='payer' && payerId is present otherwise 1P for Provider, NM102=1 Person, lastName 1-60 alphanumeric characters 
- * @param organizationName 
+ * @param npi The National Provider Identifier (NPI), assigned by the Centers for Medicare & Medicaid Services.  This identifier is always a 10-digit numeric value.  Use the [NPI Registry](https://npiregistry.cms.hhs.gov/search) to verify or look up NPI details. 
+ * @param firstName The provider's first name. Required if `organization_name` is not provided.  Must contain 1-35 alphanumeric characters.  
+ * @param lastName The provider's last name. Required if `organization_name` is not provided.  Must contain 1-60 alphanumeric characters. 
+ * @param organizationName The name of the provider's organization. Required if both `first_name` and `last_name` are not provided.  Must contain up to 60 characters. 
  */
 
 
 data class ProviderDto (
 
-    /* Loop: 2100B Segment: MN1, Element: NM109, Notes: NM108=XX Centers for Medicare and Medicaid Services National Provider Identifier 2-80 alphanumeric characters  */
+    /* The National Provider Identifier (NPI), assigned by the Centers for Medicare & Medicaid Services.  This identifier is always a 10-digit numeric value.  Use the [NPI Registry](https://npiregistry.cms.hhs.gov/search) to verify or look up NPI details.  */
     @Json(name = "npi")
     val npi: kotlin.String,
 
-    /* Loop: 2100B Segment: MN1, Element: NM104, Notes: NM101=PR when providerType='payer' && payerId is present otherwise 1P for Provider, NM102=1 Person, firstName 1-35 alphanumeric characters  */
+    /* The provider's first name. Required if `organization_name` is not provided.  Must contain 1-35 alphanumeric characters.   */
     @Json(name = "first_name")
     val firstName: kotlin.String? = null,
 
-    /* Loop: 2100B Segment: MN1, Element: NM103, Notes: NM101=PR when providerType='payer' && payerId is present otherwise 1P for Provider, NM102=1 Person, lastName 1-60 alphanumeric characters  */
+    /* The provider's last name. Required if `organization_name` is not provided.  Must contain 1-60 alphanumeric characters.  */
     @Json(name = "last_name")
     val lastName: kotlin.String? = null,
 
+    /* The name of the provider's organization. Required if both `first_name` and `last_name` are not provided.  Must contain up to 60 characters.  */
     @Json(name = "organization_name")
     val organizationName: kotlin.String? = null
 

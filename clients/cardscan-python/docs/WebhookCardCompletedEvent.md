@@ -5,7 +5,7 @@ Triggered after a successful insurance card scan
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**card_id** | **str** | Unique identifier for the created card. | 
+**card_id** | **str** | Unique identifier for the card. | 
 **configuration** | [**WebhookCardCompletedEventConfiguration**](WebhookCardCompletedEventConfiguration.md) |  | 
 **created_at** | **datetime** | Timestamp for when the card was created. | 
 **deleted** | **bool** | Flag indicating whether the card is deleted. | 

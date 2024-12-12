@@ -86,6 +86,7 @@ export 'package:cardscan_client/src/model/webhook_card_completed_event.dart';
 export 'package:cardscan_client/src/model/webhook_card_completed_event_configuration.dart';
 export 'package:cardscan_client/src/model/webhook_card_created_event.dart';
 export 'package:cardscan_client/src/model/webhook_card_deleted_event.dart';
+export 'package:cardscan_client/src/model/webhook_card_enriched_event.dart';
 export 'package:cardscan_client/src/model/webhook_card_error_event.dart';
 export 'package:cardscan_client/src/model/webhook_card_error_event_error.dart';
 export 'package:cardscan_client/src/model/webhook_eligibility_completed_event.dart';

@@ -13,7 +13,7 @@ import AnyCodable
 /** Triggered after a successful insurance card scan */
 public struct WebhookCardCompletedEvent: Codable, JSONEncodable, Hashable {
 
-    /** Unique identifier for the created card. */
+    /** Unique identifier for the card. */
     public var cardId: UUID
     public var configuration: WebhookCardCompletedEventConfiguration
     /** Timestamp for when the card was created. */

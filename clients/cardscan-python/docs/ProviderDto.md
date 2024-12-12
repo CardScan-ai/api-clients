@@ -1,13 +1,14 @@
 # ProviderDto
 
+A valid provider record must include either an `organization_name` or both a `first_name` and `last_name`.  The `npi` must always be exactly 10 numeric digits. 
 
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**first_name** | **str** | Loop: 2100B Segment: MN1, Element: NM104, Notes: NM101&#x3D;PR when providerType&#x3D;&#39;payer&#39; &amp;&amp; payerId is present otherwise 1P for Provider, NM102&#x3D;1 Person, firstName 1-35 alphanumeric characters  | [optional] 
-**last_name** | **str** | Loop: 2100B Segment: MN1, Element: NM103, Notes: NM101&#x3D;PR when providerType&#x3D;&#39;payer&#39; &amp;&amp; payerId is present otherwise 1P for Provider, NM102&#x3D;1 Person, lastName 1-60 alphanumeric characters  | [optional] 
-**npi** | **str** | Loop: 2100B Segment: MN1, Element: NM109, Notes: NM108&#x3D;XX Centers for Medicare and Medicaid Services National Provider Identifier 2-80 alphanumeric characters  | 
-**organization_name** | **str** |  | [optional] 
+**first_name** | **str** | The provider&#39;s first name. Required if &#x60;organization_name&#x60; is not provided.  Must contain 1-35 alphanumeric characters.   | [optional] 
+**last_name** | **str** | The provider&#39;s last name. Required if &#x60;organization_name&#x60; is not provided.  Must contain 1-60 alphanumeric characters.  | [optional] 
+**npi** | **str** | The National Provider Identifier (NPI), assigned by the Centers for Medicare &amp; Medicaid Services.  This identifier is always a 10-digit numeric value.  Use the [NPI Registry](https://npiregistry.cms.hhs.gov/search) to verify or look up NPI details.  | 
+**organization_name** | **str** | The name of the provider&#39;s organization. Required if both &#x60;first_name&#x60; and &#x60;last_name&#x60; are not provided.  Must contain up to 60 characters.  | [optional] 
 
 ## Example
 

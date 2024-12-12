@@ -2,7 +2,7 @@
 /* eslint-disable */
 /**
  * CardScan API
- * The official documentation for the CardScan API.
+ * The official documentation for the CardScan API Clients.
  *
  * The version of the OpenAPI document: 1.0.0
  * 
@@ -17,31 +17,31 @@
 import { KeysToCamelCase, KeysToSnakeCase } from "./";
 
 /**
- * 
+ * A valid provider record must include either an `organization_name` or both a `first_name` and `last_name`.  The `npi` must always be exactly 10 numeric digits. 
  * @export
  * @interface ProviderDto
  */
 export interface ProviderDtoOriginal {
     /**
-     * Loop: 2100B Segment: MN1, Element: NM104, Notes: NM101=PR when providerType=\'payer\' && payerId is present otherwise 1P for Provider, NM102=1 Person, firstName 1-35 alphanumeric characters 
+     * The provider\'s first name. Required if `organization_name` is not provided.  Must contain 1-35 alphanumeric characters.  
      * @type {string}
      * @memberof ProviderDto
      */
     'first_name'?: string;
     /**
-     * Loop: 2100B Segment: MN1, Element: NM103, Notes: NM101=PR when providerType=\'payer\' && payerId is present otherwise 1P for Provider, NM102=1 Person, lastName 1-60 alphanumeric characters 
+     * The provider\'s last name. Required if `organization_name` is not provided.  Must contain 1-60 alphanumeric characters. 
      * @type {string}
      * @memberof ProviderDto
      */
     'last_name'?: string;
     /**
-     * Loop: 2100B Segment: MN1, Element: NM109, Notes: NM108=XX Centers for Medicare and Medicaid Services National Provider Identifier 2-80 alphanumeric characters 
+     * The National Provider Identifier (NPI), assigned by the Centers for Medicare & Medicaid Services.  This identifier is always a 10-digit numeric value.  Use the [NPI Registry](https://npiregistry.cms.hhs.gov/search) to verify or look up NPI details. 
      * @type {string}
      * @memberof ProviderDto
      */
     'npi': string;
     /**
-     * 
+     * The name of the provider\'s organization. Required if both `first_name` and `last_name` are not provided.  Must contain up to 60 characters. 
      * @type {string}
      * @memberof ProviderDto
      */

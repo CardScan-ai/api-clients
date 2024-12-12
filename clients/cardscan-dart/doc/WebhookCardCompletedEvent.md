@@ -8,7 +8,7 @@ import 'package:cardscan_client/api.dart';
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**cardId** | **String** | Unique identifier for the created card. | 
+**cardId** | **String** | Unique identifier for the card. | 
 **configuration** | [**WebhookCardCompletedEventConfiguration**](WebhookCardCompletedEventConfiguration.md) |  | 
 **createdAt** | [**DateTime**](DateTime.md) | Timestamp for when the card was created. | 
 **deleted** | **bool** | Flag indicating whether the card is deleted. | 
