@@ -14,7 +14,7 @@ jobs:
     steps:
     - id: check
       run: |
-        if [[ "${{ github.event.pull_request.merged }}" == "true" && ${{ contains(github.event.pull_request.labels.*.name, 'client-generation') }} == "true" ]]; then
+        if [[ "${{ github.event.pull_request.merged }}" == "true" && ${{ contains(github.event.pull_request.labels.*.name, 'client-generation') }} == "true" || ${{ github.event_name }} == "workflow_dispatch" ]]; then
           echo "should_run=true" >> $GITHUB_OUTPUT
         else
           echo "should_run=false" >> $GITHUB_OUTPUT
