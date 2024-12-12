@@ -2100,7 +2100,7 @@ components:
         card_id:
           type: string
           format: uuid
-          description: Unique identifier for the created card.
+          description: Unique identifier for the card.
         configuration:
           type: object
           description: Configuration settings used during the card scan.
@@ -2302,6 +2302,66 @@ components:
         user_id:
           type: string
           description: Identifier for the user associated with the event.
+
+    WebhookCardEnrichedEvent:
+      type: object
+      title: Card Enriched Event
+      description: >-
+        Triggered after a successful insurance card scan. 
+        Provides enriched data extracted from the card, 
+        such as provider services phone numbers, claims addresses.
+      required:
+      - card_id
+      - configuration
+      - created_at
+      - deleted
+      - session_id
+      - type
+      - updated_at
+      - user_id
+      properties:
+        card_id:
+          type: string
+          format: uuid
+          description: Unique identifier for the card.
+        configuration:
+          type: object
+          description: Configuration settings used during the card scan.
+          properties:
+            enable_backside_scan:
+              type: boolean
+              description: Flag to enable backside scan.
+            enable_livescan:
+              type: boolean
+              description: Flag to enable live scanning.
+            enable_payer_match:
+              type: boolean
+              description: Flag to enable payer matching.
+          required:
+          - enable_backside_scan
+          - enable_livescan
+          - enable_payer_match
+        created_at:
+          type: string
+          format: date-time
+          description: Timestamp for when the card was created.
+        deleted:
+          type: boolean
+          description: Flag indicating whether the card is deleted.
+        session_id:
+          type: string
+          description: Unique identifier for the session.
+        type:
+          type: string
+          description: Type of event.
+        updated_at:
+          type: string
+          format: date-time
+          description: Timestamp for the last update to the card record.
+        user_id:
+          type: string
+          description: Identifier for the user associated with the event.
+
 
     WebhookEligibilityCreatedEvent:
       type: object
