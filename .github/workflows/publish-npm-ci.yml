@@ -3,7 +3,8 @@ name: Publish Package to npm
 on:
   workflow_dispatch:
   push:
-    tags: ts-v*
+    tags:
+      - 'ts-v*'
 
 jobs:
   publish-npm-package:

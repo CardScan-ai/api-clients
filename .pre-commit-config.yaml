@@ -17,6 +17,7 @@ repos:
   hooks:
   - id: pretty-format-yaml
     args: [--autofix, --indent, '2']
+    exclude: .github/
 - repo: https://github.com/python-openapi/openapi-spec-validator
   rev: master
   hooks:

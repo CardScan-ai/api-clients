@@ -3,7 +3,8 @@ name: Publish Package to PyPI
 on:
   workflow_dispatch:
   push:
-    tags: py-v*
+    tags:
+      - 'py-v*'
 
 jobs:
   publish-python-package:
