@@ -21,8 +21,6 @@
 #docs/*.md
 # Then explicitly reverse the ignore rule for a single file:
 #!docs/README.md
-lib/model/direct_upload_request.dart
-doc/DirectUploadRequest.md
 lib/model/create_card_request_backside.dart
 test/*
 pubspec.yaml
