@@ -1966,7 +1966,7 @@ class CardScanApi:
             _request_auth=_params.get('_request_auth'))
 
     @validate_arguments
-    def list_cards(self, limit : Optional[StrictInt] = None, cursor : Optional[StrictStr] = None, **kwargs) -> SearchCards200Response:  # noqa: E501
+    def list_cards(self, limit : Optional[conint(strict=True, le=200)] = None, cursor : Optional[StrictStr] = None, **kwargs) -> SearchCards200Response:  # noqa: E501
         """List Cards  # noqa: E501
 
         This method makes a synchronous HTTP request by default. To make an
@@ -1997,7 +1997,7 @@ class CardScanApi:
         return self.list_cards_with_http_info(limit, cursor, **kwargs)  # noqa: E501
 
     @validate_arguments
-    def list_cards_with_http_info(self, limit : Optional[StrictInt] = None, cursor : Optional[StrictStr] = None, **kwargs) -> ApiResponse:  # noqa: E501
+    def list_cards_with_http_info(self, limit : Optional[conint(strict=True, le=200)] = None, cursor : Optional[StrictStr] = None, **kwargs) -> ApiResponse:  # noqa: E501
         """List Cards  # noqa: E501
 
         This method makes a synchronous HTTP request by default. To make an
@@ -2114,7 +2114,7 @@ class CardScanApi:
             _request_auth=_params.get('_request_auth'))
 
     @validate_arguments
-    def list_eligibility(self, limit : Optional[StrictInt] = None, cursor : Optional[StrictStr] = None, **kwargs) -> ListEligibility200Response:  # noqa: E501
+    def list_eligibility(self, limit : Optional[conint(strict=True, le=30)] = None, cursor : Optional[StrictStr] = None, **kwargs) -> ListEligibility200Response:  # noqa: E501
         """List Eligibility  # noqa: E501
 
         This method makes a synchronous HTTP request by default. To make an
@@ -2145,7 +2145,7 @@ class CardScanApi:
         return self.list_eligibility_with_http_info(limit, cursor, **kwargs)  # noqa: E501
 
     @validate_arguments
-    def list_eligibility_with_http_info(self, limit : Optional[StrictInt] = None, cursor : Optional[StrictStr] = None, **kwargs) -> ApiResponse:  # noqa: E501
+    def list_eligibility_with_http_info(self, limit : Optional[conint(strict=True, le=30)] = None, cursor : Optional[StrictStr] = None, **kwargs) -> ApiResponse:  # noqa: E501
         """List Eligibility  # noqa: E501
 
         This method makes a synchronous HTTP request by default. To make an

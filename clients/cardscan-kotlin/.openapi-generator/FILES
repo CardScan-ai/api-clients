@@ -192,4 +192,3 @@ src/main/kotlin/org/openapitools/client/models/WebhookEligibilityDeletedEvent.kt
 src/main/kotlin/org/openapitools/client/models/WebhookEligibilityErrorEvent.kt
 src/main/kotlin/org/openapitools/client/models/WebhookEligibilityErrorEventError.kt
 src/main/kotlin/org/openapitools/client/models/WebsocketError.kt
-src/test/kotlin/org/openapitools/client/models/WebhookCardEnrichedEventTest.kt
