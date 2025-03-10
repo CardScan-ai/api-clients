@@ -27,6 +27,12 @@ jobs:
       env:
         NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
       working-directory: clients/cardscan-ts
+    - name: Invoke deployment hook
+      uses: distributhor/workflow-webhook@v3
+      with:
+        webhook_url: ${{ vars.WEBHOOK_URL_SDK_UPDATE }}
+        webhook_auth: ${{ secrets.WEBHOOK_SECRET_SDK_UPDATE }}
+        webhook_auth_type: "bearer"
     - name: Notify slack fail
       if: failure()
       env:
