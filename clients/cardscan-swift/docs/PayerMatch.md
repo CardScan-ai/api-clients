@@ -6,6 +6,7 @@ Name | Type | Description | Notes
 **cardscanPayerId** | **String** |  | [optional] 
 **cardscanPayerName** | **String** |  | [optional] 
 **score** | **String** |  | [optional] 
+**matches** | [PayerMatchMatchesInner] |  | [optional] 
 **changeHealthcare** | [CHCPayerRecord] |  | [optional] 
 **custom** | [CustomPayerRecord] |  | [optional] 
 **message** | **String** |  | [optional] 

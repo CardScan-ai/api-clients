@@ -19,6 +19,9 @@ import { CHCPayerRecord } from './chcpayer-record';
 // May contain unused imports in some cases
 // @ts-ignore
 import { CustomPayerRecord } from './custom-payer-record';
+// May contain unused imports in some cases
+// @ts-ignore
+import { PayerMatchMatchesInner } from './payer-match-matches-inner';
 
 import { KeysToCamelCase, KeysToSnakeCase } from "./";
 
@@ -46,6 +49,12 @@ export interface PayerMatchOriginal {
      * @memberof PayerMatch
      */
     'score'?: string | null;
+    /**
+     * 
+     * @type {Array<PayerMatchMatchesInner>}
+     * @memberof PayerMatch
+     */
+    'matches'?: Array<PayerMatchMatchesInner>;
     /**
      * 
      * @type {Array<CHCPayerRecord>}

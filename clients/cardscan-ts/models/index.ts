@@ -46,6 +46,8 @@ export * from './model-error';
 export * from './oop';
 export * from './payer-details';
 export * from './payer-match';
+export * from './payer-match-matches-inner';
+export * from './payer-match-matches-inner-metadata';
 export * from './phone-number-result-inner';
 export * from './phone-number-type';
 export * from './plan-details';

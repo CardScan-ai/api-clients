@@ -62,6 +62,8 @@ from cardscan_client.models.model_error import ModelError
 from cardscan_client.models.oop import OOP
 from cardscan_client.models.payer_details import PayerDetails
 from cardscan_client.models.payer_match import PayerMatch
+from cardscan_client.models.payer_match_matches_inner import PayerMatchMatchesInner
+from cardscan_client.models.payer_match_matches_inner_metadata import PayerMatchMatchesInnerMetadata
 from cardscan_client.models.phone_number_result_inner import PhoneNumberResultInner
 from cardscan_client.models.phone_number_type import PhoneNumberType
 from cardscan_client.models.plan_details import PlanDetails

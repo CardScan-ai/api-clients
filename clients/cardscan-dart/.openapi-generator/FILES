@@ -29,6 +29,7 @@ doc/CustomPayerRecord.md
 doc/Deductible.md
 doc/DirectUpload200Response.md
 doc/DirectUpload200ResponseMetadata.md
+doc/DirectUploadRequest.md
 doc/EligibilityApiResponse.md
 doc/EligibilityApiResponseEligibilityRequest.md
 doc/EligibilityApiResponseEligibilityRequestProvider.md
@@ -49,6 +50,8 @@ doc/ModelError.md
 doc/OOP.md
 doc/PayerDetails.md
 doc/PayerMatch.md
+doc/PayerMatchMatchesInner.md
+doc/PayerMatchMatchesInnerMetadata.md
 doc/PhoneNumberResultInner.md
 doc/PhoneNumberType.md
 doc/PlanDetails.md
@@ -144,6 +147,8 @@ lib/src/model/model_error.dart
 lib/src/model/oop.dart
 lib/src/model/payer_details.dart
 lib/src/model/payer_match.dart
+lib/src/model/payer_match_matches_inner.dart
+lib/src/model/payer_match_matches_inner_metadata.dart
 lib/src/model/phone_number_result_inner.dart
 lib/src/model/phone_number_type.dart
 lib/src/model/plan_details.dart

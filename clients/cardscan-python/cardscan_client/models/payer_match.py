@@ -22,6 +22,7 @@ from typing import List, Optional
 from pydantic import BaseModel, StrictStr, conlist
 from cardscan_client.models.chc_payer_record import CHCPayerRecord
 from cardscan_client.models.custom_payer_record import CustomPayerRecord
+from cardscan_client.models.payer_match_matches_inner import PayerMatchMatchesInner
 
 class PayerMatch(BaseModel):
     """
@@ -30,10 +31,11 @@ class PayerMatch(BaseModel):
     cardscan_payer_id: Optional[StrictStr] = None
     cardscan_payer_name: Optional[StrictStr] = None
     score: Optional[StrictStr] = None
+    matches: Optional[conlist(PayerMatchMatchesInner)] = None
     change_healthcare: Optional[conlist(CHCPayerRecord)] = None
     custom: Optional[conlist(CustomPayerRecord)] = None
     message: Optional[StrictStr] = None
-    __properties = ["cardscan_payer_id", "cardscan_payer_name", "score", "change_healthcare", "custom", "message"]
+    __properties = ["cardscan_payer_id", "cardscan_payer_name", "score", "matches", "change_healthcare", "custom", "message"]
 
     class Config:
         """Pydantic configuration"""
@@ -66,6 +68,13 @@ class PayerMatch(BaseModel):
                           exclude={
                           },
                           exclude_none=True)
+        # override the default output from pydantic by calling `to_dict()` of each item in matches (list)
+        _items = []
+        if self.matches:
+            for _item in self.matches:
+                if _item:
+                    _items.append(_item.to_dict())
+            _dict['matches'] = _items
         # override the default output from pydantic by calling `to_dict()` of each item in change_healthcare (list)
         _items = []
         if self.change_healthcare:
@@ -125,6 +134,7 @@ class PayerMatch(BaseModel):
             "cardscan_payer_id": obj.get("cardscan_payer_id"),
             "cardscan_payer_name": obj.get("cardscan_payer_name"),
             "score": obj.get("score"),
+            "matches": [PayerMatchMatchesInner.from_dict(_item) for _item in obj.get("matches")] if obj.get("matches") is not None else None,
             "change_healthcare": [CHCPayerRecord.from_dict(_item) for _item in obj.get("change_healthcare")] if obj.get("change_healthcare") is not None else None,
             "custom": [CustomPayerRecord.from_dict(_item) for _item in obj.get("custom")] if obj.get("custom") is not None else None,
             "message": obj.get("message")

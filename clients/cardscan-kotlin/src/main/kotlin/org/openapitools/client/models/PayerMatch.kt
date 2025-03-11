@@ -17,6 +17,7 @@ package org.openapitools.client.models
 
 import org.openapitools.client.models.CHCPayerRecord
 import org.openapitools.client.models.CustomPayerRecord
+import org.openapitools.client.models.PayerMatchMatchesInner
 
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
@@ -27,6 +28,7 @@ import com.squareup.moshi.JsonClass
  * @param cardscanPayerId 
  * @param cardscanPayerName 
  * @param score 
+ * @param matches 
  * @param changeHealthcare 
  * @param custom 
  * @param message 
@@ -43,6 +45,9 @@ data class PayerMatch (
 
     @Json(name = "score")
     val score: kotlin.String? = null,
+
+    @Json(name = "matches")
+    val matches: kotlin.collections.List<PayerMatchMatchesInner>? = null,
 
     @Json(name = "change_healthcare")
     val changeHealthcare: kotlin.collections.List<CHCPayerRecord>? = null,

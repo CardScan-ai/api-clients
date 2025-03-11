@@ -5,6 +5,7 @@
 // ignore_for_file: unused_element
 import 'package:cardscan_client/src/model/custom_payer_record.dart';
 import 'package:built_collection/built_collection.dart';
+import 'package:cardscan_client/src/model/payer_match_matches_inner.dart';
 import 'package:cardscan_client/src/model/chc_payer_record.dart';
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
@@ -17,6 +18,7 @@ part 'payer_match.g.dart';
 /// * [cardscanPayerId] 
 /// * [cardscanPayerName] 
 /// * [score] 
+/// * [matches] 
 /// * [changeHealthcare] 
 /// * [custom] 
 /// * [message] 
@@ -30,6 +32,9 @@ abstract class PayerMatch implements Built<PayerMatch, PayerMatchBuilder> {
 
   @BuiltValueField(wireName: r'score')
   String? get score;
+
+  @BuiltValueField(wireName: r'matches')
+  BuiltList<PayerMatchMatchesInner>? get matches;
 
   @BuiltValueField(wireName: r'change_healthcare')
   BuiltList<CHCPayerRecord>? get changeHealthcare;
@@ -82,6 +87,13 @@ class _$PayerMatchSerializer implements PrimitiveSerializer<PayerMatch> {
       yield serializers.serialize(
         object.score,
         specifiedType: const FullType.nullable(String),
+      );
+    }
+    if (object.matches != null) {
+      yield r'matches';
+      yield serializers.serialize(
+        object.matches,
+        specifiedType: const FullType(BuiltList, [FullType(PayerMatchMatchesInner)]),
       );
     }
     if (object.changeHealthcare != null) {
@@ -151,6 +163,13 @@ class _$PayerMatchSerializer implements PrimitiveSerializer<PayerMatch> {
           ) as String?;
           if (valueDes == null) continue;
           result.score = valueDes;
+          break;
+        case r'matches':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(BuiltList, [FullType(PayerMatchMatchesInner)]),
+          ) as BuiltList<PayerMatchMatchesInner>;
+          result.matches.replace(valueDes);
           break;
         case r'change_healthcare':
           final valueDes = serializers.deserialize(

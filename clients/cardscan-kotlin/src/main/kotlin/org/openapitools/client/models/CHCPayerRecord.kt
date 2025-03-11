@@ -25,6 +25,8 @@ import com.squareup.moshi.JsonClass
  * @param chcPayerId 
  * @param chcPayerName 
  * @param score 
+ * @param note 
+ * @param deprecated 
  */
 
 
@@ -37,7 +39,13 @@ data class CHCPayerRecord (
     val chcPayerName: kotlin.String? = null,
 
     @Json(name = "score")
-    val score: kotlin.String? = null
+    val score: kotlin.String? = null,
+
+    @Json(name = "note")
+    val note: kotlin.String? = null,
+
+    @Json(name = "deprecated")
+    val deprecated: kotlin.Boolean? = null
 
 ) {
 

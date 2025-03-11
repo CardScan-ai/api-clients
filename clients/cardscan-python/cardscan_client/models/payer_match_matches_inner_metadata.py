@@ -19,18 +19,15 @@ import json
 
 
 from typing import Optional
-from pydantic import BaseModel, StrictBool, StrictStr
+from pydantic import BaseModel, StrictStr
 
-class CHCPayerRecord(BaseModel):
+class PayerMatchMatchesInnerMetadata(BaseModel):
     """
-    CHCPayerRecord
+    PayerMatchMatchesInnerMetadata
     """
-    chc_payer_id: Optional[StrictStr] = None
-    chc_payer_name: Optional[StrictStr] = None
-    score: Optional[StrictStr] = None
-    note: Optional[StrictStr] = None
-    deprecated: Optional[StrictBool] = None
-    __properties = ["chc_payer_id", "chc_payer_name", "score", "note", "deprecated"]
+    last_updated: Optional[StrictStr] = None
+    source: Optional[StrictStr] = None
+    __properties = ["last_updated", "source"]
 
     class Config:
         """Pydantic configuration"""
@@ -53,8 +50,8 @@ class CHCPayerRecord(BaseModel):
         return json.dumps(self.to_dict(), default=self._json_serializer)
 
     @classmethod
-    def from_json(cls, json_str: str) -> CHCPayerRecord:
-        """Create an instance of CHCPayerRecord from a JSON string"""
+    def from_json(cls, json_str: str) -> PayerMatchMatchesInnerMetadata:
+        """Create an instance of PayerMatchMatchesInnerMetadata from a JSON string"""
         return cls.from_dict(json.loads(json_str))
 
     def to_dict(self):
@@ -66,20 +63,17 @@ class CHCPayerRecord(BaseModel):
         return _dict
 
     @classmethod
-    def from_dict(cls, obj: dict) -> CHCPayerRecord:
-        """Create an instance of CHCPayerRecord from a dict"""
+    def from_dict(cls, obj: dict) -> PayerMatchMatchesInnerMetadata:
+        """Create an instance of PayerMatchMatchesInnerMetadata from a dict"""
         if obj is None:
             return None
 
         if not isinstance(obj, dict):
-            return CHCPayerRecord.parse_obj(obj)
+            return PayerMatchMatchesInnerMetadata.parse_obj(obj)
 
-        _obj = CHCPayerRecord.parse_obj({
-            "chc_payer_id": obj.get("chc_payer_id"),
-            "chc_payer_name": obj.get("chc_payer_name"),
-            "score": obj.get("score"),
-            "note": obj.get("note"),
-            "deprecated": obj.get("deprecated")
+        _obj = PayerMatchMatchesInnerMetadata.parse_obj({
+            "last_updated": obj.get("last_updated"),
+            "source": obj.get("source")
         })
         return _obj
 

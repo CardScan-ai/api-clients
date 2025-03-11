@@ -11,6 +11,7 @@ Name | Type | Description | Notes
 **cardscanPayerId** | **String** |  | [optional] 
 **cardscanPayerName** | **String** |  | [optional] 
 **score** | **String** |  | [optional] 
+**matches** | [**BuiltList&lt;PayerMatchMatchesInner&gt;**](PayerMatchMatchesInner.md) |  | [optional] 
 **changeHealthcare** | [**BuiltList&lt;CHCPayerRecord&gt;**](CHCPayerRecord.md) |  | [optional] 
 **custom** | [**BuiltList&lt;CustomPayerRecord&gt;**](CustomPayerRecord.md) |  | [optional] 
 **message** | **String** |  | [optional] 

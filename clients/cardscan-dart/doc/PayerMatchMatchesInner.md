@@ -1,4 +1,4 @@
-# cardscan_client.model.CHCPayerRecord
+# cardscan_client.model.PayerMatchMatchesInner
 
 ## Load the model package
 ```dart
@@ -8,11 +8,13 @@ import 'package:cardscan_client/api.dart';
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**chcPayerId** | **String** |  | [optional] 
-**chcPayerName** | **String** |  | [optional] 
+**clearinghouse** | **String** |  | [optional] 
+**payerId** | **String** |  | [optional] 
+**payerName** | **String** |  | [optional] 
 **score** | **String** |  | [optional] 
-**note** | **String** |  | [optional] 
-**deprecated** | **bool** |  | [optional] 
+**cardscanPayerId** | **String** |  | [optional] 
+**transactionType** | **String** |  | [optional] 
+**metadata** | [**PayerMatchMatchesInnerMetadata**](PayerMatchMatchesInnerMetadata.md) |  | [optional] 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

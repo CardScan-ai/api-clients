@@ -14,6 +14,8 @@ part 'chc_payer_record.g.dart';
 /// * [chcPayerId] 
 /// * [chcPayerName] 
 /// * [score] 
+/// * [note] 
+/// * [deprecated] 
 @BuiltValue()
 abstract class CHCPayerRecord implements Built<CHCPayerRecord, CHCPayerRecordBuilder> {
   @BuiltValueField(wireName: r'chc_payer_id')
@@ -24,6 +26,12 @@ abstract class CHCPayerRecord implements Built<CHCPayerRecord, CHCPayerRecordBui
 
   @BuiltValueField(wireName: r'score')
   String? get score;
+
+  @BuiltValueField(wireName: r'note')
+  String? get note;
+
+  @BuiltValueField(wireName: r'deprecated')
+  bool? get deprecated;
 
   CHCPayerRecord._();
 
@@ -69,6 +77,20 @@ class _$CHCPayerRecordSerializer implements PrimitiveSerializer<CHCPayerRecord> 
         specifiedType: const FullType(String),
       );
     }
+    if (object.note != null) {
+      yield r'note';
+      yield serializers.serialize(
+        object.note,
+        specifiedType: const FullType(String),
+      );
+    }
+    if (object.deprecated != null) {
+      yield r'deprecated';
+      yield serializers.serialize(
+        object.deprecated,
+        specifiedType: const FullType(bool),
+      );
+    }
   }
 
   @override
@@ -112,6 +134,20 @@ class _$CHCPayerRecordSerializer implements PrimitiveSerializer<CHCPayerRecord> 
             specifiedType: const FullType(String),
           ) as String;
           result.score = valueDes;
+          break;
+        case r'note':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String;
+          result.note = valueDes;
+          break;
+        case r'deprecated':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(bool),
+          ) as bool;
+          result.deprecated = valueDes;
           break;
         default:
           unhandled.add(key);

@@ -114,6 +114,8 @@ All URIs are relative to *https://sandbox.cardscan.ai/v1*
  - [org.openapitools.client.models.OOP](docs/OOP.md)
  - [org.openapitools.client.models.PayerDetails](docs/PayerDetails.md)
  - [org.openapitools.client.models.PayerMatch](docs/PayerMatch.md)
+ - [org.openapitools.client.models.PayerMatchMatchesInner](docs/PayerMatchMatchesInner.md)
+ - [org.openapitools.client.models.PayerMatchMatchesInnerMetadata](docs/PayerMatchMatchesInnerMetadata.md)
  - [org.openapitools.client.models.PhoneNumberResultInner](docs/PhoneNumberResultInner.md)
  - [org.openapitools.client.models.PhoneNumberType](docs/PhoneNumberType.md)
  - [org.openapitools.client.models.PlanDetails](docs/PlanDetails.md)

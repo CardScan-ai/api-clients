@@ -58,6 +58,8 @@ CardScanClient/Classes/OpenAPIs/Models/ModelError.swift
 CardScanClient/Classes/OpenAPIs/Models/OOP.swift
 CardScanClient/Classes/OpenAPIs/Models/PayerDetails.swift
 CardScanClient/Classes/OpenAPIs/Models/PayerMatch.swift
+CardScanClient/Classes/OpenAPIs/Models/PayerMatchMatchesInner.swift
+CardScanClient/Classes/OpenAPIs/Models/PayerMatchMatchesInnerMetadata.swift
 CardScanClient/Classes/OpenAPIs/Models/PhoneNumberResultInner.swift
 CardScanClient/Classes/OpenAPIs/Models/PhoneNumberType.swift
 CardScanClient/Classes/OpenAPIs/Models/PlanDetails.swift
@@ -150,6 +152,8 @@ docs/ModelError.md
 docs/OOP.md
 docs/PayerDetails.md
 docs/PayerMatch.md
+docs/PayerMatchMatchesInner.md
+docs/PayerMatchMatchesInnerMetadata.md
 docs/PhoneNumberResultInner.md
 docs/PhoneNumberType.md
 docs/PlanDetails.md

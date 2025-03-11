@@ -40,6 +40,18 @@ export interface CHCPayerRecordOriginal {
      * @memberof CHCPayerRecord
      */
     'score'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof CHCPayerRecord
+     */
+    'note'?: string;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof CHCPayerRecord
+     */
+    'deprecated'?: boolean;
 }
 export type CHCPayerRecord = KeysToCamelCase<CHCPayerRecordOriginal>;
 export type CHCPayerRecordSnake = KeysToSnakeCase<CHCPayerRecordOriginal>;
