@@ -62,6 +62,8 @@ import 'package:cardscan_client/src/model/model_error.dart';
 import 'package:cardscan_client/src/model/oop.dart';
 import 'package:cardscan_client/src/model/payer_details.dart';
 import 'package:cardscan_client/src/model/payer_match.dart';
+import 'package:cardscan_client/src/model/payer_match_matches_inner.dart';
+import 'package:cardscan_client/src/model/payer_match_matches_inner_metadata.dart';
 import 'package:cardscan_client/src/model/phone_number_result_inner.dart';
 import 'package:cardscan_client/src/model/phone_number_type.dart';
 import 'package:cardscan_client/src/model/plan_details.dart';
@@ -150,6 +152,8 @@ part 'serializers.g.dart';
   OOP,
   PayerDetails,
   PayerMatch,
+  PayerMatchMatchesInner,
+  PayerMatchMatchesInnerMetadata,
   PhoneNumberResultInner,
   PhoneNumberType,
   PlanDetails,

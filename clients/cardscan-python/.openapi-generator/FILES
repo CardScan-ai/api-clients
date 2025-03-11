@@ -58,6 +58,8 @@ cardscan_client/models/model_error.py
 cardscan_client/models/oop.py
 cardscan_client/models/payer_details.py
 cardscan_client/models/payer_match.py
+cardscan_client/models/payer_match_matches_inner.py
+cardscan_client/models/payer_match_matches_inner_metadata.py
 cardscan_client/models/phone_number_result_inner.py
 cardscan_client/models/phone_number_type.py
 cardscan_client/models/plan_details.py
@@ -145,6 +147,8 @@ docs/ModelError.md
 docs/OOP.md
 docs/PayerDetails.md
 docs/PayerMatch.md
+docs/PayerMatchMatchesInner.md
+docs/PayerMatchMatchesInnerMetadata.md
 docs/PhoneNumberResultInner.md
 docs/PhoneNumberType.md
 docs/PlanDetails.md

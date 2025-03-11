@@ -53,6 +53,8 @@ models/match-score.ts
 models/model-error.ts
 models/oop.ts
 models/payer-details.ts
+models/payer-match-matches-inner-metadata.ts
+models/payer-match-matches-inner.ts
 models/payer-match.ts
 models/phone-number-result-inner.ts
 models/phone-number-type.ts

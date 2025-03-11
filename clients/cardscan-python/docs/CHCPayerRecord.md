@@ -7,6 +7,8 @@ Name | Type | Description | Notes
 **chc_payer_id** | **str** |  | [optional] 
 **chc_payer_name** | **str** |  | [optional] 
 **score** | **str** |  | [optional] 
+**note** | **str** |  | [optional] 
+**deprecated** | **bool** |  | [optional] 
 
 ## Example
 

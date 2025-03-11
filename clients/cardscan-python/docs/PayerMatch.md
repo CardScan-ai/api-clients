@@ -7,6 +7,7 @@ Name | Type | Description | Notes
 **cardscan_payer_id** | **str** |  | [optional] 
 **cardscan_payer_name** | **str** |  | [optional] 
 **score** | **str** |  | [optional] 
+**matches** | [**List[PayerMatchMatchesInner]**](PayerMatchMatchesInner.md) |  | [optional] 
 **change_healthcare** | [**List[CHCPayerRecord]**](CHCPayerRecord.md) |  | [optional] 
 **custom** | [**List[CustomPayerRecord]**](CustomPayerRecord.md) |  | [optional] 
 **message** | **str** |  | [optional] 

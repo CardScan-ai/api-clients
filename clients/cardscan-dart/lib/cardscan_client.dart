@@ -59,6 +59,8 @@ export 'package:cardscan_client/src/model/model_error.dart';
 export 'package:cardscan_client/src/model/oop.dart';
 export 'package:cardscan_client/src/model/payer_details.dart';
 export 'package:cardscan_client/src/model/payer_match.dart';
+export 'package:cardscan_client/src/model/payer_match_matches_inner.dart';
+export 'package:cardscan_client/src/model/payer_match_matches_inner_metadata.dart';
 export 'package:cardscan_client/src/model/phone_number_result_inner.dart';
 export 'package:cardscan_client/src/model/phone_number_type.dart';
 export 'package:cardscan_client/src/model/plan_details.dart';

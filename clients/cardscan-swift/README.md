@@ -94,6 +94,8 @@ Class | Method | HTTP request | Description
  - [OOP](docs/OOP.md)
  - [PayerDetails](docs/PayerDetails.md)
  - [PayerMatch](docs/PayerMatch.md)
+ - [PayerMatchMatchesInner](docs/PayerMatchMatchesInner.md)
+ - [PayerMatchMatchesInnerMetadata](docs/PayerMatchMatchesInnerMetadata.md)
  - [PhoneNumberResultInner](docs/PhoneNumberResultInner.md)
  - [PhoneNumberType](docs/PhoneNumberType.md)
  - [PlanDetails](docs/PlanDetails.md)

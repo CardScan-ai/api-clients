@@ -15,17 +15,23 @@ public struct CHCPayerRecord: Codable, JSONEncodable, Hashable {
     public var chcPayerId: String?
     public var chcPayerName: String?
     public var score: String?
+    public var note: String?
+    public var deprecated: Bool?
 
-    public init(chcPayerId: String? = nil, chcPayerName: String? = nil, score: String? = nil) {
+    public init(chcPayerId: String? = nil, chcPayerName: String? = nil, score: String? = nil, note: String? = nil, deprecated: Bool? = nil) {
         self.chcPayerId = chcPayerId
         self.chcPayerName = chcPayerName
         self.score = score
+        self.note = note
+        self.deprecated = deprecated
     }
 
     public enum CodingKeys: String, CodingKey, CaseIterable {
         case chcPayerId = "chc_payer_id"
         case chcPayerName = "chc_payer_name"
         case score
+        case note
+        case deprecated
     }
 
     // Encodable protocol methods
@@ -35,6 +41,8 @@ public struct CHCPayerRecord: Codable, JSONEncodable, Hashable {
         try container.encodeIfPresent(chcPayerId, forKey: .chcPayerId)
         try container.encodeIfPresent(chcPayerName, forKey: .chcPayerName)
         try container.encodeIfPresent(score, forKey: .score)
+        try container.encodeIfPresent(note, forKey: .note)
+        try container.encodeIfPresent(deprecated, forKey: .deprecated)
     }
 }
 
