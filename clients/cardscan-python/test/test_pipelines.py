@@ -35,14 +35,14 @@ def test_eligibility(cardscan):
             card_id=os.environ.get("TEST_CARD_ID"),
             eligibility=EligibilityInfo(
                 provider=ProviderDto(
-                    firstName="John",
-                    lastName="Doe",
+                    first_name="John",
+                    last_name="Doe",
                     npi="1952535221",
                 ),
                 subscriber=SubscriberDto(
-                    firstName="Jane",
-                    lastName="Doe",
-                    dateOfBirth="18020101",
+                    first_name="Jane",
+                    last_name="Doe",
+                    date_of_birth="18020101",
                 ),
             ),
         ),
@@ -69,14 +69,14 @@ def test_invalid_api_key():
                 card_id=os.environ.get("TEST_CARD_ID"),
                 eligibility=EligibilityInfo(
                     provider=ProviderDto(
-                        firstName="John",
-                        lastName="Doe",
+                        first_name="John",
+                        last_name="Doe",
                         npi="1952535221",
                     ),
                     subscriber=SubscriberDto(
-                        firstName="Jane",
-                        lastName="Doe",
-                        dateOfBirth="18020101",
+                        first_name="Jane",
+                        last_name="Doe",
+                        date_of_birth="18020101",
                     ),
                 ),
             ),

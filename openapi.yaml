@@ -719,72 +719,62 @@ components:
     ProviderDto:
       type: object
       required:
-        - npi
+      - npi
       description: >
-        A valid provider record must include either an `organization_name` or both a `first_name` and `last_name`. 
-        The `npi` must always be exactly 10 numeric digits.
+        A valid provider record must include either an `organization_name` or both a `first_name` and `last_name`.  The `npi` must always be exactly 10 numeric digits.
       properties:
         first_name:
           type: string
           maxLength: 35
           minLength: 1
           description: >
-            The provider's first name. Required if `organization_name` is not provided. 
-            Must contain 1-35 alphanumeric characters. 
+            The provider's first name. Required if `organization_name` is not provided.  Must contain 1-35 alphanumeric characters. 
 
         last_name:
           type: string
           maxLength: 60
           minLength: 1
           description: >
-            The provider's last name. Required if `organization_name` is not provided. 
-            Must contain 1-60 alphanumeric characters.
+            The provider's last name. Required if `organization_name` is not provided.  Must contain 1-60 alphanumeric characters.
 
         npi:
           type: string
-          pattern: '^\d{10}$'
+          pattern: ^\d{10}$
           description: >
-            The National Provider Identifier (NPI), assigned by the Centers for Medicare & Medicaid Services. 
-            This identifier is always a 10-digit numeric value. 
-            Use the [NPI Registry](https://npiregistry.cms.hhs.gov/search) to verify or look up NPI details.
+            The National Provider Identifier (NPI), assigned by the Centers for Medicare & Medicaid Services.  This identifier is always a 10-digit numeric value.  Use the [NPI Registry](https://npiregistry.cms.hhs.gov/search) to verify or look up NPI details.
 
         organization_name:
           type: string
           maxLength: 60
           minLength: 0
           description: >
-            The name of the provider's organization. Required if both `first_name` and `last_name` are not provided. 
-            Must contain up to 60 characters.
+            The name of the provider's organization. Required if both `first_name` and `last_name` are not provided.  Must contain up to 60 characters.
 
     SubscriberDto:
       type: object
       required:
-        - first_name
-        - last_name
-        - date_of_birth
+      - first_name
+      - last_name
+      - date_of_birth
       properties:
         first_name:
           type: string
           maxLength: 35
           minLength: 1
           description: >
-            The subscriber's first name. Required and must contain 1-35 alphanumeric characters. 
-            Use this for accurate identification of the subscriber.
+            The subscriber's first name. Required and must contain 1-35 alphanumeric characters.  Use this for accurate identification of the subscriber.
 
         last_name:
           type: string
           maxLength: 60
           minLength: 1
           description: >
-            The subscriber's last name. Required and must contain 1-60 alphanumeric characters. 
-            This field is critical for matching subscriber records.
+            The subscriber's last name. Required and must contain 1-60 alphanumeric characters.  This field is critical for matching subscriber records.
 
         date_of_birth:
           type: string
           description: >
-            The subscriber's date of birth, formatted as YYYYMMDD. 
-            Required for validation and eligibility checks. 
-            Example: '19800101'
+            The subscriber's date of birth, formatted as YYYYMMDD.  Required for validation and eligibility checks.  Example: '19800101'
 
     EligibilityInfo:
       type: object
@@ -1549,6 +1539,33 @@ components:
         score:
           type: string
           nullable: true
+        matches:
+          type: array
+          items:
+            type: object
+            properties:
+              clearinghouse:
+                type: string
+              payer_id:
+                type: string
+                nullable: true
+              payer_name:
+                type: string
+              score:
+                type: string
+              cardscan_payer_id:
+                type: string
+              transaction_type:
+                type: string
+                enum: [professional, institutional, dental, workerscomp]
+                nullable: true
+              metadata:
+                type: object
+                properties:
+                  last_updated:
+                    type: string
+                  source:
+                    type: string
         change_healthcare:
           type: array
           items:
@@ -1572,6 +1589,10 @@ components:
           type: string
         score:
           type: string
+        note:
+          type: string
+        deprecated:
+          type: boolean
 
     CustomPayerRecord:
       type: object
@@ -2309,9 +2330,7 @@ components:
       type: object
       title: Card Enriched Event
       description: >-
-        Triggered after a successful insurance card scan. 
-        Provides enriched data extracted from the card, 
-        such as provider services phone numbers, claims addresses.
+        Triggered after a successful insurance card scan.  Provides enriched data extracted from the card,  such as provider services phone numbers, claims addresses.
       required:
       - card_id
       - configuration
