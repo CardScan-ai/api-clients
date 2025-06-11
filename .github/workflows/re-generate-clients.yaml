@@ -57,7 +57,7 @@ jobs:
         config-file: openapi-generator-configs/ts.config.json
         template-dir: templates/typescript-template
         command-args: -o clients/cardscan-ts
-        generator-tag: v7.7.0
+        generator-tag: v7.13.0
 
     - name: Generate Python Client
       uses: openapi-generators/openapitools-generator-action@v1
@@ -67,7 +67,7 @@ jobs:
         config-file: openapi-generator-configs/python.config.json
         template-dir: templates/python-template
         command-args: -o clients/cardscan-python
-        generator-tag: v7.7.0
+        generator-tag: v7.13.0
 
     - name: Generate Swift Client
       uses: openapi-generators/openapitools-generator-action@v1
@@ -76,7 +76,7 @@ jobs:
         openapi-file: openapi.yaml
         config-file: openapi-generator-configs/swift.config.json
         command-args: -o clients/cardscan-swift
-        generator-tag: v7.7.0
+        generator-tag: v7.13.0
 
     - name: Generate Dart Client
       uses: openapi-generators/openapitools-generator-action@v1
@@ -84,8 +84,9 @@ jobs:
         generator: dart-dio
         openapi-file: openapi.yaml
         config-file: openapi-generator-configs/dart.config.json
+        template-dir: templates/dart-template
         command-args: -o clients/cardscan-dart
-        generator-tag: v7.7.0
+        generator-tag: v7.13.0
 
     - name: Generate Kotlin Client
       uses: openapi-generators/openapitools-generator-action@v1
@@ -93,7 +94,7 @@ jobs:
         generator: kotlin
         openapi-file: openapi.yaml
         command-args: -o clients/cardscan-kotlin
-        generator-tag: v7.7.0
+        generator-tag: v7.13.0
 
     - name: Create Pull Request
       if: ${{ github.event_name == 'push' && needs.check_changes.outputs.changes == 'true' }}
@@ -102,7 +103,7 @@ jobs:
         title: Re-generate API clients
         reviewers: nickls,zcyllainowu
         assignees: nickls,zcyllainowu
-        commit-message: 'chore: re-generate API clients'
+        commit-message: "chore: re-generate API clients"
         delete-branch: true
         body: |
           This PR updates the generated API clients based on changes to:
