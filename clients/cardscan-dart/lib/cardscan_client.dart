@@ -5,6 +5,7 @@
 export 'package:cardscan_client/src/api.dart';
 export 'package:cardscan_client/src/auth/api_key_auth.dart';
 export 'package:cardscan_client/src/auth/basic_auth.dart';
+export 'package:cardscan_client/src/auth/bearer_auth.dart';
 export 'package:cardscan_client/src/auth/oauth.dart';
 export 'package:cardscan_client/src/serializers.dart';
 export 'package:cardscan_client/src/model/date.dart';
@@ -97,3 +98,4 @@ export 'package:cardscan_client/src/model/webhook_eligibility_deleted_event.dart
 export 'package:cardscan_client/src/model/webhook_eligibility_error_event.dart';
 export 'package:cardscan_client/src/model/webhook_eligibility_error_event_error.dart';
 export 'package:cardscan_client/src/model/websocket_error.dart';
+
