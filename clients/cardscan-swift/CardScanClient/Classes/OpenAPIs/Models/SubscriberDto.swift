@@ -12,8 +12,8 @@ import AnyCodable
 
 public struct SubscriberDto: Codable, JSONEncodable, Hashable {
 
-    static let firstNameRule = StringRule(minLength: 1, maxLength: 35, pattern: nil)
-    static let lastNameRule = StringRule(minLength: 1, maxLength: 60, pattern: nil)
+    public static let firstNameRule = StringRule(minLength: 1, maxLength: 35, pattern: nil)
+    public static let lastNameRule = StringRule(minLength: 1, maxLength: 60, pattern: nil)
     /** The subscriber's first name. Required and must contain 1-35 alphanumeric characters.  Use this for accurate identification of the subscriber.  */
     public var firstName: String
     /** The subscriber's last name. Required and must contain 1-60 alphanumeric characters.  This field is critical for matching subscriber records.  */

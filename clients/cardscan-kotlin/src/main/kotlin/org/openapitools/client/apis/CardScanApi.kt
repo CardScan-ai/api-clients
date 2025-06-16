@@ -16,7 +16,7 @@
 package org.openapitools.client.apis
 
 import java.io.IOException
-import okhttp3.OkHttpClient
+import okhttp3.Call
 import okhttp3.HttpUrl
 
 import org.openapitools.client.models.ApiErrorResponse
@@ -54,7 +54,7 @@ import org.openapitools.client.infrastructure.ResponseType
 import org.openapitools.client.infrastructure.Success
 import org.openapitools.client.infrastructure.toMultiValue
 
-class CardScanApi(basePath: kotlin.String = defaultBasePath, client: OkHttpClient = ApiClient.defaultClient) : ApiClient(basePath, client) {
+class CardScanApi(basePath: kotlin.String = defaultBasePath, client: Call.Factory = ApiClient.defaultClient) : ApiClient(basePath, client) {
     companion object {
         @JvmStatic
         val defaultBasePath: String by lazy {
@@ -63,6 +63,7 @@ class CardScanApi(basePath: kotlin.String = defaultBasePath, client: OkHttpClien
     }
 
     /**
+     * POST /cards/{card_id}/performance
      * Card - Send performance data
      * 
      * @param cardId 
@@ -95,6 +96,7 @@ class CardScanApi(basePath: kotlin.String = defaultBasePath, client: OkHttpClien
     }
 
     /**
+     * POST /cards/{card_id}/performance
      * Card - Send performance data
      * 
      * @param cardId 
@@ -138,6 +140,7 @@ class CardScanApi(basePath: kotlin.String = defaultBasePath, client: OkHttpClien
     }
 
     /**
+     * POST /cards
      * Creates a new card
      * 
      * @param createCardRequest  (optional)
@@ -169,6 +172,7 @@ class CardScanApi(basePath: kotlin.String = defaultBasePath, client: OkHttpClien
     }
 
     /**
+     * POST /cards
      * Creates a new card
      * 
      * @param createCardRequest  (optional)
@@ -210,6 +214,7 @@ class CardScanApi(basePath: kotlin.String = defaultBasePath, client: OkHttpClien
     }
 
     /**
+     * POST /eligibility
      * Create Eligibility Record
      * 
      * @param createEligibilityRequest  (optional)
@@ -241,6 +246,7 @@ class CardScanApi(basePath: kotlin.String = defaultBasePath, client: OkHttpClien
     }
 
     /**
+     * POST /eligibility
      * Create Eligibility Record
      * 
      * @param createEligibilityRequest  (optional)
@@ -282,6 +288,7 @@ class CardScanApi(basePath: kotlin.String = defaultBasePath, client: OkHttpClien
     }
 
     /**
+     * DELETE /cards/{card_id}
      * Delete Card
      * 
      * @param cardId The ID of the card
@@ -312,6 +319,7 @@ class CardScanApi(basePath: kotlin.String = defaultBasePath, client: OkHttpClien
     }
 
     /**
+     * DELETE /cards/{card_id}
      * Delete Card
      * 
      * @param cardId The ID of the card
@@ -351,6 +359,7 @@ class CardScanApi(basePath: kotlin.String = defaultBasePath, client: OkHttpClien
     }
 
     /**
+     * POST /cards/{card_id}/upload
      * Direct Upload
      * 
      * @param cardId 
@@ -385,6 +394,7 @@ class CardScanApi(basePath: kotlin.String = defaultBasePath, client: OkHttpClien
     }
 
     /**
+     * POST /cards/{card_id}/upload
      * Direct Upload
      * 
      * @param cardId 
@@ -435,6 +445,7 @@ class CardScanApi(basePath: kotlin.String = defaultBasePath, client: OkHttpClien
     }
 
     /**
+     * POST /cards/{card_id}/generate-upload-url
      * Card - Generate Upload URL
      * 
      * @param cardId 
@@ -468,6 +479,7 @@ class CardScanApi(basePath: kotlin.String = defaultBasePath, client: OkHttpClien
     }
 
     /**
+     * POST /cards/{card_id}/generate-upload-url
      * Card - Generate Upload URL
      * 
      * @param cardId 
@@ -518,6 +530,7 @@ class CardScanApi(basePath: kotlin.String = defaultBasePath, client: OkHttpClien
     }
 
     /**
+     * GET /generate-magic-link
      * Generate Magic Link
      * 
      * @return GenerateMagicLink200Response
@@ -548,6 +561,7 @@ class CardScanApi(basePath: kotlin.String = defaultBasePath, client: OkHttpClien
     }
 
     /**
+     * GET /generate-magic-link
      * Generate Magic Link
      * 
      * @return ApiResponse<GenerateMagicLink200Response?>
@@ -586,6 +600,7 @@ class CardScanApi(basePath: kotlin.String = defaultBasePath, client: OkHttpClien
     }
 
     /**
+     * GET /generate-upload-url
      * Generate an upload URL
      * 
      * @param expiration 
@@ -617,6 +632,7 @@ class CardScanApi(basePath: kotlin.String = defaultBasePath, client: OkHttpClien
     }
 
     /**
+     * GET /generate-upload-url
      * Generate an upload URL
      * 
      * @param expiration 
@@ -660,6 +676,7 @@ class CardScanApi(basePath: kotlin.String = defaultBasePath, client: OkHttpClien
     }
 
     /**
+     * GET /access-token
      * Access Token
      * 
      * @param userId The ID of the user (optional)
@@ -691,6 +708,7 @@ class CardScanApi(basePath: kotlin.String = defaultBasePath, client: OkHttpClien
     }
 
     /**
+     * GET /access-token
      * Access Token
      * 
      * @param userId The ID of the user (optional)
@@ -736,6 +754,7 @@ class CardScanApi(basePath: kotlin.String = defaultBasePath, client: OkHttpClien
     }
 
     /**
+     * GET /cards/{card_id}
      * Get Card by ID
      * 
      * @param cardId The ID of the card
@@ -767,6 +786,7 @@ class CardScanApi(basePath: kotlin.String = defaultBasePath, client: OkHttpClien
     }
 
     /**
+     * GET /cards/{card_id}
      * Get Card by ID
      * 
      * @param cardId The ID of the card
@@ -807,6 +827,7 @@ class CardScanApi(basePath: kotlin.String = defaultBasePath, client: OkHttpClien
     }
 
     /**
+     * GET /eligibility/{eligibility_id}
      * Get Eligibility
      * 
      * @param eligibilityId 
@@ -838,6 +859,7 @@ class CardScanApi(basePath: kotlin.String = defaultBasePath, client: OkHttpClien
     }
 
     /**
+     * GET /eligibility/{eligibility_id}
      * Get Eligibility
      * 
      * @param eligibilityId 
@@ -878,6 +900,7 @@ class CardScanApi(basePath: kotlin.String = defaultBasePath, client: OkHttpClien
     }
 
     /**
+     * GET /cards
      * List Cards
      * 
      * @param limit  (optional)
@@ -910,6 +933,7 @@ class CardScanApi(basePath: kotlin.String = defaultBasePath, client: OkHttpClien
     }
 
     /**
+     * GET /cards
      * List Cards
      * 
      * @param limit  (optional)
@@ -960,6 +984,7 @@ class CardScanApi(basePath: kotlin.String = defaultBasePath, client: OkHttpClien
     }
 
     /**
+     * GET /eligibility
      * List Eligibility
      * 
      * @param limit  (optional)
@@ -992,6 +1017,7 @@ class CardScanApi(basePath: kotlin.String = defaultBasePath, client: OkHttpClien
     }
 
     /**
+     * GET /eligibility
      * List Eligibility
      * 
      * @param limit  (optional)
@@ -1042,6 +1068,7 @@ class CardScanApi(basePath: kotlin.String = defaultBasePath, client: OkHttpClien
     }
 
     /**
+     * GET /cards/search
      * Search Cards (200) OK
      * 
      * @param query 
@@ -1075,6 +1102,7 @@ class CardScanApi(basePath: kotlin.String = defaultBasePath, client: OkHttpClien
     }
 
     /**
+     * GET /cards/search
      * Search Cards (200) OK
      * 
      * @param query 
@@ -1128,6 +1156,7 @@ class CardScanApi(basePath: kotlin.String = defaultBasePath, client: OkHttpClien
     }
 
     /**
+     * POST /scans/{scan_id}/metadata
      * Set Scan Metadata
      * 
      * @param scanId 
@@ -1159,6 +1188,7 @@ class CardScanApi(basePath: kotlin.String = defaultBasePath, client: OkHttpClien
     }
 
     /**
+     * POST /scans/{scan_id}/metadata
      * Set Scan Metadata
      * 
      * @param scanId 
@@ -1201,6 +1231,7 @@ class CardScanApi(basePath: kotlin.String = defaultBasePath, client: OkHttpClien
     }
 
     /**
+     * GET /validate-magic-link
      * Validate Magic Link
      * 
      * @param token 
@@ -1232,6 +1263,7 @@ class CardScanApi(basePath: kotlin.String = defaultBasePath, client: OkHttpClien
     }
 
     /**
+     * GET /validate-magic-link
      * Validate Magic Link
      * 
      * @param token 

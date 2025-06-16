@@ -12,11 +12,11 @@ import AnyCodable
 
 public struct Address: Codable, JSONEncodable, Hashable {
 
-    static let address1Rule = StringRule(minLength: 0, maxLength: 55, pattern: nil)
-    static let address2Rule = StringRule(minLength: 0, maxLength: 55, pattern: nil)
-    static let cityRule = StringRule(minLength: 0, maxLength: 30, pattern: nil)
-    static let stateRule = StringRule(minLength: 0, maxLength: 2, pattern: nil)
-    static let postalCodeRule = StringRule(minLength: 0, maxLength: 15, pattern: nil)
+    public static let address1Rule = StringRule(minLength: 0, maxLength: 55, pattern: nil)
+    public static let address2Rule = StringRule(minLength: 0, maxLength: 55, pattern: nil)
+    public static let cityRule = StringRule(minLength: 0, maxLength: 30, pattern: nil)
+    public static let stateRule = StringRule(minLength: 0, maxLength: 2, pattern: nil)
+    public static let postalCodeRule = StringRule(minLength: 0, maxLength: 15, pattern: nil)
     public var address1: String?
     public var address2: String?
     public var city: String?

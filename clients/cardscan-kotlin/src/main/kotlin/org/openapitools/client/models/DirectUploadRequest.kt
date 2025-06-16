@@ -25,7 +25,7 @@ import com.squareup.moshi.JsonClass
  */
 
 
-data class DirectUploadRequest (
+class DirectUploadRequest (
 
 ) {
 
