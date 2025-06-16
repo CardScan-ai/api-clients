@@ -13,10 +13,10 @@ import AnyCodable
 /** A valid provider record must include either an &#x60;organization_name&#x60; or both a &#x60;first_name&#x60; and &#x60;last_name&#x60;.  The &#x60;npi&#x60; must always be exactly 10 numeric digits.  */
 public struct ProviderDto: Codable, JSONEncodable, Hashable {
 
-    static let firstNameRule = StringRule(minLength: 1, maxLength: 35, pattern: nil)
-    static let lastNameRule = StringRule(minLength: 1, maxLength: 60, pattern: nil)
-    static let npiRule = StringRule(minLength: nil, maxLength: nil, pattern: "/^\\d{10}$/")
-    static let organizationNameRule = StringRule(minLength: 0, maxLength: 60, pattern: nil)
+    public static let firstNameRule = StringRule(minLength: 1, maxLength: 35, pattern: nil)
+    public static let lastNameRule = StringRule(minLength: 1, maxLength: 60, pattern: nil)
+    public static let npiRule = StringRule(minLength: nil, maxLength: nil, pattern: "/^\\d{10}$/")
+    public static let organizationNameRule = StringRule(minLength: 0, maxLength: 60, pattern: nil)
     /** The provider's first name. Required if `organization_name` is not provided.  Must contain 1-35 alphanumeric characters.   */
     public var firstName: String?
     /** The provider's last name. Required if `organization_name` is not provided.  Must contain 1-60 alphanumeric characters.  */
