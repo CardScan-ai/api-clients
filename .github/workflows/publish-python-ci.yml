@@ -2,26 +2,25 @@ name: Publish Package to PyPI
 
 on:
   workflow_dispatch:
-  push:
-    tags:
-      - 'py-v*'
+  repository_dispatch:
+    types: [publish-python]
 
 jobs:
   publish-python-package:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v4
-    - name: Build and publish to pypi
-      uses: JRubics/poetry-publish@v2.0
-      with:
-        pypi_token: ${{ secrets.PYPI_TOKEN }}
-        package_directory: clients/cardscan-python
-    - name: Notify slack fail
-      if: failure()
-      env:
-        SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
-      uses: voxmedia/github-action-slack-notify-build@v1
-      with:
-        channel: devops-monitoring
-        status: FAILED
-        color: danger
+      - uses: actions/checkout@v4
+      - name: Build and publish to pypi
+        uses: JRubics/poetry-publish@v2.0
+        with:
+          pypi_token: ${{ secrets.PYPI_TOKEN }}
+          package_directory: clients/cardscan-python
+      - name: Notify slack fail
+        if: failure()
+        env:
+          SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
+        uses: voxmedia/github-action-slack-notify-build@v1
+        with:
+          channel: devops-monitoring
+          status: FAILED
+          color: danger
