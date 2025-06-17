@@ -5,6 +5,10 @@ on:
   push:
     tags:
       - 'dart-v*'
+  workflow_run:
+    workflows: ["Bump Versions"]
+    types: [completed]
+    branches: [main]
 
 jobs:
   publish-dart-package:
@@ -14,7 +18,55 @@ jobs:
         working-directory: clients/cardscan-dart
     steps:
     - uses: actions/checkout@v4
+      with:
+        token: ${{ secrets.GITHUB_TOKEN }}
+        fetch-depth: 0
     - uses: dart-lang/setup-dart@v1
+    
+    - name: Get version from tag or latest
+      id: get_version
+      run: |
+        if [[ "${{ github.event_name }}" == "push" ]]; then
+          VERSION=${GITHUB_REF#refs/tags/dart-v}
+        else
+          VERSION=$(git describe --tags --match "dart-v*" --abbrev=0 2>/dev/null | sed 's/dart-v//' || echo "0.0.1")
+        fi
+        echo "version=$VERSION" >> $GITHUB_OUTPUT
+        echo "Version: $VERSION"
+    
+    - name: Update CHANGELOG.md
+      run: |
+        VERSION="${{ steps.get_version.outputs.version }}"
+        DATE=$(date +"%Y-%m-%d")
+        
+        # Check if this version already exists in changelog
+        if grep -q "## \[$VERSION\]" CHANGELOG.md; then
+          echo "Version $VERSION already exists in CHANGELOG.md, skipping update"
+        else
+          # Create new version entry
+          NEW_ENTRY="## [$VERSION] - $DATE\n\n### Added\n- Release version $VERSION\n\n"
+          
+          # Insert new entry after "## [Unreleased]" line
+          awk -v new_entry="$NEW_ENTRY" '
+            /^## \[Unreleased\]/ {
+              print $0
+              print ""
+              printf "%s", new_entry
+              next
+            }
+            { print }
+          ' CHANGELOG.md > temp_changelog.md
+          
+          mv temp_changelog.md CHANGELOG.md
+          
+          # Commit the changelog update
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add CHANGELOG.md
+          git commit -m "Update CHANGELOG.md for version $VERSION" || echo "No changes to commit"
+          git push || echo "No changes to push"
+        fi
+    
     - name: Install dependencies
       run: dart pub get
     - name: Publish to pub.dev
