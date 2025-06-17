@@ -186,3 +186,4 @@ lib/src/model/webhook_eligibility_error_event.dart
 lib/src/model/webhook_eligibility_error_event_error.dart
 lib/src/model/websocket_error.dart
 lib/src/serializers.dart
+pubspec.yaml

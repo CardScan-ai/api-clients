@@ -14,6 +14,7 @@ import 'package:built_value/iso_8601_date_time_serializer.dart';
 import 'package:cardscan_client/src/date_serializer.dart';
 import 'package:cardscan_client/src/model/date.dart';
 
+import 'package:cardscan_client/src/api_util.dart';
 import 'package:cardscan_client/src/model/address.dart';
 import 'package:cardscan_client/src/model/address_result_inner.dart';
 import 'package:cardscan_client/src/model/address_type.dart';
@@ -195,8 +196,11 @@ Serializers serializers = (_$serializers.toBuilder()
       ..add(const OneOfSerializer())
       ..add(const AnyOfSerializer())
       ..add(const DateSerializer())
-      ..add(Iso8601DateTimeSerializer()))
-    .build();
+      ..add(Iso8601DateTimeSerializer())
+      ..add(FlexibleNumSerializer())
+      ..add(FlexibleDoubleSerializer())  
+      ..add(FlexibleIntSerializer())
+    ).build();
 
 Serializers standardSerializers =
     (serializers.toBuilder()..addPlugin(StandardJsonPlugin())).build();
