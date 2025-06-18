@@ -1,9 +1,9 @@
 name: Publish Package to pub.dev
 
 on:
-  workflow_dispatch:
-  repository_dispatch:
-    types: [publish-dart]
+  push:
+    tags:
+      - "dart-v*"
 
 jobs:
   publish-dart-package:
