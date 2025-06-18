@@ -422,7 +422,7 @@ void main() {
         )!;
         
         expect(result.eligibilityId, equals('93376802-779b-42ad-bfa3-d6e99d5a02c9'));
-        expect(result.state, equals(EligibilityApiResponseState.processing));
+        expect(result.state, equals(EligibilityApiResponseStateEnum.processing));
         expect(result.cardId, equals('529e865d-78c2-4f9e-aa9a-addedf642c88'));
         
         print('✅ Eligibility response fixture test passed');

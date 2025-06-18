@@ -174,8 +174,8 @@ class SimpleSerializationTest {
         assert(cardResponse.images!!.front != null) { "Front image should be present" }
         assert(cardResponse.images!!.back != null) { "Back image should be present" }
         
-        val frontUrl = cardResponse.images!!.front!!.url ?: ""
-        val backUrl = cardResponse.images!!.back!!.url ?: ""
+        val frontUrl = cardResponse.images!!.front!!.url.toString()
+        val backUrl = cardResponse.images!!.back!!.url.toString()
         assert(frontUrl.contains("https://")) { "Front URL should be HTTPS" }
         assert(backUrl.contains("https://")) { "Back URL should be HTTPS" }
         assert(frontUrl.contains("cardscan-sandbox-uploads")) { "Front URL should contain sandbox bucket" }

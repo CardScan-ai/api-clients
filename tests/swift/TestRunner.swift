@@ -5,15 +5,26 @@ import Foundation
 // Load fixture files from shared test directory
 func loadFixture(_ filename: String) throws -> String {
     let currentDir = FileManager.default.currentDirectoryPath
-    let fixturePath = "\(currentDir)/../../tests/fixtures/api_responses/\(filename)"
     
-    guard FileManager.default.fileExists(atPath: fixturePath) else {
-        throw NSError(domain: "TestError", code: 1, userInfo: [
-            NSLocalizedDescriptionKey: "Fixture file not found: \(fixturePath)"
-        ])
+    // Try multiple possible paths for different working directories
+    let possiblePaths = [
+        "\(currentDir)/../../tests/fixtures/api_responses/\(filename)",           // From tests/ directory
+        "\(currentDir)/../tests/fixtures/api_responses/\(filename)",              // From api-clients/ directory  
+        "\(currentDir)/tests/fixtures/api_responses/\(filename)",                 // From repo root
+        "\(currentDir)/../../../tests/fixtures/api_responses/\(filename)"        // From clients/cardscan-kotlin/ style
+    ]
+    
+    for fixturePath in possiblePaths {
+        if FileManager.default.fileExists(atPath: fixturePath) {
+            return try String(contentsOfFile: fixturePath, encoding: .utf8)
+        }
     }
     
-    return try String(contentsOfFile: fixturePath, encoding: .utf8)
+    // If none found, throw error with all attempted paths
+    let attemptedPaths = possiblePaths.joined(separator: "\n  - ")
+    throw NSError(domain: "TestError", code: 1, userInfo: [
+        NSLocalizedDescriptionKey: "Fixture file not found. Attempted paths:\n  - \(attemptedPaths)"
+    ])
 }
 
 // Simple Swift test runner for CardScan API client serialization

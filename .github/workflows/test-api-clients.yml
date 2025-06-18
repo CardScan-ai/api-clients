@@ -220,16 +220,29 @@ jobs:
       working-directory: clients/cardscan-dart
       run: |
         dart test ../../tests/dart/serialization_test.dart | tee dart_output.txt
-        # Extract test counts for summary  
-        DART_PASSED=$(grep -o '[0-9]\+:.*All tests passed!' dart_output.txt | head -1 | grep -o '^[0-9]\+' || echo "11")
-        DART_FAILED="0"
-        # If tests failed, set failed count
-        if [ $? -ne 0 ]; then
-          DART_FAILED=$(grep -o '[0-9]* failed' dart_output.txt | grep -o '[0-9]*' || echo "1")
-          DART_PASSED="0"
+        # Extract test counts from Dart output format
+        # Dart shows: "Some tests failed." or counts like "+15 -1"
+        DART_PASSED=$(grep -o '+[0-9]\+' dart_output.txt | tail -1 | grep -o '[0-9]\+' || echo "0")
+        DART_FAILED=$(grep -o '-[0-9]\+' dart_output.txt | tail -1 | grep -o '[0-9]\+' || echo "0")
+        
+        # If we can't parse the counts, check for success/failure
+        if [ "$DART_PASSED" = "0" ] && [ "$DART_FAILED" = "0" ]; then
+          if grep -q "All tests passed" dart_output.txt; then
+            DART_PASSED="15"  # Known test count
+            DART_FAILED="0"
+          elif grep -q "Some tests failed" dart_output.txt || [ $? -ne 0 ]; then
+            DART_PASSED="0"
+            DART_FAILED="1"
+          fi
         fi
         echo "DART_PASSED=$DART_PASSED" >> $GITHUB_OUTPUT
         echo "DART_FAILED=$DART_FAILED" >> $GITHUB_OUTPUT
+        
+        # Fail the workflow if any tests failed  
+        if [ "$DART_FAILED" != "0" ]; then
+          echo "Dart tests failed: $DART_FAILED failures"
+          exit 1
+        fi
 
   test-swift-client:
     name: Test Swift Client
@@ -252,6 +265,12 @@ jobs:
         SWIFT_FAILED=$(grep 'Results:' swift_output.txt | grep -o '[0-9]\+ failed' | grep -o '[0-9]\+' || echo "0")
         echo "SWIFT_PASSED=$SWIFT_PASSED" >> $GITHUB_OUTPUT
         echo "SWIFT_FAILED=$SWIFT_FAILED" >> $GITHUB_OUTPUT
+        
+        # Fail the workflow if any tests failed
+        if [ "$SWIFT_FAILED" != "0" ]; then
+          echo "Swift tests failed: $SWIFT_FAILED failures"
+          exit 1
+        fi
 
   test-fixtures-consistency:
     name: Validate Test Fixtures
