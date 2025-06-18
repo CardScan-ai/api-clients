@@ -5,7 +5,7 @@
   "private": true,
   "scripts": {
     "test": "jest",
-    "test:typescript": "jest typescript/fixture_loading.test.ts --verbose",
+    "test:typescript": "jest typescript/fixture_loading.test.ts typescript/model_validation.test.ts --verbose",
     "test:typescript:all": "jest --testPathPattern=typescript",
     "test:python": "cd ../clients/cardscan-python && PYTHONPATH=. pytest ../../tests/python/ -v",
     "test:watch": "jest --watch",

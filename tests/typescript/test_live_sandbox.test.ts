@@ -58,7 +58,7 @@ describe('Live Sandbox Integration', () => {
     }
 
     // Fetch live response
-    const response = await sandboxClient.getCard(TEST_CARD_IDS.completed_basic);
+    const response = await sandboxClient.getCardById(TEST_CARD_IDS.completed_basic);
 
     // Should parse successfully
     expect(response).toBeDefined();
@@ -73,7 +73,7 @@ describe('Live Sandbox Integration', () => {
       return;
     }
 
-    const response = await sandboxClient.getCard(TEST_CARD_IDS.error_rejected);
+    const response = await sandboxClient.getCardById(TEST_CARD_IDS.error_rejected);
 
     expect(response.state).toBe(CardState.Error);
     expect(response.error).toBeDefined();
@@ -88,7 +88,7 @@ describe('Live Sandbox Integration', () => {
     }
 
     // Fetch live response
-    const liveResponse = await sandboxClient.getCard(TEST_CARD_IDS.completed_with_payer_match);
+    const liveResponse = await sandboxClient.getCardById(TEST_CARD_IDS.completed_with_payer_match);
 
     // Should have same structure as our payer_match fixture
     expect(liveResponse.payerMatch).toBeDefined();
@@ -115,7 +115,7 @@ describe('Live Sandbox Integration', () => {
     }
 
     try {
-      await invalidClient.getCard(TEST_CARD_IDS.completed_basic);
+      await invalidClient.getCardById(TEST_CARD_IDS.completed_basic);
       fail('Should have thrown authentication error');
     } catch (error: any) {
       expect(error.message || error.toString()).toMatch(/403|401|unauthorized|forbidden/i);

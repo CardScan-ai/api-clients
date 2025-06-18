@@ -194,8 +194,8 @@ describe('Cross-Format Compatibility', () => {
     };
 
     // TypeScript models should handle both automatically via OpenAPI generation
-    const snakeCard: CardApiResponse = snakeData as any;
-    expect(snakeCard.card_id || (snakeCard as any).cardId).toBe('test-123');
+    const snakeCard: any = snakeData;
+    expect(snakeCard.card_id).toBe('test-123');
 
     // Test with camelCase (webview format) - once we have real examples
     const camelData = {
@@ -205,8 +205,8 @@ describe('Cross-Format Compatibility', () => {
       deleted: false
     };
 
-    const camelCard: CardApiResponse = camelData as any;
-    expect(camelCard.cardId || (camelCard as any).card_id).toBe('test-123');
+    const camelCard: any = camelData;
+    expect(camelCard.cardId).toBe('test-123');
   });
 
   test('should handle field name variations consistently', () => {

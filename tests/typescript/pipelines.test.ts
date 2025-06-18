@@ -67,7 +67,7 @@ describe("Cardscan Pipelines", () => {
             },
           },
         );
-      } catch (e) {
+      } catch (e: any) {
         expect(e.message).toMatch(/403/);
       }
     });
@@ -105,7 +105,7 @@ describe("Cardscan Pipelines", () => {
           frontImage: createReadStream("../../tests/fixtures/test_cards/front.jpg"),
           backImage: createReadStream("../../tests/fixtures/test_cards/back.jpg"),
         });
-      } catch (e) {
+      } catch (e: any) {
         expect(e.message).toMatch(/403/);
       }
     });
