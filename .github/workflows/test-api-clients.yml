@@ -11,6 +11,9 @@ jobs:
   test-python-client:
     name: Test Python Client
     runs-on: ubuntu-latest
+    outputs:
+      PYTHON_PASSED: ${{ steps.test_results.outputs.PYTHON_PASSED }}
+      PYTHON_FAILED: ${{ steps.test_results.outputs.PYTHON_FAILED }}
     strategy:
       matrix:
         python-version: [3.8, 3.9, "3.10", "3.11"]
@@ -37,9 +40,17 @@ jobs:
         pip install pytest
     
     - name: Run serialization tests
+      id: test_results
       working-directory: clients/cardscan-python
       run: |
-        PYTHONPATH=. pytest ../../tests/python/test_serialization.py -v
+        PYTHONPATH=. pytest ../../tests/python/test_serialization.py -v | tee pytest_output.txt
+        # Extract test counts for summary (only run this on Python 3.11 to avoid duplicates)
+        if [[ "${{ matrix.python-version }}" == "3.11" ]]; then
+          PYTHON_PASSED=$(grep -o '[0-9]* passed' pytest_output.txt | grep -o '[0-9]*' || echo "0")
+          PYTHON_FAILED=$(grep -o '[0-9]* failed' pytest_output.txt | grep -o '[0-9]*' || echo "0")
+          echo "PYTHON_PASSED=$PYTHON_PASSED" >> $GITHUB_OUTPUT
+          echo "PYTHON_FAILED=$PYTHON_FAILED" >> $GITHUB_OUTPUT
+        fi
     
     - name: Run existing pipeline tests
       working-directory: clients/cardscan-python
@@ -81,6 +92,9 @@ jobs:
   test-typescript-client:
     name: Test TypeScript Client
     runs-on: ubuntu-latest
+    outputs:
+      TS_PASSED: ${{ steps.test_results.outputs.TS_PASSED }}
+      TS_FAILED: ${{ steps.test_results.outputs.TS_FAILED }}
     
     steps:
     - name: Checkout code
@@ -106,9 +120,15 @@ jobs:
         npm install
     
     - name: Run TypeScript tests
+      id: test_results
       working-directory: tests
       run: |
-        npm run test:typescript
+        npm run test:typescript | tee jest_output.txt
+        # Extract test counts for summary
+        TS_PASSED=$(grep -o '[0-9]* passed' jest_output.txt | tail -1 | grep -o '[0-9]*' || echo "0")
+        TS_FAILED=$(grep -o '[0-9]* failed' jest_output.txt | tail -1 | grep -o '[0-9]*' || echo "0")
+        echo "TS_PASSED=$TS_PASSED" >> $GITHUB_OUTPUT
+        echo "TS_FAILED=$TS_FAILED" >> $GITHUB_OUTPUT
 
   test-typescript-sandbox:
     name: Test TypeScript Client (Sandbox Integration)
@@ -249,13 +269,13 @@ jobs:
     - name: Check test results
       run: |
         echo "## Test Results Summary" >> $GITHUB_STEP_SUMMARY
-        echo "| Client | Status | Tests |" >> $GITHUB_STEP_SUMMARY
-        echo "|--------|--------|-------|" >> $GITHUB_STEP_SUMMARY
-        echo "| Python | ${{ needs.test-python-client.result == 'success' && '✅ Pass' || '❌ Fail' }} | Python: 6 serialization tests |" >> $GITHUB_STEP_SUMMARY
-        echo "| TypeScript | ${{ needs.test-typescript-client.result == 'success' && '✅ Pass' || '❌ Fail' }} | TypeScript: 4 fixture tests |" >> $GITHUB_STEP_SUMMARY
-        echo "| Kotlin | ${{ needs.test-kotlin-client.result == 'success' && '✅ Pass' || '❌ Fail' }} | Kotlin: Compilation only |" >> $GITHUB_STEP_SUMMARY
-        echo "| Dart | ${{ needs.test-dart-client.result == 'success' && '✅ Pass' || '❌ Fail' }} | Dart: Compilation only |" >> $GITHUB_STEP_SUMMARY
-        echo "| Fixtures | ${{ needs.test-fixtures-consistency.result == 'success' && '✅ Pass' || '❌ Fail' }} | 8 JSON fixtures + 2 test cards |" >> $GITHUB_STEP_SUMMARY
+        echo "| Client | Status | Pass/Fail |" >> $GITHUB_STEP_SUMMARY
+        echo "|--------|--------|-----------|" >> $GITHUB_STEP_SUMMARY
+        echo "| Python | ${{ needs.test-python-client.result == 'success' && '✅ Pass' || '❌ Fail' }} | ${{ needs.test-python-client.outputs.PYTHON_PASSED || '0' }}✅ / ${{ needs.test-python-client.outputs.PYTHON_FAILED || '0' }}❌ |" >> $GITHUB_STEP_SUMMARY
+        echo "| TypeScript | ${{ needs.test-typescript-client.result == 'success' && '✅ Pass' || '❌ Fail' }} | ${{ needs.test-typescript-client.outputs.TS_PASSED || '0' }}✅ / ${{ needs.test-typescript-client.outputs.TS_FAILED || '0' }}❌ |" >> $GITHUB_STEP_SUMMARY
+        echo "| Kotlin | ${{ needs.test-kotlin-client.result == 'success' && '✅ Pass' || '❌ Fail' }} | Compilation only |" >> $GITHUB_STEP_SUMMARY
+        echo "| Dart | ${{ needs.test-dart-client.result == 'success' && '✅ Pass' || '❌ Fail' }} | Compilation only |" >> $GITHUB_STEP_SUMMARY
+        echo "| Fixtures | ${{ needs.test-fixtures-consistency.result == 'success' && '✅ Pass' || '❌ Fail' }} | 8 JSON + 2 images |" >> $GITHUB_STEP_SUMMARY
         echo "" >> $GITHUB_STEP_SUMMARY
         echo "**Note:** Sandbox integration tests run only on main branch pushes or manual dispatch." >> $GITHUB_STEP_SUMMARY
         echo "" >> $GITHUB_STEP_SUMMARY
