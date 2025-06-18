@@ -5,7 +5,7 @@
     "lib": ["ES2020", "DOM"],
     "allowJs": true,
     "outDir": "./dist",
-    "rootDir": ".",
+    "baseUrl": ".",
     "strict": false,
     "strictNullChecks": false,
     "esModuleInterop": true,
@@ -17,14 +17,19 @@
     "declaration": true,
     "declarationMap": true,
     "sourceMap": true,
-    "types": ["jest", "node"]
+    "types": ["jest", "node"],
+    "paths": {
+      "@cardscan-ts/*": ["../clients/cardscan-ts/*"]
+    }
   },
   "include": [
     "**/*.ts",
-    "**/*.test.ts"
+    "**/*.test.ts",
+    "../clients/cardscan-ts/**/*.ts"
   ],
   "exclude": [
     "node_modules",
-    "dist"
+    "dist",
+    "../clients/cardscan-ts/node_modules"
   ]
 }
