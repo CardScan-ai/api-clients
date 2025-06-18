@@ -39,12 +39,18 @@ jobs:
           output-file: false
           skip-on-empty: false
           skip-commit: true
+          skip-tag: true
           git-push: false
       - name: Create and push tag
         if: steps.version.outputs.skipped == 'false'
         run: |
-          git tag ts-v${{ steps.version.outputs.version }}
-          git push origin ts-v${{ steps.version.outputs.version }}
+          TAG_NAME="ts-v${{ steps.version.outputs.version }}"
+          if ! git tag -l | grep -q "^${TAG_NAME}$"; then
+            git tag "${TAG_NAME}"
+            git push origin "${TAG_NAME}"
+          else
+            echo "Tag ${TAG_NAME} already exists, skipping creation"
+          fi
       - name: Trigger TypeScript publish
         if: steps.version.outputs.skipped == 'false'
         uses: peter-evans/repository-dispatch@v3
@@ -71,12 +77,18 @@ jobs:
           output-file: false
           skip-on-empty: false
           skip-commit: true
+          skip-tag: true
           git-push: false
       - name: Create and push tag
         if: steps.version.outputs.skipped == 'false'
         run: |
-          git tag py-v${{ steps.version.outputs.version }}
-          git push origin py-v${{ steps.version.outputs.version }}
+          TAG_NAME="py-v${{ steps.version.outputs.version }}"
+          if ! git tag -l | grep -q "^${TAG_NAME}$"; then
+            git tag "${TAG_NAME}"
+            git push origin "${TAG_NAME}"
+          else
+            echo "Tag ${TAG_NAME} already exists, skipping creation"
+          fi
       - name: Trigger Python publish
         if: steps.version.outputs.skipped == 'false'
         uses: peter-evans/repository-dispatch@v3
@@ -104,12 +116,18 @@ jobs:
           output-file: false
           skip-on-empty: false
           skip-commit: true
+          skip-tag: true
           git-push: false
       - name: Create and push tag
         if: steps.version.outputs.skipped == 'false'
         run: |
-          git tag dart-v${{ steps.version.outputs.version }}
-          git push origin dart-v${{ steps.version.outputs.version }}
+          TAG_NAME="dart-v${{ steps.version.outputs.version }}"
+          if ! git tag -l | grep -q "^${TAG_NAME}$"; then
+            git tag "${TAG_NAME}"
+            git push origin "${TAG_NAME}"
+          else
+            echo "Tag ${TAG_NAME} already exists, skipping creation"
+          fi
 
   bump-swift:
     runs-on: ubuntu-latest
@@ -125,6 +143,7 @@ jobs:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           skip-version-file: true
           skip-commit: true
+          skip-tag: true
           tag-prefix: ""
           output-file: false
           skip-on-empty: false
@@ -132,5 +151,10 @@ jobs:
       - name: Create and push tag
         if: steps.version.outputs.skipped == 'false'
         run: |
-          git tag ${{ steps.version.outputs.version }}
-          git push origin ${{ steps.version.outputs.version }}
+          TAG_NAME="dart-v${{ steps.version.outputs.version }}"
+          if ! git tag -l | grep -q "^${TAG_NAME}$"; then
+            git tag "${TAG_NAME}"
+            git push origin "${TAG_NAME}"
+          else
+            echo "Tag ${TAG_NAME} already exists, skipping creation"
+          fi
