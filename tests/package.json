@@ -9,6 +9,7 @@
     "test:typescript:all": "jest --testPathPattern=typescript",
     "test:python": "cd ../clients/cardscan-python && PYTHONPATH=. pytest ../../tests/python/ -v",
     "test:dart": "cd ../clients/cardscan-dart && dart test ../../tests/dart/serialization_test.dart",
+    "test:kotlin": "cd ../clients/cardscan-kotlin && JAVA_HOME=/opt/homebrew/opt/openjdk@21 ./gradlew run && echo '✅ Kotlin tests completed'",
     "test:watch": "jest --watch",
     "test:coverage": "jest --coverage"
   },
