@@ -37,12 +37,12 @@ jobs:
           git-message: "chore(release): bump typescript client to {version}"
           tag-prefix: ts-v
           output-file: false
-      - name: Trigger Python publish
+      - name: Trigger TypeScript publish
         if: steps.version.outputs.skipped == 'false'
         uses: peter-evans/repository-dispatch@v3
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
-          event-type: publish-python
+          event-type: publish-typescript
 
   bump-python:
     runs-on: ubuntu-latest
