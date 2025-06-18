@@ -281,6 +281,6 @@ jobs:
         echo "" >> $GITHUB_STEP_SUMMARY
         echo "### Test Coverage Details" >> $GITHUB_STEP_SUMMARY
         echo "- **Python**: API response parsing, model serialization, field conversion" >> $GITHUB_STEP_SUMMARY  
-        echo "- **TypeScript**: Fixture loading and JSON parsing validation" >> $GITHUB_STEP_SUMMARY
+        echo "- **TypeScript**: Fixture loading, model validation, API initialization, enum values, input validation, utility methods" >> $GITHUB_STEP_SUMMARY
         echo "- **Kotlin/Dart**: Auto-generated test stubs (compilation validation only)" >> $GITHUB_STEP_SUMMARY
         echo "- **Swift**: No tests yet" >> $GITHUB_STEP_SUMMARY
