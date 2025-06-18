@@ -27,17 +27,16 @@ jobs:
     steps:
       - uses: actions/checkout@v3
         with:
-          fetch-depth: 0
+          ssh-key: ${{ secrets.SSH_DEPLOY_KEY }}
       - uses: TriPSs/conventional-changelog-action@v3
         id: version
         with:
-          github-token: ${{ secrets.SSH_DEPLOY_KEY }}
+          github-token: ""
           version-file: clients/cardscan-ts/package.json
           version-path: version
           git-message: "chore(release): bump typescript client to {version}"
           tag-prefix: ts-v
           output-file: false
-          skip-on-empty: false
       - name: Trigger TypeScript publish
         if: steps.version.outputs.skipped == 'false'
         uses: peter-evans/repository-dispatch@v3
@@ -52,17 +51,16 @@ jobs:
     steps:
       - uses: actions/checkout@v3
         with:
-          fetch-depth: 0
+          ssh-key: ${{ secrets.SSH_DEPLOY_KEY }}
       - uses: TriPSs/conventional-changelog-action@v3
         id: version
         with:
-          github-token: ${{ secrets.SSH_DEPLOY_KEY }}
+          github-token: ""
           version-file: clients/cardscan-python/pyproject.toml
           version-path: tool.poetry.version
           git-message: "chore(release): bump python client to {version}"
           tag-prefix: py-v
           output-file: false
-          skip-on-empty: false
       - name: Trigger Python publish
         if: steps.version.outputs.skipped == 'false'
         uses: peter-evans/repository-dispatch@v3
@@ -77,18 +75,16 @@ jobs:
     steps:
       - uses: actions/checkout@v3
         with:
-          token: ${{ secrets.SSH_DEPLOY_KEY }}
-          fetch-depth: 0
+          ssh-key: ${{ secrets.SSH_DEPLOY_KEY }}
       - uses: TriPSs/conventional-changelog-action@v3
         id: version
         with:
-          github-token: ${{ secrets.SSH_DEPLOY_KEY }}
+          github-token: ""
           version-file: clients/cardscan-dart/pubspec.yaml
           version-path: version
           git-message: "chore(release): bump dart client to {version}"
           tag-prefix: dart-v
           output-file: false
-          skip-on-empty: false
 
   bump-swift:
     runs-on: ubuntu-latest
@@ -97,13 +93,11 @@ jobs:
     steps:
       - uses: actions/checkout@v3
         with:
-          fetch-depth: 0
+          ssh-key: ${{ secrets.SSH_DEPLOY_KEY }}
       - uses: TriPSs/conventional-changelog-action@v3
-        id: version
         with:
-          github-token: ${{ secrets.SSH_DEPLOY_KEY }}
+          github-token: ""
           skip-version-file: true
           skip-commit: true
           tag-prefix: ""
           output-file: false
-          skip-on-empty: false
