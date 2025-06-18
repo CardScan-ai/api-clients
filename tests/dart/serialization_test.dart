@@ -22,8 +22,11 @@ void main() {
         print('   - laplacian type: ${apiJsonResponse['laplacian'].runtimeType}');
         
         try {
-          // Try to deserialize using the generated serializer
-          final result = ScanMetadataCaptureScoreScoresInner.fromJson(apiJsonResponse);
+          // Try to deserialize using the built_value serializer
+          final result = standardSerializers.deserializeWith(
+            ScanMetadataCaptureScoreScoresInner.serializer, 
+            apiJsonResponse
+          )!;
           
           print('✅ SUCCESS: Deserialization worked!');
           print('   Result: score=${result.score} (${result.score.runtimeType}), laplacian=${result.laplacian} (${result.laplacian.runtimeType})');
@@ -53,7 +56,10 @@ void main() {
         print('   Input JSON: $mixedJson');
         
         try {
-          final result = ScanMetadataCaptureScoreScoresInner.fromJson(mixedJson);
+          final result = standardSerializers.deserializeWith(
+            ScanMetadataCaptureScoreScoresInner.serializer, 
+            mixedJson
+          )!;
           
           print('✅ SUCCESS: Mixed types handled correctly!');
           print('   Result: score=${result.score} (${result.score.runtimeType}), laplacian=${result.laplacian} (${result.laplacian.runtimeType})');
@@ -73,7 +79,10 @@ void main() {
           'laplacian': 0.123
         };
         
-        final result = ScanMetadataCaptureScoreScoresInner.fromJson(numericJson);
+        final result = standardSerializers.deserializeWith(
+          ScanMetadataCaptureScoreScoresInner.serializer, 
+          numericJson
+        )!;
         
         expect(result.score, equals(0.999));
         expect(result.laplacian, equals(0.123));
@@ -93,7 +102,10 @@ void main() {
         };
         
         try {
-          final result = CardApiResponse.fromJson(cardJson);
+          final result = standardSerializers.deserializeWith(
+            CardApiResponse.serializer, 
+            cardJson
+          )!;
           
           expect(result.cardId, equals('c53bcd29-26ec-4121-b090-cd381cae745f'));
           expect(result.state, equals(CardState.pending));
@@ -115,20 +127,21 @@ void main() {
           'payer_match': {
             'cardscan_payer_id': 'pay_8otorlr4',
             'cardscan_payer_name': 'UNITEDHEALTHCARE',
-            'bin_number': '610020',
-            'issuer_name': 'UNITEDHEALTHCARE',
-            'confidence_score': 0.95
+            'score': '0.95'
           }
         };
         
         try {
-          final result = CardApiResponse.fromJson(cardWithPayerJson);
+          final result = standardSerializers.deserializeWith(
+            CardApiResponse.serializer, 
+            cardWithPayerJson
+          )!;
           
           expect(result.cardId, equals('c1b93738-ddc0-4beb-9936-1f93fe0e4279'));
           expect(result.state, equals(CardState.completed));
           expect(result.payerMatch, isNotNull);
           expect(result.payerMatch!.cardscanPayerName, equals('UNITEDHEALTHCARE'));
-          expect(result.payerMatch!.binNumber, equals('610020'));
+          expect(result.payerMatch!.score, equals('0.95'));
           
         } catch (e) {
           print('Payer match parsing failed: $e');
@@ -143,17 +156,18 @@ void main() {
           'eligibility_id': '93376802-779b-42ad-bfa3-d6e99d5a02c9',
           'state': 'processing',
           'card_id': '529e865d-78c2-4f9e-aa9a-addedf642c88',
-          'created_at': '2025-06-18 02:26:24.578379+00:00',
-          'deleted': false
+          'created_at': '2025-06-18 02:26:24.578379+00:00'
         };
         
         try {
-          final result = EligibilityApiResponse.fromJson(eligibilityJson);
+          final result = standardSerializers.deserializeWith(
+            EligibilityApiResponse.serializer, 
+            eligibilityJson
+          )!;
           
           expect(result.eligibilityId, equals('93376802-779b-42ad-bfa3-d6e99d5a02c9'));
-          expect(result.state, equals(EligibilityState.processing));
+          expect(result.state.toString().split('.').last, equals('processing'));
           expect(result.cardId, equals('529e865d-78c2-4f9e-aa9a-addedf642c88'));
-          expect(result.deleted, equals(false));
           
         } catch (e) {
           print('Eligibility parsing failed: $e');
@@ -177,7 +191,10 @@ void main() {
         };
         
         try {
-          final result = CardApiResponse.fromJson(errorJson);
+          final result = standardSerializers.deserializeWith(
+            CardApiResponse.serializer, 
+            errorJson
+          )!;
           
           expect(result.cardId, equals('b7012e64-24c6-4f85-8410-adf36fe03e8a'));
           expect(result.state, equals(CardState.error));
@@ -197,21 +214,25 @@ void main() {
         // Test that models can handle snake_case field names (API format)
         final snakeCaseJson = {
           'card_id': 'test-123',
+          'state': 'pending',
           'created_at': '2023-01-01T00:00:00Z',
+          'deleted': false,
           'payer_match': {
             'cardscan_payer_name': 'TEST_PAYER',
-            'bin_number': '123456'
+            'score': '0.88'
           }
         };
         
         try {
-          final result = CardApiResponse.fromJson(snakeCaseJson);
+          final result = standardSerializers.deserializeWith(
+            CardApiResponse.serializer, 
+            snakeCaseJson
+          )!;
           
           expect(result.cardId, equals('test-123'));
           expect(result.createdAt, isNotNull);
           if (result.payerMatch != null) {
             expect(result.payerMatch!.cardscanPayerName, equals('TEST_PAYER'));
-            expect(result.payerMatch!.binNumber, equals('123456'));
           }
           
         } catch (e) {
@@ -233,7 +254,10 @@ void main() {
             'deleted': false
           };
           
-          final result = CardApiResponse.fromJson(json);
+          final result = standardSerializers.deserializeWith(
+            CardApiResponse.serializer, 
+            json
+          )!;
           expect(result.state.toString().split('.').last, equals(stateString));
         }
       });
@@ -246,11 +270,13 @@ void main() {
             'eligibility_id': 'test-id',
             'state': stateString,
             'card_id': 'card-123',
-            'created_at': '2023-01-01T00:00:00Z',
-            'deleted': false
+            'created_at': '2023-01-01T00:00:00Z'
           };
           
-          final result = EligibilityApiResponse.fromJson(json);
+          final result = standardSerializers.deserializeWith(
+            EligibilityApiResponse.serializer, 
+            json
+          )!;
           expect(result.state.toString().split('.').last, equals(stateString));
         }
       });
@@ -266,7 +292,10 @@ void main() {
           // No optional fields like payer_match, details, etc.
         };
         
-        final result = CardApiResponse.fromJson(minimalJson);
+        final result = standardSerializers.deserializeWith(
+          CardApiResponse.serializer, 
+          minimalJson
+        )!;
         
         expect(result.cardId, equals('test-123'));
         expect(result.state, equals(CardState.pending));
