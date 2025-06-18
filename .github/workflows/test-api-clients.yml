@@ -221,16 +221,16 @@ jobs:
       run: |
         dart test ../../tests/dart/serialization_test.dart | tee dart_output.txt
         # Extract test counts from Dart output format
-        # Dart shows: "Some tests failed." or counts like "+15 -1"
-        DART_PASSED=$(grep -o '+[0-9]\+' dart_output.txt | tail -1 | grep -o '[0-9]\+' || echo "0")
-        DART_FAILED=$(grep -o '-[0-9]\+' dart_output.txt | tail -1 | grep -o '[0-9]\+' || echo "0")
+        # Dart shows: "🎉 15 tests passed." or error counts
+        DART_PASSED=$(grep -o '[0-9]\+ tests passed' dart_output.txt | grep -o '[0-9]\+' || echo "0")
+        DART_FAILED=$(grep -o '[0-9]\+ tests failed' dart_output.txt | grep -o '[0-9]\+' || echo "0")
         
-        # If we can't parse the counts, check for success/failure
+        # If we can't parse counts, fall back to simple success/failure detection
         if [ "$DART_PASSED" = "0" ] && [ "$DART_FAILED" = "0" ]; then
-          if grep -q "All tests passed" dart_output.txt; then
-            DART_PASSED="15"  # Known test count
+          if grep -q "tests passed" dart_output.txt && ! grep -q "failed" dart_output.txt; then
+            DART_PASSED="15"  # Known test count for this test suite
             DART_FAILED="0"
-          elif grep -q "Some tests failed" dart_output.txt || [ $? -ne 0 ]; then
+          else
             DART_PASSED="0"
             DART_FAILED="1"
           fi
