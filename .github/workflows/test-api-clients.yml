@@ -249,12 +249,18 @@ jobs:
     - name: Check test results
       run: |
         echo "## Test Results Summary" >> $GITHUB_STEP_SUMMARY
-        echo "| Client | Status |" >> $GITHUB_STEP_SUMMARY
-        echo "|--------|--------|" >> $GITHUB_STEP_SUMMARY
-        echo "| Python | ${{ needs.test-python-client.result == 'success' && '✅ Pass' || '❌ Fail' }} |" >> $GITHUB_STEP_SUMMARY
-        echo "| TypeScript | ${{ needs.test-typescript-client.result == 'success' && '✅ Pass' || '❌ Fail' }} |" >> $GITHUB_STEP_SUMMARY
-        echo "| Kotlin | ${{ needs.test-kotlin-client.result == 'success' && '✅ Pass' || '❌ Fail' }} |" >> $GITHUB_STEP_SUMMARY
-        echo "| Dart | ${{ needs.test-dart-client.result == 'success' && '✅ Pass' || '❌ Fail' }} |" >> $GITHUB_STEP_SUMMARY
-        echo "| Fixtures | ${{ needs.test-fixtures-consistency.result == 'success' && '✅ Pass' || '❌ Fail' }} |" >> $GITHUB_STEP_SUMMARY
+        echo "| Client | Status | Tests |" >> $GITHUB_STEP_SUMMARY
+        echo "|--------|--------|-------|" >> $GITHUB_STEP_SUMMARY
+        echo "| Python | ${{ needs.test-python-client.result == 'success' && '✅ Pass' || '❌ Fail' }} | Python: 6 serialization tests |" >> $GITHUB_STEP_SUMMARY
+        echo "| TypeScript | ${{ needs.test-typescript-client.result == 'success' && '✅ Pass' || '❌ Fail' }} | TypeScript: 4 fixture tests |" >> $GITHUB_STEP_SUMMARY
+        echo "| Kotlin | ${{ needs.test-kotlin-client.result == 'success' && '✅ Pass' || '❌ Fail' }} | Kotlin: Compilation only |" >> $GITHUB_STEP_SUMMARY
+        echo "| Dart | ${{ needs.test-dart-client.result == 'success' && '✅ Pass' || '❌ Fail' }} | Dart: Compilation only |" >> $GITHUB_STEP_SUMMARY
+        echo "| Fixtures | ${{ needs.test-fixtures-consistency.result == 'success' && '✅ Pass' || '❌ Fail' }} | 8 JSON fixtures + 2 test cards |" >> $GITHUB_STEP_SUMMARY
         echo "" >> $GITHUB_STEP_SUMMARY
         echo "**Note:** Sandbox integration tests run only on main branch pushes or manual dispatch." >> $GITHUB_STEP_SUMMARY
+        echo "" >> $GITHUB_STEP_SUMMARY
+        echo "### Test Coverage Details" >> $GITHUB_STEP_SUMMARY
+        echo "- **Python**: API response parsing, model serialization, field conversion" >> $GITHUB_STEP_SUMMARY  
+        echo "- **TypeScript**: Fixture loading and JSON parsing validation" >> $GITHUB_STEP_SUMMARY
+        echo "- **Kotlin/Dart**: Auto-generated test stubs (compilation validation only)" >> $GITHUB_STEP_SUMMARY
+        echo "- **Swift**: No tests yet" >> $GITHUB_STEP_SUMMARY
