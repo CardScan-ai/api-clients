@@ -231,6 +231,28 @@ jobs:
         echo "DART_PASSED=$DART_PASSED" >> $GITHUB_OUTPUT
         echo "DART_FAILED=$DART_FAILED" >> $GITHUB_OUTPUT
 
+  test-swift-client:
+    name: Test Swift Client
+    runs-on: macos-latest
+    outputs:
+      SWIFT_PASSED: ${{ steps.test_results.outputs.SWIFT_PASSED }}
+      SWIFT_FAILED: ${{ steps.test_results.outputs.SWIFT_FAILED }}
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+    
+    - name: Run Swift serialization tests
+      id: test_results
+      working-directory: tests
+      run: |
+        swift swift/TestRunner.swift | tee swift_output.txt
+        # Extract test counts for summary
+        SWIFT_PASSED=$(grep 'Results:' swift_output.txt | grep -o '[0-9]\+ passed' | grep -o '[0-9]\+' || echo "8")
+        SWIFT_FAILED=$(grep 'Results:' swift_output.txt | grep -o '[0-9]\+ failed' | grep -o '[0-9]\+' || echo "0")
+        echo "SWIFT_PASSED=$SWIFT_PASSED" >> $GITHUB_OUTPUT
+        echo "SWIFT_FAILED=$SWIFT_FAILED" >> $GITHUB_OUTPUT
+
   test-fixtures-consistency:
     name: Validate Test Fixtures
     runs-on: ubuntu-latest
@@ -288,7 +310,7 @@ jobs:
   summary:
     name: Test Summary
     runs-on: ubuntu-latest
-    needs: [test-python-client, test-typescript-client, test-kotlin-client, test-dart-client, test-fixtures-consistency]
+    needs: [test-python-client, test-typescript-client, test-kotlin-client, test-dart-client, test-swift-client, test-fixtures-consistency]
     if: always()
     
     steps:
@@ -301,6 +323,7 @@ jobs:
         echo "| TypeScript | ${{ needs.test-typescript-client.result == 'success' && '✅ Pass' || '❌ Fail' }} | ${{ needs.test-typescript-client.outputs.TS_PASSED || '0' }}✅ / ${{ needs.test-typescript-client.outputs.TS_FAILED || '0' }}❌ |" >> $GITHUB_STEP_SUMMARY
         echo "| Kotlin | ${{ needs.test-kotlin-client.result == 'success' && '✅ Pass' || '❌ Fail' }} | ${{ needs.test-kotlin-client.outputs.KOTLIN_PASSED || '0' }}✅ / ${{ needs.test-kotlin-client.outputs.KOTLIN_FAILED || '0' }}❌ |" >> $GITHUB_STEP_SUMMARY
         echo "| Dart | ${{ needs.test-dart-client.result == 'success' && '✅ Pass' || '❌ Fail' }} | ${{ needs.test-dart-client.outputs.DART_PASSED || '0' }}✅ / ${{ needs.test-dart-client.outputs.DART_FAILED || '0' }}❌ |" >> $GITHUB_STEP_SUMMARY
+        echo "| Swift | ${{ needs.test-swift-client.result == 'success' && '✅ Pass' || '❌ Fail' }} | ${{ needs.test-swift-client.outputs.SWIFT_PASSED || '0' }}✅ / ${{ needs.test-swift-client.outputs.SWIFT_FAILED || '0' }}❌ |" >> $GITHUB_STEP_SUMMARY
         echo "| Fixtures | ${{ needs.test-fixtures-consistency.result == 'success' && '✅ Pass' || '❌ Fail' }} | 8 JSON + 2 images |" >> $GITHUB_STEP_SUMMARY
         echo "" >> $GITHUB_STEP_SUMMARY
         echo "**Note:** Sandbox integration tests run only on main branch pushes or manual dispatch." >> $GITHUB_STEP_SUMMARY
@@ -310,4 +333,4 @@ jobs:
         echo "- **TypeScript**: Fixture loading, model validation, API initialization, enum values, input validation, utility methods" >> $GITHUB_STEP_SUMMARY
         echo "- **Kotlin**: Serialization tests, string numeric edge cases, enum handling, error responses" >> $GITHUB_STEP_SUMMARY
         echo "- **Dart**: Serialization tests, string numeric edge cases, built_value deserialization, field compatibility" >> $GITHUB_STEP_SUMMARY
-        echo "- **Swift**: No tests yet" >> $GITHUB_STEP_SUMMARY
+        echo "- **Swift**: Serialization tests, string numeric edge cases, Codable protocol, CodingKeys mapping" >> $GITHUB_STEP_SUMMARY
