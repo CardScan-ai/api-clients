@@ -31,26 +31,13 @@ jobs:
       - uses: TriPSs/conventional-changelog-action@v3
         id: version
         with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
+          github-token: ${{ secrets.SSH_DEPLOY_KEY }}
           version-file: clients/cardscan-ts/package.json
           version-path: version
           git-message: "chore(release): bump typescript client to {version}"
           tag-prefix: ts-v
           output-file: false
           skip-on-empty: false
-          skip-commit: true
-          skip-tag: true
-          git-push: false
-      - name: Create and push tag
-        if: steps.version.outputs.skipped == 'false'
-        run: |
-          TAG_NAME="ts-v${{ steps.version.outputs.version }}"
-          if ! git tag -l | grep -q "^${TAG_NAME}$"; then
-            git tag "${TAG_NAME}"
-            git push origin "${TAG_NAME}"
-          else
-            echo "Tag ${TAG_NAME} already exists, skipping creation"
-          fi
       - name: Trigger TypeScript publish
         if: steps.version.outputs.skipped == 'false'
         uses: peter-evans/repository-dispatch@v3
@@ -69,26 +56,13 @@ jobs:
       - uses: TriPSs/conventional-changelog-action@v3
         id: version
         with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
+          github-token: ${{ secrets.SSH_DEPLOY_KEY }}
           version-file: clients/cardscan-python/pyproject.toml
           version-path: tool.poetry.version
           git-message: "chore(release): bump python client to {version}"
           tag-prefix: py-v
           output-file: false
           skip-on-empty: false
-          skip-commit: true
-          skip-tag: true
-          git-push: false
-      - name: Create and push tag
-        if: steps.version.outputs.skipped == 'false'
-        run: |
-          TAG_NAME="py-v${{ steps.version.outputs.version }}"
-          if ! git tag -l | grep -q "^${TAG_NAME}$"; then
-            git tag "${TAG_NAME}"
-            git push origin "${TAG_NAME}"
-          else
-            echo "Tag ${TAG_NAME} already exists, skipping creation"
-          fi
       - name: Trigger Python publish
         if: steps.version.outputs.skipped == 'false'
         uses: peter-evans/repository-dispatch@v3
@@ -103,31 +77,18 @@ jobs:
     steps:
       - uses: actions/checkout@v3
         with:
-          token: ${{ secrets.GH_PAT }}
+          token: ${{ secrets.SSH_DEPLOY_KEY }}
           fetch-depth: 0
       - uses: TriPSs/conventional-changelog-action@v3
         id: version
         with:
-          github-token: ${{ secrets.GH_PAT }}
+          github-token: ${{ secrets.SSH_DEPLOY_KEY }}
           version-file: clients/cardscan-dart/pubspec.yaml
           version-path: version
           git-message: "chore(release): bump dart client to {version}"
           tag-prefix: dart-v
           output-file: false
           skip-on-empty: false
-          skip-commit: true
-          skip-tag: true
-          git-push: false
-      - name: Create and push tag
-        if: steps.version.outputs.skipped == 'false'
-        run: |
-          TAG_NAME="dart-v${{ steps.version.outputs.version }}"
-          if ! git tag -l | grep -q "^${TAG_NAME}$"; then
-            git tag "${TAG_NAME}"
-            git push origin "${TAG_NAME}"
-          else
-            echo "Tag ${TAG_NAME} already exists, skipping creation"
-          fi
 
   bump-swift:
     runs-on: ubuntu-latest
@@ -140,21 +101,9 @@ jobs:
       - uses: TriPSs/conventional-changelog-action@v3
         id: version
         with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
+          github-token: ${{ secrets.SSH_DEPLOY_KEY }}
           skip-version-file: true
           skip-commit: true
-          skip-tag: true
           tag-prefix: ""
           output-file: false
           skip-on-empty: false
-          git-push: false
-      - name: Create and push tag
-        if: steps.version.outputs.skipped == 'false'
-        run: |
-          TAG_NAME="dart-v${{ steps.version.outputs.version }}"
-          if ! git tag -l | grep -q "^${TAG_NAME}$"; then
-            git tag "${TAG_NAME}"
-            git push origin "${TAG_NAME}"
-          else
-            echo "Tag ${TAG_NAME} already exists, skipping creation"
-          fi
