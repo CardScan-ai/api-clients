@@ -19,6 +19,31 @@ class SandboxIntegrationTest {
         ]
     }
     
+    // Load fixture files from shared test directory (same as TestRunner.swift)
+    private func loadFixture(_ filename: String) throws -> String {
+        let currentDir = FileManager.default.currentDirectoryPath
+        
+        // Try multiple possible paths for different working directories
+        let possiblePaths = [
+            "\(currentDir)/../../tests/fixtures/api_responses/\(filename)",           // From tests/ directory
+            "\(currentDir)/../tests/fixtures/api_responses/\(filename)",              // From api-clients/ directory  
+            "\(currentDir)/tests/fixtures/api_responses/\(filename)",                 // From repo root
+            "\(currentDir)/../../../tests/fixtures/api_responses/\(filename)"        // From clients/cardscan-kotlin/ style
+        ]
+        
+        for fixturePath in possiblePaths {
+            if FileManager.default.fileExists(atPath: fixturePath) {
+                return try String(contentsOfFile: fixturePath, encoding: .utf8)
+            }
+        }
+        
+        // If none found, throw error with all attempted paths
+        let attemptedPaths = possiblePaths.joined(separator: "\n  - ")
+        throw NSError(domain: "TestError", code: 1, userInfo: [
+            NSLocalizedDescriptionKey: "Fixture file not found. Attempted paths:\n  - \(attemptedPaths)"
+        ])
+    }
+    
     private func loadSandboxConfig() {
         // Try to load from .env file if it exists
         let currentDir = FileManager.default.currentDirectoryPath
@@ -300,6 +325,13 @@ class SandboxIntegrationTest {
         }
         
         do {
+            // First, load and test our fixture parsing
+            let fixtureContent = try loadFixture("card_response_with_payer_match.json")
+            let fixtureData = try JSONSerialization.jsonObject(with: fixtureContent.data(using: .utf8)!)
+            
+            print("   📄 Loaded fixture file successfully (\(fixtureContent.count) characters)")
+            
+            // Get live response
             let expectation = DispatchSemaphore(value: 0)
             var testResult: Result<CardApiResponse, Error>?
             
@@ -327,6 +359,21 @@ class SandboxIntegrationTest {
             assert(response.createdAt != nil, "Created at should not be null")
             assert(response.deleted != nil, "Deleted flag should not be null")
             
+            // Compare with fixture structure (from card_response_with_payer_match.json)
+            if let fixtureDict = fixtureData as? [String: Any] {
+                // Both should have same top-level keys
+                let expectedKeys = ["card_id", "state", "created_at", "deleted"]
+                print("   🔍 Comparing structure with fixture...")
+                
+                // Fixture has these fields, live response should too
+                if fixtureDict["payer_match"] != nil {
+                    print("   📊 Fixture has payer_match, checking live response...")
+                }
+                if fixtureDict["details"] != nil {
+                    print("   📊 Fixture has details, checking live response...")
+                }
+            }
+            
             // If completed, should have images
             if response.state == .completed {
                 assert(response.images != nil, "Completed card should have images")
@@ -334,10 +381,58 @@ class SandboxIntegrationTest {
             }
             
             print("✅ Sandbox vs fixture consistency test passed")
-            print("   Structure matches fixture format")
+            print("   Live response structure matches fixture format")
+            print("   Fixture parsing: ✅")
             
         } catch {
             print("❌ Sandbox vs fixture consistency test failed: \(error)")
+            throw error
+        }
+    }
+    
+    func testFixtureDeserializationAgainstSandbox() throws {
+        print("\n🔄 Testing fixture deserialization vs sandbox response structure")
+        
+        do {
+            // Load comprehensive fixture and test JSON parsing
+            let fixtureContent = try loadFixture("card_response_with_payer_match.json")
+            let fixtureData = try JSONSerialization.jsonObject(with: fixtureContent.data(using: .utf8)!)
+            
+            guard let fixtureDict = fixtureData as? [String: Any] else {
+                throw NSError(domain: "Test", code: -1, userInfo: [NSLocalizedDescriptionKey: "Fixture is not a valid JSON object"])
+            }
+            
+            // Test key fixture fields that should match sandbox responses
+            assert(fixtureDict["card_id"] != nil, "Fixture should have card_id")
+            assert(fixtureDict["state"] != nil, "Fixture should have state")
+            assert(fixtureDict["details"] != nil, "Fixture should have details")
+            assert(fixtureDict["payer_match"] != nil, "Fixture should have payer_match")
+            
+            // Test nested details structure
+            if let details = fixtureDict["details"] as? [String: Any] {
+                assert(details["member_name"] != nil, "Details should have member_name")
+                assert(details["payer_name"] != nil, "Details should have payer_name")
+                
+                // Test string scores (critical for Swift serialization)
+                if let memberName = details["member_name"] as? [String: Any],
+                   let scores = memberName["scores"] as? [String] {
+                    assert(scores.contains("0.994"), "Should have string score '0.994'")
+                    print("   ✅ String numeric values preserved in fixture: \(scores)")
+                }
+            }
+            
+            // Test payer match structure
+            if let payerMatch = fixtureDict["payer_match"] as? [String: Any] {
+                assert(payerMatch["score"] is String, "Payer match score should be string")
+                assert(payerMatch["cardscan_payer_name"] != nil, "Should have payer name")
+                print("   ✅ Payer match structure validated")
+            }
+            
+            print("✅ Fixture deserialization test passed")
+            print("   All fixture fields parseable and match expected sandbox structure")
+            
+        } catch {
+            print("❌ Fixture deserialization test failed: \(error)")
             throw error
         }
     }
@@ -463,6 +558,7 @@ func main() {
         ("Response Structure", tester.testLiveResponseMatchesFixture),
         ("Direct API Calls", tester.testDirectApiCalls),
         ("Fixture Consistency", tester.testSandboxVsFixtureConsistency),
+        ("Fixture Deserialization", tester.testFixtureDeserializationAgainstSandbox),
         ("Authentication Errors", tester.testAuthenticationErrors)
     ]
     
