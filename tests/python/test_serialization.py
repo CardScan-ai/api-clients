@@ -209,5 +209,103 @@ class TestCrossFormatCompatibility:
         # assert snake_card.card_id == camel_card.card_id
 
 
+    def test_string_numeric_values_edge_case(self):
+        """Test parsing API responses with string numeric values (edge case)"""
+        print('🧪 Testing string numeric values edge case')
+        
+        # Simulate API response with string numeric values instead of actual numbers
+        api_response_with_string_numbers = {
+            'card_id': 'test-123',
+            'state': 'completed',
+            'created_at': '2025-06-18 02:26:24.578379+00:00',
+            'deleted': False,
+            'payer_match': {
+                'cardscan_payer_name': 'UNITEDHEALTHCARE',
+                'bin_number': '610020',
+                'issuer_name': 'UNITEDHEALTHCARE', 
+                'score': '0.994'  # String instead of float
+            }
+        }
+        
+        print(f'   Input score: {api_response_with_string_numbers["payer_match"]["score"]} (type: {type(api_response_with_string_numbers["payer_match"]["score"])})')
+        
+        # Test that Pydantic can handle string numbers
+        try:
+            card = CardApiResponse.from_dict(api_response_with_string_numbers)
+            
+            print(f'✅ SUCCESS: String number parsed correctly')
+            print(f'   Result score: {card.payer_match.score} (type: {type(card.payer_match.score)})')
+            
+            # Verify it's parsed as a string (since it's defined as StrictStr)
+            assert isinstance(card.payer_match.score, str)
+            assert card.payer_match.score == '0.994'
+            
+        except Exception as e:
+            print(f'❌ FAILED: String number parsing failed: {e}')
+            raise
+
+    def test_string_score_field_handling(self):
+        """Test handling of string score field in payer match"""
+        print('🌍 Testing string score field handling')
+        
+        mixed_response = {
+            'card_id': 'test-456',
+            'state': 'completed',
+            'created_at': '2025-06-18 02:26:24.578379+00:00',
+            'deleted': False,
+            'payer_match': {
+                'cardscan_payer_name': 'ANTHEM',
+                'bin_number': '987654',
+                'issuer_name': 'ANTHEM',
+                'score': '0.5'  # String number
+            }
+        }
+        
+        print(f'   payer_match score: {mixed_response["payer_match"]["score"]} (type: {type(mixed_response["payer_match"]["score"])})')
+        
+        try:
+            card = CardApiResponse.from_dict(mixed_response)
+            
+            print('✅ SUCCESS: String score handled correctly!')
+            
+            # Verify score is preserved as string
+            assert isinstance(card.payer_match.score, str)
+            assert card.payer_match.score == '0.5'
+            
+            print(f'   Score preserved as string: {card.payer_match.score}')
+            
+        except Exception as e:
+            print(f'❌ FAILED: Mixed type parsing failed: {e}')
+            raise
+
+    def test_invalid_string_in_score_field(self):
+        """Test handling of invalid strings in score field"""
+        print('⚠️  Testing invalid string in score field')
+        
+        malformed_response = {
+            'card_id': 'test-789',
+            'state': 'completed', 
+            'created_at': '2025-06-18 02:26:24.578379+00:00',
+            'deleted': False,
+            'payer_match': {
+                'cardscan_payer_name': 'CIGNA',
+                'bin_number': '555555',
+                'issuer_name': 'CIGNA',
+                'score': 'invalid_number'  # Invalid string
+            }
+        }
+        
+        print(f'   Invalid score: {malformed_response["payer_match"]["score"]}')
+        
+        # Test that even invalid strings are accepted (since field is StrictStr)
+        try:
+            card = CardApiResponse.from_dict(malformed_response)
+            print(f'✅ SUCCESS: Invalid string preserved as-is: {card.payer_match.score}')
+            assert card.payer_match.score == 'invalid_number'
+        except Exception as e:
+            print(f'❌ FAILED: Unexpected error: {e}')
+            raise
+
+
 if __name__ == "__main__":
     pytest.main([__file__, "-v"])

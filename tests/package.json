@@ -5,9 +5,10 @@
   "private": true,
   "scripts": {
     "test": "jest",
-    "test:typescript": "jest typescript/fixture_loading.test.ts typescript/model_validation.test.ts --verbose",
+    "test:typescript": "jest typescript/fixture_loading.test.ts typescript/model_validation.test.ts typescript/serialization_edge_cases.test.ts --verbose",
     "test:typescript:all": "jest --testPathPattern=typescript",
     "test:python": "cd ../clients/cardscan-python && PYTHONPATH=. pytest ../../tests/python/ -v",
+    "test:dart": "cd ../clients/cardscan-dart && dart test ../../tests/dart/serialization_test.dart",
     "test:watch": "jest --watch",
     "test:coverage": "jest --coverage"
   },
