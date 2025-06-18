@@ -1,9 +1,9 @@
 import { createReadStream } from "node:fs";
-import { CardScanApi } from "../api/card-scan-api";
+import { CardScanApi } from "../../clients/cardscan-ts/api/card-scan-api";
 
 import { config } from "dotenv";
-import { Configuration } from "../configuration";
-import { CardState, EligibilityState } from "../models";
+import { Configuration } from "../../clients/cardscan-ts/configuration";
+import { CardState, EligibilityState } from "../../clients/cardscan-ts/models";
 
 config();
 
@@ -76,8 +76,8 @@ describe("Cardscan Pipelines", () => {
   describe("Card scanning", () => {
     it("runs the card scanning pipeline and returns successfully", async () => {
       const response = await cardscan.fullScan({
-        frontImage: createReadStream("tests/cards/front.jpg"),
-        backImage: createReadStream("tests/cards/back.jpg"),
+        frontImage: createReadStream("../../tests/fixtures/test_cards/front.jpg"),
+        backImage: createReadStream("../../tests/fixtures/test_cards/back.jpg"),
       });
 
       expect(typeof response).toBe("object");
@@ -86,7 +86,7 @@ describe("Cardscan Pipelines", () => {
 
     it("runs the card scanning pipeline successfully (front side only)", async () => {
       const response = await cardscan.fullScan({
-        frontImage: createReadStream("tests/cards/front.jpg"),
+        frontImage: createReadStream("../../tests/fixtures/test_cards/front.jpg"),
       });
 
       expect(typeof response).toBe("object");
@@ -102,8 +102,8 @@ describe("Cardscan Pipelines", () => {
 
       try {
         await invalidCardscan.fullScan({
-          frontImage: createReadStream("tests/cards/front.jpg"),
-          backImage: createReadStream("tests/cards/back.jpg"),
+          frontImage: createReadStream("../../tests/fixtures/test_cards/front.jpg"),
+          backImage: createReadStream("../../tests/fixtures/test_cards/back.jpg"),
         });
       } catch (e) {
         expect(e.message).toMatch(/403/);

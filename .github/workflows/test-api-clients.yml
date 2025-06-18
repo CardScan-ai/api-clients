@@ -100,10 +100,43 @@ jobs:
       run: |
         npm install
     
-    - name: Run existing tests
+    - name: Install shared test dependencies
+      working-directory: tests
+      run: |
+        npm install
+    
+    - name: Run TypeScript tests
+      working-directory: tests
+      run: |
+        npm run test:typescript
+
+  test-typescript-sandbox:
+    name: Test TypeScript Client (Sandbox Integration)
+    runs-on: ubuntu-latest
+    if: github.event_name == 'workflow_dispatch' || (github.event_name == 'push' && github.ref == 'refs/heads/main')
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+    
+    - name: Set up Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '18'
+    
+    - name: Setup test environment
+      working-directory: clients/cardscan-ts
+      run: echo "${{ secrets.TESTS_ENV_FILE }}" > .env
+    
+    - name: Install dependencies
       working-directory: clients/cardscan-ts
       run: |
-        npm test
+        npm install
+    
+    - name: Run sandbox integration tests
+      working-directory: clients/cardscan-ts
+      run: |
+        npx jest ../../tests/typescript/test_live_sandbox.test.ts --verbose
 
   test-kotlin-client:
     name: Test Kotlin Client

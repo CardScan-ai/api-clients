@@ -1,4 +1,4 @@
-import { CardScanApi } from "../api/card-scan-api";
+import { CardScanApi } from "../../clients/cardscan-ts/api/card-scan-api";
 
 describe("Date Validator", () => {
   const cardscan = new CardScanApi({
