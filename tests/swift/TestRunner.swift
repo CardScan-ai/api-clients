@@ -18,7 +18,7 @@ struct TestRunner {
             ("Mixed String/Numeric Values", testMixedStringAndNumericValues),
             ("Invalid String in Score Field", testInvalidStringInScoreField),
             ("Card Response from Shared Fixture", testCardResponseFromSharedFixture),
-            ("Card Response with Payer Match", testCardResponseWithPayerMatch),
+            ("Comprehensive Real Fixture with All Data", testComprehensiveCardResponseWithRealFixture),
             ("Error Card Response", testErrorCardResponse),
             ("Snake Case Field Names", testSnakeCaseFieldNames),
             ("Null and Optional Field Handling", testNullAndOptionalFieldHandling),
@@ -45,13 +45,16 @@ struct TestRunner {
     }
 }
 
-// Basic CardApiResponse structure (simplified for testing)
+// Comprehensive CardApiResponse structure matching real API
 struct CardApiResponse: Codable {
     let cardId: String
     let state: String
     let createdAt: String
     let deleted: Bool
+    let details: CardDetails?
     let payerMatch: PayerMatch?
+    let metadata: CardMetadata?
+    let images: CardImages?
     let error: ModelError?
     
     enum CodingKeys: String, CodingKey {
@@ -59,21 +62,128 @@ struct CardApiResponse: Codable {
         case state
         case createdAt = "created_at"
         case deleted
+        case details
         case payerMatch = "payer_match"
+        case metadata
+        case images
         case error
     }
+}
+
+struct CardDetails: Codable {
+    let rxPcn: FieldWithScores?
+    let planName: FieldWithScores?
+    let dependentNames: [FieldWithScores]?
+    let rxBin: FieldWithScores?
+    let memberNumber: FieldWithScores?
+    let groupNumber: FieldWithScores?
+    let payerName: FieldWithScores?
+    let payerId: FieldWithScores?
+    let memberName: FieldWithScores?
+    let rxIssuer: FieldWithScores?
+    let pharmacyBenefitManager: FieldWithScores?
+    
+    enum CodingKeys: String, CodingKey {
+        case rxPcn = "rx_pcn"
+        case planName = "plan_name"
+        case dependentNames = "dependent_names"
+        case rxBin = "rx_bin"
+        case memberNumber = "member_number"
+        case groupNumber = "group_number"
+        case payerName = "payer_name"
+        case payerId = "payer_id"
+        case memberName = "member_name"
+        case rxIssuer = "rx_issuer"
+        case pharmacyBenefitManager = "pharmacy_benefit_manager"
+    }
+}
+
+struct FieldWithScores: Codable {
+    let value: String
+    let scores: [String]
 }
 
 struct PayerMatch: Codable {
     let cardscanPayerId: String?
     let cardscanPayerName: String?
     let score: String?
+    let matches: [PayerMatchDetail]?
+    let changeHealthcare: [PayerMatchDetail]?
+    let custom: [CustomPayerMatch]?
     
     enum CodingKeys: String, CodingKey {
         case cardscanPayerId = "cardscan_payer_id"
         case cardscanPayerName = "cardscan_payer_name"
         case score
+        case matches
+        case changeHealthcare = "change_healthcare"
+        case custom
     }
+}
+
+struct PayerMatchDetail: Codable {
+    let clearinghouse: String?
+    let payerId: String?
+    let transactionType: String?
+    let payerName: String?
+    let cardscanPayerId: String?
+    let score: String?
+    let metadata: PayerMatchMetadata?
+    
+    enum CodingKeys: String, CodingKey {
+        case clearinghouse
+        case payerId = "payer_id"
+        case transactionType = "transaction_type"
+        case payerName = "payer_name"
+        case cardscanPayerId = "cardscan_payer_id"
+        case score
+        case metadata
+    }
+}
+
+struct PayerMatchMetadata: Codable {
+    let lastUpdated: String?
+    let source: String?
+    
+    enum CodingKeys: String, CodingKey {
+        case lastUpdated = "last_updated"
+        case source
+    }
+}
+
+struct CustomPayerMatch: Codable {
+    let customPayerId: String?
+    let customPayerName: String?
+    let customPayerNameAlt: String?
+    let score: String?
+    let source: String?
+    
+    enum CodingKeys: String, CodingKey {
+        case customPayerId = "custom_payer_id"
+        case customPayerName = "custom_payer_name"
+        case customPayerNameAlt = "custom_payer_name_alt"
+        case score
+        case source
+    }
+}
+
+struct CardMetadata: Codable {
+    let insuranceScanVersion: String?
+    let payerMatchVersion: String?
+    
+    enum CodingKeys: String, CodingKey {
+        case insuranceScanVersion = "insurance_scan_version"
+        case payerMatchVersion = "payer_match_version"
+    }
+}
+
+struct CardImages: Codable {
+    let front: ImageInfo?
+    let back: ImageInfo?
+}
+
+struct ImageInfo: Codable {
+    let url: String
 }
 
 struct ModelError: Codable {
@@ -173,18 +283,66 @@ func testCardResponseFromSharedFixture() throws {
     assert(cardResponse.payerMatch == nil)
 }
 
-func testCardResponseWithPayerMatch() throws {
+func testComprehensiveCardResponseWithRealFixture() throws {
+    // Load and test the massive real fixture with all nested data
     let jsonString = """
     {
         "card_id": "c1b93738-ddc0-4beb-9936-1f93fe0e4279",
         "state": "completed",
-        "created_at": "2025-06-18T02:26:24.578379+00:00",
-        "deleted": false,
+        "created_at": "2025-04-24 13:58:30.820353+00:00",
+        "details": {
+            "rx_pcn": {
+                "value": "9987",
+                "scores": ["0.991", "0.999"]
+            },
+            "member_name": {
+                "value": "emily dickinson",
+                "scores": ["0.994", "0.998"]
+            },
+            "dependent_names": [{
+                "value": "richard dickinson",
+                "scores": ["0.995", "0.999"]
+            }],
+            "pharmacy_benefit_manager": {
+                "value": "optumrx",
+                "scores": ["0.601", "0.999"]
+            }
+        },
         "payer_match": {
             "cardscan_payer_id": "pay_8otorlr4",
             "cardscan_payer_name": "UNITEDHEALTHCARE",
-            "score": "0.95"
-        }
+            "score": "0.952",
+            "matches": [{
+                "clearinghouse": "Availity",
+                "payer_id": "87726",
+                "transaction_type": "professional",
+                "payer_name": "UNITEDHEALTHCARE",
+                "cardscan_payer_id": "pay_8otorlr4",
+                "score": "0.952",
+                "metadata": {
+                    "last_updated": "2025-04-07T01:39:42.292212+00:00",
+                    "source": "2025-04-06v1.0"
+                }
+            }],
+            "change_healthcare": [],
+            "custom": [{
+                "custom_payer_id": "UHC",
+                "custom_payer_name": "United Healthcare",
+                "custom_payer_name_alt": "United Healthcare Legacy",
+                "score": "1.0",
+                "source": "custom_payer_list_20240212"
+            }]
+        },
+        "metadata": {
+            "insurance_scan_version": "malbec-1.0",
+            "payer_match_version": "hybrid-1.2"
+        },
+        "images": {
+            "front": {
+                "url": "https://cardscan-sandbox-uploads-us-east-1.s3-accelerate.amazonaws.com/example"
+            }
+        },
+        "deleted": false
     }
     """
     
@@ -192,11 +350,63 @@ func testCardResponseWithPayerMatch() throws {
     let decoder = JSONDecoder()
     let cardResponse = try decoder.decode(CardApiResponse.self, from: jsonData)
     
+    // Test basic card info
     assert(cardResponse.cardId == "c1b93738-ddc0-4beb-9936-1f93fe0e4279")
     assert(cardResponse.state == "completed")
-    assert(cardResponse.payerMatch?.cardscanPayerId == "pay_8otorlr4")
-    assert(cardResponse.payerMatch?.cardscanPayerName == "UNITEDHEALTHCARE")
-    assert(cardResponse.payerMatch?.score == "0.95")
+    assert(cardResponse.deleted == false)
+    
+    // Test rich details with string numeric arrays
+    assert(cardResponse.details != nil)
+    let details = cardResponse.details!
+    
+    // Test rx_pcn field with scores array
+    assert(details.rxPcn?.value == "9987")
+    assert(details.rxPcn?.scores.count == 2)
+    assert(details.rxPcn?.scores.contains("0.991") == true)
+    assert(details.rxPcn?.scores.contains("0.999") == true)
+    
+    // Test member_name with confidence scores
+    assert(details.memberName?.value == "emily dickinson")
+    assert(details.memberName?.scores.contains("0.994") == true)
+    
+    // Test dependent_names array
+    assert(details.dependentNames?.count == 1)
+    assert(details.dependentNames?[0].value == "richard dickinson")
+    assert(details.dependentNames?[0].scores.contains("0.995") == true)
+    
+    // Test low confidence pharmacy field
+    assert(details.pharmacyBenefitManager?.value == "optumrx")
+    assert(details.pharmacyBenefitManager?.scores.contains("0.601") == true)
+    
+    // Test comprehensive payer match
+    assert(cardResponse.payerMatch != nil)
+    let payerMatch = cardResponse.payerMatch!
+    assert(payerMatch.cardscanPayerId == "pay_8otorlr4")
+    assert(payerMatch.cardscanPayerName == "UNITEDHEALTHCARE")
+    assert(payerMatch.score == "0.952")
+    
+    // Test matches array
+    assert(payerMatch.matches?.count == 1)
+    let firstMatch = payerMatch.matches![0]
+    assert(firstMatch.clearinghouse == "Availity")
+    assert(firstMatch.payerId == "87726")
+    assert(firstMatch.score == "0.952")
+    assert(firstMatch.metadata?.source == "2025-04-06v1.0")
+    
+    // Test custom payer matches
+    assert(payerMatch.custom?.count == 1)
+    let customMatch = payerMatch.custom![0]
+    assert(customMatch.customPayerId == "UHC")
+    assert(customMatch.score == "1.0")
+    
+    // Test metadata
+    assert(cardResponse.metadata?.insuranceScanVersion == "malbec-1.0")
+    assert(cardResponse.metadata?.payerMatchVersion == "hybrid-1.2")
+    
+    // Test images
+    assert(cardResponse.images?.front?.url.contains("cardscan-sandbox-uploads") == true)
+    
+    print("✅ Comprehensive real fixture test passed with all nested data validated")
 }
 
 func testErrorCardResponse() throws {

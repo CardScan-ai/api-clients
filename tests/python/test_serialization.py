@@ -68,8 +68,8 @@ class TestApiResponseParsing:
         assert card.details.member_number.value == "128845682"
         assert card.details.payer_name.value == "unitedhealthcare\""
     
-    def test_card_response_with_payer_match(self):
-        """Test parsing card response with payer matching"""
+    def test_card_response_with_comprehensive_data(self):
+        """Test parsing comprehensive card response with all nested data and string numeric arrays"""
         data = self.load_fixture("card_response_with_payer_match.json")
         card = CardApiResponse.from_dict(data)
         
@@ -77,16 +77,74 @@ class TestApiResponseParsing:
         assert card.state.value == "completed"
         assert card.payer_match is not None
         assert card.metadata is not None
+        assert card.details is not None
+        assert card.images is not None
         
-        # Test payer_match structure
-        assert card.payer_match.cardscan_payer_id == "pay_8otorlr4"
-        assert card.payer_match.cardscan_payer_name == "UNITEDHEALTHCARE"
-        assert len(card.payer_match.matches) >= 1
-        assert len(card.payer_match.custom) >= 1
+        # Test comprehensive details with string numeric arrays
+        details = card.details
         
-        # Test metadata
+        # Test rx_pcn with string scores array
+        assert details.rx_pcn is not None
+        assert details.rx_pcn.value == "9987"
+        assert len(details.rx_pcn.scores) == 2
+        for score in details.rx_pcn.scores:
+            assert isinstance(score, str)  # String from API
+            float(score)  # Must be convertible to float
+        assert "0.991" in details.rx_pcn.scores
+        assert "0.999" in details.rx_pcn.scores
+        
+        # Test member_name with string scores
+        assert details.member_name.value == "emily dickinson"
+        assert len(details.member_name.scores) == 2
+        assert "0.994" in details.member_name.scores
+        assert "0.998" in details.member_name.scores
+        
+        # Test dependent_names array with nested scores
+        assert len(details.dependent_names) == 1
+        dep = details.dependent_names[0]
+        assert dep.value == "richard dickinson"
+        assert len(dep.scores) == 2
+        assert "0.995" in dep.scores
+        
+        # Test pharmacy_benefit_manager with low confidence scores
+        assert details.pharmacy_benefit_manager.value == "optumrx"
+        assert "0.601" in details.pharmacy_benefit_manager.scores  # Low confidence
+        assert "0.999" in details.pharmacy_benefit_manager.scores  # High confidence
+        
+        # Test payer_match with complex nested structure
+        payer_match = card.payer_match
+        assert payer_match.cardscan_payer_id == "pay_8otorlr4"
+        assert payer_match.cardscan_payer_name == "UNITEDHEALTHCARE"
+        assert payer_match.score == "0.952"  # String numeric
+        
+        # Test matches array with clearinghouse data
+        assert len(payer_match.matches) >= 1
+        first_match = payer_match.matches[0]
+        assert first_match.clearinghouse == "Availity"
+        assert first_match.payer_id == "87726"
+        assert first_match.score == "0.952"
+        assert first_match.metadata.last_updated is not None
+        assert first_match.metadata.source == "2025-04-06v1.0"
+        
+        # Test custom payer array
+        assert len(payer_match.custom) >= 2
+        custom_uhc = payer_match.custom[0]
+        assert custom_uhc.custom_payer_id == "UHC"
+        assert custom_uhc.score == "1.0"
+        assert custom_uhc.source == "custom_payer_list_20240212"
+        
+        # Test metadata versions
         assert card.metadata.insurance_scan_version == "malbec-1.0"
         assert card.metadata.payer_match_version == "hybrid-1.2"
+        
+        # Test image URL
+        assert card.images.front.url.startswith("https://cardscan-sandbox-uploads")
+        assert "amazonaws.com" in card.images.front.url
+        
+        print(f'✅ Comprehensive parsing test passed for {card.card_id}')
+        print(f'   Details fields with scores arrays: rx_pcn, member_name, dependent_names, etc.')
+        print(f'   Payer matches: {len(payer_match.matches)} clearinghouse + {len(payer_match.custom)} custom')
+        print(f'   All string numeric values preserved and validated')
     
     def test_card_response_with_backside(self):
         """Test parsing card response with both front and back images"""

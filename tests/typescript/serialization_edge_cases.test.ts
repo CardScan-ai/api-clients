@@ -274,4 +274,113 @@ describe('TypeScript Serialization Edge Cases', () => {
       console.log('✅ Complex nested string number conversion successful');
     });
   });
+
+  describe('Comprehensive Real Fixture Testing', () => {
+    test('should parse massive real API response with all nested data', async () => {
+      console.log('🧪 Testing comprehensive real fixture with all nested data');
+      
+      // Load the actual massive fixture
+      const fs = require('fs').promises;
+      const path = require('path');
+      const fixturePath = path.join(__dirname, '..', 'fixtures', 'api_responses', 'card_response_with_payer_match.json');
+      const fixtureData = JSON.parse(await fs.readFile(fixturePath, 'utf8'));
+      
+      // Validate basic structure
+      expect(fixtureData.card_id).toBe('c1b93738-ddc0-4beb-9936-1f93fe0e4279');
+      expect(fixtureData.state).toBe('completed');
+      expect(fixtureData.deleted).toBe(false);
+      
+      // Test rich details with string numeric arrays
+      expect(fixtureData.details).toBeDefined();
+      expect(fixtureData.details.rx_pcn).toBeDefined();
+      expect(fixtureData.details.rx_pcn.value).toBe('9987');
+      expect(Array.isArray(fixtureData.details.rx_pcn.scores)).toBe(true);
+      expect(fixtureData.details.rx_pcn.scores).toContain('0.991');
+      expect(fixtureData.details.rx_pcn.scores).toContain('0.999');
+      
+      // Test member_name with confidence scores
+      expect(fixtureData.details.member_name.value).toBe('emily dickinson');
+      expect(fixtureData.details.member_name.scores).toContain('0.994');
+      expect(fixtureData.details.member_name.scores).toContain('0.998');
+      
+      // Test dependent_names array with nested scores
+      expect(Array.isArray(fixtureData.details.dependent_names)).toBe(true);
+      expect(fixtureData.details.dependent_names.length).toBe(1);
+      expect(fixtureData.details.dependent_names[0].value).toBe('richard dickinson');
+      expect(fixtureData.details.dependent_names[0].scores).toContain('0.995');
+      
+      // Test pharmacy_benefit_manager with low confidence
+      expect(fixtureData.details.pharmacy_benefit_manager.value).toBe('optumrx');
+      expect(fixtureData.details.pharmacy_benefit_manager.scores).toContain('0.601'); // Low
+      expect(fixtureData.details.pharmacy_benefit_manager.scores).toContain('0.999'); // High
+      
+      // Test comprehensive payer_match structure
+      expect(fixtureData.payer_match.cardscan_payer_id).toBe('pay_8otorlr4');
+      expect(fixtureData.payer_match.cardscan_payer_name).toBe('UNITEDHEALTHCARE');
+      expect(fixtureData.payer_match.score).toBe('0.952');
+      
+      // Test matches array with clearinghouse data
+      expect(Array.isArray(fixtureData.payer_match.matches)).toBe(true);
+      expect(fixtureData.payer_match.matches.length).toBeGreaterThan(0);
+      const firstMatch = fixtureData.payer_match.matches[0];
+      expect(firstMatch.clearinghouse).toBe('Availity');
+      expect(firstMatch.payer_id).toBe('87726');
+      expect(firstMatch.score).toBe('0.952');
+      expect(firstMatch.metadata.source).toBe('2025-04-06v1.0');
+      
+      // Test custom payer array
+      expect(Array.isArray(fixtureData.payer_match.custom)).toBe(true);
+      expect(fixtureData.payer_match.custom.length).toBeGreaterThan(0);
+      const customMatch = fixtureData.payer_match.custom[0];
+      expect(customMatch.custom_payer_id).toBe('UHC');
+      expect(customMatch.score).toBe('1.0');
+      expect(customMatch.source).toBe('custom_payer_list_20240212');
+      
+      // Test metadata versions
+      expect(fixtureData.metadata.insurance_scan_version).toBe('malbec-1.0');
+      expect(fixtureData.metadata.payer_match_version).toBe('hybrid-1.2');
+      
+      // Test image URL structure
+      expect(fixtureData.images.front.url).toContain('cardscan-sandbox-uploads');
+      expect(fixtureData.images.front.url).toContain('amazonaws.com');
+      
+      // Test string numeric conversion on real data
+      const safeConvert = (value: any): number | null => {
+        if (typeof value === 'number') return value;
+        if (typeof value === 'string') {
+          const parsed = parseFloat(value);
+          return isNaN(parsed) ? null : parsed;
+        }
+        return null;
+      };
+      
+      const rxPcnScores = fixtureData.details.rx_pcn.scores.map(safeConvert);
+      expect(rxPcnScores).toContain(0.991);
+      expect(rxPcnScores).toContain(0.999);
+      
+      const payerScore = safeConvert(fixtureData.payer_match.score);
+      expect(payerScore).toBe(0.952);
+      
+      console.log('✅ Comprehensive real fixture test passed');
+      console.log(`   Card ID: ${fixtureData.card_id}`);
+      console.log(`   Details fields with scores: rx_pcn, member_name, dependent_names, etc.`);
+      console.log(`   Payer matches: ${fixtureData.payer_match.matches.length} clearinghouse + ${fixtureData.payer_match.custom.length} custom`);
+      console.log(`   All string numeric arrays validated`);
+    });
+    
+    test('should parse backside fixture with front and back images', async () => {
+      const fs = require('fs').promises;
+      const path = require('path');
+      const fixturePath = path.join(__dirname, '..', 'fixtures', 'api_responses', 'card_response_with_backside.json');
+      const fixtureData = JSON.parse(await fs.readFile(fixturePath, 'utf8'));
+      
+      expect(fixtureData.card_id).toBe('e3f2a892-b360-4aaf-908e-25a12878da1c');
+      expect(fixtureData.images.front).toBeDefined();
+      expect(fixtureData.images.back).toBeDefined();
+      expect(fixtureData.images.front.url).toContain('https://');
+      expect(fixtureData.images.back.url).toContain('https://');
+      
+      console.log('✅ Backside fixture with both front and back images validated');
+    });
+  });
 });
