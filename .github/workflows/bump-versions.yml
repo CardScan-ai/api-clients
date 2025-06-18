@@ -38,6 +38,13 @@ jobs:
           tag-prefix: ts-v
           output-file: false
           skip-on-empty: false
+          skip-commit: true
+          git-push: false
+      - name: Create and push tag
+        if: steps.version.outputs.skipped == 'false'
+        run: |
+          git tag ts-v${{ steps.version.outputs.version }}
+          git push origin ts-v${{ steps.version.outputs.version }}
       - name: Trigger TypeScript publish
         if: steps.version.outputs.skipped == 'false'
         uses: peter-evans/repository-dispatch@v3
@@ -63,6 +70,13 @@ jobs:
           tag-prefix: py-v
           output-file: false
           skip-on-empty: false
+          skip-commit: true
+          git-push: false
+      - name: Create and push tag
+        if: steps.version.outputs.skipped == 'false'
+        run: |
+          git tag py-v${{ steps.version.outputs.version }}
+          git push origin py-v${{ steps.version.outputs.version }}
       - name: Trigger Python publish
         if: steps.version.outputs.skipped == 'false'
         uses: peter-evans/repository-dispatch@v3
@@ -89,6 +103,13 @@ jobs:
           tag-prefix: dart-v
           output-file: false
           skip-on-empty: false
+          skip-commit: true
+          git-push: false
+      - name: Create and push tag
+        if: steps.version.outputs.skipped == 'false'
+        run: |
+          git tag dart-v${{ steps.version.outputs.version }}
+          git push origin dart-v${{ steps.version.outputs.version }}
 
   bump-swift:
     runs-on: ubuntu-latest
@@ -99,6 +120,7 @@ jobs:
         with:
           fetch-depth: 0
       - uses: TriPSs/conventional-changelog-action@v3
+        id: version
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           skip-version-file: true
@@ -106,3 +128,9 @@ jobs:
           tag-prefix: ""
           output-file: false
           skip-on-empty: false
+          git-push: false
+      - name: Create and push tag
+        if: steps.version.outputs.skipped == 'false'
+        run: |
+          git tag ${{ steps.version.outputs.version }}
+          git push origin ${{ steps.version.outputs.version }}
