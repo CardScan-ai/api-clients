@@ -124,7 +124,7 @@ class TestApiResponseParsing:
         eligibility = EligibilityApiResponse.from_dict(data)
         
         assert eligibility.eligibility_id == "93376802-779b-42ad-bfa3-d6e99d5a02c9"
-        assert eligibility.state.value == "processing"
+        assert eligibility.state == "processing"  # state is a string, not enum
         assert eligibility.card_id == "529e865d-78c2-4f9e-aa9a-addedf642c88"
     
     @pytest.mark.skipif(
@@ -137,7 +137,7 @@ class TestApiResponseParsing:
         eligibility = EligibilityApiResponse.from_dict(data)
         
         assert eligibility.eligibility_id is not None
-        assert eligibility.state.value == "completed"
+        assert eligibility.state == "completed"  # state is a string, not enum
         # More assertions once we see the actual structure
 
 
