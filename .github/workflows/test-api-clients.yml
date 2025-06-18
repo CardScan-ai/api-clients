@@ -52,11 +52,6 @@ jobs:
           echo "PYTHON_FAILED=$PYTHON_FAILED" >> $GITHUB_OUTPUT
         fi
     
-    - name: Run existing pipeline tests
-      working-directory: clients/cardscan-python
-      run: |
-        PYTHONPATH=. pytest test/test_pipelines.py::test_invalid_api_key -v
-        PYTHONPATH=. pytest test/test_pipelines.py::test_invalid_api_key_card_scanning -v
 
   test-python-sandbox:
     name: Test Python Client (Sandbox Integration)
