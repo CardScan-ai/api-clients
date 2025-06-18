@@ -124,9 +124,9 @@ jobs:
       working-directory: tests
       run: |
         npm run test:typescript | tee jest_output.txt
-        # Extract test counts for summary
-        TS_PASSED=$(grep -o '[0-9]* passed' jest_output.txt | tail -1 | grep -o '[0-9]*' || echo "0")
-        TS_FAILED=$(grep -o '[0-9]* failed' jest_output.txt | tail -1 | grep -o '[0-9]*' || echo "0")
+        # Extract test counts for summary (Jest format: "Tests: X passed, Y total" or "Tests: X passed, Y failed, Z total")
+        TS_PASSED=$(grep -o 'Tests:.*passed' jest_output.txt | grep -o '[0-9]\+ passed' | grep -o '[0-9]\+' || echo "0")
+        TS_FAILED=$(grep -o 'Tests:.*failed' jest_output.txt | grep -o '[0-9]\+ failed' | grep -o '[0-9]\+' || echo "0")
         echo "TS_PASSED=$TS_PASSED" >> $GITHUB_OUTPUT
         echo "TS_FAILED=$TS_FAILED" >> $GITHUB_OUTPUT
 
