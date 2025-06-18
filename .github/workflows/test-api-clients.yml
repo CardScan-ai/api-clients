@@ -6,6 +6,8 @@ on:
   pull_request:
     branches: [ main ]
   workflow_dispatch:
+  schedule:
+    - cron: '0 8 * * *'  # Daily at 8:00 AM UTC
 
 jobs:
   test-python-client:
@@ -56,7 +58,7 @@ jobs:
   test-python-sandbox:
     name: Test Python Client (Sandbox Integration)
     runs-on: ubuntu-latest
-    if: github.event_name == 'workflow_dispatch' || (github.event_name == 'push' && github.ref == 'refs/heads/main')
+    if: github.event_name == 'workflow_dispatch' || (github.event_name == 'push' && github.ref == 'refs/heads/main') || github.event_name == 'schedule'
     
     steps:
     - name: Checkout code
@@ -128,7 +130,7 @@ jobs:
   test-typescript-sandbox:
     name: Test TypeScript Client (Sandbox Integration)
     runs-on: ubuntu-latest
-    if: github.event_name == 'workflow_dispatch' || (github.event_name == 'push' && github.ref == 'refs/heads/main')
+    if: github.event_name == 'workflow_dispatch' || (github.event_name == 'push' && github.ref == 'refs/heads/main') || github.event_name == 'schedule'
     
     steps:
     - name: Checkout code
@@ -270,7 +272,7 @@ jobs:
   test-kotlin-sandbox:
     name: Test Kotlin Client (Sandbox Integration)
     runs-on: ubuntu-latest
-    if: github.event_name == 'workflow_dispatch' || (github.event_name == 'push' && github.ref == 'refs/heads/main')
+    if: github.event_name == 'workflow_dispatch' || (github.event_name == 'push' && github.ref == 'refs/heads/main') || github.event_name == 'schedule'
     
     steps:
     - name: Checkout code
@@ -298,7 +300,7 @@ jobs:
   test-dart-sandbox:
     name: Test Dart Client (Sandbox Integration)
     runs-on: ubuntu-latest
-    if: github.event_name == 'workflow_dispatch' || (github.event_name == 'push' && github.ref == 'refs/heads/main')
+    if: github.event_name == 'workflow_dispatch' || (github.event_name == 'push' && github.ref == 'refs/heads/main') || github.event_name == 'schedule'
     
     steps:
     - name: Checkout code
@@ -326,7 +328,7 @@ jobs:
   test-swift-sandbox:
     name: Test Swift Client (Sandbox Integration)
     runs-on: macos-latest
-    if: github.event_name == 'workflow_dispatch' || (github.event_name == 'push' && github.ref == 'refs/heads/main')
+    if: github.event_name == 'workflow_dispatch' || (github.event_name == 'push' && github.ref == 'refs/heads/main') || github.event_name == 'schedule'
     
     steps:
     - name: Checkout code
