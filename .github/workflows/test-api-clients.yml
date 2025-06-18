@@ -272,6 +272,80 @@ jobs:
           exit 1
         fi
 
+  test-kotlin-sandbox:
+    name: Test Kotlin Client (Sandbox Integration)
+    runs-on: ubuntu-latest
+    if: github.event_name == 'workflow_dispatch' || (github.event_name == 'push' && github.ref == 'refs/heads/main')
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+    
+    - name: Set up JDK 21
+      uses: actions/setup-java@v4
+      with:
+        java-version: '21'
+        distribution: 'temurin'
+    
+    - name: Setup test environment
+      working-directory: clients/cardscan-kotlin
+      run: echo "${{ secrets.TESTS_ENV_FILE }}" > .env
+    
+    - name: Setup Gradle
+      uses: gradle/gradle-build-action@v2
+    
+    - name: Run Kotlin sandbox integration tests
+      working-directory: tests
+      run: |
+        cd ../clients/cardscan-kotlin && ./gradlew clean build
+        cd ../../tests && kotlin -classpath "../clients/cardscan-kotlin/build/libs/*:../clients/cardscan-kotlin/build/classes/kotlin/main" kotlin/SandboxIntegrationTest.kt
+
+  test-dart-sandbox:
+    name: Test Dart Client (Sandbox Integration)
+    runs-on: ubuntu-latest
+    if: github.event_name == 'workflow_dispatch' || (github.event_name == 'push' && github.ref == 'refs/heads/main')
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+    
+    - name: Set up Dart SDK
+      uses: dart-lang/setup-dart@v1
+      with:
+        sdk: stable
+    
+    - name: Setup test environment
+      working-directory: clients/cardscan-dart
+      run: echo "${{ secrets.TESTS_ENV_FILE }}" > .env
+    
+    - name: Install dependencies
+      working-directory: clients/cardscan-dart
+      run: |
+        dart pub get
+    
+    - name: Run Dart sandbox integration tests
+      working-directory: tests
+      run: |
+        dart dart/sandbox_integration_test.dart
+
+  test-swift-sandbox:
+    name: Test Swift Client (Sandbox Integration)
+    runs-on: macos-latest
+    if: github.event_name == 'workflow_dispatch' || (github.event_name == 'push' && github.ref == 'refs/heads/main')
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+    
+    - name: Setup test environment
+      working-directory: clients/cardscan-swift
+      run: echo "${{ secrets.TESTS_ENV_FILE }}" > .env
+    
+    - name: Run Swift sandbox integration tests
+      working-directory: tests
+      run: |
+        swift swift/SandboxIntegrationTest.swift
+
   test-fixtures-consistency:
     name: Validate Test Fixtures
     runs-on: ubuntu-latest
