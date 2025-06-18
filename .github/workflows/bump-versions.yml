@@ -75,22 +75,17 @@ jobs:
     steps:
       - uses: actions/checkout@v3
         with:
+          token: ${{ secrets.GH_PAT }}
           fetch-depth: 0
       - uses: TriPSs/conventional-changelog-action@v3
         id: version
         with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
+          github-token: ${{ secrets.GH_PAT }}
           version-file: clients/cardscan-dart/pubspec.yaml
           version-path: version
           git-message: "chore(release): bump dart client to {version}"
           tag-prefix: dart-v
           output-file: false
-      - name: Trigger Dart publish
-        if: steps.version.outputs.skipped == 'false'
-        uses: peter-evans/repository-dispatch@v3
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-          event-type: publish-dart
 
   bump-swift:
     runs-on: ubuntu-latest
