@@ -1,6 +1,21 @@
 import 'dart:convert';
+import 'dart:io';
 import 'package:test/test.dart';
+import 'package:path/path.dart' as path;
 import '../../clients/cardscan-dart/lib/cardscan_client.dart';
+
+/// Load fixture files from shared test directory
+String loadFixture(String filename) {
+  final currentDir = Directory.current.path;
+  final fixturePath = path.normalize(path.join(currentDir, '..', '..', 'tests', 'fixtures', 'api_responses', filename));
+  final file = File(fixturePath);
+  
+  if (!file.existsSync()) {
+    throw Exception('Fixture file not found: ${file.path}');
+  }
+  
+  return file.readAsStringSync();
+}
 
 /// Comprehensive Dart serialization tests
 /// Tests the Dart client's ability to handle various JSON response formats
@@ -302,6 +317,115 @@ void main() {
         expect(result.payerMatch, isNull);
         expect(result.details, isNull);
         expect(result.error, isNull);
+      });
+    });
+
+    group('Comprehensive Real Fixture Tests', () {
+      test('should parse massive card response from payer match fixture', () {
+        print('📁 Testing comprehensive card response from real fixture');
+        
+        final fixtureContent = loadFixture('card_response_with_payer_match.json');
+        final fixtureJson = json.decode(fixtureContent) as Map<String, dynamic>;
+        
+        final result = standardSerializers.deserializeWith(
+          CardApiResponse.serializer, 
+          fixtureJson
+        )!;
+        
+        // Test basic card info
+        expect(result.cardId, equals('c1b93738-ddc0-4beb-9936-1f93fe0e4279'));
+        expect(result.state, equals(CardState.completed));
+        expect(result.deleted, equals(false));
+        
+        // Test rich details structure
+        expect(result.details, isNotNull);
+        
+        // Test payer match comprehensive data
+        final payerMatch = result.payerMatch!;
+        expect(payerMatch.cardscanPayerId, equals('pay_8otorlr4'));
+        expect(payerMatch.cardscanPayerName, equals('UNITEDHEALTHCARE'));
+        expect(payerMatch.score, equals('0.952'));
+        
+        // Test metadata
+        expect(result.metadata, isNotNull);
+        
+        // Test images
+        expect(result.images, isNotNull);
+        expect(result.images!.front, isNotNull);
+        
+        print('✅ Comprehensive fixture test passed');
+        print('   Card ID: ${result.cardId}');
+        print('   Payer: ${payerMatch.cardscanPayerName}');
+        print('   Score: ${payerMatch.score}');
+      });
+      
+      test('should parse card response with backside from fixture', () {
+        print('🖼️ Testing card response with backside from fixture');
+        
+        final fixtureContent = loadFixture('card_response_with_backside.json');
+        final fixtureJson = json.decode(fixtureContent) as Map<String, dynamic>;
+        
+        final result = standardSerializers.deserializeWith(
+          CardApiResponse.serializer, 
+          fixtureJson
+        )!;
+        
+        expect(result.cardId, equals('e3f2a892-b360-4aaf-908e-25a12878da1c'));
+        expect(result.state, equals(CardState.completed));
+        
+        // Test both front and back images
+        expect(result.images, isNotNull);
+        expect(result.images!.front, isNotNull);
+        expect(result.images!.back, isNotNull);
+        
+        final frontUrl = result.images!.front!.url!;
+        final backUrl = result.images!.back!.url!;
+        expect(frontUrl, contains('https://'));
+        expect(backUrl, contains('https://'));
+        expect(frontUrl, contains('cardscan-sandbox-uploads'));
+        expect(backUrl, contains('cardscan-sandbox-uploads'));
+        
+        print('✅ Backside fixture test passed');
+        print('   Front image: Present');
+        print('   Back image: Present');
+      });
+      
+      test('should parse error response from fixture', () {
+        print('⚠️  Testing error card response from fixture');
+        
+        final fixtureContent = loadFixture('card_response_error.json');
+        final fixtureJson = json.decode(fixtureContent) as Map<String, dynamic>;
+        
+        final result = standardSerializers.deserializeWith(
+          CardApiResponse.serializer, 
+          fixtureJson
+        )!;
+        
+        expect(result.cardId, equals('b7012e64-24c6-4f85-8410-adf36fe03e8a'));
+        expect(result.state, equals(CardState.error));
+        expect(result.error, isNotNull);
+        expect(result.error!.type, equals('RejectedCard'));
+        expect(result.error!.message, equals('Rejecting scan for invalid card'));
+        
+        print('✅ Error response fixture test passed');
+      });
+      
+      test('should parse eligibility response from fixture', () {
+        print('🔍 Testing eligibility response from fixture');
+        
+        final fixtureContent = loadFixture('eligibility_response_processing.json');
+        final fixtureJson = json.decode(fixtureContent) as Map<String, dynamic>;
+        
+        final result = standardSerializers.deserializeWith(
+          EligibilityApiResponse.serializer, 
+          fixtureJson
+        )!;
+        
+        expect(result.eligibilityId, equals('93376802-779b-42ad-bfa3-d6e99d5a02c9'));
+        expect(result.state, equals(EligibilityApiResponseState.processing));
+        expect(result.cardId, equals('529e865d-78c2-4f9e-aa9a-addedf642c88'));
+        
+        print('✅ Eligibility response fixture test passed');
       });
     });
   });

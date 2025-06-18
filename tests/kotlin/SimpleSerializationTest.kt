@@ -9,6 +9,8 @@ import org.openapitools.client.infrastructure.*
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.JsonAdapter
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
+import java.io.File
+import java.nio.file.Paths
 
 fun main() {
     val tester = SimpleSerializationTest()
@@ -18,14 +20,15 @@ fun main() {
     
     try {
         tester.testStringNumericValuesEdgeCase()
-        tester.testCardResponseWithPayerMatch()
+        tester.testComprehensiveCardResponseFromFixture()
+        tester.testCardResponseWithBacksideFromFixture() 
         tester.testEligibilityResponseParsing()
-        tester.testErrorCardResponse()
+        tester.testErrorCardResponseFromFixture()
         tester.testSnakeCaseFieldNames()
         tester.testEnumSerialization()
         tester.testNullAndOptionalFieldHandling()
         
-        println("\n🎉 ALL TESTS PASSED! (7 test methods)")
+        println("\n🎉 ALL TESTS PASSED! (8 test methods)")
         
     } catch (e: Exception) {
         println("\n❌ TEST FAILED: ${e.message}")
@@ -52,6 +55,19 @@ class SimpleSerializationTest {
     
     private val eligibilityApiResponseAdapter: JsonAdapter<EligibilityApiResponse> = 
         moshi.adapter(EligibilityApiResponse::class.java)
+    
+    // Load fixture files from shared test directory
+    private fun loadFixture(filename: String): String {
+        val currentDir = System.getProperty("user.dir")
+        val fixturePath = Paths.get(currentDir, "..", "..", "tests", "fixtures", "api_responses", filename).normalize()
+        val file = File(fixturePath.toString())
+        
+        if (!file.exists()) {
+            throw RuntimeException("Fixture file not found: ${file.absolutePath}")
+        }
+        
+        return file.readText()
+    }
 
     fun testStringNumericValuesEdgeCase() {
         println("\n🧪 Testing string numeric values edge case")
@@ -107,56 +123,96 @@ class SimpleSerializationTest {
         
         println("✅ Payer match test passed")
     }
-
-    fun testEligibilityResponseParsing() {
-        println("\n🔍 Testing eligibility response parsing")
+    
+    fun testComprehensiveCardResponseFromFixture() {
+        println("\n📁 Testing comprehensive card response from real fixture")
         
-        val eligibilityJson = """
-        {
-            "eligibility_id": "93376802-779b-42ad-bfa3-d6e99d5a02c9",
-            "state": "processing",
-            "card_id": "529e865d-78c2-4f9e-aa9a-addedf642c88",
-            "created_at": "2025-06-18T02:26:24.578379+00:00",
-            "deleted": false
-        }
-        """.trimIndent()
+        val fixtureJson = loadFixture("card_response_with_payer_match.json")
+        val cardResponse = cardApiResponseAdapter.fromJson(fixtureJson)
+            ?: throw AssertionError("Comprehensive card response should not be null")
         
-        val eligibilityResponse = eligibilityApiResponseAdapter.fromJson(eligibilityJson)
-            ?: throw AssertionError("Eligibility response should not be null")
+        // Test basic card info
+        assert(cardResponse.cardId.toString() == "c1b93738-ddc0-4beb-9936-1f93fe0e4279") { "Card ID should match fixture" }
+        assert(cardResponse.state == CardState.completed) { "State should be completed" }
+        assert(cardResponse.deleted == false) { "Card should not be deleted" }
         
-        assert(eligibilityResponse.eligibilityId.toString() == "93376802-779b-42ad-bfa3-d6e99d5a02c9") { "Eligibility ID should match" }
-        assert(eligibilityResponse.state == EligibilityApiResponse.State.processing) { "State should be processing" }
-        assert(eligibilityResponse.cardId.toString() == "529e865d-78c2-4f9e-aa9a-addedf642c88") { "Card ID should match" }
+        // Test rich details structure
+        assert(cardResponse.details != null) { "Details should be present" }
         
-        println("✅ Eligibility response test passed")
+        // Test payer match comprehensive data
+        val payerMatch = cardResponse.payerMatch
+        assert(payerMatch != null) { "Payer match should be present" }
+        assert(payerMatch!!.cardscanPayerId == "pay_8otorlr4") { "Payer ID should match" }
+        assert(payerMatch.cardscanPayerName == "UNITEDHEALTHCARE") { "Payer name should match" }
+        assert(payerMatch.score == "0.952") { "Score should match fixture" }
+        
+        // Test metadata
+        assert(cardResponse.metadata != null) { "Metadata should be present" }
+        
+        // Test images
+        assert(cardResponse.images != null) { "Images should be present" }
+        assert(cardResponse.images!!.front != null) { "Front image should be present" }
+        
+        println("✅ Comprehensive fixture test passed")
+        println("   Card ID: ${cardResponse.cardId}")
+        println("   Payer: ${payerMatch.cardscanPayerName}")
+        println("   Score: ${payerMatch.score}")
+    }
+    
+    fun testCardResponseWithBacksideFromFixture() {
+        println("\n🖼️ Testing card response with backside from fixture")
+        
+        val fixtureJson = loadFixture("card_response_with_backside.json")
+        val cardResponse = cardApiResponseAdapter.fromJson(fixtureJson)
+            ?: throw AssertionError("Backside card response should not be null")
+        
+        assert(cardResponse.cardId.toString() == "e3f2a892-b360-4aaf-908e-25a12878da1c") { "Card ID should match backside fixture" }
+        assert(cardResponse.state == CardState.completed) { "State should be completed" }
+        
+        // Test both front and back images
+        assert(cardResponse.images != null) { "Images should be present" }
+        assert(cardResponse.images!!.front != null) { "Front image should be present" }
+        assert(cardResponse.images!!.back != null) { "Back image should be present" }
+        
+        val frontUrl = cardResponse.images!!.front!!.url ?: ""
+        val backUrl = cardResponse.images!!.back!!.url ?: ""
+        assert(frontUrl.contains("https://")) { "Front URL should be HTTPS" }
+        assert(backUrl.contains("https://")) { "Back URL should be HTTPS" }
+        assert(frontUrl.contains("cardscan-sandbox-uploads")) { "Front URL should contain sandbox bucket" }
+        assert(backUrl.contains("cardscan-sandbox-uploads")) { "Back URL should contain sandbox bucket" }
+        
+        println("✅ Backside fixture test passed")
+        println("   Front image: Present")
+        println("   Back image: Present")
     }
 
-    fun testErrorCardResponse() {
-        println("\n⚠️  Testing error card response")
+    fun testEligibilityResponseParsing() {
+        println("\n🔍 Testing eligibility response from fixture")
         
-        val errorCardJson = """
-        {
-            "card_id": "b7012e64-24c6-4f85-8410-adf36fe03e8a",
-            "state": "error",
-            "created_at": "2025-06-18T02:26:24.578379+00:00",
-            "deleted": false,
-            "error": {
-                "type": "RejectedCard",
-                "message": "Rejecting scan for invalid card",
-                "code": "REJ001"
-            }
-        }
-        """.trimIndent()
+        val fixtureJson = loadFixture("eligibility_response_processing.json")
+        val eligibilityResponse = eligibilityApiResponseAdapter.fromJson(fixtureJson)
+            ?: throw AssertionError("Eligibility response should not be null")
         
-        val cardResponse = cardApiResponseAdapter.fromJson(errorCardJson)
+        assert(eligibilityResponse.eligibilityId.toString() == "93376802-779b-42ad-bfa3-d6e99d5a02c9") { "Eligibility ID should match fixture" }
+        assert(eligibilityResponse.state == EligibilityApiResponse.State.processing) { "State should be processing" }
+        assert(eligibilityResponse.cardId.toString() == "529e865d-78c2-4f9e-aa9a-addedf642c88") { "Card ID should match fixture" }
+        
+        println("✅ Eligibility response fixture test passed")
+    }
+
+    fun testErrorCardResponseFromFixture() {
+        println("\n⚠️  Testing error card response from fixture")
+        
+        val fixtureJson = loadFixture("card_response_error.json")
+        val cardResponse = cardApiResponseAdapter.fromJson(fixtureJson)
             ?: throw AssertionError("Error card response should not be null")
         
-        assert(cardResponse.cardId.toString() == "b7012e64-24c6-4f85-8410-adf36fe03e8a") { "Card ID should match" }
+        assert(cardResponse.cardId.toString() == "b7012e64-24c6-4f85-8410-adf36fe03e8a") { "Card ID should match fixture" }
         assert(cardResponse.state == CardState.error) { "State should be error" }
-        assert(cardResponse.error?.type == "RejectedCard") { "Error type should match" }
-        assert(cardResponse.error?.message == "Rejecting scan for invalid card") { "Error message should match" }
+        assert(cardResponse.error?.type == "RejectedCard") { "Error type should match fixture" }
+        assert(cardResponse.error?.message == "Rejecting scan for invalid card") { "Error message should match fixture" }
         
-        println("✅ Error response test passed")
+        println("✅ Error response fixture test passed")
     }
 
     fun testSnakeCaseFieldNames() {

@@ -2,6 +2,20 @@
 
 import Foundation
 
+// Load fixture files from shared test directory
+func loadFixture(_ filename: String) throws -> String {
+    let currentDir = FileManager.default.currentDirectoryPath
+    let fixturePath = "\(currentDir)/../../tests/fixtures/api_responses/\(filename)"
+    
+    guard FileManager.default.fileExists(atPath: fixturePath) else {
+        throw NSError(domain: "TestError", code: 1, userInfo: [
+            NSLocalizedDescriptionKey: "Fixture file not found: \(fixturePath)"
+        ])
+    }
+    
+    return try String(contentsOfFile: fixturePath, encoding: .utf8)
+}
+
 // Simple Swift test runner for CardScan API client serialization
 // This runs standalone tests without XCTest framework
 
@@ -18,7 +32,9 @@ struct TestRunner {
             ("Mixed String/Numeric Values", testMixedStringAndNumericValues),
             ("Invalid String in Score Field", testInvalidStringInScoreField),
             ("Card Response from Shared Fixture", testCardResponseFromSharedFixture),
-            ("Comprehensive Real Fixture with All Data", testComprehensiveCardResponseWithRealFixture),
+            ("Comprehensive Payer Match Fixture", testComprehensiveCardResponseFromFixture),
+            ("Card Response with Backside Fixture", testCardResponseWithBacksideFromFixture),
+            ("Error Response Fixture", testErrorCardResponseFromFixture),
             ("Error Card Response", testErrorCardResponse),
             ("Snake Case Field Names", testSnakeCaseFieldNames),
             ("Null and Optional Field Handling", testNullAndOptionalFieldHandling),
@@ -193,6 +209,84 @@ struct ModelError: Codable {
 }
 
 // Test functions
+
+func testComprehensiveCardResponseFromFixture() throws {
+    let fixtureContent = try loadFixture("card_response_with_payer_match.json")
+    let jsonData = fixtureContent.data(using: .utf8)!
+    let decoder = JSONDecoder()
+    let cardResponse = try decoder.decode(CardApiResponse.self, from: jsonData)
+    
+    // Test basic card info
+    assert(cardResponse.cardId == "c1b93738-ddc0-4beb-9936-1f93fe0e4279")
+    assert(cardResponse.state == "completed")
+    assert(cardResponse.deleted == false)
+    
+    // Test rich details structure
+    assert(cardResponse.details != nil)
+    
+    // Test payer match comprehensive data
+    let payerMatch = cardResponse.payerMatch!
+    assert(payerMatch.cardscanPayerId == "pay_8otorlr4")
+    assert(payerMatch.cardscanPayerName == "UNITEDHEALTHCARE")
+    assert(payerMatch.score == "0.952")
+    
+    // Test metadata
+    assert(cardResponse.metadata != nil)
+    assert(cardResponse.metadata!.insuranceScanVersion == "malbec-1.0")
+    assert(cardResponse.metadata!.payerMatchVersion == "hybrid-1.2")
+    
+    // Test images
+    assert(cardResponse.images != nil)
+    assert(cardResponse.images!.front != nil)
+    assert(cardResponse.images!.front!.url.contains("cardscan-sandbox-uploads"))
+    
+    print("✅ Comprehensive payer match fixture test passed")
+    print("   Card ID: \(cardResponse.cardId)")
+    print("   Payer: \(payerMatch.cardscanPayerName ?? "N/A")")
+    print("   Score: \(payerMatch.score ?? "N/A")")
+}
+
+func testCardResponseWithBacksideFromFixture() throws {
+    let fixtureContent = try loadFixture("card_response_with_backside.json")
+    let jsonData = fixtureContent.data(using: .utf8)!
+    let decoder = JSONDecoder()
+    let cardResponse = try decoder.decode(CardApiResponse.self, from: jsonData)
+    
+    assert(cardResponse.cardId == "e3f2a892-b360-4aaf-908e-25a12878da1c")
+    assert(cardResponse.state == "completed")
+    
+    // Test both front and back images
+    assert(cardResponse.images != nil)
+    assert(cardResponse.images!.front != nil)
+    assert(cardResponse.images!.back != nil)
+    
+    let frontUrl = cardResponse.images!.front!.url
+    let backUrl = cardResponse.images!.back!.url
+    assert(frontUrl.contains("https://"))
+    assert(backUrl.contains("https://"))
+    assert(frontUrl.contains("cardscan-sandbox-uploads"))
+    assert(backUrl.contains("cardscan-sandbox-uploads"))
+    
+    print("✅ Backside fixture test passed")
+    print("   Front image: Present")
+    print("   Back image: Present")
+}
+
+func testErrorCardResponseFromFixture() throws {
+    let fixtureContent = try loadFixture("card_response_error.json")
+    let jsonData = fixtureContent.data(using: .utf8)!
+    let decoder = JSONDecoder()
+    let cardResponse = try decoder.decode(CardApiResponse.self, from: jsonData)
+    
+    assert(cardResponse.cardId == "b7012e64-24c6-4f85-8410-adf36fe03e8a")
+    assert(cardResponse.state == "error")
+    assert(cardResponse.error != nil)
+    assert(cardResponse.error!.type == "RejectedCard")
+    assert(cardResponse.error!.message == "Rejecting scan for invalid card")
+    
+    print("✅ Error response fixture test passed")
+}
+
 func testStringNumericValuesEdgeCase() throws {
     let jsonString = """
     {
