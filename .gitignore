@@ -17,3 +17,8 @@ clients/cardscan-python/images/
 ## Swift
 .build
 Package.resolved
+
+
+.claude
+.pytest_cache
+__pycache__

@@ -1,0 +1,88 @@
+{
+    "card_id": "529e865d-78c2-4f9e-aa9a-addedf642c88",
+    "state": "completed",
+    "created_at": "2021-10-16 20:41:09.448952+00:00",
+    "details": {
+        "group_number": {
+            "value": "98755",
+            "scores": [
+                "0.999",
+                "0.999"
+            ]
+        },
+        "member_number": {
+            "value": "128845682",
+            "scores": [
+                "0.998",
+                "0.999"
+            ]
+        },
+        "payer_name": {
+            "value": "unitedhealthcare\"",
+            "scores": [
+                "0.51",
+                "0.999"
+            ]
+        },
+        "rx_bin": {
+            "value": "610279",
+            "scores": [
+                "0.998",
+                "0.999"
+            ]
+        },
+        "rx_pcn": {
+            "value": "9987",
+            "scores": [
+                "0.999",
+                "0.999"
+            ]
+        },
+        "member_name": {
+            "value": "emily dickinson",
+            "scores": [
+                "0.997",
+                "0.998"
+            ]
+        },
+        "dependent_names": [
+            {
+                "value": "richard dickinson",
+                "scores": [
+                    "0.998",
+                    "0.977"
+                ]
+            }
+        ],
+        "plan_name": {
+            "value": "unitedhealthcare choice plus",
+            "scores": [
+                "0.992",
+                "0.999"
+            ]
+        },
+        "plan_id": {
+            "value": "(80840) 911-80708-01",
+            "scores": [
+                "0.993",
+                "0.999"
+            ]
+        },
+        "card_specific_id": {
+            "value": "87726",
+            "scores": [
+                "0.998",
+                "0.999"
+            ]
+        }
+    },
+    "payer_match": {
+        "message": "Payer Match is not enabled for this account"
+    },
+    "images": {
+        "front": {
+            "url": "https://cardscan-sandbox-uploads-us-east-1.s3-accelerate.amazonaws.com/70b68b4e-5e42-4c10-90e7-e311c67c9d51/us-east-1%3Ae4134a3e-ea81-41dd-a035-6c0b54c6df03/529e865d-78c2-4f9e-aa9a-addedf642c88/d44cac0e-37bc-4e9f-90aa-d5b1a98f7843?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=ASIAR5Z4R2XD75H6LTT4%2F20250618%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20250618T021607Z&X-Amz-Expires=86400&X-Amz-SignedHeaders=host&X-Amz-Security-Token=IQoJb3JpZ2luX2VjEJr%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FwEaCXVzLWVhc3QtMSJHMEUCIEC9TS0qE4L%2FQ7BIDKbwvaAGqWUpMrxJSG5xnLZ2bPquAiEA9nh6Dsvh4%2B4T25JlgmmyL8b5dyg9m53MqBA0HkECaPEq3AMIg%2F%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FARABGgwxMzI3MzQxMTMyMjMiDJyq8nVC7FFkuvqptyqwA9%2Boh3tceAlextmV0q1YnavBx9h3btzxLMcbzXb9voHo2w%2FytH7281X172DSnFsaVjDIapUo%2BLtyFmpnuSXjGy4tggFED0CZZFqrh6kJnR8S4LcTHylRocnBH1t5qvHC%2FFcX1RqHkAFLXFCM2bdxFP7ZZkq%2BSUmA4aTukBK%2FAGrrfrXnoL4Iu1V3tdnMkWNGFXUNbYsTlBTjinrwIc9i7bFyZLUzwZnLuBr5duvMc8XUNmi4OIqeWkSew0%2BP1YKyTaZpCQZejWKoO7EPnIMfQyNu%2BRUlCg6tBdYMz9KDOHgppz4bPAiTEUNafcVdHVSiv6iRTy37nxi5%2BCOQ%2BxHRrey6T%2BXkbIoviSvHXuTrLfi%2F24pjfaXnYrWhjC%2BkYKZiV5BtJd%2FKNxF79jm8m2MiTlXh0Uv%2BCixL3Vu8Kot3GrgQoVYmUbOPlQMh5E1OLLeIq5oFxM6KUo%2BzPS9JhR3uBuKJCX6JPCKEA3rXjSqc3VMUaMmdRFb4Fl5tgg85j1R5S1751Q0LfvU1i69GL0ER8q7a9wSFmK0ALi1qxxne%2Bj18oiM78QGN7qqIURIZqWW2XDDuucjCBjqeAR7qbLBU4u7Xj%2FDio6MWZiadnUK7rgkKMqRP7F%2BWniOoDbTDJNCI0%2B53jGkX9YxaE7QC5hPPuwVYegy8wUuNGXLcXjoRkJaMOmglwWzULth5aXLquBXqB6t16eGYKTskuIBWRbViJ8G%2BeBPtQLST01fU9DKiFkGL3JiM5DUthLe7YvAKZzpFSF4k71lwZcqcfXDHT17%2FWgXWx74bWBtC&X-Amz-Signature=49c8b0ab3bcf654b911f09395cfe671200e70402e5aae26bb3fab00dd9992c7c"
+        }
+    },
+    "deleted": false
+}
