@@ -37,6 +37,7 @@ jobs:
           git-message: "chore(release): bump typescript client to {version}"
           tag-prefix: ts-v
           output-file: false
+          skip-on-empty: false
       - name: Trigger TypeScript publish
         if: steps.version.outputs.skipped == 'false'
         uses: peter-evans/repository-dispatch@v3
@@ -61,6 +62,7 @@ jobs:
           git-message: "chore(release): bump python client to {version}"
           tag-prefix: py-v
           output-file: false
+          skip-on-empty: false
       - name: Trigger Python publish
         if: steps.version.outputs.skipped == 'false'
         uses: peter-evans/repository-dispatch@v3
@@ -85,6 +87,7 @@ jobs:
           git-message: "chore(release): bump dart client to {version}"
           tag-prefix: dart-v
           output-file: false
+          skip-on-empty: false
 
   bump-swift:
     runs-on: ubuntu-latest
@@ -101,3 +104,4 @@ jobs:
           skip-commit: true
           tag-prefix: ""
           output-file: false
+          skip-on-empty: false
