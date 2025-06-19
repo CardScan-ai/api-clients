@@ -1,0 +1,135 @@
+{
+    "card_id": "e3f2a892-b360-4aaf-908e-25a12878da1c",
+    "state": "completed",
+    "created_at": "2025-06-18 02:18:20.957216+00:00",
+    "details": {
+        "member_name": {
+            "value": "emily dickinson",
+            "scores": [
+                "0.994",
+                "0.998"
+            ]
+        },
+        "rx_bin": {
+            "value": "610279",
+            "scores": [
+                "0.995",
+                "0.999"
+            ]
+        },
+        "rx_pcn": {
+            "value": "9987",
+            "scores": [
+                "0.991",
+                "0.999"
+            ]
+        },
+        "group_number": {
+            "value": "98755",
+            "scores": [
+                "0.995",
+                "0.999"
+            ]
+        },
+        "rx_issuer": {
+            "value": "(80840) 911-80708-01",
+            "scores": [
+                "0.994",
+                "0.999"
+            ]
+        },
+        "payer_id": {
+            "value": "87726",
+            "scores": [
+                "0.995",
+                "0.999"
+            ]
+        },
+        "payer_name": {
+            "value": "unitedhealthcare",
+            "scores": [
+                "0.737",
+                "0.999"
+            ]
+        },
+        "pharmacy_benefit_manager": {
+            "value": "optumrx",
+            "scores": [
+                "0.601",
+                "0.999"
+            ]
+        },
+        "dependent_names": [
+            {
+                "value": "richard dickinson",
+                "scores": [
+                    "0.995",
+                    "0.999"
+                ]
+            }
+        ],
+        "plan_name": {
+            "value": "unitedhealthcare choice plus",
+            "scores": [
+                "0.967",
+                "0.992"
+            ]
+        },
+        "member_number": {
+            "value": "128845682",
+            "scores": [
+                "0.995",
+                "0.999"
+            ]
+        }
+    },
+    "payer_match": {
+        "cardscan_payer_id": "pay_8otorlr4",
+        "cardscan_payer_name": "UNITEDHEALTHCARE",
+        "score": "0.989",
+        "matches": [
+            {
+                "clearinghouse": "Availity",
+                "payer_id": "87726",
+                "transaction_type": "professional",
+                "payer_name": "UNITEDHEALTHCARE",
+                "cardscan_payer_id": "pay_8otorlr4",
+                "score": "0.989",
+                "metadata": {
+                    "last_updated": "2025-04-07T01:39:42.292212+00:00",
+                    "source": "2025-04-06v1.0"
+                }
+            }
+        ],
+        "change_healthcare": [],
+        "custom": [
+            {
+                "custom_payer_id": "UHC",
+                "custom_payer_name": "United Healthcare",
+                "custom_payer_name_alt": "United Healthcare Legacy",
+                "score": "1.0",
+                "source": "teladoc_payer_list_20240212"
+            },
+            {
+                "custom_payer_id": "UHC",
+                "custom_payer_name": "United Healthcare Oxford",
+                "custom_payer_name_alt": "United Healthcare Legacy",
+                "score": "1.0",
+                "source": "teladoc_payer_list_20240212"
+            }
+        ]
+    },
+    "metadata": {
+        "insurance_scan_version": "malbec-1.0",
+        "payer_match_version": "hybrid-1.2"
+    },
+    "images": {
+        "front": {
+            "url": "https://cardscan-sandbox-uploads-us-east-1.s3-accelerate.amazonaws.com/70b68b4e-5e42-4c10-90e7-e311c67c9d51/us-east-1%3Ae4134a3e-ea81-41dd-a035-6c0b54c6df03/e3f2a892-b360-4aaf-908e-25a12878da1c/fe0c9dbc-6d73-4417-a063-a47ed7373db3?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=ASIAR5Z4R2XD75H6LTT4%2F20250618%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20250618T021908Z&X-Amz-Expires=86400&X-Amz-SignedHeaders=host&X-Amz-Security-Token=IQoJb3JpZ2luX2VjEJr%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FwEaCXVzLWVhc3QtMSJHMEUCIEC9TS0qE4L%2FQ7BIDKbwvaAGqWUpMrxJSG5xnLZ2bPquAiEA9nh6Dsvh4%2B4T25JlgmmyL8b5dyg9m53MqBA0HkECaPEq3AMIg%2F%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FARABGgwxMzI3MzQxMTMyMjMiDJyq8nVC7FFkuvqptyqwA9%2Boh3tceAlextmV0q1YnavBx9h3btzxLMcbzXb9voHo2w%2FytH7281X172DSnFsaVjDIapUo%2BLtyFmpnuSXjGy4tggFED0CZZFqrh6kJnR8S4LcTHylRocnBH1t5qvHC%2FFcX1RqHkAFLXFCM2bdxFP7ZZkq%2BSUmA4aTukBK%2FAGrrfrXnoL4Iu1V3tdnMkWNGFXUNbYsTlBTjinrwIc9i7bFyZLUzwZnLuBr5duvMc8XUNmi4OIqeWkSew0%2BP1YKyTaZpCQZejWKoO7EPnIMfQyNu%2BRUlCg6tBdYMz9KDOHgppz4bPAiTEUNafcVdHVSiv6iRTy37nxi5%2BCOQ%2BxHRrey6T%2BXkbIoviSvHXuTrLfi%2F24pjfaXnYrWhjC%2BkYKZiV5BtJd%2FKNxF79jm8m2MiTlXh0Uv%2BCixL3Vu8Kot3GrgQoVYmUbOPlQMh5E1OLLeIq5oFxM6KUo%2BzPS9JhR3uBuKJCX6JPCKEA3rXjSqc3VMUaMmdRFb4Fl5tgg85j1R5S1751Q0LfvU1i69GL0ER8q7a9wSFmK0ALi1qxxne%2Bj18oiM78QGN7qqIURIZqWW2XDDuucjCBjqeAR7qbLBU4u7Xj%2FDio6MWZiadnUK7rgkKMqRP7F%2BWniOoDbTDJNCI0%2B53jGkX9YxaE7QC5hPPuwVYegy8wUuNGXLcXjoRkJaMOmglwWzULth5aXLquBXqB6t16eGYKTskuIBWRbViJ8G%2BeBPtQLST01fU9DKiFkGL3JiM5DUthLe7YvAKZzpFSF4k71lwZcqcfXDHT17%2FWgXWx74bWBtC&X-Amz-Signature=f9e4288f0372bbdc803158a5c49f18133b4c7096d4f7ad956f3aa4d6bf2cffc5"
+        },
+        "back": {
+            "url": "https://cardscan-sandbox-uploads-us-east-1.s3-accelerate.amazonaws.com/70b68b4e-5e42-4c10-90e7-e311c67c9d51/us-east-1%3Ae4134a3e-ea81-41dd-a035-6c0b54c6df03/e3f2a892-b360-4aaf-908e-25a12878da1c/9d87d2eb-8945-4bcb-970f-ed503e4ab8d0?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=ASIAR5Z4R2XD75H6LTT4%2F20250618%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20250618T021908Z&X-Amz-Expires=86400&X-Amz-SignedHeaders=host&X-Amz-Security-Token=IQoJb3JpZ2luX2VjEJr%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FwEaCXVzLWVhc3QtMSJHMEUCIEC9TS0qE4L%2FQ7BIDKbwvaAGqWUpMrxJSG5xnLZ2bPquAiEA9nh6Dsvh4%2B4T25JlgmmyL8b5dyg9m53MqBA0HkECaPEq3AMIg%2F%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FARABGgwxMzI3MzQxMTMyMjMiDJyq8nVC7FFkuvqptyqwA9%2Boh3tceAlextmV0q1YnavBx9h3btzxLMcbzXb9voHo2w%2FytH7281X172DSnFsaVjDIapUo%2BLtyFmpnuSXjGy4tggFED0CZZFqrh6kJnR8S4LcTHylRocnBH1t5qvHC%2FFcX1RqHkAFLXFCM2bdxFP7ZZkq%2BSUmA4aTukBK%2FAGrrfrXnoL4Iu1V3tdnMkWNGFXUNbYsTlBTjinrwIc9i7bFyZLUzwZnLuBr5duvMc8XUNmi4OIqeWkSew0%2BP1YKyTaZpCQZejWKoO7EPnIMfQyNu%2BRUlCg6tBdYMz9KDOHgppz4bPAiTEUNafcVdHVSiv6iRTy37nxi5%2BCOQ%2BxHRrey6T%2BXkbIoviSvHXuTrLfi%2F24pjfaXnYrWhjC%2BkYKZiV5BtJd%2FKNxF79jm8m2MiTlXh0Uv%2BCixL3Vu8Kot3GrgQoVYmUbOPlQMh5E1OLLeIq5oFxM6KUo%2BzPS9JhR3uBuKJCX6JPCKEA3rXjSqc3VMUaMmdRFb4Fl5tgg85j1R5S1751Q0LfvU1i69GL0ER8q7a9wSFmK0ALi1qxxne%2Bj18oiM78QGN7qqIURIZqWW2XDDuucjCBjqeAR7qbLBU4u7Xj%2FDio6MWZiadnUK7rgkKMqRP7F%2BWniOoDbTDJNCI0%2B53jGkX9YxaE7QC5hPPuwVYegy8wUuNGXLcXjoRkJaMOmglwWzULth5aXLquBXqB6t16eGYKTskuIBWRbViJ8G%2BeBPtQLST01fU9DKiFkGL3JiM5DUthLe7YvAKZzpFSF4k71lwZcqcfXDHT17%2FWgXWx74bWBtC&X-Amz-Signature=30814d9b4725a220c6055cdd809ea55b5f06fb295d337ca2f25945d44872408c"
+        }
+    },
+    "deleted": false
+}

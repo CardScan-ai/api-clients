@@ -85,13 +85,13 @@ def test_invalid_api_key():
         assert "401" in str(context.value)
 
 def test_card_scanning(cardscan):
-    response = cardscan.full_scan("test/cards/back.jpg", "test/cards/front.jpg")
+    response = cardscan.full_scan("../../tests/fixtures/test_cards/back.jpg", "../../tests/fixtures/test_cards/front.jpg")
 
     assert response is not None
     assert response.state == CardState.COMPLETED
 
 def test_card_scanning_only_front(cardscan):
-    response = cardscan.full_scan(front_image_path="test/cards/front.jpg")
+    response = cardscan.full_scan(front_image_path="../../tests/fixtures/test_cards/front.jpg")
 
     assert response is not None
     assert response.state == CardState.COMPLETED
@@ -109,6 +109,6 @@ def test_invalid_api_key_card_scanning():
     )
 
     with pytest.raises(Exception) as context:
-        invalid_cardscan.full_scan("cards/back.jpg", "cards/front.jpg")
+        invalid_cardscan.full_scan("../../tests/fixtures/test_cards/back.jpg", "../../tests/fixtures/test_cards/front.jpg")
 
         assert "401" in str(context.value)

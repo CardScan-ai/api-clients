@@ -1,0 +1,35 @@
+{
+  "compilerOptions": {
+    "target": "ES2020",
+    "module": "CommonJS",
+    "lib": ["ES2020", "DOM"],
+    "allowJs": true,
+    "outDir": "./dist",
+    "baseUrl": ".",
+    "strict": false,
+    "strictNullChecks": false,
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "declaration": true,
+    "declarationMap": true,
+    "sourceMap": true,
+    "types": ["jest", "node"],
+    "paths": {
+      "@cardscan-ts/*": ["../clients/cardscan-ts/*"]
+    }
+  },
+  "include": [
+    "**/*.ts",
+    "**/*.test.ts",
+    "../clients/cardscan-ts/**/*.ts"
+  ],
+  "exclude": [
+    "node_modules",
+    "dist",
+    "../clients/cardscan-ts/node_modules"
+  ]
+}
