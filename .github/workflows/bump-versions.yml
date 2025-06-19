@@ -88,6 +88,12 @@ jobs:
           tag-prefix: dart-v
           output-file: false
           skip-on-empty: false
+      - name: Trigger Dart publish
+        if: steps.version.outputs.skipped == 'false'
+        uses: peter-evans/repository-dispatch@v3
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          event-type: publish-dart
 
   bump-swift:
     runs-on: ubuntu-latest

@@ -3,7 +3,6 @@ version: 1.2.0
 description: Official CardScan API client
 homepage: https://cardscan.ai
 
-
 environment:
   sdk: '>=2.18.0 <4.0.0'
 
