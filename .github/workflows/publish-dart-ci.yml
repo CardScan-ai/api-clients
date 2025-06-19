@@ -18,6 +18,7 @@ jobs:
           accessToken: ${{ secrets.DART_ACCESS_TOKEN }}
           refreshToken: ${{ secrets.DART_REFRESH_TOKEN }}
           relativePath: "clients/cardscan-dart"
+          force: true
 
       - name: Notify slack fail
         if: failure()
