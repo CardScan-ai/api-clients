@@ -3,7 +3,7 @@ name: Publish Package to pub.dev
 on:
   push:
     tags:
-      - "dart-v*"
+    - 'dart-v[0-9]+.[0-9]+.[0-9]+'
 
 jobs:
   publish-dart-package:
