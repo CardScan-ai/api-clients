@@ -38,7 +38,8 @@ const cardScanApi = new CardScanApi({
   apiKey: "<your-api-key>",
 });
 
-const main = async () => {
+// Example: Eligibility checking
+const checkEligibility = async () => {
   try {
     const response = await cardScanApi.checkEligibility("<card-id>", {
       subscriber: {
@@ -52,10 +53,179 @@ const main = async () => {
         npi: "0123456789",
       },
     });
+    console.log("Eligibility check completed:", response);
   } catch (e) {
-    console.error(e);
+    console.error("Eligibility check failed:", e);
   }
+};
+```
+
+#### Card Scanning
+
+For card scanning functionality, you need to configure the websocket URL and use the `fullScan` method:
+
+```typescript
+import { CardScanApi } from "@cardscan.ai/cardscan-client";
+import { createReadStream } from "fs"; // Node.js only
+
+const cardScanApi = new CardScanApi({
+  apiKey: "<your-api-key>",
+  // Websocket URL is required for fullScan method
+  websocketUrl: "wss://ws.cardscan.ai", // Use appropriate websocket URL for your environment
+});
+
+// Example: Full card scan with front and back images
+const scanCard = async () => {
+  try {
+    // For Node.js - using file streams
+    const frontImage = createReadStream("./front-card-image.jpg");
+    const backImage = createReadStream("./back-card-image.jpg");
+
+    // For browser environments - using File objects from input[type="file"]
+    // const frontImage = document.getElementById('front-input').files[0];
+    // const backImage = document.getElementById('back-input').files[0];
+
+    // The fullScan method handles the entire process:
+    // 1. Creates a card with appropriate settings
+    // 2. Uploads images in the correct order (front first, then back)
+    // 3. Waits for processing completion via websockets
+    // 4. Returns the final card data with extracted information
+    const cardResult = await cardScanApi.fullScan({
+      frontImage: frontImage,
+      backImage: backImage, // Optional - for front-only scanning, omit this parameter
+    });
+
+    console.log("Card scan completed successfully:");
+    console.log("Card ID:", cardResult.cardId);
+    console.log("Card State:", cardResult.state);
+    console.log("Extracted Data:", cardResult.details);
+
+    // Access extracted information
+    if (cardResult.details) {
+      console.log("Member ID:", cardResult.details.memberId);
+      console.log("Plan Name:", cardResult.details.planName);
+      console.log("Insurance Company:", cardResult.details.insuranceCompany);
+    }
+  } catch (error) {
+    console.error("Card scan failed:", error);
+  }
+};
+
+// Example: Front-only card scan
+const scanFrontOnly = async () => {
+  try {
+    const frontImage = createReadStream("./front-card-image.jpg");
+
+    const cardResult = await cardScanApi.fullScan({
+      frontImage: frontImage,
+      // No backImage parameter for front-only scanning
+    });
+
+    console.log("Front-only scan completed:", cardResult);
+  } catch (error) {
+    console.error("Front-only scan failed:", error);
+  }
+};
+
+const main = async () => {
+  await checkEligibility();
+  await scanCard();
+  await scanFrontOnly();
 };
 
 main();
 ```
+
+**Important Notes for Card Scanning:**
+
+- The `fullScan` method requires a websocket URL to be configured for real-time processing updates
+- Always upload the front image first - the `fullScan` method handles this automatically
+- The method supports both front-only and front+back scanning
+- Image files can be File objects (browser), Blob objects, or Streams (Node.js)
+- The method returns the complete card data once processing is finished
+- Processing happens asynchronously and the method waits for completion using websockets
+
+## Documentation for API Endpoints
+
+All URIs are relative to *https://sandbox.cardscan.ai/v1*
+
+| Method                    | HTTP request                                  | Description                  | Documentation                                               |
+| ------------------------- | --------------------------------------------- | ---------------------------- | ----------------------------------------------------------- |
+| **cardPerformance**       | **POST** /cards/{card_id}/performance         | Card - Send performance data | [CardScanApi.md](docs/CardScanApi.md#cardperformance)       |
+| **createCard**            | **POST** /cards                               | Creates a new card           | [CardScanApi.md](docs/CardScanApi.md#createcard)            |
+| **createEligibility**     | **POST** /eligibility                         | Create Eligibility Record    | [CardScanApi.md](docs/CardScanApi.md#createeligibility)     |
+| **deleteCardById**        | **DELETE** /cards/{card_id}                   | Delete Card                  | [CardScanApi.md](docs/CardScanApi.md#deletecardbyid)        |
+| **directUpload**          | **POST** /cards/{card_id}/upload              | Direct Upload                | [CardScanApi.md](docs/CardScanApi.md#directupload)          |
+| **generateCardUploadUrl** | **POST** /cards/{card_id}/generate-upload-url | Card - Generate Upload URL   | [CardScanApi.md](docs/CardScanApi.md#generatecarduploadurl) |
+| **generateMagicLink**     | **GET** /generate-magic-link                  | Generate Magic Link          | [CardScanApi.md](docs/CardScanApi.md#generatemagiclink)     |
+| **generateUploadUrl**     | **GET** /generate-upload-url                  | Generate an upload URL       | [CardScanApi.md](docs/CardScanApi.md#generateuploadurl)     |
+| **getAccessToken**        | **GET** /access-token                         | Access Token                 | [CardScanApi.md](docs/CardScanApi.md#getaccesstoken)        |
+| **getCardById**           | **GET** /cards/{card_id}                      | Get Card by ID               | [CardScanApi.md](docs/CardScanApi.md#getcardbyid)           |
+| **getEligibilityById**    | **GET** /eligibility/{eligibility_id}         | Get Eligibility              | [CardScanApi.md](docs/CardScanApi.md#geteligibilitybyid)    |
+| **listCards**             | **GET** /cards                                | List Cards                   | [CardScanApi.md](docs/CardScanApi.md#listcards)             |
+| **listEligibility**       | **GET** /eligibility                          | List Eligibility             | [CardScanApi.md](docs/CardScanApi.md#listeligibility)       |
+| **searchCards**           | **GET** /cards/search                         | Search Cards                 | [CardScanApi.md](docs/CardScanApi.md#searchcards)           |
+| **setScanMetadata**       | **POST** /scans/{scan_id}/metadata            | Set Scan Metadata            | [CardScanApi.md](docs/CardScanApi.md#setscanmetadata)       |
+| **validateMagicLink**     | **GET** /validate-magic-link                  | Validate Magic Link          | [CardScanApi.md](docs/CardScanApi.md#validatemagiclink)     |
+
+## Documentation For Models
+
+- [Address](docs/Address.md)
+- [AddressResultInner](docs/AddressResultInner.md)
+- [AddressType](docs/AddressType.md)
+- [ApiErrorResponse](docs/ApiErrorResponse.md)
+- [CardApiResponse](docs/CardApiResponse.md)
+- [CardApiResponseDetails](docs/CardApiResponseDetails.md)
+- [CardApiResponseImages](docs/CardApiResponseImages.md)
+- [CardApiResponseImagesBack](docs/CardApiResponseImagesBack.md)
+- [CardApiResponseImagesFront](docs/CardApiResponseImagesFront.md)
+- [CardState](docs/CardState.md)
+- [CardWebsocketEvent](docs/CardWebsocketEvent.md)
+- [CoInsurance](docs/CoInsurance.md)
+- [CoPayment](docs/CoPayment.md)
+- [CoverageSummary](docs/CoverageSummary.md)
+- [CreateCardRequest](docs/CreateCardRequest.md)
+- [CreateCardRequestBackside](docs/CreateCardRequestBackside.md)
+- [CreateEligibilityRequest](docs/CreateEligibilityRequest.md)
+- [Deductible](docs/Deductible.md)
+- [DirectUpload200Response](docs/DirectUpload200Response.md)
+- [DirectUpload200ResponseMetadata](docs/DirectUpload200ResponseMetadata.md)
+- [DirectUploadRequest](docs/DirectUploadRequest.md)
+- [EligibilityApiResponse](docs/EligibilityApiResponse.md)
+- [EligibilityApiResponseEligibilityRequest](docs/EligibilityApiResponseEligibilityRequest.md)
+- [EligibilityApiResponseEligibilityRequestSubscriber](docs/EligibilityApiResponseEligibilityRequestSubscriber.md)
+- [EligibilityInfo](docs/EligibilityInfo.md)
+- [EligibilityState](docs/EligibilityState.md)
+- [EligibilitySummarizedResponse](docs/EligibilitySummarizedResponse.md)
+- [EligibilityWebsocketEvent](docs/EligibilityWebsocketEvent.md)
+- [GenerateCardUploadUrl200Response](docs/GenerateCardUploadUrl200Response.md)
+- [GenerateCardUploadUrlRequest](docs/GenerateCardUploadUrlRequest.md)
+- [GenerateMagicLink200Response](docs/GenerateMagicLink200Response.md)
+- [GetAccessToken200Response](docs/GetAccessToken200Response.md)
+- [GetAccessToken500Response](docs/GetAccessToken500Response.md)
+- [ListEligibility200Response](docs/ListEligibility200Response.md)
+- [MatchScore](docs/MatchScore.md)
+- [OOP](docs/OOP.md)
+- [PayerDetails](docs/PayerDetails.md)
+- [PlanDetails](docs/PlanDetails.md)
+- [ProviderDto](docs/ProviderDto.md)
+- [ResponseMetadata](docs/ResponseMetadata.md)
+- [ScanCaptureType](docs/ScanCaptureType.md)
+- [ScanMetadata](docs/ScanMetadata.md)
+- [ScanOrientation](docs/ScanOrientation.md)
+- [SearchCards200Response](docs/SearchCards200Response.md)
+- [Service](docs/Service.md)
+- [SubscriberDetails](docs/SubscriberDetails.md)
+- [SubscriberDto](docs/SubscriberDto.md)
+- [UploadParameters](docs/UploadParameters.md)
+- [ValidateMagicLink200Response](docs/ValidateMagicLink200Response.md)
+
+## Authorization
+
+Authentication schemes defined for the API:
+
+### bearerAuth
+
+- **Type**: Bearer authentication (API Key)
+- **API key parameter name**: Authorization
+- **Location**: HTTP header
