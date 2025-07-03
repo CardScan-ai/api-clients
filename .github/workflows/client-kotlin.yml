@@ -74,13 +74,11 @@ jobs:
             exit 0
           fi
           
-          # For pushes to main, check if it's from a merged PR
+          # For pushes to main, assume it's from a merged PR (simplest and most reliable)
+          # Direct pushes to main should be rare in most workflows
           is_merged_pr="false"
           if [[ "${{ github.event_name }}" == "push" && "${{ github.ref }}" == "refs/heads/main" ]]; then
-            # Check if this push came from a PR merge
-            if git log --format=%B -n 1 | grep -E "Merge pull request|Merge branch.*into main" > /dev/null; then
-              is_merged_pr="true"
-            fi
+            is_merged_pr="true"
           fi
           echo "is_merged_pr=$is_merged_pr" >> $GITHUB_OUTPUT
           
