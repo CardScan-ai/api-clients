@@ -4,27 +4,27 @@ on:
   workflow_dispatch:
     inputs:
       skip_regeneration:
-        description: 'Skip client regeneration'
+        description: "Skip client regeneration"
         required: false
         default: false
         type: boolean
       skip_version_bump:
-        description: 'Skip version bump and publishing'
+        description: "Skip version bump and publishing"
         required: false
         default: false
         type: boolean
   push:
     branches: [main]
     paths:
-      - 'openapi.yaml'
-      - 'openapi-generator-configs/swift.config.json'
-      - 'clients/cardscan-swift/**'
+      - "openapi.yaml"
+      - "openapi-generator-configs/swift.config.json"
+      - "clients/cardscan-swift/**"
   pull_request:
     branches: [main]
     paths:
-      - 'openapi.yaml'
-      - 'openapi-generator-configs/swift.config.json'
-      - 'clients/cardscan-swift/**'
+      - "openapi.yaml"
+      - "openapi-generator-configs/swift.config.json"
+      - "clients/cardscan-swift/**"
 
 jobs:
   detect-changes:
@@ -55,7 +55,7 @@ jobs:
             echo "is_merged_pr=true" >> $GITHUB_OUTPUT
             exit 0
           fi
-          
+
           # Check if commit contains [skip ci] or [skip swift]
           if git log --format=%B -n 1 | grep -E "\[(skip ci|skip swift)\]" > /dev/null; then
             echo "should_regenerate=false" >> $GITHUB_OUTPUT
@@ -63,7 +63,7 @@ jobs:
             echo "is_merged_pr=false" >> $GITHUB_OUTPUT
             exit 0
           fi
-          
+
           # For pull requests, only regenerate, never version bump
           if [[ "${{ github.event_name }}" == "pull_request" ]]; then
             if git diff --name-only HEAD~1 | grep -E "(openapi\.yaml|openapi-generator-configs/swift\.config\.json)" > /dev/null; then
@@ -75,7 +75,7 @@ jobs:
             echo "is_merged_pr=false" >> $GITHUB_OUTPUT
             exit 0
           fi
-          
+
           # For pushes to main, assume it's from a merged PR (simplest and most reliable)
           # Direct pushes to main should be rare in most workflows
           is_merged_pr="false"
@@ -83,7 +83,7 @@ jobs:
             is_merged_pr="true"
           fi
           echo "is_merged_pr=$is_merged_pr" >> $GITHUB_OUTPUT
-          
+
           # Check if regeneration triggers changed
           if git diff --name-only HEAD~1 | grep -E "(openapi\.yaml|openapi-generator-configs/swift\.config\.json)" > /dev/null; then
             echo "should_regenerate=true" >> $GITHUB_OUTPUT
@@ -112,6 +112,7 @@ jobs:
       - uses: actions/checkout@v3
         with:
           ssh-key: ${{ secrets.SSH_DEPLOY_KEY }}
+          ref: ${{ github.head_ref || github.ref_name }}
       - name: Generate Swift Client
         uses: openapi-generators/openapitools-generator-action@v1
         with:
@@ -121,6 +122,7 @@ jobs:
           command-args: -o clients/cardscan-swift
           generator-tag: v7.13.0
       - name: Commit changes
+        if: needs.detect-changes.outputs.is_merged_pr == 'true'
         run: |
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
@@ -128,8 +130,22 @@ jobs:
           if git diff --staged --quiet; then
             echo "No changes to commit"
           else
-            git commit -m "chore: regenerate Swift client"
-            git push
+            git commit -m "chore: regenerate Swift client [skip ci]"
+            
+            # Retry logic for push with rebase
+            for i in {1..5}; do
+              git pull --rebase origin main
+              if git push; then
+                echo "Push successful on attempt $i"
+                break
+              elif [ $i -eq 5 ]; then
+                echo "Push failed after 5 attempts"
+                exit 1
+              else
+                echo "Push failed on attempt $i, retrying..."
+                sleep 2
+              fi
+            done
           fi
 
   version-bump:
@@ -137,6 +153,8 @@ jobs:
     needs: [detect-changes, regenerate]
     if: always() && needs.detect-changes.outputs.should_version_bump == 'true' && needs.detect-changes.outputs.is_merged_pr == 'true' && (needs.regenerate.result == 'success' || needs.regenerate.result == 'skipped')
     steps:
+      - name: Random delay to avoid race conditions
+        run: sleep $((RANDOM % 30 + 10))
       - uses: actions/checkout@v3
         with:
           ssh-key: ${{ secrets.SSH_DEPLOY_KEY }}
