@@ -1461,6 +1461,27 @@ components:
                   description: The URL to the back image of the card.
         deleted:
           type: boolean
+        enriched_results:
+          type: object
+          nullable: true
+          description: Enriched data extracted from the insurance card using AI processing
+          properties:
+            addresses:
+              type: array
+              items:
+                $ref: '#/components/schemas/EnrichedAddressResultInner'
+            phone_numbers:
+              type: array
+              items:
+                $ref: '#/components/schemas/EnrichedPhoneNumberResultInner'
+            copays_deductibles:
+              type: array
+              items:
+                $ref: '#/components/schemas/EnrichedCopayResultInner'
+            processed_sides:
+              type: string
+              enum: [front_only, both]
+              description: Indicates which sides of the card were processed
         details:
           type: object
           nullable: true
@@ -1521,12 +1542,6 @@ components:
               $ref: '#/components/schemas/MatchScore'
             plan_type:
               $ref: '#/components/schemas/MatchScore'
-            addresses:
-              $ref: '#/components/schemas/AddressResult'
-            phone_numbers:
-              $ref: '#/components/schemas/PhoneNumberResult'
-            copays:
-              $ref: '#/components/schemas/CopayResult'
     PayerMatch:
       type: object
       properties:
@@ -1618,51 +1633,65 @@ components:
         payer_match_version:
           type: string
           nullable: true
-    AddressResult:
-      type: array
-      items:
-        type: object
-        properties:
-          value:
-            type: string
-          scores:
-            type: array
-            items:
-              type: string
-          type:
-            $ref: '#/components/schemas/AddressType'
-          label:
-            type: string
-    PhoneNumberResult:
-      type: array
-      items:
-        type: object
-        properties:
-          value:
-            type: string
-          scores:
-            type: array
-            items:
-              type: string
-          type:
-            $ref: '#/components/schemas/PhoneNumberType'
-          label:
-            type: string
-    CopayResult:
-      type: array
-      items:
-        type: object
-        properties:
-          value:
-            type: string
-          scores:
-            type: array
-            items:
-              type: string
-          service:
-            $ref: '#/components/schemas/CopayDeductibleService'
-          category:
-            $ref: '#/components/schemas/CopayCategory'
+    EnrichedAddressResultInner:
+      type: object
+      required:
+        - label
+        - type
+        - address
+        - score
+      properties:
+        label:
+          type: string
+          description: The label or description of the address (e.g., "Send Claims to", "Mail Appeals to")
+        type:
+          $ref: '#/components/schemas/AddressType'
+        company_name:
+          type: string
+          description: The company or organization name associated with the address
+        address:
+          type: string
+          description: The actual mailing address
+        score:
+          type: string
+          description: Confidence score for the extraction (0-1 as string)
+    EnrichedPhoneNumberResultInner:
+      type: object
+      required:
+        - label
+        - type
+        - number
+        - score
+      properties:
+        label:
+          type: string
+          description: The label or description of the phone number (e.g., "Member Services", "Providers Call")
+        type:
+          $ref: '#/components/schemas/PhoneNumberType'
+        number:
+          type: string
+          description: The phone number in NPA-NXX-XXXX format
+        score:
+          type: string
+          description: Confidence score for the extraction (0-1 as string)
+    EnrichedCopayResultInner:
+      type: object
+      required:
+        - service
+        - category
+        - value
+        - score
+      properties:
+        service:
+          $ref: '#/components/schemas/CopayDeductibleService'
+        category:
+          $ref: '#/components/schemas/CopayCategory'
+        value:
+          type: number
+          description: The copay/deductible amount as a number
+        score:
+          type: string
+          description: Confidence score for the extraction (0-1 as string)
     PhoneNumberType:
       type: string
       enum:
