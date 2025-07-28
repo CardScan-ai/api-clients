@@ -16,6 +16,7 @@
 package org.openapitools.client.models
 
 import org.openapitools.client.models.CardApiResponseDetails
+import org.openapitools.client.models.CardApiResponseEnrichedResults
 import org.openapitools.client.models.CardApiResponseImages
 import org.openapitools.client.models.CardResponseMetadata
 import org.openapitools.client.models.CardState
@@ -36,6 +37,7 @@ import com.squareup.moshi.JsonClass
  * @param payerMatch 
  * @param metadata 
  * @param images 
+ * @param enrichedResults 
  * @param details 
  */
 
@@ -66,6 +68,9 @@ data class CardApiResponse (
 
     @Json(name = "images")
     val images: CardApiResponseImages? = null,
+
+    @Json(name = "enriched_results")
+    val enrichedResults: CardApiResponseEnrichedResults? = null,
 
     @Json(name = "details")
     val details: CardApiResponseDetails? = null

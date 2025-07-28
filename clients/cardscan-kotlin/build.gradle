@@ -15,20 +15,13 @@ buildscript {
     }
     dependencies {
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
-        classpath "org.jetbrains.kotlin:kotlin-serialization:$kotlin_version"
         classpath "com.diffplug.spotless:spotless-plugin-gradle:$spotless_version"
     }
 }
 
 apply plugin: 'kotlin'
-apply plugin: 'kotlinx-serialization'
 apply plugin: 'maven-publish'
 apply plugin: 'com.diffplug.spotless'
-apply plugin: 'application'
-
-application {
-    mainClass = 'org.openapitools.client.TestRunnerKt'
-}
 
 repositories {
     maven { url "https://repo1.maven.org/maven2" }
@@ -59,30 +52,11 @@ test {
     useJUnitPlatform()
 }
 
-sourceSets {
-    main {
-        kotlin {
-            srcDirs 'src/main/kotlin', '../../tests/kotlin'
-            exclude '**/SerializationTest.kt'
-        }
-    }
-    test {
-        kotlin {
-            srcDirs += '../../tests/kotlin'
-            exclude '**/SerializationTest.kt'
-        }
-    }
-}
-
 dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
     implementation "org.jetbrains.kotlin:kotlin-reflect:$kotlin_version"
     implementation "com.squareup.moshi:moshi-kotlin:1.15.1"
     implementation "com.squareup.moshi:moshi-adapters:1.15.1"
     implementation "com.squareup.okhttp3:okhttp:4.12.0"
-    // Add kotlinx.serialization for SDK-style tests
-    implementation "org.jetbrains.kotlinx:kotlinx-serialization-json:1.6.2"
     testImplementation "io.kotlintest:kotlintest-runner-junit5:3.4.2"
-    testImplementation "org.junit.jupiter:junit-jupiter-api:5.10.0"
-    testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:5.10.0"
 }

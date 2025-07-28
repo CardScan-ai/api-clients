@@ -15,10 +15,7 @@
 
 package org.openapitools.client.models
 
-import org.openapitools.client.models.AddressResultInner
-import org.openapitools.client.models.CopayResultInner
 import org.openapitools.client.models.MatchScore
-import org.openapitools.client.models.PhoneNumberResultInner
 
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
@@ -53,9 +50,6 @@ import com.squareup.moshi.JsonClass
  * @param partBEffectiveDate 
  * @param pharmacyBenefitManager 
  * @param planType 
- * @param addresses 
- * @param phoneNumbers 
- * @param copays 
  */
 
 
@@ -140,16 +134,7 @@ data class CardApiResponseDetails (
     val pharmacyBenefitManager: MatchScore? = null,
 
     @Json(name = "plan_type")
-    val planType: MatchScore? = null,
-
-    @Json(name = "addresses")
-    val addresses: kotlin.collections.List<AddressResultInner>? = null,
-
-    @Json(name = "phone_numbers")
-    val phoneNumbers: kotlin.collections.List<PhoneNumberResultInner>? = null,
-
-    @Json(name = "copays")
-    val copays: kotlin.collections.List<CopayResultInner>? = null
+    val planType: MatchScore? = null
 
 ) {
 

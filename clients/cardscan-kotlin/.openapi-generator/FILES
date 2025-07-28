@@ -1,12 +1,12 @@
 README.md
 build.gradle
 docs/Address.md
-docs/AddressResultInner.md
 docs/AddressType.md
 docs/ApiErrorResponse.md
 docs/CHCPayerRecord.md
 docs/CardApiResponse.md
 docs/CardApiResponseDetails.md
+docs/CardApiResponseEnrichedResults.md
 docs/CardApiResponseImages.md
 docs/CardApiResponseImagesBack.md
 docs/CardApiResponseImagesFront.md
@@ -19,7 +19,6 @@ docs/CoInsurance.md
 docs/CoPayment.md
 docs/CopayCategory.md
 docs/CopayDeductibleService.md
-docs/CopayResultInner.md
 docs/CoverageSummary.md
 docs/CreateCardRequest.md
 docs/CreateCardRequestBackside.md
@@ -38,6 +37,9 @@ docs/EligibilityInfo.md
 docs/EligibilityState.md
 docs/EligibilitySummarizedResponse.md
 docs/EligibilityWebsocketEvent.md
+docs/EnrichedAddressResultInner.md
+docs/EnrichedCopayResultInner.md
+docs/EnrichedPhoneNumberResultInner.md
 docs/GenerateCardUploadUrl200Response.md
 docs/GenerateCardUploadUrlRequest.md
 docs/GenerateMagicLink200Response.md
@@ -51,7 +53,6 @@ docs/PayerDetails.md
 docs/PayerMatch.md
 docs/PayerMatchMatchesInner.md
 docs/PayerMatchMatchesInnerMetadata.md
-docs/PhoneNumberResultInner.md
 docs/PhoneNumberType.md
 docs/PlanDetails.md
 docs/ProviderDto.md
@@ -111,12 +112,12 @@ src/main/kotlin/org/openapitools/client/infrastructure/Serializer.kt
 src/main/kotlin/org/openapitools/client/infrastructure/URIAdapter.kt
 src/main/kotlin/org/openapitools/client/infrastructure/UUIDAdapter.kt
 src/main/kotlin/org/openapitools/client/models/Address.kt
-src/main/kotlin/org/openapitools/client/models/AddressResultInner.kt
 src/main/kotlin/org/openapitools/client/models/AddressType.kt
 src/main/kotlin/org/openapitools/client/models/ApiErrorResponse.kt
 src/main/kotlin/org/openapitools/client/models/CHCPayerRecord.kt
 src/main/kotlin/org/openapitools/client/models/CardApiResponse.kt
 src/main/kotlin/org/openapitools/client/models/CardApiResponseDetails.kt
+src/main/kotlin/org/openapitools/client/models/CardApiResponseEnrichedResults.kt
 src/main/kotlin/org/openapitools/client/models/CardApiResponseImages.kt
 src/main/kotlin/org/openapitools/client/models/CardApiResponseImagesBack.kt
 src/main/kotlin/org/openapitools/client/models/CardApiResponseImagesFront.kt
@@ -128,7 +129,6 @@ src/main/kotlin/org/openapitools/client/models/CoInsurance.kt
 src/main/kotlin/org/openapitools/client/models/CoPayment.kt
 src/main/kotlin/org/openapitools/client/models/CopayCategory.kt
 src/main/kotlin/org/openapitools/client/models/CopayDeductibleService.kt
-src/main/kotlin/org/openapitools/client/models/CopayResultInner.kt
 src/main/kotlin/org/openapitools/client/models/CoverageSummary.kt
 src/main/kotlin/org/openapitools/client/models/CreateCardRequest.kt
 src/main/kotlin/org/openapitools/client/models/CreateCardRequestBackside.kt
@@ -147,6 +147,9 @@ src/main/kotlin/org/openapitools/client/models/EligibilityInfo.kt
 src/main/kotlin/org/openapitools/client/models/EligibilityState.kt
 src/main/kotlin/org/openapitools/client/models/EligibilitySummarizedResponse.kt
 src/main/kotlin/org/openapitools/client/models/EligibilityWebsocketEvent.kt
+src/main/kotlin/org/openapitools/client/models/EnrichedAddressResultInner.kt
+src/main/kotlin/org/openapitools/client/models/EnrichedCopayResultInner.kt
+src/main/kotlin/org/openapitools/client/models/EnrichedPhoneNumberResultInner.kt
 src/main/kotlin/org/openapitools/client/models/GenerateCardUploadUrl200Response.kt
 src/main/kotlin/org/openapitools/client/models/GenerateCardUploadUrlRequest.kt
 src/main/kotlin/org/openapitools/client/models/GenerateMagicLink200Response.kt
@@ -160,7 +163,6 @@ src/main/kotlin/org/openapitools/client/models/PayerDetails.kt
 src/main/kotlin/org/openapitools/client/models/PayerMatch.kt
 src/main/kotlin/org/openapitools/client/models/PayerMatchMatchesInner.kt
 src/main/kotlin/org/openapitools/client/models/PayerMatchMatchesInnerMetadata.kt
-src/main/kotlin/org/openapitools/client/models/PhoneNumberResultInner.kt
 src/main/kotlin/org/openapitools/client/models/PhoneNumberType.kt
 src/main/kotlin/org/openapitools/client/models/PlanDetails.kt
 src/main/kotlin/org/openapitools/client/models/ProviderDto.kt
@@ -196,3 +198,7 @@ src/main/kotlin/org/openapitools/client/models/WebhookEligibilityDeletedEvent.kt
 src/main/kotlin/org/openapitools/client/models/WebhookEligibilityErrorEvent.kt
 src/main/kotlin/org/openapitools/client/models/WebhookEligibilityErrorEventError.kt
 src/main/kotlin/org/openapitools/client/models/WebsocketError.kt
+src/test/kotlin/org/openapitools/client/models/CardApiResponseEnrichedResultsTest.kt
+src/test/kotlin/org/openapitools/client/models/EnrichedAddressResultInnerTest.kt
+src/test/kotlin/org/openapitools/client/models/EnrichedCopayResultInnerTest.kt
+src/test/kotlin/org/openapitools/client/models/EnrichedPhoneNumberResultInnerTest.kt

@@ -12,6 +12,7 @@
 | **payerMatch** | [**PayerMatch**](PayerMatch.md) |  |  [optional] |
 | **metadata** | [**CardResponseMetadata**](CardResponseMetadata.md) |  |  [optional] |
 | **images** | [**CardApiResponseImages**](CardApiResponseImages.md) |  |  [optional] |
+| **enrichedResults** | [**CardApiResponseEnrichedResults**](CardApiResponseEnrichedResults.md) |  |  [optional] |
 | **details** | [**CardApiResponseDetails**](CardApiResponseDetails.md) |  |  [optional] |
 
 
