@@ -11,12 +11,12 @@ CardScanClient/Classes/OpenAPIs/JSONDataEncoding.swift
 CardScanClient/Classes/OpenAPIs/JSONEncodingHelper.swift
 CardScanClient/Classes/OpenAPIs/Models.swift
 CardScanClient/Classes/OpenAPIs/Models/Address.swift
-CardScanClient/Classes/OpenAPIs/Models/AddressResultInner.swift
 CardScanClient/Classes/OpenAPIs/Models/AddressType.swift
 CardScanClient/Classes/OpenAPIs/Models/ApiErrorResponse.swift
 CardScanClient/Classes/OpenAPIs/Models/CHCPayerRecord.swift
 CardScanClient/Classes/OpenAPIs/Models/CardApiResponse.swift
 CardScanClient/Classes/OpenAPIs/Models/CardApiResponseDetails.swift
+CardScanClient/Classes/OpenAPIs/Models/CardApiResponseEnrichedResults.swift
 CardScanClient/Classes/OpenAPIs/Models/CardApiResponseImages.swift
 CardScanClient/Classes/OpenAPIs/Models/CardApiResponseImagesBack.swift
 CardScanClient/Classes/OpenAPIs/Models/CardApiResponseImagesFront.swift
@@ -28,7 +28,6 @@ CardScanClient/Classes/OpenAPIs/Models/CoInsurance.swift
 CardScanClient/Classes/OpenAPIs/Models/CoPayment.swift
 CardScanClient/Classes/OpenAPIs/Models/CopayCategory.swift
 CardScanClient/Classes/OpenAPIs/Models/CopayDeductibleService.swift
-CardScanClient/Classes/OpenAPIs/Models/CopayResultInner.swift
 CardScanClient/Classes/OpenAPIs/Models/CoverageSummary.swift
 CardScanClient/Classes/OpenAPIs/Models/CreateCardRequest.swift
 CardScanClient/Classes/OpenAPIs/Models/CreateCardRequestBackside.swift
@@ -47,6 +46,9 @@ CardScanClient/Classes/OpenAPIs/Models/EligibilityInfo.swift
 CardScanClient/Classes/OpenAPIs/Models/EligibilityState.swift
 CardScanClient/Classes/OpenAPIs/Models/EligibilitySummarizedResponse.swift
 CardScanClient/Classes/OpenAPIs/Models/EligibilityWebsocketEvent.swift
+CardScanClient/Classes/OpenAPIs/Models/EnrichedAddressResultInner.swift
+CardScanClient/Classes/OpenAPIs/Models/EnrichedCopayResultInner.swift
+CardScanClient/Classes/OpenAPIs/Models/EnrichedPhoneNumberResultInner.swift
 CardScanClient/Classes/OpenAPIs/Models/GenerateCardUploadUrl200Response.swift
 CardScanClient/Classes/OpenAPIs/Models/GenerateCardUploadUrlRequest.swift
 CardScanClient/Classes/OpenAPIs/Models/GenerateMagicLink200Response.swift
@@ -60,7 +62,6 @@ CardScanClient/Classes/OpenAPIs/Models/PayerDetails.swift
 CardScanClient/Classes/OpenAPIs/Models/PayerMatch.swift
 CardScanClient/Classes/OpenAPIs/Models/PayerMatchMatchesInner.swift
 CardScanClient/Classes/OpenAPIs/Models/PayerMatchMatchesInnerMetadata.swift
-CardScanClient/Classes/OpenAPIs/Models/PhoneNumberResultInner.swift
 CardScanClient/Classes/OpenAPIs/Models/PhoneNumberType.swift
 CardScanClient/Classes/OpenAPIs/Models/PlanDetails.swift
 CardScanClient/Classes/OpenAPIs/Models/ProviderDto.swift
@@ -104,12 +105,12 @@ Cartfile
 Package.swift
 README.md
 docs/Address.md
-docs/AddressResultInner.md
 docs/AddressType.md
 docs/ApiErrorResponse.md
 docs/CHCPayerRecord.md
 docs/CardApiResponse.md
 docs/CardApiResponseDetails.md
+docs/CardApiResponseEnrichedResults.md
 docs/CardApiResponseImages.md
 docs/CardApiResponseImagesBack.md
 docs/CardApiResponseImagesFront.md
@@ -122,7 +123,6 @@ docs/CoInsurance.md
 docs/CoPayment.md
 docs/CopayCategory.md
 docs/CopayDeductibleService.md
-docs/CopayResultInner.md
 docs/CoverageSummary.md
 docs/CreateCardRequest.md
 docs/CreateCardRequestBackside.md
@@ -141,6 +141,9 @@ docs/EligibilityInfo.md
 docs/EligibilityState.md
 docs/EligibilitySummarizedResponse.md
 docs/EligibilityWebsocketEvent.md
+docs/EnrichedAddressResultInner.md
+docs/EnrichedCopayResultInner.md
+docs/EnrichedPhoneNumberResultInner.md
 docs/GenerateCardUploadUrl200Response.md
 docs/GenerateCardUploadUrlRequest.md
 docs/GenerateMagicLink200Response.md
@@ -154,7 +157,6 @@ docs/PayerDetails.md
 docs/PayerMatch.md
 docs/PayerMatchMatchesInner.md
 docs/PayerMatchMatchesInnerMetadata.md
-docs/PhoneNumberResultInner.md
 docs/PhoneNumberType.md
 docs/PlanDetails.md
 docs/ProviderDto.md

@@ -21,9 +21,10 @@ public struct CardApiResponse: Codable, JSONEncodable, Hashable {
     public var metadata: CardResponseMetadata?
     public var images: CardApiResponseImages?
     public var deleted: Bool
+    public var enrichedResults: CardApiResponseEnrichedResults?
     public var details: CardApiResponseDetails?
 
-    public init(cardId: UUID, state: CardState, createdAt: Date, error: ModelError? = nil, payerMatch: PayerMatch? = nil, metadata: CardResponseMetadata? = nil, images: CardApiResponseImages? = nil, deleted: Bool, details: CardApiResponseDetails? = nil) {
+    public init(cardId: UUID, state: CardState, createdAt: Date, error: ModelError? = nil, payerMatch: PayerMatch? = nil, metadata: CardResponseMetadata? = nil, images: CardApiResponseImages? = nil, deleted: Bool, enrichedResults: CardApiResponseEnrichedResults? = nil, details: CardApiResponseDetails? = nil) {
         self.cardId = cardId
         self.state = state
         self.createdAt = createdAt
@@ -32,6 +33,7 @@ public struct CardApiResponse: Codable, JSONEncodable, Hashable {
         self.metadata = metadata
         self.images = images
         self.deleted = deleted
+        self.enrichedResults = enrichedResults
         self.details = details
     }
 
@@ -44,6 +46,7 @@ public struct CardApiResponse: Codable, JSONEncodable, Hashable {
         case metadata
         case images
         case deleted
+        case enrichedResults = "enriched_results"
         case details
     }
 
@@ -59,6 +62,7 @@ public struct CardApiResponse: Codable, JSONEncodable, Hashable {
         try container.encodeIfPresent(metadata, forKey: .metadata)
         try container.encodeIfPresent(images, forKey: .images)
         try container.encode(deleted, forKey: .deleted)
+        try container.encodeIfPresent(enrichedResults, forKey: .enrichedResults)
         try container.encodeIfPresent(details, forKey: .details)
     }
 }
