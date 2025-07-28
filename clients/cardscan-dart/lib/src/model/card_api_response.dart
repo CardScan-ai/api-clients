@@ -7,6 +7,7 @@ import 'package:cardscan_client/src/model/card_state.dart';
 import 'package:cardscan_client/src/model/card_response_metadata.dart';
 import 'package:cardscan_client/src/model/card_api_response_details.dart';
 import 'package:cardscan_client/src/model/payer_match.dart';
+import 'package:cardscan_client/src/model/card_api_response_enriched_results.dart';
 import 'package:cardscan_client/src/model/card_api_response_images.dart';
 import 'package:cardscan_client/src/model/model_error.dart';
 import 'package:built_value/built_value.dart';
@@ -25,6 +26,7 @@ part 'card_api_response.g.dart';
 /// * [metadata] 
 /// * [images] 
 /// * [deleted] 
+/// * [enrichedResults] 
 /// * [details] 
 @BuiltValue()
 abstract class CardApiResponse implements Built<CardApiResponse, CardApiResponseBuilder> {
@@ -53,6 +55,9 @@ abstract class CardApiResponse implements Built<CardApiResponse, CardApiResponse
 
   @BuiltValueField(wireName: r'deleted')
   bool get deleted;
+
+  @BuiltValueField(wireName: r'enriched_results')
+  CardApiResponseEnrichedResults? get enrichedResults;
 
   @BuiltValueField(wireName: r'details')
   CardApiResponseDetails? get details;
@@ -128,6 +133,13 @@ class _$CardApiResponseSerializer implements PrimitiveSerializer<CardApiResponse
       object.deleted,
       specifiedType: const FullType(bool),
     );
+    if (object.enrichedResults != null) {
+      yield r'enriched_results';
+      yield serializers.serialize(
+        object.enrichedResults,
+        specifiedType: const FullType.nullable(CardApiResponseEnrichedResults),
+      );
+    }
     if (object.details != null) {
       yield r'details';
       yield serializers.serialize(
@@ -214,6 +226,14 @@ class _$CardApiResponseSerializer implements PrimitiveSerializer<CardApiResponse
             specifiedType: const FullType(bool),
           ) as bool;
           result.deleted = valueDes;
+          break;
+        case r'enriched_results':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType.nullable(CardApiResponseEnrichedResults),
+          ) as CardApiResponseEnrichedResults?;
+          if (valueDes == null) continue;
+          result.enrichedResults.replace(valueDes);
           break;
         case r'details':
           final valueDes = serializers.deserialize(

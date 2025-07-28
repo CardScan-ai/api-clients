@@ -4,10 +4,7 @@
 
 // ignore_for_file: unused_element
 import 'package:cardscan_client/src/model/match_score.dart';
-import 'package:cardscan_client/src/model/phone_number_result_inner.dart';
 import 'package:built_collection/built_collection.dart';
-import 'package:cardscan_client/src/model/address_result_inner.dart';
-import 'package:cardscan_client/src/model/copay_result_inner.dart';
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 
@@ -43,9 +40,6 @@ part 'card_api_response_details.g.dart';
 /// * [partBEffectiveDate] 
 /// * [pharmacyBenefitManager] 
 /// * [planType] 
-/// * [addresses] 
-/// * [phoneNumbers] 
-/// * [copays] 
 @BuiltValue()
 abstract class CardApiResponseDetails implements Built<CardApiResponseDetails, CardApiResponseDetailsBuilder> {
   @BuiltValueField(wireName: r'group_number')
@@ -128,15 +122,6 @@ abstract class CardApiResponseDetails implements Built<CardApiResponseDetails, C
 
   @BuiltValueField(wireName: r'plan_type')
   MatchScore? get planType;
-
-  @BuiltValueField(wireName: r'addresses')
-  BuiltList<AddressResultInner>? get addresses;
-
-  @BuiltValueField(wireName: r'phone_numbers')
-  BuiltList<PhoneNumberResultInner>? get phoneNumbers;
-
-  @BuiltValueField(wireName: r'copays')
-  BuiltList<CopayResultInner>? get copays;
 
   CardApiResponseDetails._();
 
@@ -350,27 +335,6 @@ class _$CardApiResponseDetailsSerializer implements PrimitiveSerializer<CardApiR
         specifiedType: const FullType(MatchScore),
       );
     }
-    if (object.addresses != null) {
-      yield r'addresses';
-      yield serializers.serialize(
-        object.addresses,
-        specifiedType: const FullType(BuiltList, [FullType(AddressResultInner)]),
-      );
-    }
-    if (object.phoneNumbers != null) {
-      yield r'phone_numbers';
-      yield serializers.serialize(
-        object.phoneNumbers,
-        specifiedType: const FullType(BuiltList, [FullType(PhoneNumberResultInner)]),
-      );
-    }
-    if (object.copays != null) {
-      yield r'copays';
-      yield serializers.serialize(
-        object.copays,
-        specifiedType: const FullType(BuiltList, [FullType(CopayResultInner)]),
-      );
-    }
   }
 
   @override
@@ -582,27 +546,6 @@ class _$CardApiResponseDetailsSerializer implements PrimitiveSerializer<CardApiR
             specifiedType: const FullType(MatchScore),
           ) as MatchScore;
           result.planType.replace(valueDes);
-          break;
-        case r'addresses':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType(BuiltList, [FullType(AddressResultInner)]),
-          ) as BuiltList<AddressResultInner>;
-          result.addresses.replace(valueDes);
-          break;
-        case r'phone_numbers':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType(BuiltList, [FullType(PhoneNumberResultInner)]),
-          ) as BuiltList<PhoneNumberResultInner>;
-          result.phoneNumbers.replace(valueDes);
-          break;
-        case r'copays':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType(BuiltList, [FullType(CopayResultInner)]),
-          ) as BuiltList<CopayResultInner>;
-          result.copays.replace(valueDes);
           break;
         default:
           unhandled.add(key);

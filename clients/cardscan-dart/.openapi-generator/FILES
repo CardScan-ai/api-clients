@@ -2,12 +2,12 @@
 README.md
 analysis_options.yaml
 doc/Address.md
-doc/AddressResultInner.md
 doc/AddressType.md
 doc/ApiErrorResponse.md
 doc/CHCPayerRecord.md
 doc/CardApiResponse.md
 doc/CardApiResponseDetails.md
+doc/CardApiResponseEnrichedResults.md
 doc/CardApiResponseImages.md
 doc/CardApiResponseImagesBack.md
 doc/CardApiResponseImagesFront.md
@@ -20,7 +20,6 @@ doc/CoInsurance.md
 doc/CoPayment.md
 doc/CopayCategory.md
 doc/CopayDeductibleService.md
-doc/CopayResultInner.md
 doc/CoverageSummary.md
 doc/CreateCardRequest.md
 doc/CreateCardRequestBackside.md
@@ -39,6 +38,9 @@ doc/EligibilityInfo.md
 doc/EligibilityState.md
 doc/EligibilitySummarizedResponse.md
 doc/EligibilityWebsocketEvent.md
+doc/EnrichedAddressResultInner.md
+doc/EnrichedCopayResultInner.md
+doc/EnrichedPhoneNumberResultInner.md
 doc/GenerateCardUploadUrl200Response.md
 doc/GenerateCardUploadUrlRequest.md
 doc/GenerateMagicLink200Response.md
@@ -52,7 +54,6 @@ doc/PayerDetails.md
 doc/PayerMatch.md
 doc/PayerMatchMatchesInner.md
 doc/PayerMatchMatchesInnerMetadata.md
-doc/PhoneNumberResultInner.md
 doc/PhoneNumberType.md
 doc/PlanDetails.md
 doc/ProviderDto.md
@@ -99,11 +100,11 @@ lib/src/auth/bearer_auth.dart
 lib/src/auth/oauth.dart
 lib/src/date_serializer.dart
 lib/src/model/address.dart
-lib/src/model/address_result_inner.dart
 lib/src/model/address_type.dart
 lib/src/model/api_error_response.dart
 lib/src/model/card_api_response.dart
 lib/src/model/card_api_response_details.dart
+lib/src/model/card_api_response_enriched_results.dart
 lib/src/model/card_api_response_images.dart
 lib/src/model/card_api_response_images_back.dart
 lib/src/model/card_api_response_images_front.dart
@@ -116,7 +117,6 @@ lib/src/model/co_insurance.dart
 lib/src/model/co_payment.dart
 lib/src/model/copay_category.dart
 lib/src/model/copay_deductible_service.dart
-lib/src/model/copay_result_inner.dart
 lib/src/model/coverage_summary.dart
 lib/src/model/create_card_request.dart
 lib/src/model/create_card_request_backside.dart
@@ -136,6 +136,9 @@ lib/src/model/eligibility_info.dart
 lib/src/model/eligibility_state.dart
 lib/src/model/eligibility_summarized_response.dart
 lib/src/model/eligibility_websocket_event.dart
+lib/src/model/enriched_address_result_inner.dart
+lib/src/model/enriched_copay_result_inner.dart
+lib/src/model/enriched_phone_number_result_inner.dart
 lib/src/model/generate_card_upload_url200_response.dart
 lib/src/model/generate_card_upload_url_request.dart
 lib/src/model/generate_magic_link200_response.dart
@@ -149,7 +152,6 @@ lib/src/model/payer_details.dart
 lib/src/model/payer_match.dart
 lib/src/model/payer_match_matches_inner.dart
 lib/src/model/payer_match_matches_inner_metadata.dart
-lib/src/model/phone_number_result_inner.dart
 lib/src/model/phone_number_type.dart
 lib/src/model/plan_details.dart
 lib/src/model/provider_dto.dart
@@ -186,4 +188,7 @@ lib/src/model/webhook_eligibility_error_event.dart
 lib/src/model/webhook_eligibility_error_event_error.dart
 lib/src/model/websocket_error.dart
 lib/src/serializers.dart
-pubspec.yaml
+test/card_api_response_enriched_results_test.dart
+test/enriched_address_result_inner_test.dart
+test/enriched_copay_result_inner_test.dart
+test/enriched_phone_number_result_inner_test.dart

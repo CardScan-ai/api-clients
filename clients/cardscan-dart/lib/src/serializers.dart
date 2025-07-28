@@ -16,12 +16,12 @@ import 'package:cardscan_client/src/model/date.dart';
 
 import 'package:cardscan_client/src/api_util.dart';
 import 'package:cardscan_client/src/model/address.dart';
-import 'package:cardscan_client/src/model/address_result_inner.dart';
 import 'package:cardscan_client/src/model/address_type.dart';
 import 'package:cardscan_client/src/model/api_error_response.dart';
 import 'package:cardscan_client/src/model/chc_payer_record.dart';
 import 'package:cardscan_client/src/model/card_api_response.dart';
 import 'package:cardscan_client/src/model/card_api_response_details.dart';
+import 'package:cardscan_client/src/model/card_api_response_enriched_results.dart';
 import 'package:cardscan_client/src/model/card_api_response_images.dart';
 import 'package:cardscan_client/src/model/card_api_response_images_back.dart';
 import 'package:cardscan_client/src/model/card_api_response_images_front.dart';
@@ -33,7 +33,6 @@ import 'package:cardscan_client/src/model/co_insurance.dart';
 import 'package:cardscan_client/src/model/co_payment.dart';
 import 'package:cardscan_client/src/model/copay_category.dart';
 import 'package:cardscan_client/src/model/copay_deductible_service.dart';
-import 'package:cardscan_client/src/model/copay_result_inner.dart';
 import 'package:cardscan_client/src/model/coverage_summary.dart';
 import 'package:cardscan_client/src/model/create_card_request.dart';
 import 'package:cardscan_client/src/model/create_card_request_backside.dart';
@@ -52,6 +51,9 @@ import 'package:cardscan_client/src/model/eligibility_info.dart';
 import 'package:cardscan_client/src/model/eligibility_state.dart';
 import 'package:cardscan_client/src/model/eligibility_summarized_response.dart';
 import 'package:cardscan_client/src/model/eligibility_websocket_event.dart';
+import 'package:cardscan_client/src/model/enriched_address_result_inner.dart';
+import 'package:cardscan_client/src/model/enriched_copay_result_inner.dart';
+import 'package:cardscan_client/src/model/enriched_phone_number_result_inner.dart';
 import 'package:cardscan_client/src/model/generate_card_upload_url200_response.dart';
 import 'package:cardscan_client/src/model/generate_card_upload_url_request.dart';
 import 'package:cardscan_client/src/model/generate_magic_link200_response.dart';
@@ -65,7 +67,6 @@ import 'package:cardscan_client/src/model/payer_details.dart';
 import 'package:cardscan_client/src/model/payer_match.dart';
 import 'package:cardscan_client/src/model/payer_match_matches_inner.dart';
 import 'package:cardscan_client/src/model/payer_match_matches_inner_metadata.dart';
-import 'package:cardscan_client/src/model/phone_number_result_inner.dart';
 import 'package:cardscan_client/src/model/phone_number_type.dart';
 import 'package:cardscan_client/src/model/plan_details.dart';
 import 'package:cardscan_client/src/model/provider_dto.dart';
@@ -106,12 +107,12 @@ part 'serializers.g.dart';
 
 @SerializersFor([
   Address,
-  AddressResultInner,
   AddressType,
   ApiErrorResponse,
   CHCPayerRecord,
   CardApiResponse,
   CardApiResponseDetails,
+  CardApiResponseEnrichedResults,
   CardApiResponseImages,
   CardApiResponseImagesBack,
   CardApiResponseImagesFront,
@@ -123,7 +124,6 @@ part 'serializers.g.dart';
   CoPayment,
   CopayCategory,
   CopayDeductibleService,
-  CopayResultInner,
   CoverageSummary,
   CreateCardRequest,
   CreateCardRequestBackside,
@@ -142,6 +142,9 @@ part 'serializers.g.dart';
   EligibilityState,
   EligibilitySummarizedResponse,
   EligibilityWebsocketEvent,
+  EnrichedAddressResultInner,
+  EnrichedCopayResultInner,
+  EnrichedPhoneNumberResultInner,
   GenerateCardUploadUrl200Response,
   GenerateCardUploadUrlRequest,
   GenerateMagicLink200Response,
@@ -155,7 +158,6 @@ part 'serializers.g.dart';
   PayerMatch,
   PayerMatchMatchesInner,
   PayerMatchMatchesInnerMetadata,
-  PhoneNumberResultInner,
   PhoneNumberType,
   PlanDetails,
   ProviderDto,

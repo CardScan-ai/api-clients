@@ -16,6 +16,7 @@ Name | Type | Description | Notes
 **metadata** | [**CardResponseMetadata**](CardResponseMetadata.md) |  | [optional] 
 **images** | [**CardApiResponseImages**](CardApiResponseImages.md) |  | [optional] 
 **deleted** | **bool** |  | 
+**enrichedResults** | [**CardApiResponseEnrichedResults**](CardApiResponseEnrichedResults.md) |  | [optional] 
 **details** | [**CardApiResponseDetails**](CardApiResponseDetails.md) |  | [optional] 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
