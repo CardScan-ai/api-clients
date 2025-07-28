@@ -13,6 +13,7 @@ Name | Type | Description | Notes
 **metadata** | [**CardResponseMetadata**](CardResponseMetadata.md) |  | [optional] [default to undefined]
 **images** | [**CardApiResponseImages**](CardApiResponseImages.md) |  | [optional] [default to undefined]
 **deleted** | **boolean** |  | [default to undefined]
+**enriched_results** | [**CardApiResponseEnrichedResults**](CardApiResponseEnrichedResults.md) |  | [optional] [default to undefined]
 **details** | [**CardApiResponseDetails**](CardApiResponseDetails.md) |  | [optional] [default to undefined]
 
 ## Example
@@ -29,6 +30,7 @@ const instance: CardApiResponse = {
     metadata,
     images,
     deleted,
+    enriched_results,
     details,
 };
 ```

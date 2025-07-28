@@ -6,12 +6,12 @@ base.ts
 common.ts
 configuration.ts
 docs/Address.md
-docs/AddressResultInner.md
 docs/AddressType.md
 docs/ApiErrorResponse.md
 docs/CHCPayerRecord.md
 docs/CardApiResponse.md
 docs/CardApiResponseDetails.md
+docs/CardApiResponseEnrichedResults.md
 docs/CardApiResponseImages.md
 docs/CardApiResponseImagesBack.md
 docs/CardApiResponseImagesFront.md
@@ -24,7 +24,6 @@ docs/CoInsurance.md
 docs/CoPayment.md
 docs/CopayCategory.md
 docs/CopayDeductibleService.md
-docs/CopayResultInner.md
 docs/CoverageSummary.md
 docs/CreateCardRequest.md
 docs/CreateCardRequestBackside.md
@@ -43,6 +42,9 @@ docs/EligibilityInfo.md
 docs/EligibilityState.md
 docs/EligibilitySummarizedResponse.md
 docs/EligibilityWebsocketEvent.md
+docs/EnrichedAddressResultInner.md
+docs/EnrichedCopayResultInner.md
+docs/EnrichedPhoneNumberResultInner.md
 docs/GenerateCardUploadUrl200Response.md
 docs/GenerateCardUploadUrlRequest.md
 docs/GenerateMagicLink200Response.md
@@ -56,7 +58,6 @@ docs/PayerDetails.md
 docs/PayerMatch.md
 docs/PayerMatchMatchesInner.md
 docs/PayerMatchMatchesInnerMetadata.md
-docs/PhoneNumberResultInner.md
 docs/PhoneNumberType.md
 docs/PlanDetails.md
 docs/ProviderDto.md
@@ -94,11 +95,11 @@ docs/WebhookEligibilityErrorEventError.md
 docs/WebsocketError.md
 git_push.sh
 index.ts
-models/address-result-inner.ts
 models/address-type.ts
 models/address.ts
 models/api-error-response.ts
 models/card-api-response-details.ts
+models/card-api-response-enriched-results.ts
 models/card-api-response-images-back.ts
 models/card-api-response-images-front.ts
 models/card-api-response-images.ts
@@ -112,7 +113,6 @@ models/co-insurance.ts
 models/co-payment.ts
 models/copay-category.ts
 models/copay-deductible-service.ts
-models/copay-result-inner.ts
 models/coverage-summary.ts
 models/create-card-request-backside.ts
 models/custom-payer-record.ts
@@ -129,6 +129,9 @@ models/eligibility-info.ts
 models/eligibility-state.ts
 models/eligibility-summarized-response.ts
 models/eligibility-websocket-event.ts
+models/enriched-address-result-inner.ts
+models/enriched-copay-result-inner.ts
+models/enriched-phone-number-result-inner.ts
 models/generate-card-upload-url-request.ts
 models/generate-card-upload-url200-response.ts
 models/generate-magic-link200-response.ts
@@ -143,7 +146,6 @@ models/payer-details.ts
 models/payer-match-matches-inner-metadata.ts
 models/payer-match-matches-inner.ts
 models/payer-match.ts
-models/phone-number-result-inner.ts
 models/phone-number-type.ts
 models/plan-details.ts
 models/provider-dto.ts

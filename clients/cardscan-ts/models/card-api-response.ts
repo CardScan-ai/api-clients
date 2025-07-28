@@ -18,6 +18,9 @@
 import { CardApiResponseDetails } from './card-api-response-details';
 // May contain unused imports in some cases
 // @ts-ignore
+import { CardApiResponseEnrichedResults } from './card-api-response-enriched-results';
+// May contain unused imports in some cases
+// @ts-ignore
 import { CardApiResponseImages } from './card-api-response-images';
 // May contain unused imports in some cases
 // @ts-ignore
@@ -88,6 +91,12 @@ export interface CardApiResponseOriginal {
      * @memberof CardApiResponse
      */
     'deleted': boolean;
+    /**
+     * 
+     * @type {CardApiResponseEnrichedResults}
+     * @memberof CardApiResponse
+     */
+    'enriched_results'?: CardApiResponseEnrichedResults | null;
     /**
      * 
      * @type {CardApiResponseDetails}

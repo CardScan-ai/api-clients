@@ -32,9 +32,6 @@ Name | Type | Description | Notes
 **part_b_effective_date** | [**MatchScore**](MatchScore.md) |  | [optional] [default to undefined]
 **pharmacy_benefit_manager** | [**MatchScore**](MatchScore.md) |  | [optional] [default to undefined]
 **plan_type** | [**MatchScore**](MatchScore.md) |  | [optional] [default to undefined]
-**addresses** | [**Array&lt;AddressResultInner&gt;**](AddressResultInner.md) |  | [optional] [default to undefined]
-**phone_numbers** | [**Array&lt;PhoneNumberResultInner&gt;**](PhoneNumberResultInner.md) |  | [optional] [default to undefined]
-**copays** | [**Array&lt;CopayResultInner&gt;**](CopayResultInner.md) |  | [optional] [default to undefined]
 
 ## Example
 
@@ -69,9 +66,6 @@ const instance: CardApiResponseDetails = {
     part_b_effective_date,
     pharmacy_benefit_manager,
     plan_type,
-    addresses,
-    phone_numbers,
-    copays,
 };
 ```
 
