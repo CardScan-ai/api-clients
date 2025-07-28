@@ -32,12 +32,12 @@ from cardscan_client.exceptions import ApiException
 
 # import models into sdk package
 from cardscan_client.models.address import Address
-from cardscan_client.models.address_result_inner import AddressResultInner
 from cardscan_client.models.address_type import AddressType
 from cardscan_client.models.api_error_response import ApiErrorResponse
 from cardscan_client.models.chc_payer_record import CHCPayerRecord
 from cardscan_client.models.card_api_response import CardApiResponse
 from cardscan_client.models.card_api_response_details import CardApiResponseDetails
+from cardscan_client.models.card_api_response_enriched_results import CardApiResponseEnrichedResults
 from cardscan_client.models.card_api_response_images import CardApiResponseImages
 from cardscan_client.models.card_api_response_images_back import CardApiResponseImagesBack
 from cardscan_client.models.card_api_response_images_front import CardApiResponseImagesFront
@@ -49,7 +49,6 @@ from cardscan_client.models.co_insurance import CoInsurance
 from cardscan_client.models.co_payment import CoPayment
 from cardscan_client.models.copay_category import CopayCategory
 from cardscan_client.models.copay_deductible_service import CopayDeductibleService
-from cardscan_client.models.copay_result_inner import CopayResultInner
 from cardscan_client.models.coverage_summary import CoverageSummary
 from cardscan_client.models.create_card_request import CreateCardRequest
 from cardscan_client.models.create_card_request_backside import CreateCardRequestBackside
@@ -68,6 +67,9 @@ from cardscan_client.models.eligibility_info import EligibilityInfo
 from cardscan_client.models.eligibility_state import EligibilityState
 from cardscan_client.models.eligibility_summarized_response import EligibilitySummarizedResponse
 from cardscan_client.models.eligibility_websocket_event import EligibilityWebsocketEvent
+from cardscan_client.models.enriched_address_result_inner import EnrichedAddressResultInner
+from cardscan_client.models.enriched_copay_result_inner import EnrichedCopayResultInner
+from cardscan_client.models.enriched_phone_number_result_inner import EnrichedPhoneNumberResultInner
 from cardscan_client.models.generate_card_upload_url200_response import GenerateCardUploadUrl200Response
 from cardscan_client.models.generate_card_upload_url_request import GenerateCardUploadUrlRequest
 from cardscan_client.models.generate_magic_link200_response import GenerateMagicLink200Response
@@ -81,7 +83,6 @@ from cardscan_client.models.payer_details import PayerDetails
 from cardscan_client.models.payer_match import PayerMatch
 from cardscan_client.models.payer_match_matches_inner import PayerMatchMatchesInner
 from cardscan_client.models.payer_match_matches_inner_metadata import PayerMatchMatchesInnerMetadata
-from cardscan_client.models.phone_number_result_inner import PhoneNumberResultInner
 from cardscan_client.models.phone_number_type import PhoneNumberType
 from cardscan_client.models.plan_details import PlanDetails
 from cardscan_client.models.provider_dto import ProviderDto

@@ -20,10 +20,7 @@ import json
 
 from typing import List, Optional
 from pydantic import BaseModel, conlist
-from cardscan_client.models.address_result_inner import AddressResultInner
-from cardscan_client.models.copay_result_inner import CopayResultInner
 from cardscan_client.models.match_score import MatchScore
-from cardscan_client.models.phone_number_result_inner import PhoneNumberResultInner
 
 class CardApiResponseDetails(BaseModel):
     """
@@ -56,10 +53,7 @@ class CardApiResponseDetails(BaseModel):
     part_b_effective_date: Optional[MatchScore] = None
     pharmacy_benefit_manager: Optional[MatchScore] = None
     plan_type: Optional[MatchScore] = None
-    addresses: Optional[conlist(AddressResultInner)] = None
-    phone_numbers: Optional[conlist(PhoneNumberResultInner)] = None
-    copays: Optional[conlist(CopayResultInner)] = None
-    __properties = ["group_number", "member_number", "payer_name", "rx_bin", "rx_pcn", "member_name", "dependent_names", "plan_name", "plan_id", "card_specific_id", "client_name", "payer_id", "plan_details", "rx_id", "rx_issuer", "rx_plan", "start_date", "employer", "medicare_medicaid_id", "member_dob", "member_gender", "member_id_prefix", "member_id_suffix", "part_a_effective_date", "part_b_effective_date", "pharmacy_benefit_manager", "plan_type", "addresses", "phone_numbers", "copays"]
+    __properties = ["group_number", "member_number", "payer_name", "rx_bin", "rx_pcn", "member_name", "dependent_names", "plan_name", "plan_id", "card_specific_id", "client_name", "payer_id", "plan_details", "rx_id", "rx_issuer", "rx_plan", "start_date", "employer", "medicare_medicaid_id", "member_dob", "member_gender", "member_id_prefix", "member_id_suffix", "part_a_effective_date", "part_b_effective_date", "pharmacy_benefit_manager", "plan_type"]
 
     class Config:
         """Pydantic configuration"""
@@ -177,27 +171,6 @@ class CardApiResponseDetails(BaseModel):
         # override the default output from pydantic by calling `to_dict()` of plan_type
         if self.plan_type:
             _dict['plan_type'] = self.plan_type.to_dict()
-        # override the default output from pydantic by calling `to_dict()` of each item in addresses (list)
-        _items = []
-        if self.addresses:
-            for _item in self.addresses:
-                if _item:
-                    _items.append(_item.to_dict())
-            _dict['addresses'] = _items
-        # override the default output from pydantic by calling `to_dict()` of each item in phone_numbers (list)
-        _items = []
-        if self.phone_numbers:
-            for _item in self.phone_numbers:
-                if _item:
-                    _items.append(_item.to_dict())
-            _dict['phone_numbers'] = _items
-        # override the default output from pydantic by calling `to_dict()` of each item in copays (list)
-        _items = []
-        if self.copays:
-            for _item in self.copays:
-                if _item:
-                    _items.append(_item.to_dict())
-            _dict['copays'] = _items
         return _dict
 
     @classmethod
@@ -236,10 +209,7 @@ class CardApiResponseDetails(BaseModel):
             "part_a_effective_date": MatchScore.from_dict(obj.get("part_a_effective_date")) if obj.get("part_a_effective_date") is not None else None,
             "part_b_effective_date": MatchScore.from_dict(obj.get("part_b_effective_date")) if obj.get("part_b_effective_date") is not None else None,
             "pharmacy_benefit_manager": MatchScore.from_dict(obj.get("pharmacy_benefit_manager")) if obj.get("pharmacy_benefit_manager") is not None else None,
-            "plan_type": MatchScore.from_dict(obj.get("plan_type")) if obj.get("plan_type") is not None else None,
-            "addresses": [AddressResultInner.from_dict(_item) for _item in obj.get("addresses")] if obj.get("addresses") is not None else None,
-            "phone_numbers": [PhoneNumberResultInner.from_dict(_item) for _item in obj.get("phone_numbers")] if obj.get("phone_numbers") is not None else None,
-            "copays": [CopayResultInner.from_dict(_item) for _item in obj.get("copays")] if obj.get("copays") is not None else None
+            "plan_type": MatchScore.from_dict(obj.get("plan_type")) if obj.get("plan_type") is not None else None
         })
         return _obj
 

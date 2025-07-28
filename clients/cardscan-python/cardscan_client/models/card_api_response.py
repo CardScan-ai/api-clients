@@ -21,6 +21,7 @@ from datetime import datetime
 from typing import Optional
 from pydantic import BaseModel, Field, StrictBool, StrictStr
 from cardscan_client.models.card_api_response_details import CardApiResponseDetails
+from cardscan_client.models.card_api_response_enriched_results import CardApiResponseEnrichedResults
 from cardscan_client.models.card_api_response_images import CardApiResponseImages
 from cardscan_client.models.card_response_metadata import CardResponseMetadata
 from cardscan_client.models.card_state import CardState
@@ -39,8 +40,9 @@ class CardApiResponse(BaseModel):
     metadata: Optional[CardResponseMetadata] = None
     images: Optional[CardApiResponseImages] = None
     deleted: StrictBool = Field(...)
+    enriched_results: Optional[CardApiResponseEnrichedResults] = None
     details: Optional[CardApiResponseDetails] = None
-    __properties = ["card_id", "state", "created_at", "error", "payer_match", "metadata", "images", "deleted", "details"]
+    __properties = ["card_id", "state", "created_at", "error", "payer_match", "metadata", "images", "deleted", "enriched_results", "details"]
 
     class Config:
         """Pydantic configuration"""
@@ -85,6 +87,9 @@ class CardApiResponse(BaseModel):
         # override the default output from pydantic by calling `to_dict()` of images
         if self.images:
             _dict['images'] = self.images.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of enriched_results
+        if self.enriched_results:
+            _dict['enriched_results'] = self.enriched_results.to_dict()
         # override the default output from pydantic by calling `to_dict()` of details
         if self.details:
             _dict['details'] = self.details.to_dict()
@@ -92,6 +97,11 @@ class CardApiResponse(BaseModel):
         # and __fields_set__ contains the field
         if self.images is None and "images" in self.__fields_set__:
             _dict['images'] = None
+
+        # set to None if enriched_results (nullable) is None
+        # and __fields_set__ contains the field
+        if self.enriched_results is None and "enriched_results" in self.__fields_set__:
+            _dict['enriched_results'] = None
 
         # set to None if details (nullable) is None
         # and __fields_set__ contains the field
@@ -118,6 +128,7 @@ class CardApiResponse(BaseModel):
             "metadata": CardResponseMetadata.from_dict(obj.get("metadata")) if obj.get("metadata") is not None else None,
             "images": CardApiResponseImages.from_dict(obj.get("images")) if obj.get("images") is not None else None,
             "deleted": obj.get("deleted"),
+            "enriched_results": CardApiResponseEnrichedResults.from_dict(obj.get("enriched_results")) if obj.get("enriched_results") is not None else None,
             "details": CardApiResponseDetails.from_dict(obj.get("details")) if obj.get("details") is not None else None
         })
         return _obj

@@ -12,6 +12,7 @@ Name | Type | Description | Notes
 **metadata** | [**CardResponseMetadata**](CardResponseMetadata.md) |  | [optional] 
 **images** | [**CardApiResponseImages**](CardApiResponseImages.md) |  | [optional] 
 **deleted** | **bool** |  | 
+**enriched_results** | [**CardApiResponseEnrichedResults**](CardApiResponseEnrichedResults.md) |  | [optional] 
 **details** | [**CardApiResponseDetails**](CardApiResponseDetails.md) |  | [optional] 
 
 ## Example

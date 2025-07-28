@@ -11,11 +11,11 @@ cardscan_client/configuration.py
 cardscan_client/exceptions.py
 cardscan_client/models/__init__.py
 cardscan_client/models/address.py
-cardscan_client/models/address_result_inner.py
 cardscan_client/models/address_type.py
 cardscan_client/models/api_error_response.py
 cardscan_client/models/card_api_response.py
 cardscan_client/models/card_api_response_details.py
+cardscan_client/models/card_api_response_enriched_results.py
 cardscan_client/models/card_api_response_images.py
 cardscan_client/models/card_api_response_images_back.py
 cardscan_client/models/card_api_response_images_front.py
@@ -28,7 +28,6 @@ cardscan_client/models/co_insurance.py
 cardscan_client/models/co_payment.py
 cardscan_client/models/copay_category.py
 cardscan_client/models/copay_deductible_service.py
-cardscan_client/models/copay_result_inner.py
 cardscan_client/models/coverage_summary.py
 cardscan_client/models/create_card_request.py
 cardscan_client/models/create_card_request_backside.py
@@ -47,6 +46,9 @@ cardscan_client/models/eligibility_info.py
 cardscan_client/models/eligibility_state.py
 cardscan_client/models/eligibility_summarized_response.py
 cardscan_client/models/eligibility_websocket_event.py
+cardscan_client/models/enriched_address_result_inner.py
+cardscan_client/models/enriched_copay_result_inner.py
+cardscan_client/models/enriched_phone_number_result_inner.py
 cardscan_client/models/generate_card_upload_url200_response.py
 cardscan_client/models/generate_card_upload_url_request.py
 cardscan_client/models/generate_magic_link200_response.py
@@ -60,7 +62,6 @@ cardscan_client/models/payer_details.py
 cardscan_client/models/payer_match.py
 cardscan_client/models/payer_match_matches_inner.py
 cardscan_client/models/payer_match_matches_inner_metadata.py
-cardscan_client/models/phone_number_result_inner.py
 cardscan_client/models/phone_number_type.py
 cardscan_client/models/plan_details.py
 cardscan_client/models/provider_dto.py
@@ -99,12 +100,12 @@ cardscan_client/models/websocket_error.py
 cardscan_client/py.typed
 cardscan_client/rest.py
 docs/Address.md
-docs/AddressResultInner.md
 docs/AddressType.md
 docs/ApiErrorResponse.md
 docs/CHCPayerRecord.md
 docs/CardApiResponse.md
 docs/CardApiResponseDetails.md
+docs/CardApiResponseEnrichedResults.md
 docs/CardApiResponseImages.md
 docs/CardApiResponseImagesBack.md
 docs/CardApiResponseImagesFront.md
@@ -117,7 +118,6 @@ docs/CoInsurance.md
 docs/CoPayment.md
 docs/CopayCategory.md
 docs/CopayDeductibleService.md
-docs/CopayResultInner.md
 docs/CoverageSummary.md
 docs/CreateCardRequest.md
 docs/CreateCardRequestBackside.md
@@ -136,6 +136,9 @@ docs/EligibilityInfo.md
 docs/EligibilityState.md
 docs/EligibilitySummarizedResponse.md
 docs/EligibilityWebsocketEvent.md
+docs/EnrichedAddressResultInner.md
+docs/EnrichedCopayResultInner.md
+docs/EnrichedPhoneNumberResultInner.md
 docs/GenerateCardUploadUrl200Response.md
 docs/GenerateCardUploadUrlRequest.md
 docs/GenerateMagicLink200Response.md
@@ -149,7 +152,6 @@ docs/PayerDetails.md
 docs/PayerMatch.md
 docs/PayerMatchMatchesInner.md
 docs/PayerMatchMatchesInnerMetadata.md
-docs/PhoneNumberResultInner.md
 docs/PhoneNumberType.md
 docs/PlanDetails.md
 docs/ProviderDto.md
