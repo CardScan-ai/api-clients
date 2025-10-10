@@ -17,87 +17,96 @@ import pprint
 import re  # noqa: F401
 import json
 
-
-from typing import Optional
-from pydantic import BaseModel, Field, StrictStr
+from pydantic import BaseModel, ConfigDict, Field, StrictStr
+from typing import Any, ClassVar, Dict, List, Optional
+from typing import Optional, Set
+from typing_extensions import Self
 
 class UploadParameters(BaseModel):
     """
     UploadParameters
-    """
-    content_type: StrictStr = Field(default=..., alias="Content-Type", description="The content type of the file")
-    content_disposition: StrictStr = Field(default=..., alias="Content-Disposition", description="The content disposition of the file")
-    x_amz_meta_cardscan_account_id: StrictStr = Field(default=..., alias="x-amz-meta-cardscan-account-id", description="The account ID")
-    x_amz_meta_cardscan_card_id: StrictStr = Field(default=..., alias="x-amz-meta-cardscan-card-id", description="The card ID")
-    x_amz_meta_cardscan_scan_id: StrictStr = Field(default=..., alias="x-amz-meta-cardscan-scan-id", description="The scan ID")
-    x_amz_meta_cardscan_user_id: Optional[StrictStr] = Field(default=None, alias="x-amz-meta-cardscan-user-id", description="The user ID")
-    x_amz_meta_cardscan_developer_user_id: Optional[StrictStr] = Field(default=None, alias="x-amz-meta-cardscan-developer-user-id", description="The developer user ID")
-    key: StrictStr = Field(default=..., description="The key of the file")
-    x_amz_algorithm: StrictStr = Field(default=..., alias="x-amz-algorithm", description="The algorithm used to sign the request")
-    x_amz_credential: StrictStr = Field(default=..., alias="x-amz-credential", description="The credential used to sign the request")
-    x_amz_date: StrictStr = Field(default=..., alias="x-amz-date", description="The date of the request")
-    x_amz_security_token: StrictStr = Field(default=..., alias="x-amz-security-token", description="The security token used to sign the request")
-    policy: StrictStr = Field(default=..., description="The policy used to sign the request")
-    x_amz_signature: StrictStr = Field(default=..., alias="x-amz-signature", description="The signature used to sign the request")
-    __properties = ["Content-Type", "Content-Disposition", "x-amz-meta-cardscan-account-id", "x-amz-meta-cardscan-card-id", "x-amz-meta-cardscan-scan-id", "x-amz-meta-cardscan-user-id", "x-amz-meta-cardscan-developer-user-id", "key", "x-amz-algorithm", "x-amz-credential", "x-amz-date", "x-amz-security-token", "policy", "x-amz-signature"]
+    """ # noqa: E501
+    content_type: StrictStr = Field(description="The content type of the file", alias="Content-Type")
+    content_disposition: StrictStr = Field(description="The content disposition of the file", alias="Content-Disposition")
+    x_amz_meta_cardscan_account_id: StrictStr = Field(description="The account ID", alias="x-amz-meta-cardscan-account-id")
+    x_amz_meta_cardscan_card_id: StrictStr = Field(description="The card ID", alias="x-amz-meta-cardscan-card-id")
+    x_amz_meta_cardscan_scan_id: StrictStr = Field(description="The scan ID", alias="x-amz-meta-cardscan-scan-id")
+    x_amz_meta_cardscan_user_id: Optional[StrictStr] = Field(default=None, description="The user ID", alias="x-amz-meta-cardscan-user-id")
+    x_amz_meta_cardscan_developer_user_id: Optional[StrictStr] = Field(default=None, description="The developer user ID", alias="x-amz-meta-cardscan-developer-user-id")
+    key: StrictStr = Field(description="The key of the file")
+    x_amz_algorithm: StrictStr = Field(description="The algorithm used to sign the request", alias="x-amz-algorithm")
+    x_amz_credential: StrictStr = Field(description="The credential used to sign the request", alias="x-amz-credential")
+    x_amz_date: StrictStr = Field(description="The date of the request", alias="x-amz-date")
+    x_amz_security_token: StrictStr = Field(description="The security token used to sign the request", alias="x-amz-security-token")
+    policy: StrictStr = Field(description="The policy used to sign the request")
+    x_amz_signature: StrictStr = Field(description="The signature used to sign the request", alias="x-amz-signature")
+    __properties: ClassVar[List[str]] = ["Content-Type", "Content-Disposition", "x-amz-meta-cardscan-account-id", "x-amz-meta-cardscan-card-id", "x-amz-meta-cardscan-scan-id", "x-amz-meta-cardscan-user-id", "x-amz-meta-cardscan-developer-user-id", "key", "x-amz-algorithm", "x-amz-credential", "x-amz-date", "x-amz-security-token", "policy", "x-amz-signature"]
 
-    class Config:
-        """Pydantic configuration"""
-        allow_population_by_field_name = True
-        validate_assignment = True
+    model_config = ConfigDict(
+        populate_by_name=True,
+        validate_assignment=True,
+        protected_namespaces=(),
+    )
+
 
     def to_str(self) -> str:
         """Returns the string representation of the model using alias"""
-        return pprint.pformat(self.dict(by_alias=True))
-
-    def _json_serializer(self, obj):
-        """JSON serializer function for datetime objects"""
-        if isinstance(obj, datetime):
-            return obj.isoformat()
-
-        raise TypeError(f"Type {type(obj)} not serializable")
+        return pprint.pformat(self.model_dump(by_alias=True))
 
     def to_json(self) -> str:
         """Returns the JSON representation of the model using alias"""
-        return json.dumps(self.to_dict(), default=self._json_serializer)
+        # TODO: pydantic v2: use .model_dump_json(by_alias=True, exclude_unset=True) instead
+        return json.dumps(self.to_dict())
 
     @classmethod
-    def from_json(cls, json_str: str) -> UploadParameters:
+    def from_json(cls, json_str: str) -> Optional[Self]:
         """Create an instance of UploadParameters from a JSON string"""
         return cls.from_dict(json.loads(json_str))
 
-    def to_dict(self):
-        """Returns the dictionary representation of the model using alias"""
-        _dict = self.dict(by_alias=True,
-                          exclude={
-                          },
-                          exclude_none=True)
+    def to_dict(self) -> Dict[str, Any]:
+        """Return the dictionary representation of the model using alias.
+
+        This has the following differences from calling pydantic's
+        `self.model_dump(by_alias=True)`:
+
+        * `None` is only added to the output dict for nullable fields that
+          were set at model initialization. Other fields with value `None`
+          are ignored.
+        """
+        excluded_fields: Set[str] = set([
+        ])
+
+        _dict = self.model_dump(
+            by_alias=True,
+            exclude=excluded_fields,
+            exclude_none=True,
+        )
         return _dict
 
     @classmethod
-    def from_dict(cls, obj: dict) -> UploadParameters:
+    def from_dict(cls, obj: Optional[Dict[str, Any]]) -> Optional[Self]:
         """Create an instance of UploadParameters from a dict"""
         if obj is None:
             return None
 
         if not isinstance(obj, dict):
-            return UploadParameters.parse_obj(obj)
+            return cls.model_validate(obj)
 
-        _obj = UploadParameters.parse_obj({
-            "content_type": obj.get("Content-Type"),
-            "content_disposition": obj.get("Content-Disposition"),
-            "x_amz_meta_cardscan_account_id": obj.get("x-amz-meta-cardscan-account-id"),
-            "x_amz_meta_cardscan_card_id": obj.get("x-amz-meta-cardscan-card-id"),
-            "x_amz_meta_cardscan_scan_id": obj.get("x-amz-meta-cardscan-scan-id"),
-            "x_amz_meta_cardscan_user_id": obj.get("x-amz-meta-cardscan-user-id"),
-            "x_amz_meta_cardscan_developer_user_id": obj.get("x-amz-meta-cardscan-developer-user-id"),
+        _obj = cls.model_validate({
+            "Content-Type": obj.get("Content-Type"),
+            "Content-Disposition": obj.get("Content-Disposition"),
+            "x-amz-meta-cardscan-account-id": obj.get("x-amz-meta-cardscan-account-id"),
+            "x-amz-meta-cardscan-card-id": obj.get("x-amz-meta-cardscan-card-id"),
+            "x-amz-meta-cardscan-scan-id": obj.get("x-amz-meta-cardscan-scan-id"),
+            "x-amz-meta-cardscan-user-id": obj.get("x-amz-meta-cardscan-user-id"),
+            "x-amz-meta-cardscan-developer-user-id": obj.get("x-amz-meta-cardscan-developer-user-id"),
             "key": obj.get("key"),
-            "x_amz_algorithm": obj.get("x-amz-algorithm"),
-            "x_amz_credential": obj.get("x-amz-credential"),
-            "x_amz_date": obj.get("x-amz-date"),
-            "x_amz_security_token": obj.get("x-amz-security-token"),
+            "x-amz-algorithm": obj.get("x-amz-algorithm"),
+            "x-amz-credential": obj.get("x-amz-credential"),
+            "x-amz-date": obj.get("x-amz-date"),
+            "x-amz-security-token": obj.get("x-amz-security-token"),
             "policy": obj.get("policy"),
-            "x_amz_signature": obj.get("x-amz-signature")
+            "x-amz-signature": obj.get("x-amz-signature")
         })
         return _obj
 

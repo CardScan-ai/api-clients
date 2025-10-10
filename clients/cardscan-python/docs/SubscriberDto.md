@@ -2,6 +2,7 @@
 
 
 ## Properties
+
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **first_name** | **str** | The subscriber&#39;s first name. Required and must contain 1-35 alphanumeric characters.  Use this for accurate identification of the subscriber.  | 
@@ -18,12 +19,12 @@ json = "{}"
 # create an instance of SubscriberDto from a JSON string
 subscriber_dto_instance = SubscriberDto.from_json(json)
 # print the JSON string representation of the object
-print SubscriberDto.to_json()
+print(SubscriberDto.to_json())
 
 # convert the object into a dict
 subscriber_dto_dict = subscriber_dto_instance.to_dict()
 # create an instance of SubscriberDto from a dict
-subscriber_dto_form_dict = subscriber_dto.from_dict(subscriber_dto_dict)
+subscriber_dto_from_dict = SubscriberDto.from_dict(subscriber_dto_dict)
 ```
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

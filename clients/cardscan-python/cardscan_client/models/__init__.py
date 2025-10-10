@@ -12,7 +12,6 @@
     Do not edit the class manually.
 """  # noqa: E501
 
-
 # import models into model package
 from cardscan_client.models.address import Address
 from cardscan_client.models.address_type import AddressType
@@ -101,3 +100,4 @@ from cardscan_client.models.webhook_eligibility_deleted_event import WebhookElig
 from cardscan_client.models.webhook_eligibility_error_event import WebhookEligibilityErrorEvent
 from cardscan_client.models.webhook_eligibility_error_event_error import WebhookEligibilityErrorEventError
 from cardscan_client.models.websocket_error import WebsocketError
+

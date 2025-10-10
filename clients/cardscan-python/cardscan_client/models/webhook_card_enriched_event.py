@@ -18,72 +18,83 @@ import re  # noqa: F401
 import json
 
 from datetime import datetime
-
-from pydantic import BaseModel, Field, StrictBool, StrictStr
+from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictStr
+from typing import Any, ClassVar, Dict, List
+from uuid import UUID
 from cardscan_client.models.webhook_card_completed_event_configuration import WebhookCardCompletedEventConfiguration
+from typing import Optional, Set
+from typing_extensions import Self
 
 class WebhookCardEnrichedEvent(BaseModel):
     """
-    Triggered after a successful insurance card scan.  Provides enriched data extracted from the card,  such as provider services phone numbers, claims addresses.  # noqa: E501
-    """
-    card_id: StrictStr = Field(default=..., description="Unique identifier for the card.")
-    configuration: WebhookCardCompletedEventConfiguration = Field(...)
-    created_at: datetime = Field(default=..., description="Timestamp for when the card was created.")
-    deleted: StrictBool = Field(default=..., description="Flag indicating whether the card is deleted.")
-    session_id: StrictStr = Field(default=..., description="Unique identifier for the session.")
-    type: StrictStr = Field(default=..., description="Type of event.")
-    updated_at: datetime = Field(default=..., description="Timestamp for the last update to the card record.")
-    user_id: StrictStr = Field(default=..., description="Identifier for the user associated with the event.")
-    __properties = ["card_id", "configuration", "created_at", "deleted", "session_id", "type", "updated_at", "user_id"]
+    Triggered after a successful insurance card scan.  Provides enriched data extracted from the card,  such as provider services phone numbers, claims addresses.
+    """ # noqa: E501
+    card_id: UUID = Field(description="Unique identifier for the card.")
+    configuration: WebhookCardCompletedEventConfiguration
+    created_at: datetime = Field(description="Timestamp for when the card was created.")
+    deleted: StrictBool = Field(description="Flag indicating whether the card is deleted.")
+    session_id: StrictStr = Field(description="Unique identifier for the session.")
+    type: StrictStr = Field(description="Type of event.")
+    updated_at: datetime = Field(description="Timestamp for the last update to the card record.")
+    user_id: StrictStr = Field(description="Identifier for the user associated with the event.")
+    __properties: ClassVar[List[str]] = ["card_id", "configuration", "created_at", "deleted", "session_id", "type", "updated_at", "user_id"]
 
-    class Config:
-        """Pydantic configuration"""
-        allow_population_by_field_name = True
-        validate_assignment = True
+    model_config = ConfigDict(
+        populate_by_name=True,
+        validate_assignment=True,
+        protected_namespaces=(),
+    )
+
 
     def to_str(self) -> str:
         """Returns the string representation of the model using alias"""
-        return pprint.pformat(self.dict(by_alias=True))
-
-    def _json_serializer(self, obj):
-        """JSON serializer function for datetime objects"""
-        if isinstance(obj, datetime):
-            return obj.isoformat()
-
-        raise TypeError(f"Type {type(obj)} not serializable")
+        return pprint.pformat(self.model_dump(by_alias=True))
 
     def to_json(self) -> str:
         """Returns the JSON representation of the model using alias"""
-        return json.dumps(self.to_dict(), default=self._json_serializer)
+        # TODO: pydantic v2: use .model_dump_json(by_alias=True, exclude_unset=True) instead
+        return json.dumps(self.to_dict())
 
     @classmethod
-    def from_json(cls, json_str: str) -> WebhookCardEnrichedEvent:
+    def from_json(cls, json_str: str) -> Optional[Self]:
         """Create an instance of WebhookCardEnrichedEvent from a JSON string"""
         return cls.from_dict(json.loads(json_str))
 
-    def to_dict(self):
-        """Returns the dictionary representation of the model using alias"""
-        _dict = self.dict(by_alias=True,
-                          exclude={
-                          },
-                          exclude_none=True)
+    def to_dict(self) -> Dict[str, Any]:
+        """Return the dictionary representation of the model using alias.
+
+        This has the following differences from calling pydantic's
+        `self.model_dump(by_alias=True)`:
+
+        * `None` is only added to the output dict for nullable fields that
+          were set at model initialization. Other fields with value `None`
+          are ignored.
+        """
+        excluded_fields: Set[str] = set([
+        ])
+
+        _dict = self.model_dump(
+            by_alias=True,
+            exclude=excluded_fields,
+            exclude_none=True,
+        )
         # override the default output from pydantic by calling `to_dict()` of configuration
         if self.configuration:
             _dict['configuration'] = self.configuration.to_dict()
         return _dict
 
     @classmethod
-    def from_dict(cls, obj: dict) -> WebhookCardEnrichedEvent:
+    def from_dict(cls, obj: Optional[Dict[str, Any]]) -> Optional[Self]:
         """Create an instance of WebhookCardEnrichedEvent from a dict"""
         if obj is None:
             return None
 
         if not isinstance(obj, dict):
-            return WebhookCardEnrichedEvent.parse_obj(obj)
+            return cls.model_validate(obj)
 
-        _obj = WebhookCardEnrichedEvent.parse_obj({
+        _obj = cls.model_validate({
             "card_id": obj.get("card_id"),
-            "configuration": WebhookCardCompletedEventConfiguration.from_dict(obj.get("configuration")) if obj.get("configuration") is not None else None,
+            "configuration": WebhookCardCompletedEventConfiguration.from_dict(obj["configuration"]) if obj.get("configuration") is not None else None,
             "created_at": obj.get("created_at"),
             "deleted": obj.get("deleted"),
             "session_id": obj.get("session_id"),

@@ -3,6 +3,7 @@
 Triggered after a successful insurance card scan.  Provides enriched data extracted from the card,  such as provider services phone numbers, claims addresses.
 
 ## Properties
+
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **card_id** | **str** | Unique identifier for the card. | 
@@ -24,12 +25,12 @@ json = "{}"
 # create an instance of WebhookCardEnrichedEvent from a JSON string
 webhook_card_enriched_event_instance = WebhookCardEnrichedEvent.from_json(json)
 # print the JSON string representation of the object
-print WebhookCardEnrichedEvent.to_json()
+print(WebhookCardEnrichedEvent.to_json())
 
 # convert the object into a dict
 webhook_card_enriched_event_dict = webhook_card_enriched_event_instance.to_dict()
 # create an instance of WebhookCardEnrichedEvent from a dict
-webhook_card_enriched_event_form_dict = webhook_card_enriched_event.from_dict(webhook_card_enriched_event_dict)
+webhook_card_enriched_event_from_dict = WebhookCardEnrichedEvent.from_dict(webhook_card_enriched_event_dict)
 ```
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

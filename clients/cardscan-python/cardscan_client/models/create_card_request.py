@@ -17,70 +17,79 @@ import pprint
 import re  # noqa: F401
 import json
 
-
-from typing import Any, Dict, Optional
-from pydantic import BaseModel, Field, StrictBool
+from pydantic import BaseModel, ConfigDict, Field, StrictBool
+from typing import Any, ClassVar, Dict, List, Optional
 from cardscan_client.models.create_card_request_backside import CreateCardRequestBackside
+from typing import Optional, Set
+from typing_extensions import Self
 
 class CreateCardRequest(BaseModel):
     """
     CreateCardRequest
-    """
+    """ # noqa: E501
     enable_backside_scan: Optional[StrictBool] = Field(default=False, description="Whether to enable backside scanning")
     enable_livescan: Optional[StrictBool] = Field(default=False, description="Whether to enable live scanning")
     backside: Optional[CreateCardRequestBackside] = None
     metadata: Optional[Dict[str, Any]] = None
-    __properties = ["enable_backside_scan", "enable_livescan", "backside", "metadata"]
+    __properties: ClassVar[List[str]] = ["enable_backside_scan", "enable_livescan", "backside", "metadata"]
 
-    class Config:
-        """Pydantic configuration"""
-        allow_population_by_field_name = True
-        validate_assignment = True
+    model_config = ConfigDict(
+        populate_by_name=True,
+        validate_assignment=True,
+        protected_namespaces=(),
+    )
+
 
     def to_str(self) -> str:
         """Returns the string representation of the model using alias"""
-        return pprint.pformat(self.dict(by_alias=True))
-
-    def _json_serializer(self, obj):
-        """JSON serializer function for datetime objects"""
-        if isinstance(obj, datetime):
-            return obj.isoformat()
-
-        raise TypeError(f"Type {type(obj)} not serializable")
+        return pprint.pformat(self.model_dump(by_alias=True))
 
     def to_json(self) -> str:
         """Returns the JSON representation of the model using alias"""
-        return json.dumps(self.to_dict(), default=self._json_serializer)
+        # TODO: pydantic v2: use .model_dump_json(by_alias=True, exclude_unset=True) instead
+        return json.dumps(self.to_dict())
 
     @classmethod
-    def from_json(cls, json_str: str) -> CreateCardRequest:
+    def from_json(cls, json_str: str) -> Optional[Self]:
         """Create an instance of CreateCardRequest from a JSON string"""
         return cls.from_dict(json.loads(json_str))
 
-    def to_dict(self):
-        """Returns the dictionary representation of the model using alias"""
-        _dict = self.dict(by_alias=True,
-                          exclude={
-                          },
-                          exclude_none=True)
+    def to_dict(self) -> Dict[str, Any]:
+        """Return the dictionary representation of the model using alias.
+
+        This has the following differences from calling pydantic's
+        `self.model_dump(by_alias=True)`:
+
+        * `None` is only added to the output dict for nullable fields that
+          were set at model initialization. Other fields with value `None`
+          are ignored.
+        """
+        excluded_fields: Set[str] = set([
+        ])
+
+        _dict = self.model_dump(
+            by_alias=True,
+            exclude=excluded_fields,
+            exclude_none=True,
+        )
         # override the default output from pydantic by calling `to_dict()` of backside
         if self.backside:
             _dict['backside'] = self.backside.to_dict()
         return _dict
 
     @classmethod
-    def from_dict(cls, obj: dict) -> CreateCardRequest:
+    def from_dict(cls, obj: Optional[Dict[str, Any]]) -> Optional[Self]:
         """Create an instance of CreateCardRequest from a dict"""
         if obj is None:
             return None
 
         if not isinstance(obj, dict):
-            return CreateCardRequest.parse_obj(obj)
+            return cls.model_validate(obj)
 
-        _obj = CreateCardRequest.parse_obj({
+        _obj = cls.model_validate({
             "enable_backside_scan": obj.get("enable_backside_scan") if obj.get("enable_backside_scan") is not None else False,
             "enable_livescan": obj.get("enable_livescan") if obj.get("enable_livescan") is not None else False,
-            "backside": CreateCardRequestBackside.from_dict(obj.get("backside")) if obj.get("backside") is not None else None,
+            "backside": CreateCardRequestBackside.from_dict(obj["backside"]) if obj.get("backside") is not None else None,
             "metadata": obj.get("metadata")
         })
         return _obj

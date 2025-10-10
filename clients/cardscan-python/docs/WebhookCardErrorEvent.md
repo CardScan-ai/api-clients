@@ -3,6 +3,7 @@
 Triggered when an error occurs during a card scan.
 
 ## Properties
+
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **card_id** | **str** | Unique identifier for the card. | 
@@ -24,12 +25,12 @@ json = "{}"
 # create an instance of WebhookCardErrorEvent from a JSON string
 webhook_card_error_event_instance = WebhookCardErrorEvent.from_json(json)
 # print the JSON string representation of the object
-print WebhookCardErrorEvent.to_json()
+print(WebhookCardErrorEvent.to_json())
 
 # convert the object into a dict
 webhook_card_error_event_dict = webhook_card_error_event_instance.to_dict()
 # create an instance of WebhookCardErrorEvent from a dict
-webhook_card_error_event_form_dict = webhook_card_error_event.from_dict(webhook_card_error_event_dict)
+webhook_card_error_event_from_dict = WebhookCardErrorEvent.from_dict(webhook_card_error_event_dict)
 ```
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

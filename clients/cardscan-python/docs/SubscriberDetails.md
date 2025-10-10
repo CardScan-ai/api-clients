@@ -2,6 +2,7 @@
 
 
 ## Properties
+
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **member_id** | **str** | The member ID of the subscriber. | [optional] 
@@ -22,12 +23,12 @@ json = "{}"
 # create an instance of SubscriberDetails from a JSON string
 subscriber_details_instance = SubscriberDetails.from_json(json)
 # print the JSON string representation of the object
-print SubscriberDetails.to_json()
+print(SubscriberDetails.to_json())
 
 # convert the object into a dict
 subscriber_details_dict = subscriber_details_instance.to_dict()
 # create an instance of SubscriberDetails from a dict
-subscriber_details_form_dict = subscriber_details.from_dict(subscriber_details_dict)
+subscriber_details_from_dict = SubscriberDetails.from_dict(subscriber_details_dict)
 ```
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

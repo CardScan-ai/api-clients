@@ -12,13 +12,10 @@
 """  # noqa: E501
 
 
+from __future__ import annotations
 import json
-import pprint
-import re  # noqa: F401
-from aenum import Enum, no_arg
-
-
-
+from enum import Enum
+from typing_extensions import Self
 
 
 class CopayDeductibleService(str, Enum):
@@ -43,8 +40,8 @@ class CopayDeductibleService(str, Enum):
     OTHER = 'other'
 
     @classmethod
-    def from_json(cls, json_str: str) -> CopayDeductibleService:
+    def from_json(cls, json_str: str) -> Self:
         """Create an instance of CopayDeductibleService from a JSON string"""
-        return CopayDeductibleService(json.loads(json_str))
+        return cls(json.loads(json_str))
 
 

@@ -16,105 +16,207 @@
 
 __version__ = "1.0.0"
 
+# Define package exports
+__all__ = [
+    "CardScanApi",
+    "ApiResponse",
+    "ApiClient",
+    "Configuration",
+    "OpenApiException",
+    "ApiTypeError",
+    "ApiValueError",
+    "ApiKeyError",
+    "ApiAttributeError",
+    "ApiException",
+    "Address",
+    "AddressType",
+    "ApiErrorResponse",
+    "CHCPayerRecord",
+    "CardApiResponse",
+    "CardApiResponseDetails",
+    "CardApiResponseEnrichedResults",
+    "CardApiResponseImages",
+    "CardApiResponseImagesBack",
+    "CardApiResponseImagesFront",
+    "CardPerformance200Response",
+    "CardResponseMetadata",
+    "CardState",
+    "CardWebsocketEvent",
+    "CoInsurance",
+    "CoPayment",
+    "CopayCategory",
+    "CopayDeductibleService",
+    "CoverageSummary",
+    "CreateCardRequest",
+    "CreateCardRequestBackside",
+    "CreateEligibilityRequest",
+    "CustomPayerRecord",
+    "Deductible",
+    "DirectUpload200Response",
+    "DirectUpload200ResponseMetadata",
+    "DirectUploadRequest",
+    "EligibilityApiResponse",
+    "EligibilityApiResponseEligibilityRequest",
+    "EligibilityApiResponseEligibilityRequestProvider",
+    "EligibilityApiResponseEligibilityRequestSubscriber",
+    "EligibilityError",
+    "EligibilityInfo",
+    "EligibilityState",
+    "EligibilitySummarizedResponse",
+    "EligibilityWebsocketEvent",
+    "EnrichedAddressResultInner",
+    "EnrichedCopayResultInner",
+    "EnrichedPhoneNumberResultInner",
+    "GenerateCardUploadUrl200Response",
+    "GenerateCardUploadUrlRequest",
+    "GenerateMagicLink200Response",
+    "GetAccessToken200Response",
+    "GetAccessToken500Response",
+    "ListEligibility200Response",
+    "MatchScore",
+    "ModelError",
+    "OOP",
+    "PayerDetails",
+    "PayerMatch",
+    "PayerMatchMatchesInner",
+    "PayerMatchMatchesInnerMetadata",
+    "PhoneNumberType",
+    "PlanDetails",
+    "ProviderDto",
+    "ResponseMetadata",
+    "ScanCaptureType",
+    "ScanMetadata",
+    "ScanMetadataCameraCapabilities",
+    "ScanMetadataCameraCapabilitiesAspectRatio",
+    "ScanMetadataCaptureCanvas",
+    "ScanMetadataCaptureScore",
+    "ScanMetadataCaptureScoreScoresInner",
+    "ScanMetadataGuides",
+    "ScanMetadataVideoBackground",
+    "ScanMetadataVideoTrack",
+    "ScanMetadataWindowInner",
+    "ScanOrientation",
+    "SearchCards200Response",
+    "Service",
+    "SubscriberDetails",
+    "SubscriberDto",
+    "UploadParameters",
+    "ValidateMagicLink200Response",
+    "WebhookCardCompletedEvent",
+    "WebhookCardCompletedEventConfiguration",
+    "WebhookCardCreatedEvent",
+    "WebhookCardDeletedEvent",
+    "WebhookCardEnrichedEvent",
+    "WebhookCardErrorEvent",
+    "WebhookCardErrorEventError",
+    "WebhookEligibilityCompletedEvent",
+    "WebhookEligibilityCreatedEvent",
+    "WebhookEligibilityDeletedEvent",
+    "WebhookEligibilityErrorEvent",
+    "WebhookEligibilityErrorEventError",
+    "WebsocketError",
+]
+
 # import apis into sdk package
-from cardscan_client.api.card_scan_api import CardScanApi
+from cardscan_client.api.card_scan_api import CardScanApi as CardScanApi
 
 # import ApiClient
-from cardscan_client.api_response import ApiResponse
-from cardscan_client.api_client import ApiClient
-from cardscan_client.configuration import Configuration
-from cardscan_client.exceptions import OpenApiException
-from cardscan_client.exceptions import ApiTypeError
-from cardscan_client.exceptions import ApiValueError
-from cardscan_client.exceptions import ApiKeyError
-from cardscan_client.exceptions import ApiAttributeError
-from cardscan_client.exceptions import ApiException
+from cardscan_client.api_response import ApiResponse as ApiResponse
+from cardscan_client.api_client import ApiClient as ApiClient
+from cardscan_client.configuration import Configuration as Configuration
+from cardscan_client.exceptions import OpenApiException as OpenApiException
+from cardscan_client.exceptions import ApiTypeError as ApiTypeError
+from cardscan_client.exceptions import ApiValueError as ApiValueError
+from cardscan_client.exceptions import ApiKeyError as ApiKeyError
+from cardscan_client.exceptions import ApiAttributeError as ApiAttributeError
+from cardscan_client.exceptions import ApiException as ApiException
 
 # import models into sdk package
-from cardscan_client.models.address import Address
-from cardscan_client.models.address_type import AddressType
-from cardscan_client.models.api_error_response import ApiErrorResponse
-from cardscan_client.models.chc_payer_record import CHCPayerRecord
-from cardscan_client.models.card_api_response import CardApiResponse
-from cardscan_client.models.card_api_response_details import CardApiResponseDetails
-from cardscan_client.models.card_api_response_enriched_results import CardApiResponseEnrichedResults
-from cardscan_client.models.card_api_response_images import CardApiResponseImages
-from cardscan_client.models.card_api_response_images_back import CardApiResponseImagesBack
-from cardscan_client.models.card_api_response_images_front import CardApiResponseImagesFront
-from cardscan_client.models.card_performance200_response import CardPerformance200Response
-from cardscan_client.models.card_response_metadata import CardResponseMetadata
-from cardscan_client.models.card_state import CardState
-from cardscan_client.models.card_websocket_event import CardWebsocketEvent
-from cardscan_client.models.co_insurance import CoInsurance
-from cardscan_client.models.co_payment import CoPayment
-from cardscan_client.models.copay_category import CopayCategory
-from cardscan_client.models.copay_deductible_service import CopayDeductibleService
-from cardscan_client.models.coverage_summary import CoverageSummary
-from cardscan_client.models.create_card_request import CreateCardRequest
-from cardscan_client.models.create_card_request_backside import CreateCardRequestBackside
-from cardscan_client.models.create_eligibility_request import CreateEligibilityRequest
-from cardscan_client.models.custom_payer_record import CustomPayerRecord
-from cardscan_client.models.deductible import Deductible
-from cardscan_client.models.direct_upload200_response import DirectUpload200Response
-from cardscan_client.models.direct_upload200_response_metadata import DirectUpload200ResponseMetadata
-from cardscan_client.models.direct_upload_request import DirectUploadRequest
-from cardscan_client.models.eligibility_api_response import EligibilityApiResponse
-from cardscan_client.models.eligibility_api_response_eligibility_request import EligibilityApiResponseEligibilityRequest
-from cardscan_client.models.eligibility_api_response_eligibility_request_provider import EligibilityApiResponseEligibilityRequestProvider
-from cardscan_client.models.eligibility_api_response_eligibility_request_subscriber import EligibilityApiResponseEligibilityRequestSubscriber
-from cardscan_client.models.eligibility_error import EligibilityError
-from cardscan_client.models.eligibility_info import EligibilityInfo
-from cardscan_client.models.eligibility_state import EligibilityState
-from cardscan_client.models.eligibility_summarized_response import EligibilitySummarizedResponse
-from cardscan_client.models.eligibility_websocket_event import EligibilityWebsocketEvent
-from cardscan_client.models.enriched_address_result_inner import EnrichedAddressResultInner
-from cardscan_client.models.enriched_copay_result_inner import EnrichedCopayResultInner
-from cardscan_client.models.enriched_phone_number_result_inner import EnrichedPhoneNumberResultInner
-from cardscan_client.models.generate_card_upload_url200_response import GenerateCardUploadUrl200Response
-from cardscan_client.models.generate_card_upload_url_request import GenerateCardUploadUrlRequest
-from cardscan_client.models.generate_magic_link200_response import GenerateMagicLink200Response
-from cardscan_client.models.get_access_token200_response import GetAccessToken200Response
-from cardscan_client.models.get_access_token500_response import GetAccessToken500Response
-from cardscan_client.models.list_eligibility200_response import ListEligibility200Response
-from cardscan_client.models.match_score import MatchScore
-from cardscan_client.models.model_error import ModelError
-from cardscan_client.models.oop import OOP
-from cardscan_client.models.payer_details import PayerDetails
-from cardscan_client.models.payer_match import PayerMatch
-from cardscan_client.models.payer_match_matches_inner import PayerMatchMatchesInner
-from cardscan_client.models.payer_match_matches_inner_metadata import PayerMatchMatchesInnerMetadata
-from cardscan_client.models.phone_number_type import PhoneNumberType
-from cardscan_client.models.plan_details import PlanDetails
-from cardscan_client.models.provider_dto import ProviderDto
-from cardscan_client.models.response_metadata import ResponseMetadata
-from cardscan_client.models.scan_capture_type import ScanCaptureType
-from cardscan_client.models.scan_metadata import ScanMetadata
-from cardscan_client.models.scan_metadata_camera_capabilities import ScanMetadataCameraCapabilities
-from cardscan_client.models.scan_metadata_camera_capabilities_aspect_ratio import ScanMetadataCameraCapabilitiesAspectRatio
-from cardscan_client.models.scan_metadata_capture_canvas import ScanMetadataCaptureCanvas
-from cardscan_client.models.scan_metadata_capture_score import ScanMetadataCaptureScore
-from cardscan_client.models.scan_metadata_capture_score_scores_inner import ScanMetadataCaptureScoreScoresInner
-from cardscan_client.models.scan_metadata_guides import ScanMetadataGuides
-from cardscan_client.models.scan_metadata_video_background import ScanMetadataVideoBackground
-from cardscan_client.models.scan_metadata_video_track import ScanMetadataVideoTrack
-from cardscan_client.models.scan_metadata_window_inner import ScanMetadataWindowInner
-from cardscan_client.models.scan_orientation import ScanOrientation
-from cardscan_client.models.search_cards200_response import SearchCards200Response
-from cardscan_client.models.service import Service
-from cardscan_client.models.subscriber_details import SubscriberDetails
-from cardscan_client.models.subscriber_dto import SubscriberDto
-from cardscan_client.models.upload_parameters import UploadParameters
-from cardscan_client.models.validate_magic_link200_response import ValidateMagicLink200Response
-from cardscan_client.models.webhook_card_completed_event import WebhookCardCompletedEvent
-from cardscan_client.models.webhook_card_completed_event_configuration import WebhookCardCompletedEventConfiguration
-from cardscan_client.models.webhook_card_created_event import WebhookCardCreatedEvent
-from cardscan_client.models.webhook_card_deleted_event import WebhookCardDeletedEvent
-from cardscan_client.models.webhook_card_enriched_event import WebhookCardEnrichedEvent
-from cardscan_client.models.webhook_card_error_event import WebhookCardErrorEvent
-from cardscan_client.models.webhook_card_error_event_error import WebhookCardErrorEventError
-from cardscan_client.models.webhook_eligibility_completed_event import WebhookEligibilityCompletedEvent
-from cardscan_client.models.webhook_eligibility_created_event import WebhookEligibilityCreatedEvent
-from cardscan_client.models.webhook_eligibility_deleted_event import WebhookEligibilityDeletedEvent
-from cardscan_client.models.webhook_eligibility_error_event import WebhookEligibilityErrorEvent
-from cardscan_client.models.webhook_eligibility_error_event_error import WebhookEligibilityErrorEventError
-from cardscan_client.models.websocket_error import WebsocketError
+from cardscan_client.models.address import Address as Address
+from cardscan_client.models.address_type import AddressType as AddressType
+from cardscan_client.models.api_error_response import ApiErrorResponse as ApiErrorResponse
+from cardscan_client.models.chc_payer_record import CHCPayerRecord as CHCPayerRecord
+from cardscan_client.models.card_api_response import CardApiResponse as CardApiResponse
+from cardscan_client.models.card_api_response_details import CardApiResponseDetails as CardApiResponseDetails
+from cardscan_client.models.card_api_response_enriched_results import CardApiResponseEnrichedResults as CardApiResponseEnrichedResults
+from cardscan_client.models.card_api_response_images import CardApiResponseImages as CardApiResponseImages
+from cardscan_client.models.card_api_response_images_back import CardApiResponseImagesBack as CardApiResponseImagesBack
+from cardscan_client.models.card_api_response_images_front import CardApiResponseImagesFront as CardApiResponseImagesFront
+from cardscan_client.models.card_performance200_response import CardPerformance200Response as CardPerformance200Response
+from cardscan_client.models.card_response_metadata import CardResponseMetadata as CardResponseMetadata
+from cardscan_client.models.card_state import CardState as CardState
+from cardscan_client.models.card_websocket_event import CardWebsocketEvent as CardWebsocketEvent
+from cardscan_client.models.co_insurance import CoInsurance as CoInsurance
+from cardscan_client.models.co_payment import CoPayment as CoPayment
+from cardscan_client.models.copay_category import CopayCategory as CopayCategory
+from cardscan_client.models.copay_deductible_service import CopayDeductibleService as CopayDeductibleService
+from cardscan_client.models.coverage_summary import CoverageSummary as CoverageSummary
+from cardscan_client.models.create_card_request import CreateCardRequest as CreateCardRequest
+from cardscan_client.models.create_card_request_backside import CreateCardRequestBackside as CreateCardRequestBackside
+from cardscan_client.models.create_eligibility_request import CreateEligibilityRequest as CreateEligibilityRequest
+from cardscan_client.models.custom_payer_record import CustomPayerRecord as CustomPayerRecord
+from cardscan_client.models.deductible import Deductible as Deductible
+from cardscan_client.models.direct_upload200_response import DirectUpload200Response as DirectUpload200Response
+from cardscan_client.models.direct_upload200_response_metadata import DirectUpload200ResponseMetadata as DirectUpload200ResponseMetadata
+from cardscan_client.models.direct_upload_request import DirectUploadRequest as DirectUploadRequest
+from cardscan_client.models.eligibility_api_response import EligibilityApiResponse as EligibilityApiResponse
+from cardscan_client.models.eligibility_api_response_eligibility_request import EligibilityApiResponseEligibilityRequest as EligibilityApiResponseEligibilityRequest
+from cardscan_client.models.eligibility_api_response_eligibility_request_provider import EligibilityApiResponseEligibilityRequestProvider as EligibilityApiResponseEligibilityRequestProvider
+from cardscan_client.models.eligibility_api_response_eligibility_request_subscriber import EligibilityApiResponseEligibilityRequestSubscriber as EligibilityApiResponseEligibilityRequestSubscriber
+from cardscan_client.models.eligibility_error import EligibilityError as EligibilityError
+from cardscan_client.models.eligibility_info import EligibilityInfo as EligibilityInfo
+from cardscan_client.models.eligibility_state import EligibilityState as EligibilityState
+from cardscan_client.models.eligibility_summarized_response import EligibilitySummarizedResponse as EligibilitySummarizedResponse
+from cardscan_client.models.eligibility_websocket_event import EligibilityWebsocketEvent as EligibilityWebsocketEvent
+from cardscan_client.models.enriched_address_result_inner import EnrichedAddressResultInner as EnrichedAddressResultInner
+from cardscan_client.models.enriched_copay_result_inner import EnrichedCopayResultInner as EnrichedCopayResultInner
+from cardscan_client.models.enriched_phone_number_result_inner import EnrichedPhoneNumberResultInner as EnrichedPhoneNumberResultInner
+from cardscan_client.models.generate_card_upload_url200_response import GenerateCardUploadUrl200Response as GenerateCardUploadUrl200Response
+from cardscan_client.models.generate_card_upload_url_request import GenerateCardUploadUrlRequest as GenerateCardUploadUrlRequest
+from cardscan_client.models.generate_magic_link200_response import GenerateMagicLink200Response as GenerateMagicLink200Response
+from cardscan_client.models.get_access_token200_response import GetAccessToken200Response as GetAccessToken200Response
+from cardscan_client.models.get_access_token500_response import GetAccessToken500Response as GetAccessToken500Response
+from cardscan_client.models.list_eligibility200_response import ListEligibility200Response as ListEligibility200Response
+from cardscan_client.models.match_score import MatchScore as MatchScore
+from cardscan_client.models.model_error import ModelError as ModelError
+from cardscan_client.models.oop import OOP as OOP
+from cardscan_client.models.payer_details import PayerDetails as PayerDetails
+from cardscan_client.models.payer_match import PayerMatch as PayerMatch
+from cardscan_client.models.payer_match_matches_inner import PayerMatchMatchesInner as PayerMatchMatchesInner
+from cardscan_client.models.payer_match_matches_inner_metadata import PayerMatchMatchesInnerMetadata as PayerMatchMatchesInnerMetadata
+from cardscan_client.models.phone_number_type import PhoneNumberType as PhoneNumberType
+from cardscan_client.models.plan_details import PlanDetails as PlanDetails
+from cardscan_client.models.provider_dto import ProviderDto as ProviderDto
+from cardscan_client.models.response_metadata import ResponseMetadata as ResponseMetadata
+from cardscan_client.models.scan_capture_type import ScanCaptureType as ScanCaptureType
+from cardscan_client.models.scan_metadata import ScanMetadata as ScanMetadata
+from cardscan_client.models.scan_metadata_camera_capabilities import ScanMetadataCameraCapabilities as ScanMetadataCameraCapabilities
+from cardscan_client.models.scan_metadata_camera_capabilities_aspect_ratio import ScanMetadataCameraCapabilitiesAspectRatio as ScanMetadataCameraCapabilitiesAspectRatio
+from cardscan_client.models.scan_metadata_capture_canvas import ScanMetadataCaptureCanvas as ScanMetadataCaptureCanvas
+from cardscan_client.models.scan_metadata_capture_score import ScanMetadataCaptureScore as ScanMetadataCaptureScore
+from cardscan_client.models.scan_metadata_capture_score_scores_inner import ScanMetadataCaptureScoreScoresInner as ScanMetadataCaptureScoreScoresInner
+from cardscan_client.models.scan_metadata_guides import ScanMetadataGuides as ScanMetadataGuides
+from cardscan_client.models.scan_metadata_video_background import ScanMetadataVideoBackground as ScanMetadataVideoBackground
+from cardscan_client.models.scan_metadata_video_track import ScanMetadataVideoTrack as ScanMetadataVideoTrack
+from cardscan_client.models.scan_metadata_window_inner import ScanMetadataWindowInner as ScanMetadataWindowInner
+from cardscan_client.models.scan_orientation import ScanOrientation as ScanOrientation
+from cardscan_client.models.search_cards200_response import SearchCards200Response as SearchCards200Response
+from cardscan_client.models.service import Service as Service
+from cardscan_client.models.subscriber_details import SubscriberDetails as SubscriberDetails
+from cardscan_client.models.subscriber_dto import SubscriberDto as SubscriberDto
+from cardscan_client.models.upload_parameters import UploadParameters as UploadParameters
+from cardscan_client.models.validate_magic_link200_response import ValidateMagicLink200Response as ValidateMagicLink200Response
+from cardscan_client.models.webhook_card_completed_event import WebhookCardCompletedEvent as WebhookCardCompletedEvent
+from cardscan_client.models.webhook_card_completed_event_configuration import WebhookCardCompletedEventConfiguration as WebhookCardCompletedEventConfiguration
+from cardscan_client.models.webhook_card_created_event import WebhookCardCreatedEvent as WebhookCardCreatedEvent
+from cardscan_client.models.webhook_card_deleted_event import WebhookCardDeletedEvent as WebhookCardDeletedEvent
+from cardscan_client.models.webhook_card_enriched_event import WebhookCardEnrichedEvent as WebhookCardEnrichedEvent
+from cardscan_client.models.webhook_card_error_event import WebhookCardErrorEvent as WebhookCardErrorEvent
+from cardscan_client.models.webhook_card_error_event_error import WebhookCardErrorEventError as WebhookCardErrorEventError
+from cardscan_client.models.webhook_eligibility_completed_event import WebhookEligibilityCompletedEvent as WebhookEligibilityCompletedEvent
+from cardscan_client.models.webhook_eligibility_created_event import WebhookEligibilityCreatedEvent as WebhookEligibilityCreatedEvent
+from cardscan_client.models.webhook_eligibility_deleted_event import WebhookEligibilityDeletedEvent as WebhookEligibilityDeletedEvent
+from cardscan_client.models.webhook_eligibility_error_event import WebhookEligibilityErrorEvent as WebhookEligibilityErrorEvent
+from cardscan_client.models.webhook_eligibility_error_event_error import WebhookEligibilityErrorEventError as WebhookEligibilityErrorEventError
+from cardscan_client.models.websocket_error import WebsocketError as WebsocketError
+

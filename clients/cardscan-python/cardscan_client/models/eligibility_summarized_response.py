@@ -17,21 +17,22 @@ import pprint
 import re  # noqa: F401
 import json
 
-
-from typing import List, Optional
-from pydantic import BaseModel, conlist
+from pydantic import BaseModel, ConfigDict
+from typing import Any, ClassVar, Dict, List, Optional
 from cardscan_client.models.coverage_summary import CoverageSummary
 from cardscan_client.models.eligibility_error import EligibilityError
 from cardscan_client.models.payer_details import PayerDetails
 from cardscan_client.models.plan_details import PlanDetails
 from cardscan_client.models.service import Service
 from cardscan_client.models.subscriber_details import SubscriberDetails
+from typing import Optional, Set
+from typing_extensions import Self
 
 class EligibilitySummarizedResponse(BaseModel):
     """
     EligibilitySummarizedResponse
-    """
-    errors: Optional[conlist(EligibilityError)] = None
+    """ # noqa: E501
+    errors: Optional[List[EligibilityError]] = None
     subscriber_details: Optional[SubscriberDetails] = None
     payer_details: Optional[PayerDetails] = None
     plan_details: Optional[PlanDetails] = None
@@ -223,45 +224,53 @@ class EligibilitySummarizedResponse(BaseModel):
     used_durable_medical_equipment: Optional[Service] = None
     vision: Optional[Service] = None
     well_baby_care: Optional[Service] = None
-    __properties = ["errors", "subscriber_details", "payer_details", "plan_details", "coverage_summary", "abortion", "acupuncture", "adjunctive_dental_services", "aids", "air_transportation", "alcoholism", "allergy", "allergy_testing", "alternate_method_dialysis", "ambulatory_service_center_facility", "anesthesia", "anesthesiologist", "audiology_exam", "blood_charges", "brand_name_prescription_drug", "brand_name_prescription_drug_formulary", "brand_name_prescription_drug_non_formulary", "burn_care", "cabulance", "cancer", "cardiac", "cardiac_rehabilitation", "case_management", "chemotherapy", "chiropractic", "chiropractic_office_visits", "chronic_renal_disease_crd_equipment", "cognitive_therapy", "consultation", "coronary_care", "day_care_psychiatric", "dental_accident", "dental_care", "dental_crowns", "dermatology", "diabetic_supplies", "diagnostic_dental", "diagnostic_lab", "diagnostic_medical", "diagnostic_x_ray", "dialysis", "donor_procedures", "drug_addiction", "durable_medical_equipment", "durable_medical_equipment_purchase", "durable_medical_equipment_rental", "emergency_room", "endocrine", "endodontics", "experimental_drug_therapy", "eye", "eyewear_and_eyewear_accessories", "family_planning", "flu_vaccination", "frames", "free_standing_prescription_drug", "gastrointestinal", "general_benefits", "generic_prescription_drug", "generic_prescription_drug_formulary", "generic_prescription_drug_non_formulary", "gynecological", "home_health_care", "home_health_prescriptions", "home_health_visits", "hospice", "hospital_inpatient", "hospital_ambulatory_surgical", "hospital_emergency_accident", "hospital_emergency_medical", "hospital_outpatient", "hospital_room_and_board", "immunizations", "in_vitro_fertilization", "independent_medical_evaluation", "infertility", "inhalation_therapy", "intensive_care", "invasive_procedures", "lenses", "licensed_ambulance", "long_term_care", "lymphatic", "mail_order_prescription_drug", "mail_order_prescription_drug_brand_name", "mail_order_prescription_drug_generic", "major_medical", "mammogram_high_risk_patient", "mammogram_low_risk_patient", "massage_therapy", "maternity", "maxillofacial_prosthetics", "medical_care", "medically_related_transportation", "mental_health", "mental_health_facility_inpatient", "mental_health_facility_outpatient", "mental_health_provider_inpatient", "mental_health_provider_outpatient", "mri_cat_scan", "neonatal_intensive_care", "neurology", "newborn_care", "nonmedically_necessary_physical", "nursery", "obstetrical", "obstetrical_gynecological", "occupational_therapy", "oncology", "oral_surgery", "orthodontics", "orthopedic", "other_medical", "otological_exam", "partial_hospitalization_psychiatric", "pathology", "pediatric", "periodontics", "pharmacy", "physical_medicine", "physical_therapy", "physician_visit_office_sick", "physician_visit_office_well", "plan_waiting_period", "pneumonia_vaccine", "podiatry", "podiatry_nursing_home_visits", "podiatry_office_visits", "pre_admission_testing", "private_duty_nursing", "private_duty_nursing_home", "private_duty_nursing_inpatient", "professional_physician", "professional_physician_visit_home", "professional_physician_visit_inpatient", "professional_physician_visit_nursing_home", "office_visit", "professional_physician_visit_outpatient", "professional_physician_visit_skilled_nursing", "prosthetic_device", "prosthodontics", "psychiatric", "psychiatric_inpatient", "psychiatric_outpatient", "psychiatric_room_and_board", "psychotherapy", "pulmonary", "pulmonary_rehabilitation", "radiation_therapy", "rehabilitation", "rehabilitation_inpatient", "rehabilitation_outpatient", "rehabilitation_room_and_board", "renal", "renal_supplies_in_the_home", "residential_psychiatric_treatment", "respite_care", "restorative", "routine_preventive_dental", "routine_exam_use_for_routine_vision_exam_only", "routine_physical", "screening_laboratory", "screening_x_ray", "second_surgical_opinion", "skilled_nursing_care", "skilled_nursing_care_room_and_board", "skin", "smoking_cessation", "social_work", "speech_therapy", "substance_abuse", "substance_abuse_facility_inpatient", "substance_abuse_facility_outpatient", "substance_abuse_provider_inpatient", "substance_abuse_provider_outpatient", "surgical", "surgical_assistance", "surgical_benefits_facility", "surgical_benefits_professional_physician", "third_surgical_opinion", "transitional_care", "transitional_nursery_care", "transplants", "urgent_care", "used_durable_medical_equipment", "vision", "well_baby_care"]
+    __properties: ClassVar[List[str]] = ["errors", "subscriber_details", "payer_details", "plan_details", "coverage_summary", "abortion", "acupuncture", "adjunctive_dental_services", "aids", "air_transportation", "alcoholism", "allergy", "allergy_testing", "alternate_method_dialysis", "ambulatory_service_center_facility", "anesthesia", "anesthesiologist", "audiology_exam", "blood_charges", "brand_name_prescription_drug", "brand_name_prescription_drug_formulary", "brand_name_prescription_drug_non_formulary", "burn_care", "cabulance", "cancer", "cardiac", "cardiac_rehabilitation", "case_management", "chemotherapy", "chiropractic", "chiropractic_office_visits", "chronic_renal_disease_crd_equipment", "cognitive_therapy", "consultation", "coronary_care", "day_care_psychiatric", "dental_accident", "dental_care", "dental_crowns", "dermatology", "diabetic_supplies", "diagnostic_dental", "diagnostic_lab", "diagnostic_medical", "diagnostic_x_ray", "dialysis", "donor_procedures", "drug_addiction", "durable_medical_equipment", "durable_medical_equipment_purchase", "durable_medical_equipment_rental", "emergency_room", "endocrine", "endodontics", "experimental_drug_therapy", "eye", "eyewear_and_eyewear_accessories", "family_planning", "flu_vaccination", "frames", "free_standing_prescription_drug", "gastrointestinal", "general_benefits", "generic_prescription_drug", "generic_prescription_drug_formulary", "generic_prescription_drug_non_formulary", "gynecological", "home_health_care", "home_health_prescriptions", "home_health_visits", "hospice", "hospital_inpatient", "hospital_ambulatory_surgical", "hospital_emergency_accident", "hospital_emergency_medical", "hospital_outpatient", "hospital_room_and_board", "immunizations", "in_vitro_fertilization", "independent_medical_evaluation", "infertility", "inhalation_therapy", "intensive_care", "invasive_procedures", "lenses", "licensed_ambulance", "long_term_care", "lymphatic", "mail_order_prescription_drug", "mail_order_prescription_drug_brand_name", "mail_order_prescription_drug_generic", "major_medical", "mammogram_high_risk_patient", "mammogram_low_risk_patient", "massage_therapy", "maternity", "maxillofacial_prosthetics", "medical_care", "medically_related_transportation", "mental_health", "mental_health_facility_inpatient", "mental_health_facility_outpatient", "mental_health_provider_inpatient", "mental_health_provider_outpatient", "mri_cat_scan", "neonatal_intensive_care", "neurology", "newborn_care", "nonmedically_necessary_physical", "nursery", "obstetrical", "obstetrical_gynecological", "occupational_therapy", "oncology", "oral_surgery", "orthodontics", "orthopedic", "other_medical", "otological_exam", "partial_hospitalization_psychiatric", "pathology", "pediatric", "periodontics", "pharmacy", "physical_medicine", "physical_therapy", "physician_visit_office_sick", "physician_visit_office_well", "plan_waiting_period", "pneumonia_vaccine", "podiatry", "podiatry_nursing_home_visits", "podiatry_office_visits", "pre_admission_testing", "private_duty_nursing", "private_duty_nursing_home", "private_duty_nursing_inpatient", "professional_physician", "professional_physician_visit_home", "professional_physician_visit_inpatient", "professional_physician_visit_nursing_home", "office_visit", "professional_physician_visit_outpatient", "professional_physician_visit_skilled_nursing", "prosthetic_device", "prosthodontics", "psychiatric", "psychiatric_inpatient", "psychiatric_outpatient", "psychiatric_room_and_board", "psychotherapy", "pulmonary", "pulmonary_rehabilitation", "radiation_therapy", "rehabilitation", "rehabilitation_inpatient", "rehabilitation_outpatient", "rehabilitation_room_and_board", "renal", "renal_supplies_in_the_home", "residential_psychiatric_treatment", "respite_care", "restorative", "routine_preventive_dental", "routine_exam_use_for_routine_vision_exam_only", "routine_physical", "screening_laboratory", "screening_x_ray", "second_surgical_opinion", "skilled_nursing_care", "skilled_nursing_care_room_and_board", "skin", "smoking_cessation", "social_work", "speech_therapy", "substance_abuse", "substance_abuse_facility_inpatient", "substance_abuse_facility_outpatient", "substance_abuse_provider_inpatient", "substance_abuse_provider_outpatient", "surgical", "surgical_assistance", "surgical_benefits_facility", "surgical_benefits_professional_physician", "third_surgical_opinion", "transitional_care", "transitional_nursery_care", "transplants", "urgent_care", "used_durable_medical_equipment", "vision", "well_baby_care"]
 
-    class Config:
-        """Pydantic configuration"""
-        allow_population_by_field_name = True
-        validate_assignment = True
+    model_config = ConfigDict(
+        populate_by_name=True,
+        validate_assignment=True,
+        protected_namespaces=(),
+    )
+
 
     def to_str(self) -> str:
         """Returns the string representation of the model using alias"""
-        return pprint.pformat(self.dict(by_alias=True))
-
-    def _json_serializer(self, obj):
-        """JSON serializer function for datetime objects"""
-        if isinstance(obj, datetime):
-            return obj.isoformat()
-
-        raise TypeError(f"Type {type(obj)} not serializable")
+        return pprint.pformat(self.model_dump(by_alias=True))
 
     def to_json(self) -> str:
         """Returns the JSON representation of the model using alias"""
-        return json.dumps(self.to_dict(), default=self._json_serializer)
+        # TODO: pydantic v2: use .model_dump_json(by_alias=True, exclude_unset=True) instead
+        return json.dumps(self.to_dict())
 
     @classmethod
-    def from_json(cls, json_str: str) -> EligibilitySummarizedResponse:
+    def from_json(cls, json_str: str) -> Optional[Self]:
         """Create an instance of EligibilitySummarizedResponse from a JSON string"""
         return cls.from_dict(json.loads(json_str))
 
-    def to_dict(self):
-        """Returns the dictionary representation of the model using alias"""
-        _dict = self.dict(by_alias=True,
-                          exclude={
-                          },
-                          exclude_none=True)
+    def to_dict(self) -> Dict[str, Any]:
+        """Return the dictionary representation of the model using alias.
+
+        This has the following differences from calling pydantic's
+        `self.model_dump(by_alias=True)`:
+
+        * `None` is only added to the output dict for nullable fields that
+          were set at model initialization. Other fields with value `None`
+          are ignored.
+        """
+        excluded_fields: Set[str] = set([
+        ])
+
+        _dict = self.model_dump(
+            by_alias=True,
+            exclude=excluded_fields,
+            exclude_none=True,
+        )
         # override the default output from pydantic by calling `to_dict()` of each item in errors (list)
         _items = []
         if self.errors:
-            for _item in self.errors:
-                if _item:
-                    _items.append(_item.to_dict())
+            for _item_errors in self.errors:
+                if _item_errors:
+                    _items.append(_item_errors.to_dict())
             _dict['errors'] = _items
         # override the default output from pydantic by calling `to_dict()` of subscriber_details
         if self.subscriber_details:
@@ -839,207 +848,207 @@ class EligibilitySummarizedResponse(BaseModel):
         return _dict
 
     @classmethod
-    def from_dict(cls, obj: dict) -> EligibilitySummarizedResponse:
+    def from_dict(cls, obj: Optional[Dict[str, Any]]) -> Optional[Self]:
         """Create an instance of EligibilitySummarizedResponse from a dict"""
         if obj is None:
             return None
 
         if not isinstance(obj, dict):
-            return EligibilitySummarizedResponse.parse_obj(obj)
+            return cls.model_validate(obj)
 
-        _obj = EligibilitySummarizedResponse.parse_obj({
-            "errors": [EligibilityError.from_dict(_item) for _item in obj.get("errors")] if obj.get("errors") is not None else None,
-            "subscriber_details": SubscriberDetails.from_dict(obj.get("subscriber_details")) if obj.get("subscriber_details") is not None else None,
-            "payer_details": PayerDetails.from_dict(obj.get("payer_details")) if obj.get("payer_details") is not None else None,
-            "plan_details": PlanDetails.from_dict(obj.get("plan_details")) if obj.get("plan_details") is not None else None,
-            "coverage_summary": CoverageSummary.from_dict(obj.get("coverage_summary")) if obj.get("coverage_summary") is not None else None,
-            "abortion": Service.from_dict(obj.get("abortion")) if obj.get("abortion") is not None else None,
-            "acupuncture": Service.from_dict(obj.get("acupuncture")) if obj.get("acupuncture") is not None else None,
-            "adjunctive_dental_services": Service.from_dict(obj.get("adjunctive_dental_services")) if obj.get("adjunctive_dental_services") is not None else None,
-            "aids": Service.from_dict(obj.get("aids")) if obj.get("aids") is not None else None,
-            "air_transportation": Service.from_dict(obj.get("air_transportation")) if obj.get("air_transportation") is not None else None,
-            "alcoholism": Service.from_dict(obj.get("alcoholism")) if obj.get("alcoholism") is not None else None,
-            "allergy": Service.from_dict(obj.get("allergy")) if obj.get("allergy") is not None else None,
-            "allergy_testing": Service.from_dict(obj.get("allergy_testing")) if obj.get("allergy_testing") is not None else None,
-            "alternate_method_dialysis": Service.from_dict(obj.get("alternate_method_dialysis")) if obj.get("alternate_method_dialysis") is not None else None,
-            "ambulatory_service_center_facility": Service.from_dict(obj.get("ambulatory_service_center_facility")) if obj.get("ambulatory_service_center_facility") is not None else None,
-            "anesthesia": Service.from_dict(obj.get("anesthesia")) if obj.get("anesthesia") is not None else None,
-            "anesthesiologist": Service.from_dict(obj.get("anesthesiologist")) if obj.get("anesthesiologist") is not None else None,
-            "audiology_exam": Service.from_dict(obj.get("audiology_exam")) if obj.get("audiology_exam") is not None else None,
-            "blood_charges": Service.from_dict(obj.get("blood_charges")) if obj.get("blood_charges") is not None else None,
-            "brand_name_prescription_drug": Service.from_dict(obj.get("brand_name_prescription_drug")) if obj.get("brand_name_prescription_drug") is not None else None,
-            "brand_name_prescription_drug_formulary": Service.from_dict(obj.get("brand_name_prescription_drug_formulary")) if obj.get("brand_name_prescription_drug_formulary") is not None else None,
-            "brand_name_prescription_drug_non_formulary": Service.from_dict(obj.get("brand_name_prescription_drug_non_formulary")) if obj.get("brand_name_prescription_drug_non_formulary") is not None else None,
-            "burn_care": Service.from_dict(obj.get("burn_care")) if obj.get("burn_care") is not None else None,
-            "cabulance": Service.from_dict(obj.get("cabulance")) if obj.get("cabulance") is not None else None,
-            "cancer": Service.from_dict(obj.get("cancer")) if obj.get("cancer") is not None else None,
-            "cardiac": Service.from_dict(obj.get("cardiac")) if obj.get("cardiac") is not None else None,
-            "cardiac_rehabilitation": Service.from_dict(obj.get("cardiac_rehabilitation")) if obj.get("cardiac_rehabilitation") is not None else None,
-            "case_management": Service.from_dict(obj.get("case_management")) if obj.get("case_management") is not None else None,
-            "chemotherapy": Service.from_dict(obj.get("chemotherapy")) if obj.get("chemotherapy") is not None else None,
-            "chiropractic": Service.from_dict(obj.get("chiropractic")) if obj.get("chiropractic") is not None else None,
-            "chiropractic_office_visits": Service.from_dict(obj.get("chiropractic_office_visits")) if obj.get("chiropractic_office_visits") is not None else None,
-            "chronic_renal_disease_crd_equipment": Service.from_dict(obj.get("chronic_renal_disease_crd_equipment")) if obj.get("chronic_renal_disease_crd_equipment") is not None else None,
-            "cognitive_therapy": Service.from_dict(obj.get("cognitive_therapy")) if obj.get("cognitive_therapy") is not None else None,
-            "consultation": Service.from_dict(obj.get("consultation")) if obj.get("consultation") is not None else None,
-            "coronary_care": Service.from_dict(obj.get("coronary_care")) if obj.get("coronary_care") is not None else None,
-            "day_care_psychiatric": Service.from_dict(obj.get("day_care_psychiatric")) if obj.get("day_care_psychiatric") is not None else None,
-            "dental_accident": Service.from_dict(obj.get("dental_accident")) if obj.get("dental_accident") is not None else None,
-            "dental_care": Service.from_dict(obj.get("dental_care")) if obj.get("dental_care") is not None else None,
-            "dental_crowns": Service.from_dict(obj.get("dental_crowns")) if obj.get("dental_crowns") is not None else None,
-            "dermatology": Service.from_dict(obj.get("dermatology")) if obj.get("dermatology") is not None else None,
-            "diabetic_supplies": Service.from_dict(obj.get("diabetic_supplies")) if obj.get("diabetic_supplies") is not None else None,
-            "diagnostic_dental": Service.from_dict(obj.get("diagnostic_dental")) if obj.get("diagnostic_dental") is not None else None,
-            "diagnostic_lab": Service.from_dict(obj.get("diagnostic_lab")) if obj.get("diagnostic_lab") is not None else None,
-            "diagnostic_medical": Service.from_dict(obj.get("diagnostic_medical")) if obj.get("diagnostic_medical") is not None else None,
-            "diagnostic_x_ray": Service.from_dict(obj.get("diagnostic_x_ray")) if obj.get("diagnostic_x_ray") is not None else None,
-            "dialysis": Service.from_dict(obj.get("dialysis")) if obj.get("dialysis") is not None else None,
-            "donor_procedures": Service.from_dict(obj.get("donor_procedures")) if obj.get("donor_procedures") is not None else None,
-            "drug_addiction": Service.from_dict(obj.get("drug_addiction")) if obj.get("drug_addiction") is not None else None,
-            "durable_medical_equipment": Service.from_dict(obj.get("durable_medical_equipment")) if obj.get("durable_medical_equipment") is not None else None,
-            "durable_medical_equipment_purchase": Service.from_dict(obj.get("durable_medical_equipment_purchase")) if obj.get("durable_medical_equipment_purchase") is not None else None,
-            "durable_medical_equipment_rental": Service.from_dict(obj.get("durable_medical_equipment_rental")) if obj.get("durable_medical_equipment_rental") is not None else None,
-            "emergency_room": Service.from_dict(obj.get("emergency_room")) if obj.get("emergency_room") is not None else None,
-            "endocrine": Service.from_dict(obj.get("endocrine")) if obj.get("endocrine") is not None else None,
-            "endodontics": Service.from_dict(obj.get("endodontics")) if obj.get("endodontics") is not None else None,
-            "experimental_drug_therapy": Service.from_dict(obj.get("experimental_drug_therapy")) if obj.get("experimental_drug_therapy") is not None else None,
-            "eye": Service.from_dict(obj.get("eye")) if obj.get("eye") is not None else None,
-            "eyewear_and_eyewear_accessories": Service.from_dict(obj.get("eyewear_and_eyewear_accessories")) if obj.get("eyewear_and_eyewear_accessories") is not None else None,
-            "family_planning": Service.from_dict(obj.get("family_planning")) if obj.get("family_planning") is not None else None,
-            "flu_vaccination": Service.from_dict(obj.get("flu_vaccination")) if obj.get("flu_vaccination") is not None else None,
-            "frames": Service.from_dict(obj.get("frames")) if obj.get("frames") is not None else None,
-            "free_standing_prescription_drug": Service.from_dict(obj.get("free_standing_prescription_drug")) if obj.get("free_standing_prescription_drug") is not None else None,
-            "gastrointestinal": Service.from_dict(obj.get("gastrointestinal")) if obj.get("gastrointestinal") is not None else None,
-            "general_benefits": Service.from_dict(obj.get("general_benefits")) if obj.get("general_benefits") is not None else None,
-            "generic_prescription_drug": Service.from_dict(obj.get("generic_prescription_drug")) if obj.get("generic_prescription_drug") is not None else None,
-            "generic_prescription_drug_formulary": Service.from_dict(obj.get("generic_prescription_drug_formulary")) if obj.get("generic_prescription_drug_formulary") is not None else None,
-            "generic_prescription_drug_non_formulary": Service.from_dict(obj.get("generic_prescription_drug_non_formulary")) if obj.get("generic_prescription_drug_non_formulary") is not None else None,
-            "gynecological": Service.from_dict(obj.get("gynecological")) if obj.get("gynecological") is not None else None,
-            "home_health_care": Service.from_dict(obj.get("home_health_care")) if obj.get("home_health_care") is not None else None,
-            "home_health_prescriptions": Service.from_dict(obj.get("home_health_prescriptions")) if obj.get("home_health_prescriptions") is not None else None,
-            "home_health_visits": Service.from_dict(obj.get("home_health_visits")) if obj.get("home_health_visits") is not None else None,
-            "hospice": Service.from_dict(obj.get("hospice")) if obj.get("hospice") is not None else None,
-            "hospital_inpatient": Service.from_dict(obj.get("hospital_inpatient")) if obj.get("hospital_inpatient") is not None else None,
-            "hospital_ambulatory_surgical": Service.from_dict(obj.get("hospital_ambulatory_surgical")) if obj.get("hospital_ambulatory_surgical") is not None else None,
-            "hospital_emergency_accident": Service.from_dict(obj.get("hospital_emergency_accident")) if obj.get("hospital_emergency_accident") is not None else None,
-            "hospital_emergency_medical": Service.from_dict(obj.get("hospital_emergency_medical")) if obj.get("hospital_emergency_medical") is not None else None,
-            "hospital_outpatient": Service.from_dict(obj.get("hospital_outpatient")) if obj.get("hospital_outpatient") is not None else None,
-            "hospital_room_and_board": Service.from_dict(obj.get("hospital_room_and_board")) if obj.get("hospital_room_and_board") is not None else None,
-            "immunizations": Service.from_dict(obj.get("immunizations")) if obj.get("immunizations") is not None else None,
-            "in_vitro_fertilization": Service.from_dict(obj.get("in_vitro_fertilization")) if obj.get("in_vitro_fertilization") is not None else None,
-            "independent_medical_evaluation": Service.from_dict(obj.get("independent_medical_evaluation")) if obj.get("independent_medical_evaluation") is not None else None,
-            "infertility": Service.from_dict(obj.get("infertility")) if obj.get("infertility") is not None else None,
-            "inhalation_therapy": Service.from_dict(obj.get("inhalation_therapy")) if obj.get("inhalation_therapy") is not None else None,
-            "intensive_care": Service.from_dict(obj.get("intensive_care")) if obj.get("intensive_care") is not None else None,
-            "invasive_procedures": Service.from_dict(obj.get("invasive_procedures")) if obj.get("invasive_procedures") is not None else None,
-            "lenses": Service.from_dict(obj.get("lenses")) if obj.get("lenses") is not None else None,
-            "licensed_ambulance": Service.from_dict(obj.get("licensed_ambulance")) if obj.get("licensed_ambulance") is not None else None,
-            "long_term_care": Service.from_dict(obj.get("long_term_care")) if obj.get("long_term_care") is not None else None,
-            "lymphatic": Service.from_dict(obj.get("lymphatic")) if obj.get("lymphatic") is not None else None,
-            "mail_order_prescription_drug": Service.from_dict(obj.get("mail_order_prescription_drug")) if obj.get("mail_order_prescription_drug") is not None else None,
-            "mail_order_prescription_drug_brand_name": Service.from_dict(obj.get("mail_order_prescription_drug_brand_name")) if obj.get("mail_order_prescription_drug_brand_name") is not None else None,
-            "mail_order_prescription_drug_generic": Service.from_dict(obj.get("mail_order_prescription_drug_generic")) if obj.get("mail_order_prescription_drug_generic") is not None else None,
-            "major_medical": Service.from_dict(obj.get("major_medical")) if obj.get("major_medical") is not None else None,
-            "mammogram_high_risk_patient": Service.from_dict(obj.get("mammogram_high_risk_patient")) if obj.get("mammogram_high_risk_patient") is not None else None,
-            "mammogram_low_risk_patient": Service.from_dict(obj.get("mammogram_low_risk_patient")) if obj.get("mammogram_low_risk_patient") is not None else None,
-            "massage_therapy": Service.from_dict(obj.get("massage_therapy")) if obj.get("massage_therapy") is not None else None,
-            "maternity": Service.from_dict(obj.get("maternity")) if obj.get("maternity") is not None else None,
-            "maxillofacial_prosthetics": Service.from_dict(obj.get("maxillofacial_prosthetics")) if obj.get("maxillofacial_prosthetics") is not None else None,
-            "medical_care": Service.from_dict(obj.get("medical_care")) if obj.get("medical_care") is not None else None,
-            "medically_related_transportation": Service.from_dict(obj.get("medically_related_transportation")) if obj.get("medically_related_transportation") is not None else None,
-            "mental_health": Service.from_dict(obj.get("mental_health")) if obj.get("mental_health") is not None else None,
-            "mental_health_facility_inpatient": Service.from_dict(obj.get("mental_health_facility_inpatient")) if obj.get("mental_health_facility_inpatient") is not None else None,
-            "mental_health_facility_outpatient": Service.from_dict(obj.get("mental_health_facility_outpatient")) if obj.get("mental_health_facility_outpatient") is not None else None,
-            "mental_health_provider_inpatient": Service.from_dict(obj.get("mental_health_provider_inpatient")) if obj.get("mental_health_provider_inpatient") is not None else None,
-            "mental_health_provider_outpatient": Service.from_dict(obj.get("mental_health_provider_outpatient")) if obj.get("mental_health_provider_outpatient") is not None else None,
-            "mri_cat_scan": Service.from_dict(obj.get("mri_cat_scan")) if obj.get("mri_cat_scan") is not None else None,
-            "neonatal_intensive_care": Service.from_dict(obj.get("neonatal_intensive_care")) if obj.get("neonatal_intensive_care") is not None else None,
-            "neurology": Service.from_dict(obj.get("neurology")) if obj.get("neurology") is not None else None,
-            "newborn_care": Service.from_dict(obj.get("newborn_care")) if obj.get("newborn_care") is not None else None,
-            "nonmedically_necessary_physical": Service.from_dict(obj.get("nonmedically_necessary_physical")) if obj.get("nonmedically_necessary_physical") is not None else None,
-            "nursery": Service.from_dict(obj.get("nursery")) if obj.get("nursery") is not None else None,
-            "obstetrical": Service.from_dict(obj.get("obstetrical")) if obj.get("obstetrical") is not None else None,
-            "obstetrical_gynecological": Service.from_dict(obj.get("obstetrical_gynecological")) if obj.get("obstetrical_gynecological") is not None else None,
-            "occupational_therapy": Service.from_dict(obj.get("occupational_therapy")) if obj.get("occupational_therapy") is not None else None,
-            "oncology": Service.from_dict(obj.get("oncology")) if obj.get("oncology") is not None else None,
-            "oral_surgery": Service.from_dict(obj.get("oral_surgery")) if obj.get("oral_surgery") is not None else None,
-            "orthodontics": Service.from_dict(obj.get("orthodontics")) if obj.get("orthodontics") is not None else None,
-            "orthopedic": Service.from_dict(obj.get("orthopedic")) if obj.get("orthopedic") is not None else None,
-            "other_medical": Service.from_dict(obj.get("other_medical")) if obj.get("other_medical") is not None else None,
-            "otological_exam": Service.from_dict(obj.get("otological_exam")) if obj.get("otological_exam") is not None else None,
-            "partial_hospitalization_psychiatric": Service.from_dict(obj.get("partial_hospitalization_psychiatric")) if obj.get("partial_hospitalization_psychiatric") is not None else None,
-            "pathology": Service.from_dict(obj.get("pathology")) if obj.get("pathology") is not None else None,
-            "pediatric": Service.from_dict(obj.get("pediatric")) if obj.get("pediatric") is not None else None,
-            "periodontics": Service.from_dict(obj.get("periodontics")) if obj.get("periodontics") is not None else None,
-            "pharmacy": Service.from_dict(obj.get("pharmacy")) if obj.get("pharmacy") is not None else None,
-            "physical_medicine": Service.from_dict(obj.get("physical_medicine")) if obj.get("physical_medicine") is not None else None,
-            "physical_therapy": Service.from_dict(obj.get("physical_therapy")) if obj.get("physical_therapy") is not None else None,
-            "physician_visit_office_sick": Service.from_dict(obj.get("physician_visit_office_sick")) if obj.get("physician_visit_office_sick") is not None else None,
-            "physician_visit_office_well": Service.from_dict(obj.get("physician_visit_office_well")) if obj.get("physician_visit_office_well") is not None else None,
-            "plan_waiting_period": Service.from_dict(obj.get("plan_waiting_period")) if obj.get("plan_waiting_period") is not None else None,
-            "pneumonia_vaccine": Service.from_dict(obj.get("pneumonia_vaccine")) if obj.get("pneumonia_vaccine") is not None else None,
-            "podiatry": Service.from_dict(obj.get("podiatry")) if obj.get("podiatry") is not None else None,
-            "podiatry_nursing_home_visits": Service.from_dict(obj.get("podiatry_nursing_home_visits")) if obj.get("podiatry_nursing_home_visits") is not None else None,
-            "podiatry_office_visits": Service.from_dict(obj.get("podiatry_office_visits")) if obj.get("podiatry_office_visits") is not None else None,
-            "pre_admission_testing": Service.from_dict(obj.get("pre_admission_testing")) if obj.get("pre_admission_testing") is not None else None,
-            "private_duty_nursing": Service.from_dict(obj.get("private_duty_nursing")) if obj.get("private_duty_nursing") is not None else None,
-            "private_duty_nursing_home": Service.from_dict(obj.get("private_duty_nursing_home")) if obj.get("private_duty_nursing_home") is not None else None,
-            "private_duty_nursing_inpatient": Service.from_dict(obj.get("private_duty_nursing_inpatient")) if obj.get("private_duty_nursing_inpatient") is not None else None,
-            "professional_physician": Service.from_dict(obj.get("professional_physician")) if obj.get("professional_physician") is not None else None,
-            "professional_physician_visit_home": Service.from_dict(obj.get("professional_physician_visit_home")) if obj.get("professional_physician_visit_home") is not None else None,
-            "professional_physician_visit_inpatient": Service.from_dict(obj.get("professional_physician_visit_inpatient")) if obj.get("professional_physician_visit_inpatient") is not None else None,
-            "professional_physician_visit_nursing_home": Service.from_dict(obj.get("professional_physician_visit_nursing_home")) if obj.get("professional_physician_visit_nursing_home") is not None else None,
-            "office_visit": Service.from_dict(obj.get("office_visit")) if obj.get("office_visit") is not None else None,
-            "professional_physician_visit_outpatient": Service.from_dict(obj.get("professional_physician_visit_outpatient")) if obj.get("professional_physician_visit_outpatient") is not None else None,
-            "professional_physician_visit_skilled_nursing": Service.from_dict(obj.get("professional_physician_visit_skilled_nursing")) if obj.get("professional_physician_visit_skilled_nursing") is not None else None,
-            "prosthetic_device": Service.from_dict(obj.get("prosthetic_device")) if obj.get("prosthetic_device") is not None else None,
-            "prosthodontics": Service.from_dict(obj.get("prosthodontics")) if obj.get("prosthodontics") is not None else None,
-            "psychiatric": Service.from_dict(obj.get("psychiatric")) if obj.get("psychiatric") is not None else None,
-            "psychiatric_inpatient": Service.from_dict(obj.get("psychiatric_inpatient")) if obj.get("psychiatric_inpatient") is not None else None,
-            "psychiatric_outpatient": Service.from_dict(obj.get("psychiatric_outpatient")) if obj.get("psychiatric_outpatient") is not None else None,
-            "psychiatric_room_and_board": Service.from_dict(obj.get("psychiatric_room_and_board")) if obj.get("psychiatric_room_and_board") is not None else None,
-            "psychotherapy": Service.from_dict(obj.get("psychotherapy")) if obj.get("psychotherapy") is not None else None,
-            "pulmonary": Service.from_dict(obj.get("pulmonary")) if obj.get("pulmonary") is not None else None,
-            "pulmonary_rehabilitation": Service.from_dict(obj.get("pulmonary_rehabilitation")) if obj.get("pulmonary_rehabilitation") is not None else None,
-            "radiation_therapy": Service.from_dict(obj.get("radiation_therapy")) if obj.get("radiation_therapy") is not None else None,
-            "rehabilitation": Service.from_dict(obj.get("rehabilitation")) if obj.get("rehabilitation") is not None else None,
-            "rehabilitation_inpatient": Service.from_dict(obj.get("rehabilitation_inpatient")) if obj.get("rehabilitation_inpatient") is not None else None,
-            "rehabilitation_outpatient": Service.from_dict(obj.get("rehabilitation_outpatient")) if obj.get("rehabilitation_outpatient") is not None else None,
-            "rehabilitation_room_and_board": Service.from_dict(obj.get("rehabilitation_room_and_board")) if obj.get("rehabilitation_room_and_board") is not None else None,
-            "renal": Service.from_dict(obj.get("renal")) if obj.get("renal") is not None else None,
-            "renal_supplies_in_the_home": Service.from_dict(obj.get("renal_supplies_in_the_home")) if obj.get("renal_supplies_in_the_home") is not None else None,
-            "residential_psychiatric_treatment": Service.from_dict(obj.get("residential_psychiatric_treatment")) if obj.get("residential_psychiatric_treatment") is not None else None,
-            "respite_care": Service.from_dict(obj.get("respite_care")) if obj.get("respite_care") is not None else None,
-            "restorative": Service.from_dict(obj.get("restorative")) if obj.get("restorative") is not None else None,
-            "routine_preventive_dental": Service.from_dict(obj.get("routine_preventive_dental")) if obj.get("routine_preventive_dental") is not None else None,
-            "routine_exam_use_for_routine_vision_exam_only": Service.from_dict(obj.get("routine_exam_use_for_routine_vision_exam_only")) if obj.get("routine_exam_use_for_routine_vision_exam_only") is not None else None,
-            "routine_physical": Service.from_dict(obj.get("routine_physical")) if obj.get("routine_physical") is not None else None,
-            "screening_laboratory": Service.from_dict(obj.get("screening_laboratory")) if obj.get("screening_laboratory") is not None else None,
-            "screening_x_ray": Service.from_dict(obj.get("screening_x_ray")) if obj.get("screening_x_ray") is not None else None,
-            "second_surgical_opinion": Service.from_dict(obj.get("second_surgical_opinion")) if obj.get("second_surgical_opinion") is not None else None,
-            "skilled_nursing_care": Service.from_dict(obj.get("skilled_nursing_care")) if obj.get("skilled_nursing_care") is not None else None,
-            "skilled_nursing_care_room_and_board": Service.from_dict(obj.get("skilled_nursing_care_room_and_board")) if obj.get("skilled_nursing_care_room_and_board") is not None else None,
-            "skin": Service.from_dict(obj.get("skin")) if obj.get("skin") is not None else None,
-            "smoking_cessation": Service.from_dict(obj.get("smoking_cessation")) if obj.get("smoking_cessation") is not None else None,
-            "social_work": Service.from_dict(obj.get("social_work")) if obj.get("social_work") is not None else None,
-            "speech_therapy": Service.from_dict(obj.get("speech_therapy")) if obj.get("speech_therapy") is not None else None,
-            "substance_abuse": Service.from_dict(obj.get("substance_abuse")) if obj.get("substance_abuse") is not None else None,
-            "substance_abuse_facility_inpatient": Service.from_dict(obj.get("substance_abuse_facility_inpatient")) if obj.get("substance_abuse_facility_inpatient") is not None else None,
-            "substance_abuse_facility_outpatient": Service.from_dict(obj.get("substance_abuse_facility_outpatient")) if obj.get("substance_abuse_facility_outpatient") is not None else None,
-            "substance_abuse_provider_inpatient": Service.from_dict(obj.get("substance_abuse_provider_inpatient")) if obj.get("substance_abuse_provider_inpatient") is not None else None,
-            "substance_abuse_provider_outpatient": Service.from_dict(obj.get("substance_abuse_provider_outpatient")) if obj.get("substance_abuse_provider_outpatient") is not None else None,
-            "surgical": Service.from_dict(obj.get("surgical")) if obj.get("surgical") is not None else None,
-            "surgical_assistance": Service.from_dict(obj.get("surgical_assistance")) if obj.get("surgical_assistance") is not None else None,
-            "surgical_benefits_facility": Service.from_dict(obj.get("surgical_benefits_facility")) if obj.get("surgical_benefits_facility") is not None else None,
-            "surgical_benefits_professional_physician": Service.from_dict(obj.get("surgical_benefits_professional_physician")) if obj.get("surgical_benefits_professional_physician") is not None else None,
-            "third_surgical_opinion": Service.from_dict(obj.get("third_surgical_opinion")) if obj.get("third_surgical_opinion") is not None else None,
-            "transitional_care": Service.from_dict(obj.get("transitional_care")) if obj.get("transitional_care") is not None else None,
-            "transitional_nursery_care": Service.from_dict(obj.get("transitional_nursery_care")) if obj.get("transitional_nursery_care") is not None else None,
-            "transplants": Service.from_dict(obj.get("transplants")) if obj.get("transplants") is not None else None,
-            "urgent_care": Service.from_dict(obj.get("urgent_care")) if obj.get("urgent_care") is not None else None,
-            "used_durable_medical_equipment": Service.from_dict(obj.get("used_durable_medical_equipment")) if obj.get("used_durable_medical_equipment") is not None else None,
-            "vision": Service.from_dict(obj.get("vision")) if obj.get("vision") is not None else None,
-            "well_baby_care": Service.from_dict(obj.get("well_baby_care")) if obj.get("well_baby_care") is not None else None
+        _obj = cls.model_validate({
+            "errors": [EligibilityError.from_dict(_item) for _item in obj["errors"]] if obj.get("errors") is not None else None,
+            "subscriber_details": SubscriberDetails.from_dict(obj["subscriber_details"]) if obj.get("subscriber_details") is not None else None,
+            "payer_details": PayerDetails.from_dict(obj["payer_details"]) if obj.get("payer_details") is not None else None,
+            "plan_details": PlanDetails.from_dict(obj["plan_details"]) if obj.get("plan_details") is not None else None,
+            "coverage_summary": CoverageSummary.from_dict(obj["coverage_summary"]) if obj.get("coverage_summary") is not None else None,
+            "abortion": Service.from_dict(obj["abortion"]) if obj.get("abortion") is not None else None,
+            "acupuncture": Service.from_dict(obj["acupuncture"]) if obj.get("acupuncture") is not None else None,
+            "adjunctive_dental_services": Service.from_dict(obj["adjunctive_dental_services"]) if obj.get("adjunctive_dental_services") is not None else None,
+            "aids": Service.from_dict(obj["aids"]) if obj.get("aids") is not None else None,
+            "air_transportation": Service.from_dict(obj["air_transportation"]) if obj.get("air_transportation") is not None else None,
+            "alcoholism": Service.from_dict(obj["alcoholism"]) if obj.get("alcoholism") is not None else None,
+            "allergy": Service.from_dict(obj["allergy"]) if obj.get("allergy") is not None else None,
+            "allergy_testing": Service.from_dict(obj["allergy_testing"]) if obj.get("allergy_testing") is not None else None,
+            "alternate_method_dialysis": Service.from_dict(obj["alternate_method_dialysis"]) if obj.get("alternate_method_dialysis") is not None else None,
+            "ambulatory_service_center_facility": Service.from_dict(obj["ambulatory_service_center_facility"]) if obj.get("ambulatory_service_center_facility") is not None else None,
+            "anesthesia": Service.from_dict(obj["anesthesia"]) if obj.get("anesthesia") is not None else None,
+            "anesthesiologist": Service.from_dict(obj["anesthesiologist"]) if obj.get("anesthesiologist") is not None else None,
+            "audiology_exam": Service.from_dict(obj["audiology_exam"]) if obj.get("audiology_exam") is not None else None,
+            "blood_charges": Service.from_dict(obj["blood_charges"]) if obj.get("blood_charges") is not None else None,
+            "brand_name_prescription_drug": Service.from_dict(obj["brand_name_prescription_drug"]) if obj.get("brand_name_prescription_drug") is not None else None,
+            "brand_name_prescription_drug_formulary": Service.from_dict(obj["brand_name_prescription_drug_formulary"]) if obj.get("brand_name_prescription_drug_formulary") is not None else None,
+            "brand_name_prescription_drug_non_formulary": Service.from_dict(obj["brand_name_prescription_drug_non_formulary"]) if obj.get("brand_name_prescription_drug_non_formulary") is not None else None,
+            "burn_care": Service.from_dict(obj["burn_care"]) if obj.get("burn_care") is not None else None,
+            "cabulance": Service.from_dict(obj["cabulance"]) if obj.get("cabulance") is not None else None,
+            "cancer": Service.from_dict(obj["cancer"]) if obj.get("cancer") is not None else None,
+            "cardiac": Service.from_dict(obj["cardiac"]) if obj.get("cardiac") is not None else None,
+            "cardiac_rehabilitation": Service.from_dict(obj["cardiac_rehabilitation"]) if obj.get("cardiac_rehabilitation") is not None else None,
+            "case_management": Service.from_dict(obj["case_management"]) if obj.get("case_management") is not None else None,
+            "chemotherapy": Service.from_dict(obj["chemotherapy"]) if obj.get("chemotherapy") is not None else None,
+            "chiropractic": Service.from_dict(obj["chiropractic"]) if obj.get("chiropractic") is not None else None,
+            "chiropractic_office_visits": Service.from_dict(obj["chiropractic_office_visits"]) if obj.get("chiropractic_office_visits") is not None else None,
+            "chronic_renal_disease_crd_equipment": Service.from_dict(obj["chronic_renal_disease_crd_equipment"]) if obj.get("chronic_renal_disease_crd_equipment") is not None else None,
+            "cognitive_therapy": Service.from_dict(obj["cognitive_therapy"]) if obj.get("cognitive_therapy") is not None else None,
+            "consultation": Service.from_dict(obj["consultation"]) if obj.get("consultation") is not None else None,
+            "coronary_care": Service.from_dict(obj["coronary_care"]) if obj.get("coronary_care") is not None else None,
+            "day_care_psychiatric": Service.from_dict(obj["day_care_psychiatric"]) if obj.get("day_care_psychiatric") is not None else None,
+            "dental_accident": Service.from_dict(obj["dental_accident"]) if obj.get("dental_accident") is not None else None,
+            "dental_care": Service.from_dict(obj["dental_care"]) if obj.get("dental_care") is not None else None,
+            "dental_crowns": Service.from_dict(obj["dental_crowns"]) if obj.get("dental_crowns") is not None else None,
+            "dermatology": Service.from_dict(obj["dermatology"]) if obj.get("dermatology") is not None else None,
+            "diabetic_supplies": Service.from_dict(obj["diabetic_supplies"]) if obj.get("diabetic_supplies") is not None else None,
+            "diagnostic_dental": Service.from_dict(obj["diagnostic_dental"]) if obj.get("diagnostic_dental") is not None else None,
+            "diagnostic_lab": Service.from_dict(obj["diagnostic_lab"]) if obj.get("diagnostic_lab") is not None else None,
+            "diagnostic_medical": Service.from_dict(obj["diagnostic_medical"]) if obj.get("diagnostic_medical") is not None else None,
+            "diagnostic_x_ray": Service.from_dict(obj["diagnostic_x_ray"]) if obj.get("diagnostic_x_ray") is not None else None,
+            "dialysis": Service.from_dict(obj["dialysis"]) if obj.get("dialysis") is not None else None,
+            "donor_procedures": Service.from_dict(obj["donor_procedures"]) if obj.get("donor_procedures") is not None else None,
+            "drug_addiction": Service.from_dict(obj["drug_addiction"]) if obj.get("drug_addiction") is not None else None,
+            "durable_medical_equipment": Service.from_dict(obj["durable_medical_equipment"]) if obj.get("durable_medical_equipment") is not None else None,
+            "durable_medical_equipment_purchase": Service.from_dict(obj["durable_medical_equipment_purchase"]) if obj.get("durable_medical_equipment_purchase") is not None else None,
+            "durable_medical_equipment_rental": Service.from_dict(obj["durable_medical_equipment_rental"]) if obj.get("durable_medical_equipment_rental") is not None else None,
+            "emergency_room": Service.from_dict(obj["emergency_room"]) if obj.get("emergency_room") is not None else None,
+            "endocrine": Service.from_dict(obj["endocrine"]) if obj.get("endocrine") is not None else None,
+            "endodontics": Service.from_dict(obj["endodontics"]) if obj.get("endodontics") is not None else None,
+            "experimental_drug_therapy": Service.from_dict(obj["experimental_drug_therapy"]) if obj.get("experimental_drug_therapy") is not None else None,
+            "eye": Service.from_dict(obj["eye"]) if obj.get("eye") is not None else None,
+            "eyewear_and_eyewear_accessories": Service.from_dict(obj["eyewear_and_eyewear_accessories"]) if obj.get("eyewear_and_eyewear_accessories") is not None else None,
+            "family_planning": Service.from_dict(obj["family_planning"]) if obj.get("family_planning") is not None else None,
+            "flu_vaccination": Service.from_dict(obj["flu_vaccination"]) if obj.get("flu_vaccination") is not None else None,
+            "frames": Service.from_dict(obj["frames"]) if obj.get("frames") is not None else None,
+            "free_standing_prescription_drug": Service.from_dict(obj["free_standing_prescription_drug"]) if obj.get("free_standing_prescription_drug") is not None else None,
+            "gastrointestinal": Service.from_dict(obj["gastrointestinal"]) if obj.get("gastrointestinal") is not None else None,
+            "general_benefits": Service.from_dict(obj["general_benefits"]) if obj.get("general_benefits") is not None else None,
+            "generic_prescription_drug": Service.from_dict(obj["generic_prescription_drug"]) if obj.get("generic_prescription_drug") is not None else None,
+            "generic_prescription_drug_formulary": Service.from_dict(obj["generic_prescription_drug_formulary"]) if obj.get("generic_prescription_drug_formulary") is not None else None,
+            "generic_prescription_drug_non_formulary": Service.from_dict(obj["generic_prescription_drug_non_formulary"]) if obj.get("generic_prescription_drug_non_formulary") is not None else None,
+            "gynecological": Service.from_dict(obj["gynecological"]) if obj.get("gynecological") is not None else None,
+            "home_health_care": Service.from_dict(obj["home_health_care"]) if obj.get("home_health_care") is not None else None,
+            "home_health_prescriptions": Service.from_dict(obj["home_health_prescriptions"]) if obj.get("home_health_prescriptions") is not None else None,
+            "home_health_visits": Service.from_dict(obj["home_health_visits"]) if obj.get("home_health_visits") is not None else None,
+            "hospice": Service.from_dict(obj["hospice"]) if obj.get("hospice") is not None else None,
+            "hospital_inpatient": Service.from_dict(obj["hospital_inpatient"]) if obj.get("hospital_inpatient") is not None else None,
+            "hospital_ambulatory_surgical": Service.from_dict(obj["hospital_ambulatory_surgical"]) if obj.get("hospital_ambulatory_surgical") is not None else None,
+            "hospital_emergency_accident": Service.from_dict(obj["hospital_emergency_accident"]) if obj.get("hospital_emergency_accident") is not None else None,
+            "hospital_emergency_medical": Service.from_dict(obj["hospital_emergency_medical"]) if obj.get("hospital_emergency_medical") is not None else None,
+            "hospital_outpatient": Service.from_dict(obj["hospital_outpatient"]) if obj.get("hospital_outpatient") is not None else None,
+            "hospital_room_and_board": Service.from_dict(obj["hospital_room_and_board"]) if obj.get("hospital_room_and_board") is not None else None,
+            "immunizations": Service.from_dict(obj["immunizations"]) if obj.get("immunizations") is not None else None,
+            "in_vitro_fertilization": Service.from_dict(obj["in_vitro_fertilization"]) if obj.get("in_vitro_fertilization") is not None else None,
+            "independent_medical_evaluation": Service.from_dict(obj["independent_medical_evaluation"]) if obj.get("independent_medical_evaluation") is not None else None,
+            "infertility": Service.from_dict(obj["infertility"]) if obj.get("infertility") is not None else None,
+            "inhalation_therapy": Service.from_dict(obj["inhalation_therapy"]) if obj.get("inhalation_therapy") is not None else None,
+            "intensive_care": Service.from_dict(obj["intensive_care"]) if obj.get("intensive_care") is not None else None,
+            "invasive_procedures": Service.from_dict(obj["invasive_procedures"]) if obj.get("invasive_procedures") is not None else None,
+            "lenses": Service.from_dict(obj["lenses"]) if obj.get("lenses") is not None else None,
+            "licensed_ambulance": Service.from_dict(obj["licensed_ambulance"]) if obj.get("licensed_ambulance") is not None else None,
+            "long_term_care": Service.from_dict(obj["long_term_care"]) if obj.get("long_term_care") is not None else None,
+            "lymphatic": Service.from_dict(obj["lymphatic"]) if obj.get("lymphatic") is not None else None,
+            "mail_order_prescription_drug": Service.from_dict(obj["mail_order_prescription_drug"]) if obj.get("mail_order_prescription_drug") is not None else None,
+            "mail_order_prescription_drug_brand_name": Service.from_dict(obj["mail_order_prescription_drug_brand_name"]) if obj.get("mail_order_prescription_drug_brand_name") is not None else None,
+            "mail_order_prescription_drug_generic": Service.from_dict(obj["mail_order_prescription_drug_generic"]) if obj.get("mail_order_prescription_drug_generic") is not None else None,
+            "major_medical": Service.from_dict(obj["major_medical"]) if obj.get("major_medical") is not None else None,
+            "mammogram_high_risk_patient": Service.from_dict(obj["mammogram_high_risk_patient"]) if obj.get("mammogram_high_risk_patient") is not None else None,
+            "mammogram_low_risk_patient": Service.from_dict(obj["mammogram_low_risk_patient"]) if obj.get("mammogram_low_risk_patient") is not None else None,
+            "massage_therapy": Service.from_dict(obj["massage_therapy"]) if obj.get("massage_therapy") is not None else None,
+            "maternity": Service.from_dict(obj["maternity"]) if obj.get("maternity") is not None else None,
+            "maxillofacial_prosthetics": Service.from_dict(obj["maxillofacial_prosthetics"]) if obj.get("maxillofacial_prosthetics") is not None else None,
+            "medical_care": Service.from_dict(obj["medical_care"]) if obj.get("medical_care") is not None else None,
+            "medically_related_transportation": Service.from_dict(obj["medically_related_transportation"]) if obj.get("medically_related_transportation") is not None else None,
+            "mental_health": Service.from_dict(obj["mental_health"]) if obj.get("mental_health") is not None else None,
+            "mental_health_facility_inpatient": Service.from_dict(obj["mental_health_facility_inpatient"]) if obj.get("mental_health_facility_inpatient") is not None else None,
+            "mental_health_facility_outpatient": Service.from_dict(obj["mental_health_facility_outpatient"]) if obj.get("mental_health_facility_outpatient") is not None else None,
+            "mental_health_provider_inpatient": Service.from_dict(obj["mental_health_provider_inpatient"]) if obj.get("mental_health_provider_inpatient") is not None else None,
+            "mental_health_provider_outpatient": Service.from_dict(obj["mental_health_provider_outpatient"]) if obj.get("mental_health_provider_outpatient") is not None else None,
+            "mri_cat_scan": Service.from_dict(obj["mri_cat_scan"]) if obj.get("mri_cat_scan") is not None else None,
+            "neonatal_intensive_care": Service.from_dict(obj["neonatal_intensive_care"]) if obj.get("neonatal_intensive_care") is not None else None,
+            "neurology": Service.from_dict(obj["neurology"]) if obj.get("neurology") is not None else None,
+            "newborn_care": Service.from_dict(obj["newborn_care"]) if obj.get("newborn_care") is not None else None,
+            "nonmedically_necessary_physical": Service.from_dict(obj["nonmedically_necessary_physical"]) if obj.get("nonmedically_necessary_physical") is not None else None,
+            "nursery": Service.from_dict(obj["nursery"]) if obj.get("nursery") is not None else None,
+            "obstetrical": Service.from_dict(obj["obstetrical"]) if obj.get("obstetrical") is not None else None,
+            "obstetrical_gynecological": Service.from_dict(obj["obstetrical_gynecological"]) if obj.get("obstetrical_gynecological") is not None else None,
+            "occupational_therapy": Service.from_dict(obj["occupational_therapy"]) if obj.get("occupational_therapy") is not None else None,
+            "oncology": Service.from_dict(obj["oncology"]) if obj.get("oncology") is not None else None,
+            "oral_surgery": Service.from_dict(obj["oral_surgery"]) if obj.get("oral_surgery") is not None else None,
+            "orthodontics": Service.from_dict(obj["orthodontics"]) if obj.get("orthodontics") is not None else None,
+            "orthopedic": Service.from_dict(obj["orthopedic"]) if obj.get("orthopedic") is not None else None,
+            "other_medical": Service.from_dict(obj["other_medical"]) if obj.get("other_medical") is not None else None,
+            "otological_exam": Service.from_dict(obj["otological_exam"]) if obj.get("otological_exam") is not None else None,
+            "partial_hospitalization_psychiatric": Service.from_dict(obj["partial_hospitalization_psychiatric"]) if obj.get("partial_hospitalization_psychiatric") is not None else None,
+            "pathology": Service.from_dict(obj["pathology"]) if obj.get("pathology") is not None else None,
+            "pediatric": Service.from_dict(obj["pediatric"]) if obj.get("pediatric") is not None else None,
+            "periodontics": Service.from_dict(obj["periodontics"]) if obj.get("periodontics") is not None else None,
+            "pharmacy": Service.from_dict(obj["pharmacy"]) if obj.get("pharmacy") is not None else None,
+            "physical_medicine": Service.from_dict(obj["physical_medicine"]) if obj.get("physical_medicine") is not None else None,
+            "physical_therapy": Service.from_dict(obj["physical_therapy"]) if obj.get("physical_therapy") is not None else None,
+            "physician_visit_office_sick": Service.from_dict(obj["physician_visit_office_sick"]) if obj.get("physician_visit_office_sick") is not None else None,
+            "physician_visit_office_well": Service.from_dict(obj["physician_visit_office_well"]) if obj.get("physician_visit_office_well") is not None else None,
+            "plan_waiting_period": Service.from_dict(obj["plan_waiting_period"]) if obj.get("plan_waiting_period") is not None else None,
+            "pneumonia_vaccine": Service.from_dict(obj["pneumonia_vaccine"]) if obj.get("pneumonia_vaccine") is not None else None,
+            "podiatry": Service.from_dict(obj["podiatry"]) if obj.get("podiatry") is not None else None,
+            "podiatry_nursing_home_visits": Service.from_dict(obj["podiatry_nursing_home_visits"]) if obj.get("podiatry_nursing_home_visits") is not None else None,
+            "podiatry_office_visits": Service.from_dict(obj["podiatry_office_visits"]) if obj.get("podiatry_office_visits") is not None else None,
+            "pre_admission_testing": Service.from_dict(obj["pre_admission_testing"]) if obj.get("pre_admission_testing") is not None else None,
+            "private_duty_nursing": Service.from_dict(obj["private_duty_nursing"]) if obj.get("private_duty_nursing") is not None else None,
+            "private_duty_nursing_home": Service.from_dict(obj["private_duty_nursing_home"]) if obj.get("private_duty_nursing_home") is not None else None,
+            "private_duty_nursing_inpatient": Service.from_dict(obj["private_duty_nursing_inpatient"]) if obj.get("private_duty_nursing_inpatient") is not None else None,
+            "professional_physician": Service.from_dict(obj["professional_physician"]) if obj.get("professional_physician") is not None else None,
+            "professional_physician_visit_home": Service.from_dict(obj["professional_physician_visit_home"]) if obj.get("professional_physician_visit_home") is not None else None,
+            "professional_physician_visit_inpatient": Service.from_dict(obj["professional_physician_visit_inpatient"]) if obj.get("professional_physician_visit_inpatient") is not None else None,
+            "professional_physician_visit_nursing_home": Service.from_dict(obj["professional_physician_visit_nursing_home"]) if obj.get("professional_physician_visit_nursing_home") is not None else None,
+            "office_visit": Service.from_dict(obj["office_visit"]) if obj.get("office_visit") is not None else None,
+            "professional_physician_visit_outpatient": Service.from_dict(obj["professional_physician_visit_outpatient"]) if obj.get("professional_physician_visit_outpatient") is not None else None,
+            "professional_physician_visit_skilled_nursing": Service.from_dict(obj["professional_physician_visit_skilled_nursing"]) if obj.get("professional_physician_visit_skilled_nursing") is not None else None,
+            "prosthetic_device": Service.from_dict(obj["prosthetic_device"]) if obj.get("prosthetic_device") is not None else None,
+            "prosthodontics": Service.from_dict(obj["prosthodontics"]) if obj.get("prosthodontics") is not None else None,
+            "psychiatric": Service.from_dict(obj["psychiatric"]) if obj.get("psychiatric") is not None else None,
+            "psychiatric_inpatient": Service.from_dict(obj["psychiatric_inpatient"]) if obj.get("psychiatric_inpatient") is not None else None,
+            "psychiatric_outpatient": Service.from_dict(obj["psychiatric_outpatient"]) if obj.get("psychiatric_outpatient") is not None else None,
+            "psychiatric_room_and_board": Service.from_dict(obj["psychiatric_room_and_board"]) if obj.get("psychiatric_room_and_board") is not None else None,
+            "psychotherapy": Service.from_dict(obj["psychotherapy"]) if obj.get("psychotherapy") is not None else None,
+            "pulmonary": Service.from_dict(obj["pulmonary"]) if obj.get("pulmonary") is not None else None,
+            "pulmonary_rehabilitation": Service.from_dict(obj["pulmonary_rehabilitation"]) if obj.get("pulmonary_rehabilitation") is not None else None,
+            "radiation_therapy": Service.from_dict(obj["radiation_therapy"]) if obj.get("radiation_therapy") is not None else None,
+            "rehabilitation": Service.from_dict(obj["rehabilitation"]) if obj.get("rehabilitation") is not None else None,
+            "rehabilitation_inpatient": Service.from_dict(obj["rehabilitation_inpatient"]) if obj.get("rehabilitation_inpatient") is not None else None,
+            "rehabilitation_outpatient": Service.from_dict(obj["rehabilitation_outpatient"]) if obj.get("rehabilitation_outpatient") is not None else None,
+            "rehabilitation_room_and_board": Service.from_dict(obj["rehabilitation_room_and_board"]) if obj.get("rehabilitation_room_and_board") is not None else None,
+            "renal": Service.from_dict(obj["renal"]) if obj.get("renal") is not None else None,
+            "renal_supplies_in_the_home": Service.from_dict(obj["renal_supplies_in_the_home"]) if obj.get("renal_supplies_in_the_home") is not None else None,
+            "residential_psychiatric_treatment": Service.from_dict(obj["residential_psychiatric_treatment"]) if obj.get("residential_psychiatric_treatment") is not None else None,
+            "respite_care": Service.from_dict(obj["respite_care"]) if obj.get("respite_care") is not None else None,
+            "restorative": Service.from_dict(obj["restorative"]) if obj.get("restorative") is not None else None,
+            "routine_preventive_dental": Service.from_dict(obj["routine_preventive_dental"]) if obj.get("routine_preventive_dental") is not None else None,
+            "routine_exam_use_for_routine_vision_exam_only": Service.from_dict(obj["routine_exam_use_for_routine_vision_exam_only"]) if obj.get("routine_exam_use_for_routine_vision_exam_only") is not None else None,
+            "routine_physical": Service.from_dict(obj["routine_physical"]) if obj.get("routine_physical") is not None else None,
+            "screening_laboratory": Service.from_dict(obj["screening_laboratory"]) if obj.get("screening_laboratory") is not None else None,
+            "screening_x_ray": Service.from_dict(obj["screening_x_ray"]) if obj.get("screening_x_ray") is not None else None,
+            "second_surgical_opinion": Service.from_dict(obj["second_surgical_opinion"]) if obj.get("second_surgical_opinion") is not None else None,
+            "skilled_nursing_care": Service.from_dict(obj["skilled_nursing_care"]) if obj.get("skilled_nursing_care") is not None else None,
+            "skilled_nursing_care_room_and_board": Service.from_dict(obj["skilled_nursing_care_room_and_board"]) if obj.get("skilled_nursing_care_room_and_board") is not None else None,
+            "skin": Service.from_dict(obj["skin"]) if obj.get("skin") is not None else None,
+            "smoking_cessation": Service.from_dict(obj["smoking_cessation"]) if obj.get("smoking_cessation") is not None else None,
+            "social_work": Service.from_dict(obj["social_work"]) if obj.get("social_work") is not None else None,
+            "speech_therapy": Service.from_dict(obj["speech_therapy"]) if obj.get("speech_therapy") is not None else None,
+            "substance_abuse": Service.from_dict(obj["substance_abuse"]) if obj.get("substance_abuse") is not None else None,
+            "substance_abuse_facility_inpatient": Service.from_dict(obj["substance_abuse_facility_inpatient"]) if obj.get("substance_abuse_facility_inpatient") is not None else None,
+            "substance_abuse_facility_outpatient": Service.from_dict(obj["substance_abuse_facility_outpatient"]) if obj.get("substance_abuse_facility_outpatient") is not None else None,
+            "substance_abuse_provider_inpatient": Service.from_dict(obj["substance_abuse_provider_inpatient"]) if obj.get("substance_abuse_provider_inpatient") is not None else None,
+            "substance_abuse_provider_outpatient": Service.from_dict(obj["substance_abuse_provider_outpatient"]) if obj.get("substance_abuse_provider_outpatient") is not None else None,
+            "surgical": Service.from_dict(obj["surgical"]) if obj.get("surgical") is not None else None,
+            "surgical_assistance": Service.from_dict(obj["surgical_assistance"]) if obj.get("surgical_assistance") is not None else None,
+            "surgical_benefits_facility": Service.from_dict(obj["surgical_benefits_facility"]) if obj.get("surgical_benefits_facility") is not None else None,
+            "surgical_benefits_professional_physician": Service.from_dict(obj["surgical_benefits_professional_physician"]) if obj.get("surgical_benefits_professional_physician") is not None else None,
+            "third_surgical_opinion": Service.from_dict(obj["third_surgical_opinion"]) if obj.get("third_surgical_opinion") is not None else None,
+            "transitional_care": Service.from_dict(obj["transitional_care"]) if obj.get("transitional_care") is not None else None,
+            "transitional_nursery_care": Service.from_dict(obj["transitional_nursery_care"]) if obj.get("transitional_nursery_care") is not None else None,
+            "transplants": Service.from_dict(obj["transplants"]) if obj.get("transplants") is not None else None,
+            "urgent_care": Service.from_dict(obj["urgent_care"]) if obj.get("urgent_care") is not None else None,
+            "used_durable_medical_equipment": Service.from_dict(obj["used_durable_medical_equipment"]) if obj.get("used_durable_medical_equipment") is not None else None,
+            "vision": Service.from_dict(obj["vision"]) if obj.get("vision") is not None else None,
+            "well_baby_care": Service.from_dict(obj["well_baby_care"]) if obj.get("well_baby_care") is not None else None
         })
         return _obj
 

@@ -17,14 +17,15 @@ import pprint
 import re  # noqa: F401
 import json
 
-
-from typing import Optional, Union
-from pydantic import BaseModel, Field, StrictFloat, StrictInt, StrictStr
+from pydantic import BaseModel, ConfigDict, Field, StrictFloat, StrictInt, StrictStr
+from typing import Any, ClassVar, Dict, List, Optional, Union
+from typing import Optional, Set
+from typing_extensions import Self
 
 class ScanMetadataVideoTrack(BaseModel):
     """
-    Video track details  # noqa: E501
-    """
+    Video track details
+    """ # noqa: E501
     aspect_ratio: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, alias="aspectRatio")
     device_id: Optional[StrictStr] = Field(default=None, alias="deviceId")
     frame_rate: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, alias="frameRate")
@@ -32,57 +33,65 @@ class ScanMetadataVideoTrack(BaseModel):
     height: Optional[StrictInt] = None
     resize_mode: Optional[StrictStr] = Field(default=None, alias="resizeMode")
     width: Optional[StrictInt] = None
-    __properties = ["aspectRatio", "deviceId", "frameRate", "groupId", "height", "resizeMode", "width"]
+    __properties: ClassVar[List[str]] = ["aspectRatio", "deviceId", "frameRate", "groupId", "height", "resizeMode", "width"]
 
-    class Config:
-        """Pydantic configuration"""
-        allow_population_by_field_name = True
-        validate_assignment = True
+    model_config = ConfigDict(
+        populate_by_name=True,
+        validate_assignment=True,
+        protected_namespaces=(),
+    )
+
 
     def to_str(self) -> str:
         """Returns the string representation of the model using alias"""
-        return pprint.pformat(self.dict(by_alias=True))
-
-    def _json_serializer(self, obj):
-        """JSON serializer function for datetime objects"""
-        if isinstance(obj, datetime):
-            return obj.isoformat()
-
-        raise TypeError(f"Type {type(obj)} not serializable")
+        return pprint.pformat(self.model_dump(by_alias=True))
 
     def to_json(self) -> str:
         """Returns the JSON representation of the model using alias"""
-        return json.dumps(self.to_dict(), default=self._json_serializer)
+        # TODO: pydantic v2: use .model_dump_json(by_alias=True, exclude_unset=True) instead
+        return json.dumps(self.to_dict())
 
     @classmethod
-    def from_json(cls, json_str: str) -> ScanMetadataVideoTrack:
+    def from_json(cls, json_str: str) -> Optional[Self]:
         """Create an instance of ScanMetadataVideoTrack from a JSON string"""
         return cls.from_dict(json.loads(json_str))
 
-    def to_dict(self):
-        """Returns the dictionary representation of the model using alias"""
-        _dict = self.dict(by_alias=True,
-                          exclude={
-                          },
-                          exclude_none=True)
+    def to_dict(self) -> Dict[str, Any]:
+        """Return the dictionary representation of the model using alias.
+
+        This has the following differences from calling pydantic's
+        `self.model_dump(by_alias=True)`:
+
+        * `None` is only added to the output dict for nullable fields that
+          were set at model initialization. Other fields with value `None`
+          are ignored.
+        """
+        excluded_fields: Set[str] = set([
+        ])
+
+        _dict = self.model_dump(
+            by_alias=True,
+            exclude=excluded_fields,
+            exclude_none=True,
+        )
         return _dict
 
     @classmethod
-    def from_dict(cls, obj: dict) -> ScanMetadataVideoTrack:
+    def from_dict(cls, obj: Optional[Dict[str, Any]]) -> Optional[Self]:
         """Create an instance of ScanMetadataVideoTrack from a dict"""
         if obj is None:
             return None
 
         if not isinstance(obj, dict):
-            return ScanMetadataVideoTrack.parse_obj(obj)
+            return cls.model_validate(obj)
 
-        _obj = ScanMetadataVideoTrack.parse_obj({
-            "aspect_ratio": obj.get("aspectRatio"),
-            "device_id": obj.get("deviceId"),
-            "frame_rate": obj.get("frameRate"),
-            "group_id": obj.get("groupId"),
+        _obj = cls.model_validate({
+            "aspectRatio": obj.get("aspectRatio"),
+            "deviceId": obj.get("deviceId"),
+            "frameRate": obj.get("frameRate"),
+            "groupId": obj.get("groupId"),
             "height": obj.get("height"),
-            "resize_mode": obj.get("resizeMode"),
+            "resizeMode": obj.get("resizeMode"),
             "width": obj.get("width")
         })
         return _obj

@@ -17,22 +17,23 @@ import pprint
 import re  # noqa: F401
 import json
 
-
-from typing import List, Optional
-from pydantic import BaseModel, conlist
+from pydantic import BaseModel, ConfigDict
+from typing import Any, ClassVar, Dict, List, Optional
 from cardscan_client.models.match_score import MatchScore
+from typing import Optional, Set
+from typing_extensions import Self
 
 class CardApiResponseDetails(BaseModel):
     """
     CardApiResponseDetails
-    """
+    """ # noqa: E501
     group_number: Optional[MatchScore] = None
     member_number: Optional[MatchScore] = None
     payer_name: Optional[MatchScore] = None
     rx_bin: Optional[MatchScore] = None
     rx_pcn: Optional[MatchScore] = None
     member_name: Optional[MatchScore] = None
-    dependent_names: Optional[conlist(MatchScore)] = None
+    dependent_names: Optional[List[MatchScore]] = None
     plan_name: Optional[MatchScore] = None
     plan_id: Optional[MatchScore] = None
     card_specific_id: Optional[MatchScore] = None
@@ -53,39 +54,47 @@ class CardApiResponseDetails(BaseModel):
     part_b_effective_date: Optional[MatchScore] = None
     pharmacy_benefit_manager: Optional[MatchScore] = None
     plan_type: Optional[MatchScore] = None
-    __properties = ["group_number", "member_number", "payer_name", "rx_bin", "rx_pcn", "member_name", "dependent_names", "plan_name", "plan_id", "card_specific_id", "client_name", "payer_id", "plan_details", "rx_id", "rx_issuer", "rx_plan", "start_date", "employer", "medicare_medicaid_id", "member_dob", "member_gender", "member_id_prefix", "member_id_suffix", "part_a_effective_date", "part_b_effective_date", "pharmacy_benefit_manager", "plan_type"]
+    __properties: ClassVar[List[str]] = ["group_number", "member_number", "payer_name", "rx_bin", "rx_pcn", "member_name", "dependent_names", "plan_name", "plan_id", "card_specific_id", "client_name", "payer_id", "plan_details", "rx_id", "rx_issuer", "rx_plan", "start_date", "employer", "medicare_medicaid_id", "member_dob", "member_gender", "member_id_prefix", "member_id_suffix", "part_a_effective_date", "part_b_effective_date", "pharmacy_benefit_manager", "plan_type"]
 
-    class Config:
-        """Pydantic configuration"""
-        allow_population_by_field_name = True
-        validate_assignment = True
+    model_config = ConfigDict(
+        populate_by_name=True,
+        validate_assignment=True,
+        protected_namespaces=(),
+    )
+
 
     def to_str(self) -> str:
         """Returns the string representation of the model using alias"""
-        return pprint.pformat(self.dict(by_alias=True))
-
-    def _json_serializer(self, obj):
-        """JSON serializer function for datetime objects"""
-        if isinstance(obj, datetime):
-            return obj.isoformat()
-
-        raise TypeError(f"Type {type(obj)} not serializable")
+        return pprint.pformat(self.model_dump(by_alias=True))
 
     def to_json(self) -> str:
         """Returns the JSON representation of the model using alias"""
-        return json.dumps(self.to_dict(), default=self._json_serializer)
+        # TODO: pydantic v2: use .model_dump_json(by_alias=True, exclude_unset=True) instead
+        return json.dumps(self.to_dict())
 
     @classmethod
-    def from_json(cls, json_str: str) -> CardApiResponseDetails:
+    def from_json(cls, json_str: str) -> Optional[Self]:
         """Create an instance of CardApiResponseDetails from a JSON string"""
         return cls.from_dict(json.loads(json_str))
 
-    def to_dict(self):
-        """Returns the dictionary representation of the model using alias"""
-        _dict = self.dict(by_alias=True,
-                          exclude={
-                          },
-                          exclude_none=True)
+    def to_dict(self) -> Dict[str, Any]:
+        """Return the dictionary representation of the model using alias.
+
+        This has the following differences from calling pydantic's
+        `self.model_dump(by_alias=True)`:
+
+        * `None` is only added to the output dict for nullable fields that
+          were set at model initialization. Other fields with value `None`
+          are ignored.
+        """
+        excluded_fields: Set[str] = set([
+        ])
+
+        _dict = self.model_dump(
+            by_alias=True,
+            exclude=excluded_fields,
+            exclude_none=True,
+        )
         # override the default output from pydantic by calling `to_dict()` of group_number
         if self.group_number:
             _dict['group_number'] = self.group_number.to_dict()
@@ -107,9 +116,9 @@ class CardApiResponseDetails(BaseModel):
         # override the default output from pydantic by calling `to_dict()` of each item in dependent_names (list)
         _items = []
         if self.dependent_names:
-            for _item in self.dependent_names:
-                if _item:
-                    _items.append(_item.to_dict())
+            for _item_dependent_names in self.dependent_names:
+                if _item_dependent_names:
+                    _items.append(_item_dependent_names.to_dict())
             _dict['dependent_names'] = _items
         # override the default output from pydantic by calling `to_dict()` of plan_name
         if self.plan_name:
@@ -174,42 +183,42 @@ class CardApiResponseDetails(BaseModel):
         return _dict
 
     @classmethod
-    def from_dict(cls, obj: dict) -> CardApiResponseDetails:
+    def from_dict(cls, obj: Optional[Dict[str, Any]]) -> Optional[Self]:
         """Create an instance of CardApiResponseDetails from a dict"""
         if obj is None:
             return None
 
         if not isinstance(obj, dict):
-            return CardApiResponseDetails.parse_obj(obj)
+            return cls.model_validate(obj)
 
-        _obj = CardApiResponseDetails.parse_obj({
-            "group_number": MatchScore.from_dict(obj.get("group_number")) if obj.get("group_number") is not None else None,
-            "member_number": MatchScore.from_dict(obj.get("member_number")) if obj.get("member_number") is not None else None,
-            "payer_name": MatchScore.from_dict(obj.get("payer_name")) if obj.get("payer_name") is not None else None,
-            "rx_bin": MatchScore.from_dict(obj.get("rx_bin")) if obj.get("rx_bin") is not None else None,
-            "rx_pcn": MatchScore.from_dict(obj.get("rx_pcn")) if obj.get("rx_pcn") is not None else None,
-            "member_name": MatchScore.from_dict(obj.get("member_name")) if obj.get("member_name") is not None else None,
-            "dependent_names": [MatchScore.from_dict(_item) for _item in obj.get("dependent_names")] if obj.get("dependent_names") is not None else None,
-            "plan_name": MatchScore.from_dict(obj.get("plan_name")) if obj.get("plan_name") is not None else None,
-            "plan_id": MatchScore.from_dict(obj.get("plan_id")) if obj.get("plan_id") is not None else None,
-            "card_specific_id": MatchScore.from_dict(obj.get("card_specific_id")) if obj.get("card_specific_id") is not None else None,
-            "client_name": MatchScore.from_dict(obj.get("client_name")) if obj.get("client_name") is not None else None,
-            "payer_id": MatchScore.from_dict(obj.get("payer_id")) if obj.get("payer_id") is not None else None,
-            "plan_details": MatchScore.from_dict(obj.get("plan_details")) if obj.get("plan_details") is not None else None,
-            "rx_id": MatchScore.from_dict(obj.get("rx_id")) if obj.get("rx_id") is not None else None,
-            "rx_issuer": MatchScore.from_dict(obj.get("rx_issuer")) if obj.get("rx_issuer") is not None else None,
-            "rx_plan": MatchScore.from_dict(obj.get("rx_plan")) if obj.get("rx_plan") is not None else None,
-            "start_date": MatchScore.from_dict(obj.get("start_date")) if obj.get("start_date") is not None else None,
-            "employer": MatchScore.from_dict(obj.get("employer")) if obj.get("employer") is not None else None,
-            "medicare_medicaid_id": MatchScore.from_dict(obj.get("medicare_medicaid_id")) if obj.get("medicare_medicaid_id") is not None else None,
-            "member_dob": MatchScore.from_dict(obj.get("member_dob")) if obj.get("member_dob") is not None else None,
-            "member_gender": MatchScore.from_dict(obj.get("member_gender")) if obj.get("member_gender") is not None else None,
-            "member_id_prefix": MatchScore.from_dict(obj.get("member_id_prefix")) if obj.get("member_id_prefix") is not None else None,
-            "member_id_suffix": MatchScore.from_dict(obj.get("member_id_suffix")) if obj.get("member_id_suffix") is not None else None,
-            "part_a_effective_date": MatchScore.from_dict(obj.get("part_a_effective_date")) if obj.get("part_a_effective_date") is not None else None,
-            "part_b_effective_date": MatchScore.from_dict(obj.get("part_b_effective_date")) if obj.get("part_b_effective_date") is not None else None,
-            "pharmacy_benefit_manager": MatchScore.from_dict(obj.get("pharmacy_benefit_manager")) if obj.get("pharmacy_benefit_manager") is not None else None,
-            "plan_type": MatchScore.from_dict(obj.get("plan_type")) if obj.get("plan_type") is not None else None
+        _obj = cls.model_validate({
+            "group_number": MatchScore.from_dict(obj["group_number"]) if obj.get("group_number") is not None else None,
+            "member_number": MatchScore.from_dict(obj["member_number"]) if obj.get("member_number") is not None else None,
+            "payer_name": MatchScore.from_dict(obj["payer_name"]) if obj.get("payer_name") is not None else None,
+            "rx_bin": MatchScore.from_dict(obj["rx_bin"]) if obj.get("rx_bin") is not None else None,
+            "rx_pcn": MatchScore.from_dict(obj["rx_pcn"]) if obj.get("rx_pcn") is not None else None,
+            "member_name": MatchScore.from_dict(obj["member_name"]) if obj.get("member_name") is not None else None,
+            "dependent_names": [MatchScore.from_dict(_item) for _item in obj["dependent_names"]] if obj.get("dependent_names") is not None else None,
+            "plan_name": MatchScore.from_dict(obj["plan_name"]) if obj.get("plan_name") is not None else None,
+            "plan_id": MatchScore.from_dict(obj["plan_id"]) if obj.get("plan_id") is not None else None,
+            "card_specific_id": MatchScore.from_dict(obj["card_specific_id"]) if obj.get("card_specific_id") is not None else None,
+            "client_name": MatchScore.from_dict(obj["client_name"]) if obj.get("client_name") is not None else None,
+            "payer_id": MatchScore.from_dict(obj["payer_id"]) if obj.get("payer_id") is not None else None,
+            "plan_details": MatchScore.from_dict(obj["plan_details"]) if obj.get("plan_details") is not None else None,
+            "rx_id": MatchScore.from_dict(obj["rx_id"]) if obj.get("rx_id") is not None else None,
+            "rx_issuer": MatchScore.from_dict(obj["rx_issuer"]) if obj.get("rx_issuer") is not None else None,
+            "rx_plan": MatchScore.from_dict(obj["rx_plan"]) if obj.get("rx_plan") is not None else None,
+            "start_date": MatchScore.from_dict(obj["start_date"]) if obj.get("start_date") is not None else None,
+            "employer": MatchScore.from_dict(obj["employer"]) if obj.get("employer") is not None else None,
+            "medicare_medicaid_id": MatchScore.from_dict(obj["medicare_medicaid_id"]) if obj.get("medicare_medicaid_id") is not None else None,
+            "member_dob": MatchScore.from_dict(obj["member_dob"]) if obj.get("member_dob") is not None else None,
+            "member_gender": MatchScore.from_dict(obj["member_gender"]) if obj.get("member_gender") is not None else None,
+            "member_id_prefix": MatchScore.from_dict(obj["member_id_prefix"]) if obj.get("member_id_prefix") is not None else None,
+            "member_id_suffix": MatchScore.from_dict(obj["member_id_suffix"]) if obj.get("member_id_suffix") is not None else None,
+            "part_a_effective_date": MatchScore.from_dict(obj["part_a_effective_date"]) if obj.get("part_a_effective_date") is not None else None,
+            "part_b_effective_date": MatchScore.from_dict(obj["part_b_effective_date"]) if obj.get("part_b_effective_date") is not None else None,
+            "pharmacy_benefit_manager": MatchScore.from_dict(obj["pharmacy_benefit_manager"]) if obj.get("pharmacy_benefit_manager") is not None else None,
+            "plan_type": MatchScore.from_dict(obj["plan_type"]) if obj.get("plan_type") is not None else None
         })
         return _obj
 

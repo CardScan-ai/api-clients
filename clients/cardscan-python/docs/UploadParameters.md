@@ -2,6 +2,7 @@
 
 
 ## Properties
+
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **content_type** | **str** | The content type of the file | 
@@ -29,12 +30,12 @@ json = "{}"
 # create an instance of UploadParameters from a JSON string
 upload_parameters_instance = UploadParameters.from_json(json)
 # print the JSON string representation of the object
-print UploadParameters.to_json()
+print(UploadParameters.to_json())
 
 # convert the object into a dict
 upload_parameters_dict = upload_parameters_instance.to_dict()
 # create an instance of UploadParameters from a dict
-upload_parameters_form_dict = upload_parameters.from_dict(upload_parameters_dict)
+upload_parameters_from_dict = UploadParameters.from_dict(upload_parameters_dict)
 ```
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 
