@@ -464,11 +464,13 @@ class SandboxIntegrationTest {
         // Test basic connectivity
         if let baseUrl = sandboxConfig["baseUrl"], !baseUrl.isEmpty {
             do {
-                let url = URL(string: "\(baseUrl)/health")!
+                let url = URL(string: "\(baseUrl)/ping")!
                 let expectation = DispatchSemaphore(value: 0)
+                var responseData: Data?
                 var statusCode: Int?
                 
-                URLSession.shared.dataTask(with: url) { _, response, _ in
+                URLSession.shared.dataTask(with: url) { data, response, _ in
+                    responseData = data
                     if let httpResponse = response as? HTTPURLResponse {
                         statusCode = httpResponse.statusCode
                     }
@@ -477,10 +479,13 @@ class SandboxIntegrationTest {
                 
                 _ = expectation.wait(timeout: .now() + 10)
                 
-                if let code = statusCode, [200, 404, 401].contains(code) {
-                    print("✅ Sandbox connectivity test passed (HTTP \(code))")
+                if statusCode == 200,
+                   let data = responseData,
+                   let json = try? JSONSerialization.jsonObject(with: data) as? [String: Any],
+                   json["timestamp"] != nil {
+                    print("✅ Sandbox connectivity test passed - ping returned timestamp")
                 } else {
-                    print("⚠️  Sandbox connectivity test - unexpected response: \(statusCode ?? -1)")
+                    print("⚠️  Sandbox connectivity test - unexpected response: HTTP \(statusCode ?? -1)")
                 }
             } catch {
                 print("⚠️  Cannot test sandbox connectivity: \(error)")

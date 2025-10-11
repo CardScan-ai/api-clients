@@ -176,9 +176,11 @@ class TestSandboxConfiguration:
         
         # Simple connectivity check
         try:
-            response = requests.get(f"{SANDBOX_CONFIG['base_url']}/health", timeout=10)
-            # May be 404 if no health endpoint, but should connect
-            assert response.status_code in [200, 404, 401]  # Any response means connectivity
+            response = requests.get(f"{SANDBOX_CONFIG['base_url']}/ping", timeout=10)
+            # Should return 200 OK with timestamp
+            assert response.status_code == 200
+            data = response.json()
+            assert "timestamp" in data  # Ping returns {"timestamp": "..."}
         except requests.exceptions.RequestException:
             pytest.fail("Cannot connect to sandbox server")
 

@@ -260,14 +260,14 @@ class SandboxIntegrationTest {
         val baseUrl = sandboxConfig["baseUrl"]
         if (!baseUrl.isNullOrEmpty()) {
             try {
-                val process = ProcessBuilder("curl", "-s", "-o", "/dev/null", "-w", "%{http_code}", "$baseUrl/health").start()
-                val statusCode = process.inputStream.bufferedReader().readText().trim()
+                val process = ProcessBuilder("curl", "-s", "$baseUrl/ping").start()
+                val response = process.inputStream.bufferedReader().readText().trim()
                 val exitCode = process.waitFor()
                 
-                if (exitCode == 0 && statusCode.toIntOrNull() in listOf(200, 404, 401)) {
-                    println("✅ Sandbox connectivity test passed (HTTP $statusCode)")
+                if (exitCode == 0 && response.contains("timestamp")) {
+                    println("✅ Sandbox connectivity test passed - ping returned timestamp")
                 } else {
-                    println("⚠️  Sandbox connectivity test - unexpected response: $statusCode")
+                    println("⚠️  Sandbox connectivity test - unexpected response: $response")
                 }
             } catch (e: Exception) {
                 println("⚠️  Cannot test sandbox connectivity: ${e.message}")
