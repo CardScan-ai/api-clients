@@ -8,8 +8,12 @@ on:
 jobs:
   publish-python-package:
     runs-on: ubuntu-latest
+    timeout-minutes: 10
     steps:
       - uses: actions/checkout@v4
+      - name: Clean dist directory
+        working-directory: clients/cardscan-python
+        run: rm -rf dist/
       - name: Build and publish to pypi
         uses: JRubics/poetry-publish@v2.0
         with:
