@@ -27,8 +27,8 @@ pytest-asyncio = ">=0.23.7"
 python-dotenv = ">=1.0.1"
 
 [build-system]
-requires = ["setuptools"]
-build-backend = "setuptools.build_meta"
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
 
 [tool.pylint.'MESSAGES CONTROL']
 extension-pkg-whitelist = "pydantic"
