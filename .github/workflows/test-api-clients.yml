@@ -212,6 +212,11 @@ jobs:
       run: |
         dart pub get
     
+    - name: Generate code
+      working-directory: clients/cardscan-dart
+      run: |
+        dart run build_runner build
+    
     - name: Run Dart serialization tests
       id: test_results
       working-directory: clients/cardscan-dart
