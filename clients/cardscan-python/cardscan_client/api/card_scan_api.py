@@ -40,10 +40,10 @@ from cardscan_client.models.create_eligibility_request import CreateEligibilityR
 from cardscan_client.models.direct_upload200_response import DirectUpload200Response
 from cardscan_client.models.direct_upload_request import DirectUploadRequest
 from cardscan_client.models.eligibility_api_response import EligibilityApiResponse
+from cardscan_client.models.generate_card_upload_url200_response import GenerateCardUploadUrl200Response
 from cardscan_client.models.generate_card_upload_url_request import GenerateCardUploadUrlRequest
 from cardscan_client.models.generate_magic_link200_response import GenerateMagicLink200Response
 from cardscan_client.models.get_access_token200_response import GetAccessToken200Response
-from cardscan_client.models.inline_object1 import InlineObject1
 from cardscan_client.models.list_eligibility200_response import ListEligibility200Response
 from cardscan_client.models.scan_capture_type import ScanCaptureType
 from cardscan_client.models.scan_orientation import ScanOrientation
@@ -473,7 +473,7 @@ class CardScanApi:
             '401': "ApiErrorResponse",
             '403': "ApiErrorResponse",
             '404': "ApiErrorResponse",
-            '500': "InlineObject",
+            '500': "GetAccessToken500Response",
         }
 
         return self.api_client.call_api(
@@ -621,7 +621,7 @@ class CardScanApi:
             '201': "CardApiResponse",
             '400': "ApiErrorResponse",
             '401': "ApiErrorResponse",
-            '500': "InlineObject",
+            '500': "GetAccessToken500Response",
         }
 
         return self.api_client.call_api(
@@ -770,7 +770,7 @@ class CardScanApi:
             '400': "ApiErrorResponse",
             '401': "ApiErrorResponse",
             '404': "ApiErrorResponse",
-            '500': "InlineObject",
+            '500': "GetAccessToken500Response",
         }
 
         return self.api_client.call_api(
@@ -1080,7 +1080,7 @@ class CardScanApi:
             '401': "ApiErrorResponse",
             '403': "ApiErrorResponse",
             '404': "ApiErrorResponse",
-            '500': "InlineObject",
+            '500': "GetAccessToken500Response",
         }
 
         return self.api_client.call_api(
@@ -1101,7 +1101,7 @@ class CardScanApi:
             _request_auth=_params.get('_request_auth'))
 
     @validate_call
-    def generate_card_upload_url(self, card_id : StrictStr, expiration : Optional[Annotated[int, Field(le=3600, strict=True, ge=100)]] = None, generate_card_upload_url_request : Optional[GenerateCardUploadUrlRequest] = None, **kwargs) -> InlineObject1:  # noqa: E501
+    def generate_card_upload_url(self, card_id : StrictStr, expiration : Optional[Annotated[int, Field(le=3600, strict=True, ge=100)]] = None, generate_card_upload_url_request : Optional[GenerateCardUploadUrlRequest] = None, **kwargs) -> GenerateCardUploadUrl200Response:  # noqa: E501
         """Card - Generate Upload URL  # noqa: E501
 
         This method makes a synchronous HTTP request by default. To make an
@@ -1125,7 +1125,7 @@ class CardScanApi:
         :return: Returns the result object.
                  If the method is called asynchronously,
                  returns the request thread.
-        :rtype: InlineObject1
+        :rtype: GenerateCardUploadUrl200Response
         """
         kwargs['_return_http_data_only'] = True
         if '_preload_content' in kwargs:
@@ -1171,7 +1171,7 @@ class CardScanApi:
         :return: Returns the result object.
                  If the method is called asynchronously,
                  returns the request thread.
-        :rtype: tuple(InlineObject1, status_code(int), headers(HTTPHeaderDict))
+        :rtype: tuple(GenerateCardUploadUrl200Response, status_code(int), headers(HTTPHeaderDict))
         """
 
         _params = locals()
@@ -1241,12 +1241,12 @@ class CardScanApi:
         _auth_settings = ['bearerAuth']  # noqa: E501
 
         _response_types_map = {
-            '200': "InlineObject1",
+            '200': "GenerateCardUploadUrl200Response",
             '400': "ApiErrorResponse",
             '401': "ApiErrorResponse",
             '403': "ApiErrorResponse",
             '404': "ApiErrorResponse",
-            '500': "InlineObject",
+            '500': "GetAccessToken500Response",
         }
 
         return self.api_client.call_api(
@@ -1378,7 +1378,7 @@ class CardScanApi:
         _response_types_map = {
             '200': "GenerateMagicLink200Response",
             '401': "ApiErrorResponse",
-            '500': "InlineObject",
+            '500': "GetAccessToken500Response",
         }
 
         return self.api_client.call_api(
@@ -1399,7 +1399,7 @@ class CardScanApi:
             _request_auth=_params.get('_request_auth'))
 
     @validate_call
-    def generate_upload_url(self, expiration : Annotated[int, Field(le=3600, strict=True, ge=100)], **kwargs) -> InlineObject1:  # noqa: E501
+    def generate_upload_url(self, expiration : Annotated[int, Field(le=3600, strict=True, ge=100)], **kwargs) -> GenerateCardUploadUrl200Response:  # noqa: E501
         """Generate an upload URL  # noqa: E501
 
         This method makes a synchronous HTTP request by default. To make an
@@ -1419,7 +1419,7 @@ class CardScanApi:
         :return: Returns the result object.
                  If the method is called asynchronously,
                  returns the request thread.
-        :rtype: InlineObject1
+        :rtype: GenerateCardUploadUrl200Response
         """
         kwargs['_return_http_data_only'] = True
         if '_preload_content' in kwargs:
@@ -1461,7 +1461,7 @@ class CardScanApi:
         :return: Returns the result object.
                  If the method is called asynchronously,
                  returns the request thread.
-        :rtype: tuple(InlineObject1, status_code(int), headers(HTTPHeaderDict))
+        :rtype: tuple(GenerateCardUploadUrl200Response, status_code(int), headers(HTTPHeaderDict))
         """
 
         _params = locals()
@@ -1516,10 +1516,10 @@ class CardScanApi:
         _auth_settings = ['bearerAuth']  # noqa: E501
 
         _response_types_map = {
-            '200': "InlineObject1",
+            '200': "GenerateCardUploadUrl200Response",
             '400': "ApiErrorResponse",
             '401': "ApiErrorResponse",
-            '500': "InlineObject",
+            '500': "GetAccessToken500Response",
         }
 
         return self.api_client.call_api(
@@ -1659,7 +1659,7 @@ class CardScanApi:
         _response_types_map = {
             '200': "GetAccessToken200Response",
             '401': "ApiErrorResponse",
-            '500': "InlineObject",
+            '500': "GetAccessToken500Response",
         }
 
         return self.api_client.call_api(
@@ -1801,7 +1801,7 @@ class CardScanApi:
             '401': "ApiErrorResponse",
             '403': "ApiErrorResponse",
             '404': "ApiErrorResponse",
-            '500': "InlineObject",
+            '500': "GetAccessToken500Response",
         }
 
         return self.api_client.call_api(
@@ -1943,7 +1943,7 @@ class CardScanApi:
             '400': "ApiErrorResponse",
             '401': "ApiErrorResponse",
             '404': "ApiErrorResponse",
-            '500': "InlineObject",
+            '500': "GetAccessToken500Response",
         }
 
         return self.api_client.call_api(
@@ -2091,7 +2091,7 @@ class CardScanApi:
         _response_types_map = {
             '200': "SearchCards200Response",
             '401': "ApiErrorResponse",
-            '500': "InlineObject",
+            '500': "GetAccessToken500Response",
         }
 
         return self.api_client.call_api(
@@ -2238,7 +2238,7 @@ class CardScanApi:
 
         _response_types_map = {
             '200': "ListEligibility200Response",
-            '500': "InlineObject",
+            '500': "GetAccessToken500Response",
         }
 
         return self.api_client.call_api(
@@ -2394,7 +2394,7 @@ class CardScanApi:
         _response_types_map = {
             '200': "SearchCards200Response",
             '401': "ApiErrorResponse",
-            '500': "InlineObject",
+            '500': "GetAccessToken500Response",
         }
 
         return self.api_client.call_api(
@@ -2687,7 +2687,7 @@ class CardScanApi:
             '400': "ApiErrorResponse",
             '404': "ApiErrorResponse",
             '410': "ApiErrorResponse",
-            '500': "InlineObject",
+            '500': "GetAccessToken500Response",
         }
 
         return self.api_client.call_api(

@@ -11,25 +11,26 @@
     Do not edit the class manually.
 """  # noqa: E501
 
+
 from __future__ import annotations
 import pprint
 import re  # noqa: F401
 import json
 
 from datetime import datetime
-from pydantic import BaseModel, ConfigDict, Field, field_validator, StrictBool, StrictStr
-from typing import Any, ClassVar, Dict, List, Optional
+from pydantic import BaseModel, ConfigDict, Field, field_validator, StrictBool, StrictStr, StrictInt, StrictFloat
+from typing import Any, ClassVar, Dict, List, Optional, Union
 from uuid import UUID
 from typing import Optional, Set
-from typing_extensions import Self
+from typing_extensions import Self, Annotated
 from cardscan_client.models.upload_parameters import UploadParameters
 
 class GenerateCardUploadUrl200Response(BaseModel):
     """
     GenerateCardUploadUrl200Response
     """
-    card_id: UUID
-    scan_id: UUID
+    card_id: StrictStr
+    scan_id: StrictStr
     upload_url: StrictStr = Field(description="The URL to upload the card image.")
     upload_parameters: UploadParameters
     __properties: ClassVar[List[str]] = ["card_id", "scan_id", "upload_url", "upload_parameters"]
