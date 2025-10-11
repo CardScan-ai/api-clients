@@ -19,8 +19,12 @@ jobs:
         filters: |
           ts:
             - 'clients/cardscan-ts/**/*.ts'
+            - 'clients/cardscan-ts/package.json'
+            - 'clients/cardscan-ts/package-lock.json'
           py:
             - 'clients/cardscan-python/**/*.py'
+            - 'clients/cardscan-python/pyproject.toml'
+            - 'clients/cardscan-python/poetry.lock'
           oas:
             - 'openapi.yaml'
   build-test-ts:
