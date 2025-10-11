@@ -17,16 +17,18 @@ import pprint
 import re  # noqa: F401
 import json
 
-from pydantic import BaseModel, ConfigDict, Field, StrictStr
-from typing import Any, ClassVar, Dict, List, Optional
-from cardscan_client.models.scan_metadata_camera_capabilities_aspect_ratio import ScanMetadataCameraCapabilitiesAspectRatio
+from datetime import datetime
+from pydantic import BaseModel, ConfigDict, Field, field_validator, StrictBool, StrictStr, StrictInt, StrictFloat
+from typing import Any, ClassVar, Dict, List, Optional, Union
+from uuid import UUID
 from typing import Optional, Set
-from typing_extensions import Self
+from typing_extensions import Self, Annotated
+from cardscan_client.models.scan_metadata_camera_capabilities_aspect_ratio import ScanMetadataCameraCapabilitiesAspectRatio
 
 class ScanMetadataCameraCapabilities(BaseModel):
     """
-    Camera capabilities
-    """ # noqa: E501
+    Camera capabilities  # noqa: E501
+    """
     aspect_ratio: Optional[ScanMetadataCameraCapabilitiesAspectRatio] = Field(default=None, alias="aspectRatio")
     device_id: Optional[StrictStr] = Field(default=None, alias="deviceId")
     facing_mode: Optional[List[StrictStr]] = Field(default=None, alias="facingMode")
@@ -43,10 +45,16 @@ class ScanMetadataCameraCapabilities(BaseModel):
         protected_namespaces=(),
     )
 
-
     def to_str(self) -> str:
         """Returns the string representation of the model using alias"""
         return pprint.pformat(self.model_dump(by_alias=True))
+
+    def _json_serializer(self, obj):
+        """JSON serializer function for datetime objects"""
+        if isinstance(obj, datetime):
+            return obj.isoformat()
+
+        raise TypeError(f"Type {type(obj)} not serializable")
 
     def to_json(self) -> str:
         """Returns the JSON representation of the model using alias"""
@@ -54,7 +62,7 @@ class ScanMetadataCameraCapabilities(BaseModel):
         return json.dumps(self.to_dict())
 
     @classmethod
-    def from_json(cls, json_str: str) -> Optional[Self]:
+    def from_json(cls, json_str: str) -> ScanMetadataCameraCapabilities:
         """Create an instance of ScanMetadataCameraCapabilities from a JSON string"""
         return cls.from_dict(json.loads(json_str))
 
@@ -69,6 +77,7 @@ class ScanMetadataCameraCapabilities(BaseModel):
           are ignored.
         """
         excluded_fields: Set[str] = set([
+
         ])
 
         _dict = self.model_dump(
@@ -100,14 +109,14 @@ class ScanMetadataCameraCapabilities(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "aspectRatio": ScanMetadataCameraCapabilitiesAspectRatio.from_dict(obj["aspectRatio"]) if obj.get("aspectRatio") is not None else None,
-            "deviceId": obj.get("deviceId"),
-            "facingMode": obj.get("facingMode"),
-            "frameRate": ScanMetadataCameraCapabilitiesAspectRatio.from_dict(obj["frameRate"]) if obj.get("frameRate") is not None else None,
-            "groupId": obj.get("groupId"),
-            "height": ScanMetadataCameraCapabilitiesAspectRatio.from_dict(obj["height"]) if obj.get("height") is not None else None,
-            "resizeMode": obj.get("resizeMode"),
-            "width": ScanMetadataCameraCapabilitiesAspectRatio.from_dict(obj["width"]) if obj.get("width") is not None else None
+            "aspect_ratio": ScanMetadataCameraCapabilitiesAspectRatio.from_dict(obj.get("aspectRatio")) if obj.get("aspectRatio") is not None else None,
+            "device_id": obj.get("deviceId"),
+            "facing_mode": obj.get("facingMode"),
+            "frame_rate": ScanMetadataCameraCapabilitiesAspectRatio.from_dict(obj.get("frameRate")) if obj.get("frameRate") is not None else None,
+            "group_id": obj.get("groupId"),
+            "height": ScanMetadataCameraCapabilitiesAspectRatio.from_dict(obj.get("height")) if obj.get("height") is not None else None,
+            "resize_mode": obj.get("resizeMode"),
+            "width": ScanMetadataCameraCapabilitiesAspectRatio.from_dict(obj.get("width")) if obj.get("width") is not None else None
         })
         return _obj
 

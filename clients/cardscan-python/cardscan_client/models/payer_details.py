@@ -17,16 +17,18 @@ import pprint
 import re  # noqa: F401
 import json
 
-from pydantic import BaseModel, ConfigDict, Field, StrictStr
-from typing import Any, ClassVar, Dict, List, Optional
-from cardscan_client.models.address import Address
+from datetime import datetime
+from pydantic import BaseModel, ConfigDict, Field, field_validator, StrictBool, StrictStr, StrictInt, StrictFloat
+from typing import Any, ClassVar, Dict, List, Optional, Union
+from uuid import UUID
 from typing import Optional, Set
-from typing_extensions import Self
+from typing_extensions import Self, Annotated
+from cardscan_client.models.address import Address
 
 class PayerDetails(BaseModel):
     """
     PayerDetails
-    """ # noqa: E501
+    """
     payer_name: Optional[StrictStr] = Field(default=None, description="The name of the payer.")
     address: Optional[Address] = None
     payer_url: Optional[StrictStr] = None
@@ -38,10 +40,16 @@ class PayerDetails(BaseModel):
         protected_namespaces=(),
     )
 
-
     def to_str(self) -> str:
         """Returns the string representation of the model using alias"""
         return pprint.pformat(self.model_dump(by_alias=True))
+
+    def _json_serializer(self, obj):
+        """JSON serializer function for datetime objects"""
+        if isinstance(obj, datetime):
+            return obj.isoformat()
+
+        raise TypeError(f"Type {type(obj)} not serializable")
 
     def to_json(self) -> str:
         """Returns the JSON representation of the model using alias"""
@@ -49,7 +57,7 @@ class PayerDetails(BaseModel):
         return json.dumps(self.to_dict())
 
     @classmethod
-    def from_json(cls, json_str: str) -> Optional[Self]:
+    def from_json(cls, json_str: str) -> PayerDetails:
         """Create an instance of PayerDetails from a JSON string"""
         return cls.from_dict(json.loads(json_str))
 
@@ -64,6 +72,7 @@ class PayerDetails(BaseModel):
           are ignored.
         """
         excluded_fields: Set[str] = set([
+
         ])
 
         _dict = self.model_dump(
@@ -87,7 +96,7 @@ class PayerDetails(BaseModel):
 
         _obj = cls.model_validate({
             "payer_name": obj.get("payer_name"),
-            "address": Address.from_dict(obj["address"]) if obj.get("address") is not None else None,
+            "address": Address.from_dict(obj.get("address")) if obj.get("address") is not None else None,
             "payer_url": obj.get("payer_url")
         })
         return _obj

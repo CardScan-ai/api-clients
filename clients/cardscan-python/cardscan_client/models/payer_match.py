@@ -17,18 +17,20 @@ import pprint
 import re  # noqa: F401
 import json
 
-from pydantic import BaseModel, ConfigDict, StrictStr
-from typing import Any, ClassVar, Dict, List, Optional
+from datetime import datetime
+from pydantic import BaseModel, ConfigDict, Field, field_validator, StrictBool, StrictStr, StrictInt, StrictFloat
+from typing import Any, ClassVar, Dict, List, Optional, Union
+from uuid import UUID
+from typing import Optional, Set
+from typing_extensions import Self, Annotated
 from cardscan_client.models.chc_payer_record import CHCPayerRecord
 from cardscan_client.models.custom_payer_record import CustomPayerRecord
 from cardscan_client.models.payer_match_matches_inner import PayerMatchMatchesInner
-from typing import Optional, Set
-from typing_extensions import Self
 
 class PayerMatch(BaseModel):
     """
     PayerMatch
-    """ # noqa: E501
+    """
     cardscan_payer_id: Optional[StrictStr] = None
     cardscan_payer_name: Optional[StrictStr] = None
     score: Optional[StrictStr] = None
@@ -44,10 +46,16 @@ class PayerMatch(BaseModel):
         protected_namespaces=(),
     )
 
-
     def to_str(self) -> str:
         """Returns the string representation of the model using alias"""
         return pprint.pformat(self.model_dump(by_alias=True))
+
+    def _json_serializer(self, obj):
+        """JSON serializer function for datetime objects"""
+        if isinstance(obj, datetime):
+            return obj.isoformat()
+
+        raise TypeError(f"Type {type(obj)} not serializable")
 
     def to_json(self) -> str:
         """Returns the JSON representation of the model using alias"""
@@ -55,7 +63,7 @@ class PayerMatch(BaseModel):
         return json.dumps(self.to_dict())
 
     @classmethod
-    def from_json(cls, json_str: str) -> Optional[Self]:
+    def from_json(cls, json_str: str) -> PayerMatch:
         """Create an instance of PayerMatch from a JSON string"""
         return cls.from_dict(json.loads(json_str))
 
@@ -70,6 +78,7 @@ class PayerMatch(BaseModel):
           are ignored.
         """
         excluded_fields: Set[str] = set([
+
         ])
 
         _dict = self.model_dump(
@@ -80,23 +89,23 @@ class PayerMatch(BaseModel):
         # override the default output from pydantic by calling `to_dict()` of each item in matches (list)
         _items = []
         if self.matches:
-            for _item_matches in self.matches:
-                if _item_matches:
-                    _items.append(_item_matches.to_dict())
+            for _item in self.matches:
+                if _item:
+                    _items.append(_item.to_dict())
             _dict['matches'] = _items
         # override the default output from pydantic by calling `to_dict()` of each item in change_healthcare (list)
         _items = []
         if self.change_healthcare:
-            for _item_change_healthcare in self.change_healthcare:
-                if _item_change_healthcare:
-                    _items.append(_item_change_healthcare.to_dict())
+            for _item in self.change_healthcare:
+                if _item:
+                    _items.append(_item.to_dict())
             _dict['change_healthcare'] = _items
         # override the default output from pydantic by calling `to_dict()` of each item in custom (list)
         _items = []
         if self.custom:
-            for _item_custom in self.custom:
-                if _item_custom:
-                    _items.append(_item_custom.to_dict())
+            for _item in self.custom:
+                if _item:
+                    _items.append(_item.to_dict())
             _dict['custom'] = _items
         # set to None if cardscan_payer_id (nullable) is None
         # and model_fields_set contains the field
@@ -143,9 +152,9 @@ class PayerMatch(BaseModel):
             "cardscan_payer_id": obj.get("cardscan_payer_id"),
             "cardscan_payer_name": obj.get("cardscan_payer_name"),
             "score": obj.get("score"),
-            "matches": [PayerMatchMatchesInner.from_dict(_item) for _item in obj["matches"]] if obj.get("matches") is not None else None,
-            "change_healthcare": [CHCPayerRecord.from_dict(_item) for _item in obj["change_healthcare"]] if obj.get("change_healthcare") is not None else None,
-            "custom": [CustomPayerRecord.from_dict(_item) for _item in obj["custom"]] if obj.get("custom") is not None else None,
+            "matches": [PayerMatchMatchesInner.from_dict(_item) for _item in obj.get("matches")] if obj.get("matches") is not None else None,
+            "change_healthcare": [CHCPayerRecord.from_dict(_item) for _item in obj.get("change_healthcare")] if obj.get("change_healthcare") is not None else None,
+            "custom": [CustomPayerRecord.from_dict(_item) for _item in obj.get("custom")] if obj.get("custom") is not None else None,
             "message": obj.get("message")
         })
         return _obj

@@ -3,7 +3,6 @@
 Camera capabilities
 
 ## Properties
-
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **aspect_ratio** | [**ScanMetadataCameraCapabilitiesAspectRatio**](ScanMetadataCameraCapabilitiesAspectRatio.md) |  | [optional] 
@@ -25,12 +24,12 @@ json = "{}"
 # create an instance of ScanMetadataCameraCapabilities from a JSON string
 scan_metadata_camera_capabilities_instance = ScanMetadataCameraCapabilities.from_json(json)
 # print the JSON string representation of the object
-print(ScanMetadataCameraCapabilities.to_json())
+print ScanMetadataCameraCapabilities.to_json()
 
 # convert the object into a dict
 scan_metadata_camera_capabilities_dict = scan_metadata_camera_capabilities_instance.to_dict()
 # create an instance of ScanMetadataCameraCapabilities from a dict
-scan_metadata_camera_capabilities_from_dict = ScanMetadataCameraCapabilities.from_dict(scan_metadata_camera_capabilities_dict)
+scan_metadata_camera_capabilities_form_dict = scan_metadata_camera_capabilities.from_dict(scan_metadata_camera_capabilities_dict)
 ```
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

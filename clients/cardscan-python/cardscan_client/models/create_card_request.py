@@ -17,16 +17,18 @@ import pprint
 import re  # noqa: F401
 import json
 
-from pydantic import BaseModel, ConfigDict, Field, StrictBool
-from typing import Any, ClassVar, Dict, List, Optional
-from cardscan_client.models.create_card_request_backside import CreateCardRequestBackside
+from datetime import datetime
+from pydantic import BaseModel, ConfigDict, Field, field_validator, StrictBool, StrictStr, StrictInt, StrictFloat
+from typing import Any, ClassVar, Dict, List, Optional, Union
+from uuid import UUID
 from typing import Optional, Set
-from typing_extensions import Self
+from typing_extensions import Self, Annotated
+from cardscan_client.models.create_card_request_backside import CreateCardRequestBackside
 
 class CreateCardRequest(BaseModel):
     """
     CreateCardRequest
-    """ # noqa: E501
+    """
     enable_backside_scan: Optional[StrictBool] = Field(default=False, description="Whether to enable backside scanning")
     enable_livescan: Optional[StrictBool] = Field(default=False, description="Whether to enable live scanning")
     backside: Optional[CreateCardRequestBackside] = None
@@ -39,10 +41,16 @@ class CreateCardRequest(BaseModel):
         protected_namespaces=(),
     )
 
-
     def to_str(self) -> str:
         """Returns the string representation of the model using alias"""
         return pprint.pformat(self.model_dump(by_alias=True))
+
+    def _json_serializer(self, obj):
+        """JSON serializer function for datetime objects"""
+        if isinstance(obj, datetime):
+            return obj.isoformat()
+
+        raise TypeError(f"Type {type(obj)} not serializable")
 
     def to_json(self) -> str:
         """Returns the JSON representation of the model using alias"""
@@ -50,7 +58,7 @@ class CreateCardRequest(BaseModel):
         return json.dumps(self.to_dict())
 
     @classmethod
-    def from_json(cls, json_str: str) -> Optional[Self]:
+    def from_json(cls, json_str: str) -> CreateCardRequest:
         """Create an instance of CreateCardRequest from a JSON string"""
         return cls.from_dict(json.loads(json_str))
 
@@ -65,6 +73,7 @@ class CreateCardRequest(BaseModel):
           are ignored.
         """
         excluded_fields: Set[str] = set([
+
         ])
 
         _dict = self.model_dump(
@@ -89,7 +98,7 @@ class CreateCardRequest(BaseModel):
         _obj = cls.model_validate({
             "enable_backside_scan": obj.get("enable_backside_scan") if obj.get("enable_backside_scan") is not None else False,
             "enable_livescan": obj.get("enable_livescan") if obj.get("enable_livescan") is not None else False,
-            "backside": CreateCardRequestBackside.from_dict(obj["backside"]) if obj.get("backside") is not None else None,
+            "backside": CreateCardRequestBackside.from_dict(obj.get("backside")) if obj.get("backside") is not None else None,
             "metadata": obj.get("metadata")
         })
         return _obj

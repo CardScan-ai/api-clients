@@ -11,23 +11,23 @@
     Do not edit the class manually.
 """  # noqa: E501
 
-
 from __future__ import annotations
 import pprint
 import re  # noqa: F401
 import json
 
-from pydantic import BaseModel, ConfigDict, Field, StrictStr
-from typing import Any, ClassVar, Dict, List
+from datetime import datetime
+from pydantic import BaseModel, ConfigDict, Field, field_validator, StrictBool, StrictStr
+from typing import Any, ClassVar, Dict, List, Optional
 from uuid import UUID
-from cardscan_client.models.upload_parameters import UploadParameters
 from typing import Optional, Set
 from typing_extensions import Self
+from cardscan_client.models.upload_parameters import UploadParameters
 
 class GenerateCardUploadUrl200Response(BaseModel):
     """
     GenerateCardUploadUrl200Response
-    """ # noqa: E501
+    """
     card_id: UUID
     scan_id: UUID
     upload_url: StrictStr = Field(description="The URL to upload the card image.")
@@ -40,10 +40,16 @@ class GenerateCardUploadUrl200Response(BaseModel):
         protected_namespaces=(),
     )
 
-
     def to_str(self) -> str:
         """Returns the string representation of the model using alias"""
         return pprint.pformat(self.model_dump(by_alias=True))
+
+    def _json_serializer(self, obj):
+        """JSON serializer function for datetime objects"""
+        if isinstance(obj, datetime):
+            return obj.isoformat()
+
+        raise TypeError(f"Type {type(obj)} not serializable")
 
     def to_json(self) -> str:
         """Returns the JSON representation of the model using alias"""
@@ -51,7 +57,7 @@ class GenerateCardUploadUrl200Response(BaseModel):
         return json.dumps(self.to_dict())
 
     @classmethod
-    def from_json(cls, json_str: str) -> Optional[Self]:
+    def from_json(cls, json_str: str) -> GenerateCardUploadUrl200Response:
         """Create an instance of GenerateCardUploadUrl200Response from a JSON string"""
         return cls.from_dict(json.loads(json_str))
 
@@ -66,6 +72,7 @@ class GenerateCardUploadUrl200Response(BaseModel):
           are ignored.
         """
         excluded_fields: Set[str] = set([
+
         ])
 
         _dict = self.model_dump(
@@ -91,7 +98,7 @@ class GenerateCardUploadUrl200Response(BaseModel):
             "card_id": obj.get("card_id"),
             "scan_id": obj.get("scan_id"),
             "upload_url": obj.get("upload_url"),
-            "upload_parameters": UploadParameters.from_dict(obj["upload_parameters"]) if obj.get("upload_parameters") is not None else None
+            "upload_parameters": UploadParameters.from_dict(obj.get("upload_parameters")) if obj.get("upload_parameters") is not None else None
         })
         return _obj
 

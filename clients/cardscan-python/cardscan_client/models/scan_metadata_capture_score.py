@@ -17,16 +17,18 @@ import pprint
 import re  # noqa: F401
 import json
 
-from pydantic import BaseModel, ConfigDict, Field, StrictFloat, StrictInt
+from datetime import datetime
+from pydantic import BaseModel, ConfigDict, Field, field_validator, StrictBool, StrictStr, StrictInt, StrictFloat
 from typing import Any, ClassVar, Dict, List, Optional, Union
-from cardscan_client.models.scan_metadata_capture_score_scores_inner import ScanMetadataCaptureScoreScoresInner
+from uuid import UUID
 from typing import Optional, Set
-from typing_extensions import Self
+from typing_extensions import Self, Annotated
+from cardscan_client.models.scan_metadata_capture_score_scores_inner import ScanMetadataCaptureScoreScoresInner
 
 class ScanMetadataCaptureScore(BaseModel):
     """
     ScanMetadataCaptureScore
-    """ # noqa: E501
+    """
     scores: Optional[List[ScanMetadataCaptureScoreScoresInner]] = Field(default=None, description="List of capture scores")
     max_lap_score: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="Maximum Laplacian score", alias="max_lapScore")
     __properties: ClassVar[List[str]] = ["scores", "max_lapScore"]
@@ -37,10 +39,16 @@ class ScanMetadataCaptureScore(BaseModel):
         protected_namespaces=(),
     )
 
-
     def to_str(self) -> str:
         """Returns the string representation of the model using alias"""
         return pprint.pformat(self.model_dump(by_alias=True))
+
+    def _json_serializer(self, obj):
+        """JSON serializer function for datetime objects"""
+        if isinstance(obj, datetime):
+            return obj.isoformat()
+
+        raise TypeError(f"Type {type(obj)} not serializable")
 
     def to_json(self) -> str:
         """Returns the JSON representation of the model using alias"""
@@ -48,7 +56,7 @@ class ScanMetadataCaptureScore(BaseModel):
         return json.dumps(self.to_dict())
 
     @classmethod
-    def from_json(cls, json_str: str) -> Optional[Self]:
+    def from_json(cls, json_str: str) -> ScanMetadataCaptureScore:
         """Create an instance of ScanMetadataCaptureScore from a JSON string"""
         return cls.from_dict(json.loads(json_str))
 
@@ -63,6 +71,7 @@ class ScanMetadataCaptureScore(BaseModel):
           are ignored.
         """
         excluded_fields: Set[str] = set([
+
         ])
 
         _dict = self.model_dump(
@@ -73,9 +82,9 @@ class ScanMetadataCaptureScore(BaseModel):
         # override the default output from pydantic by calling `to_dict()` of each item in scores (list)
         _items = []
         if self.scores:
-            for _item_scores in self.scores:
-                if _item_scores:
-                    _items.append(_item_scores.to_dict())
+            for _item in self.scores:
+                if _item:
+                    _items.append(_item.to_dict())
             _dict['scores'] = _items
         return _dict
 
@@ -89,8 +98,8 @@ class ScanMetadataCaptureScore(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "scores": [ScanMetadataCaptureScoreScoresInner.from_dict(_item) for _item in obj["scores"]] if obj.get("scores") is not None else None,
-            "max_lapScore": obj.get("max_lapScore")
+            "scores": [ScanMetadataCaptureScoreScoresInner.from_dict(_item) for _item in obj.get("scores")] if obj.get("scores") is not None else None,
+            "max_lap_score": obj.get("max_lapScore")
         })
         return _obj
 

@@ -18,18 +18,18 @@ import re  # noqa: F401
 import json
 
 from datetime import datetime
-from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictStr
-from typing import Any, ClassVar, Dict, List
+from pydantic import BaseModel, ConfigDict, Field, field_validator, StrictBool, StrictStr, StrictInt, StrictFloat
+from typing import Any, ClassVar, Dict, List, Optional, Union
 from uuid import UUID
-from cardscan_client.models.webhook_card_completed_event_configuration import WebhookCardCompletedEventConfiguration
 from typing import Optional, Set
-from typing_extensions import Self
+from typing_extensions import Self, Annotated
+from cardscan_client.models.webhook_card_completed_event_configuration import WebhookCardCompletedEventConfiguration
 
 class WebhookCardCreatedEvent(BaseModel):
     """
-    Triggered when a new insurance card is created at the start of a scanning attempt.
-    """ # noqa: E501
-    card_id: UUID = Field(description="Unique identifier for the created card.")
+    Triggered when a new insurance card is created at the start of a scanning attempt.  # noqa: E501
+    """
+    card_id: StrictStr = Field(description="Unique identifier for the created card.")
     configuration: WebhookCardCompletedEventConfiguration
     created_at: datetime = Field(description="Timestamp for when the card was created.")
     deleted: StrictBool = Field(description="Flag indicating whether the card is deleted.")
@@ -45,10 +45,16 @@ class WebhookCardCreatedEvent(BaseModel):
         protected_namespaces=(),
     )
 
-
     def to_str(self) -> str:
         """Returns the string representation of the model using alias"""
         return pprint.pformat(self.model_dump(by_alias=True))
+
+    def _json_serializer(self, obj):
+        """JSON serializer function for datetime objects"""
+        if isinstance(obj, datetime):
+            return obj.isoformat()
+
+        raise TypeError(f"Type {type(obj)} not serializable")
 
     def to_json(self) -> str:
         """Returns the JSON representation of the model using alias"""
@@ -56,7 +62,7 @@ class WebhookCardCreatedEvent(BaseModel):
         return json.dumps(self.to_dict())
 
     @classmethod
-    def from_json(cls, json_str: str) -> Optional[Self]:
+    def from_json(cls, json_str: str) -> WebhookCardCreatedEvent:
         """Create an instance of WebhookCardCreatedEvent from a JSON string"""
         return cls.from_dict(json.loads(json_str))
 
@@ -71,6 +77,7 @@ class WebhookCardCreatedEvent(BaseModel):
           are ignored.
         """
         excluded_fields: Set[str] = set([
+
         ])
 
         _dict = self.model_dump(
@@ -94,7 +101,7 @@ class WebhookCardCreatedEvent(BaseModel):
 
         _obj = cls.model_validate({
             "card_id": obj.get("card_id"),
-            "configuration": WebhookCardCompletedEventConfiguration.from_dict(obj["configuration"]) if obj.get("configuration") is not None else None,
+            "configuration": WebhookCardCompletedEventConfiguration.from_dict(obj.get("configuration")) if obj.get("configuration") is not None else None,
             "created_at": obj.get("created_at"),
             "deleted": obj.get("deleted"),
             "session_id": obj.get("session_id"),

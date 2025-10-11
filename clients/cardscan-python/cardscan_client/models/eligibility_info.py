@@ -17,17 +17,19 @@ import pprint
 import re  # noqa: F401
 import json
 
-from pydantic import BaseModel, ConfigDict
-from typing import Any, ClassVar, Dict, List
+from datetime import datetime
+from pydantic import BaseModel, ConfigDict, Field, field_validator, StrictBool, StrictStr, StrictInt, StrictFloat
+from typing import Any, ClassVar, Dict, List, Optional, Union
+from uuid import UUID
+from typing import Optional, Set
+from typing_extensions import Self, Annotated
 from cardscan_client.models.provider_dto import ProviderDto
 from cardscan_client.models.subscriber_dto import SubscriberDto
-from typing import Optional, Set
-from typing_extensions import Self
 
 class EligibilityInfo(BaseModel):
     """
     EligibilityInfo
-    """ # noqa: E501
+    """
     provider: ProviderDto
     subscriber: SubscriberDto
     __properties: ClassVar[List[str]] = ["provider", "subscriber"]
@@ -38,10 +40,16 @@ class EligibilityInfo(BaseModel):
         protected_namespaces=(),
     )
 
-
     def to_str(self) -> str:
         """Returns the string representation of the model using alias"""
         return pprint.pformat(self.model_dump(by_alias=True))
+
+    def _json_serializer(self, obj):
+        """JSON serializer function for datetime objects"""
+        if isinstance(obj, datetime):
+            return obj.isoformat()
+
+        raise TypeError(f"Type {type(obj)} not serializable")
 
     def to_json(self) -> str:
         """Returns the JSON representation of the model using alias"""
@@ -49,7 +57,7 @@ class EligibilityInfo(BaseModel):
         return json.dumps(self.to_dict())
 
     @classmethod
-    def from_json(cls, json_str: str) -> Optional[Self]:
+    def from_json(cls, json_str: str) -> EligibilityInfo:
         """Create an instance of EligibilityInfo from a JSON string"""
         return cls.from_dict(json.loads(json_str))
 
@@ -64,6 +72,7 @@ class EligibilityInfo(BaseModel):
           are ignored.
         """
         excluded_fields: Set[str] = set([
+
         ])
 
         _dict = self.model_dump(
@@ -89,8 +98,8 @@ class EligibilityInfo(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "provider": ProviderDto.from_dict(obj["provider"]) if obj.get("provider") is not None else None,
-            "subscriber": SubscriberDto.from_dict(obj["subscriber"]) if obj.get("subscriber") is not None else None
+            "provider": ProviderDto.from_dict(obj.get("provider")) if obj.get("provider") is not None else None,
+            "subscriber": SubscriberDto.from_dict(obj.get("subscriber")) if obj.get("subscriber") is not None else None
         })
         return _obj
 

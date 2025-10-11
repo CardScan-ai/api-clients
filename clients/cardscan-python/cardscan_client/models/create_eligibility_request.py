@@ -17,19 +17,20 @@ import pprint
 import re  # noqa: F401
 import json
 
-from pydantic import BaseModel, ConfigDict, Field
-from typing import Any, ClassVar, Dict, List
+from datetime import datetime
+from pydantic import BaseModel, ConfigDict, Field, field_validator, StrictBool, StrictStr, StrictInt, StrictFloat
+from typing import Any, ClassVar, Dict, List, Optional, Union
 from uuid import UUID
-from cardscan_client.models.eligibility_info import EligibilityInfo
 from typing import Optional, Set
-from typing_extensions import Self
+from typing_extensions import Self, Annotated
+from cardscan_client.models.eligibility_info import EligibilityInfo
 
 class CreateEligibilityRequest(BaseModel):
     """
     CreateEligibilityRequest
-    """ # noqa: E501
+    """
     eligibility: EligibilityInfo
-    card_id: UUID = Field(description="The ID of the card.")
+    card_id: StrictStr = Field(description="The ID of the card.")
     __properties: ClassVar[List[str]] = ["eligibility", "card_id"]
 
     model_config = ConfigDict(
@@ -38,10 +39,16 @@ class CreateEligibilityRequest(BaseModel):
         protected_namespaces=(),
     )
 
-
     def to_str(self) -> str:
         """Returns the string representation of the model using alias"""
         return pprint.pformat(self.model_dump(by_alias=True))
+
+    def _json_serializer(self, obj):
+        """JSON serializer function for datetime objects"""
+        if isinstance(obj, datetime):
+            return obj.isoformat()
+
+        raise TypeError(f"Type {type(obj)} not serializable")
 
     def to_json(self) -> str:
         """Returns the JSON representation of the model using alias"""
@@ -49,7 +56,7 @@ class CreateEligibilityRequest(BaseModel):
         return json.dumps(self.to_dict())
 
     @classmethod
-    def from_json(cls, json_str: str) -> Optional[Self]:
+    def from_json(cls, json_str: str) -> CreateEligibilityRequest:
         """Create an instance of CreateEligibilityRequest from a JSON string"""
         return cls.from_dict(json.loads(json_str))
 
@@ -64,6 +71,7 @@ class CreateEligibilityRequest(BaseModel):
           are ignored.
         """
         excluded_fields: Set[str] = set([
+
         ])
 
         _dict = self.model_dump(
@@ -86,7 +94,7 @@ class CreateEligibilityRequest(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "eligibility": EligibilityInfo.from_dict(obj["eligibility"]) if obj.get("eligibility") is not None else None,
+            "eligibility": EligibilityInfo.from_dict(obj.get("eligibility")) if obj.get("eligibility") is not None else None,
             "card_id": obj.get("card_id")
         })
         return _obj

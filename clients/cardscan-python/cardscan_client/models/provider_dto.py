@@ -17,16 +17,17 @@ import pprint
 import re  # noqa: F401
 import json
 
-from pydantic import BaseModel, ConfigDict, Field, field_validator
-from typing import Any, ClassVar, Dict, List, Optional
-from typing_extensions import Annotated
+from datetime import datetime
+from pydantic import BaseModel, ConfigDict, Field, field_validator, StrictBool, StrictStr, StrictInt, StrictFloat
+from typing import Any, ClassVar, Dict, List, Optional, Union
+from uuid import UUID
 from typing import Optional, Set
-from typing_extensions import Self
+from typing_extensions import Self, Annotated
 
 class ProviderDto(BaseModel):
     """
-    A valid provider record must include either an `organization_name` or both a `first_name` and `last_name`.  The `npi` must always be exactly 10 numeric digits. 
-    """ # noqa: E501
+    A valid provider record must include either an `organization_name` or both a `first_name` and `last_name`.  The `npi` must always be exactly 10 numeric digits.   # noqa: E501
+    """
     first_name: Optional[Annotated[str, Field(min_length=1, strict=True, max_length=35)]] = Field(default=None, description="The provider's first name. Required if `organization_name` is not provided.  Must contain 1-35 alphanumeric characters.  ")
     last_name: Optional[Annotated[str, Field(min_length=1, strict=True, max_length=60)]] = Field(default=None, description="The provider's last name. Required if `organization_name` is not provided.  Must contain 1-60 alphanumeric characters. ")
     npi: Annotated[str, Field(strict=True)] = Field(description="The National Provider Identifier (NPI), assigned by the Centers for Medicare & Medicaid Services.  This identifier is always a 10-digit numeric value.  Use the [NPI Registry](https://npiregistry.cms.hhs.gov/search) to verify or look up NPI details. ")
@@ -46,10 +47,16 @@ class ProviderDto(BaseModel):
         protected_namespaces=(),
     )
 
-
     def to_str(self) -> str:
         """Returns the string representation of the model using alias"""
         return pprint.pformat(self.model_dump(by_alias=True))
+
+    def _json_serializer(self, obj):
+        """JSON serializer function for datetime objects"""
+        if isinstance(obj, datetime):
+            return obj.isoformat()
+
+        raise TypeError(f"Type {type(obj)} not serializable")
 
     def to_json(self) -> str:
         """Returns the JSON representation of the model using alias"""
@@ -57,7 +64,7 @@ class ProviderDto(BaseModel):
         return json.dumps(self.to_dict())
 
     @classmethod
-    def from_json(cls, json_str: str) -> Optional[Self]:
+    def from_json(cls, json_str: str) -> ProviderDto:
         """Create an instance of ProviderDto from a JSON string"""
         return cls.from_dict(json.loads(json_str))
 
@@ -72,6 +79,7 @@ class ProviderDto(BaseModel):
           are ignored.
         """
         excluded_fields: Set[str] = set([
+
         ])
 
         _dict = self.model_dump(

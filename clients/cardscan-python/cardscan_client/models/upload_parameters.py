@@ -17,15 +17,17 @@ import pprint
 import re  # noqa: F401
 import json
 
-from pydantic import BaseModel, ConfigDict, Field, StrictStr
-from typing import Any, ClassVar, Dict, List, Optional
+from datetime import datetime
+from pydantic import BaseModel, ConfigDict, Field, field_validator, StrictBool, StrictStr, StrictInt, StrictFloat
+from typing import Any, ClassVar, Dict, List, Optional, Union
+from uuid import UUID
 from typing import Optional, Set
-from typing_extensions import Self
+from typing_extensions import Self, Annotated
 
 class UploadParameters(BaseModel):
     """
     UploadParameters
-    """ # noqa: E501
+    """
     content_type: StrictStr = Field(description="The content type of the file", alias="Content-Type")
     content_disposition: StrictStr = Field(description="The content disposition of the file", alias="Content-Disposition")
     x_amz_meta_cardscan_account_id: StrictStr = Field(description="The account ID", alias="x-amz-meta-cardscan-account-id")
@@ -48,10 +50,16 @@ class UploadParameters(BaseModel):
         protected_namespaces=(),
     )
 
-
     def to_str(self) -> str:
         """Returns the string representation of the model using alias"""
         return pprint.pformat(self.model_dump(by_alias=True))
+
+    def _json_serializer(self, obj):
+        """JSON serializer function for datetime objects"""
+        if isinstance(obj, datetime):
+            return obj.isoformat()
+
+        raise TypeError(f"Type {type(obj)} not serializable")
 
     def to_json(self) -> str:
         """Returns the JSON representation of the model using alias"""
@@ -59,7 +67,7 @@ class UploadParameters(BaseModel):
         return json.dumps(self.to_dict())
 
     @classmethod
-    def from_json(cls, json_str: str) -> Optional[Self]:
+    def from_json(cls, json_str: str) -> UploadParameters:
         """Create an instance of UploadParameters from a JSON string"""
         return cls.from_dict(json.loads(json_str))
 
@@ -74,6 +82,7 @@ class UploadParameters(BaseModel):
           are ignored.
         """
         excluded_fields: Set[str] = set([
+
         ])
 
         _dict = self.model_dump(
@@ -93,20 +102,20 @@ class UploadParameters(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "Content-Type": obj.get("Content-Type"),
-            "Content-Disposition": obj.get("Content-Disposition"),
-            "x-amz-meta-cardscan-account-id": obj.get("x-amz-meta-cardscan-account-id"),
-            "x-amz-meta-cardscan-card-id": obj.get("x-amz-meta-cardscan-card-id"),
-            "x-amz-meta-cardscan-scan-id": obj.get("x-amz-meta-cardscan-scan-id"),
-            "x-amz-meta-cardscan-user-id": obj.get("x-amz-meta-cardscan-user-id"),
-            "x-amz-meta-cardscan-developer-user-id": obj.get("x-amz-meta-cardscan-developer-user-id"),
+            "content_type": obj.get("Content-Type"),
+            "content_disposition": obj.get("Content-Disposition"),
+            "x_amz_meta_cardscan_account_id": obj.get("x-amz-meta-cardscan-account-id"),
+            "x_amz_meta_cardscan_card_id": obj.get("x-amz-meta-cardscan-card-id"),
+            "x_amz_meta_cardscan_scan_id": obj.get("x-amz-meta-cardscan-scan-id"),
+            "x_amz_meta_cardscan_user_id": obj.get("x-amz-meta-cardscan-user-id"),
+            "x_amz_meta_cardscan_developer_user_id": obj.get("x-amz-meta-cardscan-developer-user-id"),
             "key": obj.get("key"),
-            "x-amz-algorithm": obj.get("x-amz-algorithm"),
-            "x-amz-credential": obj.get("x-amz-credential"),
-            "x-amz-date": obj.get("x-amz-date"),
-            "x-amz-security-token": obj.get("x-amz-security-token"),
+            "x_amz_algorithm": obj.get("x-amz-algorithm"),
+            "x_amz_credential": obj.get("x-amz-credential"),
+            "x_amz_date": obj.get("x-amz-date"),
+            "x_amz_security_token": obj.get("x-amz-security-token"),
             "policy": obj.get("policy"),
-            "x-amz-signature": obj.get("x-amz-signature")
+            "x_amz_signature": obj.get("x-amz-signature")
         })
         return _obj
 

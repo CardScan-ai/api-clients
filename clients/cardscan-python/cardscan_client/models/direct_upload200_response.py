@@ -17,19 +17,20 @@ import pprint
 import re  # noqa: F401
 import json
 
-from pydantic import BaseModel, ConfigDict
-from typing import Any, ClassVar, Dict, List
+from datetime import datetime
+from pydantic import BaseModel, ConfigDict, Field, field_validator, StrictBool, StrictStr, StrictInt, StrictFloat
+from typing import Any, ClassVar, Dict, List, Optional, Union
 from uuid import UUID
-from cardscan_client.models.direct_upload200_response_metadata import DirectUpload200ResponseMetadata
 from typing import Optional, Set
-from typing_extensions import Self
+from typing_extensions import Self, Annotated
+from cardscan_client.models.direct_upload200_response_metadata import DirectUpload200ResponseMetadata
 
 class DirectUpload200Response(BaseModel):
     """
     DirectUpload200Response
-    """ # noqa: E501
-    card_id: UUID
-    scan_id: UUID
+    """
+    card_id: StrictStr
+    scan_id: StrictStr
     metadata: DirectUpload200ResponseMetadata
     __properties: ClassVar[List[str]] = ["card_id", "scan_id", "metadata"]
 
@@ -39,10 +40,16 @@ class DirectUpload200Response(BaseModel):
         protected_namespaces=(),
     )
 
-
     def to_str(self) -> str:
         """Returns the string representation of the model using alias"""
         return pprint.pformat(self.model_dump(by_alias=True))
+
+    def _json_serializer(self, obj):
+        """JSON serializer function for datetime objects"""
+        if isinstance(obj, datetime):
+            return obj.isoformat()
+
+        raise TypeError(f"Type {type(obj)} not serializable")
 
     def to_json(self) -> str:
         """Returns the JSON representation of the model using alias"""
@@ -50,7 +57,7 @@ class DirectUpload200Response(BaseModel):
         return json.dumps(self.to_dict())
 
     @classmethod
-    def from_json(cls, json_str: str) -> Optional[Self]:
+    def from_json(cls, json_str: str) -> DirectUpload200Response:
         """Create an instance of DirectUpload200Response from a JSON string"""
         return cls.from_dict(json.loads(json_str))
 
@@ -65,6 +72,7 @@ class DirectUpload200Response(BaseModel):
           are ignored.
         """
         excluded_fields: Set[str] = set([
+
         ])
 
         _dict = self.model_dump(
@@ -89,7 +97,7 @@ class DirectUpload200Response(BaseModel):
         _obj = cls.model_validate({
             "card_id": obj.get("card_id"),
             "scan_id": obj.get("scan_id"),
-            "metadata": DirectUpload200ResponseMetadata.from_dict(obj["metadata"]) if obj.get("metadata") is not None else None
+            "metadata": DirectUpload200ResponseMetadata.from_dict(obj.get("metadata")) if obj.get("metadata") is not None else None
         })
         return _obj
 

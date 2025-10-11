@@ -30,8 +30,9 @@ Card - Send performance data
 ### Example
 
 * Bearer Authentication (bearerAuth):
-
 ```python
+import time
+import os
 import cardscan_client
 from cardscan_client.models.card_performance200_response import CardPerformance200Response
 from cardscan_client.rest import ApiException
@@ -73,7 +74,6 @@ with cardscan_client.ApiClient(configuration) as api_client:
 
 ### Parameters
 
-
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **card_id** | **str**|  | 
@@ -93,7 +93,6 @@ Name | Type | Description  | Notes
  - **Accept**: application/json
 
 ### HTTP response details
-
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | Successful response |  -  |
@@ -112,8 +111,9 @@ Creates a new card
 ### Example
 
 * Bearer Authentication (bearerAuth):
-
 ```python
+import time
+import os
 import cardscan_client
 from cardscan_client.models.card_api_response import CardApiResponse
 from cardscan_client.models.create_card_request import CreateCardRequest
@@ -155,7 +155,6 @@ with cardscan_client.ApiClient(configuration) as api_client:
 
 ### Parameters
 
-
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **create_card_request** | [**CreateCardRequest**](CreateCardRequest.md)|  | [optional] 
@@ -174,7 +173,6 @@ Name | Type | Description  | Notes
  - **Accept**: application/json
 
 ### HTTP response details
-
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **201** | Successful card response |  -  |
@@ -192,8 +190,9 @@ Create Eligibility Record
 ### Example
 
 * Bearer Authentication (bearerAuth):
-
 ```python
+import time
+import os
 import cardscan_client
 from cardscan_client.models.create_eligibility_request import CreateEligibilityRequest
 from cardscan_client.models.eligibility_api_response import EligibilityApiResponse
@@ -235,7 +234,6 @@ with cardscan_client.ApiClient(configuration) as api_client:
 
 ### Parameters
 
-
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **create_eligibility_request** | [**CreateEligibilityRequest**](CreateEligibilityRequest.md)|  | [optional] 
@@ -254,7 +252,6 @@ Name | Type | Description  | Notes
  - **Accept**: application/json
 
 ### HTTP response details
-
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **201** | Successful eligibility response |  -  |
@@ -273,8 +270,9 @@ Delete Card
 ### Example
 
 * Bearer Authentication (bearerAuth):
-
 ```python
+import time
+import os
 import cardscan_client
 from cardscan_client.rest import ApiException
 from pprint import pprint
@@ -312,7 +310,6 @@ with cardscan_client.ApiClient(configuration) as api_client:
 
 ### Parameters
 
-
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **card_id** | **str**| The ID of the card | 
@@ -331,7 +328,6 @@ void (empty response body)
  - **Accept**: application/json
 
 ### HTTP response details
-
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **204** | Card was successfully deleted |  -  |
@@ -350,8 +346,9 @@ Direct Upload
 ### Example
 
 * Bearer Authentication (bearerAuth):
-
 ```python
+import time
+import os
 import cardscan_client
 from cardscan_client.models.direct_upload200_response import DirectUpload200Response
 from cardscan_client.models.direct_upload_request import DirectUploadRequest
@@ -398,7 +395,6 @@ with cardscan_client.ApiClient(configuration) as api_client:
 
 ### Parameters
 
-
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **orientation** | [**ScanOrientation**](.md)|  | 
@@ -420,7 +416,6 @@ Name | Type | Description  | Notes
  - **Accept**: application/json
 
 ### HTTP response details
-
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | Successful response |  -  |
@@ -433,18 +428,19 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **generate_card_upload_url**
-> GenerateCardUploadUrl200Response generate_card_upload_url(card_id, expiration=expiration, generate_card_upload_url_request=generate_card_upload_url_request)
+> InlineObject1 generate_card_upload_url(card_id, expiration=expiration, generate_card_upload_url_request=generate_card_upload_url_request)
 
 Card - Generate Upload URL
 
 ### Example
 
 * Bearer Authentication (bearerAuth):
-
 ```python
+import time
+import os
 import cardscan_client
-from cardscan_client.models.generate_card_upload_url200_response import GenerateCardUploadUrl200Response
 from cardscan_client.models.generate_card_upload_url_request import GenerateCardUploadUrlRequest
+from cardscan_client.models.inline_object1 import InlineObject1
 from cardscan_client.rest import ApiException
 from pprint import pprint
 
@@ -485,7 +481,6 @@ with cardscan_client.ApiClient(configuration) as api_client:
 
 ### Parameters
 
-
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **card_id** | **str**|  | 
@@ -494,7 +489,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**GenerateCardUploadUrl200Response**](GenerateCardUploadUrl200Response.md)
+[**InlineObject1**](InlineObject1.md)
 
 ### Authorization
 
@@ -506,7 +501,6 @@ Name | Type | Description  | Notes
  - **Accept**: application/json
 
 ### HTTP response details
-
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | Successful upload URL response |  -  |
@@ -526,8 +520,9 @@ Generate Magic Link
 ### Example
 
 * Bearer Authentication (bearerAuth):
-
 ```python
+import time
+import os
 import cardscan_client
 from cardscan_client.models.generate_magic_link200_response import GenerateMagicLink200Response
 from cardscan_client.rest import ApiException
@@ -566,7 +561,6 @@ with cardscan_client.ApiClient(configuration) as api_client:
 
 
 ### Parameters
-
 This endpoint does not need any parameter.
 
 ### Return type
@@ -583,7 +577,6 @@ This endpoint does not need any parameter.
  - **Accept**: application/json
 
 ### HTTP response details
-
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | Generates a magic link |  -  |
@@ -593,17 +586,18 @@ This endpoint does not need any parameter.
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **generate_upload_url**
-> GenerateCardUploadUrl200Response generate_upload_url(expiration)
+> InlineObject1 generate_upload_url(expiration)
 
 Generate an upload URL
 
 ### Example
 
 * Bearer Authentication (bearerAuth):
-
 ```python
+import time
+import os
 import cardscan_client
-from cardscan_client.models.generate_card_upload_url200_response import GenerateCardUploadUrl200Response
+from cardscan_client.models.inline_object1 import InlineObject1
 from cardscan_client.rest import ApiException
 from pprint import pprint
 
@@ -642,14 +636,13 @@ with cardscan_client.ApiClient(configuration) as api_client:
 
 ### Parameters
 
-
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **expiration** | **int**|  | 
 
 ### Return type
 
-[**GenerateCardUploadUrl200Response**](GenerateCardUploadUrl200Response.md)
+[**InlineObject1**](InlineObject1.md)
 
 ### Authorization
 
@@ -661,7 +654,6 @@ Name | Type | Description  | Notes
  - **Accept**: application/json
 
 ### HTTP response details
-
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | Successful upload URL response |  -  |
@@ -679,8 +671,9 @@ Access Token
 ### Example
 
 * Bearer Authentication (bearerAuth):
-
 ```python
+import time
+import os
 import cardscan_client
 from cardscan_client.models.get_access_token200_response import GetAccessToken200Response
 from cardscan_client.rest import ApiException
@@ -721,7 +714,6 @@ with cardscan_client.ApiClient(configuration) as api_client:
 
 ### Parameters
 
-
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **user_id** | **str**| The ID of the user | [optional] 
@@ -740,7 +732,6 @@ Name | Type | Description  | Notes
  - **Accept**: application/json
 
 ### HTTP response details
-
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | Successful response |  -  |
@@ -757,8 +748,9 @@ Get Card by ID
 ### Example
 
 * Bearer Authentication (bearerAuth):
-
 ```python
+import time
+import os
 import cardscan_client
 from cardscan_client.models.card_api_response import CardApiResponse
 from cardscan_client.rest import ApiException
@@ -799,7 +791,6 @@ with cardscan_client.ApiClient(configuration) as api_client:
 
 ### Parameters
 
-
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **card_id** | **str**| The ID of the card | 
@@ -818,7 +809,6 @@ Name | Type | Description  | Notes
  - **Accept**: application/json
 
 ### HTTP response details
-
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | Successful card response |  -  |
@@ -837,8 +827,9 @@ Get Eligibility
 ### Example
 
 * Bearer Authentication (bearerAuth):
-
 ```python
+import time
+import os
 import cardscan_client
 from cardscan_client.models.eligibility_api_response import EligibilityApiResponse
 from cardscan_client.rest import ApiException
@@ -879,7 +870,6 @@ with cardscan_client.ApiClient(configuration) as api_client:
 
 ### Parameters
 
-
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **eligibility_id** | **str**|  | 
@@ -898,7 +888,6 @@ Name | Type | Description  | Notes
  - **Accept**: application/json
 
 ### HTTP response details
-
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | Successful eligibility response |  -  |
@@ -917,8 +906,9 @@ List Cards
 ### Example
 
 * Bearer Authentication (bearerAuth):
-
 ```python
+import time
+import os
 import cardscan_client
 from cardscan_client.models.search_cards200_response import SearchCards200Response
 from cardscan_client.rest import ApiException
@@ -960,7 +950,6 @@ with cardscan_client.ApiClient(configuration) as api_client:
 
 ### Parameters
 
-
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **limit** | **int**|  | [optional] 
@@ -980,7 +969,6 @@ Name | Type | Description  | Notes
  - **Accept**: application/json
 
 ### HTTP response details
-
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | Successful response |  -  |
@@ -997,8 +985,9 @@ List Eligibility
 ### Example
 
 * Bearer Authentication (bearerAuth):
-
 ```python
+import time
+import os
 import cardscan_client
 from cardscan_client.models.list_eligibility200_response import ListEligibility200Response
 from cardscan_client.rest import ApiException
@@ -1040,7 +1029,6 @@ with cardscan_client.ApiClient(configuration) as api_client:
 
 ### Parameters
 
-
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **limit** | **int**|  | [optional] 
@@ -1060,7 +1048,6 @@ Name | Type | Description  | Notes
  - **Accept**: application/json
 
 ### HTTP response details
-
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | Successful response |  -  |
@@ -1076,8 +1063,9 @@ Search Cards (200) OK
 ### Example
 
 * Bearer Authentication (bearerAuth):
-
 ```python
+import time
+import os
 import cardscan_client
 from cardscan_client.models.search_cards200_response import SearchCards200Response
 from cardscan_client.rest import ApiException
@@ -1120,7 +1108,6 @@ with cardscan_client.ApiClient(configuration) as api_client:
 
 ### Parameters
 
-
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **query** | **str**|  | 
@@ -1141,7 +1128,6 @@ Name | Type | Description  | Notes
  - **Accept**: application/json
 
 ### HTTP response details
-
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | Successful response |  -  |
@@ -1158,8 +1144,9 @@ Set Scan Metadata
 ### Example
 
 * Bearer Authentication (bearerAuth):
-
 ```python
+import time
+import os
 import cardscan_client
 from cardscan_client.rest import ApiException
 from pprint import pprint
@@ -1198,7 +1185,6 @@ with cardscan_client.ApiClient(configuration) as api_client:
 
 ### Parameters
 
-
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **scan_id** | **str**|  | 
@@ -1218,7 +1204,6 @@ void (empty response body)
  - **Accept**: application/json
 
 ### HTTP response details
-
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | Successful response |  -  |
@@ -1237,8 +1222,9 @@ Validate Magic Link
 
 ### Example
 
-
 ```python
+import time
+import os
 import cardscan_client
 from cardscan_client.models.validate_magic_link200_response import ValidateMagicLink200Response
 from cardscan_client.rest import ApiException
@@ -1270,7 +1256,6 @@ with cardscan_client.ApiClient(configuration) as api_client:
 
 ### Parameters
 
-
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **token** | **str**|  | 
@@ -1289,7 +1274,6 @@ No authorization required
  - **Accept**: application/json
 
 ### HTTP response details
-
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | Successful response |  -  |

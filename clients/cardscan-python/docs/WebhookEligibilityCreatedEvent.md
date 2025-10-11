@@ -3,7 +3,6 @@
 Triggered when a new eligibility record is created.
 
 ## Properties
-
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **eligibility_id** | **str** | Unique identifier for the eligibility record. | 
@@ -25,12 +24,12 @@ json = "{}"
 # create an instance of WebhookEligibilityCreatedEvent from a JSON string
 webhook_eligibility_created_event_instance = WebhookEligibilityCreatedEvent.from_json(json)
 # print the JSON string representation of the object
-print(WebhookEligibilityCreatedEvent.to_json())
+print WebhookEligibilityCreatedEvent.to_json()
 
 # convert the object into a dict
 webhook_eligibility_created_event_dict = webhook_eligibility_created_event_instance.to_dict()
 # create an instance of WebhookEligibilityCreatedEvent from a dict
-webhook_eligibility_created_event_from_dict = WebhookEligibilityCreatedEvent.from_dict(webhook_eligibility_created_event_dict)
+webhook_eligibility_created_event_form_dict = webhook_eligibility_created_event.from_dict(webhook_eligibility_created_event_dict)
 ```
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

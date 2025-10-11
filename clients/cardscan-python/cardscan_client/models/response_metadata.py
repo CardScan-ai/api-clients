@@ -17,15 +17,17 @@ import pprint
 import re  # noqa: F401
 import json
 
-from pydantic import BaseModel, ConfigDict, Field, StrictInt, StrictStr
-from typing import Any, ClassVar, Dict, List, Optional
+from datetime import datetime
+from pydantic import BaseModel, ConfigDict, Field, field_validator, StrictBool, StrictStr, StrictInt, StrictFloat
+from typing import Any, ClassVar, Dict, List, Optional, Union
+from uuid import UUID
 from typing import Optional, Set
-from typing_extensions import Self
+from typing_extensions import Self, Annotated
 
 class ResponseMetadata(BaseModel):
     """
     ResponseMetadata
-    """ # noqa: E501
+    """
     next_cursor: Optional[StrictStr] = Field(default=None, description="The cursor for the next page of results.")
     limit: Optional[StrictInt] = Field(default=None, description="The maximum number of items to return.")
     total: Optional[StrictInt] = Field(default=None, description="The total number of items available.")
@@ -37,10 +39,16 @@ class ResponseMetadata(BaseModel):
         protected_namespaces=(),
     )
 
-
     def to_str(self) -> str:
         """Returns the string representation of the model using alias"""
         return pprint.pformat(self.model_dump(by_alias=True))
+
+    def _json_serializer(self, obj):
+        """JSON serializer function for datetime objects"""
+        if isinstance(obj, datetime):
+            return obj.isoformat()
+
+        raise TypeError(f"Type {type(obj)} not serializable")
 
     def to_json(self) -> str:
         """Returns the JSON representation of the model using alias"""
@@ -48,7 +56,7 @@ class ResponseMetadata(BaseModel):
         return json.dumps(self.to_dict())
 
     @classmethod
-    def from_json(cls, json_str: str) -> Optional[Self]:
+    def from_json(cls, json_str: str) -> ResponseMetadata:
         """Create an instance of ResponseMetadata from a JSON string"""
         return cls.from_dict(json.loads(json_str))
 
@@ -63,6 +71,7 @@ class ResponseMetadata(BaseModel):
           are ignored.
         """
         excluded_fields: Set[str] = set([
+
         ])
 
         _dict = self.model_dump(

@@ -2,7 +2,6 @@
 
 
 ## Properties
-
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **first_name** | **str** | The first name of the subscriber. | [optional] 
@@ -20,12 +19,12 @@ json = "{}"
 # create an instance of EligibilityApiResponseEligibilityRequestSubscriber from a JSON string
 eligibility_api_response_eligibility_request_subscriber_instance = EligibilityApiResponseEligibilityRequestSubscriber.from_json(json)
 # print the JSON string representation of the object
-print(EligibilityApiResponseEligibilityRequestSubscriber.to_json())
+print EligibilityApiResponseEligibilityRequestSubscriber.to_json()
 
 # convert the object into a dict
 eligibility_api_response_eligibility_request_subscriber_dict = eligibility_api_response_eligibility_request_subscriber_instance.to_dict()
 # create an instance of EligibilityApiResponseEligibilityRequestSubscriber from a dict
-eligibility_api_response_eligibility_request_subscriber_from_dict = EligibilityApiResponseEligibilityRequestSubscriber.from_dict(eligibility_api_response_eligibility_request_subscriber_dict)
+eligibility_api_response_eligibility_request_subscriber_form_dict = eligibility_api_response_eligibility_request_subscriber.from_dict(eligibility_api_response_eligibility_request_subscriber_dict)
 ```
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

@@ -3,7 +3,6 @@
 Triggered when an error occurs during an eligibility check.
 
 ## Properties
-
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **eligibility_id** | **str** | Unique identifier for the eligibility record. | 
@@ -26,12 +25,12 @@ json = "{}"
 # create an instance of WebhookEligibilityErrorEvent from a JSON string
 webhook_eligibility_error_event_instance = WebhookEligibilityErrorEvent.from_json(json)
 # print the JSON string representation of the object
-print(WebhookEligibilityErrorEvent.to_json())
+print WebhookEligibilityErrorEvent.to_json()
 
 # convert the object into a dict
 webhook_eligibility_error_event_dict = webhook_eligibility_error_event_instance.to_dict()
 # create an instance of WebhookEligibilityErrorEvent from a dict
-webhook_eligibility_error_event_from_dict = WebhookEligibilityErrorEvent.from_dict(webhook_eligibility_error_event_dict)
+webhook_eligibility_error_event_form_dict = webhook_eligibility_error_event.from_dict(webhook_eligibility_error_event_dict)
 ```
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

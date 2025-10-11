@@ -17,17 +17,19 @@ import pprint
 import re  # noqa: F401
 import json
 
-from pydantic import BaseModel, ConfigDict
-from typing import Any, ClassVar, Dict, List
+from datetime import datetime
+from pydantic import BaseModel, ConfigDict, Field, field_validator, StrictBool, StrictStr, StrictInt, StrictFloat
+from typing import Any, ClassVar, Dict, List, Optional, Union
+from uuid import UUID
+from typing import Optional, Set
+from typing_extensions import Self, Annotated
 from cardscan_client.models.card_api_response import CardApiResponse
 from cardscan_client.models.response_metadata import ResponseMetadata
-from typing import Optional, Set
-from typing_extensions import Self
 
 class SearchCards200Response(BaseModel):
     """
     SearchCards200Response
-    """ # noqa: E501
+    """
     cards: List[CardApiResponse]
     response_metadata: ResponseMetadata
     __properties: ClassVar[List[str]] = ["cards", "response_metadata"]
@@ -38,10 +40,16 @@ class SearchCards200Response(BaseModel):
         protected_namespaces=(),
     )
 
-
     def to_str(self) -> str:
         """Returns the string representation of the model using alias"""
         return pprint.pformat(self.model_dump(by_alias=True))
+
+    def _json_serializer(self, obj):
+        """JSON serializer function for datetime objects"""
+        if isinstance(obj, datetime):
+            return obj.isoformat()
+
+        raise TypeError(f"Type {type(obj)} not serializable")
 
     def to_json(self) -> str:
         """Returns the JSON representation of the model using alias"""
@@ -49,7 +57,7 @@ class SearchCards200Response(BaseModel):
         return json.dumps(self.to_dict())
 
     @classmethod
-    def from_json(cls, json_str: str) -> Optional[Self]:
+    def from_json(cls, json_str: str) -> SearchCards200Response:
         """Create an instance of SearchCards200Response from a JSON string"""
         return cls.from_dict(json.loads(json_str))
 
@@ -64,6 +72,7 @@ class SearchCards200Response(BaseModel):
           are ignored.
         """
         excluded_fields: Set[str] = set([
+
         ])
 
         _dict = self.model_dump(
@@ -74,9 +83,9 @@ class SearchCards200Response(BaseModel):
         # override the default output from pydantic by calling `to_dict()` of each item in cards (list)
         _items = []
         if self.cards:
-            for _item_cards in self.cards:
-                if _item_cards:
-                    _items.append(_item_cards.to_dict())
+            for _item in self.cards:
+                if _item:
+                    _items.append(_item.to_dict())
             _dict['cards'] = _items
         # override the default output from pydantic by calling `to_dict()` of response_metadata
         if self.response_metadata:
@@ -93,8 +102,8 @@ class SearchCards200Response(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "cards": [CardApiResponse.from_dict(_item) for _item in obj["cards"]] if obj.get("cards") is not None else None,
-            "response_metadata": ResponseMetadata.from_dict(obj["response_metadata"]) if obj.get("response_metadata") is not None else None
+            "cards": [CardApiResponse.from_dict(_item) for _item in obj.get("cards")] if obj.get("cards") is not None else None,
+            "response_metadata": ResponseMetadata.from_dict(obj.get("response_metadata")) if obj.get("response_metadata") is not None else None
         })
         return _obj
 

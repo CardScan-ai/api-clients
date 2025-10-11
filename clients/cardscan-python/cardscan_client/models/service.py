@@ -17,19 +17,21 @@ import pprint
 import re  # noqa: F401
 import json
 
-from pydantic import BaseModel, ConfigDict, Field, StrictStr
-from typing import Any, ClassVar, Dict, List, Optional
+from datetime import datetime
+from pydantic import BaseModel, ConfigDict, Field, field_validator, StrictBool, StrictStr, StrictInt, StrictFloat
+from typing import Any, ClassVar, Dict, List, Optional, Union
+from uuid import UUID
+from typing import Optional, Set
+from typing_extensions import Self, Annotated
 from cardscan_client.models.co_insurance import CoInsurance
 from cardscan_client.models.co_payment import CoPayment
 from cardscan_client.models.deductible import Deductible
 from cardscan_client.models.oop import OOP
-from typing import Optional, Set
-from typing_extensions import Self
 
 class Service(BaseModel):
     """
     Service
-    """ # noqa: E501
+    """
     individual_deductible_in_network: Optional[Deductible] = None
     individual_deductible_out_network: Optional[Deductible] = None
     individual_oop_in_network: Optional[OOP] = None
@@ -51,10 +53,16 @@ class Service(BaseModel):
         protected_namespaces=(),
     )
 
-
     def to_str(self) -> str:
         """Returns the string representation of the model using alias"""
         return pprint.pformat(self.model_dump(by_alias=True))
+
+    def _json_serializer(self, obj):
+        """JSON serializer function for datetime objects"""
+        if isinstance(obj, datetime):
+            return obj.isoformat()
+
+        raise TypeError(f"Type {type(obj)} not serializable")
 
     def to_json(self) -> str:
         """Returns the JSON representation of the model using alias"""
@@ -62,7 +70,7 @@ class Service(BaseModel):
         return json.dumps(self.to_dict())
 
     @classmethod
-    def from_json(cls, json_str: str) -> Optional[Self]:
+    def from_json(cls, json_str: str) -> Service:
         """Create an instance of Service from a JSON string"""
         return cls.from_dict(json.loads(json_str))
 
@@ -77,6 +85,7 @@ class Service(BaseModel):
           are ignored.
         """
         excluded_fields: Set[str] = set([
+
         ])
 
         _dict = self.model_dump(
@@ -132,18 +141,18 @@ class Service(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "individual_deductible_in_network": Deductible.from_dict(obj["individual_deductible_in_network"]) if obj.get("individual_deductible_in_network") is not None else None,
-            "individual_deductible_out_network": Deductible.from_dict(obj["individual_deductible_out_network"]) if obj.get("individual_deductible_out_network") is not None else None,
-            "individual_oop_in_network": OOP.from_dict(obj["individual_oop_in_network"]) if obj.get("individual_oop_in_network") is not None else None,
-            "individual_oop_out_network": OOP.from_dict(obj["individual_oop_out_network"]) if obj.get("individual_oop_out_network") is not None else None,
-            "family_deductible_in_network": Deductible.from_dict(obj["family_deductible_in_network"]) if obj.get("family_deductible_in_network") is not None else None,
-            "family_deductible_out_network": Deductible.from_dict(obj["family_deductible_out_network"]) if obj.get("family_deductible_out_network") is not None else None,
-            "family_oop_in_network": OOP.from_dict(obj["family_oop_in_network"]) if obj.get("family_oop_in_network") is not None else None,
-            "family_oop_out_network": OOP.from_dict(obj["family_oop_out_network"]) if obj.get("family_oop_out_network") is not None else None,
-            "co_insurance_in_network": CoInsurance.from_dict(obj["co_insurance_in_network"]) if obj.get("co_insurance_in_network") is not None else None,
-            "co_insurance_out_network": CoInsurance.from_dict(obj["co_insurance_out_network"]) if obj.get("co_insurance_out_network") is not None else None,
-            "co_payment_out_network": CoPayment.from_dict(obj["co_payment_out_network"]) if obj.get("co_payment_out_network") is not None else None,
-            "co_payment_in_network": CoPayment.from_dict(obj["co_payment_in_network"]) if obj.get("co_payment_in_network") is not None else None,
+            "individual_deductible_in_network": Deductible.from_dict(obj.get("individual_deductible_in_network")) if obj.get("individual_deductible_in_network") is not None else None,
+            "individual_deductible_out_network": Deductible.from_dict(obj.get("individual_deductible_out_network")) if obj.get("individual_deductible_out_network") is not None else None,
+            "individual_oop_in_network": OOP.from_dict(obj.get("individual_oop_in_network")) if obj.get("individual_oop_in_network") is not None else None,
+            "individual_oop_out_network": OOP.from_dict(obj.get("individual_oop_out_network")) if obj.get("individual_oop_out_network") is not None else None,
+            "family_deductible_in_network": Deductible.from_dict(obj.get("family_deductible_in_network")) if obj.get("family_deductible_in_network") is not None else None,
+            "family_deductible_out_network": Deductible.from_dict(obj.get("family_deductible_out_network")) if obj.get("family_deductible_out_network") is not None else None,
+            "family_oop_in_network": OOP.from_dict(obj.get("family_oop_in_network")) if obj.get("family_oop_in_network") is not None else None,
+            "family_oop_out_network": OOP.from_dict(obj.get("family_oop_out_network")) if obj.get("family_oop_out_network") is not None else None,
+            "co_insurance_in_network": CoInsurance.from_dict(obj.get("co_insurance_in_network")) if obj.get("co_insurance_in_network") is not None else None,
+            "co_insurance_out_network": CoInsurance.from_dict(obj.get("co_insurance_out_network")) if obj.get("co_insurance_out_network") is not None else None,
+            "co_payment_out_network": CoPayment.from_dict(obj.get("co_payment_out_network")) if obj.get("co_payment_out_network") is not None else None,
+            "co_payment_in_network": CoPayment.from_dict(obj.get("co_payment_in_network")) if obj.get("co_payment_in_network") is not None else None,
             "service_code": obj.get("service_code")
         })
         return _obj

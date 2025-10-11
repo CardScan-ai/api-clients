@@ -18,32 +18,32 @@ import re  # noqa: F401
 import json
 
 from datetime import datetime
-from pydantic import BaseModel, ConfigDict, StrictStr, field_validator
-from typing import Any, ClassVar, Dict, List, Optional
+from pydantic import BaseModel, ConfigDict, Field, field_validator, StrictBool, StrictStr, StrictInt, StrictFloat
+from typing import Any, ClassVar, Dict, List, Optional, Union
 from uuid import UUID
+from typing import Optional, Set
+from typing_extensions import Self, Annotated
 from cardscan_client.models.card_state import CardState
 from cardscan_client.models.websocket_error import WebsocketError
-from typing import Optional, Set
-from typing_extensions import Self
 
 class EligibilityWebsocketEvent(BaseModel):
     """
     EligibilityWebsocketEvent
-    """ # noqa: E501
+    """
     event_id: StrictStr
     type: StrictStr
-    eligibility_id: UUID
+    eligibility_id: StrictStr
     state: CardState
     created_at: datetime
     session_id: Optional[StrictStr] = None
     error: Optional[WebsocketError] = None
-    card_id: Optional[UUID] = None
+    card_id: Optional[StrictStr] = None
     __properties: ClassVar[List[str]] = ["event_id", "type", "eligibility_id", "state", "created_at", "session_id", "error", "card_id"]
 
     @field_validator('type')
     def type_validate_enum(cls, value):
         """Validates the enum"""
-        if value not in set(['eligibility']):
+        if value not in ('eligibility'):
             raise ValueError("must be one of enum values ('eligibility')")
         return value
 
@@ -53,10 +53,16 @@ class EligibilityWebsocketEvent(BaseModel):
         protected_namespaces=(),
     )
 
-
     def to_str(self) -> str:
         """Returns the string representation of the model using alias"""
         return pprint.pformat(self.model_dump(by_alias=True))
+
+    def _json_serializer(self, obj):
+        """JSON serializer function for datetime objects"""
+        if isinstance(obj, datetime):
+            return obj.isoformat()
+
+        raise TypeError(f"Type {type(obj)} not serializable")
 
     def to_json(self) -> str:
         """Returns the JSON representation of the model using alias"""
@@ -64,7 +70,7 @@ class EligibilityWebsocketEvent(BaseModel):
         return json.dumps(self.to_dict())
 
     @classmethod
-    def from_json(cls, json_str: str) -> Optional[Self]:
+    def from_json(cls, json_str: str) -> EligibilityWebsocketEvent:
         """Create an instance of EligibilityWebsocketEvent from a JSON string"""
         return cls.from_dict(json.loads(json_str))
 
@@ -79,6 +85,7 @@ class EligibilityWebsocketEvent(BaseModel):
           are ignored.
         """
         excluded_fields: Set[str] = set([
+
         ])
 
         _dict = self.model_dump(
@@ -107,7 +114,7 @@ class EligibilityWebsocketEvent(BaseModel):
             "state": obj.get("state"),
             "created_at": obj.get("created_at"),
             "session_id": obj.get("session_id"),
-            "error": WebsocketError.from_dict(obj["error"]) if obj.get("error") is not None else None,
+            "error": WebsocketError.from_dict(obj.get("error")) if obj.get("error") is not None else None,
             "card_id": obj.get("card_id")
         })
         return _obj

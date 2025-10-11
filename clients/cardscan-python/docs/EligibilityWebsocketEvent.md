@@ -2,7 +2,6 @@
 
 
 ## Properties
-
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **event_id** | **str** |  | 
@@ -24,12 +23,12 @@ json = "{}"
 # create an instance of EligibilityWebsocketEvent from a JSON string
 eligibility_websocket_event_instance = EligibilityWebsocketEvent.from_json(json)
 # print the JSON string representation of the object
-print(EligibilityWebsocketEvent.to_json())
+print EligibilityWebsocketEvent.to_json()
 
 # convert the object into a dict
 eligibility_websocket_event_dict = eligibility_websocket_event_instance.to_dict()
 # create an instance of EligibilityWebsocketEvent from a dict
-eligibility_websocket_event_from_dict = EligibilityWebsocketEvent.from_dict(eligibility_websocket_event_dict)
+eligibility_websocket_event_form_dict = eligibility_websocket_event.from_dict(eligibility_websocket_event_dict)
 ```
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

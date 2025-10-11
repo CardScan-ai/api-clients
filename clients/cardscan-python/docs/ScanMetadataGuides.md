@@ -3,7 +3,6 @@
 Coordinates and dimensions of capture guides
 
 ## Properties
-
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **x** | **int** |  | [optional] 
@@ -21,12 +20,12 @@ json = "{}"
 # create an instance of ScanMetadataGuides from a JSON string
 scan_metadata_guides_instance = ScanMetadataGuides.from_json(json)
 # print the JSON string representation of the object
-print(ScanMetadataGuides.to_json())
+print ScanMetadataGuides.to_json()
 
 # convert the object into a dict
 scan_metadata_guides_dict = scan_metadata_guides_instance.to_dict()
 # create an instance of ScanMetadataGuides from a dict
-scan_metadata_guides_from_dict = ScanMetadataGuides.from_dict(scan_metadata_guides_dict)
+scan_metadata_guides_form_dict = scan_metadata_guides.from_dict(scan_metadata_guides_dict)
 ```
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

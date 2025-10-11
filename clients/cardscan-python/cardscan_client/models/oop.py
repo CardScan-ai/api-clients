@@ -17,15 +17,17 @@ import pprint
 import re  # noqa: F401
 import json
 
-from pydantic import BaseModel, ConfigDict, Field, StrictStr
-from typing import Any, ClassVar, Dict, List, Optional
+from datetime import datetime
+from pydantic import BaseModel, ConfigDict, Field, field_validator, StrictBool, StrictStr, StrictInt, StrictFloat
+from typing import Any, ClassVar, Dict, List, Optional, Union
+from uuid import UUID
 from typing import Optional, Set
-from typing_extensions import Self
+from typing_extensions import Self, Annotated
 
 class OOP(BaseModel):
     """
     OOP
-    """ # noqa: E501
+    """
     total_amount: Optional[StrictStr] = Field(default=None, description="The total out-of-pocket amount.")
     remaining_amount: Optional[StrictStr] = Field(default=None, description="The remaining out-of-pocket amount.")
     __properties: ClassVar[List[str]] = ["total_amount", "remaining_amount"]
@@ -36,10 +38,16 @@ class OOP(BaseModel):
         protected_namespaces=(),
     )
 
-
     def to_str(self) -> str:
         """Returns the string representation of the model using alias"""
         return pprint.pformat(self.model_dump(by_alias=True))
+
+    def _json_serializer(self, obj):
+        """JSON serializer function for datetime objects"""
+        if isinstance(obj, datetime):
+            return obj.isoformat()
+
+        raise TypeError(f"Type {type(obj)} not serializable")
 
     def to_json(self) -> str:
         """Returns the JSON representation of the model using alias"""
@@ -47,7 +55,7 @@ class OOP(BaseModel):
         return json.dumps(self.to_dict())
 
     @classmethod
-    def from_json(cls, json_str: str) -> Optional[Self]:
+    def from_json(cls, json_str: str) -> OOP:
         """Create an instance of OOP from a JSON string"""
         return cls.from_dict(json.loads(json_str))
 
@@ -62,6 +70,7 @@ class OOP(BaseModel):
           are ignored.
         """
         excluded_fields: Set[str] = set([
+
         ])
 
         _dict = self.model_dump(

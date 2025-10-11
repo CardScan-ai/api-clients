@@ -18,18 +18,18 @@ import re  # noqa: F401
 import json
 
 from datetime import datetime
-from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictStr
-from typing import Any, ClassVar, Dict, List
+from pydantic import BaseModel, ConfigDict, Field, field_validator, StrictBool, StrictStr, StrictInt, StrictFloat
+from typing import Any, ClassVar, Dict, List, Optional, Union
 from uuid import UUID
 from typing import Optional, Set
-from typing_extensions import Self
+from typing_extensions import Self, Annotated
 
 class WebhookEligibilityCompletedEvent(BaseModel):
     """
-    Triggered when an eligibility check is successfully completed.
-    """ # noqa: E501
-    eligibility_id: UUID = Field(description="Unique identifier for the eligibility record.")
-    card_id: UUID = Field(description="Unique identifier for the associated card.")
+    Triggered when an eligibility check is successfully completed.  # noqa: E501
+    """
+    eligibility_id: StrictStr = Field(description="Unique identifier for the eligibility record.")
+    card_id: StrictStr = Field(description="Unique identifier for the associated card.")
     created_at: datetime = Field(description="Timestamp for when the eligibility record was created.")
     deleted: StrictBool = Field(description="Flag indicating whether the eligibility record is deleted.")
     session_id: StrictStr = Field(description="Unique identifier for the session.")
@@ -44,10 +44,16 @@ class WebhookEligibilityCompletedEvent(BaseModel):
         protected_namespaces=(),
     )
 
-
     def to_str(self) -> str:
         """Returns the string representation of the model using alias"""
         return pprint.pformat(self.model_dump(by_alias=True))
+
+    def _json_serializer(self, obj):
+        """JSON serializer function for datetime objects"""
+        if isinstance(obj, datetime):
+            return obj.isoformat()
+
+        raise TypeError(f"Type {type(obj)} not serializable")
 
     def to_json(self) -> str:
         """Returns the JSON representation of the model using alias"""
@@ -55,7 +61,7 @@ class WebhookEligibilityCompletedEvent(BaseModel):
         return json.dumps(self.to_dict())
 
     @classmethod
-    def from_json(cls, json_str: str) -> Optional[Self]:
+    def from_json(cls, json_str: str) -> WebhookEligibilityCompletedEvent:
         """Create an instance of WebhookEligibilityCompletedEvent from a JSON string"""
         return cls.from_dict(json.loads(json_str))
 
@@ -70,6 +76,7 @@ class WebhookEligibilityCompletedEvent(BaseModel):
           are ignored.
         """
         excluded_fields: Set[str] = set([
+
         ])
 
         _dict = self.model_dump(

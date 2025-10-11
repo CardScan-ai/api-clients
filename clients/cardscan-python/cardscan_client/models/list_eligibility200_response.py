@@ -17,17 +17,19 @@ import pprint
 import re  # noqa: F401
 import json
 
-from pydantic import BaseModel, ConfigDict
-from typing import Any, ClassVar, Dict, List
+from datetime import datetime
+from pydantic import BaseModel, ConfigDict, Field, field_validator, StrictBool, StrictStr, StrictInt, StrictFloat
+from typing import Any, ClassVar, Dict, List, Optional, Union
+from uuid import UUID
+from typing import Optional, Set
+from typing_extensions import Self, Annotated
 from cardscan_client.models.eligibility_api_response import EligibilityApiResponse
 from cardscan_client.models.response_metadata import ResponseMetadata
-from typing import Optional, Set
-from typing_extensions import Self
 
 class ListEligibility200Response(BaseModel):
     """
     ListEligibility200Response
-    """ # noqa: E501
+    """
     eligibility_requests: List[EligibilityApiResponse]
     response_metadata: ResponseMetadata
     __properties: ClassVar[List[str]] = ["eligibility_requests", "response_metadata"]
@@ -38,10 +40,16 @@ class ListEligibility200Response(BaseModel):
         protected_namespaces=(),
     )
 
-
     def to_str(self) -> str:
         """Returns the string representation of the model using alias"""
         return pprint.pformat(self.model_dump(by_alias=True))
+
+    def _json_serializer(self, obj):
+        """JSON serializer function for datetime objects"""
+        if isinstance(obj, datetime):
+            return obj.isoformat()
+
+        raise TypeError(f"Type {type(obj)} not serializable")
 
     def to_json(self) -> str:
         """Returns the JSON representation of the model using alias"""
@@ -49,7 +57,7 @@ class ListEligibility200Response(BaseModel):
         return json.dumps(self.to_dict())
 
     @classmethod
-    def from_json(cls, json_str: str) -> Optional[Self]:
+    def from_json(cls, json_str: str) -> ListEligibility200Response:
         """Create an instance of ListEligibility200Response from a JSON string"""
         return cls.from_dict(json.loads(json_str))
 
@@ -64,6 +72,7 @@ class ListEligibility200Response(BaseModel):
           are ignored.
         """
         excluded_fields: Set[str] = set([
+
         ])
 
         _dict = self.model_dump(
@@ -74,9 +83,9 @@ class ListEligibility200Response(BaseModel):
         # override the default output from pydantic by calling `to_dict()` of each item in eligibility_requests (list)
         _items = []
         if self.eligibility_requests:
-            for _item_eligibility_requests in self.eligibility_requests:
-                if _item_eligibility_requests:
-                    _items.append(_item_eligibility_requests.to_dict())
+            for _item in self.eligibility_requests:
+                if _item:
+                    _items.append(_item.to_dict())
             _dict['eligibility_requests'] = _items
         # override the default output from pydantic by calling `to_dict()` of response_metadata
         if self.response_metadata:
@@ -93,8 +102,8 @@ class ListEligibility200Response(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "eligibility_requests": [EligibilityApiResponse.from_dict(_item) for _item in obj["eligibility_requests"]] if obj.get("eligibility_requests") is not None else None,
-            "response_metadata": ResponseMetadata.from_dict(obj["response_metadata"]) if obj.get("response_metadata") is not None else None
+            "eligibility_requests": [EligibilityApiResponse.from_dict(_item) for _item in obj.get("eligibility_requests")] if obj.get("eligibility_requests") is not None else None,
+            "response_metadata": ResponseMetadata.from_dict(obj.get("response_metadata")) if obj.get("response_metadata") is not None else None
         })
         return _obj
 

@@ -12,6 +12,7 @@
     Do not edit the class manually.
 """  # noqa: E501
 
+
 # import models into model package
 from cardscan_client.models.address import Address
 from cardscan_client.models.address_type import AddressType
@@ -52,11 +53,11 @@ from cardscan_client.models.eligibility_websocket_event import EligibilityWebsoc
 from cardscan_client.models.enriched_address_result_inner import EnrichedAddressResultInner
 from cardscan_client.models.enriched_copay_result_inner import EnrichedCopayResultInner
 from cardscan_client.models.enriched_phone_number_result_inner import EnrichedPhoneNumberResultInner
-from cardscan_client.models.generate_card_upload_url200_response import GenerateCardUploadUrl200Response
 from cardscan_client.models.generate_card_upload_url_request import GenerateCardUploadUrlRequest
 from cardscan_client.models.generate_magic_link200_response import GenerateMagicLink200Response
 from cardscan_client.models.get_access_token200_response import GetAccessToken200Response
-from cardscan_client.models.get_access_token500_response import GetAccessToken500Response
+from cardscan_client.models.inline_object import InlineObject
+from cardscan_client.models.inline_object1 import InlineObject1
 from cardscan_client.models.list_eligibility200_response import ListEligibility200Response
 from cardscan_client.models.match_score import MatchScore
 from cardscan_client.models.model_error import ModelError
@@ -100,4 +101,3 @@ from cardscan_client.models.webhook_eligibility_deleted_event import WebhookElig
 from cardscan_client.models.webhook_eligibility_error_event import WebhookEligibilityErrorEvent
 from cardscan_client.models.webhook_eligibility_error_event_error import WebhookEligibilityErrorEventError
 from cardscan_client.models.websocket_error import WebsocketError
-

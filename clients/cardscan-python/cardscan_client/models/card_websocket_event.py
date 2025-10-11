@@ -18,21 +18,21 @@ import re  # noqa: F401
 import json
 
 from datetime import datetime
-from pydantic import BaseModel, ConfigDict, StrictStr, field_validator
-from typing import Any, ClassVar, Dict, List, Optional
+from pydantic import BaseModel, ConfigDict, Field, field_validator, StrictBool, StrictStr, StrictInt, StrictFloat
+from typing import Any, ClassVar, Dict, List, Optional, Union
 from uuid import UUID
+from typing import Optional, Set
+from typing_extensions import Self, Annotated
 from cardscan_client.models.card_state import CardState
 from cardscan_client.models.websocket_error import WebsocketError
-from typing import Optional, Set
-from typing_extensions import Self
 
 class CardWebsocketEvent(BaseModel):
     """
     CardWebsocketEvent
-    """ # noqa: E501
+    """
     event_id: StrictStr
     type: StrictStr
-    card_id: UUID
+    card_id: StrictStr
     state: CardState
     created_at: datetime
     session_id: Optional[StrictStr] = None
@@ -42,7 +42,7 @@ class CardWebsocketEvent(BaseModel):
     @field_validator('type')
     def type_validate_enum(cls, value):
         """Validates the enum"""
-        if value not in set(['card']):
+        if value not in ('card'):
             raise ValueError("must be one of enum values ('card')")
         return value
 
@@ -52,10 +52,16 @@ class CardWebsocketEvent(BaseModel):
         protected_namespaces=(),
     )
 
-
     def to_str(self) -> str:
         """Returns the string representation of the model using alias"""
         return pprint.pformat(self.model_dump(by_alias=True))
+
+    def _json_serializer(self, obj):
+        """JSON serializer function for datetime objects"""
+        if isinstance(obj, datetime):
+            return obj.isoformat()
+
+        raise TypeError(f"Type {type(obj)} not serializable")
 
     def to_json(self) -> str:
         """Returns the JSON representation of the model using alias"""
@@ -63,7 +69,7 @@ class CardWebsocketEvent(BaseModel):
         return json.dumps(self.to_dict())
 
     @classmethod
-    def from_json(cls, json_str: str) -> Optional[Self]:
+    def from_json(cls, json_str: str) -> CardWebsocketEvent:
         """Create an instance of CardWebsocketEvent from a JSON string"""
         return cls.from_dict(json.loads(json_str))
 
@@ -78,6 +84,7 @@ class CardWebsocketEvent(BaseModel):
           are ignored.
         """
         excluded_fields: Set[str] = set([
+
         ])
 
         _dict = self.model_dump(
@@ -106,7 +113,7 @@ class CardWebsocketEvent(BaseModel):
             "state": obj.get("state"),
             "created_at": obj.get("created_at"),
             "session_id": obj.get("session_id"),
-            "error": WebsocketError.from_dict(obj["error"]) if obj.get("error") is not None else None
+            "error": WebsocketError.from_dict(obj.get("error")) if obj.get("error") is not None else None
         })
         return _obj
 

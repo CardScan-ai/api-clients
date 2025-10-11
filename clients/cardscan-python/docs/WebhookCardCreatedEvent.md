@@ -3,7 +3,6 @@
 Triggered when a new insurance card is created at the start of a scanning attempt.
 
 ## Properties
-
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **card_id** | **str** | Unique identifier for the created card. | 
@@ -25,12 +24,12 @@ json = "{}"
 # create an instance of WebhookCardCreatedEvent from a JSON string
 webhook_card_created_event_instance = WebhookCardCreatedEvent.from_json(json)
 # print the JSON string representation of the object
-print(WebhookCardCreatedEvent.to_json())
+print WebhookCardCreatedEvent.to_json()
 
 # convert the object into a dict
 webhook_card_created_event_dict = webhook_card_created_event_instance.to_dict()
 # create an instance of WebhookCardCreatedEvent from a dict
-webhook_card_created_event_from_dict = WebhookCardCreatedEvent.from_dict(webhook_card_created_event_dict)
+webhook_card_created_event_form_dict = webhook_card_created_event.from_dict(webhook_card_created_event_dict)
 ```
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

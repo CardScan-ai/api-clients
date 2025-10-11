@@ -17,18 +17,20 @@ import pprint
 import re  # noqa: F401
 import json
 
-from pydantic import BaseModel, ConfigDict, Field, StrictStr, field_validator
-from typing import Any, ClassVar, Dict, List, Optional
+from datetime import datetime
+from pydantic import BaseModel, ConfigDict, Field, field_validator, StrictBool, StrictStr, StrictInt, StrictFloat
+from typing import Any, ClassVar, Dict, List, Optional, Union
+from uuid import UUID
+from typing import Optional, Set
+from typing_extensions import Self, Annotated
 from cardscan_client.models.enriched_address_result_inner import EnrichedAddressResultInner
 from cardscan_client.models.enriched_copay_result_inner import EnrichedCopayResultInner
 from cardscan_client.models.enriched_phone_number_result_inner import EnrichedPhoneNumberResultInner
-from typing import Optional, Set
-from typing_extensions import Self
 
 class CardApiResponseEnrichedResults(BaseModel):
     """
-    Enriched data extracted from the insurance card using AI processing
-    """ # noqa: E501
+    Enriched data extracted from the insurance card using AI processing  # noqa: E501
+    """
     addresses: Optional[List[EnrichedAddressResultInner]] = None
     phone_numbers: Optional[List[EnrichedPhoneNumberResultInner]] = None
     copays_deductibles: Optional[List[EnrichedCopayResultInner]] = None
@@ -41,7 +43,7 @@ class CardApiResponseEnrichedResults(BaseModel):
         if value is None:
             return value
 
-        if value not in set(['front_only', 'both']):
+        if value not in ('front_only', 'both'):
             raise ValueError("must be one of enum values ('front_only', 'both')")
         return value
 
@@ -51,10 +53,16 @@ class CardApiResponseEnrichedResults(BaseModel):
         protected_namespaces=(),
     )
 
-
     def to_str(self) -> str:
         """Returns the string representation of the model using alias"""
         return pprint.pformat(self.model_dump(by_alias=True))
+
+    def _json_serializer(self, obj):
+        """JSON serializer function for datetime objects"""
+        if isinstance(obj, datetime):
+            return obj.isoformat()
+
+        raise TypeError(f"Type {type(obj)} not serializable")
 
     def to_json(self) -> str:
         """Returns the JSON representation of the model using alias"""
@@ -62,7 +70,7 @@ class CardApiResponseEnrichedResults(BaseModel):
         return json.dumps(self.to_dict())
 
     @classmethod
-    def from_json(cls, json_str: str) -> Optional[Self]:
+    def from_json(cls, json_str: str) -> CardApiResponseEnrichedResults:
         """Create an instance of CardApiResponseEnrichedResults from a JSON string"""
         return cls.from_dict(json.loads(json_str))
 
@@ -77,6 +85,7 @@ class CardApiResponseEnrichedResults(BaseModel):
           are ignored.
         """
         excluded_fields: Set[str] = set([
+
         ])
 
         _dict = self.model_dump(
@@ -87,23 +96,23 @@ class CardApiResponseEnrichedResults(BaseModel):
         # override the default output from pydantic by calling `to_dict()` of each item in addresses (list)
         _items = []
         if self.addresses:
-            for _item_addresses in self.addresses:
-                if _item_addresses:
-                    _items.append(_item_addresses.to_dict())
+            for _item in self.addresses:
+                if _item:
+                    _items.append(_item.to_dict())
             _dict['addresses'] = _items
         # override the default output from pydantic by calling `to_dict()` of each item in phone_numbers (list)
         _items = []
         if self.phone_numbers:
-            for _item_phone_numbers in self.phone_numbers:
-                if _item_phone_numbers:
-                    _items.append(_item_phone_numbers.to_dict())
+            for _item in self.phone_numbers:
+                if _item:
+                    _items.append(_item.to_dict())
             _dict['phone_numbers'] = _items
         # override the default output from pydantic by calling `to_dict()` of each item in copays_deductibles (list)
         _items = []
         if self.copays_deductibles:
-            for _item_copays_deductibles in self.copays_deductibles:
-                if _item_copays_deductibles:
-                    _items.append(_item_copays_deductibles.to_dict())
+            for _item in self.copays_deductibles:
+                if _item:
+                    _items.append(_item.to_dict())
             _dict['copays_deductibles'] = _items
         return _dict
 
@@ -117,9 +126,9 @@ class CardApiResponseEnrichedResults(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "addresses": [EnrichedAddressResultInner.from_dict(_item) for _item in obj["addresses"]] if obj.get("addresses") is not None else None,
-            "phone_numbers": [EnrichedPhoneNumberResultInner.from_dict(_item) for _item in obj["phone_numbers"]] if obj.get("phone_numbers") is not None else None,
-            "copays_deductibles": [EnrichedCopayResultInner.from_dict(_item) for _item in obj["copays_deductibles"]] if obj.get("copays_deductibles") is not None else None,
+            "addresses": [EnrichedAddressResultInner.from_dict(_item) for _item in obj.get("addresses")] if obj.get("addresses") is not None else None,
+            "phone_numbers": [EnrichedPhoneNumberResultInner.from_dict(_item) for _item in obj.get("phone_numbers")] if obj.get("phone_numbers") is not None else None,
+            "copays_deductibles": [EnrichedCopayResultInner.from_dict(_item) for _item in obj.get("copays_deductibles")] if obj.get("copays_deductibles") is not None else None,
             "processed_sides": obj.get("processed_sides")
         })
         return _obj

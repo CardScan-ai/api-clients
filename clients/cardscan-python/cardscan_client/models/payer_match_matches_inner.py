@@ -17,16 +17,18 @@ import pprint
 import re  # noqa: F401
 import json
 
-from pydantic import BaseModel, ConfigDict, StrictStr, field_validator
-from typing import Any, ClassVar, Dict, List, Optional
-from cardscan_client.models.payer_match_matches_inner_metadata import PayerMatchMatchesInnerMetadata
+from datetime import datetime
+from pydantic import BaseModel, ConfigDict, Field, field_validator, StrictBool, StrictStr, StrictInt, StrictFloat
+from typing import Any, ClassVar, Dict, List, Optional, Union
+from uuid import UUID
 from typing import Optional, Set
-from typing_extensions import Self
+from typing_extensions import Self, Annotated
+from cardscan_client.models.payer_match_matches_inner_metadata import PayerMatchMatchesInnerMetadata
 
 class PayerMatchMatchesInner(BaseModel):
     """
     PayerMatchMatchesInner
-    """ # noqa: E501
+    """
     clearinghouse: Optional[StrictStr] = None
     payer_id: Optional[StrictStr] = None
     payer_name: Optional[StrictStr] = None
@@ -42,7 +44,7 @@ class PayerMatchMatchesInner(BaseModel):
         if value is None:
             return value
 
-        if value not in set(['professional', 'institutional', 'dental', 'workerscomp']):
+        if value not in ('professional', 'institutional', 'dental', 'workerscomp'):
             raise ValueError("must be one of enum values ('professional', 'institutional', 'dental', 'workerscomp')")
         return value
 
@@ -52,10 +54,16 @@ class PayerMatchMatchesInner(BaseModel):
         protected_namespaces=(),
     )
 
-
     def to_str(self) -> str:
         """Returns the string representation of the model using alias"""
         return pprint.pformat(self.model_dump(by_alias=True))
+
+    def _json_serializer(self, obj):
+        """JSON serializer function for datetime objects"""
+        if isinstance(obj, datetime):
+            return obj.isoformat()
+
+        raise TypeError(f"Type {type(obj)} not serializable")
 
     def to_json(self) -> str:
         """Returns the JSON representation of the model using alias"""
@@ -63,7 +71,7 @@ class PayerMatchMatchesInner(BaseModel):
         return json.dumps(self.to_dict())
 
     @classmethod
-    def from_json(cls, json_str: str) -> Optional[Self]:
+    def from_json(cls, json_str: str) -> PayerMatchMatchesInner:
         """Create an instance of PayerMatchMatchesInner from a JSON string"""
         return cls.from_dict(json.loads(json_str))
 
@@ -78,6 +86,7 @@ class PayerMatchMatchesInner(BaseModel):
           are ignored.
         """
         excluded_fields: Set[str] = set([
+
         ])
 
         _dict = self.model_dump(
@@ -116,7 +125,7 @@ class PayerMatchMatchesInner(BaseModel):
             "score": obj.get("score"),
             "cardscan_payer_id": obj.get("cardscan_payer_id"),
             "transaction_type": obj.get("transaction_type"),
-            "metadata": PayerMatchMatchesInnerMetadata.from_dict(obj["metadata"]) if obj.get("metadata") is not None else None
+            "metadata": PayerMatchMatchesInnerMetadata.from_dict(obj.get("metadata")) if obj.get("metadata") is not None else None
         })
         return _obj
 

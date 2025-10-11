@@ -3,7 +3,6 @@
 Triggered when an eligibility record is deleted.
 
 ## Properties
-
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **eligibility_id** | **str** | Unique identifier for the eligibility record. | 
@@ -25,12 +24,12 @@ json = "{}"
 # create an instance of WebhookEligibilityDeletedEvent from a JSON string
 webhook_eligibility_deleted_event_instance = WebhookEligibilityDeletedEvent.from_json(json)
 # print the JSON string representation of the object
-print(WebhookEligibilityDeletedEvent.to_json())
+print WebhookEligibilityDeletedEvent.to_json()
 
 # convert the object into a dict
 webhook_eligibility_deleted_event_dict = webhook_eligibility_deleted_event_instance.to_dict()
 # create an instance of WebhookEligibilityDeletedEvent from a dict
-webhook_eligibility_deleted_event_from_dict = WebhookEligibilityDeletedEvent.from_dict(webhook_eligibility_deleted_event_dict)
+webhook_eligibility_deleted_event_form_dict = webhook_eligibility_deleted_event.from_dict(webhook_eligibility_deleted_event_dict)
 ```
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

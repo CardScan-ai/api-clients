@@ -2,7 +2,6 @@
 
 
 ## Properties
-
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **var_field** | **str** | The field that caused the error. | [optional] 
@@ -22,12 +21,12 @@ json = "{}"
 # create an instance of EligibilityError from a JSON string
 eligibility_error_instance = EligibilityError.from_json(json)
 # print the JSON string representation of the object
-print(EligibilityError.to_json())
+print EligibilityError.to_json()
 
 # convert the object into a dict
 eligibility_error_dict = eligibility_error_instance.to_dict()
 # create an instance of EligibilityError from a dict
-eligibility_error_from_dict = EligibilityError.from_dict(eligibility_error_dict)
+eligibility_error_form_dict = eligibility_error.from_dict(eligibility_error_dict)
 ```
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

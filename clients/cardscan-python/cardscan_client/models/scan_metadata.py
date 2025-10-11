@@ -17,8 +17,12 @@ import pprint
 import re  # noqa: F401
 import json
 
-from pydantic import BaseModel, ConfigDict, Field, StrictFloat, StrictInt, StrictStr, field_validator
+from datetime import datetime
+from pydantic import BaseModel, ConfigDict, Field, field_validator, StrictBool, StrictStr, StrictInt, StrictFloat
 from typing import Any, ClassVar, Dict, List, Optional, Union
+from uuid import UUID
+from typing import Optional, Set
+from typing_extensions import Self, Annotated
 from cardscan_client.models.scan_metadata_camera_capabilities import ScanMetadataCameraCapabilities
 from cardscan_client.models.scan_metadata_capture_canvas import ScanMetadataCaptureCanvas
 from cardscan_client.models.scan_metadata_capture_score import ScanMetadataCaptureScore
@@ -26,13 +30,11 @@ from cardscan_client.models.scan_metadata_guides import ScanMetadataGuides
 from cardscan_client.models.scan_metadata_video_background import ScanMetadataVideoBackground
 from cardscan_client.models.scan_metadata_video_track import ScanMetadataVideoTrack
 from cardscan_client.models.scan_metadata_window_inner import ScanMetadataWindowInner
-from typing import Optional, Set
-from typing_extensions import Self
 
 class ScanMetadata(BaseModel):
     """
     ScanMetadata
-    """ # noqa: E501
+    """
     capture_type: Optional[StrictStr] = Field(default=None, description="The type of capture (automatic or manual)", alias="captureType")
     guides: Optional[ScanMetadataGuides] = None
     capture_canvas: Optional[ScanMetadataCaptureCanvas] = Field(default=None, alias="captureCanvas")
@@ -53,7 +55,7 @@ class ScanMetadata(BaseModel):
         if value is None:
             return value
 
-        if value not in set(['automatic', 'manual']):
+        if value not in ('automatic', 'manual'):
             raise ValueError("must be one of enum values ('automatic', 'manual')")
         return value
 
@@ -63,10 +65,16 @@ class ScanMetadata(BaseModel):
         protected_namespaces=(),
     )
 
-
     def to_str(self) -> str:
         """Returns the string representation of the model using alias"""
         return pprint.pformat(self.model_dump(by_alias=True))
+
+    def _json_serializer(self, obj):
+        """JSON serializer function for datetime objects"""
+        if isinstance(obj, datetime):
+            return obj.isoformat()
+
+        raise TypeError(f"Type {type(obj)} not serializable")
 
     def to_json(self) -> str:
         """Returns the JSON representation of the model using alias"""
@@ -74,7 +82,7 @@ class ScanMetadata(BaseModel):
         return json.dumps(self.to_dict())
 
     @classmethod
-    def from_json(cls, json_str: str) -> Optional[Self]:
+    def from_json(cls, json_str: str) -> ScanMetadata:
         """Create an instance of ScanMetadata from a JSON string"""
         return cls.from_dict(json.loads(json_str))
 
@@ -89,6 +97,7 @@ class ScanMetadata(BaseModel):
           are ignored.
         """
         excluded_fields: Set[str] = set([
+
         ])
 
         _dict = self.model_dump(
@@ -129,18 +138,18 @@ class ScanMetadata(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "captureType": obj.get("captureType"),
-            "guides": ScanMetadataGuides.from_dict(obj["guides"]) if obj.get("guides") is not None else None,
-            "captureCanvas": ScanMetadataCaptureCanvas.from_dict(obj["captureCanvas"]) if obj.get("captureCanvas") is not None else None,
-            "videoBackground": ScanMetadataVideoBackground.from_dict(obj["videoBackground"]) if obj.get("videoBackground") is not None else None,
-            "windowInner": ScanMetadataWindowInner.from_dict(obj["windowInner"]) if obj.get("windowInner") is not None else None,
-            "mlThreshold": obj.get("mlThreshold"),
-            "laplacianThreshold": obj.get("laplacianThreshold"),
+            "capture_type": obj.get("captureType"),
+            "guides": ScanMetadataGuides.from_dict(obj.get("guides")) if obj.get("guides") is not None else None,
+            "capture_canvas": ScanMetadataCaptureCanvas.from_dict(obj.get("captureCanvas")) if obj.get("captureCanvas") is not None else None,
+            "video_background": ScanMetadataVideoBackground.from_dict(obj.get("videoBackground")) if obj.get("videoBackground") is not None else None,
+            "window_inner": ScanMetadataWindowInner.from_dict(obj.get("windowInner")) if obj.get("windowInner") is not None else None,
+            "ml_threshold": obj.get("mlThreshold"),
+            "laplacian_threshold": obj.get("laplacianThreshold"),
             "package_name": obj.get("package_name"),
             "package_version": obj.get("package_version"),
-            "videoTrack": ScanMetadataVideoTrack.from_dict(obj["videoTrack"]) if obj.get("videoTrack") is not None else None,
-            "cameraCapabilities": ScanMetadataCameraCapabilities.from_dict(obj["cameraCapabilities"]) if obj.get("cameraCapabilities") is not None else None,
-            "capture_score": ScanMetadataCaptureScore.from_dict(obj["capture_score"]) if obj.get("capture_score") is not None else None
+            "video_track": ScanMetadataVideoTrack.from_dict(obj.get("videoTrack")) if obj.get("videoTrack") is not None else None,
+            "camera_capabilities": ScanMetadataCameraCapabilities.from_dict(obj.get("cameraCapabilities")) if obj.get("cameraCapabilities") is not None else None,
+            "capture_score": ScanMetadataCaptureScore.from_dict(obj.get("capture_score")) if obj.get("capture_score") is not None else None
         })
         return _obj
 
