@@ -13,6 +13,7 @@ jobs:
   test-python-client:
     name: Test Python Client
     runs-on: ubuntu-latest
+    timeout-minutes: 10
     outputs:
       PYTHON_PASSED: ${{ steps.test_results.outputs.PYTHON_PASSED }}
       PYTHON_FAILED: ${{ steps.test_results.outputs.PYTHON_FAILED }}
@@ -58,6 +59,7 @@ jobs:
   test-python-sandbox:
     name: Test Python Client (Sandbox Integration)
     runs-on: ubuntu-latest
+    timeout-minutes: 15
     if: github.event_name == 'workflow_dispatch' || (github.event_name == 'push' && github.ref == 'refs/heads/main') || github.event_name == 'schedule'
     
     steps:
@@ -89,6 +91,7 @@ jobs:
   test-typescript-client:
     name: Test TypeScript Client
     runs-on: ubuntu-latest
+    timeout-minutes: 8
     outputs:
       TS_PASSED: ${{ steps.test_results.outputs.TS_PASSED }}
       TS_FAILED: ${{ steps.test_results.outputs.TS_FAILED }}
@@ -130,6 +133,7 @@ jobs:
   test-typescript-sandbox:
     name: Test TypeScript Client (Sandbox Integration)
     runs-on: ubuntu-latest
+    timeout-minutes: 15
     if: github.event_name == 'workflow_dispatch' || (github.event_name == 'push' && github.ref == 'refs/heads/main') || github.event_name == 'schedule'
     
     steps:
@@ -158,6 +162,7 @@ jobs:
   test-kotlin-client:
     name: Test Kotlin Client
     runs-on: ubuntu-latest
+    timeout-minutes: 10
     outputs:
       KOTLIN_PASSED: ${{ steps.test_results.outputs.KOTLIN_PASSED }}
       KOTLIN_FAILED: ${{ steps.test_results.outputs.KOTLIN_FAILED }}
@@ -194,6 +199,7 @@ jobs:
   test-dart-client:
     name: Test Dart Client
     runs-on: ubuntu-latest
+    timeout-minutes: 10
     outputs:
       DART_PASSED: ${{ steps.test_results.outputs.DART_PASSED }}
       DART_FAILED: ${{ steps.test_results.outputs.DART_FAILED }}
@@ -249,6 +255,7 @@ jobs:
   test-swift-client:
     name: Test Swift Client
     runs-on: macos-latest
+    timeout-minutes: 12
     outputs:
       SWIFT_PASSED: ${{ steps.test_results.outputs.SWIFT_PASSED }}
       SWIFT_FAILED: ${{ steps.test_results.outputs.SWIFT_FAILED }}
@@ -277,6 +284,7 @@ jobs:
   test-kotlin-sandbox:
     name: Test Kotlin Client (Sandbox Integration)
     runs-on: ubuntu-latest
+    timeout-minutes: 15
     if: github.event_name == 'workflow_dispatch' || (github.event_name == 'push' && github.ref == 'refs/heads/main') || github.event_name == 'schedule'
     
     steps:
@@ -305,6 +313,7 @@ jobs:
   test-dart-sandbox:
     name: Test Dart Client (Sandbox Integration)
     runs-on: ubuntu-latest
+    timeout-minutes: 15
     if: github.event_name == 'workflow_dispatch' || (github.event_name == 'push' && github.ref == 'refs/heads/main') || github.event_name == 'schedule'
     
     steps:
@@ -333,6 +342,7 @@ jobs:
   test-swift-sandbox:
     name: Test Swift Client (Sandbox Integration)
     runs-on: macos-latest
+    timeout-minutes: 18
     if: github.event_name == 'workflow_dispatch' || (github.event_name == 'push' && github.ref == 'refs/heads/main') || github.event_name == 'schedule'
     
     steps:
@@ -351,6 +361,7 @@ jobs:
   test-fixtures-consistency:
     name: Validate Test Fixtures
     runs-on: ubuntu-latest
+    timeout-minutes: 5
     
     steps:
     - name: Checkout code
@@ -405,6 +416,7 @@ jobs:
   summary:
     name: Test Summary
     runs-on: ubuntu-latest
+    timeout-minutes: 3
     needs: [test-python-client, test-typescript-client, test-kotlin-client, test-dart-client, test-swift-client, test-fixtures-consistency]
     if: always()
     

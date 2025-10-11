@@ -7,6 +7,7 @@ on:
 jobs:
   check_changes:
     runs-on: ubuntu-latest
+    timeout-minutes: 3
     outputs:
       oas_changed: ${{ steps.filter.outputs.oas }}
       ts_changed: ${{ steps.filter.outputs.ts }}
@@ -29,6 +30,7 @@ jobs:
             - 'openapi.yaml'
   build-test-ts:
     runs-on: ubuntu-latest
+    timeout-minutes: 8
     needs: check_changes
     if: ${{ needs.check_changes.outputs.ts_changed == 'true' || needs.check_changes.outputs.oas_changed == 'true' }}
     steps:
@@ -46,6 +48,7 @@ jobs:
 
   build-test-python:
     runs-on: ubuntu-latest
+    timeout-minutes: 10
     needs: check_changes
     if: ${{ needs.check_changes.outputs.py_changed == 'true' || needs.check_changes.outputs.oas_changed == 'true' }}
     steps:
@@ -66,6 +69,7 @@ jobs:
       run: poetry build
   set-check-run:
     runs-on: ubuntu-latest
+    timeout-minutes: 3
     if: ${{ needs.check_changes.outputs.py_changed == 'true' }}
     steps:
     - name: Create a check run for build-test-python

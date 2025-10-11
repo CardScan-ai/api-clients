@@ -31,6 +31,7 @@ on:
 jobs:
   detect-changes:
     runs-on: ubuntu-latest
+    timeout-minutes: 3
     outputs:
       should_regenerate: ${{ steps.check.outputs.should_regenerate }}
       should_version_bump: ${{ steps.check.outputs.should_version_bump }}
@@ -108,6 +109,7 @@ jobs:
 
   regenerate:
     runs-on: ubuntu-latest
+    timeout-minutes: 10
     needs: detect-changes
     if: needs.detect-changes.outputs.should_regenerate == 'true'
     steps:
@@ -153,6 +155,7 @@ jobs:
 
   version-bump:
     runs-on: ubuntu-latest
+    timeout-minutes: 3
     needs: [detect-changes, regenerate]
     if: always() && needs.detect-changes.outputs.should_version_bump == 'true' && needs.detect-changes.outputs.is_merged_pr == 'true' && (needs.regenerate.result == 'success' || needs.regenerate.result == 'skipped')
     steps:
