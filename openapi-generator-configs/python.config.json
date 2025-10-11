@@ -1,4 +1,10 @@
 {
   "packageName": "cardscan_client",
-  "projectName": "cardscan-client"
+  "projectName": "cardscan-client",
+  "typeMappings": {
+    "binary": "bytes",
+    "ByteArray": "bytes",
+    "file": "bytes"
+  },
+  "languageSpecificPrimitives": ["bytes"]
 }

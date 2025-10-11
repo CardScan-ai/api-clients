@@ -118,7 +118,7 @@ jobs:
       - name: Generate Python Client
         uses: openapi-generators/openapitools-generator-action@v1
         with:
-          generator: python-pydantic-v1
+          generator: python
           openapi-file: openapi.yaml
           config-file: openapi-generator-configs/python.config.json
           template-dir: templates/python-template

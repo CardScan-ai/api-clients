@@ -277,13 +277,18 @@ class SandboxIntegrationTest {
     final baseUrl = sandboxConfig['baseUrl'];
     if (baseUrl != null && baseUrl.isNotEmpty) {
       try {
-        final healthUrl = Uri.parse('$baseUrl/health');
-        final response = await http.get(healthUrl).timeout(Duration(seconds: 10));
+        final pingUrl = Uri.parse('$baseUrl/ping');
+        final response = await http.get(pingUrl).timeout(Duration(seconds: 10));
         
-        if ([200, 404, 401].contains(response.statusCode)) {
-          print('✅ Sandbox connectivity test passed (HTTP ${response.statusCode})');
+        if (response.statusCode == 200) {
+          final data = jsonDecode(response.body);
+          if (data['timestamp'] != null) {
+            print('✅ Sandbox connectivity test passed - ping returned timestamp');
+          } else {
+            print('⚠️  Sandbox connectivity test - unexpected response: ${response.body}');
+          }
         } else {
-          print('⚠️  Sandbox connectivity test - unexpected response: ${response.statusCode}');
+          print('⚠️  Sandbox connectivity test - HTTP ${response.statusCode}');
         }
       } catch (e) {
         print('⚠️  Cannot test sandbox connectivity: $e');

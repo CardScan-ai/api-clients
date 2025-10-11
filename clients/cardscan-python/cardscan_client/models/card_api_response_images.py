@@ -17,9 +17,12 @@ import pprint
 import re  # noqa: F401
 import json
 
-
-from typing import Optional
-from pydantic import BaseModel
+from datetime import datetime
+from pydantic import BaseModel, ConfigDict, Field, field_validator, StrictBool, StrictStr, StrictInt, StrictFloat
+from typing import Any, ClassVar, Dict, List, Optional, Union
+from uuid import UUID
+from typing import Optional, Set
+from typing_extensions import Self, Annotated
 from cardscan_client.models.card_api_response_images_back import CardApiResponseImagesBack
 from cardscan_client.models.card_api_response_images_front import CardApiResponseImagesFront
 
@@ -29,16 +32,17 @@ class CardApiResponseImages(BaseModel):
     """
     front: Optional[CardApiResponseImagesFront] = None
     back: Optional[CardApiResponseImagesBack] = None
-    __properties = ["front", "back"]
+    __properties: ClassVar[List[str]] = ["front", "back"]
 
-    class Config:
-        """Pydantic configuration"""
-        allow_population_by_field_name = True
-        validate_assignment = True
+    model_config = ConfigDict(
+        populate_by_name=True,
+        validate_assignment=True,
+        protected_namespaces=(),
+    )
 
     def to_str(self) -> str:
         """Returns the string representation of the model using alias"""
-        return pprint.pformat(self.dict(by_alias=True))
+        return pprint.pformat(self.model_dump(by_alias=True))
 
     def _json_serializer(self, obj):
         """JSON serializer function for datetime objects"""
@@ -49,19 +53,33 @@ class CardApiResponseImages(BaseModel):
 
     def to_json(self) -> str:
         """Returns the JSON representation of the model using alias"""
-        return json.dumps(self.to_dict(), default=self._json_serializer)
+        # TODO: pydantic v2: use .model_dump_json(by_alias=True, exclude_unset=True) instead
+        return json.dumps(self.to_dict())
 
     @classmethod
     def from_json(cls, json_str: str) -> CardApiResponseImages:
         """Create an instance of CardApiResponseImages from a JSON string"""
         return cls.from_dict(json.loads(json_str))
 
-    def to_dict(self):
-        """Returns the dictionary representation of the model using alias"""
-        _dict = self.dict(by_alias=True,
-                          exclude={
-                          },
-                          exclude_none=True)
+    def to_dict(self) -> Dict[str, Any]:
+        """Return the dictionary representation of the model using alias.
+
+        This has the following differences from calling pydantic's
+        `self.model_dump(by_alias=True)`:
+
+        * `None` is only added to the output dict for nullable fields that
+          were set at model initialization. Other fields with value `None`
+          are ignored.
+        """
+        excluded_fields: Set[str] = set([
+
+        ])
+
+        _dict = self.model_dump(
+            by_alias=True,
+            exclude=excluded_fields,
+            exclude_none=True,
+        )
         # override the default output from pydantic by calling `to_dict()` of front
         if self.front:
             _dict['front'] = self.front.to_dict()
@@ -71,15 +89,15 @@ class CardApiResponseImages(BaseModel):
         return _dict
 
     @classmethod
-    def from_dict(cls, obj: dict) -> CardApiResponseImages:
+    def from_dict(cls, obj: Optional[Dict[str, Any]]) -> Optional[Self]:
         """Create an instance of CardApiResponseImages from a dict"""
         if obj is None:
             return None
 
         if not isinstance(obj, dict):
-            return CardApiResponseImages.parse_obj(obj)
+            return cls.model_validate(obj)
 
-        _obj = CardApiResponseImages.parse_obj({
+        _obj = cls.model_validate({
             "front": CardApiResponseImagesFront.from_dict(obj.get("front")) if obj.get("front") is not None else None,
             "back": CardApiResponseImagesBack.from_dict(obj.get("back")) if obj.get("back") is not None else None
         })

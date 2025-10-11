@@ -153,12 +153,14 @@ describe('Live Sandbox Integration', () => {
 
     // Simple connectivity check
     try {
-      const response = await fetch(`${SANDBOX_CONFIG.basePath}/health`, {
+      const response = await fetch(`${SANDBOX_CONFIG.basePath}/ping`, {
         method: 'GET',
       });
       
-      // May be 404 if no health endpoint, but should connect
-      expect([200, 404, 401]).toContain(response.status);
+      // Should return 200 OK with timestamp
+      expect(response.status).toBe(200);
+      const data = await response.json();
+      expect(data).toHaveProperty('timestamp');
     } catch (error) {
       fail(`Cannot connect to sandbox server: ${error}`);
     }

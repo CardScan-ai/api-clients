@@ -428,7 +428,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **generate_card_upload_url**
-> GenerateCardUploadUrl200Response generate_card_upload_url(card_id, expiration=expiration, generate_card_upload_url_request=generate_card_upload_url_request)
+> InlineObject1 generate_card_upload_url(card_id, expiration=expiration, generate_card_upload_url_request=generate_card_upload_url_request)
 
 Card - Generate Upload URL
 
@@ -439,8 +439,8 @@ Card - Generate Upload URL
 import time
 import os
 import cardscan_client
-from cardscan_client.models.generate_card_upload_url200_response import GenerateCardUploadUrl200Response
 from cardscan_client.models.generate_card_upload_url_request import GenerateCardUploadUrlRequest
+from cardscan_client.models.inline_object1 import InlineObject1
 from cardscan_client.rest import ApiException
 from pprint import pprint
 
@@ -489,7 +489,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**GenerateCardUploadUrl200Response**](GenerateCardUploadUrl200Response.md)
+[**InlineObject1**](InlineObject1.md)
 
 ### Authorization
 
@@ -586,7 +586,7 @@ This endpoint does not need any parameter.
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **generate_upload_url**
-> GenerateCardUploadUrl200Response generate_upload_url(expiration)
+> InlineObject1 generate_upload_url(expiration)
 
 Generate an upload URL
 
@@ -597,7 +597,7 @@ Generate an upload URL
 import time
 import os
 import cardscan_client
-from cardscan_client.models.generate_card_upload_url200_response import GenerateCardUploadUrl200Response
+from cardscan_client.models.inline_object1 import InlineObject1
 from cardscan_client.rest import ApiException
 from pprint import pprint
 
@@ -642,7 +642,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**GenerateCardUploadUrl200Response**](GenerateCardUploadUrl200Response.md)
+[**InlineObject1**](InlineObject1.md)
 
 ### Authorization
 

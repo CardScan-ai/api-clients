@@ -4,7 +4,7 @@
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**field** | **str** | The field that caused the error. | [optional] 
+**var_field** | **str** | The field that caused the error. | [optional] 
 **code** | **str** | The error code. | [optional] 
 **description** | **str** | A description of the error. | [optional] 
 **followup_action** | **str** | Suggested follow-up action for the error. | [optional] 

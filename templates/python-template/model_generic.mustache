@@ -3,9 +3,12 @@ import pprint
 import re  # noqa: F401
 import json
 
-{{#vendorExtensions.x-py-datetime-imports}}{{#-first}}from datetime import{{/-first}} {{{.}}}{{^-last}},{{/-last}}{{/vendorExtensions.x-py-datetime-imports}}
-{{#vendorExtensions.x-py-typing-imports}}{{#-first}}from typing import{{/-first}} {{{.}}}{{^-last}},{{/-last}}{{/vendorExtensions.x-py-typing-imports}}
-{{#vendorExtensions.x-py-pydantic-imports}}{{#-first}}from pydantic import{{/-first}} {{{.}}}{{^-last}},{{/-last}}{{/vendorExtensions.x-py-pydantic-imports}}
+from datetime import datetime{{#vendorExtensions.x-py-datetime-imports}}, {{{.}}}{{/vendorExtensions.x-py-datetime-imports}}
+from pydantic import BaseModel, ConfigDict, Field, field_validator, StrictBool, StrictStr, StrictInt, StrictFloat{{#vendorExtensions.x-py-pydantic-imports}}, {{{.}}}{{/vendorExtensions.x-py-pydantic-imports}}
+from typing import Any, ClassVar, Dict, List, Optional, Union{{#vendorExtensions.x-py-typing-imports}}, {{{.}}}{{/vendorExtensions.x-py-typing-imports}}
+from uuid import UUID
+from typing import Optional, Set
+from typing_extensions import Self, Annotated
 {{#vendorExtensions.x-py-model-imports}}
 {{{.}}}
 {{/vendorExtensions.x-py-model-imports}}
@@ -20,11 +23,11 @@ class {{classname}}({{#parent}}{{{.}}}{{/parent}}{{^parent}}BaseModel{{/parent}}
 {{#isAdditionalPropertiesTrue}}
     additional_properties: Dict[str, Any] = {}
 {{/isAdditionalPropertiesTrue}}
-    __properties = [{{#allVars}}"{{baseName}}"{{^-last}}, {{/-last}}{{/allVars}}]
+    __properties: ClassVar[List[str]] = [{{#allVars}}"{{baseName}}"{{^-last}}, {{/-last}}{{/allVars}}]
 {{#vars}}
     {{#vendorExtensions.x-regex}}
 
-    @validator('{{{name}}}')
+    @field_validator('{{{name}}}')
     def {{{name}}}_validate_regular_expression(cls, value):
         """Validates the regular expression"""
         {{^required}}
@@ -45,7 +48,7 @@ class {{classname}}({{#parent}}{{{.}}}{{/parent}}{{^parent}}BaseModel{{/parent}}
     {{/vendorExtensions.x-regex}}
     {{#isEnum}}
 
-    @validator('{{{name}}}')
+    @field_validator('{{{name}}}')
     def {{{name}}}_validate_enum(cls, value):
         """Validates the enum"""
         {{^required}}
@@ -73,10 +76,11 @@ class {{classname}}({{#parent}}{{{.}}}{{/parent}}{{^parent}}BaseModel{{/parent}}
     {{/isEnum}}
 {{/vars}}
 
-    class Config:
-        """Pydantic configuration"""
-        allow_population_by_field_name = True
-        validate_assignment = True
+    model_config = ConfigDict(
+        populate_by_name=True,
+        validate_assignment=True,
+        protected_namespaces=(),
+    )
 
 {{#hasChildren}}
 {{#discriminator}}
@@ -107,7 +111,7 @@ class {{classname}}({{#parent}}{{{.}}}{{/parent}}{{^parent}}BaseModel{{/parent}}
 {{/hasChildren}}
     def to_str(self) -> str:
         """Returns the string representation of the model using alias"""
-        return pprint.pformat(self.dict(by_alias=True))
+        return pprint.pformat(self.model_dump(by_alias=True))
 
     def _json_serializer(self, obj):
         """JSON serializer function for datetime objects"""
@@ -118,25 +122,39 @@ class {{classname}}({{#parent}}{{{.}}}{{/parent}}{{^parent}}BaseModel{{/parent}}
 
     def to_json(self) -> str:
         """Returns the JSON representation of the model using alias"""
-        return json.dumps(self.to_dict(), default=self._json_serializer)
+        # TODO: pydantic v2: use .model_dump_json(by_alias=True, exclude_unset=True) instead
+        return json.dumps(self.to_dict())
 
     @classmethod
     def from_json(cls, json_str: str) -> {{^hasChildren}}{{{classname}}}{{/hasChildren}}{{#hasChildren}}{{#discriminator}}Union({{#children}}{{{classname}}}{{^-last}}, {{/-last}}{{/children}}){{/discriminator}}{{^discriminator}}{{{classname}}}{{/discriminator}}{{/hasChildren}}:
         """Create an instance of {{{classname}}} from a JSON string"""
         return cls.from_dict(json.loads(json_str))
 
-    def to_dict(self):
-        """Returns the dictionary representation of the model using alias"""
-        _dict = self.dict(by_alias=True,
-                          exclude={
+    def to_dict(self) -> Dict[str, Any]:
+        """Return the dictionary representation of the model using alias.
+
+        This has the following differences from calling pydantic's
+        `self.model_dump(by_alias=True)`:
+
+        * `None` is only added to the output dict for nullable fields that
+          were set at model initialization. Other fields with value `None`
+          are ignored.
+        """
+        excluded_fields: Set[str] = set([
+
                             {{#vendorExtensions.x-py-readonly}}
                             "{{{.}}}",
                             {{/vendorExtensions.x-py-readonly}}
                             {{#isAdditionalPropertiesTrue}}
                             "additional_properties"
                             {{/isAdditionalPropertiesTrue}}
-                          },
-                          exclude_none=True)
+        ])
+
+        _dict = self.model_dump(
+            by_alias=True,
+            exclude=excluded_fields,
+            exclude_none=True,
+        )
         {{#allVars}}
         {{#isContainer}}
         {{#isArray}}
@@ -214,8 +232,8 @@ class {{classname}}({{#parent}}{{{.}}}{{/parent}}{{^parent}}BaseModel{{/parent}}
         {{#allVars}}
         {{#isNullable}}
         # set to None if {{{name}}} (nullable) is None
-        # and __fields_set__ contains the field
-        if self.{{name}} is None and "{{{name}}}" in self.__fields_set__:
+        # and model_fields_set contains the field
+        if self.{{name}} is None and "{{{name}}}" in self.model_fields_set:
             _dict['{{{baseName}}}'] = None
 
         {{/isNullable}}
@@ -223,7 +241,7 @@ class {{classname}}({{#parent}}{{{.}}}{{/parent}}{{^parent}}BaseModel{{/parent}}
         return _dict
 
     @classmethod
-    def from_dict(cls, obj: dict) -> {{^hasChildren}}{{{classname}}}{{/hasChildren}}{{#hasChildren}}{{#discriminator}}Union({{#children}}{{{classname}}}{{^-last}}, {{/-last}}{{/children}}){{/discriminator}}{{^discriminator}}{{{classname}}}{{/discriminator}}{{/hasChildren}}:
+    def from_dict(cls, obj: Optional[Dict[str, Any]]) -> Optional[Self]:
         """Create an instance of {{{classname}}} from a dict"""
         {{#hasChildren}}
         {{#discriminator}}
@@ -243,7 +261,7 @@ class {{classname}}({{#parent}}{{{.}}}{{/parent}}{{^parent}}BaseModel{{/parent}}
             return None
 
         if not isinstance(obj, dict):
-            return {{{classname}}}.parse_obj(obj)
+            return cls.model_validate(obj)
 
         {{#disallowAdditionalPropertiesIfNotPresent}}
         {{^isAdditionalPropertiesTrue}}
@@ -254,7 +272,7 @@ class {{classname}}({{#parent}}{{{.}}}{{/parent}}{{^parent}}BaseModel{{/parent}}
 
         {{/isAdditionalPropertiesTrue}}
         {{/disallowAdditionalPropertiesIfNotPresent}}
-        _obj = {{{classname}}}.parse_obj({
+        _obj = cls.model_validate({
             {{#allVars}}
             {{#isContainer}}
             {{#isArray}}

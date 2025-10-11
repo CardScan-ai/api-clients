@@ -16,7 +16,7 @@ import re  # noqa: F401
 import io
 import warnings
 
-from pydantic import validate_arguments, ValidationError
+from pydantic import validate_call, ValidationError
 
 import asyncio
 import json
@@ -30,11 +30,9 @@ from cardscan_client.models.eligibility_websocket_event import EligibilityWebsoc
 from cardscan_client.models.card_state import CardState
 from cardscan_client.models.eligibility_state import EligibilityState
 
-from typing_extensions import Annotated
-from pydantic import Field, StrictInt, StrictStr, conint
-
+from pydantic import Field, StrictInt, StrictStr
 from typing import Any, Dict, Optional
-
+from typing_extensions import Annotated
 from cardscan_client.models.card_api_response import CardApiResponse
 from cardscan_client.models.card_performance200_response import CardPerformance200Response
 from cardscan_client.models.create_card_request import CreateCardRequest
@@ -42,10 +40,10 @@ from cardscan_client.models.create_eligibility_request import CreateEligibilityR
 from cardscan_client.models.direct_upload200_response import DirectUpload200Response
 from cardscan_client.models.direct_upload_request import DirectUploadRequest
 from cardscan_client.models.eligibility_api_response import EligibilityApiResponse
-from cardscan_client.models.generate_card_upload_url200_response import GenerateCardUploadUrl200Response
 from cardscan_client.models.generate_card_upload_url_request import GenerateCardUploadUrlRequest
 from cardscan_client.models.generate_magic_link200_response import GenerateMagicLink200Response
 from cardscan_client.models.get_access_token200_response import GetAccessToken200Response
+from cardscan_client.models.inline_object1 import InlineObject1
 from cardscan_client.models.list_eligibility200_response import ListEligibility200Response
 from cardscan_client.models.scan_capture_type import ScanCaptureType
 from cardscan_client.models.scan_orientation import ScanOrientation
@@ -338,7 +336,7 @@ class CardScanApi:
             return eligibility
 
 
-    @validate_arguments
+    @validate_call
     def card_performance(self, card_id : StrictStr, body : Optional[Dict[str, Any]] = None, **kwargs) -> CardPerformance200Response:  # noqa: E501
         """Card - Send performance data  # noqa: E501
 
@@ -369,7 +367,7 @@ class CardScanApi:
             raise ValueError(message)
         return self.card_performance_with_http_info(card_id, body, **kwargs)  # noqa: E501
 
-    @validate_arguments
+    @validate_call
     def card_performance_with_http_info(self, card_id : StrictStr, body : Optional[Dict[str, Any]] = None, **kwargs) -> ApiResponse:  # noqa: E501
         """Card - Send performance data  # noqa: E501
 
@@ -475,7 +473,7 @@ class CardScanApi:
             '401': "ApiErrorResponse",
             '403': "ApiErrorResponse",
             '404': "ApiErrorResponse",
-            '500': "GetAccessToken500Response",
+            '500': "InlineObject",
         }
 
         return self.api_client.call_api(
@@ -495,7 +493,7 @@ class CardScanApi:
             collection_formats=_collection_formats,
             _request_auth=_params.get('_request_auth'))
 
-    @validate_arguments
+    @validate_call
     def create_card(self, create_card_request : Optional[CreateCardRequest] = None, **kwargs) -> CardApiResponse:  # noqa: E501
         """Creates a new card  # noqa: E501
 
@@ -524,7 +522,7 @@ class CardScanApi:
             raise ValueError(message)
         return self.create_card_with_http_info(create_card_request, **kwargs)  # noqa: E501
 
-    @validate_arguments
+    @validate_call
     def create_card_with_http_info(self, create_card_request : Optional[CreateCardRequest] = None, **kwargs) -> ApiResponse:  # noqa: E501
         """Creates a new card  # noqa: E501
 
@@ -623,7 +621,7 @@ class CardScanApi:
             '201': "CardApiResponse",
             '400': "ApiErrorResponse",
             '401': "ApiErrorResponse",
-            '500': "GetAccessToken500Response",
+            '500': "InlineObject",
         }
 
         return self.api_client.call_api(
@@ -643,7 +641,7 @@ class CardScanApi:
             collection_formats=_collection_formats,
             _request_auth=_params.get('_request_auth'))
 
-    @validate_arguments
+    @validate_call
     def create_eligibility(self, create_eligibility_request : Optional[CreateEligibilityRequest] = None, **kwargs) -> EligibilityApiResponse:  # noqa: E501
         """Create Eligibility Record  # noqa: E501
 
@@ -672,7 +670,7 @@ class CardScanApi:
             raise ValueError(message)
         return self.create_eligibility_with_http_info(create_eligibility_request, **kwargs)  # noqa: E501
 
-    @validate_arguments
+    @validate_call
     def create_eligibility_with_http_info(self, create_eligibility_request : Optional[CreateEligibilityRequest] = None, **kwargs) -> ApiResponse:  # noqa: E501
         """Create Eligibility Record  # noqa: E501
 
@@ -772,7 +770,7 @@ class CardScanApi:
             '400': "ApiErrorResponse",
             '401': "ApiErrorResponse",
             '404': "ApiErrorResponse",
-            '500': "GetAccessToken500Response",
+            '500': "InlineObject",
         }
 
         return self.api_client.call_api(
@@ -792,8 +790,8 @@ class CardScanApi:
             collection_formats=_collection_formats,
             _request_auth=_params.get('_request_auth'))
 
-    @validate_arguments
-    def delete_card_by_id(self, card_id : Annotated[StrictStr, Field(..., description="The ID of the card")], **kwargs) -> None:  # noqa: E501
+    @validate_call
+    def delete_card_by_id(self, card_id : Annotated[StrictStr, Field(description="The ID of the card")], **kwargs) -> None:  # noqa: E501
         """Delete Card  # noqa: E501
 
         This method makes a synchronous HTTP request by default. To make an
@@ -821,8 +819,8 @@ class CardScanApi:
             raise ValueError(message)
         return self.delete_card_by_id_with_http_info(card_id, **kwargs)  # noqa: E501
 
-    @validate_arguments
-    def delete_card_by_id_with_http_info(self, card_id : Annotated[StrictStr, Field(..., description="The ID of the card")], **kwargs) -> ApiResponse:  # noqa: E501
+    @validate_call
+    def delete_card_by_id_with_http_info(self, card_id : Annotated[StrictStr, Field(description="The ID of the card")], **kwargs) -> ApiResponse:  # noqa: E501
         """Delete Card  # noqa: E501
 
         This method makes a synchronous HTTP request by default. To make an
@@ -928,7 +926,7 @@ class CardScanApi:
             collection_formats=_collection_formats,
             _request_auth=_params.get('_request_auth'))
 
-    @validate_arguments
+    @validate_call
     def direct_upload(self, orientation : ScanOrientation, capture_type : ScanCaptureType, card_id : StrictStr, direct_upload_request : Optional[DirectUploadRequest] = None, **kwargs) -> DirectUpload200Response:  # noqa: E501
         """Direct Upload  # noqa: E501
 
@@ -963,7 +961,7 @@ class CardScanApi:
             raise ValueError(message)
         return self.direct_upload_with_http_info(orientation, capture_type, card_id, direct_upload_request, **kwargs)  # noqa: E501
 
-    @validate_arguments
+    @validate_call
     def direct_upload_with_http_info(self, orientation : ScanOrientation, capture_type : ScanCaptureType, card_id : StrictStr, direct_upload_request : Optional[DirectUploadRequest] = None, **kwargs) -> ApiResponse:  # noqa: E501
         """Direct Upload  # noqa: E501
 
@@ -1082,7 +1080,7 @@ class CardScanApi:
             '401': "ApiErrorResponse",
             '403': "ApiErrorResponse",
             '404': "ApiErrorResponse",
-            '500': "GetAccessToken500Response",
+            '500': "InlineObject",
         }
 
         return self.api_client.call_api(
@@ -1102,8 +1100,8 @@ class CardScanApi:
             collection_formats=_collection_formats,
             _request_auth=_params.get('_request_auth'))
 
-    @validate_arguments
-    def generate_card_upload_url(self, card_id : StrictStr, expiration : Optional[conint(strict=True, le=3600, ge=100)] = None, generate_card_upload_url_request : Optional[GenerateCardUploadUrlRequest] = None, **kwargs) -> GenerateCardUploadUrl200Response:  # noqa: E501
+    @validate_call
+    def generate_card_upload_url(self, card_id : StrictStr, expiration : Optional[Annotated[int, Field(le=3600, strict=True, ge=100)]] = None, generate_card_upload_url_request : Optional[GenerateCardUploadUrlRequest] = None, **kwargs) -> InlineObject1:  # noqa: E501
         """Card - Generate Upload URL  # noqa: E501
 
         This method makes a synchronous HTTP request by default. To make an
@@ -1127,7 +1125,7 @@ class CardScanApi:
         :return: Returns the result object.
                  If the method is called asynchronously,
                  returns the request thread.
-        :rtype: GenerateCardUploadUrl200Response
+        :rtype: InlineObject1
         """
         kwargs['_return_http_data_only'] = True
         if '_preload_content' in kwargs:
@@ -1135,8 +1133,8 @@ class CardScanApi:
             raise ValueError(message)
         return self.generate_card_upload_url_with_http_info(card_id, expiration, generate_card_upload_url_request, **kwargs)  # noqa: E501
 
-    @validate_arguments
-    def generate_card_upload_url_with_http_info(self, card_id : StrictStr, expiration : Optional[conint(strict=True, le=3600, ge=100)] = None, generate_card_upload_url_request : Optional[GenerateCardUploadUrlRequest] = None, **kwargs) -> ApiResponse:  # noqa: E501
+    @validate_call
+    def generate_card_upload_url_with_http_info(self, card_id : StrictStr, expiration : Optional[Annotated[int, Field(le=3600, strict=True, ge=100)]] = None, generate_card_upload_url_request : Optional[GenerateCardUploadUrlRequest] = None, **kwargs) -> ApiResponse:  # noqa: E501
         """Card - Generate Upload URL  # noqa: E501
 
         This method makes a synchronous HTTP request by default. To make an
@@ -1173,7 +1171,7 @@ class CardScanApi:
         :return: Returns the result object.
                  If the method is called asynchronously,
                  returns the request thread.
-        :rtype: tuple(GenerateCardUploadUrl200Response, status_code(int), headers(HTTPHeaderDict))
+        :rtype: tuple(InlineObject1, status_code(int), headers(HTTPHeaderDict))
         """
 
         _params = locals()
@@ -1243,12 +1241,12 @@ class CardScanApi:
         _auth_settings = ['bearerAuth']  # noqa: E501
 
         _response_types_map = {
-            '200': "GenerateCardUploadUrl200Response",
+            '200': "InlineObject1",
             '400': "ApiErrorResponse",
             '401': "ApiErrorResponse",
             '403': "ApiErrorResponse",
             '404': "ApiErrorResponse",
-            '500': "GetAccessToken500Response",
+            '500': "InlineObject",
         }
 
         return self.api_client.call_api(
@@ -1268,7 +1266,7 @@ class CardScanApi:
             collection_formats=_collection_formats,
             _request_auth=_params.get('_request_auth'))
 
-    @validate_arguments
+    @validate_call
     def generate_magic_link(self, **kwargs) -> GenerateMagicLink200Response:  # noqa: E501
         """Generate Magic Link  # noqa: E501
 
@@ -1295,7 +1293,7 @@ class CardScanApi:
             raise ValueError(message)
         return self.generate_magic_link_with_http_info(**kwargs)  # noqa: E501
 
-    @validate_arguments
+    @validate_call
     def generate_magic_link_with_http_info(self, **kwargs) -> ApiResponse:  # noqa: E501
         """Generate Magic Link  # noqa: E501
 
@@ -1380,7 +1378,7 @@ class CardScanApi:
         _response_types_map = {
             '200': "GenerateMagicLink200Response",
             '401': "ApiErrorResponse",
-            '500': "GetAccessToken500Response",
+            '500': "InlineObject",
         }
 
         return self.api_client.call_api(
@@ -1400,8 +1398,8 @@ class CardScanApi:
             collection_formats=_collection_formats,
             _request_auth=_params.get('_request_auth'))
 
-    @validate_arguments
-    def generate_upload_url(self, expiration : conint(strict=True, le=3600, ge=100), **kwargs) -> GenerateCardUploadUrl200Response:  # noqa: E501
+    @validate_call
+    def generate_upload_url(self, expiration : Annotated[int, Field(le=3600, strict=True, ge=100)], **kwargs) -> InlineObject1:  # noqa: E501
         """Generate an upload URL  # noqa: E501
 
         This method makes a synchronous HTTP request by default. To make an
@@ -1421,7 +1419,7 @@ class CardScanApi:
         :return: Returns the result object.
                  If the method is called asynchronously,
                  returns the request thread.
-        :rtype: GenerateCardUploadUrl200Response
+        :rtype: InlineObject1
         """
         kwargs['_return_http_data_only'] = True
         if '_preload_content' in kwargs:
@@ -1429,8 +1427,8 @@ class CardScanApi:
             raise ValueError(message)
         return self.generate_upload_url_with_http_info(expiration, **kwargs)  # noqa: E501
 
-    @validate_arguments
-    def generate_upload_url_with_http_info(self, expiration : conint(strict=True, le=3600, ge=100), **kwargs) -> ApiResponse:  # noqa: E501
+    @validate_call
+    def generate_upload_url_with_http_info(self, expiration : Annotated[int, Field(le=3600, strict=True, ge=100)], **kwargs) -> ApiResponse:  # noqa: E501
         """Generate an upload URL  # noqa: E501
 
         This method makes a synchronous HTTP request by default. To make an
@@ -1463,7 +1461,7 @@ class CardScanApi:
         :return: Returns the result object.
                  If the method is called asynchronously,
                  returns the request thread.
-        :rtype: tuple(GenerateCardUploadUrl200Response, status_code(int), headers(HTTPHeaderDict))
+        :rtype: tuple(InlineObject1, status_code(int), headers(HTTPHeaderDict))
         """
 
         _params = locals()
@@ -1518,10 +1516,10 @@ class CardScanApi:
         _auth_settings = ['bearerAuth']  # noqa: E501
 
         _response_types_map = {
-            '200': "GenerateCardUploadUrl200Response",
+            '200': "InlineObject1",
             '400': "ApiErrorResponse",
             '401': "ApiErrorResponse",
-            '500': "GetAccessToken500Response",
+            '500': "InlineObject",
         }
 
         return self.api_client.call_api(
@@ -1541,7 +1539,7 @@ class CardScanApi:
             collection_formats=_collection_formats,
             _request_auth=_params.get('_request_auth'))
 
-    @validate_arguments
+    @validate_call
     def get_access_token(self, user_id : Annotated[Optional[StrictStr], Field(description="The ID of the user")] = None, **kwargs) -> GetAccessToken200Response:  # noqa: E501
         """Access Token  # noqa: E501
 
@@ -1570,7 +1568,7 @@ class CardScanApi:
             raise ValueError(message)
         return self.get_access_token_with_http_info(user_id, **kwargs)  # noqa: E501
 
-    @validate_arguments
+    @validate_call
     def get_access_token_with_http_info(self, user_id : Annotated[Optional[StrictStr], Field(description="The ID of the user")] = None, **kwargs) -> ApiResponse:  # noqa: E501
         """Access Token  # noqa: E501
 
@@ -1661,7 +1659,7 @@ class CardScanApi:
         _response_types_map = {
             '200': "GetAccessToken200Response",
             '401': "ApiErrorResponse",
-            '500': "GetAccessToken500Response",
+            '500': "InlineObject",
         }
 
         return self.api_client.call_api(
@@ -1681,8 +1679,8 @@ class CardScanApi:
             collection_formats=_collection_formats,
             _request_auth=_params.get('_request_auth'))
 
-    @validate_arguments
-    def get_card_by_id(self, card_id : Annotated[StrictStr, Field(..., description="The ID of the card")], **kwargs) -> CardApiResponse:  # noqa: E501
+    @validate_call
+    def get_card_by_id(self, card_id : Annotated[StrictStr, Field(description="The ID of the card")], **kwargs) -> CardApiResponse:  # noqa: E501
         """Get Card by ID  # noqa: E501
 
         This method makes a synchronous HTTP request by default. To make an
@@ -1710,8 +1708,8 @@ class CardScanApi:
             raise ValueError(message)
         return self.get_card_by_id_with_http_info(card_id, **kwargs)  # noqa: E501
 
-    @validate_arguments
-    def get_card_by_id_with_http_info(self, card_id : Annotated[StrictStr, Field(..., description="The ID of the card")], **kwargs) -> ApiResponse:  # noqa: E501
+    @validate_call
+    def get_card_by_id_with_http_info(self, card_id : Annotated[StrictStr, Field(description="The ID of the card")], **kwargs) -> ApiResponse:  # noqa: E501
         """Get Card by ID  # noqa: E501
 
         This method makes a synchronous HTTP request by default. To make an
@@ -1803,7 +1801,7 @@ class CardScanApi:
             '401': "ApiErrorResponse",
             '403': "ApiErrorResponse",
             '404': "ApiErrorResponse",
-            '500': "GetAccessToken500Response",
+            '500': "InlineObject",
         }
 
         return self.api_client.call_api(
@@ -1823,7 +1821,7 @@ class CardScanApi:
             collection_formats=_collection_formats,
             _request_auth=_params.get('_request_auth'))
 
-    @validate_arguments
+    @validate_call
     def get_eligibility_by_id(self, eligibility_id : StrictStr, **kwargs) -> EligibilityApiResponse:  # noqa: E501
         """Get Eligibility  # noqa: E501
 
@@ -1852,7 +1850,7 @@ class CardScanApi:
             raise ValueError(message)
         return self.get_eligibility_by_id_with_http_info(eligibility_id, **kwargs)  # noqa: E501
 
-    @validate_arguments
+    @validate_call
     def get_eligibility_by_id_with_http_info(self, eligibility_id : StrictStr, **kwargs) -> ApiResponse:  # noqa: E501
         """Get Eligibility  # noqa: E501
 
@@ -1945,7 +1943,7 @@ class CardScanApi:
             '400': "ApiErrorResponse",
             '401': "ApiErrorResponse",
             '404': "ApiErrorResponse",
-            '500': "GetAccessToken500Response",
+            '500': "InlineObject",
         }
 
         return self.api_client.call_api(
@@ -1965,8 +1963,8 @@ class CardScanApi:
             collection_formats=_collection_formats,
             _request_auth=_params.get('_request_auth'))
 
-    @validate_arguments
-    def list_cards(self, limit : Optional[conint(strict=True, le=200)] = None, cursor : Optional[StrictStr] = None, **kwargs) -> SearchCards200Response:  # noqa: E501
+    @validate_call
+    def list_cards(self, limit : Optional[Annotated[int, Field(le=200, strict=True)]] = None, cursor : Optional[StrictStr] = None, **kwargs) -> SearchCards200Response:  # noqa: E501
         """List Cards  # noqa: E501
 
         This method makes a synchronous HTTP request by default. To make an
@@ -1996,8 +1994,8 @@ class CardScanApi:
             raise ValueError(message)
         return self.list_cards_with_http_info(limit, cursor, **kwargs)  # noqa: E501
 
-    @validate_arguments
-    def list_cards_with_http_info(self, limit : Optional[conint(strict=True, le=200)] = None, cursor : Optional[StrictStr] = None, **kwargs) -> ApiResponse:  # noqa: E501
+    @validate_call
+    def list_cards_with_http_info(self, limit : Optional[Annotated[int, Field(le=200, strict=True)]] = None, cursor : Optional[StrictStr] = None, **kwargs) -> ApiResponse:  # noqa: E501
         """List Cards  # noqa: E501
 
         This method makes a synchronous HTTP request by default. To make an
@@ -2093,7 +2091,7 @@ class CardScanApi:
         _response_types_map = {
             '200': "SearchCards200Response",
             '401': "ApiErrorResponse",
-            '500': "GetAccessToken500Response",
+            '500': "InlineObject",
         }
 
         return self.api_client.call_api(
@@ -2113,8 +2111,8 @@ class CardScanApi:
             collection_formats=_collection_formats,
             _request_auth=_params.get('_request_auth'))
 
-    @validate_arguments
-    def list_eligibility(self, limit : Optional[conint(strict=True, le=30)] = None, cursor : Optional[StrictStr] = None, **kwargs) -> ListEligibility200Response:  # noqa: E501
+    @validate_call
+    def list_eligibility(self, limit : Optional[Annotated[int, Field(le=30, strict=True)]] = None, cursor : Optional[StrictStr] = None, **kwargs) -> ListEligibility200Response:  # noqa: E501
         """List Eligibility  # noqa: E501
 
         This method makes a synchronous HTTP request by default. To make an
@@ -2144,8 +2142,8 @@ class CardScanApi:
             raise ValueError(message)
         return self.list_eligibility_with_http_info(limit, cursor, **kwargs)  # noqa: E501
 
-    @validate_arguments
-    def list_eligibility_with_http_info(self, limit : Optional[conint(strict=True, le=30)] = None, cursor : Optional[StrictStr] = None, **kwargs) -> ApiResponse:  # noqa: E501
+    @validate_call
+    def list_eligibility_with_http_info(self, limit : Optional[Annotated[int, Field(le=30, strict=True)]] = None, cursor : Optional[StrictStr] = None, **kwargs) -> ApiResponse:  # noqa: E501
         """List Eligibility  # noqa: E501
 
         This method makes a synchronous HTTP request by default. To make an
@@ -2240,7 +2238,7 @@ class CardScanApi:
 
         _response_types_map = {
             '200': "ListEligibility200Response",
-            '500': "GetAccessToken500Response",
+            '500': "InlineObject",
         }
 
         return self.api_client.call_api(
@@ -2260,7 +2258,7 @@ class CardScanApi:
             collection_formats=_collection_formats,
             _request_auth=_params.get('_request_auth'))
 
-    @validate_arguments
+    @validate_call
     def search_cards(self, query : StrictStr, limit : Optional[StrictInt] = None, cursor : Optional[StrictStr] = None, **kwargs) -> SearchCards200Response:  # noqa: E501
         """Search Cards (200) OK  # noqa: E501
 
@@ -2293,7 +2291,7 @@ class CardScanApi:
             raise ValueError(message)
         return self.search_cards_with_http_info(query, limit, cursor, **kwargs)  # noqa: E501
 
-    @validate_arguments
+    @validate_call
     def search_cards_with_http_info(self, query : StrictStr, limit : Optional[StrictInt] = None, cursor : Optional[StrictStr] = None, **kwargs) -> ApiResponse:  # noqa: E501
         """Search Cards (200) OK  # noqa: E501
 
@@ -2396,7 +2394,7 @@ class CardScanApi:
         _response_types_map = {
             '200': "SearchCards200Response",
             '401': "ApiErrorResponse",
-            '500': "GetAccessToken500Response",
+            '500': "InlineObject",
         }
 
         return self.api_client.call_api(
@@ -2416,7 +2414,7 @@ class CardScanApi:
             collection_formats=_collection_formats,
             _request_auth=_params.get('_request_auth'))
 
-    @validate_arguments
+    @validate_call
     def set_scan_metadata(self, scan_id : StrictStr, body : Optional[Dict[str, Any]] = None, **kwargs) -> None:  # noqa: E501
         """Set Scan Metadata  # noqa: E501
 
@@ -2447,7 +2445,7 @@ class CardScanApi:
             raise ValueError(message)
         return self.set_scan_metadata_with_http_info(scan_id, body, **kwargs)  # noqa: E501
 
-    @validate_arguments
+    @validate_call
     def set_scan_metadata_with_http_info(self, scan_id : StrictStr, body : Optional[Dict[str, Any]] = None, **kwargs) -> ApiResponse:  # noqa: E501
         """Set Scan Metadata  # noqa: E501
 
@@ -2567,7 +2565,7 @@ class CardScanApi:
             collection_formats=_collection_formats,
             _request_auth=_params.get('_request_auth'))
 
-    @validate_arguments
+    @validate_call
     def validate_magic_link(self, token : StrictStr, **kwargs) -> ValidateMagicLink200Response:  # noqa: E501
         """Validate Magic Link  # noqa: E501
 
@@ -2596,7 +2594,7 @@ class CardScanApi:
             raise ValueError(message)
         return self.validate_magic_link_with_http_info(token, **kwargs)  # noqa: E501
 
-    @validate_arguments
+    @validate_call
     def validate_magic_link_with_http_info(self, token : StrictStr, **kwargs) -> ApiResponse:  # noqa: E501
         """Validate Magic Link  # noqa: E501
 
@@ -2689,7 +2687,7 @@ class CardScanApi:
             '400': "ApiErrorResponse",
             '404': "ApiErrorResponse",
             '410': "ApiErrorResponse",
-            '500': "GetAccessToken500Response",
+            '500': "InlineObject",
         }
 
         return self.api_client.call_api(

@@ -17,9 +17,12 @@ import pprint
 import re  # noqa: F401
 import json
 
-
-from typing import Optional
-from pydantic import BaseModel, StrictStr, validator
+from datetime import datetime
+from pydantic import BaseModel, ConfigDict, Field, field_validator, StrictBool, StrictStr, StrictInt, StrictFloat
+from typing import Any, ClassVar, Dict, List, Optional, Union
+from uuid import UUID
+from typing import Optional, Set
+from typing_extensions import Self, Annotated
 from cardscan_client.models.payer_match_matches_inner_metadata import PayerMatchMatchesInnerMetadata
 
 class PayerMatchMatchesInner(BaseModel):
@@ -33,9 +36,9 @@ class PayerMatchMatchesInner(BaseModel):
     cardscan_payer_id: Optional[StrictStr] = None
     transaction_type: Optional[StrictStr] = None
     metadata: Optional[PayerMatchMatchesInnerMetadata] = None
-    __properties = ["clearinghouse", "payer_id", "payer_name", "score", "cardscan_payer_id", "transaction_type", "metadata"]
+    __properties: ClassVar[List[str]] = ["clearinghouse", "payer_id", "payer_name", "score", "cardscan_payer_id", "transaction_type", "metadata"]
 
-    @validator('transaction_type')
+    @field_validator('transaction_type')
     def transaction_type_validate_enum(cls, value):
         """Validates the enum"""
         if value is None:
@@ -45,14 +48,15 @@ class PayerMatchMatchesInner(BaseModel):
             raise ValueError("must be one of enum values ('professional', 'institutional', 'dental', 'workerscomp')")
         return value
 
-    class Config:
-        """Pydantic configuration"""
-        allow_population_by_field_name = True
-        validate_assignment = True
+    model_config = ConfigDict(
+        populate_by_name=True,
+        validate_assignment=True,
+        protected_namespaces=(),
+    )
 
     def to_str(self) -> str:
         """Returns the string representation of the model using alias"""
-        return pprint.pformat(self.dict(by_alias=True))
+        return pprint.pformat(self.model_dump(by_alias=True))
 
     def _json_serializer(self, obj):
         """JSON serializer function for datetime objects"""
@@ -63,44 +67,58 @@ class PayerMatchMatchesInner(BaseModel):
 
     def to_json(self) -> str:
         """Returns the JSON representation of the model using alias"""
-        return json.dumps(self.to_dict(), default=self._json_serializer)
+        # TODO: pydantic v2: use .model_dump_json(by_alias=True, exclude_unset=True) instead
+        return json.dumps(self.to_dict())
 
     @classmethod
     def from_json(cls, json_str: str) -> PayerMatchMatchesInner:
         """Create an instance of PayerMatchMatchesInner from a JSON string"""
         return cls.from_dict(json.loads(json_str))
 
-    def to_dict(self):
-        """Returns the dictionary representation of the model using alias"""
-        _dict = self.dict(by_alias=True,
-                          exclude={
-                          },
-                          exclude_none=True)
+    def to_dict(self) -> Dict[str, Any]:
+        """Return the dictionary representation of the model using alias.
+
+        This has the following differences from calling pydantic's
+        `self.model_dump(by_alias=True)`:
+
+        * `None` is only added to the output dict for nullable fields that
+          were set at model initialization. Other fields with value `None`
+          are ignored.
+        """
+        excluded_fields: Set[str] = set([
+
+        ])
+
+        _dict = self.model_dump(
+            by_alias=True,
+            exclude=excluded_fields,
+            exclude_none=True,
+        )
         # override the default output from pydantic by calling `to_dict()` of metadata
         if self.metadata:
             _dict['metadata'] = self.metadata.to_dict()
         # set to None if payer_id (nullable) is None
-        # and __fields_set__ contains the field
-        if self.payer_id is None and "payer_id" in self.__fields_set__:
+        # and model_fields_set contains the field
+        if self.payer_id is None and "payer_id" in self.model_fields_set:
             _dict['payer_id'] = None
 
         # set to None if transaction_type (nullable) is None
-        # and __fields_set__ contains the field
-        if self.transaction_type is None and "transaction_type" in self.__fields_set__:
+        # and model_fields_set contains the field
+        if self.transaction_type is None and "transaction_type" in self.model_fields_set:
             _dict['transaction_type'] = None
 
         return _dict
 
     @classmethod
-    def from_dict(cls, obj: dict) -> PayerMatchMatchesInner:
+    def from_dict(cls, obj: Optional[Dict[str, Any]]) -> Optional[Self]:
         """Create an instance of PayerMatchMatchesInner from a dict"""
         if obj is None:
             return None
 
         if not isinstance(obj, dict):
-            return PayerMatchMatchesInner.parse_obj(obj)
+            return cls.model_validate(obj)
 
-        _obj = PayerMatchMatchesInner.parse_obj({
+        _obj = cls.model_validate({
             "clearinghouse": obj.get("clearinghouse"),
             "payer_id": obj.get("payer_id"),
             "payer_name": obj.get("payer_name"),

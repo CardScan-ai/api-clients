@@ -18,8 +18,11 @@ import re  # noqa: F401
 import json
 
 from datetime import datetime
-from typing import Optional
-from pydantic import BaseModel, Field, StrictBool, StrictStr
+from pydantic import BaseModel, ConfigDict, Field, field_validator, StrictBool, StrictStr, StrictInt, StrictFloat
+from typing import Any, ClassVar, Dict, List, Optional, Union
+from uuid import UUID
+from typing import Optional, Set
+from typing_extensions import Self, Annotated
 from cardscan_client.models.card_api_response_details import CardApiResponseDetails
 from cardscan_client.models.card_api_response_enriched_results import CardApiResponseEnrichedResults
 from cardscan_client.models.card_api_response_images import CardApiResponseImages
@@ -32,26 +35,27 @@ class CardApiResponse(BaseModel):
     """
     CardApiResponse
     """
-    card_id: StrictStr = Field(...)
-    state: CardState = Field(...)
-    created_at: datetime = Field(default=..., description="The timestamp when the eligibility response was created.")
+    card_id: StrictStr
+    state: CardState
+    created_at: datetime = Field(description="The timestamp when the eligibility response was created.")
     error: Optional[ModelError] = None
     payer_match: Optional[PayerMatch] = None
     metadata: Optional[CardResponseMetadata] = None
     images: Optional[CardApiResponseImages] = None
-    deleted: StrictBool = Field(...)
+    deleted: StrictBool
     enriched_results: Optional[CardApiResponseEnrichedResults] = None
     details: Optional[CardApiResponseDetails] = None
-    __properties = ["card_id", "state", "created_at", "error", "payer_match", "metadata", "images", "deleted", "enriched_results", "details"]
+    __properties: ClassVar[List[str]] = ["card_id", "state", "created_at", "error", "payer_match", "metadata", "images", "deleted", "enriched_results", "details"]
 
-    class Config:
-        """Pydantic configuration"""
-        allow_population_by_field_name = True
-        validate_assignment = True
+    model_config = ConfigDict(
+        populate_by_name=True,
+        validate_assignment=True,
+        protected_namespaces=(),
+    )
 
     def to_str(self) -> str:
         """Returns the string representation of the model using alias"""
-        return pprint.pformat(self.dict(by_alias=True))
+        return pprint.pformat(self.model_dump(by_alias=True))
 
     def _json_serializer(self, obj):
         """JSON serializer function for datetime objects"""
@@ -62,19 +66,33 @@ class CardApiResponse(BaseModel):
 
     def to_json(self) -> str:
         """Returns the JSON representation of the model using alias"""
-        return json.dumps(self.to_dict(), default=self._json_serializer)
+        # TODO: pydantic v2: use .model_dump_json(by_alias=True, exclude_unset=True) instead
+        return json.dumps(self.to_dict())
 
     @classmethod
     def from_json(cls, json_str: str) -> CardApiResponse:
         """Create an instance of CardApiResponse from a JSON string"""
         return cls.from_dict(json.loads(json_str))
 
-    def to_dict(self):
-        """Returns the dictionary representation of the model using alias"""
-        _dict = self.dict(by_alias=True,
-                          exclude={
-                          },
-                          exclude_none=True)
+    def to_dict(self) -> Dict[str, Any]:
+        """Return the dictionary representation of the model using alias.
+
+        This has the following differences from calling pydantic's
+        `self.model_dump(by_alias=True)`:
+
+        * `None` is only added to the output dict for nullable fields that
+          were set at model initialization. Other fields with value `None`
+          are ignored.
+        """
+        excluded_fields: Set[str] = set([
+
+        ])
+
+        _dict = self.model_dump(
+            by_alias=True,
+            exclude=excluded_fields,
+            exclude_none=True,
+        )
         # override the default output from pydantic by calling `to_dict()` of error
         if self.error:
             _dict['error'] = self.error.to_dict()
@@ -94,32 +112,32 @@ class CardApiResponse(BaseModel):
         if self.details:
             _dict['details'] = self.details.to_dict()
         # set to None if images (nullable) is None
-        # and __fields_set__ contains the field
-        if self.images is None and "images" in self.__fields_set__:
+        # and model_fields_set contains the field
+        if self.images is None and "images" in self.model_fields_set:
             _dict['images'] = None
 
         # set to None if enriched_results (nullable) is None
-        # and __fields_set__ contains the field
-        if self.enriched_results is None and "enriched_results" in self.__fields_set__:
+        # and model_fields_set contains the field
+        if self.enriched_results is None and "enriched_results" in self.model_fields_set:
             _dict['enriched_results'] = None
 
         # set to None if details (nullable) is None
-        # and __fields_set__ contains the field
-        if self.details is None and "details" in self.__fields_set__:
+        # and model_fields_set contains the field
+        if self.details is None and "details" in self.model_fields_set:
             _dict['details'] = None
 
         return _dict
 
     @classmethod
-    def from_dict(cls, obj: dict) -> CardApiResponse:
+    def from_dict(cls, obj: Optional[Dict[str, Any]]) -> Optional[Self]:
         """Create an instance of CardApiResponse from a dict"""
         if obj is None:
             return None
 
         if not isinstance(obj, dict):
-            return CardApiResponse.parse_obj(obj)
+            return cls.model_validate(obj)
 
-        _obj = CardApiResponse.parse_obj({
+        _obj = cls.model_validate({
             "card_id": obj.get("card_id"),
             "state": obj.get("state"),
             "created_at": obj.get("created_at"),

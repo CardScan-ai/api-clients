@@ -18,12 +18,11 @@ import json
 import pprint
 import re  # noqa: F401
 
-from typing import Any, List, Optional, Union
-from pydantic import BaseModel, Field, StrictBytes, StrictStr, ValidationError, validator
-from typing import Union, Any, List, TYPE_CHECKING
-from pydantic import StrictStr, Field
+from pydantic import BaseModel, ConfigDict, Field, StrictStr, StrictBytes, field_validator, ValidationError
+from typing import Any, ClassVar, Dict, List, Optional, Set, Tuple, Union, TYPE_CHECKING
+from typing_extensions import Literal, Self
 
-DIRECTUPLOADREQUEST_ONE_OF_SCHEMAS = ["bytearray", "str"]
+DIRECTUPLOADREQUEST_ONE_OF_SCHEMAS = ["bytes", "str"]
 
 class DirectUploadRequest(BaseModel):
     """
@@ -31,16 +30,18 @@ class DirectUploadRequest(BaseModel):
     """
     # data type: str
     oneof_schema_1_validator: Optional[StrictStr] = None
-    # data type: bytearray
-    oneof_schema_2_validator: Optional[Union[StrictBytes, StrictStr]] = None
+    # data type: bytes
+    oneof_schema_2_validator: Optional[Union[StrictBytes, StrictStr, Tuple[StrictStr, StrictBytes]]] = None
     if TYPE_CHECKING:
-        actual_instance: Union[bytearray, str]
+        actual_instance: Union[bytes, str]
     else:
         actual_instance: Any
-    one_of_schemas: List[str] = Field(DIRECTUPLOADREQUEST_ONE_OF_SCHEMAS, const=True)
+    one_of_schemas: Set[str] = { "bytes", "str" }
 
-    class Config:
-        validate_assignment = True
+    model_config = ConfigDict(
+        validate_assignment=True,
+        protected_namespaces=(),
+    )
 
     def __init__(self, *args, **kwargs) -> None:
         if args:
@@ -52,9 +53,9 @@ class DirectUploadRequest(BaseModel):
         else:
             super().__init__(**kwargs)
 
-    @validator('actual_instance')
+    @field_validator('actual_instance')
     def actual_instance_must_validate_oneof(cls, v):
-        instance = DirectUploadRequest.construct()
+        instance = DirectUploadRequest.model_construct()
         error_messages = []
         match = 0
         # validate data type: str
@@ -63,7 +64,7 @@ class DirectUploadRequest(BaseModel):
             match += 1
         except (ValidationError, ValueError) as e:
             error_messages.append(str(e))
-        # validate data type: bytearray
+        # validate data type: bytes
         try:
             instance.oneof_schema_2_validator = v
             match += 1
@@ -71,10 +72,10 @@ class DirectUploadRequest(BaseModel):
             error_messages.append(str(e))
         if match > 1:
             # more than 1 match
-            raise ValueError("Multiple matches found when setting `actual_instance` in DirectUploadRequest with oneOf schemas: bytearray, str. Details: " + ", ".join(error_messages))
+            raise ValueError("Multiple matches found when setting `actual_instance` in DirectUploadRequest with oneOf schemas: bytes, str. Details: " + ", ".join(error_messages))
         elif match == 0:
             # no match
-            raise ValueError("No match found when setting `actual_instance` in DirectUploadRequest with oneOf schemas: bytearray, str. Details: " + ", ".join(error_messages))
+            raise ValueError("No match found when setting `actual_instance` in DirectUploadRequest with oneOf schemas: bytes, str. Details: " + ", ".join(error_messages))
         else:
             return v
 
@@ -85,7 +86,7 @@ class DirectUploadRequest(BaseModel):
     @classmethod
     def from_json(cls, json_str: str) -> DirectUploadRequest:
         """Returns the object represented by the json string"""
-        instance = DirectUploadRequest.construct()
+        instance = DirectUploadRequest.model_construct()
         error_messages = []
         match = 0
 
@@ -98,7 +99,7 @@ class DirectUploadRequest(BaseModel):
             match += 1
         except (ValidationError, ValueError) as e:
             error_messages.append(str(e))
-        # deserialize data into bytearray
+        # deserialize data into bytes
         try:
             # validation
             instance.oneof_schema_2_validator = json.loads(json_str)
@@ -110,10 +111,10 @@ class DirectUploadRequest(BaseModel):
 
         if match > 1:
             # more than 1 match
-            raise ValueError("Multiple matches found when deserializing the JSON string into DirectUploadRequest with oneOf schemas: bytearray, str. Details: " + ", ".join(error_messages))
+            raise ValueError("Multiple matches found when deserializing the JSON string into DirectUploadRequest with oneOf schemas: bytes, str. Details: " + ", ".join(error_messages))
         elif match == 0:
             # no match
-            raise ValueError("No match found when deserializing the JSON string into DirectUploadRequest with oneOf schemas: bytearray, str. Details: " + ", ".join(error_messages))
+            raise ValueError("No match found when deserializing the JSON string into DirectUploadRequest with oneOf schemas: bytes, str. Details: " + ", ".join(error_messages))
         else:
             return instance
 
@@ -142,6 +143,6 @@ class DirectUploadRequest(BaseModel):
 
     def to_str(self) -> str:
         """Returns the string representation of the actual instance"""
-        return pprint.pformat(self.dict())
+        return pprint.pformat(self.model_dump())
 
 

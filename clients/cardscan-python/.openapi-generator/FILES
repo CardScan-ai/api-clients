@@ -49,11 +49,11 @@ cardscan_client/models/eligibility_websocket_event.py
 cardscan_client/models/enriched_address_result_inner.py
 cardscan_client/models/enriched_copay_result_inner.py
 cardscan_client/models/enriched_phone_number_result_inner.py
-cardscan_client/models/generate_card_upload_url200_response.py
 cardscan_client/models/generate_card_upload_url_request.py
 cardscan_client/models/generate_magic_link200_response.py
 cardscan_client/models/get_access_token200_response.py
-cardscan_client/models/get_access_token500_response.py
+cardscan_client/models/inline_object.py
+cardscan_client/models/inline_object1.py
 cardscan_client/models/list_eligibility200_response.py
 cardscan_client/models/match_score.py
 cardscan_client/models/model_error.py
@@ -139,11 +139,11 @@ docs/EligibilityWebsocketEvent.md
 docs/EnrichedAddressResultInner.md
 docs/EnrichedCopayResultInner.md
 docs/EnrichedPhoneNumberResultInner.md
-docs/GenerateCardUploadUrl200Response.md
 docs/GenerateCardUploadUrlRequest.md
 docs/GenerateMagicLink200Response.md
 docs/GetAccessToken200Response.md
-docs/GetAccessToken500Response.md
+docs/InlineObject.md
+docs/InlineObject1.md
 docs/ListEligibility200Response.md
 docs/MatchScore.md
 docs/ModelError.md

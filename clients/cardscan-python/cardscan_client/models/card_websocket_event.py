@@ -18,8 +18,11 @@ import re  # noqa: F401
 import json
 
 from datetime import datetime
-from typing import Optional
-from pydantic import BaseModel, Field, StrictStr, validator
+from pydantic import BaseModel, ConfigDict, Field, field_validator, StrictBool, StrictStr, StrictInt, StrictFloat
+from typing import Any, ClassVar, Dict, List, Optional, Union
+from uuid import UUID
+from typing import Optional, Set
+from typing_extensions import Self, Annotated
 from cardscan_client.models.card_state import CardState
 from cardscan_client.models.websocket_error import WebsocketError
 
@@ -27,30 +30,31 @@ class CardWebsocketEvent(BaseModel):
     """
     CardWebsocketEvent
     """
-    event_id: StrictStr = Field(...)
-    type: StrictStr = Field(...)
-    card_id: StrictStr = Field(...)
-    state: CardState = Field(...)
-    created_at: datetime = Field(...)
+    event_id: StrictStr
+    type: StrictStr
+    card_id: StrictStr
+    state: CardState
+    created_at: datetime
     session_id: Optional[StrictStr] = None
     error: Optional[WebsocketError] = None
-    __properties = ["event_id", "type", "card_id", "state", "created_at", "session_id", "error"]
+    __properties: ClassVar[List[str]] = ["event_id", "type", "card_id", "state", "created_at", "session_id", "error"]
 
-    @validator('type')
+    @field_validator('type')
     def type_validate_enum(cls, value):
         """Validates the enum"""
         if value not in ('card'):
             raise ValueError("must be one of enum values ('card')")
         return value
 
-    class Config:
-        """Pydantic configuration"""
-        allow_population_by_field_name = True
-        validate_assignment = True
+    model_config = ConfigDict(
+        populate_by_name=True,
+        validate_assignment=True,
+        protected_namespaces=(),
+    )
 
     def to_str(self) -> str:
         """Returns the string representation of the model using alias"""
-        return pprint.pformat(self.dict(by_alias=True))
+        return pprint.pformat(self.model_dump(by_alias=True))
 
     def _json_serializer(self, obj):
         """JSON serializer function for datetime objects"""
@@ -61,34 +65,48 @@ class CardWebsocketEvent(BaseModel):
 
     def to_json(self) -> str:
         """Returns the JSON representation of the model using alias"""
-        return json.dumps(self.to_dict(), default=self._json_serializer)
+        # TODO: pydantic v2: use .model_dump_json(by_alias=True, exclude_unset=True) instead
+        return json.dumps(self.to_dict())
 
     @classmethod
     def from_json(cls, json_str: str) -> CardWebsocketEvent:
         """Create an instance of CardWebsocketEvent from a JSON string"""
         return cls.from_dict(json.loads(json_str))
 
-    def to_dict(self):
-        """Returns the dictionary representation of the model using alias"""
-        _dict = self.dict(by_alias=True,
-                          exclude={
-                          },
-                          exclude_none=True)
+    def to_dict(self) -> Dict[str, Any]:
+        """Return the dictionary representation of the model using alias.
+
+        This has the following differences from calling pydantic's
+        `self.model_dump(by_alias=True)`:
+
+        * `None` is only added to the output dict for nullable fields that
+          were set at model initialization. Other fields with value `None`
+          are ignored.
+        """
+        excluded_fields: Set[str] = set([
+
+        ])
+
+        _dict = self.model_dump(
+            by_alias=True,
+            exclude=excluded_fields,
+            exclude_none=True,
+        )
         # override the default output from pydantic by calling `to_dict()` of error
         if self.error:
             _dict['error'] = self.error.to_dict()
         return _dict
 
     @classmethod
-    def from_dict(cls, obj: dict) -> CardWebsocketEvent:
+    def from_dict(cls, obj: Optional[Dict[str, Any]]) -> Optional[Self]:
         """Create an instance of CardWebsocketEvent from a dict"""
         if obj is None:
             return None
 
         if not isinstance(obj, dict):
-            return CardWebsocketEvent.parse_obj(obj)
+            return cls.model_validate(obj)
 
-        _obj = CardWebsocketEvent.parse_obj({
+        _obj = cls.model_validate({
             "event_id": obj.get("event_id"),
             "type": obj.get("type"),
             "card_id": obj.get("card_id"),

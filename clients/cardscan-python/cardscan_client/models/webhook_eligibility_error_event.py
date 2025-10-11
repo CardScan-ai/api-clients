@@ -18,33 +18,37 @@ import re  # noqa: F401
 import json
 
 from datetime import datetime
-
-from pydantic import BaseModel, Field, StrictBool, StrictStr
+from pydantic import BaseModel, ConfigDict, Field, field_validator, StrictBool, StrictStr, StrictInt, StrictFloat
+from typing import Any, ClassVar, Dict, List, Optional, Union
+from uuid import UUID
+from typing import Optional, Set
+from typing_extensions import Self, Annotated
 from cardscan_client.models.webhook_eligibility_error_event_error import WebhookEligibilityErrorEventError
 
 class WebhookEligibilityErrorEvent(BaseModel):
     """
     Triggered when an error occurs during an eligibility check.  # noqa: E501
     """
-    eligibility_id: StrictStr = Field(default=..., description="Unique identifier for the eligibility record.")
-    card_id: StrictStr = Field(default=..., description="Unique identifier for the associated card.")
-    created_at: datetime = Field(default=..., description="Timestamp for when the eligibility record was created.")
-    deleted: StrictBool = Field(default=..., description="Flag indicating whether the eligibility record is deleted.")
-    error: WebhookEligibilityErrorEventError = Field(...)
-    session_id: StrictStr = Field(default=..., description="Unique identifier for the session.")
-    type: StrictStr = Field(default=..., description="Type of event.")
-    updated_at: datetime = Field(default=..., description="Timestamp for the last update.")
-    user_id: StrictStr = Field(default=..., description="Identifier for the user associated with the event.")
-    __properties = ["eligibility_id", "card_id", "created_at", "deleted", "error", "session_id", "type", "updated_at", "user_id"]
+    eligibility_id: StrictStr = Field(description="Unique identifier for the eligibility record.")
+    card_id: StrictStr = Field(description="Unique identifier for the associated card.")
+    created_at: datetime = Field(description="Timestamp for when the eligibility record was created.")
+    deleted: StrictBool = Field(description="Flag indicating whether the eligibility record is deleted.")
+    error: WebhookEligibilityErrorEventError
+    session_id: StrictStr = Field(description="Unique identifier for the session.")
+    type: StrictStr = Field(description="Type of event.")
+    updated_at: datetime = Field(description="Timestamp for the last update.")
+    user_id: StrictStr = Field(description="Identifier for the user associated with the event.")
+    __properties: ClassVar[List[str]] = ["eligibility_id", "card_id", "created_at", "deleted", "error", "session_id", "type", "updated_at", "user_id"]
 
-    class Config:
-        """Pydantic configuration"""
-        allow_population_by_field_name = True
-        validate_assignment = True
+    model_config = ConfigDict(
+        populate_by_name=True,
+        validate_assignment=True,
+        protected_namespaces=(),
+    )
 
     def to_str(self) -> str:
         """Returns the string representation of the model using alias"""
-        return pprint.pformat(self.dict(by_alias=True))
+        return pprint.pformat(self.model_dump(by_alias=True))
 
     def _json_serializer(self, obj):
         """JSON serializer function for datetime objects"""
@@ -55,34 +59,48 @@ class WebhookEligibilityErrorEvent(BaseModel):
 
     def to_json(self) -> str:
         """Returns the JSON representation of the model using alias"""
-        return json.dumps(self.to_dict(), default=self._json_serializer)
+        # TODO: pydantic v2: use .model_dump_json(by_alias=True, exclude_unset=True) instead
+        return json.dumps(self.to_dict())
 
     @classmethod
     def from_json(cls, json_str: str) -> WebhookEligibilityErrorEvent:
         """Create an instance of WebhookEligibilityErrorEvent from a JSON string"""
         return cls.from_dict(json.loads(json_str))
 
-    def to_dict(self):
-        """Returns the dictionary representation of the model using alias"""
-        _dict = self.dict(by_alias=True,
-                          exclude={
-                          },
-                          exclude_none=True)
+    def to_dict(self) -> Dict[str, Any]:
+        """Return the dictionary representation of the model using alias.
+
+        This has the following differences from calling pydantic's
+        `self.model_dump(by_alias=True)`:
+
+        * `None` is only added to the output dict for nullable fields that
+          were set at model initialization. Other fields with value `None`
+          are ignored.
+        """
+        excluded_fields: Set[str] = set([
+
+        ])
+
+        _dict = self.model_dump(
+            by_alias=True,
+            exclude=excluded_fields,
+            exclude_none=True,
+        )
         # override the default output from pydantic by calling `to_dict()` of error
         if self.error:
             _dict['error'] = self.error.to_dict()
         return _dict
 
     @classmethod
-    def from_dict(cls, obj: dict) -> WebhookEligibilityErrorEvent:
+    def from_dict(cls, obj: Optional[Dict[str, Any]]) -> Optional[Self]:
         """Create an instance of WebhookEligibilityErrorEvent from a dict"""
         if obj is None:
             return None
 
         if not isinstance(obj, dict):
-            return WebhookEligibilityErrorEvent.parse_obj(obj)
+            return cls.model_validate(obj)
 
-        _obj = WebhookEligibilityErrorEvent.parse_obj({
+        _obj = cls.model_validate({
             "eligibility_id": obj.get("eligibility_id"),
             "card_id": obj.get("card_id"),
             "created_at": obj.get("created_at"),
