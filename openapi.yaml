@@ -1441,6 +1441,13 @@ components:
           $ref: '#/components/schemas/PayerMatch'
         metadata:
           $ref: '#/components/schemas/CardResponseMetadata'
+        features:
+          type: object
+          nullable: true
+          description: Status tracking for various processing features
+          properties:
+            ops_assist:
+              $ref: '#/components/schemas/FeatureStatus'
         images:
           type: object
           nullable: true
@@ -1461,10 +1468,10 @@ components:
                   description: The URL to the back image of the card.
         deleted:
           type: boolean
-        enriched_results:
+        ops_assist:
           type: object
           nullable: true
-          description: Enriched data extracted from the insurance card using AI processing
+          description: Operations assistance data extracted from the insurance card using AI processing
           properties:
             addresses:
               type: array
@@ -1633,6 +1640,27 @@ components:
         payer_match_version:
           type: string
           nullable: true
+        ops_assist_version:
+          type: string
+          nullable: true
+
+    FeatureStatus:
+      type: object
+      properties:
+        status:
+          type: string
+          enum: [pending, processing, completed, error]
+          description: The current status of the feature
+        started_at:
+          type: string
+          format: date-time
+          nullable: true
+          description: When the feature processing started
+        completed_at:
+          type: string
+          format: date-time
+          nullable: true
+          description: When the feature processing completed
     EnrichedAddressResultInner:
       type: object
       required:
